@@ -252,13 +252,12 @@ function updateSummary() {
 }
 
 
-
 // Sendet die Zusammenstellung per E-Mail ohne HTML-Tags
 function sendEmail() {
     let emailBody = `
 Sehr geehrte Damen und Herren,
 
-ich hoffe, es geht Ihnen gut. Hier sende ich Ihnen die Konfiguration, die ich über Ihren Konfigurator erstellt habe:
+ich hoffe, es geht Ihnen gut. Anbei sende ich Ihnen die Konfiguration, die ich über Ihren Konfigurator erstellt habe:
 
 ---------------------------------------------------------
 1. ${lastSelections.selection1}
@@ -284,4 +283,39 @@ Mit freundlichen Grüßen,
     // Gmail-Link erzeugen
     const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=Anfrage%20für%20ein%20Angebot&body=${encodeURIComponent(emailBody)}`;
     window.location.href = gmailLink;
+}
+
+
+
+// Sendet die Zusammenstellung per E-Mail ohne HTML-Tags
+function sendEmail1() {
+    let emailBody = `
+Sehr geehrte Damen und Herren,
+
+ich hoffe, es geht Ihnen gut. Anbei sende ich Ihnen die Konfiguration, die ich über Ihren Konfigurator erstellt habe:
+
+---------------------------------------------------------
+1. ${lastSelections.selection1}
+2. ${lastSelections.selection2}
+3. ${lastSelections.selection3}
+4. ${lastSelections.selection4}
+5. ${lastSelections.selection5}
+6. ${lastSelections.selection6}
+7. ${lastSelections.selection7}
+8. ${lastSelections.selection8}
+9. ${lastSelections.selection9}
+---------------------------------------------------------
+
+Ich wäre Ihnen dankbar, wenn Sie mir ein Angebot auf Basis dieser Konfiguration unterbreiten könnten.
+
+Vielen Dank im Voraus für Ihre Mühe. Ich freue mich auf Ihre Rückmeldung.
+
+Mit freundlichen Grüßen,  
+[Ihr Name]  
+[Ihr Unternehmen]
+`;
+
+    // E-Mail-Link mit mailto
+    const mailtoLink = `mailto:?subject=Anfrage%20für%20ein%20Angebot&body=${encodeURIComponent(emailBody)}`;
+    window.location.href = mailtoLink;
 }
