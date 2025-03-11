@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wasserzählerschacht Konfigurator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Firmenlogo" class="logo">
+        <h1>Wasserzählerschacht-Konfigurator</h1>
+    </header>
+
+    <main>
+    <!-- Startseite -->
+<section class="screen active" id="screen1">
+    <h2>Wählen Sie eine Produktgruppe</h2>
+    <button onclick="saveProduktgruppe('Flexoripp')">Flexoripp</button>
+</section>
+
+<!-- Schachtauswahl -->
+<section class="screen" id="screen2">
+    <h2>Wählen Sie einen Schacht</h2>
+    <button onclick="saveSchacht('Schacht 190mm Q3 2,5|4 1“')">Schacht 190mm Q3 2,5|4 1“</button>
+    <button onclick="saveSchacht('Schacht 220mm Q3 2,5|4 1“')">Schacht 220mm Q3 2,5|4 1“</button>
+    <button onclick="saveSchacht('Schacht 260mm Q3 6,3|10 x 5/4“')">Schacht 260mm Q3 6,3|10 x 5/4“</button>
+    <button onclick="saveSchacht('Schacht Österreich 175mm Q3 4|10 5/4“ x 1“')">Schacht Österreich 175mm Q3 4|10 5/4“ x 1“</button>
+    <button class="back-btn" onclick="prevScreen('screen1')">Zurück</button>
+</section>
+
+
+<!-- Rohrdeckung -->
+<section class="screen" id="screen3">
+    <h2>Wählen Sie eine Rohrdeckung</h2>
+    <button onclick="saveRohrdeckung('Rohrdeckung 0,75m')">0,75m</button>
+    <button onclick="saveRohrdeckung('Rohrdeckung 1,00m')">1,00m</button>
+    <button onclick="saveRohrdeckung('Rohrdeckung 1,25m')">1,25m</button>
+    <button onclick="saveRohrdeckung('Rohrdeckung 1,50m')">1,50m</button>
+    <button onclick="saveRohrdeckung('Rohrdeckung 1,75m')">1,75m</button>
+    <button onclick="saveRohrdeckung('Rohrdeckung 2,00m')">2,00m</button>
+    <button class="back-btn" onclick="prevScreen('screen2')">Zurück</button>
+</section>
+
+<!-- Deckel -->
+<section class="screen" id="screen4">
+    <h2>Wählen Sie einen Deckel</h2>
+    <button onclick="saveDeckel('Deckel A15 mit SU')">Deckel A15 mit SU</button>
+    <button onclick="saveDeckel('Deckel A15 + Stehbolzen')">Deckel A15 + Stehbolzen</button>
+    <button onclick="saveDeckel('Deckel B125 mit SU')">Deckel B125 mit SU</button>
+    <button onclick="saveDeckel('Deckel B125 + Stehbolzen')">Deckel B125 + Stehbolzen</button>
+    <button onclick="saveDeckel('Einfache Schachtumrandung')">Einfache Schachtumrandung</button>
+    <button class="back-btn" onclick="prevScreen('screen3')">Zurück</button>
+</section>
+
+
+<!-- Wasserzähleranlagen -->
+<section class="screen" id="screen5">
+    <h2>Wählen Sie eine Wasserzähleranlage</h2>
+    <button onclick="saveWasserzaehleranlage('Kugelhahn/Kugelhahn')">Kugelhahn/Kugelhahn</button>
+    <button onclick="saveWasserzaehleranlage('Kugelhahn/KSR')">Kugelhahn/KSR</button>
+    <button onclick="saveWasserzaehleranlage('Kugelhahn/KMR/Kugelhahn')">Kugelhahn/KMR/Kugelhahn</button>
+    <button onclick="saveWasserzaehleranlage('Freistrom/Freistrom')">Freistrom/Freistrom</button>
+    <button onclick="saveWasserzaehleranlage('Freistrom/KSR')">Freistrom/KSR</button>
+    <button onclick="saveWasserzaehleranlage('Freistrom/KMR/Freistrom')">Freistrom/KMR/Freistrom</button>
+    <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/KSR')">Freistrom/Druckminderer/KSR</button>
+    <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/Freistrom')">Freistrom/Druckminderer/Freistrom</button>
+    <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/Kugelhahn')">Kugelhahn/Druckminderer/Kugelhahn</button>
+    <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/KSR')">Kugelhahn/Druckminderer/KSR</button>
+    <button class="back-btn" onclick="prevScreen('screen4')">Zurück</button>
+</section>
+
+<!-- PE-Verschraubungen -->
+<section class="screen" id="screen6">
+    <h2>Wählen Sie eine PE-Verschraubung mit O-Ring Technik</h2>
+    <button onclick="savePEVerschraubung('PE-Verschraubung bleifreies Messing')">PE-Verschraubung bleifreies Messing</button>
+    <button onclick="savePEVerschraubung('PE-Verschraubung PP')">PE-Verschraubung PP</button>
+    <button onclick="savePEVerschraubung('PE-Schweisstutzen')">PE-Schweisstutzen</button>
+    <button onclick="savePEVerschraubung('PE-Schweissmuffe')">PE-Schweissmuffe</button>
+    <button onclick="skipNextScreens()">Ohne Verschraubung weiter</button>
+    <button class="back-btn" onclick="prevScreen('screen5')">Zurück</button>
+</section>
+
+
+<!-- PE-Größe Auswahl -->
+<section class="screen" id="screen7">
+    <h2>Wählen Sie das Anschlußgewinde 1“ oder 5/4“</h2>
+    <button onclick="savePEGroesse('1“')">1“</button>
+    <button onclick="savePEGroesse('5/4“')">5/4“</button>
+    <button class="back-btn" onclick="prevScreen('screen6')">Zurück</button>
+</section>
+
+
+<!-- PE-Größen -->
+<section class="screen" id="screen8">
+    <h2>Wählen Sie die Größe der PE-Verbindung</h2>
+    <button onclick="savePEGroesseVerbindung('PE-Größe 32')">PE-Größe 32</button>
+    <button onclick="savePEGroesseVerbindung('PE-Größe 40')">PE-Größe 40</button>
+    <button onclick="savePEGroesseVerbindung('PE-Größe 50')">PE-Größe 50</button>
+    <button onclick="savePEGroesseVerbindung('PE-Größe 63')">PE-Größe 63</button>
+    <button class="back-btn" onclick="prevScreen('screen7')">Zurück</button>
+</section>
+
+
+<!-- Auswahl der Verbinder -->
+<section class="screen" id="screen9">
+    <h2>Wählen Sie die Anzahl der Verbinder</h2>
+    <button onclick="saveVerbinderAndNext('1')">Ein Verbinder</button>
+    <button onclick="saveVerbinderAndNext('2')">Zwei Verbinder</button>
+    <button class="back-btn" onclick="prevScreen('screen8')">Zurück</button>
+</section>
+
+<!-- Wasserzählerschachtschlüssel 15mm -->
+<section class="screen" id="screen10">
+    <h2>Wasserzählerschachtschlüssel 15mm</h2>
+    <button onclick="saveWasserzaehlerSchluessel('Ja')">Ja</button>
+    <button onclick="saveWasserzaehlerSchluessel('Nein')">Nein</button>
+    <button class="back-btn" onclick="prevScreen('screen9')">Zurück</button>
+</section>
+
+<!-- Zusammenfassung -->
+<section class="screen" id="summaryScreen">
+    <h2>Ihre Auswahl:</h2>
+    <p id="summary"></p>
+    <button onclick="resetConfig()">Neu starten</button>
+</section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+// Speichert die Auswahl des Benutzers
+let userSelection = {
+    produktgruppe: '',
+    schacht: '',
+    rohrdeckung: '',
+    deckel: '',
+    wasserzaehler: '',
+    peVerschraubung: '',
+    groesseVerbindung: '',
+    peGroesse: '',
+    verbinder: '',
+    peVerbindung: '',  // 1" / 5/4" Auswahl
+    wasserzaehlerSchluessel: '',  // Wasserzählerschachtschlüssel
+};
+
+// Neue Variablen für die letzten 10 Auswahlen
+let lastSelections = {
+    selection1: '',
+    selection2: '',
+    selection3: '',
+    selection4: '',
+    selection5: '',
+    selection6: '',
+    selection7: '',
+    selection8: '',
+    selection9: '',
+    selection10: '',
+};
+
+// Steuerung, ob die nächsten Bildschirme übersprungen werden sollen
+let skipNextSteps = false;
+
+// Funktion zum Speichern der Auswahl in den neuen Variablen
+function saveLastSelection(selection, number) {
+    switch (number) {
+        case 1: lastSelections.selection1 = selection; break;
+        case 2: lastSelections.selection2 = selection; break;
+        case 3: lastSelections.selection3 = selection; break;
+        case 4: lastSelections.selection4 = selection; break;
+        case 5: lastSelections.selection5 = selection; break;
+        case 6: lastSelections.selection6 = selection; break;
+        case 7: lastSelections.selection7 = selection; break;
+        case 8: lastSelections.selection8 = selection; break;
+        case 9: lastSelections.selection9 = selection; break;
+        case 10: lastSelections.selection10 = selection; break;
+    }
+}
+
+// Wechselt zum nächsten Bildschirm und speichert die Auswahl
+function nextScreen(nextScreenId, selectionKey = null) {
+    const currentScreen = document.querySelector('.screen.active');
+    currentScreen.classList.remove('active');
+
+    const nextScreen = document.getElementById(nextScreenId);
+    nextScreen.classList.add('active');
+
+    // Wenn "skipNextSteps" wahr ist, überspringe die nächsten beiden Bildschirme
+    if (skipNextSteps) {
+        skipNextSteps = false;  // Zurücksetzen der Logik, nachdem sie verwendet wurde
+        if (nextScreenId === 'screen6') { // Wenn der nächste Bildschirm die PE-Verschraubung ist
+            nextScreen('screen9'); // Springe zu PE-Größen
+            return;
+        }
+        if (nextScreenId === 'screen9') { // Wenn der nächste Bildschirm die PE-Größe ist
+            nextScreen('screen10'); // Springe direkt zum Wasserzählerschachtschlüssel
+            return;
+        }
+    }
+
+    // Speicherung der Auswahl
+    if (selectionKey) {
+        userSelection[selectionKey] = event.target.innerText;
+        // Speichert die Auswahl auch in den neuen Variablen
+        saveLastSelection(event.target.innerText, Object.keys(userSelection).indexOf(selectionKey) + 1);
+    }
+
+    if (nextScreenId === 'summaryScreen') {
+        updateSummary();
+    }
+}
+
+// Wechselt zurück zum vorherigen Bildschirm
+function prevScreen(prevScreenId) {
+    const currentScreen = document.querySelector('.screen.active');
+    currentScreen.classList.remove('active');
+
+    const prevScreen = document.getElementById(prevScreenId);
+    prevScreen.classList.add('active');
+}
+
+// Speichert die Verbinder-Auswahl und geht zur nächsten Seite
+
+function saveVerbinderAndNext(verbinder) {
+    // Überprüfen, welchen Verbinder der Benutzer gewählt hat
+    if (verbinder === '1') {
+        userSelection['verbinder'] = "Ein Verbinder";
+    } else if (verbinder === '2') {
+        userSelection['verbinder'] = "Zwei Verbinder";
+    }
+
+    saveLastSelection(userSelection['verbinder'], 6);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen10');  // Geht zum nächsten Bildschirm
+}
+
+
+// Speichert die Auswahl des Wasserzählerschachtschlüssels
+function saveWasserzaehlerSchluessel(schluessel) {
+    if (schluessel === 'Ja' || schluessel === 'Nein') {
+        userSelection['wasserzaehlerSchluessel'] = schluessel;
+        saveLastSelection(userSelection['wasserzaehlerSchluessel'], 10);  // Speichert in der neuen Auswahl-Variable
+        nextScreen('summaryScreen');  // Geht zum nächsten Bildschirm
+    } else {
+        alert("Bitte wählen Sie Ja oder Nein.");
+    }
+}
+
+// Speichert die Auswahl der Produktgruppe und geht zum nächsten Bildschirm
+function saveProduktgruppe(produktgruppe) {
+    userSelection['produktgruppe'] = produktgruppe;  // Speichert die Auswahl der Produktgruppe
+    saveLastSelection(userSelection['produktgruppe'], 1);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen2');  // Geht zum nächsten Bildschirm
+}
+
+
+// Speichert die Auswahl der Rohrdeckung und geht zum nächsten Bildschirm
+function saveRohrdeckung(rohrdeckung) {
+    userSelection['rohrdeckung'] = rohrdeckung;  // Speichert die Auswahl der Rohrdeckung
+    saveLastSelection(userSelection['rohrdeckung'], 3);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen4');  // Geht zum nächsten Bildschirm
+}
+
+
+// Speichert die Auswahl des Schachts und geht zum nächsten Bildschirm
+function saveSchacht(schacht) {
+    userSelection['schacht'] = schacht;  // Speichert die Auswahl des Schachts
+    saveLastSelection(userSelection['schacht'], 2);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen3');  // Geht zum nächsten Bildschirm
+}
+
+// Speichert die Auswahl des Deckels und geht zum nächsten Bildschirm
+function saveDeckel(deckel) {
+    userSelection['deckel'] = deckel;  // Speichert die Auswahl des Deckels
+    saveLastSelection(userSelection['deckel'], 4);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen5');  // Geht zum nächsten Bildschirm
+}
+
+// Speichert die Auswahl der Wasserzähleranlage und geht zum nächsten Bildschirm
+function saveWasserzaehleranlage(anlage) {
+    userSelection['wasserzähleranlage'] = anlage;  // Speichert die Auswahl der Wasserzähleranlage
+    saveLastSelection(userSelection['wasserzähleranlage'], 5);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen6');  // Geht zum nächsten Bildschirm
+}
+
+
+// Speichert die Auswahl der PE-Verschraubung und geht zum nächsten Bildschirm
+function savePEVerschraubung(verschraubung) {
+    userSelection['peVerschraubung'] = verschraubung;  // Speichert die Auswahl der PE-Verschraubung
+    saveLastSelection(userSelection['peVerschraubung'], 7);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen7');  // Geht zum nächsten Bildschirm
+}
+
+// Überspringt die Auswahl und geht direkt zum nächsten Bildschirm
+function skipNextScreens() {
+    userSelection['peVerschraubung'] = 'Ohne Verschraubung';  // Speichert, dass keine Verschraubung gewählt wurde
+    saveLastSelection(userSelection['peVerschraubung'], 6);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen10');  // Geht zum nächsten Bildschirm
+}
+
+// Speichert die Auswahl der PE-Größe und geht zum nächsten Bildschirm
+function savePEGroesseVerbindung(groesse) {
+    userSelection['peGroesseVerbindung'] = groesse;  // Speichert die Auswahl der PE-Größe
+    saveLastSelection(userSelection['peGroesseVerbindung'], 9);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen9');  // Geht zum nächsten Bildschirm
+}
+
+// Speichert die Auswahl der PE-Größe und geht zum nächsten Bildschirm
+function savePEGroesse(groesse) {
+    userSelection['peGroesse'] = groesse;  // Speichert die Auswahl der PE-Größe
+    saveLastSelection(userSelection['peGroesse'], 8);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen8');  // Geht zum nächsten Bildschirm
+}
+
+// Setzt den gesamten Konfigurator zurück
+function resetConfig() {
+    userSelection = {
+        produktgruppe: '',
+        schacht: '',
+        rohrdeckung: '',
+        deckel: '',
+        wasserzaehler: '',
+        peVerschraubung: '',
+        groesseVerbindung: '',
+        peGroesse: '',
+        verbinder: '',
+        peVerbindung: '',
+        wasserzaehlerSchluessel: ''
+    };
+
+    lastSelections = {
+        selection1: '',
+        selection2: '',
+        selection3: '',
+        selection4: '',
+        selection5: '',
+        selection6: '',
+        selection7: '',
+        selection8: '',
+        selection9: '',
+        selection10: ''
+    };
+
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+    document.getElementById('screen1').classList.add('active');
+    document.getElementById('summary').innerText = '';
+}
+
+// Zeigt die Zusammenfassung der Auswahl an
+function updateSummary() {
+    const summaryContainer = document.getElementById('summary');
+    summaryContainer.innerHTML = '';  // Leere den aktuellen Inhalt
+
+    const selectionOrder = [];
+    for (const [key, value] of Object.entries(userSelection)) {
+        if (value) {
+            selectionOrder.push({ key, value });
+        }
+    }
+
+    
+    // Ausgabe der letzten 10 Auswahlen
+    const lastSelectionsDiv = document.createElement('div');
+    lastSelectionsDiv.classList.add('last-selections-summary');
+    lastSelectionsDiv.innerHTML = `
+        <h3>Letzte 10 Auswahlen:</h3>
+        <p>1. ${lastSelections.selection1}</p>
+        <p>2. ${lastSelections.selection2}</p>
+        <p>3. ${lastSelections.selection3}</p>
+        <p>4. ${lastSelections.selection4}</p>
+        <p>5. ${lastSelections.selection5}</p>
+        <p>6. ${lastSelections.selection6}</p>
+        <p>7. ${lastSelections.selection7}</p>
+        <p>8. ${lastSelections.selection8}</p>
+        <p>9. ${lastSelections.selection9}</p>
+        <p>10. ${lastSelections.selection10}</p>
+    `;
+    summaryContainer.appendChild(lastSelectionsDiv);
+}
+
+
+
+
+/* Allgemeine Stile */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: #0073e6;
+    color: white;
+    padding: 20px;
+}
+
+.logo {
+    width: 150px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+/* Hauptbereiche */
+main {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Bildschirme */
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Buttons */
+button {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+/* Zurück-Button */
+button.back-btn {
+    background-color: #ccc;
+    color: black;
+}
+
+button.back-btn:hover {
+    background-color: #aaa;
+}
+
+/* Zusammenfassung */
+#summary {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+
