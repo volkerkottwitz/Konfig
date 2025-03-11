@@ -1,0 +1,313 @@
+
+
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wasserzählerschacht Konfigurator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Firmenlogo" class="logo">
+        <h1>Wasserzählerschacht-Konfigurator</h1>
+    </header>
+
+    <main>
+        <!-- Startseite -->
+        <section class="screen active" id="screen1">
+            <h2>Wählen Sie eine Produktgruppe</h2>
+            <button onclick="nextScreen('screen2', 'Flexoripp')">Flexoripp</button>
+        </section>
+
+        <!-- Schachtauswahl -->
+        <section class="screen" id="screen2">
+            <h2>Wählen Sie einen Schacht</h2>
+            <button onclick="nextScreen('screen3', 'Schacht 190mm 1“')">Schacht 190mm 1“</button>
+            <button onclick="nextScreen('screen3', 'Schacht 220mm 1“')">Schacht 220mm 1“</button>
+            <button onclick="nextScreen('screen3', 'Schacht 260mm x 5/4“')">Schacht 260mm x 5/4“</button>
+            <button onclick="nextScreen('screen3', 'Schacht Österreich')">Schacht Österreich</button>
+            <button onclick="prevScreen('screen1')">Zurück</button>
+        </section>
+
+  <!-- Rohrdeckung -->
+  <section class="screen" id="screen3">
+    <h2>Wählen Sie eine Rohrdeckung</h2>
+    <button onclick="nextScreen('screen4', 'Rohrdeckung 0,75m')">0,75m</button>
+    <button onclick="nextScreen('screen4', 'Rohrdeckung 1,00m')">1,00m</button>
+    <button onclick="nextScreen('screen4', 'Rohrdeckung 1,25m')">1,25m</button>
+    <button onclick="nextScreen('screen4', 'Rohrdeckung 1,50m')">1,50m</button>
+    <button onclick="nextScreen('screen4', 'Rohrdeckung 1,75m')">1,75m</button>
+    <button onclick="nextScreen('screen4', 'Rohrdeckung 2,00m')">2,00m</button>
+    <button onclick="prevScreen('screen2')">Zurück</button>
+</section>
+
+<!-- Deckel -->
+<section class="screen" id="screen4">
+    <h2>Wählen Sie einen Deckel</h2>
+    <button onclick="nextScreen('screen5', 'Schachtumrandung mit Deckel A15')">Deckel A15</button>
+    <button onclick="nextScreen('screen5', 'Schachtumrandung mit Deckel A15 + Stehbolzen')">A15 + Stehbolzen</button>
+    <button onclick="nextScreen('screen5', 'Schachtumrandung mit Deckel B125')">Deckel B125</button>
+    <button onclick="nextScreen('screen5', 'Schachtumrandung mit Deckel B125 + Stehbolzen')">B125 + Stehbolzen</button>
+    <button onclick="nextScreen('screen5', 'Einfache Schachtumrandung')">Einfache Schachtumrandung</button>
+    <button onclick="prevScreen('screen3')">Zurück</button>
+</section>
+
+<!-- Wasserzähleranlagen -->
+<section class="screen" id="screen5">
+    <h2>Wählen Sie eine Wasserzähleranlage</h2>
+    <button onclick="nextScreen('screen6', 'Kugelhahn/Druckminderer/Kugelhahn')">Kugelhahn/Druckminderer/Kugelhahn</button>
+    <button onclick="nextScreen('screen6', 'Kugelhahn/KSR/Kugelhahn')">Kugelhahn/KSR/Kugelhahn</button>
+    <button onclick="nextScreen('screen6', 'Kugelhahn/KMR/Kugelhahn')">Kugelhahn/KMR/Kugelhahn</button>
+    <button onclick="nextScreen('screen6', 'Freistrom/Freistrom')">Freistrom/Freistrom</button>
+    <button onclick="nextScreen('screen6', 'Freistrom/Druckminderer/Freistrom')">Freistrom/Druckminderer/Freistrom</button>
+    <button onclick="nextScreen('screen6', 'Freistrom/KSR')">Freistrom/KSR</button>
+    <button onclick="nextScreen('screen6', 'Freistrom/Druckminderer/KSR')">Freistrom/Druckminderer/KSR</button>
+    <button onclick="nextScreen('screen6', 'Freistrom/KMR/Freistrom')">Freistrom/KMR/Freistrom</button>
+    <button onclick="nextScreen('screen6', 'Kugelhahn/Druckminderer/KSR')">Kugelhahn/Druckminderer/KSR</button>
+    <button onclick="prevScreen('screen4')">Zurück</button>
+</section>
+
+<!-- PE-Verschraubungen -->
+<section class="screen" id="screen6">
+    <h2>Wählen Sie eine PE-Verschraubung</h2>
+    <button onclick="nextScreen('screen7', 'PE-Verschraubung Messing Pbfree')">Messing Pbfree</button>
+    <button onclick="nextScreen('screen7', 'PE-Verschraubung PP')">PE-Verschraubung PP</button>
+    <button onclick="nextScreen('screen7', 'PE-Schweisstutzen')">PE-Schweisstutzen</button>
+    <button onclick="nextScreen('screen7', 'PE-Schweissmuffe')">PE-Schweissmuffe</button>
+    <button onclick="prevScreen('screen5')">Zurück</button>
+</section>
+
+<!-- PE-Größe Auswahl -->
+<section class="screen" id="screen7">
+    <h2>Wählen Sie 1“ oder 5/4“</h2>
+    <button onclick="nextScreen('screen8', '1“')">1“</button>
+    <button onclick="nextScreen('screen8', '5/4“')">5/4“</button>
+    <button onclick="prevScreen('screen6')">Zurück</button>
+</section>
+
+<!-- PE-Größen -->
+<section class="screen" id="screen8">
+    <h2>Wählen Sie die Größe der PE-Verbindung</h2>
+    <button onclick="nextScreen('screen9', 'PE-Größe 32')">PE-Größe 32</button>
+    <button onclick="nextScreen('screen9', 'PE-Größe 40')">PE-Größe 40</button>
+    <button onclick="nextScreen('screen9', 'PE-Größe 50')">PE-Größe 50</button>
+    <button onclick="nextScreen('screen9', 'PE-Größe 63')">PE-Größe 63</button>
+    <button onclick="prevScreen('screen7')">Zurück</button>
+</section>
+
+
+        <!-- Auswahl der Verbinder -->
+        <section class="screen" id="screen9">
+            <h2>Wählen Sie die Anzahl der Verbinder</h2>
+            <label><input type="radio" name="verbinder" value="1"> Einen Verbinder</label><br>
+            <label><input type="radio" name="verbinder" value="2"> Zwei Verbinder</label><br>
+            <button onclick="saveVerbinderAndNext()">Weiter</button>
+            <button onclick="prevScreen('screen8')">Zurück</button>
+        </section>
+
+        <!-- Zusammenfassung -->
+        <section class="screen" id="summaryScreen">
+            <h2>Ihre Auswahl</h2>
+            <p id="summary"></p>
+            <button onclick="resetConfig()">Neu starten</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+// Speichert die Auswahl des Benutzers
+let userSelection = {
+    produktgruppe: '',
+    schacht: '',
+    rohrdeckung: '',
+    deckel: '',
+    wasserzaehler: '',
+    peVerschraubung: '',
+    groesseVerbindung: '',
+    peGroesse: '',
+    verbinder: ''
+};
+
+// Wechselt zum nächsten Bildschirm und speichert die Auswahl
+function nextScreen(nextScreenId, selectionKey = null) {
+    const currentScreen = document.querySelector('.screen.active');
+    currentScreen.classList.remove('active');
+
+    const nextScreen = document.getElementById(nextScreenId);
+    nextScreen.classList.add('active');
+
+    if (selectionKey) {
+        userSelection[selectionKey] = event.target.innerText;
+    }
+
+    if (nextScreenId === 'summaryScreen') {
+        updateSummary();
+    }
+}
+
+// Wechselt zurück zum vorherigen Bildschirm
+function prevScreen(prevScreenId) {
+    const currentScreen = document.querySelector('.screen.active');
+    currentScreen.classList.remove('active');
+
+    const prevScreen = document.getElementById(prevScreenId);
+    prevScreen.classList.add('active');
+}
+
+// Speichert die Verbinder-Auswahl und geht zur Zusammenfassung
+function saveVerbinderAndNext() {
+    const selectedVerbinder = document.querySelector('input[name="verbinder"]:checked');
+    
+    if (selectedVerbinder) {
+        userSelection['verbinder'] = selectedVerbinder.value === "1" ? "Ein Verbinder" : "Zwei Verbinder";
+        nextScreen('summaryScreen');  // Jetzt wird korrekt zur Zusammenfassung gewechselt
+    } else {
+        alert("Bitte wählen Sie einen Verbinder aus.");
+    }
+}
+
+// Setzt den gesamten Konfigurator zurück
+function resetConfig() {
+    userSelection = {
+        produktgruppe: '',
+        schacht: '',
+        rohrdeckung: '',
+        deckel: '',
+        wasserzaehler: '',
+        peVerschraubung: '',
+        groesseVerbindung: '',
+        peGroesse: '',
+        verbinder: ''
+    };
+
+    // Alle Bildschirme zurücksetzen
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+
+    // Ersten Bildschirm aktivieren
+    document.getElementById('screen1').classList.add('active');
+
+    // Leert die Zusammenfassung
+    document.getElementById('summary').innerText = '';
+}
+
+
+
+
+// Zeigt die Zusammenfassung der Auswahl an
+function updateSummary() {
+    let summaryText = '<strong>Ihre Auswahl:</strong><br>';
+
+    for (const [key, value] of Object.entries(userSelection)) {
+        if (value) {
+            // Formatierung für PE-Größe und 1" oder 5/4" Auswahl
+            if (key === 'peGroesse' && userSelection['peVerbindung']) {
+                summaryText += `PE-Größe ${value} x ${userSelection['peVerbindung']}<br>`;
+            } else {
+                summaryText += `${value}<br>`;
+            }
+        }
+    }
+
+    document.getElementById('summary').innerHTML = summaryText;
+}
+
+
+
+/* Allgemeine Stile */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: #0073e6;
+    color: white;
+    padding: 20px;
+}
+
+.logo {
+    width: 150px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+/* Hauptbereiche */
+main {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Bildschirme */
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Buttons */
+button {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+/* Zurück-Button */
+button:nth-last-child(2) {
+    background-color: #ccc;
+    color: black;
+}
+
+button:nth-last-child(2):hover {
+    background-color: #aaa;
+}
+
+/* Zusammenfassung */
+#summary {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
