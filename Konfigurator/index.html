@@ -16,7 +16,11 @@
         <h1>Wasserzählerschacht-Konfigurator</h1>
     </header>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <main>
+
+
 
 <!-- Startseite -->
 <section class="screen active" id="screen1">
@@ -131,8 +135,10 @@
     <h2>Ihre Auswahl:</h2>
     <p id="summary"></p>
     <button onclick="resetConfig()">Neu starten</button>
-    <button onclick="sendEmail()">Sende email mit Google</button>
+    
     <button onclick="sendEmail1()">Sende email mit Outlook</button>
+    
+    <button onclick="generatePDF()">Generiere Anfrage</button>
 </section>
 
     </main>
