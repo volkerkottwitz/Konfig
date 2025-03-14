@@ -260,16 +260,89 @@ function updateSummary() {
 function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    
-    // Beispiel-Inhalt
-    doc.text("Hallo, das ist dein PDF!", 20, 20);
-    
-    // PDF in einem neuen Tab öffnen
+
+    // Bilder-URLs (externes Verzeichnis, z.B. GitHub)
+    const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png"; // EWE-Logo
+    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.jpg"; // Flexoripp-Bild
+
+    // Firmenname und Adresse oben
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(0, 51, 102);  // Blau für den Firmennamen
+    doc.text("Wilhelm EWE GmbH & Co.KG", 100, 20); // Firma oben
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9); // Kleinere Schriftgröße für Straße und PLZ
+    doc.setTextColor(0, 0, 0);  // Standardfarbe für die Adresse
+    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 100, 25); // Adresse unter dem Firmennamen etwas dichter dran
+
+    // EWE-Logo einfügen (nach links verschoben)
+    doc.addImage(eweLogo, 'PNG', 20, 6, 50, 40); // Logo nach links verschoben
+
+    // Datum einfügen
+    const currentDate = new Date().toLocaleDateString();
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(`Datum: ${currentDate}`, 160, 40);
+
+    // Betreff fett und größer, weiter nach unten verschoben
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("Ihre Anfrage", 20, 70);  // Weiter nach unten verschoben
+
+    // Einleitungstext
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10); // Kleinere Schriftgröße
+    doc.text("Sehr geehrte Damen und Herren,", 20, 80);
+    doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 87);
+
+    // Abstand zwischen Einleitungstext und der Auflistung
+    let yOffset = 98;
+
+    // Hier kommen die echten Werte aus der Auswahl rein
+    let selections = [
+        `1. ${lastSelections.selection1 || "Nicht ausgewählt"}`,
+        `2. ${lastSelections.selection2 || "Nicht ausgewählt"}`,
+        `3. ${lastSelections.selection3 || "Nicht ausgewählt"}`,
+        `4. ${lastSelections.selection4 || "Nicht ausgewählt"}`,
+        `5. ${lastSelections.selection5 || "Nicht ausgewählt"}`,
+        `6. ${lastSelections.selection6 || "Nicht ausgewählt"}`,
+        `7. ${lastSelections.selection7 || "Nicht ausgewählt"}`,
+        `8. ${lastSelections.selection8 || "Nicht ausgewählt"}`,
+        `9. ${lastSelections.selection9 || "Nicht ausgewählt"}`,
+        `Wasserzählerschachtschlüssel: ${lastSelections.selection10 || "Nicht ausgewählt"}`
+    ];
+
+    selections.forEach((item) => {
+        doc.text(item, 20, yOffset);
+        yOffset += 10;
+    });
+
+    // Flexoripp-Bild auf Höhe der 4. Auswahl, mittig rechts
+    doc.addImage(flexorippImage, 'JPEG', 140, 100, 15, 30); // Hier wird das Bild auf der 4. Auswahlhöhe eingefügt
+
+    // Horizontale Linie nach den Auswahlpunkten
+    doc.setDrawColor(0, 0, 0);  // Schwarz
+    doc.setLineWidth(0.5);
+    doc.line(20, yOffset + 10, 180, yOffset + 10);  // Linie nach den Auswahlpunkten
+
+    // Eine zweite horizontale Linie unter der Auswahl
+    doc.setLineWidth(0.5);
+    doc.line(20, yOffset + 20, 180, yOffset + 20);  // Weitere Linie zur Trennung
+
+    // Abschluss
+    doc.text("Mit freundlichen Grüßen,", 20, yOffset + 30);
+    doc.text("[Ihr Name]", 20, yOffset + 40);
+
+    // Weitere horizontale Linie vor dem Abschluss
+    doc.setLineWidth(0.5);
+    doc.line(20, yOffset + 70, 180, yOffset + 70);  // Weitere Linie nach der Firmenadresse
+
+    // PDF im neuen Tab öffnen
     const pdfData = doc.output('blob');
     const url = URL.createObjectURL(pdfData);
     window.open(url);
 }
-
 
 
 // Sendet die Zusammenstellung per E-Mail ohne HTML-Tags
