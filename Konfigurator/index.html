@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="images/icon.png">
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400&display=swap" rel="stylesheet">
+    <div id="info-box"></div>
 </head>
 
 <body>
@@ -22,14 +23,37 @@
 
 
 
+        
+
 <!-- Startseite -->
 <section class="screen active" id="screen1">
     <h2>Wählen Sie eine Produktgruppe</h2>
     <div class="button-container">
-        <img src="images/flexoripp.jpg" alt="Produktbild" class="product-image">
-        <button onclick="saveProduktgruppe('Flexoripp')">Flexoripp</button>
+        <!-- Flexoripp Auswahl -->
+        <div class="selection-container">
+            <img src="images/flexoripp.jpg" alt="Produktbild" class="product-image" onclick="openProduktInfo()">
+            <button onclick="saveProduktgruppe('Flexoripp')">Flexoripp</button>
+        </div>
+
+        <!-- Megaripp Auswahl -->
+        <div class="selection-container">
+            <img src="images/megaripp.png" alt="Produktbild" class="product-image" onclick="openProduktInfo()">
+            <button onclick="window.location.href='index.html'">Megaripp</button>
+        </div>
     </div>
 </section>
+
+
+
+<!-- Produktinfo-Bildschirm -->
+<section class="screen" id="produktInfoScreen">
+    <h2>Produktbeschreibung</h2>
+    <h2></h2>
+    <button class="back-btn" onclick="goBack()">Zurück</button>
+    <iframe src="images/pdfflex.pdf" width="100%" height="600px"></iframe>
+</section>
+
+
 
 <!-- Schachtauswahl -->
 <section class="screen" id="screen2">
@@ -39,6 +63,7 @@
     <button onclick="saveSchacht('Schacht 260mm Q3 6,3|10 x 5/4“')">Schacht 260mm Q3 6,3|10 x 5/4“</button>
     <button onclick="saveSchacht('Schacht Österreich 175mm Q3 4|10 5/4“ x 1“')">Schacht Österreich 175mm Q3 4|10 5/4“ x 1“</button>
     <button class="back-btn" onclick="prevScreen('screen1')">Zurück</button>
+
 </section>
 
 
