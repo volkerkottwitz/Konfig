@@ -1,6 +1,6 @@
 /* Allgemeine Stile */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -79,24 +79,62 @@ button.back-btn:hover {
     margin-top: 20px;
 }
 
-/* Container für Bild und Button nebeneinander */
+/* Zentriert die gesamte Auswahl */
 .button-container {
     display: flex;
+    flex-direction: column;  /* Stapelt die Blöcke untereinander */
     align-items: center;
-    justify-content: center;
-    width: 80%;
-    margin: 10px auto;
+    gap: 20px;  /* Abstand zwischen den Zeilen */
 }
 
-/* Bild */
-.product-image {
-    width: 20%; /* Bild nimmt etwa 1/3 der Container-Breite ein */
-    margin-right: 10px; /* Abstand zwischen Bild und Button */
-    object-fit: contain; /* Bild wird im Container skaliert, ohne das Seitenverhältnis zu ändern */
+/* Einzelne Auswahl: Bild links, Button rechts */
+.selection-container {
+    display: flex;
+    flex-direction: row;  /* Bild und Button nebeneinander */
+    align-items: center;
+    gap: 20px;  /* Abstand zwischen Bild und Button */
+    width: 300px; /* Einheitliche Breite für die Blöcke */
 }
+
+/* Bilder auf gleiche Höhe und Größe setzen */
+.product-image {
+    width: 80px; /* Einheitliche Bildbreite */
+    height: 80px; /* Einheitliche Höhe */
+    object-fit: contain; /* Stellt sicher, dass Bilder gleichmäßig skaliert werden */
+}
+
+/* Bild Maus fährt drüber*/
+.product-image:hover {
+    cursor: pointer;  /* Mauszeiger ändert sich in eine Hand */
+    transform: scale(1.05);  /* Bild wird leicht vergrößert */
+    transition: transform 0.3s ease;
+}
+
+/* Einheitliche Buttons */
+.product-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    width: 150px; /* Gleiche Breite für beide Buttons */
+    height: 50px; /* Gleiche Höhe für beide Buttons */
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+/* Hover-Effekt für Buttons */
+.product-button:hover {
+    background-color: #0056b3;
+}
+
+
 
 /* Button */
 button {
+    font-family: 'Roboto Condensed', Arial, sans-serif; /* Schriftart hinzufügen */
     font-size: 18px;
     background-color: #0073e6;
     color: white;
@@ -105,8 +143,9 @@ button {
     padding: 15px;
     cursor: pointer;
     transition: background 0.3s ease;
-    flex-grow: 1; /* Button wächst, um den verbleibenden Raum zu füllen */
+    flex-grow: 1;
 }
+
 
 button:hover {
     background-color: #005bb5;
