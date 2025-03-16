@@ -54,9 +54,11 @@ function nextScreen(nextScreenId, selectionKey = null) {
     const nextScreen = document.getElementById(nextScreenId);
     nextScreen.classList.add('active');
 
-    // Wenn "skipNextSteps" wahr ist, überspringe die nächsten beiden Bildschirme
+
     if (skipNextSteps) {
         skipNextSteps = false;  // Zurücksetzen der Logik, nachdem sie verwendet wurde
+    
+           
         if (nextScreenId === 'screen6') { // Wenn der nächste Bildschirm die PE-Verschraubung ist
             nextScreen('screen9'); // Springe zu PE-Größen
             return;
@@ -66,6 +68,7 @@ function nextScreen(nextScreenId, selectionKey = null) {
             return;
         }
     }
+
 
     // Speicherung der Auswahl
     if (selectionKey) {
@@ -137,9 +140,20 @@ function saveRohrdeckung(rohrdeckung) {
 
 // Speichert die Auswahl des Schachts und geht zum nächsten Bildschirm
 function saveSchacht(schacht) {
-    userSelection['schacht'] = schacht;  // Speichert die Auswahl des Schachts
-    saveLastSelection(userSelection['schacht'], 2);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen3');  // Geht zum nächsten Bildschirm
+    userSelection['schacht'] = schacht;  // Speichert die Schachtauswahl
+    saveLastSelection(schacht, 2);  // Speichert die Auswahl in der richtigen Variablen
+
+    // PE-Größe basierend auf der Schachtauswahl setzen
+    let peGroesse = "1“"; // Standardwert bleibt 1"
+
+    if (schacht.includes("260mm")) {
+        peGroesse = "5/4“";  // Falls der Schacht 260mm ist
+    }
+
+    userSelection['peGroesse'] = peGroesse; // Speichert die PE-Größe
+    saveLastSelection(peGroesse, 8);  // Speichert die Auswahl in der richtigen Variablen
+
+    nextScreen('screen3');  // Geht zur nächsten Auswahl
 }
 
 // Speichert die Auswahl des Deckels und geht zum nächsten Bildschirm
@@ -157,17 +171,47 @@ function saveWasserzaehleranlage(anlage) {
 }
 
 
+
+
 // Speichert die Auswahl der PE-Verschraubung und geht zum nächsten Bildschirm
 function savePEVerschraubung(verschraubung) {
     userSelection['peVerschraubung'] = verschraubung;  // Speichert die Auswahl der PE-Verschraubung
     saveLastSelection(userSelection['peVerschraubung'], 7);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen7');  // Geht zum nächsten Bildschirm
+
+    // Prüfen, ob die PE-Größe bereits gesetzt wurde
+    if (!userSelection['peGroesse']) {
+        // Wenn nicht, PE-Größe gemäß der Schachtauswahl setzen
+        let peGroesse = "1“"; // Standardwert bleibt 1"
+
+        // Überprüfen, ob die Schachtauswahl '260mm' enthält
+        if (lastSelections.selection2 && lastSelections.selection2.includes("260mm")) {
+            peGroesse = "5/4“";  // Falls der Schacht 260mm ist
+        }
+
+        userSelection['peGroesse'] = peGroesse;  // Speichert die PE-Größe
+        saveLastSelection(peGroesse, 8);  // Speichert die Auswahl in der richtigen Variablen
+    }
+
+    nextScreen('screen8');  // Geht zum nächsten Bildschirm
 }
 
 // Überspringt die Auswahl und geht direkt zum nächsten Bildschirm
 function skipNextScreens() {
     userSelection['peVerschraubung'] = 'Ohne Verschraubung';  // Speichert, dass keine Verschraubung gewählt wurde
     saveLastSelection(userSelection['peVerschraubung'], 6);  // Speichert in der neuen Auswahl-Variable
+    
+    // Setze auch alle relevanten Werte auf null
+    userSelection['peVerschraubung'] = null;
+    userSelection['groesseVerbindung'] = null;
+    userSelection['peGroesse'] = null;
+    userSelection['verbinder'] = null;
+
+    // Setze auch lastSelections.selection6, selection7, selection8 und selection9 auf null
+    lastSelections.selection6 = null;
+    lastSelections.selection7 = null;
+    lastSelections.selection8 = null;
+    lastSelections.selection9 = null;
+
     nextScreen('screen10');  // Geht zum nächsten Bildschirm
 }
 
@@ -231,7 +275,6 @@ function updateSummary() {
         }
     }
 
-    
     // Ausgabe der letzten 10 Auswahlen
     const lastSelectionsDiv = document.createElement('div');
     lastSelectionsDiv.classList.add('last-selections-summary');
@@ -242,15 +285,14 @@ function updateSummary() {
         <p>3. ${lastSelections.selection3}</p>
         <p>4. ${lastSelections.selection4}</p>
         <p>5. ${lastSelections.selection5}</p>
-        <p>6. ${lastSelections.selection6}</p>
-        <p>7. ${lastSelections.selection7}</p>
-        <p>8. ${lastSelections.selection8}</p>
-        <p>9. ${lastSelections.selection9}</p>
+        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>6. ${lastSelections.selection6}</p>` : ''}
+        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>7. ${lastSelections.selection7}</p>` : ''}
+        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>8. ${lastSelections.selection8}</p>` : ''}
+        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>9. ${lastSelections.selection9}</p>` : ''}
         <p>Wasserzählerschachtschlüssel : ${lastSelections.selection10}</p>
     `;
     summaryContainer.appendChild(lastSelectionsDiv);
 }
-
 
 
 
@@ -443,3 +485,5 @@ Mit freundlichen Grüßen,
     // Öffnet die E-Mail-Anwendung direkt
     window.location.href = emailLink;
 }
+
+
