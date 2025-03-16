@@ -96,6 +96,19 @@ function prevScreen(prevScreenId) {
 }
 
 
+function openProduktInfo() {
+    document.getElementById('screen1').classList.remove('active');
+    document.getElementById('produktInfoScreen').classList.add('active');
+}
+
+function goBack() {
+    document.getElementById('produktInfoScreen').classList.remove('active');
+    document.getElementById('screen1').classList.add('active');
+}
+
+
+
+
 // Speichert die Verbinder-Auswahl und geht zur nächsten Seite
 
 function saveVerbinderAndNext(verbinder) {
@@ -126,6 +139,10 @@ function saveWasserzaehlerSchluessel(schluessel) {
 function saveProduktgruppe(produktgruppe) {
     userSelection['produktgruppe'] = produktgruppe;  // Speichert die Auswahl der Produktgruppe
     saveLastSelection(userSelection['produktgruppe'], 1);  // Speichert in der neuen Auswahl-Variable
+        // Ändert die Überschrift basierend auf der Auswahl
+        if (produktgruppe === "Flexoripp") {
+            document.querySelector("h1").textContent = "Flexoripp-Konfigurator";
+        }
     nextScreen('screen2');  // Geht zum nächsten Bildschirm
 }
 
