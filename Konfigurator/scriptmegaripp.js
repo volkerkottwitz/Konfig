@@ -54,22 +54,6 @@ function nextScreen(nextScreenId, selectionKey = null) {
     const nextScreen = document.getElementById(nextScreenId);
     nextScreen.classList.add('active');
 
-
-    if (skipNextSteps) {
-        skipNextSteps = false;  // Zurücksetzen der Logik, nachdem sie verwendet wurde
-    
-           
-        if (nextScreenId === 'screen6') { // Wenn der nächste Bildschirm die PE-Verschraubung ist
-            nextScreen('screen9'); // Springe zu PE-Größen
-            return;
-        }
-        if (nextScreenId === 'screen9') { // Wenn der nächste Bildschirm die PE-Größe ist
-            nextScreen('screen10'); // Springe direkt zum Wasserzählerschachtschlüssel
-            return;
-        }
-    }
-
-
     // Speicherung der Auswahl
     if (selectionKey) {
         userSelection[selectionKey] = event.target.innerText;
@@ -77,16 +61,45 @@ function nextScreen(nextScreenId, selectionKey = null) {
         saveLastSelection(event.target.innerText, Object.keys(userSelection).indexOf(selectionKey) + 1);
     }
 
+    // Prüft, ob screen5 aktiviert wurde und der Schacht "300mm Q3 16 6/4“" ist
+    if (nextScreenId === "screen5") {
+        const wzButtons = document.querySelectorAll("#screen5 button:not(.back-btn)");
+
+        if (userSelection['schacht'] === "300mm Q3 16 6/4“") {
+            // Blendet die Buttons 3 bis 5 aus
+            wzButtons.forEach((button, index) => {
+                if (index >= 2) button.style.display = "none";
+            });
+        } else {
+            // Zeigt alle Buttons wieder an, falls ein anderer Schacht gewählt wird
+            wzButtons.forEach(button => button.style.display = "inline-block");
+        }
+    }
+
+        // Prüft, ob screen5 aktiviert wurde und der Schacht "300mm Q3 16 6/4“" ist
+        if (nextScreenId === "screen5") {
+            if (userSelection['schacht'] === "300mm Q3 16 6/4“") {
+            const wzButtons = document.querySelectorAll("#screen5 button:not(.back-btn)");
+    
+            if (userSelection['deckel'] === "KMR – Kugelhahn*" || userSelection['deckel'] === "KMR – Schrägsitzventil*") {
+                // Blendet die Buttons 3 bis 5 aus
+                wzButtons.forEach((button, index) => {
+                    if (index >= 1) button.style.display = "none";
+                });
+            } 
+
+        }
+
+    }
+    
+ 
     if (nextScreenId === 'summaryScreen') {
         updateSummary();
     }
 }
 
-// Wechselt zurück zum vorherigen Bildschirm mit spezieller Logik für PE-Verschraubung
+// Wechselt zurück zum vorherigen Bildschirm 
 function prevScreen(prevScreenId) {
-    if (prevScreenId === 'screen9' && !userSelection['verbinder']) {
-        prevScreenId = 'screen6'; // Springt zur PE-Verschraubung zurück, falls kein Verbinder ausgewählt wurde
-    }
     
     const currentScreen = document.querySelector('.screen.active');
     currentScreen.classList.remove('active');
@@ -101,31 +114,49 @@ function prevScreen(prevScreenId) {
 }
 
 
-function openProduktInfo() {
-    document.getElementById('screen1').classList.remove('active');
-    document.getElementById('produktInfoScreen').classList.add('active');
+
+// Speichert die Auswahl des Schachts und geht zum nächsten Bildschirm
+function saveSchacht(schacht) {
+    userSelection['schacht'] = schacht;  // Speichert die Schachtauswahl
+    saveLastSelection(schacht, 1);  // Speichert die Auswahl in der richtigen Variablen
+    nextScreen('screen3');  // Geht zur nächsten Auswahl
 }
 
-function goBack() {
-    document.getElementById('produktInfoScreen').classList.remove('active');
-    document.getElementById('screen1').classList.add('active');
+// Speichert die Auswahl der Eingangsventile
+function saveRohrdeckung(rohrdeckung) {
+    userSelection['rohrdeckung'] = rohrdeckung;  
+    saveLastSelection(userSelection['rohrdeckung'], 2);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen4');  // Geht zum nächsten Bildschirm
 }
 
 
+// Speichert die Auswahl der Ausgangsbaugruppe
+function saveDeckel(deckel) {
+    userSelection['deckel'] = deckel;  // Speichert die Auswahl der Ausgangsbaugruppe
+    saveLastSelection(userSelection['deckel'], 3);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen5');  // Geht zum nächsten Bildschirm
+}
 
+// Speichert die Auswahl der Wasserzähleranlage und geht zum nächsten Bildschirm
+function saveWasserzaehleranlage(anlage) {
+    userSelection['wasserzähleranlage'] = anlage;  // Speichert die Auswahl der Wasserzähleranlage
+    saveLastSelection(userSelection['wasserzähleranlage'], 4);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen6');  // Geht zum nächsten Bildschirm
+}
 
-// Speichert die Verbinder-Auswahl und geht zur nächsten Seite
+// Speichert die Auswahl der PE-Verschraubung und geht zum nächsten Bildschirm
+function savePEVerschraubung(verschraubung) {
+    userSelection['peVerschraubung'] = verschraubung;  // Speichert die Auswahl der PE-Verschraubung
+    saveLastSelection(userSelection['peVerschraubung'], 5);  // Speichert in der neuen Auswahl-Variable
 
-function saveVerbinderAndNext(verbinder) {
-    // Überprüfen, welchen Verbinder der Benutzer gewählt hat
-    if (verbinder === '1') {
-        userSelection['verbinder'] = "Ein Verbinder";
-    } else if (verbinder === '2') {
-        userSelection['verbinder'] = "Zwei Verbinder";
-    }
+    nextScreen('screen7');  // Geht zum nächsten Bildschirm
+}
 
-    saveLastSelection(userSelection['verbinder'], 6);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen10');  // Geht zum nächsten Bildschirm
+// Speichert die Auswahl der PE-Größe und geht zum nächsten Bildschirm
+function savePEGroesse(groesse) {
+    userSelection['peGroesse'] = groesse;  // Speichert die Auswahl der PE-Größe
+    saveLastSelection(userSelection['peGroesse'], 6);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen8');  // Geht zum nächsten Bildschirm
 }
 
 
@@ -133,124 +164,11 @@ function saveVerbinderAndNext(verbinder) {
 function saveWasserzaehlerSchluessel(schluessel) {
     if (schluessel === 'Ja' || schluessel === 'Nein') {
         userSelection['wasserzaehlerSchluessel'] = schluessel;
-        saveLastSelection(userSelection['wasserzaehlerSchluessel'], 10);  // Speichert in der neuen Auswahl-Variable
+        saveLastSelection(userSelection['wasserzaehlerSchluessel'], 7);  // Speichert in der neuen Auswahl-Variable
         nextScreen('summaryScreen');  // Geht zum nächsten Bildschirm
     } else {
         alert("Bitte wählen Sie Ja oder Nein.");
     }
-}
-
-// Speichert die Auswahl der Produktgruppe und geht zum nächsten Bildschirm
-function saveProduktgruppe(produktgruppe) {
-    userSelection['produktgruppe'] = produktgruppe;  // Speichert die Auswahl der Produktgruppe
-    saveLastSelection(userSelection['produktgruppe'], 1);  // Speichert in der neuen Auswahl-Variable
-        // Ändert die Überschrift basierend auf der Auswahl
-        if (produktgruppe === "Flexoripp") {
-            document.querySelector("h1").textContent = "Flexoripp-Konfigurator";
-        }
-    nextScreen('screen2');  // Geht zum nächsten Bildschirm
-}
-
-
-// Speichert die Auswahl der Rohrdeckung und geht zum nächsten Bildschirm
-function saveRohrdeckung(rohrdeckung) {
-    userSelection['rohrdeckung'] = rohrdeckung;  // Speichert die Auswahl der Rohrdeckung
-    saveLastSelection(userSelection['rohrdeckung'], 3);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen4');  // Geht zum nächsten Bildschirm
-}
-
-
-// Speichert die Auswahl des Schachts und geht zum nächsten Bildschirm
-function saveSchacht(schacht) {
-    userSelection['schacht'] = schacht;  // Speichert die Schachtauswahl
-    saveLastSelection(schacht, 2);  // Speichert die Auswahl in der richtigen Variablen
-
-    // PE-Größe basierend auf der Schachtauswahl setzen
-    let peGroesse = "1“"; // Standardwert bleibt 1"
-
-    if (schacht.includes("260mm")) {
-        peGroesse = "5/4“";  // Falls der Schacht 260mm ist
-    }
-
-    userSelection['peGroesse'] = peGroesse; // Speichert die PE-Größe
-    saveLastSelection(peGroesse, 8);  // Speichert die Auswahl in der richtigen Variablen
-
-    nextScreen('screen3');  // Geht zur nächsten Auswahl
-}
-
-
-
-// Speichert die Auswahl des Deckels und geht zum nächsten Bildschirm
-function saveDeckel(deckel) {
-    userSelection['deckel'] = deckel;  // Speichert die Auswahl des Deckels
-    saveLastSelection(userSelection['deckel'], 4);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen5');  // Geht zum nächsten Bildschirm
-}
-
-// Speichert die Auswahl der Wasserzähleranlage und geht zum nächsten Bildschirm
-function saveWasserzaehleranlage(anlage) {
-    userSelection['wasserzähleranlage'] = anlage;  // Speichert die Auswahl der Wasserzähleranlage
-    saveLastSelection(userSelection['wasserzähleranlage'], 5);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen6');  // Geht zum nächsten Bildschirm
-}
-
-
-
-
-// Speichert die Auswahl der PE-Verschraubung und geht zum nächsten Bildschirm
-function savePEVerschraubung(verschraubung) {
-    userSelection['peVerschraubung'] = verschraubung;  // Speichert die Auswahl der PE-Verschraubung
-    saveLastSelection(userSelection['peVerschraubung'], 7);  // Speichert in der neuen Auswahl-Variable
-
-    // Prüfen, ob die PE-Größe bereits gesetzt wurde
-    if (!userSelection['peGroesse']) {
-        // Wenn nicht, PE-Größe gemäß der Schachtauswahl setzen
-        let peGroesse = "1“"; // Standardwert bleibt 1"
-
-        // Überprüfen, ob die Schachtauswahl '260mm' enthält
-        if (lastSelections.selection2 && lastSelections.selection2.includes("260mm")) {
-            peGroesse = "5/4“";  // Falls der Schacht 260mm ist
-        }
-
-        userSelection['peGroesse'] = peGroesse;  // Speichert die PE-Größe
-        saveLastSelection(peGroesse, 8);  // Speichert die Auswahl in der richtigen Variablen
-    }
-
-    nextScreen('screen8');  // Geht zum nächsten Bildschirm
-}
-
-// Überspringt die Auswahl und geht direkt zum nächsten Bildschirm
-function skipNextScreens() {
-    userSelection['peVerschraubung'] = 'Ohne Verschraubung';  // Speichert, dass keine Verschraubung gewählt wurde
-    saveLastSelection(userSelection['peVerschraubung'], 6);  // Speichert in der neuen Auswahl-Variable
-    
-    // Setze auch alle relevanten Werte auf null
-    userSelection['peVerschraubung'] = null;
-    userSelection['groesseVerbindung'] = null;
-    userSelection['peGroesse'] = null;
-    userSelection['verbinder'] = null;
-
-    // Setze auch lastSelections.selection6, selection7, selection8 und selection9 auf null
-    lastSelections.selection6 = null;
-    lastSelections.selection7 = null;
-    lastSelections.selection8 = null;
-    lastSelections.selection9 = null;
-
-    nextScreen('screen10');  // Geht zum nächsten Bildschirm
-}
-
-// Speichert die Auswahl der PE-Größe und geht zum nächsten Bildschirm
-function savePEGroesseVerbindung(groesse) {
-    userSelection['peGroesseVerbindung'] = groesse;  // Speichert die Auswahl der PE-Größe
-    saveLastSelection(userSelection['peGroesseVerbindung'], 9);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen9');  // Geht zum nächsten Bildschirm
-}
-
-// Speichert die Auswahl der PE-Größe und geht zum nächsten Bildschirm
-function savePEGroesse(groesse) {
-    userSelection['peGroesse'] = groesse;  // Speichert die Auswahl der PE-Größe
-    saveLastSelection(userSelection['peGroesse'], 8);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen8');  // Geht zum nächsten Bildschirm
 }
 
 // Setzt den gesamten Konfigurator zurück
@@ -283,12 +201,10 @@ function resetConfig() {
     };
 
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
-    document.getElementById('screen1').classList.add('active');
+    document.getElementById('screen2').classList.add('active');
     document.getElementById('summary').innerText = '';
 
-    document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
 }
-
 
 
 // Zeigt die Zusammenfassung der Auswahl an
@@ -313,11 +229,9 @@ function updateSummary() {
         <p>3. ${lastSelections.selection3}</p>
         <p>4. ${lastSelections.selection4}</p>
         <p>5. ${lastSelections.selection5}</p>
-        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>6. ${lastSelections.selection6}</p>` : ''}
-        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>7. ${lastSelections.selection7}</p>` : ''}
-        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>8. ${lastSelections.selection8}</p>` : ''}
-        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>9. ${lastSelections.selection9}</p>` : ''}
-        <p>Wasserzählerschachtschlüssel : ${lastSelections.selection10}</p>
+        <p>6. ${lastSelections.selection6}</p>
+        <p>Wasserzählerschachtschlüssel : ${lastSelections.selection7}</p>
+       
     `;
     summaryContainer.appendChild(lastSelectionsDiv);
 }
@@ -451,67 +365,5 @@ Mit freundlichen Grüßen,
 
 
 
-// Sendet die Zusammenstellung per E-Mail ohne HTML-Tags
-function sendEmail1() {
-    let emailBody = `Sehr geehrte Damen und Herren,%0D%0A%0D%0A
-ich hoffe, es geht Ihnen gut. Anbei sende ich Ihnen die Konfiguration, die ich über Ihren Konfigurator erstellt habe:%0D%0A%0D%0A
----------------------------------------------------------%0D%0A
-1. ${lastSelections.selection1}%0D%0A
-2. ${lastSelections.selection2}%0D%0A
-3. ${lastSelections.selection3}%0D%0A
-4. ${lastSelections.selection4}%0D%0A
-5. ${lastSelections.selection5}%0D%0A
-6. ${lastSelections.selection6}%0D%0A
-7. ${lastSelections.selection7}%0D%0A
-8. ${lastSelections.selection8}%0D%0A
-9. ${lastSelections.selection9}%0D%0A
----------------------------------------------------------%0D%0A%0D%0A
-Ich wäre Ihnen dankbar, wenn Sie mir ein Angebot auf Basis dieser Konfiguration unterbreiten könnten.%0D%0A%0D%0A
-Vielen Dank im Voraus für Ihre Mühe. Ich freue mich auf Ihre Rückmeldung.%0D%0A%0D%0A
-Mit freundlichen Grüßen,%0D%0A
-[Ihr Name]%0D%0A
-[Ihr Unternehmen]`;
-
-    // Mailto-Link erzeugen
-    const mailtoLink = `mailto:?subject=Anfrage für ein Angebot&body=${emailBody}`;
-    window.location.href = mailtoLink;
-}
-
-
-function sendEmail2() {
-    let emailBody = `
-Sehr geehrte Damen und Herren,
-
-ich hoffe, es geht Ihnen gut. Hier sende ich Ihnen die Konfiguration, die ich über Ihren Konfigurator erstellt habe:
-
----------------------------------------------------------
-1. ${lastSelections.selection1}
-2. ${lastSelections.selection2}
-3. ${lastSelections.selection3}
-4. ${lastSelections.selection4}
-5. ${lastSelections.selection5}
-6. ${lastSelections.selection6}
-7. ${lastSelections.selection7}
-8. ${lastSelections.selection8}
-9. ${lastSelections.selection9}
----------------------------------------------------------
-
-Ich wäre Ihnen dankbar, wenn Sie mir ein Angebot auf Basis dieser Konfiguration unterbreiten könnten.
-
-Vielen Dank im Voraus für Ihre Mühe. Ich freue mich auf Ihre Rückmeldung.
-
-Mit freundlichen Grüßen,
-[Ihr Name]
-[Ihr Unternehmen]
-`;
-
-    const emailSubject = "Anfrage für ein Angebot";
-
-    // Versucht, die E-Mail zu öffnen
-    const emailLink = `mailto:?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-
-    // Öffnet die E-Mail-Anwendung direkt
-    window.location.href = emailLink;
-}
 
 

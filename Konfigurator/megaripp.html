@@ -22,15 +22,12 @@
     <main>
 
 
-
-
-
 <!-- Die WZ-Größe -->
 <section class="screen active" id="screen2">
     <h2>Wählen Sie eine Wasserzählergröße</h2>
-    <button onclick="saveSchacht('Q₃ 4 190 mm 1“')">190mm Q3 2,5|4 1“</button>
-    <button onclick="saveSchacht('Q₃ 10 260 mm x 5/4“')">260mm Q3 6,3|10 x 5/4“</button>
-    <button onclick="saveSchacht('Q₃ 16 300 mm 6/4“')">300mm Q3 16 6/4"“</button>
+    <button onclick="saveSchacht('190mm Q3 2,5|4 1“')">190mm Q3 2,5|4 1“</button>
+    <button onclick="saveSchacht('260mm Q3 6,3|10 x 5/4“')">260mm Q3 6,3|10 x 5/4“</button>
+    <button onclick="saveSchacht('300mm Q3 16 6/4“')">300mm Q3 16 6/4“</button>
     <button class="back-btn" onclick="window.location.href='index.html'">Zurück</button>
 
 </section>
@@ -43,6 +40,7 @@
     <button onclick="saveRohrdeckung('Schrägsitz')">Schrägsitz</button>
     <button class="back-btn" onclick="prevScreen('screen2')">Zurück</button>
 </section>
+
 
 <!-- Das Ausgangsventil -->
 <section class="screen" id="screen4">
@@ -67,6 +65,7 @@
     <button class="back-btn" onclick="prevScreen('screen4')">Zurück</button>
 </section>
 
+
 <!-- Wählen Sie die PE-Rohr Eingangsgröße -->
 <section class="screen" id="screen6">
     <h2>Wählen Sie die PE-Rohr Eingangsgröße</h2>
@@ -80,6 +79,7 @@
 
 <!-- Wählen Sie die PE-Rohr Ausgangsgröße -->
 <section class="screen" id="screen7">
+    <h2>Wählen Sie die PE-Rohr Ausgangsgröße</h2>
     <button onclick="savePEGroesse('PE-Größe 32')">PE-Größe 32</button>
     <button onclick="savePEGroesse('PE-Größe 40')">PE-Größe 40</button>
     <button onclick="savePEGroesse('PE-Größe 50')">PE-Größe 50</button>
@@ -97,13 +97,15 @@
     <button class="back-btn" onclick="prevScreen('screen7')">Zurück</button>
 </section>
 
+
+
 <!-- Zusammenfassung -->
 <section class="screen" id="summaryScreen">
     <h2>Ihre Auswahl:</h2>
     <p id="summary"></p>
     <button onclick="generatePDF()">Generiere Anfrage</button>
     <button onclick="resetConfig()">Neu starten</button>
-    <button class="back-btn" onclick="prevScreen('screen10')">Zurück</button>
+    <button class="back-btn" onclick="prevScreen('screen8')">Zurück</button>
     
     
     
@@ -111,7 +113,7 @@
 
     </main>
 
-    <script src="script.js"></script>
+    <script src="scriptmegaripp.js"></script>
 </body>
 </html>
 
