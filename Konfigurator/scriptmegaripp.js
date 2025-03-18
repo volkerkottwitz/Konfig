@@ -89,9 +89,28 @@ function nextScreen(nextScreenId, selectionKey = null) {
             } 
 
         }
-
+       
+        
     }
     
+
+          // Prüft, ob screen5 aktiviert wurde und der Schacht "300mm Q3 16 6/4“" ist
+          if (nextScreenId === "screen5") {
+            if (userSelection['schacht'] === "300mm Q3 16 6/4“") {
+            const wzButtons = document.querySelectorAll("#screen5 button:not(.back-btn)");
+    
+            if (userSelection['deckel'] === "Kugelhahn" || userSelection['deckel'] === "Schrägsitz") {
+                // Blendet die Buttons 3 bis 5 aus
+                wzButtons.forEach(button => button.style.display = "inline-block");
+                wzButtons.forEach((button, index) => {
+                    if (index >= 2) button.style.display = "none";
+                });
+            } 
+
+        }
+       
+        
+    }
  
     if (nextScreenId === 'summaryScreen') {
         updateSummary();
@@ -111,7 +130,13 @@ function prevScreen(prevScreenId) {
     if (prevScreenId === "screen1") {
         document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
     }
+
+    if (prevScreenId === "screen4") {
+        wzButtons.forEach(button => button.style.display = "inline-block");
+    }  
+
 }
+    
 
 
 
@@ -237,7 +262,14 @@ function updateSummary() {
 }
 
 
+function generateRequestNumber() {
+    const now = new Date();
+    const datePart = now.toISOString().slice(2, 10).replace(/-/g, ""); // YYMMDD
+    const timePart = now.toTimeString().slice(0, 5).replace(/:/g, ""); // HHMM
+    const randomNum = Math.floor(100 + Math.random() * 900); // 3-stellige Zufallszahl
 
+    return `${datePart}${timePart}${randomNum}`;
+}
 
 
 
@@ -245,84 +277,90 @@ function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Bilder-URLs (externes Verzeichnis, z.B. GitHub)
-    const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png"; // EWE-Logo
-    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.jpg"; // Flexoripp-Bild
+    const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
+    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/megaripp.png";
 
-    // Firmenname und Adresse oben
+    // Firmenname und Adresse
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.setTextColor(0, 51, 102);  // Blau für den Firmennamen
-    doc.text("Wilhelm EWE GmbH & Co.KG", 100, 20); // Firma oben
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9); // Kleinere Schriftgröße für Straße und PLZ
-    doc.setTextColor(0, 0, 0);  // Standardfarbe für die Adresse
-    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 100, 25); // Adresse unter dem Firmennamen etwas dichter dran
-
-    // EWE-Logo einfügen (nach links verschoben)
-    doc.addImage(eweLogo, 'PNG', 20, 6, 50, 40); // Logo nach links verschoben
-
-    // Datum einfügen
-    const currentDate = new Date().toLocaleDateString();
+    doc.setTextColor(0, 51, 102);
+    doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
+    
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(`Datum: ${currentDate}`, 160, 40);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
 
-    // Betreff fett und größer, weiter nach unten verschoben
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.text("Ihre Anfrage", 20, 70);  // Weiter nach unten verschoben
+    // Logo einfügen
+    doc.addImage(eweLogo, 'PNG', 156, 5, 30, 30);
 
-    // Einleitungstext
+    // Datum
+    const currentDate = new Date().toLocaleDateString();
+    doc.setFontSize(10);
+    doc.text(`Datum: ${currentDate}`, 158, 40);
+
+    // Betreff
+    
+    doc.setTextColor(0, 51, 102);
+    
+   
+   // Generiere die Anfragenummer
+   const requestNumber = generateRequestNumber();
+
+    doc.setFontSize(10);
+    doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
+
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10); // Kleinere Schriftgröße
-    doc.text("Sehr geehrte Damen und Herren,", 20, 80);
-    doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 87);
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Sehr geehrte Damen und Herren,", 20, 85);
+    doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 94);
+    doc.text("Bitte bieten Sie mir folgende Zusammenstellung an:", 20, 101);
 
-    // Abstand zwischen Einleitungstext und der Auflistung
-    let yOffset = 98;
+ // "MEGARIPP" fett und kursiv setzen
+ doc.setFont("helvetica", "bold"); // Diese Zeile macht den Text fett 
+ doc.text("MEGARIPP", 122, 94);
 
-    // Hier kommen die echten Werte aus der Auswahl rein
+    // Horizontale Linie
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.5);
+    doc.line(20, 108, 190, 108);
+
+    // Auswahlpunkte
+    let yOffset = 118;
     let selections = [
-        `1. ${lastSelections.selection1 || "Nicht ausgewählt"}`,
-        `2. ${lastSelections.selection2 || "Nicht ausgewählt"}`,
-        `3. ${lastSelections.selection3 || "Nicht ausgewählt"}`,
-        `4. ${lastSelections.selection4 || "Nicht ausgewählt"}`,
-        `5. ${lastSelections.selection5 || "Nicht ausgewählt"}`,
-        `6. ${lastSelections.selection6 || "Nicht ausgewählt"}`,
-        `7. ${lastSelections.selection7 || "Nicht ausgewählt"}`,
-        `8. ${lastSelections.selection8 || "Nicht ausgewählt"}`,
-        `9. ${lastSelections.selection9 || "Nicht ausgewählt"}`,
-        `Wasserzählerschachtschlüssel: ${lastSelections.selection10 || "Nicht ausgewählt"}`
+        `Ein MegaRipp ${lastSelections.selection1 || "Nicht ausgewählt"}`,
+        `mit ${lastSelections.selection4} Wasserzähleranlage(n) ${lastSelections.selection2} / ${lastSelections.selection3}.`,
+        `Eingangsseitig: Eingangsstutzen ${lastSelections.selection5}.`,
+        `Ausgangsseitig: ${lastSelections.selection4} x Stutzen ${lastSelections.selection5}.`,
+        `Wasserzählerschachtschlüssel 15mm: ${lastSelections.selection7}`
     ];
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Zusammenstellung:", 20, yOffset);
 
+    yOffset += 8;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
     selections.forEach((item) => {
-        doc.text(item, 20, yOffset);
-        yOffset += 10;
+        doc.text(`- ${item}`, 25, yOffset);
+        yOffset += 8;
     });
 
-    // Flexoripp-Bild auf Höhe der 4. Auswahl, mittig rechts
-    doc.addImage(flexorippImage, 'JPEG', 140, 100, 15, 30); // Hier wird das Bild auf der 4. Auswahlhöhe eingefügt
+    // Bild auf Höhe der Zusammenstellung ziehen
+    doc.addImage(flexorippImage, 'JPEG', 140, 112, 40, 50);
 
-    // Horizontale Linie nach den Auswahlpunkten
-    doc.setDrawColor(0, 0, 0);  // Schwarz
+    // Trennlinie
     doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 10, 180, yOffset + 10);  // Linie nach den Auswahlpunkten
-
-    // Eine zweite horizontale Linie unter der Auswahl
-    doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 20, 180, yOffset + 20);  // Weitere Linie zur Trennung
+    doc.line(20, yOffset + 4, 190, yOffset + 4);
 
     // Abschluss
-    doc.text("Mit freundlichen Grüßen,", 20, yOffset + 30);
-    doc.text("[Ihr Name]", 20, yOffset + 40);
+    doc.text("Mit freundlichen Grüßen,", 20, yOffset + 20);
+    doc.text("[Ihr Name]", 20, yOffset + 30);
 
-    // Weitere horizontale Linie vor dem Abschluss
-    doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 70, 180, yOffset + 70);  // Weitere Linie nach der Firmenadresse
-
-    // PDF im neuen Tab öffnen
+    // PDF öffnen
     const pdfData = doc.output('blob');
     const url = URL.createObjectURL(pdfData);
     window.open(url);
