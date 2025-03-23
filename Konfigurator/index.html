@@ -12,6 +12,14 @@
 </head>
 
 <body>
+
+<!-- Fortschrittsanzeige -->
+<div class="progress-container">
+    <div class="progress-bar"></div>
+</div>
+<div class="progress-text">Schritt 1 von 10</div>
+
+
     <header>
         <img src="images/logo.png" alt="Firmenlogo" class="logo">
         <h1>Wasserzählerschacht-Konfigurator</h1>
@@ -90,22 +98,38 @@
     <button class="back-btn" onclick="prevScreen('screen3')">Zurück</button>
 </section>
 
+        <!-- Abfrage Druckminderer -->
+        <section class="screen" id="screen4a">
+            <h2>Benötigen Sie eine WZ-Anlage mit oder ohne Druckminderer?</h2>
+            <button onclick="chooseDruckminderer('mit')">Ohne Druckminderer</button>
+            <button onclick="chooseDruckminderer('ohne')">Mit Druckminderer</button>
+            <button class="back-btn" onclick="prevScreen('screen4')">Zurück</button>
+        </section>
 
-<!-- Wasserzähleranlagen -->
-<section class="screen" id="screen5">
-    <h2>Wählen Sie eine Wasserzähleranlage</h2>
-    <button onclick="saveWasserzaehleranlage('Kugelhahn/Kugelhahn')">Kugelhahn/Kugelhahn</button>
-    <button onclick="saveWasserzaehleranlage('Kugelhahn/KSR')">Kugelhahn/KSR</button>
-    <button onclick="saveWasserzaehleranlage('Kugelhahn/KMR/Kugelhahn')">Kugelhahn/KMR/Kugelhahn</button>
-    <button onclick="saveWasserzaehleranlage('Freistrom/Freistrom')">Freistrom/Freistrom</button>
-    <button onclick="saveWasserzaehleranlage('Freistrom/KSR')">Freistrom/KSR</button>
-    <button onclick="saveWasserzaehleranlage('Freistrom/KMR/Freistrom')">Freistrom/KMR/Freistrom</button>
-    <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/KSR')">Freistrom/Druckminderer/KSR</button>
-    <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/Freistrom')">Freistrom/Druckminderer/Freistrom</button>
-    <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/Kugelhahn')">Kugelhahn/Druckminderer/Kugelhahn</button>
-    <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/KSR')">Kugelhahn/Druckminderer/KSR</button>
-    <button class="back-btn" onclick="prevScreen('screen4')">Zurück</button>
-</section>
+
+
+        <!-- Wasserzähleranlagen mit Druckminderer -->
+        <section class="screen" id="screen5-mit">
+            <h2>Wählen Sie eine WZ-Anlage ohne Druckminderer</h2>
+            <button onclick="saveWasserzaehleranlage('Kugelhahn/Kugelhahn')">Kugelhahn/Kugelhahn</button>
+            <button onclick="saveWasserzaehleranlage('Kugelhahn/KSR')">Kugelhahn/KSR</button>
+            <button onclick="saveWasserzaehleranlage('Kugelhahn/KMR/Kugelhahn')">Kugelhahn/KMR/Kugelhahn</button>
+            <button onclick="saveWasserzaehleranlage('Freistrom/Freistrom')">Freistrom/Freistrom</button>
+            <button onclick="saveWasserzaehleranlage('Freistrom/KSR')">Freistrom/KSR</button>
+            <button onclick="saveWasserzaehleranlage('Freistrom/KMR/Freistrom')">Freistrom/KMR/Freistrom</button>
+                   <button class="back-btn" onclick="prevScreen('screen4a')">Zurück</button>
+        </section>
+
+        <!-- Wasserzähleranlagen ohne Druckminderer -->
+        <section class="screen" id="screen5-ohne">
+            <h2>Wählen Sie eine WZ-Anlage mit Druckminderer</h2>
+            <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/KSR')">Freistrom/Druckminderer/KSR</button>
+            <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/Freistrom')">Freistrom/Druckminderer/Freistrom</button>
+            <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/Kugelhahn')">Kugelhahn/Druckminderer/Kugelhahn</button>
+            <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/KSR')">Kugelhahn/Druckminderer/KSR</button>
+            <button class="back-btn" onclick="prevScreen('screen4a')">Zurück</button>
+        </section>
+
 
 <!-- PE-Verschraubungen -->
 <section class="screen" id="screen6">
@@ -115,7 +139,7 @@
     <button onclick="savePEVerschraubung('PE-Schweisstutzen')">PE-Schweisstutzen</button>
     <button onclick="savePEVerschraubung('PE-Schweissmuffe')">PE-Schweissmuffe</button>
     <button onclick="skipNextScreens()">Ohne Verschraubung weiter</button>
-    <button class="back-btn" onclick="prevScreen('screen5')">Zurück</button>
+    <button class="back-btn" onclick="prevScreen('screen4a')">Zurück</button>
 </section>
 
 
@@ -162,8 +186,6 @@
     <button onclick="generatePDF()">Generiere Anfrage</button>
     <button onclick="resetConfig()">Neu starten</button>
     <button class="back-btn" onclick="prevScreen('screen10')">Zurück</button>
-    
-    
     
 </section>
 

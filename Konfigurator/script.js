@@ -27,6 +27,14 @@ let lastSelections = {
     selection10: '',
 };
 
+// Beispiel: Fortschritt beim Wechseln der Screens aktualisieren
+let currentStep = 1;
+const totalSteps = 10; // Anzahl der Auswahlseiten
+
+// Initiale Anzeige beim Laden der Seite
+updateProgressBar(currentStep, totalSteps);
+
+
 // Steuerung, ob die nächsten Bildschirme übersprungen werden sollen
 let skipNextSteps = false;
 
@@ -54,6 +62,24 @@ function nextScreen(nextScreenId, selectionKey = null) {
     const nextScreen = document.getElementById(nextScreenId);
     nextScreen.classList.add('active');
 
+    let stepNumber = parseInt(nextScreenId.replace('screen', ''));
+    if (nextScreenId === 'screen4a') {
+        stepNumber = 5;
+    } else if (nextScreenId === 'screen5-mit') {
+        stepNumber = 6;  // Falls screen5-mit ausgewählt wird, wird stepNumber auf 6 gesetzt
+    } else if (nextScreenId === 'screen5-ohne') {
+        stepNumber = 6;  // Wenn screen5-ohne ausgewählt wird, ist der wert auch6
+    } else if (nextScreenId === 'screen6') {
+        stepNumber = 7;  // Für screen6 wird stepNumber 7
+    }  else if (nextScreenId === 'summaryScreen') {
+        stepNumber = 11;  // Für summaryscreen wird stepNumber 11
+    
+}
+
+
+    currentStep = stepNumber;
+    updateProgressBar(currentStep, totalSteps);
+
 
     if (skipNextSteps) {
         skipNextSteps = false;  // Zurücksetzen der Logik, nachdem sie verwendet wurde
@@ -69,7 +95,6 @@ function nextScreen(nextScreenId, selectionKey = null) {
         }
     }
 
-
     // Speicherung der Auswahl
     if (selectionKey) {
         userSelection[selectionKey] = event.target.innerText;
@@ -81,6 +106,8 @@ function nextScreen(nextScreenId, selectionKey = null) {
         updateSummary();
     }
 }
+
+
 
 // Wechselt zurück zum vorherigen Bildschirm mit spezieller Logik für PE-Verschraubung
 function prevScreen(prevScreenId) {
@@ -94,11 +121,28 @@ function prevScreen(prevScreenId) {
     const prevScreen = document.getElementById(prevScreenId);
     prevScreen.classList.add('active');
 
+    let stepNumber = parseInt(prevScreenId.replace('screen', ''));
+    if (prevScreenId === 'screen4a') {
+        stepNumber = 5;
+    } else if (prevScreenId === 'screen5-mit') {
+        stepNumber = 6;  // Falls screen5-mit ausgewählt wird, wird stepNumber auf 6 gesetzt
+    } else if (prevScreenId === 'screen5-ohne') {
+        stepNumber = 6;  // Wenn screen5-ohne ausgewählt wird, ist der wert auch6
+    } else if (prevScreenId === 'screen6') {
+        stepNumber = 7;  // Für screen6 wird stepNumber 7
+    } 
+    currentStep = stepNumber;
+    updateProgressBar(currentStep, totalSteps);
+
+
+
     // Wenn man zu screen1 zurückkehrt, wird die Überschrift geändert
     if (prevScreenId === "screen1") {
         document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
     }
 }
+
+
 
 
 function openProduktInfo() {
@@ -125,6 +169,7 @@ function saveVerbinderAndNext(verbinder) {
     }
 
     saveLastSelection(userSelection['verbinder'], 6);  // Speichert in der neuen Auswahl-Variable
+
     nextScreen('screen10');  // Geht zum nächsten Bildschirm
 }
 
@@ -148,7 +193,7 @@ function saveProduktgruppe(produktgruppe) {
         if (produktgruppe === "Flexoripp") {
             document.querySelector("h1").textContent = "Flexoripp-Konfigurator";
         }
-    nextScreen('screen2');  // Geht zum nächsten Bildschirm
+        nextScreen('screen2');  // Geht zum nächsten Bildschirm
 }
 
 
@@ -184,7 +229,7 @@ function saveSchacht(schacht) {
 function saveDeckel(deckel) {
     userSelection['deckel'] = deckel;  // Speichert die Auswahl des Deckels
     saveLastSelection(userSelection['deckel'], 4);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen5');  // Geht zum nächsten Bildschirm
+    nextScreen('screen4a');  // Geht zum nächsten Bildschirm
 }
 
 // Speichert die Auswahl der Wasserzähleranlage und geht zum nächsten Bildschirm
@@ -194,6 +239,21 @@ function saveWasserzaehleranlage(anlage) {
     nextScreen('screen6');  // Geht zum nächsten Bildschirm
 }
 
+
+function chooseDruckminderer(option) {
+    sessionStorage.setItem("druckminderer", option);
+    document.querySelectorAll(".screen").forEach(screen => screen.classList.remove("active"));
+    if (option === "mit") {
+        document.getElementById("screen5-mit").classList.add("active");
+    } else {
+        document.getElementById("screen5-ohne").classList.add("active");
+    }
+    
+    let stepNumber = 6;
+    currentStep = stepNumber;
+    updateProgressBar(currentStep, totalSteps);
+    
+}
 
 
 
@@ -218,6 +278,8 @@ function savePEVerschraubung(verschraubung) {
 
     nextScreen('screen8');  // Geht zum nächsten Bildschirm
 }
+
+
 
 // Überspringt die Auswahl und geht direkt zum nächsten Bildschirm
 function skipNextScreens() {
@@ -282,19 +344,28 @@ function resetConfig() {
         selection10: ''
     };
 
+
+
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
     document.getElementById('screen1').classList.add('active');
     document.getElementById('summary').innerText = '';
 
-    document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
+    let currentStep = 1;
+    updateProgressBar(currentStep, totalSteps);
+
+    
 }
 
 
 
 // Zeigt die Zusammenfassung der Auswahl an
 function updateSummary() {
+    
+   
     const summaryContainer = document.getElementById('summary');
     summaryContainer.innerHTML = '';  // Leere den aktuellen Inhalt
+
+
 
     const selectionOrder = [];
     for (const [key, value] of Object.entries(userSelection)) {
@@ -320,100 +391,118 @@ function updateSummary() {
         <p>Wasserzählerschachtschlüssel : ${lastSelections.selection10}</p>
     `;
     summaryContainer.appendChild(lastSelectionsDiv);
+
+
 }
 
 
 
+    function generateRequestNumber() {
+        const now = new Date();
+        const datePart = now.toISOString().slice(2, 10).replace(/-/g, ""); // YYMMDD
+        const timePart = now.toTimeString().slice(0, 5).replace(/:/g, ""); // HHMM
+        const randomNum = Math.floor(100 + Math.random() * 900); // 3-stellige Zufallszahl
+    
+        return `${datePart}${timePart}${randomNum}`;
+    }
+    
 
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+    
+        // Bilder-URLs
+        const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
+        const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.jpg";
+    
+        // Generiere die Anfragenummer
+        const requestNumber = generateRequestNumber();
+    
+            // Firmenname und Adresse
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.setTextColor(0, 51, 102);
+        doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
+    
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
 
+    // Logo einfügen
+    doc.addImage(eweLogo, 'PNG', 156, 5, 30, 30);
 
-function generatePDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    // Bilder-URLs (externes Verzeichnis, z.B. GitHub)
-    const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png"; // EWE-Logo
-    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.jpg"; // Flexoripp-Bild
-
-    // Firmenname und Adresse oben
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.setTextColor(0, 51, 102);  // Blau für den Firmennamen
-    doc.text("Wilhelm EWE GmbH & Co.KG", 100, 20); // Firma oben
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9); // Kleinere Schriftgröße für Straße und PLZ
-    doc.setTextColor(0, 0, 0);  // Standardfarbe für die Adresse
-    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 100, 25); // Adresse unter dem Firmennamen etwas dichter dran
-
-    // EWE-Logo einfügen (nach links verschoben)
-    doc.addImage(eweLogo, 'PNG', 20, 6, 50, 40); // Logo nach links verschoben
-
-    // Datum einfügen
-    const currentDate = new Date().toLocaleDateString();
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.text(`Datum: ${currentDate}`, 160, 40);
-
-    // Betreff fett und größer, weiter nach unten verschoben
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.text("Ihre Anfrage", 20, 70);  // Weiter nach unten verschoben
-
-    // Einleitungstext
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10); // Kleinere Schriftgröße
-    doc.text("Sehr geehrte Damen und Herren,", 20, 80);
-    doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 87);
-
-    // Abstand zwischen Einleitungstext und der Auflistung
-    let yOffset = 98;
-
-    // Hier kommen die echten Werte aus der Auswahl rein
-    let selections = [
-        `1. ${lastSelections.selection1 || "Nicht ausgewählt"}`,
-        `2. ${lastSelections.selection2 || "Nicht ausgewählt"}`,
-        `3. ${lastSelections.selection3 || "Nicht ausgewählt"}`,
-        `4. ${lastSelections.selection4 || "Nicht ausgewählt"}`,
-        `5. ${lastSelections.selection5 || "Nicht ausgewählt"}`,
-        `6. ${lastSelections.selection6 || "Nicht ausgewählt"}`,
-        `7. ${lastSelections.selection7 || "Nicht ausgewählt"}`,
-        `8. ${lastSelections.selection8 || "Nicht ausgewählt"}`,
-        `9. ${lastSelections.selection9 || "Nicht ausgewählt"}`,
-        `Wasserzählerschachtschlüssel: ${lastSelections.selection10 || "Nicht ausgewählt"}`
-    ];
-
-    selections.forEach((item) => {
-        doc.text(item, 20, yOffset);
-        yOffset += 10;
-    });
-
-    // Flexoripp-Bild auf Höhe der 4. Auswahl, mittig rechts
-    doc.addImage(flexorippImage, 'JPEG', 140, 100, 15, 30); // Hier wird das Bild auf der 4. Auswahlhöhe eingefügt
-
-    // Horizontale Linie nach den Auswahlpunkten
-    doc.setDrawColor(0, 0, 0);  // Schwarz
-    doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 10, 180, yOffset + 10);  // Linie nach den Auswahlpunkten
-
-    // Eine zweite horizontale Linie unter der Auswahl
-    doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 20, 180, yOffset + 20);  // Weitere Linie zur Trennung
-
-    // Abschluss
-    doc.text("Mit freundlichen Grüßen,", 20, yOffset + 30);
-    doc.text("[Ihr Name]", 20, yOffset + 40);
-
-    // Weitere horizontale Linie vor dem Abschluss
-    doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 70, 180, yOffset + 70);  // Weitere Linie nach der Firmenadresse
-
-    // PDF im neuen Tab öffnen
-    const pdfData = doc.output('blob');
-    const url = URL.createObjectURL(pdfData);
-    window.open(url);
-}
-
+        // Datum
+        const currentDate = new Date().toLocaleDateString();
+        doc.setFontSize(10);
+        doc.text(`Datum: ${currentDate}`, 158, 40);
+    
+        // Betreff
+    
+        doc.setTextColor(0, 51, 102);
+        
+        // Anfragenummer
+        doc.setFontSize(10);
+        doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
+    
+        // Einleitungstext
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text("Sehr geehrte Damen und Herren,", 20, 85);
+        doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 94);
+        doc.text("Bitte bieten Sie mir folgende Zusammenstellung an:", 20, 101);
+    
+        // "FLEXORIPP" fett setzen
+        doc.setFont("helvetica", "bold");
+        doc.text("FLEXORIPP", 122, 94);
+    
+        // Horizontale Linie
+        doc.setDrawColor(0, 0, 0);
+        doc.setLineWidth(0.5);
+        doc.line(20, 108, 190, 108);
+    
+        // Auswahlpunkte
+        let yOffset = 118;
+        let selections = [
+            `Ein Flexoripp ${lastSelections.selection1 || "Nicht ausgewählt"}`,
+            `mit ${lastSelections.selection4} Wasserzähleranlage(n) ${lastSelections.selection2} / ${lastSelections.selection3}.`,
+            `Eingangsseitig: Eingangsstutzen ${lastSelections.selection5}.`,
+            `Ausgangsseitig: ${lastSelections.selection4} x Stutzen ${lastSelections.selection5}.`,
+            `Wasserzählerschachtschlüssel 15mm: ${lastSelections.selection7}`
+        ];
+        
+        
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.setTextColor(0, 51, 102);
+        doc.text("Zusammenstellung:", 20, yOffset);
+    
+        yOffset += 8;
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        selections.forEach((item) => {
+            doc.text(`- ${item}`, 25, yOffset);
+            yOffset += 8;
+        });
+    
+        // Bild auf Höhe der Zusammenstellung ziehen
+        doc.addImage(flexorippImage, 'JPEG', 140, 112, 20, 35);
+    
+        // Trennlinie
+        doc.setLineWidth(0.5);
+        doc.line(20, yOffset + 4, 190, yOffset + 4);
+    
+        // Abschluss
+        doc.text("Mit freundlichen Grüßen,", 20, yOffset + 20);
+        doc.text("[Ihr Name]", 20, yOffset + 30);
+    
+        // PDF öffnen
+        const pdfData = doc.output('blob');
+        const url = URL.createObjectURL(pdfData);
+        window.open(url);
+    }
+    
 
 // Sendet die Zusammenstellung per E-Mail ohne HTML-Tags
 function sendEmail() {
@@ -514,4 +603,41 @@ Mit freundlichen Grüßen,
     window.location.href = emailLink;
 }
 
+
+
+// Fortschrittsanzeige aktualisieren
+function updateProgressBar(step, totalSteps) {
+    const progressBar = document.querySelector('.progress-bar');
+    const progressText = document.querySelector('.progress-text');
+    const progressContainer = document.querySelector('.progress-container'); // Der Container für die Fortschrittsanzeige
+
+
+    // Wenn die Zusammenstellung angezeigt wird, Fortschrittsanzeige ausblenden
+
+    // Prozent berechnen und Fortschrittsleiste setzen
+    let progressPercent = (step / totalSteps) * 100;
+    progressBar.style.width = progressPercent + "%";
+
+    // Fortschrittstext aktualisieren
+    progressText.textContent = `Schritt ${step} von ${totalSteps}`;
+
+    
+    if (currentStep === 1 || currentStep === 11) {
+        // Wenn screen1 aktiv ist, Fortschrittsanzeige ausblenden
+        progressBar.style.display = 'none';
+        progressText.style.display = 'none';
+        progressContainer.style.display = 'none';
+
+    } else {
+        // Ansonsten Fortschrittsanzeige anzeigen und aktualisieren
+        progressBar.style.display = 'block';
+        progressText.style.display = 'block';
+        progressContainer.style.display = 'block';
+        
+        const progress = (currentStep / totalSteps) * 100;
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `Schritt ${currentStep} von ${totalSteps}`;
+    }
+
+}
 

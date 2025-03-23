@@ -27,6 +27,15 @@ let lastSelections = {
     selection10: '',
 };
 
+
+// Beispiel: Fortschritt beim Wechseln der Screens aktualisieren
+let currentStep = 2;
+const totalSteps = 8; // Anzahl der Auswahlseiten
+
+// Initiale Anzeige beim Laden der Seite
+updateProgressBar(currentStep, totalSteps);
+
+
 // Steuerung, ob die nächsten Bildschirme übersprungen werden sollen
 let skipNextSteps = false;
 
@@ -53,6 +62,16 @@ function nextScreen(nextScreenId, selectionKey = null) {
 
     const nextScreen = document.getElementById(nextScreenId);
     nextScreen.classList.add('active');
+
+    
+    let stepNumber = parseInt(nextScreenId.replace('screen', ''));
+    if (nextScreenId === 'summaryScreen') {
+        stepNumber = 9;
+    }
+    currentStep = stepNumber;
+    updateProgressBar(currentStep, totalSteps);
+
+
 
     // Speicherung der Auswahl
     if (selectionKey) {
@@ -99,7 +118,7 @@ function nextScreen(nextScreenId, selectionKey = null) {
             if (userSelection['schacht'] === "300mm Q3 16 6/4“") {
             const wzButtons = document.querySelectorAll("#screen5 button:not(.back-btn)");
     
-            if (userSelection['deckel'] === "Kugelhahn" || userSelection['deckel'] === "Schrägsitz") {
+            if (userSelection['deckel'] === "Kugelhahn" || userSelection['deckel'] === "KSR-Ventil" || userSelection['deckel'] === "Schrägsitz") {
                 // Blendet die Buttons 3 bis 5 aus
                 wzButtons.forEach(button => button.style.display = "inline-block");
                 wzButtons.forEach((button, index) => {
@@ -126,6 +145,13 @@ function prevScreen(prevScreenId) {
     const prevScreen = document.getElementById(prevScreenId);
     prevScreen.classList.add('active');
 
+    let stepNumber = parseInt(prevScreenId.replace('screen', ''));
+    currentStep = stepNumber;
+    updateProgressBar(currentStep, totalSteps);
+
+
+    
+    
     // Wenn man zu screen1 zurückkehrt, wird die Überschrift geändert
     if (prevScreenId === "screen1") {
         document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
@@ -225,10 +251,15 @@ function resetConfig() {
         selection10: ''
     };
 
+
+
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
     document.getElementById('screen2').classList.add('active');
     document.getElementById('summary').innerText = '';
 
+    currentStep = 2;
+    updateProgressBar(currentStep, totalSteps);
+    
 }
 
 
@@ -331,7 +362,7 @@ function generatePDF() {
     let selections = [
         `Ein MegaRipp ${lastSelections.selection1 || "Nicht ausgewählt"}`,
         `mit ${lastSelections.selection4} Wasserzähleranlage(n) ${lastSelections.selection2} / ${lastSelections.selection3}.`,
-        `Eingangsseitig: Eingangsstutzen ${lastSelections.selection5}.`,
+        `Eingangsseitig:  1 x ${lastSelections.selection5}.`,
         `Ausgangsseitig: ${lastSelections.selection4} x Stutzen ${lastSelections.selection5}.`,
         `Wasserzählerschachtschlüssel 15mm: ${lastSelections.selection7}`
     ];
@@ -399,6 +430,43 @@ Mit freundlichen Grüßen,
     // Gmail-Link erzeugen
     const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=Anfrage%20für%20ein%20Angebot&body=${encodeURIComponent(emailBody)}`;
     window.location.href = gmailLink;
+}
+
+
+// Fortschrittsanzeige aktualisieren
+function updateProgressBar(step, totalSteps) {
+    const progressBar = document.querySelector('.progress-bar');
+    const progressText = document.querySelector('.progress-text');
+    const progressContainer = document.querySelector('.progress-container'); // Der Container für die Fortschrittsanzeige
+
+
+    // Wenn die Zusammenstellung angezeigt wird, Fortschrittsanzeige ausblenden
+
+    // Prozent berechnen und Fortschrittsleiste setzen
+    let progressPercent = (step / totalSteps) * 100;
+    progressBar.style.width = progressPercent + "%";
+
+    // Fortschrittstext aktualisieren
+    progressText.textContent = `Schritt ${step} von ${totalSteps}`;
+
+    
+    if (currentStep === 9) {
+        // Wenn screen1 aktiv ist, Fortschrittsanzeige ausblenden
+        progressBar.style.display = 'none';
+        progressText.style.display = 'none';
+        progressContainer.style.display = 'none';
+
+    } else {
+        // Ansonsten Fortschrittsanzeige anzeigen und aktualisieren
+        progressBar.style.display = 'block';
+        progressText.style.display = 'block';
+        progressContainer.style.display = 'block';
+        
+        const progress = (currentStep / totalSteps) * 100;
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `Schritt ${currentStep} von ${totalSteps}`;
+    }
+
 }
 
 
