@@ -12,6 +12,14 @@
 </head>
 
 <body>
+
+<!-- Fortschrittsanzeige -->
+<div class="progress-container">
+    <div class="progress-bar"></div>
+</div>
+<div class="progress-text">Schritt 1 von 8</div>
+
+
     <header>
         <img src="images/logo.png" alt="Firmenlogo" class="logo">
         <h1>Megaripp-Konfigurator</h1>
@@ -47,9 +55,9 @@
     <h2>Wählen Sie das Ausgangsventil</h2>
     <button onclick="saveDeckel('Kugelhahn')">Kugelhahn</button>
     <button onclick="saveDeckel('Schrägsitz')">Schrägsitz</button>
+    <button onclick="saveDeckel('KSR-Ventil')">KSR-Ventil</button>
     <button onclick="saveDeckel('KMR – Kugelhahn*')">KMR – Kugelhahn*</button>
     <button onclick="saveDeckel('KMR – Schrägsitzventil*')">KMR – Schrägsitzventil*</button>
-    <button onclick="saveDeckel('KSR-Ventil')">KSR-Ventil</button>
     <button class="back-btn" onclick="prevScreen('screen3')">Zurück</button>
 </section>
 
@@ -104,7 +112,7 @@
     <h2>Ihre Auswahl:</h2>
     <p id="summary"></p>
     <button onclick="generatePDF()">Generiere Anfrage</button>
-    <button onclick="resetConfig()">Neu starten</button>
+    <button onclick="window.location.href='index.html'">Neu starten</button>
     <button class="back-btn" onclick="prevScreen('screen8')">Zurück</button>
     
     
