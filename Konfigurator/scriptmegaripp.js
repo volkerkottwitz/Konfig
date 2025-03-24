@@ -27,15 +27,6 @@ let lastSelections = {
     selection10: '',
 };
 
-
-// Beispiel: Fortschritt beim Wechseln der Screens aktualisieren
-let currentStep = 2;
-const totalSteps = 8; // Anzahl der Auswahlseiten
-
-// Initiale Anzeige beim Laden der Seite
-updateProgressBar(currentStep, totalSteps);
-
-
 // Steuerung, ob die nächsten Bildschirme übersprungen werden sollen
 let skipNextSteps = false;
 
@@ -63,14 +54,13 @@ function nextScreen(nextScreenId, selectionKey = null) {
     const nextScreen = document.getElementById(nextScreenId);
     nextScreen.classList.add('active');
 
-    
+
     let stepNumber = parseInt(nextScreenId.replace('screen', ''));
     if (nextScreenId === 'summaryScreen') {
         stepNumber = 9;
     }
     currentStep = stepNumber;
     updateProgressBar(currentStep, totalSteps);
-
 
 
     // Speicherung der Auswahl
@@ -150,8 +140,7 @@ function prevScreen(prevScreenId) {
     updateProgressBar(currentStep, totalSteps);
 
 
-    
-    
+
     // Wenn man zu screen1 zurückkehrt, wird die Überschrift geändert
     if (prevScreenId === "screen1") {
         document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
@@ -251,15 +240,10 @@ function resetConfig() {
         selection10: ''
     };
 
-
-
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
     document.getElementById('screen2').classList.add('active');
     document.getElementById('summary').innerText = '';
 
-    currentStep = 2;
-    updateProgressBar(currentStep, totalSteps);
-    
 }
 
 
@@ -338,6 +322,15 @@ function generatePDF() {
    // Generiere die Anfragenummer
    const requestNumber = generateRequestNumber();
 
+       // Holen der Benutzerdaten aus dem Formular
+       const name = document.getElementById('name').value;
+       const street = document.getElementById('street').value;
+       const postalCode = document.getElementById('postalCode').value;
+       const city = document.getElementById('city').value;
+       const email = document.getElementById('email').value;
+       const phone = document.getElementById('phone').value || "Nicht angegeben";
+       const comments = document.getElementById('comments').value || "Keine Bemerkungen";
+
     doc.setFontSize(10);
     doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
 
@@ -387,6 +380,30 @@ function generatePDF() {
     doc.setLineWidth(0.5);
     doc.line(20, yOffset + 4, 190, yOffset + 4);
 
+    // Benutzer-Daten einfügen
+    yOffset += 12;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Benutzerdaten:", 20, yOffset);
+
+    yOffset += 8;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(`Name: ${name}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`Straße: ${street}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`PLZ: ${postalCode}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`Ort: ${city}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`E-Mail: ${email}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`Telefon: ${phone}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`Bemerkungen: ${comments}`, 25, yOffset);
+
     // Abschluss
     doc.text("Mit freundlichen Grüßen,", 20, yOffset + 20);
     doc.text("[Ihr Name]", 20, yOffset + 30);
@@ -433,6 +450,7 @@ Mit freundlichen Grüßen,
 }
 
 
+
 // Fortschrittsanzeige aktualisieren
 function updateProgressBar(step, totalSteps) {
     const progressBar = document.querySelector('.progress-bar');
@@ -450,7 +468,7 @@ function updateProgressBar(step, totalSteps) {
     progressText.textContent = `Schritt ${step} von ${totalSteps}`;
 
     
-    if (currentStep === 9) {
+    if (!(currentStep >= 2 && currentStep <= 8)) {
         // Wenn screen1 aktiv ist, Fortschrittsanzeige ausblenden
         progressBar.style.display = 'none';
         progressText.style.display = 'none';
@@ -469,7 +487,34 @@ function updateProgressBar(step, totalSteps) {
 
 }
 
+// Beispiel: Fortschritt beim Wechseln der Screens aktualisieren
+let currentStep = 2;
+const totalSteps = 8; // Anzahl der Auswahlseiten
 
 
 
+// Initiale Anzeige beim Laden der Seite
+updateProgressBar(currentStep, totalSteps);
+
+
+
+// Benutzerdaten
+
+document.querySelector('.submit-btn').addEventListener('click', function(event) {
+    // Formulardaten validieren
+    var form = document.getElementById('userDataForm');
+    if (form.checkValidity()) {  // Überprüft, ob alle Pflichtfelder ausgefüllt sind
+        event.preventDefault();  // Verhindert das automatische Absenden des Formulars
+        generatePDF();  // PDF-Generierung auslösen
+    } 
+});
+
+
+function showUserDataScreen() {
+    // Blende den Zusammenfassungs-Bildschirm aus
+    document.getElementById('summaryScreen').classList.remove('active');
+    
+    // Zeige den Benutzer-Daten-Bildschirm an
+    document.getElementById('userDataScreen').classList.add('active');
+}
 

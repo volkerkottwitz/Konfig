@@ -27,14 +27,6 @@ let lastSelections = {
     selection10: '',
 };
 
-// Beispiel: Fortschritt beim Wechseln der Screens aktualisieren
-let currentStep = 1;
-const totalSteps = 10; // Anzahl der Auswahlseiten
-
-// Initiale Anzeige beim Laden der Seite
-updateProgressBar(currentStep, totalSteps);
-
-
 // Steuerung, ob die nächsten Bildschirme übersprungen werden sollen
 let skipNextSteps = false;
 
@@ -343,17 +335,14 @@ function resetConfig() {
         selection9: '',
         selection10: ''
     };
-
-
+    let currentStep = 1;
+    updateProgressBar(currentStep, totalSteps);
 
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
     document.getElementById('screen1').classList.add('active');
     document.getElementById('summary').innerText = '';
 
-    let currentStep = 1;
-    updateProgressBar(currentStep, totalSteps);
-
-    
+    document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
 }
 
 
@@ -395,114 +384,152 @@ function updateSummary() {
 
 }
 
+function generateRequestNumber() {
+    const now = new Date();
+    const datePart = now.toISOString().slice(2, 10).replace(/-/g, ""); // YYMMDD
+    const timePart = now.toTimeString().slice(0, 5).replace(/:/g, ""); // HHMM
+    const randomNum = Math.floor(100 + Math.random() * 900); // 3-stellige Zufallszahl
+
+    return `${datePart}${timePart}${randomNum}`;
+}
 
 
-    function generateRequestNumber() {
-        const now = new Date();
-        const datePart = now.toISOString().slice(2, 10).replace(/-/g, ""); // YYMMDD
-        const timePart = now.toTimeString().slice(0, 5).replace(/:/g, ""); // HHMM
-        const randomNum = Math.floor(100 + Math.random() * 900); // 3-stellige Zufallszahl
-    
-        return `${datePart}${timePart}${randomNum}`;
-    }
-    
+function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-    function generatePDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+    // Bilder-URLs
+    const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
+    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.jpg";
     
-        // Bilder-URLs
-        const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
-        const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.jpg";
-    
-        // Generiere die Anfragenummer
-        const requestNumber = generateRequestNumber();
-    
-            // Firmenname und Adresse
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(18);
-        doc.setTextColor(0, 51, 102);
-        doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
-    
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
-        doc.setTextColor(0, 0, 0);
-        doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
+    // Generiere die Anfragenummer
+    const requestNumber = generateRequestNumber();
+
+    // Holen der Benutzerdaten aus dem Formular
+    const name = document.getElementById('name').value;
+    const street = document.getElementById('street').value;
+    const postalCode = document.getElementById('postalCode').value;
+    const city = document.getElementById('city').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value || "Nicht angegeben";
+    const comments = document.getElementById('comments').value || "Keine Bemerkungen";
+
+    // Firmenname und Adresse
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
 
     // Logo einfügen
     doc.addImage(eweLogo, 'PNG', 156, 5, 30, 30);
 
-        // Datum
-        const currentDate = new Date().toLocaleDateString();
-        doc.setFontSize(10);
-        doc.text(`Datum: ${currentDate}`, 158, 40);
-    
-        // Betreff
-    
-        doc.setTextColor(0, 51, 102);
-        
-        // Anfragenummer
-        doc.setFontSize(10);
-        doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
-    
-        // Einleitungstext
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
-        doc.setTextColor(0, 0, 0);
-        doc.text("Sehr geehrte Damen und Herren,", 20, 85);
-        doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 94);
-        doc.text("Bitte bieten Sie mir folgende Zusammenstellung an:", 20, 101);
-    
-        // "FLEXORIPP" fett setzen
-        doc.setFont("helvetica", "bold");
-        doc.text("FLEXORIPP", 122, 94);
-    
-        // Horizontale Linie
-        doc.setDrawColor(0, 0, 0);
-        doc.setLineWidth(0.5);
-        doc.line(20, 108, 190, 108);
-    
-        // Auswahlpunkte
-        let yOffset = 118;
-        let selections = [
-            `Ein Flexoripp ${lastSelections.selection1 || "Nicht ausgewählt"}`,
-            `mit ${lastSelections.selection4} Wasserzähleranlage(n) ${lastSelections.selection2} / ${lastSelections.selection3}.`,
-            `Eingangsseitig: Eingangsstutzen ${lastSelections.selection5}.`,
-            `Ausgangsseitig: ${lastSelections.selection4} x Stutzen ${lastSelections.selection5}.`,
-            `Wasserzählerschachtschlüssel 15mm: ${lastSelections.selection7}`
-        ];
-        
-        
+    // Datum
+    const currentDate = new Date().toLocaleDateString();
+    doc.setFontSize(10);
+    doc.text(`Datum: ${currentDate}`, 158, 40);
+
+        // Abschnitt Anfragenummer
         doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
         doc.setTextColor(0, 51, 102);
-        doc.text("Zusammenstellung:", 20, yOffset);
+        doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
+
+
+    // Einleitungstext
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Sehr geehrte Damen und Herren,", 20, 85);
+    doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 94);
+    doc.text("Bitte bieten Sie mir folgende Zusammenstellung an:", 20, 101);
+
+    // "FLEXORIPP" fett setzen
+    doc.setFont("helvetica", "bold");
+    doc.text("FLEXORIPP", 122, 94);
+
+    // Horizontale Linie
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.5);
+    doc.line(20, 108, 190, 108);
+
+    // Auswahlpunkte
+    let yOffset = 118;
+    let selections = [
+        `Ein Flexoripp ${lastSelections.selection2} mit ${lastSelections.selection4}.`,
+        `Die Rohrdeckung ist ${lastSelections.selection3}.`,
+        `Die Wasserzähleranlage ist ${lastSelections.selection5}.`
+    ];
     
-        yOffset += 8;
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
-        selections.forEach((item) => {
-            doc.text(`- ${item}`, 25, yOffset);
-            yOffset += 8;
-        });
-    
-        // Bild auf Höhe der Zusammenstellung ziehen
-        doc.addImage(flexorippImage, 'JPEG', 140, 112, 20, 35);
-    
-        // Trennlinie
-        doc.setLineWidth(0.5);
-        doc.line(20, yOffset + 4, 190, yOffset + 4);
-    
-        // Abschluss
-        doc.text("Mit freundlichen Grüßen,", 20, yOffset + 20);
-        doc.text("[Ihr Name]", 20, yOffset + 30);
-    
-        // PDF öffnen
-        const pdfData = doc.output('blob');
-        const url = URL.createObjectURL(pdfData);
-        window.open(url);
+    // Wenn selection6 nicht leer ist, füge die entsprechenden Zeilen hinzu
+    if (lastSelections.selection6) {
+        selections.push(`${lastSelections.selection6} ist/sind gewünscht und zwar:`);
+        selections.push(`${lastSelections.selection7} in ${lastSelections.selection9} x ${lastSelections.selection8}.`);
     }
     
+    // Die Wasserzählerschachtschlüssel Zeile immer hinzufügen
+    selections.push(`Wasserzählerschachtschlüssel 15mm: ${lastSelections.selection10}`);
+    
+    // Abschnitt Zusammenstellung
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Zusammenstellung:", 20, yOffset);
+
+    yOffset += 8;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    selections.forEach((item) => {
+        doc.text(`- ${item}`, 25, yOffset);
+        yOffset += 8;
+    });
+
+    // Bild auf Höhe der Zusammenstellung ziehen
+    doc.addImage(flexorippImage, 'JPEG', 160, 122, 20, 35);
+
+    // Trennlinie
+    doc.setLineWidth(0.5);
+    doc.line(20, yOffset + 4, 190, yOffset + 4);
+
+    // Benutzer-Daten einfügen
+    yOffset += 12;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Benutzerdaten:", 20, yOffset);
+
+    yOffset += 8;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(`Name: ${name}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`Straße: ${street}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`PLZ: ${postalCode}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`Ort: ${city}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`E-Mail: ${email}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`Telefon: ${phone}`, 25, yOffset);
+    yOffset += 8;
+    doc.text(`Bemerkungen: ${comments}`, 25, yOffset);
+
+    // Abschluss
+    doc.setFontSize(10);
+    doc.text("Mit freundlichen Grüßen,", 20, yOffset + 20);
+    doc.text("[Ihr Name]", 20, yOffset + 28);
+
+    // PDF öffnen
+    const pdfData = doc.output('blob');
+    const url = URL.createObjectURL(pdfData);
+    window.open(url);
+}
+
 
 // Sendet die Zusammenstellung per E-Mail ohne HTML-Tags
 function sendEmail() {
@@ -622,7 +649,7 @@ function updateProgressBar(step, totalSteps) {
     progressText.textContent = `Schritt ${step} von ${totalSteps}`;
 
     
-    if (currentStep === 1 || currentStep === 11) {
+    if (!(currentStep >= 2 && currentStep <= 10)) {
         // Wenn screen1 aktiv ist, Fortschrittsanzeige ausblenden
         progressBar.style.display = 'none';
         progressText.style.display = 'none';
@@ -640,4 +667,35 @@ function updateProgressBar(step, totalSteps) {
     }
 
 }
+
+// Beispiel: Fortschritt beim Wechseln der Screens aktualisieren
+let currentStep = 1;
+const totalSteps = 10; // Anzahl der Auswahlseiten
+
+
+
+// Initiale Anzeige beim Laden der Seite
+updateProgressBar(currentStep, totalSteps);
+
+
+// Benutzerdaten
+
+document.querySelector('.submit-btn').addEventListener('click', function(event) {
+    // Formulardaten validieren
+    var form = document.getElementById('userDataForm');
+    if (form.checkValidity()) {  // Überprüft, ob alle Pflichtfelder ausgefüllt sind
+        event.preventDefault();  // Verhindert das automatische Absenden des Formulars
+        generatePDF();  // PDF-Generierung auslösen
+    } 
+});
+
+
+function showUserDataScreen() {
+    // Blende den Zusammenfassungs-Bildschirm aus
+    document.getElementById('summaryScreen').classList.remove('active');
+    
+    // Zeige den Benutzer-Daten-Bildschirm an
+    document.getElementById('userDataScreen').classList.add('active');
+}
+
 

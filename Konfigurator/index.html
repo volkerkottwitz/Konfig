@@ -183,11 +183,57 @@
 <section class="screen" id="summaryScreen">
     <h2>Ihre Auswahl:</h2>
     <p id="summary"></p>
-    <button onclick="generatePDF()">Generiere Anfrage</button>
-    <button onclick="resetConfig()">Neu starten</button>
+    <button onclick="showUserDataScreen()">Generiere Anfrage</button>
+    <button onclick="window.location.href='index.html'">Neu starten</button>
     <button class="back-btn" onclick="prevScreen('screen10')">Zurück</button>
-    
 </section>
+
+<!-- Benutzer-Daten Bildschirm (wird anfangs versteckt) -->
+<section class="screen" id="userDataScreen">
+    <h2>Ihre Daten</h2>
+    <form id="userDataForm">
+        <div class="input-container">
+            <label for="name">Name*</label>
+            <input type="text" id="name" name="name" required placeholder="Ihr Name">
+        </div>
+        
+        <div class="input-container">
+            <label for="street">Straße*</label>
+            <input type="text" id="street" name="street" required placeholder="Ihre Straße">
+        </div>
+        
+        <div class="input-container">
+            <label for="postalCode">PLZ*</label>
+            <input type="text" id="postalCode" name="postalCode" required placeholder="Ihre PLZ">
+        </div>
+
+        <div class="input-container">
+            <label for="city">Ort*</label>
+            <input type="text" id="city" name="city" required placeholder="Ihr Ort">
+        </div>
+        
+        <div class="input-container">
+            <label for="email">E-Mail*</label>
+            <input type="email" id="email" name="email" required placeholder="Ihre E-Mail-Adresse">
+        </div>
+
+        <div class="input-container">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" placeholder="Ihre Telefonnummer (optional)">
+        </div>
+        
+        <div class="input-container">
+            <label for="comments">Bemerkungen</label>
+            <textarea id="comments" name="comments" placeholder="Ihre Bemerkungen (optional)"></textarea>
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="submit-btn">Daten absenden</button>
+        </div>
+    </form>
+    <button class="back-btn" onclick="prevScreen('summaryScreen')">Zurück</button>
+</section>
+
 
     </main>
 
