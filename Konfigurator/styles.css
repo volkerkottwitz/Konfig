@@ -46,12 +46,12 @@ main {
 /* Buttons */
 button {
     font-family: 'Roboto Condensed', Arial, sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     background-color: #0073e6;
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 15px;
+    padding: 12px;
     cursor: pointer;
     transition: background 0.3s ease;
     flex-grow: 1;
@@ -100,8 +100,8 @@ button.back-btn:hover {
 
 /* Einheitliche Bilder */
 .product-image {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     transition: transform 0.3s ease-in-out;
 }
@@ -135,12 +135,14 @@ button.back-btn:hover {
 /* Responsive Design */
 @media (max-width: 600px) {
     .selection-container {
-        flex-direction: column;
+        flex-direction: row; /* Statt column */
+        justify-content: center; /* Falls nötig für zentrierte Anzeige */
         align-items: center;
+        gap: 10px; /* Optional: kleinerer Abstand auf mobilen Geräten */
     }
     
     .product-button {
-        width: 100%;
+        width: auto; /* Entfernt die 100% Breite */
     }
 }
 
@@ -148,11 +150,12 @@ button.back-btn:hover {
 /* Fortschrittscontainer */
 .progress-container {
     width: 100%;
-    height: 10px;
+    height: 8px;
     background-color: #e0e0e0;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    border-radius: 0;
+    margin-bottom: 8px;
     position: relative;
+    display: none; /* Versteckt die Fortschrittsanzeige beim Start */
 }
 
 /* Fortschrittsleiste */
@@ -160,13 +163,101 @@ button.back-btn:hover {
     height: 100%;
     width: 0%;
     background-color: #0073e6;
-    border-radius: 5px;
+    border-radius: 0;
     transition: width 0.3s ease;
 }
 
 /* Fortschrittstext */
 .progress-text {
-    font-size: 16px;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    font-size: 12px;
     font-weight: bold;
     text-align: center;
+    display: none; /* Versteckt die Fortschrittsanzeige beim Start */
+}
+
+
+/* Style für Userabfrage /*
+
+
+/* Allgemeine Formstilsetzung */
+#userDataScreen {
+    background-color: #f7f7f7;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#userDataScreen h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Eingabefelder */
+.input-container {
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.input-container input,
+.input-container textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input-container input:focus,
+.input-container textarea:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+/* Textarea speziell stylen */
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* Buttons */
+.form-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #357ab7;
+}
+
+/* Validierungs-Feedback (optional) */
+input:invalid,
+textarea:invalid {
+    border-color: #e74c3c;
+}
+
+input:valid,
+textarea:valid {
+    border-color: #2ecc71;
 }
