@@ -57,7 +57,11 @@ function nextScreen(nextScreenId, selectionKey = null) {
 
     let stepNumber = parseInt(nextScreenId.replace('screen', ''));
     if (nextScreenId === 'summaryScreen') {
-        stepNumber = 9;
+        stepNumber = 10;
+    } else if (nextScreenId === 'screen7b') {
+        stepNumber = 8;
+    } else if (nextScreenId === 'screen8') {
+        stepNumber = 9;  // Falls screen5-mit ausgewählt wird, wird stepNumber auf 6 gesetzt
     }
     currentStep = stepNumber;
     updateProgressBar(currentStep, totalSteps);
@@ -136,6 +140,11 @@ function prevScreen(prevScreenId) {
     prevScreen.classList.add('active');
 
     let stepNumber = parseInt(prevScreenId.replace('screen', ''));
+    if (prevScreenId === 'screen8') {
+        stepNumber = 9;
+    } else if (prevScreenId === 'screen7b') {
+        stepNumber = 8;  // Falls screen5-mit ausgewählt wird, wird stepNumber auf 6 gesetzt
+    }
     currentStep = stepNumber;
     updateProgressBar(currentStep, totalSteps);
 
@@ -188,7 +197,6 @@ function saveWasserzaehleranlage(anlage) {
 function savePEVerschraubung(verschraubung) {
     userSelection['peVerschraubung'] = verschraubung;  // Speichert die Auswahl der PE-Verschraubung
     saveLastSelection(userSelection['peVerschraubung'], 5);  // Speichert in der neuen Auswahl-Variable
-
     nextScreen('screen7');  // Geht zum nächsten Bildschirm
 }
 
@@ -196,15 +204,21 @@ function savePEVerschraubung(verschraubung) {
 function savePEGroesse(groesse) {
     userSelection['peGroesse'] = groesse;  // Speichert die Auswahl der PE-Größe
     saveLastSelection(userSelection['peGroesse'], 6);  // Speichert in der neuen Auswahl-Variable
-    nextScreen('screen8');  // Geht zum nächsten Bildschirm
+    nextScreen('screen7b');  // Geht zum nächsten Bildschirm
 }
 
+
+function saveSchachtabdeckung(abdeckung) {
+    userSelection['schachtabdeckung'] = abdeckung;  // Speichert die Auswahl der Schachtabdeckung
+    saveLastSelection(userSelection['schachtabdeckung'], 7);  // Speichert in der neuen Auswahl-Variable
+    nextScreen('screen8');  // Geht zum nächsten Bildschirm
+}
 
 // Speichert die Auswahl des Wasserzählerschachtschlüssels
 function saveWasserzaehlerSchluessel(schluessel) {
     if (schluessel === 'Ja' || schluessel === 'Nein') {
         userSelection['wasserzaehlerSchluessel'] = schluessel;
-        saveLastSelection(userSelection['wasserzaehlerSchluessel'], 7);  // Speichert in der neuen Auswahl-Variable
+        saveLastSelection(userSelection['wasserzaehlerSchluessel'], 8);  // Speichert in der neuen Auswahl-Variable
         nextScreen('summaryScreen');  // Geht zum nächsten Bildschirm
     } else {
         alert("Bitte wählen Sie Ja oder Nein.");
@@ -468,7 +482,7 @@ function updateProgressBar(step, totalSteps) {
     progressText.textContent = `Schritt ${step} von ${totalSteps}`;
 
     
-    if (!(currentStep >= 2 && currentStep <= 8)) {
+    if (!(currentStep >= 2 && currentStep <= 9)) {
         // Wenn screen1 aktiv ist, Fortschrittsanzeige ausblenden
         progressBar.style.display = 'none';
         progressText.style.display = 'none';
@@ -489,7 +503,7 @@ function updateProgressBar(step, totalSteps) {
 
 // Beispiel: Fortschritt beim Wechseln der Screens aktualisieren
 let currentStep = 2;
-const totalSteps = 8; // Anzahl der Auswahlseiten
+const totalSteps = 9; // Anzahl der Auswahlseiten
 
 
 
