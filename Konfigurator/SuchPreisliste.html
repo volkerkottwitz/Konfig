@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer mit Suche</title>
+    <button onclick="prevMatch()">⬅ Vorherige</button>
+    <button onclick="nextMatch()">Nächste ➡</button>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <style>
+        #pdfContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: auto;
+            width: 100%;
+        }
+        .highlight {
+            position: absolute;
+            background-color: yellow;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .canvasContainer {
+            position: relative;
+        }
+    </style>
+
+
+
+</head>
+<body>
+    <h2>Preislisten-Dokument</h2>
+    <input type="text" id="searchBox" placeholder="Suchbegriff eingeben">
+    <button onclick="searchPDF()">Suchen</button>
+    <div id="pdfContainer"></div>
+
+    <script>
+let pdfDoc = null;
+let scale = 1.5;
+const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/pdf2025.pdf";
+let searchText = "";
+let matchPositions = []; // Speichert alle gefundenen Positionen
+let currentMatchIndex = -1;
+
+pdfjsLib.getDocument(url).promise.then(pdf => {
+    pdfDoc = pdf;
+    renderAllPages();
+}).catch(err => {
+    console.error("Fehler beim Laden des PDFs:", err);
+    alert("Es gab einen Fehler beim Laden des PDFs.");
+});
+
+function renderAllPages() {
+    document.getElementById("pdfContainer").innerHTML = "";
+    matchPositions = [];
+    currentMatchIndex = -1;
+    for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+        renderPage(pageNum);
+    }
+}
+
+function renderPage(num) {
+    pdfDoc.getPage(num).then(page => {
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+        let viewport = page.getViewport({ scale: scale });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        let renderContext = { canvasContext: ctx, viewport: viewport };
+        page.render(renderContext).promise.then(() => {
+            if (searchText) {
+                highlightText(page, canvas, viewport, num);
+            }
+        });
+        document.getElementById("pdfContainer").appendChild(canvas);
+    });
+}
+
+function highlightText(page, canvas, viewport, pageNum) {
+    page.getTextContent().then(textContent => {
+        let ctx = canvas.getContext("2d");
+
+        textContent.items.forEach(item => {
+            let text = item.str;
+            if (text.toLowerCase().includes(searchText.toLowerCase())) {
+                let tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+                let x = tx[4];
+                let y = tx[5] - item.height;
+                ctx.fillStyle = 'rgba(255, 255, 0, 0.5)';
+                ctx.fillRect(x, y, item.width, item.height);
+                matchPositions.push({ canvas, x, y });
+            }
+        });
+
+        if (matchPositions.length > 0 && currentMatchIndex === -1) {
+            currentMatchIndex = 0;
+            scrollToMatch();
+        }
+    });
+}
+
+function searchPDF() {
+    searchText = document.getElementById("searchBox").value.trim();
+    if (searchText !== "") {
+        renderAllPages();
+    } else {
+        alert("Bitte einen Suchbegriff eingeben.");
+    }
+}
+
+function scrollToMatch() {
+    if (matchPositions.length > 0 && currentMatchIndex >= 0 && currentMatchIndex < matchPositions.length) {
+        let match = matchPositions[currentMatchIndex];
+        match.canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        showNavigationButtons(match.canvas);
+    }
+}
+
+function nextMatch() {
+    if (matchPositions.length > 0) {
+        currentMatchIndex = (currentMatchIndex + 1) % matchPositions.length;
+        scrollToMatch();
+    }
+}
+
+function prevMatch() {
+    if (matchPositions.length > 0) {
+        currentMatchIndex = (currentMatchIndex - 1 + matchPositions.length) % matchPositions.length;
+        scrollToMatch();
+    }
+}
+
+function showNavigationButtons(canvas) {
+    let existingNav = document.getElementById("navButtons");
+    if (existingNav) {
+        existingNav.remove();
+    }
+    
+    let navDiv = document.createElement("div");
+    navDiv.id = "navButtons";
+    navDiv.style.position = "absolute";
+    navDiv.style.top = `${canvas.offsetTop + canvas.height / 2}px`;
+    navDiv.style.left = "50%";
+    navDiv.style.transform = "translateX(-50%)";
+    navDiv.style.background = "rgba(0, 0, 0, 0.6)";
+    navDiv.style.color = "white";
+    navDiv.style.padding = "10px";
+    navDiv.style.borderRadius = "5px";
+    navDiv.style.zIndex = "1000";
+    
+    let prevButton = document.createElement("button");
+    prevButton.innerText = "⬅ Vorherige";
+    prevButton.onclick = prevMatch;
+    prevButton.style.marginRight = "10px";
+    
+    let nextButton = document.createElement("button");
+    nextButton.innerText = "Nächste ➡";
+    nextButton.onclick = nextMatch;
+    
+    navDiv.appendChild(prevButton);
+    navDiv.appendChild(nextButton);
+    document.body.appendChild(navDiv);
+}
+
+// Anpassung des PDFs an die Bildschirmgröße
+window.addEventListener("resize", () => {
+    let pdfContainer = document.getElementById("pdfContainer");
+    if (pdfContainer) {
+        let screenWidth = window.innerWidth;
+        let newScale = screenWidth / 800; // Basierend auf einer angenommenen Standardbreite
+        scale = Math.max(0.8, Math.min(newScale, 2)); // Mindest- und Höchstwert setzen
+        renderAllPages();
+    }
+});
+
+
+
+    </script>
+</body>
+</html>
