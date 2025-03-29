@@ -368,16 +368,13 @@ function updateSummary() {
     lastSelectionsDiv.classList.add('last-selections-summary');
     lastSelectionsDiv.innerHTML = `
         <h2></h2>
-        <p>1. ${lastSelections.selection1}</p>
-        <p>2. ${lastSelections.selection2}</p>
-        <p>3. ${lastSelections.selection3}</p>
-        <p>4. ${lastSelections.selection4}</p>
-        <p>5. ${lastSelections.selection5}</p>
-        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>6. ${lastSelections.selection6}</p>` : ''}
-        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>7. ${lastSelections.selection7}</p>` : ''}
-        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>8. ${lastSelections.selection8}</p>` : ''}
-        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>9. ${lastSelections.selection9}</p>` : ''}
-        <p>Wasserzählerschachtschlüssel : ${lastSelections.selection10}</p>
+        <p>Typ :         ${lastSelections.selection1} ${lastSelections.selection2}</p>
+        <p>RD :          ${lastSelections.selection3}</p>
+        <p>Abdeckung :   ${lastSelections.selection4}</p>
+        <p>WZ-Anlage :   ${lastSelections.selection5}</p>
+        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>Anzahl PE-V: ${lastSelections.selection6}</p>` : ''}
+        ${lastSelections.selection7 && lastSelections.selection7 !== '0' ? `<p>Typ :        ${lastSelections.selection7} ${lastSelections.selection9} x ${lastSelections.selection8}</p>` : ''}
+        <p>Schachtschlüssel 15mm : ${lastSelections.selection10}</p>
     `;
     summaryContainer.appendChild(lastSelectionsDiv);
 
@@ -460,15 +457,15 @@ function generatePDF() {
     // Auswahlpunkte
     let yOffset = 118;
     let selections = [
-        `Ein Flexoripp ${lastSelections.selection2} mit ${lastSelections.selection4}.`,
-        `Die Rohrdeckung ist ${lastSelections.selection3}.`,
+        `Ein Flexoripp ${lastSelections.selection2} in ${lastSelections.selection3}.`,
+        `Mit dem ${lastSelections.selection4}.`,
         `Die Wasserzähleranlage ist ${lastSelections.selection5}.`
     ];
     
     // Wenn selection6 nicht leer ist, füge die entsprechenden Zeilen hinzu
     if (lastSelections.selection6) {
         selections.push(`${lastSelections.selection6} ist/sind gewünscht und zwar:`);
-        selections.push(`${lastSelections.selection7} in ${lastSelections.selection9} x ${lastSelections.selection8}.`);
+        selections.push(`Die ${lastSelections.selection7} in ${lastSelections.selection9} x ${lastSelections.selection8}.`);
     }
     
     // Die Wasserzählerschachtschlüssel Zeile immer hinzufügen
@@ -483,8 +480,9 @@ function generatePDF() {
     yOffset += 8;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
     selections.forEach((item) => {
-        doc.text(`- ${item}`, 25, yOffset);
+        doc.text(`${item}`, 25, yOffset);
         yOffset += 8;
     });
 
@@ -493,7 +491,7 @@ function generatePDF() {
 
     // Trennlinie
     doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 4, 190, yOffset + 4);
+    doc.line(20, yOffset + 1, 190, yOffset + 1);
 
     // Benutzer-Daten einfügen
     yOffset += 12;
@@ -505,19 +503,27 @@ function generatePDF() {
     yOffset += 8;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(`Name: ${name}`, 25, yOffset);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Name:", 25, yOffset);
+    doc.text(name, 60, yOffset);
     yOffset += 8;
-    doc.text(`Straße: ${street}`, 25, yOffset);
+    doc.text("Straße:", 25, yOffset);
+    doc.text(street, 60, yOffset);
     yOffset += 8;
-    doc.text(`PLZ: ${postalCode}`, 25, yOffset);
+    doc.text("PLZ:", 25, yOffset);
+    doc.text(postalCode, 60, yOffset);
     yOffset += 8;
-    doc.text(`Ort: ${city}`, 25, yOffset);
+    doc.text("Ort:", 25, yOffset);
+    doc.text(city, 60, yOffset);
     yOffset += 8;
-    doc.text(`E-Mail: ${email}`, 25, yOffset);
+    doc.text("E-Mail:", 25, yOffset);
+    doc.text(email, 60, yOffset);
     yOffset += 8;
-    doc.text(`Telefon: ${phone}`, 25, yOffset);
+    doc.text("Telefon:", 25, yOffset);
+    doc.text(phone, 60, yOffset);
     yOffset += 8;
-    doc.text(`Bemerkungen: ${comments}`, 25, yOffset);
+    doc.text("Bemerkungen:", 25, yOffset);
+    doc.text(comments, 60, yOffset);
 
     // Abschluss
     doc.setFontSize(10);

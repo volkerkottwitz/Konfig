@@ -278,13 +278,14 @@ function updateSummary() {
     lastSelectionsDiv.classList.add('last-selections-summary');
     lastSelectionsDiv.innerHTML = `
         <h2></h2>
-        <p>1. ${lastSelections.selection1}</p>
-        <p>2. ${lastSelections.selection2}</p>
-        <p>3. ${lastSelections.selection3}</p>
-        <p>4. ${lastSelections.selection4}</p>
-        <p>5. ${lastSelections.selection5}</p>
-        <p>6. ${lastSelections.selection6}</p>
-        <p>Wasserzählerschachtschlüssel : ${lastSelections.selection7}</p>
+        <p>Anlagengröße :      ${lastSelections.selection1}</p>
+        <p>WZ-Anlage Eingang : ${lastSelections.selection2}</p>
+        <p>WZ-Anlage Ausgang : ${lastSelections.selection3}</p>
+        <p>Anzahl WZ-Anlagen : ${lastSelections.selection4}</p>
+        <p>PE-Größe Eingang :  ${lastSelections.selection5}</p>
+        <p>PE-Größe Ausgang :  ${lastSelections.selection6}</p>
+        <p>Abdeckung :         ${lastSelections.selection7}</p>
+        <p>Wasserzählerschachtschlüssel : ${lastSelections.selection8}</p>
        
     `;
     summaryContainer.appendChild(lastSelectionsDiv);
@@ -345,8 +346,11 @@ function generatePDF() {
        const phone = document.getElementById('phone').value || "Nicht angegeben";
        const comments = document.getElementById('comments').value || "Keine Bemerkungen";
 
-    doc.setFontSize(10);
-    doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
+        // Abschnitt Anfragenummer
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.setTextColor(0, 51, 102);
+        doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -367,11 +371,12 @@ function generatePDF() {
     // Auswahlpunkte
     let yOffset = 118;
     let selections = [
-        `Ein MegaRipp ${lastSelections.selection1 || "Nicht ausgewählt"}`,
+        `Ein MegaRipp ${lastSelections.selection1}`,
         `mit ${lastSelections.selection4} Wasserzähleranlage(n) ${lastSelections.selection2} / ${lastSelections.selection3}.`,
         `Eingangsseitig:  1 x ${lastSelections.selection5}.`,
-        `Ausgangsseitig: ${lastSelections.selection4} x Stutzen ${lastSelections.selection5}.`,
-        `Wasserzählerschachtschlüssel 15mm: ${lastSelections.selection7}`
+        `Ausgangsseitig: ${lastSelections.selection4} x Stutzen ${lastSelections.selection6}.`,
+        `Die gewählte Abdeckung ist : ${lastSelections.selection7}`,
+        `Schachtschlüssel : ${lastSelections.selection8}`,
     ];
     
     doc.setFont("helvetica", "bold");
@@ -382,17 +387,18 @@ function generatePDF() {
     yOffset += 8;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
     selections.forEach((item) => {
-        doc.text(`- ${item}`, 25, yOffset);
+        doc.text(`${item}`, 25, yOffset);
         yOffset += 8;
     });
 
     // Bild auf Höhe der Zusammenstellung ziehen
-    doc.addImage(flexorippImage, 'JPEG', 140, 112, 40, 50);
+    doc.addImage(flexorippImage, 'JPEG', 140, 116, 40, 50);
 
     // Trennlinie
     doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 4, 190, yOffset + 4);
+    doc.line(20, yOffset + 1, 190, yOffset + 1);
 
     // Benutzer-Daten einfügen
     yOffset += 12;
@@ -404,19 +410,27 @@ function generatePDF() {
     yOffset += 8;
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(`Name: ${name}`, 25, yOffset);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Name:", 25, yOffset);
+    doc.text(name, 60, yOffset);
     yOffset += 8;
-    doc.text(`Straße: ${street}`, 25, yOffset);
+    doc.text("Straße:", 25, yOffset);
+    doc.text(street, 60, yOffset);
     yOffset += 8;
-    doc.text(`PLZ: ${postalCode}`, 25, yOffset);
+    doc.text("PLZ:", 25, yOffset);
+    doc.text(postalCode, 60, yOffset);
     yOffset += 8;
-    doc.text(`Ort: ${city}`, 25, yOffset);
+    doc.text("Ort:", 25, yOffset);
+    doc.text(city, 60, yOffset);
     yOffset += 8;
-    doc.text(`E-Mail: ${email}`, 25, yOffset);
+    doc.text("E-Mail:", 25, yOffset);
+    doc.text(email, 60, yOffset);
     yOffset += 8;
-    doc.text(`Telefon: ${phone}`, 25, yOffset);
+    doc.text("Telefon:", 25, yOffset);
+    doc.text(phone, 60, yOffset);
     yOffset += 8;
-    doc.text(`Bemerkungen: ${comments}`, 25, yOffset);
+    doc.text("Bemerkungen:", 25, yOffset);
+    doc.text(comments, 60, yOffset);
 
     // Abschluss
     doc.text("Mit freundlichen Grüßen,", 20, yOffset + 20);

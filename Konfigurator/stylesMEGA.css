@@ -1,0 +1,263 @@
+/* Allgemeine Stile */
+body {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: #0073e6;
+    color: white;
+    padding: 20px;
+}
+
+.logo {
+    width: 150px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+/* Hauptbereiche */
+main {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Bildschirme */
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Buttons */
+button {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    font-size: 16px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    flex-grow: 1;
+    width: 80%;
+    margin: 10px auto;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+/* Zurück-Button */
+button.back-btn {
+    background-color: #ccc;
+    color: black;
+}
+
+button.back-btn:hover {
+    background-color: #aaa;
+}
+
+/* Zusammenfassung */
+#summary {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Zentrierte Auswahl */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Auswahl: Bild links, Button rechts */
+.selection-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    min-width: 250px;
+    max-width: 100%;
+}
+
+/* Einheitliche Bilder */
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Bild Hover-Effekt */
+.product-image:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+/* Einheitliche Buttons */
+.product-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    width: 150px;
+    height: 50px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+/* Button Hover-Effekt */
+.product-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .selection-container {
+        flex-direction: row; /* Statt column */
+        justify-content: center; /* Falls nötig für zentrierte Anzeige */
+        align-items: center;
+        gap: 10px; /* Optional: kleinerer Abstand auf mobilen Geräten */
+    }
+    
+    .product-button {
+        width: auto; /* Entfernt die 100% Breite */
+    }
+}
+
+
+/* Fortschrittscontainer */
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 0;
+    margin-bottom: 8px;
+    position: relative;
+    display: none; /* Versteckt die Fortschrittsanzeige beim Start */
+}
+
+/* Fortschrittsleiste */
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #0073e6;
+    border-radius: 0;
+    transition: width 0.3s ease;
+}
+
+/* Fortschrittstext */
+.progress-text {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    display: none; /* Versteckt die Fortschrittsanzeige beim Start */
+}
+
+
+/* Style für Userabfrage /*
+
+
+/* Allgemeine Formstilsetzung */
+#userDataScreen {
+    background-color: #f7f7f7;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#userDataScreen h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Eingabefelder */
+.input-container {
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.input-container input,
+.input-container textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input-container input:focus,
+.input-container textarea:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+/* Textarea speziell stylen */
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* Buttons */
+.form-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #357ab7;
+}
+
+/* Validierungs-Feedback (optional) */
+input:invalid,
+textarea:invalid {
+    border-color: #e74c3c;
+}
+
+input:valid,
+textarea:valid {
+    border-color: #2ecc71;
+}
