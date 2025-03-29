@@ -24,8 +24,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: auto;
+            overflow: auto;
             width: 100%;
+            height: 80vh;
         }
         .highlight {
             position: absolute;
@@ -57,20 +58,23 @@
 <body>
     <div id="header">
         <img src="images/logo.png" alt="EWE Logo">
-        <h2>Preislisten-Dokument</h2>
+        <h2>Preisliste</h2>
     </div>
     <input type="text" id="searchBox" placeholder="Suchbegriff eingeben">
-    <button onclick="searchPDF()">Suchen</button>
-    <button onclick="window.location.href='index.html'">Zurück</button>
+    <button onclick="searchPDF()">Neue Suche</button>
+    
     <button onclick="prevMatch()">⬅ Vorherige</button>
     <button onclick="nextMatch()">Nächste ➡</button>
-    <div id="pdfContainer"></div>
+    <button onclick="window.location.href='index.html'">Hauptmenu</button>
+    <div id="pdfContainer">
+        <div id="pdfViewer" style="width: 100%; height: 100%; overflow: auto;"></div>
+    </div>
     
     <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
 let pdfDoc = null;
-let scale = window.innerWidth < 768 ? 0.95 : 1.45; // Skalierung um 5% reduziert
+let scale = 1.0; // Standardzoom
 const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/pdf2025.pdf";
 let searchText = "";
 let matchPages = new Set();
@@ -86,22 +90,30 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 
 function renderPage(num) {
     pdfDoc.getPage(num).then(page => {
-        let canvas = document.getElementById("pdfCanvas");
-        if (!canvas) {
-            canvas = document.createElement("canvas");
-            canvas.id = "pdfCanvas";
-            document.getElementById("pdfContainer").appendChild(canvas);
-        }
+        let canvas = document.createElement("canvas");
         let ctx = canvas.getContext("2d");
         let viewport = page.getViewport({ scale: scale });
         canvas.width = viewport.width;
         canvas.height = viewport.height;
         let renderContext = { canvasContext: ctx, viewport: viewport };
+        
+        document.getElementById("pdfViewer").innerHTML = "";
+        document.getElementById("pdfViewer").appendChild(canvas);
+        
         page.render(renderContext).promise.then(() => {
             if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
         });
     });
 }
+
+document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
+    if (event.ctrlKey) {
+        event.preventDefault();
+        scale += event.deltaY * -0.01;
+        scale = Math.min(Math.max(0.5, scale), 3.0);
+        renderPage(currentPage);
+    }
+});
 
 function searchPDF() {
     searchText = document.getElementById("searchBox").value.trim();
