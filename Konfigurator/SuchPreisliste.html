@@ -127,12 +127,22 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 
 function renderPage(num) {
     pdfDoc.getPage(num).then(page => {
+        const scaleFactor = 2; // Erhöhe die Auflösung
+        let viewport = page.getViewport({ scale: scale * scaleFactor });
+
         let canvas = document.createElement("canvas");
         let ctx = canvas.getContext("2d");
-        let viewport = page.getViewport({ scale: scale });
         canvas.width = viewport.width;
         canvas.height = viewport.height;
-        let renderContext = { canvasContext: ctx, viewport: viewport };
+
+        let renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+
+        // Anzeigegröße künstlich verkleinern für bessere Schärfe
+        canvas.style.width = (viewport.width / scaleFactor) + "px";
+        canvas.style.height = (viewport.height / scaleFactor) + "px";
 
         document.getElementById("pdfViewer").innerHTML = "";
         document.getElementById("pdfViewer").appendChild(canvas);
