@@ -10,16 +10,19 @@
         body {
             text-align: center;
             font-family: 'Roboto Condensed', Arial, sans-serif;
+            margin: 0;
         }
         #header {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 10px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
         }
         #header img {
-            height: 50px;
-            margin-right: 15px;
+            height: 100px;
+            margin-right: 30px;
         }
         #pdfContainer {
             display: flex;
@@ -27,12 +30,10 @@
             align-items: center;
             overflow: auto;
             width: 100%;
-            height: 80vh;
+            height: 75vh;
         }
         .highlight {
             position: absolute;
-            background-color: yellow;
-            opacity: 0.5;
             pointer-events: none;
         }
         .canvasContainer {
@@ -46,7 +47,7 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            margin: 10px;
+            margin: 10px 5px;
         }
         button:hover {
             background-color: #0056b3;
@@ -54,30 +55,65 @@
         button:focus {
             outline: none;
         }
+        #infoSection {
+            margin-top: 10px;
+            color: #333;
+            font-size: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #progressBar {
+            width: 60%;
+            height: 4px;
+            background-color: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        #progressFill {
+            height: 100%;
+            background-color: #007BFF;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
     </style>
 </head>
 <body>
     <div id="header">
         <img src="images/logo.png" alt="EWE Logo">
-        <h2>Preisliste</h2>
+        <h1></h1>
     </div>
-    <input type="text" id="searchBox" placeholder="Suchbegriff eingeben">
-    <button onclick="searchPDF()">Neue Suche</button>
-    
-    <button onclick="prevMatch()">⬅ Vorherige</button>
-    <button onclick="nextMatch()">Nächste ➡</button>
-    <button onclick="window.location.href='index.html'">Hauptmenu</button>
+
+    <div style="margin-top: 10px;">
+        <input type="text" id="searchBox" placeholder="Suchbegriff 1">
+        <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (optional)">
+        <button onclick="searchPDF()">🔍 Neue Suche</button>
+        <button onclick="prevMatch()">⬅ Vorherige</button>
+        <button onclick="nextMatch()">Nächste ➔</button>
+        <button onclick="goToFirstMatch()">⬆ Zum ersten Treffer</button>
+        <button onclick="window.location.href='index.html'">🏠 Hauptmenu</button>
+    </div>
+
+    <div id="infoSection">
+        <div id="searchInfo"></div>
+        <div id="currentMatchInfo"></div>
+        <div id="progressBar"><div id="progressFill"></div></div>
+    </div>
+
     <div id="pdfContainer">
         <div id="pdfViewer" style="width: 100%; height: 100%; overflow: auto;"></div>
     </div>
-    
-    <script>
+
+<script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
 let pdfDoc = null;
-let scale = 1.0; // Standardzoom
+let scale = 1.0;
 const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/pdf2025.pdf";
 let searchText = "";
+let secondSearchText = "";
 let matchPages = new Set();
 let currentPage = 1;
 
@@ -97,10 +133,10 @@ function renderPage(num) {
         canvas.width = viewport.width;
         canvas.height = viewport.height;
         let renderContext = { canvasContext: ctx, viewport: viewport };
-        
+
         document.getElementById("pdfViewer").innerHTML = "";
         document.getElementById("pdfViewer").appendChild(canvas);
-        
+
         page.render(renderContext).promise.then(() => {
             if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
         });
@@ -118,27 +154,35 @@ document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
 
 function searchPDF() {
     searchText = document.getElementById("searchBox").value.trim();
+    secondSearchText = document.getElementById("searchBox2").value.trim();
     matchPages.clear();
-    if (!searchText) return alert("Bitte einen Suchbegriff eingeben.");
+    if (!searchText) return alert("Bitte mindestens den ersten Suchbegriff eingeben.");
 
     let searchPromises = [];
     for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
         searchPromises.push(
             pdfDoc.getPage(pageNum).then(page => 
                 page.getTextContent().then(textContent => {
-                    let found = textContent.items.some(item => item.str.toLowerCase().includes(searchText.toLowerCase()));
-                    if (found) matchPages.add(pageNum);
+                    const pageText = textContent.items.map(item => item.str).join(" ").toLowerCase();
+                    const foundFirst = pageText.includes(searchText.toLowerCase());
+                    const foundSecond = secondSearchText ? pageText.includes(secondSearchText.toLowerCase()) : true;
+                    if (foundFirst && foundSecond) matchPages.add(pageNum);
                 })
             )
         );
     }
-    
+
     Promise.all(searchPromises).then(() => {
         if (matchPages.size > 0) {
             currentPage = [...matchPages][0];
             renderPage(currentPage);
+            updateCurrentMatchInfo();
+            updateProgressBar();
+            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Treffer gefunden.`;
         } else {
-            alert("Keine Treffer gefunden.");
+            document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
+            document.getElementById("currentMatchInfo").textContent = "";
+            document.getElementById("progressFill").style.width = "0%";
         }
     });
 }
@@ -146,10 +190,15 @@ function searchPDF() {
 function highlightMatches(page, canvas, viewport) {
     page.getTextContent().then(textContent => {
         let ctx = canvas.getContext("2d");
-        ctx.fillStyle = "rgba(255, 255, 0, 0.5)";
         textContent.items.forEach(item => {
-            if (item.str.toLowerCase().includes(searchText.toLowerCase())) {
-                let tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+            const text = item.str.toLowerCase();
+            let tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+            if (text.includes(searchText.toLowerCase())) {
+                ctx.fillStyle = "rgba(255, 255, 0, 0.5)";
+                ctx.fillRect(tx[4], tx[5] - item.height, item.width, item.height);
+            }
+            if (secondSearchText && text.includes(secondSearchText.toLowerCase())) {
+                ctx.fillStyle = "rgba(0, 255, 255, 0.4)";
                 ctx.fillRect(tx[4], tx[5] - item.height, item.width, item.height);
             }
         });
@@ -162,6 +211,8 @@ function nextMatch() {
     if (index < pages.length - 1) {
         currentPage = pages[index + 1];
         renderPage(currentPage);
+        updateCurrentMatchInfo();
+        updateProgressBar();
     }
 }
 
@@ -171,8 +222,31 @@ function prevMatch() {
     if (index > 0) {
         currentPage = pages[index - 1];
         renderPage(currentPage);
+        updateCurrentMatchInfo();
+        updateProgressBar();
     }
 }
-    </script>
+
+function goToFirstMatch() {
+    if (matchPages.size === 0) return;
+    currentPage = [...matchPages][0];
+    renderPage(currentPage);
+    updateCurrentMatchInfo();
+    updateProgressBar();
+}
+
+function updateCurrentMatchInfo() {
+    let pages = [...matchPages];
+    let index = pages.indexOf(currentPage);
+    document.getElementById("currentMatchInfo").textContent = `📄 Treffer ${index + 1} von ${pages.length}`;
+}
+
+function updateProgressBar() {
+    const pages = [...matchPages];
+    const index = pages.indexOf(currentPage) + 1;
+    const percent = (index / pages.length) * 100;
+    document.getElementById("progressFill").style.width = percent + "%";
+}
+</script>
 </body>
 </html>
