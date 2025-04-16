@@ -30,7 +30,7 @@
             align-items: center;
             overflow: auto;
             width: 100%;
-            height: 75vh;
+            height: 80vh; /* Kleinere Höhe für das PDF */
         }
         .highlight {
             position: absolute;
@@ -78,6 +78,18 @@
             border-radius: 2px;
             transition: width 0.4s ease;
         }
+        .zoom-btn {
+            margin: 10px;
+            padding: 5px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .zoom-btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -106,11 +118,16 @@
         <div id="pdfViewer" style="width: 100%; height: 100%; overflow: auto;"></div>
     </div>
 
+    <div>
+        <button class="zoom-btn" onclick="zoomIn()">🔍 Vergrößern</button>
+        <button class="zoom-btn" onclick="zoomOut()">🔍 Verkleinern</button>
+    </div>
+
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
 let pdfDoc = null;
-let scale = 1.0;
+let scale = 1.0; // Start-Scale auf 1.0 gesetzt (kleiner als vorher)
 const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/pdf2025.pdf";
 let searchText = "";
 let secondSearchText = "";
@@ -127,7 +144,7 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 
 function renderPage(num) {
     pdfDoc.getPage(num).then(page => {
-        const scaleFactor = 2; // Erhöhe die Auflösung
+        const scaleFactor = 1.0; // Skalierung reduziert
         let viewport = page.getViewport({ scale: scale * scaleFactor });
 
         let canvas = document.createElement("canvas");
@@ -140,9 +157,9 @@ function renderPage(num) {
             viewport: viewport
         };
 
-        // Anzeigegröße künstlich verkleinern für bessere Schärfe
-        canvas.style.width = (viewport.width / scaleFactor) + "px";
-        canvas.style.height = (viewport.height / scaleFactor) + "px";
+        // Anzeigegröße in der neuen Auflösung
+        canvas.style.width = viewport.width + "px";
+        canvas.style.height = viewport.height + "px";
 
         document.getElementById("pdfViewer").innerHTML = "";
         document.getElementById("pdfViewer").appendChild(canvas);
@@ -157,12 +174,25 @@ document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
     if (event.ctrlKey) {
         event.preventDefault();
         scale += event.deltaY * -0.01;
-        scale = Math.min(Math.max(0.5, scale), 3.0);
+        scale = Math.min(Math.max(0.5, scale), 2.0); // Begrenzung des Zooms
         renderPage(currentPage);
     }
 });
 
+function zoomIn() {
+    scale += 0.1;
+    scale = Math.min(scale, 2.0); // Maximale Zoom-Stufe
+    renderPage(currentPage);
+}
+
+function zoomOut() {
+    scale -= 0.1;
+    scale = Math.max(scale, 0.5); // Minimale Zoom-Stufe
+    renderPage(currentPage);
+}
+
 function searchPDF() {
+    currentPage = 1; // Startet immer bei Seite 1
     searchText = document.getElementById("searchBox").value.trim();
     secondSearchText = document.getElementById("searchBox2").value.trim();
     matchPages.clear();
@@ -199,19 +229,40 @@ function searchPDF() {
 
 function highlightMatches(page, canvas, viewport) {
     page.getTextContent().then(textContent => {
-        let ctx = canvas.getContext("2d");
-        textContent.items.forEach(item => {
-            const text = item.str.toLowerCase();
-            let tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
-            if (text.includes(searchText.toLowerCase())) {
-                ctx.fillStyle = "rgba(255, 255, 0, 0.5)";
-                ctx.fillRect(tx[4], tx[5] - item.height, item.width, item.height);
-            }
-            if (secondSearchText && text.includes(secondSearchText.toLowerCase())) {
-                ctx.fillStyle = "rgba(0, 255, 255, 0.4)";
-                ctx.fillRect(tx[4], tx[5] - item.height, item.width, item.height);
-            }
+        const ctx = canvas.getContext("2d");
+        const items = textContent.items;
+
+        // Zeilen nach Y-Koordinate gruppieren
+        const lines = {};
+        items.forEach(item => {
+            const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+            const y = Math.round(tx[5]); // Y-Koordinate runden
+            if (!lines[y]) lines[y] = [];
+            lines[y].push({
+                text: item.str.toLowerCase(),
+                x: tx[4],
+                y: tx[5] - item.height,
+                width: item.width,
+                height: item.height
+            });
         });
+
+        for (let y in lines) {
+            const line = lines[y];
+            const fullLineText = line.map(word => word.text).join(" ");
+            const includesFirst = searchText && fullLineText.includes(searchText.toLowerCase());
+            const includesSecond = secondSearchText && fullLineText.includes(secondSearchText.toLowerCase());
+
+            if (includesFirst || includesSecond) {
+                const minX = Math.min(...line.map(w => w.x));
+                const maxX = Math.max(...line.map(w => w.x + w.width));
+                const lineHeight = Math.max(...line.map(w => w.height));
+                const yPos = Math.min(...line.map(w => w.y));
+
+                ctx.fillStyle = includesFirst ? "rgba(255, 255, 0, 0.3)" : "rgba(0, 255, 255, 0.3)";
+                ctx.fillRect(minX, yPos, maxX - minX, lineHeight);
+            }
+        }
     });
 }
 
