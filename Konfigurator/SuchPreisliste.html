@@ -113,9 +113,9 @@
 #pdfViewer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* <--- HIER statt center */
     width: 100%;
-    max-width: 1200px; /* Maximalbreite für größere Bildschirme */
+    max-width: 1200px;
 }
 
 @media screen and (max-width: 768px) {
@@ -189,7 +189,7 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
 let pdfDoc = null;
-let scale = 1.0;
+let scale = 0.7;
 const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/pdf2025.pdf";
 let searchText = "";
 let secondSearchText = "";
@@ -206,7 +206,7 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 
 function renderPage(num) {
     pdfDoc.getPage(num).then(page => {
-        const scaleFactor = 1.5;
+        const scaleFactor = 1.2;
         let viewport = page.getViewport({ scale: scale * scaleFactor });
 
         let canvas = document.createElement("canvas");
@@ -219,14 +219,14 @@ function renderPage(num) {
             viewport: viewport
         };
 
-        canvas.style.width = (viewport.width / scaleFactor) + "px";
-        canvas.style.height = (viewport.height / scaleFactor) + "px";
+
 
         document.getElementById("pdfViewer").innerHTML = "";
         document.getElementById("pdfViewer").appendChild(canvas);
 
         page.render(renderContext).promise.then(() => {
             if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
+            document.getElementById("pdfContainer").scrollTop = 0; // nach dem Rendern nach oben scrollen
         });
     });
 }
