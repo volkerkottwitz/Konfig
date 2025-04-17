@@ -17,13 +17,13 @@
     align-items: center;  /* Vertikale Zentrierung */
     justify-content: center;  /* Horizontale Zentrierung */
     padding: 15px 30px;
-    background-color: #343a40;
+    background-color: #d2d2d4;
     color: white;
     border-bottom: 2px solid #ddd;
 }
 
 #header img {
-    height: 80px;
+    height: 100px;
     margin-right: 15px;  /* Abstand zwischen Logo und Button */
 }
 
@@ -105,7 +105,7 @@
     align-items: center;
     overflow: auto;
     width: 100%;  /* Stellt sicher, dass der Container die volle Breite einnimmt */
-    height: 75vh;  /* Standardhöhe für größere Bildschirme */
+    height: 100vh;  /* Standardhöhe für größere Bildschirme */
     margin-top: 20px;
     position: relative; /* Für die vertikale Zentrierung */
 }
@@ -150,6 +150,7 @@
 
     </style>
 </head>
+
 <body>
     <div id="header">
         <img src="images/logo.png" alt="EWE Logo">
@@ -189,12 +190,13 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
 let pdfDoc = null;
-let scale = 0.7;
+let scale = 1.0;
 const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/pdf2025.pdf";
 let searchText = "";
 let secondSearchText = "";
 let matchPages = new Set();
 let currentPage = 1;
+let zoomFactor = 1.0; // Startzoom
 
 pdfjsLib.getDocument(url).promise.then(pdf => {
     pdfDoc = pdf;
@@ -206,7 +208,7 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 
 function renderPage(num) {
     pdfDoc.getPage(num).then(page => {
-        const scaleFactor = 1.2;
+        const scaleFactor = zoomFactor;
         let viewport = page.getViewport({ scale: scale * scaleFactor });
 
         let canvas = document.createElement("canvas");
@@ -219,13 +221,15 @@ function renderPage(num) {
             viewport: viewport
         };
 
-
-
-        document.getElementById("pdfViewer").innerHTML = "";
-        document.getElementById("pdfViewer").appendChild(canvas);
+        // PDF Viewer zurücksetzen, bevor die neue Seite gerendert wird
+        const pdfViewer = document.getElementById("pdfViewer");
+        pdfViewer.innerHTML = "";
+        pdfViewer.appendChild(canvas);
 
         page.render(renderContext).promise.then(() => {
             if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
+
+            // Scrollposition zurücksetzen, um die Seite oben auszurichten
             document.getElementById("pdfContainer").scrollTop = 0; // nach dem Rendern nach oben scrollen
         });
     });
@@ -349,21 +353,28 @@ function nextMatch() {
 }
 
 function zoomIn() {
-    if (scale < 3.0) {
-        scale = Math.min(scale + 0.1, 3.0);
-        scale = Math.round(scale * 100) / 100;
-        renderPage(currentPage);
-    }
+    zoomFactor += 0.1; // Vergrößern
+    renderPage(currentPage); // Seite neu rendern
+    resetScrollPosition(); // Scroll zurücksetzen
 }
 
 function zoomOut() {
-    if (scale > 0.5) {
-        scale = Math.max(scale - 0.1, 0.5);
-        scale = Math.round(scale * 100) / 100;
-        renderPage(currentPage);
+    if (zoomFactor > 0.1) { // Verhindern, dass der Zoom negativ wird
+        zoomFactor -= 0.1; // Verkleinern
+        renderPage(currentPage); // Seite neu rendern
+        resetScrollPosition(); // Scroll zurücksetzen
     }
 }
 
+function resetScrollPosition() {
+    // Scrollposition zurücksetzen, um die Seite oben anzuzeigen
+    const pdfContainer = document.getElementById("pdfContainer");
+    pdfContainer.scrollTop = 0;
+}
+
 </script>
+
+
+
 </body>
 </html>
