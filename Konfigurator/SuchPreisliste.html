@@ -102,10 +102,11 @@
         #pdfContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Stelle sicher, dass die PDF-Seite oben bleibt */
     overflow: auto;
     width: 100%;  /* Stellt sicher, dass der Container die volle Breite einnimmt */
-    height: 100vh;  /* Standardhöhe für größere Bildschirme */
+    height: auto;  /* Erlaubt es dem Container, sich basierend auf der Bildgröße anzupassen */
+    max-height: 100vh;  /* Stellt sicher, dass der Container die Höhe des Viewports nicht überschreitet */
     margin-top: 20px;
     position: relative; /* Für die vertikale Zentrierung */
 }
@@ -120,7 +121,10 @@
 
 @media screen and (max-width: 768px) {
     #pdfContainer {
-        height: 100vh;  /* Auf kleineren Bildschirmen die volle Höhe des Viewports einnehmen */
+        height: auto;  /* Auf kleineren Bildschirmen die Höhe dynamisch anpassen */
+        max-height: none;  /* Entfernt die max-height-Einschränkung */
+        margin-top: 10px;  /* Weniger Platz oben */
+        padding: 10px;  /* Innenabstand hinzufügen */
     }
 
     #pdfViewer {
@@ -131,6 +135,17 @@
     #pdfViewer canvas {
         width: 100%;  /* Canvas auf die volle Breite des Containers setzen */
         height: auto;  /* Höhe automatisch anpassen, um das Seitenverhältnis zu erhalten */
+        max-width: 100%;  /* Verhindert, dass der Canvas zu groß wird */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #pdfContainer {
+        padding: 5px;  /* Weniger Innenabstand auf sehr kleinen Bildschirmen */
+    }
+
+    #pdfViewer {
+        padding: 0;  /* Entferne unnötigen Innenabstand */
     }
 }
 
