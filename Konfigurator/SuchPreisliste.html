@@ -170,32 +170,6 @@
 }
 
 
-    @media print {
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: visible;
-            height: auto;
-        }
-
-        canvas {
-            max-width: 100%;
-            max-height: 100%;
-            page-break-before: always;
-        }
-
-        /* Setzt die Druckskalierung auf 50% */
-        @page {
-            size: auto;
-            margin: 0;
-        }
-
-        /* Skalierung auf 50% */
-        body {
-            transform: scale(0.5);
-            transform-origin: top left;
-        }
-    }
 
 
     </style>
@@ -452,7 +426,7 @@ function printCurrentPage() {
                     <title>PDF-Seite drucken</title>
                     <style>
                         body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-                        img { max-width: 100%; height: auto; }
+                        img { max-width: 100%; height: auto; page-break-before: always; }
                     </style>
                 </head>
                 <body onload="window.print()">
