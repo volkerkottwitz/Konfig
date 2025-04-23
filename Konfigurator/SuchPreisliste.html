@@ -196,6 +196,7 @@
     <div class="navigation-buttons">
         <button onclick="prevMatch()">⬅ Vorherige</button>
         <button onclick="nextMatch()">Nächste ➡</button>
+        <button onclick="printCurrentPage()">🖨️</button>
     </div>
 
     <div class="zoom-buttons">
@@ -391,6 +392,48 @@ function resetScrollPosition() {
     // Scrollposition zurücksetzen, um die Seite oben anzuzeigen
     const pdfContainer = document.getElementById("pdfContainer");
     pdfContainer.scrollTop = 0;
+}
+
+function printCurrentPage() {
+    if (!pdfDoc) return;
+
+    pdfDoc.getPage(currentPage).then(function(page) {
+        let viewport = page.getViewport({ scale: scale });
+        let canvas = document.createElement("canvas");
+        let context = canvas.getContext("2d");
+
+        const outputScale = window.devicePixelRatio || 1;
+        canvas.width = viewport.width * outputScale;
+        canvas.height = viewport.height * outputScale;
+        context.setTransform(outputScale, 0, 0, outputScale, 0, 0);
+
+        let renderContext = {
+            canvasContext: context,
+            viewport: viewport
+        };
+
+        page.render(renderContext).promise.then(function() {
+            let imageData = canvas.toDataURL("image/png");
+
+            // Neues Fenster zum Drucken öffnen
+            let printWindow = window.open("", "_blank");
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>PDF-Seite drucken</title>
+                    <style>
+                        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+                        img { max-width: 100%; height: auto; }
+                    </style>
+                </head>
+                <body onload="window.print()">
+                    <img src="${imageData}" />
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        });
+    });
 }
 
 </script>
