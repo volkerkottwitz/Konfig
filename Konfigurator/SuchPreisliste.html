@@ -427,7 +427,7 @@ printWindow.document.write(`
         <style>
             @media print {
                 body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-                img { max-width: 100%; height: auto; page-break-before: always; }
+                img { max-width: 100%; height: auto; transform: scale(0.5); transform-origin: top; }
             }
         </style>
     </head>
