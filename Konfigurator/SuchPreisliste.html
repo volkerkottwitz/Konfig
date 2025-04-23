@@ -420,24 +420,21 @@ function printCurrentPage() {
 
             // Neues Fenster zum Drucken öffnen
             let printWindow = window.open("", "_blank");
-printWindow.document.write(`
-    <html>
-    <head>
-        <title>PDF-Seite drucken</title>
-        <style>
-            @media print {
-                body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-                img { max-width: 100%; height: auto; transform: scale(0.5); transform-origin: top; }
-            }
-        </style>
-    </head>
-    <body onload="window.print()">
-        <img src="${imageData}" />
-    </body>
-    </html>
-`);
-printWindow.document.close();
-
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>PDF-Seite drucken</title>
+                    <style>
+                        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+                        img { max-width: 100%; height: auto; }
+                    </style>
+                </head>
+                <body onload="window.print()">
+                    <img src="${imageData}" />
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
         });
     });
 }
