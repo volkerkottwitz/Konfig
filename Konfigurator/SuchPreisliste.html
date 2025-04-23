@@ -418,26 +418,39 @@ function printCurrentPage() {
         page.render(renderContext).promise.then(function() {
             let imageData = canvas.toDataURL("image/png");
 
-            // Neues Fenster zum Drucken öffnen
-            let printWindow = window.open("", "_blank");
-            printWindow.document.write(`
+            let viewWindow = window.open("", "_blank");
+            viewWindow.document.write(`
                 <html>
                 <head>
-                    <title>PDF-Seite drucken</title>
+                    <title>PDF-Seite anzeigen</title>
                     <style>
-                        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-                        img { max-width: 100%; height: auto; }
+                        html, body {
+                            margin: 0;
+                            padding: 0;
+                            background: #fff;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            overflow: auto;
+                        }
+                        img {
+                            max-width: 90vw;
+                            max-height: 90vh;
+                            height: auto;
+                            width: auto;
+                        }
                     </style>
                 </head>
+                <body>
                     <img src="${imageData}" />
                 </body>
                 </html>
             `);
-            printWindow.document.close();
+            viewWindow.document.close();
         });
     });
 }
-
 
 </script>
 
