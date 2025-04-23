@@ -401,6 +401,7 @@ function printCurrentPage() {
     if (!pdfDoc) return;
 
     pdfDoc.getPage(currentPage).then(function(page) {
+        let scale = 1.0;
         let viewport = page.getViewport({ scale: scale });
         let canvas = document.createElement("canvas");
         let context = canvas.getContext("2d");
