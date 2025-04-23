@@ -406,8 +406,8 @@ function printCurrentPage() {
         let context = canvas.getContext("2d");
 
         const outputScale = window.devicePixelRatio || 1;
-        canvas.width = viewport.width * outputScale;
-        canvas.height = viewport.height * outputScale;
+        canvas.width = Math.min(viewport.width * outputScale, window.innerWidth);
+        canvas.height = Math.min(viewport.height * outputScale, window.innerHeight);
         context.setTransform(outputScale, 0, 0, outputScale, 0, 0);
 
         let renderContext = {
@@ -426,7 +426,7 @@ function printCurrentPage() {
                     <title>PDF-Seite drucken</title>
                     <style>
                         body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-                        img { max-width: 100%; height: auto; }
+                        img { max-width: 100%; height: auto; max-height: 100vh; object-fit: contain; }
                     </style>
                 </head>
                 <body onload="window.print()">
