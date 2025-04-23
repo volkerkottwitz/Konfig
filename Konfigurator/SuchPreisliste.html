@@ -425,17 +425,8 @@ function printCurrentPage() {
                 <head>
                     <title>PDF-Seite drucken</title>
                     <style>
-                        @media print {
-                            body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; width: 100%; }
-                            img {
-                                max-width: 100%; 
-                                height: auto;
-                                page-break-before: always;
-                                transform: scale(1); /* Skalierung auf 100% */
-                                transform-origin: top;
-                                margin: 0;
-                            }
-                        }
+                        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+                        img { max-width: 100%; height: auto; }
                     </style>
                 </head>
                 <body onload="window.print()">
