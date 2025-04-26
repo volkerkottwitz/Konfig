@@ -430,8 +430,8 @@ function printCurrentPage() {
                             padding: 0;
                             background: #fff;
                             display: flex;
-                            justify-content: flex-start;
-                            align-items: flex-start;
+                            justify-content: center;
+                            align-items: center;
                             height: 100vh;
                             overflow: auto;
                         }
@@ -442,16 +442,22 @@ function printCurrentPage() {
                             width: auto;
                             margin-top: 0;
                         }
-                        /* Drucken: Bild auf volle Seite anpassen */
+                        /* Drucken */
                         @media print {
                             html, body {
-                                height: auto;
+                                height: 100%;
+                                margin: 0;
+                                padding: 0;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
                             }
                             img {
                                 max-width: 90%;
                                 max-height: 90%;
-                                width: 90%;
+                                width: auto;
                                 height: auto;
+                                margin: 0;
                             }
                         }
                     </style>
@@ -465,6 +471,8 @@ function printCurrentPage() {
         });
     });
 }
+
+
 </script>
 
 
