@@ -430,8 +430,8 @@ function printCurrentPage() {
                             padding: 0;
                             background: #fff;
                             display: flex;
-                            justify-content: center;
-                            align-items: center;
+                            justify-content: flex-start;
+                            align-items: flex-start;
                             height: 100vh;
                             overflow: auto;
                         }
@@ -440,7 +440,19 @@ function printCurrentPage() {
                             max-height: 90vh;
                             height: auto;
                             width: auto;
-                            margin-top: 0; /* Bild startet oben */
+                            margin-top: 0;
+                        }
+                        /* Drucken: Bild auf volle Seite anpassen */
+                        @media print {
+                            html, body {
+                                height: auto;
+                            }
+                            img {
+                                max-width: 100%;
+                                max-height: 100%;
+                                width: 100%;
+                                height: auto;
+                            }
                         }
                     </style>
                 </head>
@@ -453,7 +465,6 @@ function printCurrentPage() {
         });
     });
 }
-
 </script>
 
 
