@@ -466,6 +466,17 @@ function printCurrentPage() {
                 <body>
                     <img src="${imageData}" />
                     
+        <script>
+            function isDesktop() {
+                return window.innerWidth >= 1024;
+            }
+            window.onload = function() {
+                if (isDesktop()) {
+                    setTimeout(() => window.print(), 500);
+                }
+            };
+        <\/script>
+
                 </body>
                 </html>
             `);
@@ -477,7 +488,6 @@ function printCurrentPage() {
 
 </script>
 
-
-
 </body>
+
 </html>
