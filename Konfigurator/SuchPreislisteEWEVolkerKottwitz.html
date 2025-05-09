@@ -441,6 +441,12 @@ function printCurrentPage() {
                                 display: none;
                             }
                         }
+                        /* Hide print button on small screens */
+                        @media (max-width: 768px) {
+                            button {
+                                display: none;
+                            }
+                        }
                     </style>
                 </head>
                 <body>
@@ -453,7 +459,6 @@ function printCurrentPage() {
         });
     });
 }
-
 
 </script>
 
