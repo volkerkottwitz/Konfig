@@ -414,7 +414,7 @@ function printCurrentPage() {
             const dataUrl = canvas.toDataURL("image/png");
 
             const printWindow = window.open("", "_blank");
-            const isMobile = window.innerWidth <= 768; // Check if the device is mobile
+            const isMobile = window.innerWidth <= 768;
 
             printWindow.document.write(`
                 <html>
@@ -425,12 +425,14 @@ function printCurrentPage() {
                             margin: 0;
                             text-align: center;
                             background: #fff;
+                            padding: 0;
+                            overflow: auto;
                         }
                         img {
                             max-width: 100%;
                             height: auto;
                             display: block;
-                            margin: 20px auto;
+                            margin: 0 auto;
                         }
                         button {
                             padding: 10px 20px;
@@ -441,6 +443,11 @@ function printCurrentPage() {
                         @media print {
                             button {
                                 display: none;
+                            }
+                            body {
+                                overflow: hidden;
+                                margin: 0;
+                                padding: 0;
                             }
                         }
                     </style>
@@ -455,6 +462,7 @@ function printCurrentPage() {
         });
     });
 }
+
 
 </script>
 
