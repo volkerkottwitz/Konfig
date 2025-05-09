@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EWE-Preisliste durchsuchen</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto Condensed', Arial, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        #header {
+    display: flex;
+    align-items: center;  /* Vertikale Zentrierung */
+    justify-content: center;  /* Horizontale Zentrierung */
+    padding: 15px 30px;
+    background-color: #d2d2d4;
+    color: white;
+    border-bottom: 2px solid #ddd;
+}
+
+#header img {
+    height: 100px;
+    margin-right: 15px;  /* Abstand zwischen Logo und Button */
+}
+
+#header h1 {
+    font-size: 24px;
+    margin-right: 15px;  /* Abstand zwischen Titel und Button */
+}
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+        input[type="text"] {
+            padding: 10px 18px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 25px;
+            width: 240px;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            border-color: #80bdff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:focus {
+            outline: none;
+        }
+
+        #header .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        #infoSection {
+            margin-top: 15px;
+            color: #333;
+            font-size: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #progressBar {
+            width: 60%;
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        #progressFill {
+            height: 100%;
+            background-color: #007BFF;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        #pdfContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Stelle sicher, dass die PDF-Seite oben bleibt */
+    overflow: auto;
+    width: 100%;  /* Stellt sicher, dass der Container die volle Breite einnimmt */
+    height: auto;  /* Erlaubt es dem Container, sich basierend auf der Bildgröße anzupassen */
+    max-height: 100vh;  /* Stellt sicher, dass der Container die Höhe des Viewports nicht überschreitet */
+    margin-top: 20px;
+    position: relative; /* Für die vertikale Zentrierung */
+}
+
+#pdfViewer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* <--- HIER statt center */
+    width: 100%;
+    max-width: 1200px;
+}
+
+@media screen and (max-width: 768px) {
+    #pdfContainer {
+        height: auto;  /* Auf kleineren Bildschirmen die Höhe dynamisch anpassen */
+        max-height: none;  /* Entfernt die max-height-Einschränkung */
+        margin-top: 10px;  /* Weniger Platz oben */
+        padding: 10px;  /* Innenabstand hinzufügen */
+    }
+
+    #pdfViewer {
+        width: 100%;  /* Auf mobilen Geräten die volle Breite */
+        height: auto;  /* Höhe automatisch anpassen */
+    }
+
+    #pdfViewer canvas {
+        width: 100%;  /* Canvas auf die volle Breite des Containers setzen */
+        height: auto;  /* Höhe automatisch anpassen, um das Seitenverhältnis zu erhalten */
+        max-width: 100%;  /* Verhindert, dass der Canvas zu groß wird */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #pdfContainer {
+        padding: 5px;  /* Weniger Innenabstand auf sehr kleinen Bildschirmen */
+    }
+
+    #pdfViewer {
+        padding: 0;  /* Entferne unnötigen Innenabstand */
+    }
+}
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .zoom-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
+        }
+
+        @media screen and (max-width: 768px) {
+        .zoom-buttons {
+        display: none;
+        }
+}
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <img src="images/logo.png" alt="EWE Logo">
+        <h1></h1>
+        <div class="buttons">
+            <button onclick="openInfo()">📝 Info</button>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchBox" placeholder="Suchbegriff 1">
+        <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (optional)">
+        <button onclick="searchPDF()">🔍 Neue Suche</button>
+    </div>
+
+    <div id="infoSection">
+        <div id="searchInfo"></div>
+        <div id="currentMatchInfo"></div>
+        <div id="progressBar"><div id="progressFill"></div></div>
+    </div>
+
+    <div class="navigation-buttons">
+        <button onclick="prevMatch()">⬅ Vorherige</button>
+        <button onclick="nextMatch()">Nächste ➡</button>
+        <button onclick="printCurrentPage()">🖨️</button>
+    </div>
+
+    <div class="zoom-buttons">
+        <button onclick="zoomOut()">🔍 -</button>
+        <button onclick="zoomIn()">🔍 +</button>
+    </div>
+
+    <div id="pdfContainer">
+        <div id="pdfViewer"></div>
+    </div>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+let pdfDoc = null;
+let scale = 2.0;
+const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/pdf2025.pdf";
+let searchText = "";
+let secondSearchText = "";
+let matchPages = new Set();
+let currentPage = 1;
+let zoomFactor = 1.0; // Startzoom
+
+pdfjsLib.getDocument(url).promise.then(pdf => {
+    pdfDoc = pdf;
+    renderPage(currentPage);
+}).catch(err => {
+    console.error("Fehler beim Laden des PDFs:", err);
+    alert("Fehler beim Laden des PDFs.");
+});
+
+function renderPage(num) {
+    pdfDoc.getPage(num).then(page => {
+        const scaleFactor = zoomFactor;
+        let viewport = page.getViewport({ scale: scale * scaleFactor });
+
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        let renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+
+        // PDF Viewer zurücksetzen, bevor die neue Seite gerendert wird
+        const pdfViewer = document.getElementById("pdfViewer");
+        pdfViewer.innerHTML = "";
+        pdfViewer.appendChild(canvas);
+
+        page.render(renderContext).promise.then(() => {
+            if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
+
+            // Scrollposition zurücksetzen, um die Seite oben auszurichten
+            document.getElementById("pdfContainer").scrollTop = 0; // nach dem Rendern nach oben scrollen
+        });
+    });
+}
+
+document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
+    if (event.ctrlKey) {
+        event.preventDefault();
+        scale += event.deltaY * -0.01;
+        scale = Math.min(Math.max(0.5, scale), 3.0);
+        renderPage(currentPage);
+    }
+});
+
+function searchPDF() {
+    currentPage = 1;
+    searchText = document.getElementById("searchBox").value.trim();
+    secondSearchText = document.getElementById("searchBox2").value.trim();
+    matchPages.clear();
+    if (!searchText) return alert("Bitte mindestens den ersten Suchbegriff eingeben.");
+
+    let searchPromises = [];
+    for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+        searchPromises.push(
+            pdfDoc.getPage(pageNum).then(page =>
+                page.getTextContent().then(textContent => {
+                    const pageText = textContent.items.map(item => item.str).join(" ").toLowerCase();
+                    const foundFirst = pageText.includes(searchText.toLowerCase());
+                    const foundSecond = secondSearchText ? pageText.includes(secondSearchText.toLowerCase()) : true;
+                    if (foundFirst && foundSecond) matchPages.add(pageNum);
+                })
+            )
+        );
+    }
+
+    Promise.all(searchPromises).then(() => {
+        if (matchPages.size > 0) {
+            currentPage = [...matchPages][0];
+            renderPage(currentPage);
+            updateCurrentMatchInfo();
+            updateProgressBar();
+            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Treffer gefunden.`;
+        } else {
+            document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
+            document.getElementById("currentMatchInfo").textContent = "";
+            document.getElementById("progressFill").style.width = "0%";
+        }
+    });
+}
+
+function highlightMatches(page, canvas, viewport) {
+    page.getTextContent().then(textContent => {
+        const ctx = canvas.getContext("2d");
+        const items = textContent.items;
+        const lines = {};
+        items.forEach(item => {
+            const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+            const y = Math.round(tx[5]);
+            if (!lines[y]) lines[y] = [];
+            lines[y].push({
+                text: item.str.toLowerCase(),
+                x: tx[4],
+                y: tx[5] - item.height,
+                width: item.width,
+                height: item.height
+            });
+        });
+
+        for (let y in lines) {
+            const line = lines[y];
+            const fullLineText = line.map(word => word.text).join(" ");
+            const includesFirst = searchText && fullLineText.includes(searchText.toLowerCase());
+            const includesSecond = secondSearchText && fullLineText.includes(secondSearchText.toLowerCase());
+
+            if (includesFirst || includesSecond) {
+                const minX = Math.min(...line.map(w => w.x));
+                const maxX = Math.max(...line.map(w => w.x + w.width));
+                const lineHeight = Math.max(...line.map(w => w.height));
+                const yPos = Math.min(...line.map(w => w.y));
+
+                ctx.fillStyle = includesFirst ? "rgba(255, 255, 0, 0.3)" : "rgba(0, 255, 255, 0.3)";
+                ctx.fillRect(minX, yPos, maxX - minX, lineHeight);
+            }
+        }
+    });
+}
+
+function updateCurrentMatchInfo() {
+    let pages = [...matchPages];
+    let index = pages.indexOf(currentPage);
+    document.getElementById("currentMatchInfo").textContent = `📄 Treffer ${index + 1} von ${pages.length}`;
+}
+
+function updateProgressBar() {
+    const pages = [...matchPages];
+    const index = pages.indexOf(currentPage) + 1;
+    const percent = (index / pages.length) * 100;
+    document.getElementById("progressFill").style.width = percent + "%";
+}
+
+function prevMatch() {
+    const pages = [...matchPages];
+    let index = pages.indexOf(currentPage);
+    if (index > 0) {
+        currentPage = pages[index - 1];
+        renderPage(currentPage);
+        updateCurrentMatchInfo();
+        updateProgressBar();
+    }
+}
+
+function nextMatch() {
+    const pages = [...matchPages];
+    let index = pages.indexOf(currentPage);
+    if (index < pages.length - 1) {
+        currentPage = pages[index + 1];
+        renderPage(currentPage);
+        updateCurrentMatchInfo();
+        updateProgressBar();
+    }
+}
+
+function zoomIn() {
+    zoomFactor += 0.1; // Vergrößern
+    renderPage(currentPage); // Seite neu rendern
+    resetScrollPosition(); // Scroll zurücksetzen
+}
+
+function zoomOut() {
+    if (zoomFactor > 0.1) { // Verhindern, dass der Zoom negativ wird
+        zoomFactor -= 0.1; // Verkleinern
+        renderPage(currentPage); // Seite neu rendern
+        resetScrollPosition(); // Scroll zurücksetzen
+    }
+}
+
+function resetScrollPosition() {
+    // Scrollposition zurücksetzen, um die Seite oben anzuzeigen
+    const pdfContainer = document.getElementById("pdfContainer");
+    pdfContainer.scrollTop = 0;
+}
+
+function printCurrentPage() {
+    pdfDoc.getPage(currentPage).then(page => {
+        const viewport = page.getViewport({ scale: 2.0 });
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+
+        page.render(renderContext).promise.then(() => {
+            const dataUrl = canvas.toDataURL("image/png");
+
+            const printWindow = window.open("", "_blank");
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Drucken</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            text-align: center;
+                            background: #fff;
+                        }
+                        img {
+                            max-width: 100%;
+                            height: auto;
+                            display: block;
+                            margin: 20px auto;
+                        }
+                        button {
+                            padding: 10px 20px;
+                            font-size: 16px;
+                            margin: 20px;
+                            cursor: pointer;
+                        }
+                        @media print {
+                            button {
+                                display: none;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <img src="${dataUrl}" alt="PDF-Seite" />
+                    <button onclick="window.print()">Drucken</button>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        });
+    });
+}
+
+
+</script>
+
+
+<!-- Info Modal -->
+<div id="infoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+     background-color: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:white; padding:25px 30px; border-radius:10px; max-width:400px; text-align:center; font-family: Arial, sans-serif;">
+    <h2>Information</h2>
+    <p>Diese Anwendung wurde für <br><br><strong>Wilhelm Ewe Armaturen GmbH & Co.KG</strong><br></p>
+    <p>entwickelt.<br><br>Es handelt sich<br>um eine <strong>Beta-Version</strong>.</p>
+    <p>Programmfehler bitte melden an: <br>
+      <a href="mailto:volker.kottwitz@ewe-armaturen.de">volker.kottwitz@ewe-armaturen.de</a>
+    </p>
+    <button onclick="closeInfo()" style="margin-top:15px; padding:8px 16px; border:none; background-color:#007bff; color:white; border-radius:5px;">Schließen</button>
+  </div>
+</div>
+
+<script>
+function openInfo() {
+    document.getElementById('infoModal').style.display = 'flex';
+}
+function closeInfo() {
+    document.getElementById('infoModal').style.display = 'none';
+}
+</script>
+
+</body>
+
+</html>
