@@ -414,6 +414,8 @@ function printCurrentPage() {
             const dataUrl = canvas.toDataURL("image/png");
 
             const printWindow = window.open("", "_blank");
+            const isMobile = window.innerWidth <= 768; // Check if the device is mobile
+
             printWindow.document.write(`
                 <html>
                 <head>
@@ -441,17 +443,11 @@ function printCurrentPage() {
                                 display: none;
                             }
                         }
-                        /* Hide print button on small screens */
-                        @media (max-width: 768px) {
-                            button {
-                                display: none;
-                            }
-                        }
                     </style>
                 </head>
                 <body>
                     <img src="${dataUrl}" alt="PDF-Seite" />
-                    <button onclick="window.print()">Drucken</button>
+                    ${!isMobile ? '<button onclick="window.print()">Drucken</button>' : ''}
                 </body>
                 </html>
             `);
