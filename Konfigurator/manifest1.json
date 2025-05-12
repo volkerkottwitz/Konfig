@@ -2,7 +2,7 @@
   "name": "EWE-DuoViewer",
   "short_name": "DuoViewer",
   "start_url": "/Konfig/Konfigurator/SuchPreislisteEWEVolkerKottwitz.html",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#ffffff",
   "theme_color": "#0077c8",
   "icons": [
