@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EWE-Preisliste durchsuchen</title>
+    <link rel="manifest" href="manifest1.json">
+    <!-- iOS Home-Bildschirm -->
+    <link rel="apple-touch-icon" href="images/ewe-icon-180.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/ewe-icon-32.png" type="image/png">
+    
     <link rel="icon" type="image/png" href="images/icon.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <style>
@@ -419,7 +426,7 @@ function printCurrentPage() {
             printWindow.document.write(`
                 <html>
                 <head>
-                    <title>Drucken</title>
+                    <title>Gewünschte EWE-Preislistenseite</title>
                     <style>
                         html, body {
                             margin: 0;
