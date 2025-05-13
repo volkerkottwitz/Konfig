@@ -213,7 +213,7 @@
         <a href="https://www.ewe-armaturen.de" target="_blank" rel="noopener">
             <img src="images/logo.png" alt="EWE Logo">
         </a>
-        <h1></h1>
+        <h1>DUOVIEWER</h1>
         <div class="buttons">
             <button onclick="openInfo()">📝 Info</button>
         </div>
@@ -262,6 +262,7 @@ let matchPages = new Set();
 let currentPage = 1;
 let zoomFactor = 1.0; // Startzoom
 
+
 pdfjsLib.getDocument(url).promise.then(pdf => {
     pdfDoc = pdf;
     renderPage(currentPage);
@@ -308,13 +309,24 @@ document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
     }
 });
 
+
+// Funktion zur Normalisierung von typografischen Anführungszeichen und Zollzeichen
+function normalizeQuotes(text) {
+    return text
+        .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"')  // Alle typografischen " und ″ → "
+        .replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'"); // Alle typografischen ' und ′ → '
+}
+
+// Hauptsuchfunktion
 function searchPDF() {
     document.getElementById("loadingSpinnerOverlay").style.display = "flex";
     currentPage = 1;
-    searchText = document.getElementById("searchBox").value.trim();
-    secondSearchText = document.getElementById("searchBox2").value.trim();
+
+    // Eingaben normalisieren
+    searchText = normalizeQuotes(document.getElementById("searchBox").value.trim());
+    secondSearchText = normalizeQuotes(document.getElementById("searchBox2").value.trim());
     matchPages.clear();
-    
+
     if (!searchText) {
         document.getElementById("loadingSpinnerOverlay").style.display = "none";
         return alert("Bitte mindestens den ersten Suchbegriff eingeben.");
@@ -325,9 +337,12 @@ function searchPDF() {
         searchPromises.push(
             pdfDoc.getPage(pageNum).then(page =>
                 page.getTextContent().then(textContent => {
-                    const pageText = textContent.items.map(item => item.str).join(" ").toLowerCase();
+                    const rawText = textContent.items.map(item => item.str).join(" ");
+                    const pageText = normalizeQuotes(rawText).toLowerCase();
+
                     const foundFirst = pageText.includes(searchText.toLowerCase());
                     const foundSecond = secondSearchText ? pageText.includes(secondSearchText.toLowerCase()) : true;
+
                     if (foundFirst && foundSecond) matchPages.add(pageNum);
                 })
             )
@@ -340,16 +355,15 @@ function searchPDF() {
             renderPage(currentPage);
             updateCurrentMatchInfo();
             updateProgressBar();
-            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Treffer gefunden.`;
+            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit Treffern gefunden.`;
         } else {
             document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
             document.getElementById("currentMatchInfo").textContent = "";
             document.getElementById("progressFill").style.width = "0%";
         }
-        document.getElementById("loadingSpinnerOverlay").style.display = "none"; // ✅ jetzt korrekt
+        document.getElementById("loadingSpinnerOverlay").style.display = "none";
     });
 }
-
 
 
 document.getElementById("searchBox").addEventListener("keydown", function(event) {
@@ -546,7 +560,7 @@ function printCurrentPage() {
   <div style="background:white; padding:25px 30px; border-radius:10px; max-width:400px; text-align:center; font-family: Arial, sans-serif;">
     <h2>Information</h2>
     <p>Diese Anwendung wurde für <br><br><strong>Wilhelm Ewe Armaturen GmbH & Co.KG</strong><br></p>
-    <p>entwickelt.<br><br>Es handelt sich<br>um eine <strong>Beta-Version</strong>.</p>
+    <p>entwickelt.<br><br>Es handelt sich<br>um eine <strong>Beta-Version 1305</strong>.</p>
     <p>Programmfehler bitte melden an: <br>
       <a href="mailto:volker.kottwitz@ewe-armaturen.de">volker.kottwitz@ewe-armaturen.de</a>
     </p>
