@@ -236,8 +236,10 @@
     </div>
 
     <div class="navigation-buttons">
-        <button onclick="prevMatch()">⬅ Vorherige</button>
-        <button onclick="nextMatch()">Nächste ➡</button>
+        <button id="prev-page">◀ PDF</button>
+        <button onclick="prevMatch()">⬅ 🎯</button>
+        <button onclick="nextMatch()">🎯 ➡</button>
+        <button id="next-page">PDF ▶</button>
         <button onclick="printCurrentPage()">🖨️</button>
     </div>
 <div id="page-navigation" style="display: flex; justify-content: center; gap: 10px; padding: 10px;">
@@ -246,10 +248,10 @@
   
 </div>
     <div class="zoom-buttons">
-        <button id="prev-page">◀ Zurück</button>
+        
         <button onclick="zoomOut()">🔍 -</button>
         <button onclick="zoomIn()">🔍 +</button>
-        <button id="next-page">Weiter ▶</button>
+        
     </div>
 
     <div id="pdfContainer">
@@ -381,7 +383,7 @@ function searchPDF() {
             renderPage(currentPage);
             updateCurrentMatchInfo();
             updateProgressBar();
-            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit Treffern gefunden. Gesamtanzahl der Treffer: ${totalMatches}`;
+            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit ${totalMatches} Treffern gefunden.`;
         } else {
             document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
             document.getElementById("currentMatchInfo").textContent = "";
@@ -446,7 +448,7 @@ function highlightMatches(page, canvas, viewport) {
 function updateCurrentMatchInfo() {
     let pages = [...matchPages];
     let index = pages.indexOf(currentPage);
-    document.getElementById("currentMatchInfo").textContent = `📄 Treffer ${index + 1} von ${pages.length}`;
+    document.getElementById("currentMatchInfo").textContent = `📄 Seite ${index + 1} von ${pages.length}`;
 }
 
 function updateProgressBar() {
