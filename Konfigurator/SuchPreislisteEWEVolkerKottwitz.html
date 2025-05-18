@@ -240,10 +240,16 @@
         <button onclick="nextMatch()">Nächste ➡</button>
         <button onclick="printCurrentPage()">🖨️</button>
     </div>
-
+<div id="page-navigation" style="display: flex; justify-content: center; gap: 10px; padding: 10px;">
+  
+  <span id="page-info"></span>
+  
+</div>
     <div class="zoom-buttons">
+        <button id="prev-page">◀ Zurück</button>
         <button onclick="zoomOut()">🔍 -</button>
         <button onclick="zoomIn()">🔍 +</button>
+        <button id="next-page">Weiter ▶</button>
     </div>
 
     <div id="pdfContainer">
@@ -270,6 +276,9 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
     console.error("Fehler beim Laden des PDFs:", err);
     alert("Fehler beim Laden des PDFs.");
 });
+
+
+
 
 function renderPage(num) {
     pdfDoc.getPage(num).then(page => {
@@ -322,7 +331,7 @@ function searchPDF() {
     document.getElementById("loadingSpinnerOverlay").style.display = "flex";
     currentPage = 1;
 
-    // Eingaben normalisieren
+    // Suchbegriffe normalisieren
     searchText = normalizeQuotes(document.getElementById("searchBox").value.trim());
     secondSearchText = normalizeQuotes(document.getElementById("searchBox2").value.trim());
     matchPages.clear();
@@ -333,17 +342,34 @@ function searchPDF() {
     }
 
     let searchPromises = [];
+    let totalMatches = 0;
+
     for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
         searchPromises.push(
             pdfDoc.getPage(pageNum).then(page =>
                 page.getTextContent().then(textContent => {
                     const rawText = textContent.items.map(item => item.str).join(" ");
                     const pageText = normalizeQuotes(rawText).toLowerCase();
+                    const searchTextLower = searchText.toLowerCase();
+                    const secondSearchTextLower = secondSearchText.toLowerCase();
 
-                    const foundFirst = pageText.includes(searchText.toLowerCase());
-                    const foundSecond = secondSearchText ? pageText.includes(secondSearchText.toLowerCase()) : true;
+                    // Beide Begriffe müssen auf der Seite vorkommen
+                    const hasFirst = pageText.includes(searchTextLower);
+                    const hasSecond = secondSearchText ? pageText.includes(secondSearchTextLower) : true;
 
-                    if (foundFirst && foundSecond) matchPages.add(pageNum);
+                    if (hasFirst && hasSecond) {
+                        matchPages.add(pageNum);
+
+                        // Anzahl der gemeinsamen Treffer zählen
+                        let countFirst = (pageText.match(new RegExp(searchTextLower, 'g')) || []).length;
+                        let countSecond = secondSearchText ? (pageText.match(new RegExp(secondSearchTextLower, 'g')) || []).length : 0;
+
+                        if (secondSearchText) {
+                            totalMatches += Math.min(countFirst, countSecond); // Minimum zählt als gemeinsame Trefferanzahl
+                        } else {
+                            totalMatches += countFirst;
+                        }
+                    }
                 })
             )
         );
@@ -355,7 +381,7 @@ function searchPDF() {
             renderPage(currentPage);
             updateCurrentMatchInfo();
             updateProgressBar();
-            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit Treffern gefunden.`;
+            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit Treffern gefunden. Gesamtanzahl der Treffer: ${totalMatches}`;
         } else {
             document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
             document.getElementById("currentMatchInfo").textContent = "";
@@ -364,7 +390,6 @@ function searchPDF() {
         document.getElementById("loadingSpinnerOverlay").style.display = "none";
     });
 }
-
 
 document.getElementById("searchBox").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
@@ -378,6 +403,8 @@ document.getElementById("searchBox2").addEventListener("keydown", function(event
         searchPDF();
     }
 });
+
+
 
 function highlightMatches(page, canvas, viewport) {
     page.getTextContent().then(textContent => {
@@ -471,11 +498,40 @@ function resetScrollPosition() {
     pdfContainer.scrollTop = 0;
 }
 
+
+document.getElementById("prev-page").addEventListener("click", () => {
+    if (currentPage <= 1) return;
+    currentPage--;
+    renderPage(currentPage);
+    updateNavigation();
+});
+
+document.getElementById("next-page").addEventListener("click", () => {
+    if (currentPage >= pdfDoc.numPages) return;
+    currentPage++;
+    renderPage(currentPage);
+    updateNavigation();
+});
+
+function updateNavigation() {
+    document.getElementById("prev-page").disabled = (currentPage <= 1);
+    document.getElementById("next-page").disabled = (currentPage >= pdfDoc.numPages);
+    
+}
+
+// Initial aufrufen nach Laden der ersten Seite:
+updateNavigation();
+
+
 function printCurrentPage() {
+    if (!pdfDoc) return;
+
     pdfDoc.getPage(currentPage).then(page => {
-        const viewport = page.getViewport({ scale: 2.0 });
+        const scaleFactor = 2.0;
+        const viewport = page.getViewport({ scale: scaleFactor });
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
+
         canvas.width = viewport.width;
         canvas.height = viewport.height;
 
@@ -485,71 +541,83 @@ function printCurrentPage() {
         };
 
         page.render(renderContext).promise.then(() => {
-            const dataUrl = canvas.toDataURL("image/png");
+            const dataUrl = canvas.toDataURL();
 
-            const printWindow = window.open("", "_blank");
-            const isMobile = window.innerWidth <= 768;
-
-            printWindow.document.write(`
-                <html>
+            const newTab = window.open();
+            newTab.document.write(`
+                <html lang="de">
                 <head>
-                    <title>Gewünschte EWE-Preislistenseite</title>
+                    <title>PDF-Seite drucken</title>
                     <style>
-                        html, body {
+                        body {
+                            font-family: 'Roboto Condensed', Arial, sans-serif;
                             margin: 0;
-                            padding: 0;
-                            background: #fff;
-                            text-align: center;
-                            overflow: auto;
+                            background-color: #f8f9fa;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
                         }
+
+                        .button-bar {
+                            display: flex;
+                            justify-content: center;
+                            gap: 15px;
+                            padding: 20px;
+                            position: sticky;
+                            top: 0;
+                            background-color: #f8f9fa;
+                            z-index: 10;
+                            width: 100%;
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                        }
+
+                        button {
+                            background-color: #007bff;
+                            color: white;
+                            border: none;
+                            padding: 12px 20px;
+                            border-radius: 30px;
+                            font-size: 16px;
+                            cursor: pointer;
+                            transition: background-color 0.3s;
+                        }
+
+                        button:hover {
+                            background-color: #0056b3;
+                        }
+
+                        button:focus {
+                            outline: none;
+                        }
+
                         img {
                             max-width: 100%;
                             height: auto;
-                            display: block;
-                            margin: 0 auto;
-                        }
-                        button {
-                            padding: 10px 20px;
-                            font-size: 16px;
-                            margin: 20px;
-                            cursor: pointer;
                         }
 
                         @media print {
-                            @page {
-                                size: auto;
-                                margin: 0;
-                            }
-                            html, body {
-                                margin: 0;
-                                padding: 0;
-                                width: 100%;
-                                height: 100%;
-                                overflow: hidden;
-                            }
-                            img {
-                                width: 100%;
-                                height: auto;
-                                margin: 0;
-                            }
-                            button {
-                                display: none;
+                            .button-bar {
+                                display: none !important;
                             }
                         }
                     </style>
                 </head>
                 <body>
-                    <img src="${dataUrl}" alt="PDF-Seite" />
-                    ${!isMobile ? '<button onclick="window.print()">Drucken</button>' : ''}
+                    <div class="button-bar">
+                        <button onclick="window.print()">🖨️ Drucken</button>
+                        <a href="mailto:?subject=PDF-Seite&amp;body=Hier ist die Seite:%0D%0A" target="_blank">
+                            <button>📧 E-Mail</button>
+                        </a>
+                        <button onclick="window.close()">🔙 Zurück</button>
+                    </div>
+                    <img src="${dataUrl}" alt="PDF Seite">
                 </body>
                 </html>
             `);
-
-            printWindow.document.close();
+            newTab.document.close();
         });
     });
 }
-
 
 </script>
 
@@ -560,7 +628,7 @@ function printCurrentPage() {
   <div style="background:white; padding:25px 30px; border-radius:10px; max-width:400px; text-align:center; font-family: Arial, sans-serif;">
     <h2>Information</h2>
     <p>Diese Anwendung wurde für <br><br><strong>Wilhelm Ewe Armaturen GmbH & Co.KG</strong><br></p>
-    <p>entwickelt.<br><br>Es handelt sich<br>um die <strong>Beta-Version 1.132505</strong>.</p>
+    <p>entwickelt.<br><br>Es handelt sich<br>um die <strong>Beta-Version 1.182505</strong>.</p>
     <p>Programmfehler bitte melden an: <br>
       <a href="mailto:volker.kottwitz@ewe-armaturen.de">volker.kottwitz@ewe-armaturen.de</a>
     </p>
