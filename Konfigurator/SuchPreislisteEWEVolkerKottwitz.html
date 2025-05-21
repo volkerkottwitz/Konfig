@@ -526,6 +526,11 @@ updateNavigation(); // Navigation initial setzen
 function printCurrentPage() {
     if (!pdfDoc) return;
 
+    // Falls die Seite neu geladen wird, gleich wieder schließen
+    if (performance.navigation.type === 1) {
+        window.close();
+    }
+
     pdfDoc.getPage(currentPage).then(page => {
         const scaleFactor = 2.0;
         const viewport = page.getViewport({ scale: scaleFactor });
