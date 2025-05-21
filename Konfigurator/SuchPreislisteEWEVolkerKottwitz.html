@@ -583,7 +583,7 @@ function printCurrentPage() {
         }
 
         .logo {
-            height: 120px;
+            height: 100px;
         }
 
         .app-name {
@@ -604,7 +604,7 @@ function printCurrentPage() {
             border: none;
             padding: 10px 16px;
             border-radius: 30px;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -651,6 +651,37 @@ function printCurrentPage() {
                 display: none !important;
             }
         }
+
+        @media screen and (max-width: 600px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo {
+        height: 80px;
+    }
+
+    .app-name {
+        font-size: 20px;
+    }
+
+    .button-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 240px;
+        font-size: 16px;
+    }
+}
+
+
+
     </style>
 </head>
 <body>
@@ -685,7 +716,7 @@ function printCurrentPage() {
   <div style="background:white; padding:25px 30px; border-radius:10px; max-width:400px; text-align:center; font-family: Arial, sans-serif;">
     <h2>Information</h2>
     <p>Diese Anwendung wurde für <br><br><strong>Wilhelm Ewe Armaturen GmbH & Co.KG</strong><br></p>
-    <p>entwickelt.<br><br>Es handelt sich<br>um die <strong>Beta-Version 1.182505</strong>.</p>
+    <p>entwickelt.<br><br>Es handelt sich<br>um die <strong>Beta-Version 1.212505</strong>.</p>
     <p>Programmfehler bitte melden an: <br>
       <a href="mailto:volker.kottwitz@ewe-armaturen.de">volker.kottwitz@ewe-armaturen.de</a>
     </p>
