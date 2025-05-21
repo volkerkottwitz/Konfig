@@ -16,14 +16,8 @@
 
     <!-- Google Fonts -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
-
-        * {
+         body {
             font-family: 'Roboto Condensed', Arial, sans-serif;
-        }
-
-        /* Grundlayout */
-        body {
             margin: 0;
             background-color: #f8f9fa;
         }
@@ -507,6 +501,7 @@ function resetScrollPosition() {
 
 // Seiten-Navigation
 function updateNavigation() {
+    if (!pdfDoc) return; // pdfDoc noch nicht geladen → Funktion abbrechen
     document.getElementById("prev-page").disabled = (currentPage <= 1);
     document.getElementById("next-page").disabled = (currentPage >= pdfDoc.numPages);
 }
@@ -557,7 +552,7 @@ function printCurrentPage() {
     <meta charset="UTF-8">
     <title>PDF-Seite drucken</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+       
 
         body {
             font-family: 'Roboto Condensed', Arial, sans-serif;
