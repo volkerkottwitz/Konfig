@@ -550,6 +550,7 @@ function printCurrentPage() {
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF-Seite drucken</title>
     <style>
        
@@ -563,8 +564,8 @@ function printCurrentPage() {
             align-items: center;
         }
 
-        /* Basis-Header */
-.header-bar {
+    /* Basis-Header */
+    .header-bar {
     width: 100%;
     background-color: #d2d2d4;
     display: flex;
@@ -577,25 +578,35 @@ function printCurrentPage() {
     border-bottom: 2px solid #ddd;
 }
 
+img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 20px auto;
+}
+
 .header-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 15px;
-    max-width: 100%;
 }
 
-/* Logo */
+.logo-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+}
+
 .logo {
     height: 100px;
-    margin-right: 15px;
 }
 
-/* App-Name */
 .app-name {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
+    color: white;
 }
 
 /* Button-Leiste */
@@ -657,34 +668,21 @@ function printCurrentPage() {
 
 /* Mobile Optimierung */
 @media screen and (max-width: 768px) {
-        .header-bar {
-        height: auto;
-        max-height: none;
-        margin-top: 10px;
-        padding: 10px;
-}
+        
 
-        .header-content {
-        height: auto;
-        max-height: none;
-        margin-top: 10px;
-        padding: 10px;
-    }
-
-    .logo {
-        height: 80px;
-    }
-
-    .app-name {
-        font-size: 20px;
-    }
-
-    .btn {
-        width: 100%;
-        max-width: 240px;
-        font-size: 16px;
-    }
-
+            @page {
+                size: auto;
+                margin: 0;
+            }
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            
+    
 }
 
 
@@ -693,18 +691,20 @@ function printCurrentPage() {
 </head>
 <body>
     <div class="header-bar">
-        <div class="header-content">
-            <img src="images/logo.png" alt="Logo" class="logo">
-            <span class="app-name">DUOVIEWER</span>
-            <div class="button-bar">
-                <button class="btn" onclick="window.print()">🖨️ Drucken</button>
-                <a href="mailto:?subject=PDF-Seite&amp;body=Hier ist die Seite:%0D%0A" target="_blank">
-                    <button class="btn">📧 E-Mail</button>
-                </a>
-                <button class="btn btn-secondary" onclick="window.close()">🔙 Zurück</button>
-            </div>
-        </div>
+  <div class="header-content">
+    <div class="logo-title-wrap">
+      <img src="images/logo.png" alt="Logo" class="logo">
+      <span class="app-name">DUOVIEWER</span>
     </div>
+    <div class="button-bar">
+      <button class="btn" onclick="window.print()">🖨️ Drucken</button>
+      <a href="mailto:?subject=PDF-Seite&amp;body=Hier ist die Seite:%0D%0A" target="_blank">
+        <button class="btn">📧 E-Mail</button>
+      </a>
+      <button class="btn btn-secondary" onclick="window.close()">🔙 Zurück</button>
+    </div>
+  </div>
+</div>
     <img src="${dataUrl}" alt="PDF Seite">
 </body>
 </html>
