@@ -563,71 +563,74 @@ function printCurrentPage() {
             align-items: center;
         }
 
-        .header-bar {
-            width: 100%;
-            background-color: #d2d2d4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 20px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-            flex-wrap: wrap;
-        }
+        /* Basis-Header */
+.header-bar {
+    width: 100%;
+    background-color: #d2d2d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    color: white;
+    border-bottom: 2px solid #ddd;
+}
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+.header-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 100%;
+}
 
-        .logo {
-            height: 100px;
-        }
+/* Logo */
+.logo {
+    height: 100px;
+    margin-right: 15px;
+}
 
-        .app-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-        }
+/* App-Name */
+.app-name {
+    font-size: 24px;
+    font-weight: bold;
+}
 
-        .button-bar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+/* Button-Leiste */
+.button-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-        .btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 30px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+/* Buttons */
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        .btn:hover {
-            background-color: #0056b3;
-        }
+.btn:hover {
+    background-color: #0056b3;
+}
 
-        .btn-secondary {
-            background-color: #6c757d;
-        }
+.btn-secondary {
+    background-color: #6c757d;
+}
 
-        .btn-secondary:hover {
-            background-color: #545b62;
-        }
+.btn-secondary:hover {
+    background-color: #545b62;
+}
 
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        @media print {
+@media print {
             @page {
                 size: auto;
                 margin: 0;
@@ -652,32 +655,15 @@ function printCurrentPage() {
             }
         }
 
-        @media screen and (max-width: 600px) {
+/* Mobile Optimierung */
+@media screen and (max-width: 768px) {
     .header-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        height: auto;
+        max-height: none;
+        margin-top: 10px;
+        padding: 10px;
     }
 
-    .logo {
-        height: 80px;
-    }
-
-    .app-name {
-        font-size: 20px;
-    }
-
-    .button-bar {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .btn {
-        width: 100%;
-        max-width: 240px;
-        font-size: 16px;
-    }
 }
 
 
