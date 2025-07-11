@@ -1,11 +1,14 @@
 let artikelMap = new Map();
 
-fetch("images/ewe-daten-2025.csv")
-  .then(res => res.text())
-  .then(text => {
+fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/Warenkorb/images/ewe-daten-2025.csv")
+  .then(res => res.arrayBuffer()) // Statt .text()
+  .then(buffer => {
+    const decoder = new TextDecoder("utf-8"); // Erzwinge UTF-8
+    const text = decoder.decode(buffer);
+
     const rows = text.split('\n').slice(1); // Header überspringen
     for (let row of rows) {
-      const [mnr,KURZTEXT1] = row.split(';'); // Trennzeichen prüfen
+      const [mnr, KURZTEXT1] = row.split(';');
       if (mnr && KURZTEXT1) {
         artikelMap.set(mnr.trim(), KURZTEXT1.trim());
       }
@@ -158,7 +161,7 @@ function highlightMatches(page, container, viewport) {
         });
 
         box.title = 'Zum Warenkorb hinzufügen';
-box.onclick = () => {
+box.addEventListener("click", () => {
   const zeilentext = line.map(i => i.str).join(' ').trim();
   const artikelnummerMatch = zeilentext.match(/\b\d{7}\b/);
 
@@ -175,7 +178,7 @@ box.onclick = () => {
 
   // ⚠️ Kein gültiger Artikel in Map gefunden – Fallback
   zeigeArtikelDialog(zeilentext);
-};
+});
 
 
         container.appendChild(box);
