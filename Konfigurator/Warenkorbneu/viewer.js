@@ -807,126 +807,116 @@ function generateCartPDF(cartItems) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  const eweLogo = new Image();
-  eweLogo.crossOrigin = "anonymous";  // wichtig, falls Logo von anderer Domain kommt
-  eweLogo.src = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
+  const eweLogoURL = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
 
-  eweLogo.onload = function() {
-    // Header
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.setTextColor(0, 51, 102);
-    doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
+  // Header
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.setTextColor(0, 51, 102);
+  doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
+  doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
 
-    doc.addImage(eweLogo, 'PNG', 156, 5, 30, 30);
+  // Logo direkt per URL einfügen (kein .onload nötig!)
+  doc.addImage(eweLogoURL, 'PNG', 156, 5, 30, 30);
 
-    const currentDate = new Date().toLocaleDateString();
-    doc.text(`Datum: ${currentDate}`, 158, 47);
+  const currentDate = new Date().toLocaleDateString();
+  doc.text(`Datum: ${currentDate}`, 158, 47);
 
-    const requestNumber = generateRequestNumber();
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(0, 51, 102);
-    doc.text(`Anfragenummer: ${requestNumber}`, 20, 70);
+  const requestNumber = generateRequestNumber();
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.setTextColor(0, 51, 102);
+  doc.text(`Anfragenummer: ${requestNumber}`, 20, 70);
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Sehr geehrte Damen und Herren,", 20, 80);
-    doc.text("anbei sende ich Ihnen meine Anfrage zu folgenden Artikeln:", 20, 89);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
+  doc.text("Sehr geehrte Damen und Herren,", 20, 80);
+  doc.text("anbei sende ich Ihnen meine Anfrage zu folgenden Artikeln:", 20, 89);
 
-    // Horizontale Linie
-    doc.setDrawColor(0, 0, 0);
-    doc.setLineWidth(0.5);
-    doc.line(20, 98, 190, 98);
+  // Horizontale Linie
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.5);
+  doc.line(20, 98, 190, 98);
 
-    // Tabellenheader für Warenkorb
-    let yOffset = 108;
+  // Tabellenheader für Warenkorb
+  let yOffset = 108;
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(0, 51, 102);
-    doc.text("Artikel im Warenkorb:", 20, yOffset);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.setTextColor(0, 51, 102);
+  doc.text("Artikel im Warenkorb:", 20, yOffset);
 
-    yOffset += 8;
+  yOffset += 8;
 
-    // Spaltenüberschriften fett und schwarz
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Nr.", 20, yOffset);
-    doc.text("Bezeichnung", 30, yOffset);
-    doc.text("Artikelnummer", 140, yOffset);
-    doc.text("Menge", 175, yOffset);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
+  doc.text("Nr.", 20, yOffset);
+  doc.text("Bezeichnung", 30, yOffset);
+  doc.text("Artikelnummer", 140, yOffset);
+  doc.text("Menge", 175, yOffset);
 
-    yOffset += 6;
-    doc.setLineWidth(0.2);
-    doc.line(20, yOffset, 190, yOffset);
-    yOffset += 6;
+  yOffset += 6;
+  doc.setLineWidth(0.2);
+  doc.line(20, yOffset, 190, yOffset);
+  yOffset += 6;
 
-    // Inhalte in normaler Schrift
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
+  // Inhalte einfügen
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
 
-cartItems.forEach((item, index) => {
-  const maxWidth = 100; // mehr Platz für die Artikelbezeichnung
-  const bezeichnungLines = doc.splitTextToSize(item.bezeichnung || item.name || "", maxWidth);
+  cartItems.forEach((item, index) => {
+    const maxWidth = 100;
+    const bezeichnungLines = doc.splitTextToSize(item.bezeichnung || item.name || "", maxWidth);
 
-  const lineHeight = 6;
-  const blockHeight = bezeichnungLines.length * lineHeight;
+    const lineHeight = 6;
+    const blockHeight = bezeichnungLines.length * lineHeight;
 
-  if (yOffset + blockHeight > 270) {
-    doc.addPage();
-    yOffset = 20;
+    if (yOffset + blockHeight > 270) {
+      doc.addPage();
+      yOffset = 20;
 
-    // Tabellenkopf auf neuer Seite wiederholen
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.text("Nr.", 20, yOffset);
-    doc.text("Bezeichnung", 30, yOffset);
-    doc.text("Artikelnummer", 140, yOffset);
-    doc.text("Menge", 175, yOffset);
-    yOffset += 6;
-    doc.line(20, yOffset, 190, yOffset);
-    yOffset += 6;
-    doc.setFont("helvetica", "normal");
-  }
+      // Tabellenkopf auf neuer Seite wiederholen
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.text("Nr.", 20, yOffset);
+      doc.text("Bezeichnung", 30, yOffset);
+      doc.text("Artikelnummer", 140, yOffset);
+      doc.text("Menge", 175, yOffset);
+      yOffset += 6;
+      doc.line(20, yOffset, 190, yOffset);
+      yOffset += 6;
+      doc.setFont("helvetica", "normal");
+    }
 
-  // Artikel-Index
-  doc.text(String(index + 1), 20, yOffset);
+    doc.text(String(index + 1), 20, yOffset);
+    doc.text(bezeichnungLines, 30, yOffset);
+    doc.text(item.artikelnummer || item.nummer || "", 140, yOffset);
+    doc.text(String(item.menge), 175, yOffset);
 
-  // Artikelbezeichnung (mehrzeilig)
-  doc.text(bezeichnungLines, 30, yOffset);
+    yOffset += blockHeight + 4;
+  });
 
-  // Artikelnummer
-  doc.text(item.artikelnummer || item.nummer || "", 140, yOffset);
+  doc.setLineWidth(0.5);
+  doc.line(20, yOffset + 2, 190, yOffset + 2);
 
-  // Menge
-  doc.text(String(item.menge), 175, yOffset);
+// PDF mit korrektem Dateinamen öffnen
+const pdfBlob = doc.output('blob');
+const pdfUrl = URL.createObjectURL(pdfBlob);
 
-  yOffset += blockHeight + 4;
-});
-
-    // Trennlinie nach Warenkorb
-    doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 2, 190, yOffset + 2);
-
-    // Hier kannst du ggf. weitere Infos anhängen wie Benutzerdaten
-
-    // PDF öffnen
-    const pdfData = doc.output('blob');
-    const url = URL.createObjectURL(pdfData);
-    window.open(url);
+const tab = window.open();
+tab.document.write(`
+  <title>Anfrage_EWE_${requestNumber}.pdf</title>
+  <iframe width="100%" height="100%" style="border:none;" src="${pdfUrl}"></iframe>
+`);
   };
-
   eweLogo.onerror = function() {
     alert("Logo konnte nicht geladen werden. PDF wird ohne Logo erstellt.");
     // Optional: PDF ohne Logo generieren oder Fehlerbehandlung hier
   };
-}
