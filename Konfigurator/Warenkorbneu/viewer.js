@@ -923,23 +923,25 @@ tab.document.write(`
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       <style>
         html, body {
-          margin: 0; padding: 0; height: 100%; overflow: hidden; display: flex; flex-direction: column;
-        }
-        iframe {
-          border: none;
-          flex-grow: 1;
-          width: 100%;
+    margin: 0; padding: 0; height: 100%; overflow: hidden; 
+    display: flex; flex-direction: column;
+  }
+  iframe {
+    border: none;
+    flex-grow: 1;
+    min-height: 0; /* Wichtig für Flexbox, damit iframe nicht überläuft */
+    width: 100%;
         }
         #downloadBtn {
           padding: 10px 20px;
           font-size: 16px;
-          background: #003366;
+          background: #00a1e1;
           color: white;
           border: none;
           cursor: pointer;
         }
         #downloadBtn:hover {
-          background: #0055aa;
+          background: #01304b;
         }
       </style>
     </head>
