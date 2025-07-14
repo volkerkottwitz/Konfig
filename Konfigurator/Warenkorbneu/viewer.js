@@ -920,53 +920,20 @@ tab.document.write(`
   <html>
     <head>
       <title>Anfrage_EWE_${requestNumber}.pdf</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <style>
         html, body {
-          margin: 0;
-          padding: 0;
-          height: 100vh;
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
+          margin: 0; padding: 0; height: 100vh; overflow: hidden;
         }
         iframe {
-          flex: 1 1 auto;
+          border: none;
           width: 100vw;
           height: 100vh;
-          border: none;
-        }
-        #downloadBtn {
-          padding: 10px 20px;
-          font-size: 16px;
-          background: #00a1e1;
-          color: white;
-          border: none;
-          cursor: pointer;
-          position: absolute;
-          bottom: 10px;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 1000;
-        }
-        #downloadBtn:hover {
-          background: #01304b;
         }
       </style>
     </head>
     <body>
-      <iframe src="${pdfUrl}" allowfullscreen></iframe>
-      <button id="downloadBtn">PDF herunterladen</button>
-      <script>
-        document.getElementById('downloadBtn').addEventListener('click', () => {
-          const a = document.createElement('a');
-          a.href = '${pdfUrl}';
-          a.download = 'Anfrage_EWE_${requestNumber}.pdf';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        });
-      </script>
+      <iframe src="${pdfUrl}"></iframe>
     </body>
   </html>
 `);
