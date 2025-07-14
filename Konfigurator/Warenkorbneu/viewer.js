@@ -345,19 +345,21 @@ function zeigeWarenkorb() {
 
   let inhalt = `
     <div style="background:#fff; padding:25px 30px; border-radius:14px; width:90%; max-width:600px;
-                font-family:'Segoe UI', sans-serif; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+                font-family:'Segoe UI', sans-serif; box-shadow:0 4px 20px rgba(0,0,0,0.2);
+                max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
       <h2 style="margin-top:0;">🛒 Ihr Warenkorb</h2>
-      <table style="width:100%; border-collapse:collapse;">
-        <thead>
-          <tr style="text-align:left; border-bottom:2px solid #ccc;">
-            <th>Nr.</th>
-            <th>Artikel / Art.-Nr.</th>
-            <th>Preis</th>
-            <th>Stück</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
+      <div style="flex: 1 1 auto; overflow-y: auto; margin-bottom: 20px;">
+        <table style="width:100%; border-collapse:collapse;">
+          <thead>
+            <tr style="text-align:left; border-bottom:2px solid #ccc;">
+              <th>Nr.</th>
+              <th>Artikel / Art.-Nr.</th>
+              <th>Preis</th>
+              <th>Stück</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
   `;
 
   warenkorb.forEach((item, index) => {
@@ -381,15 +383,18 @@ function zeigeWarenkorb() {
   });
 
   inhalt += `
-        </tbody>
-      </table>
-      <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
-<button onclick="generateCartPDF(warenkorb); document.body.removeChild(document.getElementById('warenkorbDialog'));" 
-        style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
-  Jetzt Anfragen
-</button>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button onclick="generateCartPDF(warenkorb); document.body.removeChild(document.getElementById('warenkorbDialog'));" 
+                style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
+          Jetzt Anfragen
+        </button>
         <button onclick="document.body.removeChild(document.getElementById('warenkorbDialog'))"
-                style="padding:10px 16px; background:#ccc; border:none; border-radius:8px;">Schließen</button>
+                style="padding:10px 16px; background:#ccc; border:none; border-radius:8px;">
+          Schließen
+        </button>
       </div>
     </div>
   `;
@@ -916,7 +921,4 @@ tab.document.write(`
   <iframe width="100%" height="100%" style="border:none;" src="${pdfUrl}"></iframe>
 `);
   };
-  eweLogo.onerror = function() {
-    alert("Logo konnte nicht geladen werden. PDF wird ohne Logo erstellt.");
-    // Optional: PDF ohne Logo generieren oder Fehlerbehandlung hier
-  };
+
