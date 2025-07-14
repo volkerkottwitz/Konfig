@@ -919,15 +919,10 @@ cartItems.forEach((item, index) => {
 
     // Hier kannst du ggf. weitere Infos anhängen wie Benutzerdaten
 
-// PDF mit korrektem Dateinamen öffnen
-const pdfBlob = doc.output('blob');
-const pdfUrl = URL.createObjectURL(pdfBlob);
-
-const tab = window.open();
-tab.document.write(`
-  <title>Anfrage_EWE_${requestNumber}.pdf</title>
-  <iframe width="100%" height="100%" style="border:none;" src="${pdfUrl}"></iframe>
-`);
+    // PDF öffnen
+    const pdfData = doc.output('blob');
+    const url = URL.createObjectURL(pdfData);
+    window.open(url);
   };
 
   eweLogo.onerror = function() {
