@@ -923,17 +923,39 @@ tab.document.write(`
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
       <style>
         html, body {
-          margin: 0; padding: 0; height: 100%; overflow: hidden;
+          margin: 0; padding: 0; height: 100%; overflow: hidden; display: flex; flex-direction: column;
         }
         iframe {
           border: none;
+          flex-grow: 1;
           width: 100%;
-          height: 100%;
+        }
+        #downloadBtn {
+          padding: 10px 20px;
+          font-size: 16px;
+          background: #003366;
+          color: white;
+          border: none;
+          cursor: pointer;
+        }
+        #downloadBtn:hover {
+          background: #0055aa;
         }
       </style>
     </head>
     <body>
       <iframe src="${pdfUrl}"></iframe>
+      <button id="downloadBtn">PDF herunterladen</button>
+
+      <script>
+        const btn = document.getElementById('downloadBtn');
+        btn.addEventListener('click', () => {
+          const a = document.createElement('a');
+          a.href = '${pdfUrl}';
+          a.download = 'Anfrage_EWE_${requestNumber}.pdf';
+          a.click();
+        });
+      </script>
     </body>
   </html>
 `);
