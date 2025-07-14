@@ -389,7 +389,7 @@ function zeigeWarenkorb() {
       <div style="display:flex; justify-content:flex-end; gap:10px;">
         <button onclick="generateCartPDF(warenkorb); document.body.removeChild(document.getElementById('warenkorbDialog'));" 
                 style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
-          Jetzt Anfragen2
+          Jetzt Anfragen
         </button>
         <button onclick="document.body.removeChild(document.getElementById('warenkorbDialog'))"
                 style="padding:10px 16px; background:#ccc; border:none; border-radius:8px;">
@@ -914,31 +914,9 @@ function generateCartPDF(cartItems) {
 // PDF mit korrektem Dateinamen öffnen
     // PDF öffnen
 
-const pdfBlob = doc.output('blob');
-const pdfUrl = URL.createObjectURL(pdfBlob);
-
-const tab = window.open();
-tab.document.write(`
-  <html>
-    <head>
-      <title>Anfrage_EWE_${requestNumber}.pdf</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-      <style>
-        html, body {
-          margin: 0; padding: 0; height: 100%; overflow: hidden;
-        }
-        iframe {
-          border: none;
-          width: 100vw;
-          height: 100vh;
-        }
-      </style>
-    </head>
-    <body>
-      <iframe src="${pdfUrl}"></iframe>
-    </body>
-  </html>
-`);
+   const pdfData = doc.output('blob');
+    const url = URL.createObjectURL(pdfData);
+    window.open(url);
   };
   
 
