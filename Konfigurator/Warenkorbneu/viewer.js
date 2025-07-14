@@ -920,10 +920,10 @@ tab.document.write(`
   <html>
     <head>
       <title>Anfrage_EWE_${requestNumber}.pdf</title>
-      <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <style>
         html, body {
-          margin: 0; padding: 0; height: 100vh; overflow: hidden;
+          margin: 0; padding: 0; height: 100vh; overflow: auto;
         }
         iframe {
           border: none;
