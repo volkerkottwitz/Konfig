@@ -912,30 +912,9 @@ function generateCartPDF(cartItems) {
   doc.line(20, yOffset + 2, 190, yOffset + 2);
 
 // PDF mit korrektem Dateinamen öffnen
-const pdfBlob = doc.output('blob');
-const pdfUrl = URL.createObjectURL(pdfBlob);
-
-const tab = window.open();
-tab.document.write(`
-  <html>
-    <head>
-      <title>Anfrage_EWE_${requestNumber}.pdf</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <style>
-        html, body {
-          margin: 0; padding: 0; height: 100vh; overflow: auto;
-        }
-        iframe {
-          border: none;
-          width: 100vw;
-          height: 100vh;
-        }
-      </style>
-    </head>
-    <body>
-      <iframe src="${pdfUrl}"></iframe>
-    </body>
-  </html>
-`);
+    // PDF öffnen
+    const pdfData = doc.output('blob');
+    const url = URL.createObjectURL(pdfData);
+    window.open(url);
   };
 
