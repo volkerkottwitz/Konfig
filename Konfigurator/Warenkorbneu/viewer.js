@@ -74,9 +74,7 @@ function renderPage(pageNum) {
       clearHighlights(); // vorherige Treffer löschen
 
       // Treffer auf Seite hervorheben
-      if (matchPages.has(pageNum)) {
-        highlightMatches(page, wrapper, viewport);
-      }
+highlightMatches(page, wrapper, viewport);
 
       // Seiteninfo aktualisieren
       document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
@@ -183,7 +181,6 @@ function countMatches(txt, s1, s2) {
   return s2 ? Math.min(c1, c2) : c1;
 }
 
-// === ✨ Treffer visuell hervorheben ===
 function highlightMatches(page, container, viewport) {
   const canvas = container.querySelector('canvas');
   const scaleX = canvas.offsetWidth / canvas.width;
@@ -191,92 +188,161 @@ function highlightMatches(page, container, viewport) {
 
   page.getTextContent().then(tc => {
     const items = tc.items;
-    const lines = {};
 
-    // Zeilenweise Gruppieren nach y-Position
+    // Zeilen nach gerundeter Y-Position gruppieren
+    const lines = {};
     items.forEach(item => {
       const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
       const y = Math.round(tx[5]);
       if (!lines[y]) lines[y] = [];
-      lines[y].push({
-        str: item.str,
-        x: tx[4],
-        y: tx[5] - item.height,
-        w: item.width,
-        h: item.height
-      });
+      lines[y].push({ ...item, tx, y });
     });
 
-    Object.values(lines).forEach(line => {
-      const text = line.map(i => i.str).join(' ').toLowerCase();
-      const includesFirst = searchText && text.includes(searchText);
-      const includesSecond = secondSearchText && text.includes(secondSearchText);
+    // Suchbegriffe normalisieren
+    const searchNorm = normalize(searchText);
+    const search2Norm = normalize(secondSearchText);
 
-      if (includesFirst || includesSecond) {
-        const minY = Math.min(...line.map(i => i.y))-6;
-        const height = Math.max(...line.map(i => i.h))+8;
-        const box = document.createElement('div');
+    const zeilenMitArtikelnummer = new Set();
 
-        box.className = 'highlight-box';
-        Object.assign(box.style, {
+    // Zeilen mit Artikelnummern analysieren
+    Object.values(lines).forEach(lineItems => {
+      const lineText = lineItems.map(i => i.str).join(' ');
+      const lineTextNorm = normalize(lineText);
+
+      // Trefferlogik
+      const hit1 = searchNorm && lineTextNorm.includes(searchNorm);
+      const hit2 = search2Norm && lineTextNorm.includes(search2Norm);
+
+      // Farben und Markierungslogik
+      let bgColor = 'rgba(0, 150, 255, 0.3)'; // Standard für nur Artikelnummer
+      let ganzeZeileMarkieren = false;
+
+      if (hit1 && hit2) {
+        bgColor = 'rgba(18, 189, 18, 0.15)'; // grün
+        ganzeZeileMarkieren = true;
+      } else if (hit1) {
+        bgColor = 'rgba(255, 165, 0, 0.2)'; // orange
+        ganzeZeileMarkieren = true;
+      } else if (hit2) {
+        bgColor = 'rgba(74, 235, 227, 0.2)'; // dunkleres blau
+        ganzeZeileMarkieren = true;
+      }
+
+      // Artikelnummern mit Regex finden (keine # davor!)
+      const regex = /(?:^|[^\#\w])((?:0392-[a-zA-Z0-9]+|[0-9]{7}(?:-[a-zA-Z0-9]+)?)(\*{1,2})?)/g;
+      let match;
+      while ((match = regex.exec(lineText)) !== null) {
+        const artikelnummer = match[1];
+        zeilenMitArtikelnummer.add(lineItems[0].y);
+
+        // Startelement finden
+        let startItem = null;
+        let accStr = '';
+        for (let i = 0; i < lineItems.length; i++) {
+          accStr += (accStr ? ' ' : '') + lineItems[i].str;
+          if (accStr.includes(artikelnummer)) {
+            startItem = lineItems[i];
+            break;
+          }
+        }
+        if (!startItem) return;
+
+        // Position & Größe
+        let x, y, width, height;
+        if (ganzeZeileMarkieren) {
+          const first = lineItems[0];
+          x = 0;
+          y = (first.tx[5] - first.height - 12) * scaleY;
+          width = canvas.offsetWidth;
+          height = (first.height + 12) * scaleY;
+        } else {
+          x = startItem.tx[4] * scaleX;
+          y = (startItem.tx[5] - startItem.height - 10) * scaleY;
+          width = artikelnummer.length * 9.5 * scaleX;
+          height = (startItem.height + 12) * scaleY;
+        }
+
+        const klickDiv = document.createElement('div');
+        Object.assign(klickDiv.style, {
           position: 'absolute',
-          left: '0px',
-          top: `${minY * scaleY}px`,
-          width: `${canvas.offsetWidth}px`,
-          height: `${height * scaleY}px`,
-          backgroundColor:
-            includesSecond && !includesFirst ? 'rgba(255, 200, 0, 0.3)' :
-            includesFirst && includesSecond ? 'rgba(255, 100, 0, 0.3)' :
-            'rgba(0, 150, 255, 0.3)',
+          left: `${x}px`,
+          top: `${y}px`,
+          width: `${width}px`,
+          height: `${height}px`,
+          backgroundColor: bgColor,
           cursor: 'pointer'
         });
 
-        box.title = 'Zum Warenkorb hinzufügen';
+        klickDiv.title = `Artikel ${artikelnummer} anzeigen`;
 
-        // Klick auf Highlight → Artikel erkennen & anzeigen
-box.addEventListener("click", () => {
-  const zeilentext = line.map(i => i.str).join(' ').trim();
-  const artikelnummerMatch = zeilentext.match(/\b(?:0392|[0-9]{7})-[a-zA-Z0-9]+\b|\b[0-9]{7}\b/);
+        klickDiv.addEventListener('click', () => {
+          const artikel = artikelMap.get(artikelnummer);
+          if (artikel) {
+            zeigeArtikelDialogDirekt(artikelnummer, artikel);
+          } else {
+            const pseudoArtikel = {
+              nummer: artikelnummer,
+              name: lineText,
+              preis: 0
+            };
+            zeigeArtikelDialogDirekt(artikelnummer, pseudoArtikel);
+          }
+        });
 
-  if (artikelnummerMatch) {
-    let artikelnummer = artikelnummerMatch[0];
-
-    if (/^\d{1,7}$/.test(artikelnummer)) {
-      artikelnummer = artikelnummer.padStart(7, '0');
-    }
-
-    const artikel = artikelMap.get(artikelnummer);
-
-    if (artikel) {
-      zeigeArtikelDialogDirekt(artikelnummer, artikel);
-      return;
-    } else {
-      zeigeUnbekannterArtikelDialog(artikelnummer, 
-        () => { // onConfirm: hinzufügen
-          const unbekannterArtikel = {
-            name: zeilentext,  // <-- hier: kompletter Text als Name
-            nummer: artikelnummer,
-            preis: 0.00
-          };
-          hinzufuegenArtikel(unbekannterArtikel, 1);
-          zeigeHinzugefügtOverlay(`Artikel "${zeilentext}" (${artikelnummer}) wurde hinzugefügt`);
-        },
-        () => {
-          // Abbrechen - nichts tun
-        }
-      );
-      return;
-    }
-  }
-
-  zeigeArtikelDialog(zeilentext);
-});
-
-        container.appendChild(box);
+        container.appendChild(klickDiv);
       }
+    });
+
+    // Zeilen ohne Artikelnummer aber mit Treffer
+    Object.values(lines).forEach(lineItems => {
+      const yKey = lineItems[0].y;
+      if (zeilenMitArtikelnummer.has(yKey)) return;
+
+      const lineText = lineItems.map(i => i.str).join(' ');
+      const lineTextNorm = normalize(lineText);
+
+      const hit1 = searchNorm && lineTextNorm.includes(searchNorm);
+      const hit2 = search2Norm && lineTextNorm.includes(search2Norm);
+
+      if (!(hit1 || hit2)) return;
+
+      let bgColor;
+      if (hit1 && hit2) {
+        bgColor = 'rgba(18, 189, 18, 0.15)'; // grün
+      } else if (hit1) {
+        bgColor = 'rgba(255, 165, 0, 0.2)'; // orange
+      } else {
+        bgColor = 'rgba(74, 235, 227, 0.2)'; // dunkleres blau
+      }
+
+      const first = lineItems[0];
+      const x = 0;
+      const y = (first.tx[5] - first.height - 12) * scaleY;
+      const width = canvas.offsetWidth;
+      const height = (first.height + 12) * scaleY;
+
+      const div = document.createElement('div');
+      Object.assign(div.style, {
+        position: 'absolute',
+        left: `${x}px`,
+        top: `${y}px`,
+        width: `${width}px`,
+        height: `${height}px`,
+        backgroundColor: bgColor,
+        cursor: 'pointer'
+      });
+
+      div.title = `Keine Artikelnummer gefunden`;
+
+      div.addEventListener('click', () => {
+        zeigeArtikelDialog(lineText);
+      });
+
+      container.appendChild(div);
     });
   });
 }
+
 
 
 // Blättern zwischen Trefferseiten
@@ -287,7 +353,6 @@ function prevMatch() {
     currentPage = arr[i - 1];
     renderPage(currentPage);
     updateHelpers();
-    
   }
 }
 
@@ -298,7 +363,6 @@ function nextMatch() {
     currentPage = arr[i + 1];
     renderPage(currentPage);
     updateHelpers();
-    
   }
 }
 
@@ -368,21 +432,19 @@ function zeigeWarenkorb() {
 
   let inhalt = `
     <div style="background:#fff; padding:25px 30px; border-radius:14px; width:90%; max-width:600px;
-                font-family:'Segoe UI', sans-serif; box-shadow:0 4px 20px rgba(0,0,0,0.2);
-                max-height: 80vh; overflow: hidden; display: flex; flex-direction: column;">
+                font-family:'Segoe UI', sans-serif; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
       <h2 style="margin-top:0;">🛒 Ihr Warenkorb</h2>
-      <div style="flex: 1 1 auto; overflow-y: auto; margin-bottom: 20px;">
-        <table style="width:100%; border-collapse:collapse;">
-          <thead>
-            <tr style="text-align:left; border-bottom:2px solid #ccc;">
-              <th>Nr.</th>
-              <th>Artikel / Art.-Nr.</th>
-              <th>Preis</th>
-              <th>Stück</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr style="text-align:left; border-bottom:2px solid #ccc;">
+            <th>Nr.</th>
+            <th>Artikel / Art.-Nr.</th>
+            <th>Preis</th>
+            <th>Stück</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
   `;
 
   warenkorb.forEach((item, index) => {
@@ -406,18 +468,15 @@ function zeigeWarenkorb() {
   });
 
   inhalt += `
-          </tbody>
-        </table>
-      </div>
-      <div style="display:flex; justify-content:flex-end; gap:10px;">
-        <button onclick="generateCartPDF(warenkorb); document.body.removeChild(document.getElementById('warenkorbDialog'));" 
-                style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
-          Jetzt Anfragen
-        </button>
+        </tbody>
+      </table>
+      <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
+<button onclick="generateCartPDF(warenkorb); document.body.removeChild(document.getElementById('warenkorbDialog'));" 
+        style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
+  Jetzt Anfragen
+</button>
         <button onclick="document.body.removeChild(document.getElementById('warenkorbDialog'))"
-                style="padding:10px 16px; background:#ccc; border:none; border-radius:8px;">
-          Schließen
-        </button>
+                style="padding:10px 16px; background:#ccc; border:none; border-radius:8px;">Schließen</button>
       </div>
     </div>
   `;
@@ -465,7 +524,7 @@ function printCurrentPage() {
 
   win.document.write(`
     <html>
-      <head><title>Drucken</title></head>
+      <head><title>Diese Seite(n) sind aus der Preisliste 2025 von EWE-Armaturen.</title></head>
       <body style="margin:0;padding:0">
         <img src="${dataUrl}" style="width:100%;height:auto" onload="window.print();window.close()">
       </body>
@@ -504,12 +563,12 @@ function printAllMatches() {
 
     const html = `
       <html>
-        <head><title>Drucken der Trefferseiten</title></head>
+        <head><title>Diese Seite(n) sind aus der Preisliste 2025 von EWE-Armaturen.</title></head>
         <body style="margin:0;padding:0">
           ${images.map(img => `<img src="${img}" style="width:100%;page-break-after:always;">`).join('')}
           <script>
             window.onload = function() {
-              window.print();
+              window.print();window.close();
               window.onafterprint = function() { window.close(); };
             };
           </script>
@@ -550,9 +609,7 @@ function zeigeHinzugefügtOverlay(text) {
 
   Object.assign(overlay.style, {
     position: "fixed",
-    bottom: "20px",
-    left: "50%",          // horizontal mittig
-    transform: "translateX(-50%)",  // horizontale Verschiebung, damit es genau mittig sitzt
+    top: "20px",
     right: "20px",
     background: "#28a745",
     color: "white",
@@ -837,165 +894,159 @@ function generateCartPDF(cartItems) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  const eweLogoURL = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
+  const eweLogo = new Image();
+  eweLogo.crossOrigin = "anonymous";  // wichtig, falls Logo von anderer Domain kommt
+  eweLogo.src = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
 
-  // Header
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(18);
-  doc.setTextColor(0, 51, 102);
-  doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
+  eweLogo.onload = function() {
+    // Header
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(0, 0, 0);
-  doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
 
-  // Logo direkt per URL einfügen (kein .onload nötig!)
-  doc.addImage(eweLogoURL, 'PNG', 156, 5, 30, 30);
+    doc.addImage(eweLogo, 'PNG', 156, 5, 30, 30);
 
-  const currentDate = new Date().toLocaleDateString();
-  doc.text(`Datum: ${currentDate}`, 158, 47);
+    const currentDate = new Date().toLocaleDateString();
+    doc.text(`Datum: ${currentDate}`, 158, 47);
 
-  const requestNumber = generateRequestNumber();
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(0, 51, 102);
-  doc.text(`Anfragenummer: ${requestNumber}`, 20, 70);
+    const requestNumber = generateRequestNumber();
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 51, 102);
+    doc.text(`Anfragenummer: ${requestNumber}`, 20, 70);
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(0, 0, 0);
-  doc.text("Sehr geehrte Damen und Herren,", 20, 80);
-  doc.text("anbei sende ich Ihnen meine Anfrage zu folgenden Artikeln:", 20, 89);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Sehr geehrte Damen und Herren,", 20, 80);
+    doc.text("anbei sende ich Ihnen meine Anfrage zu folgenden Artikeln:", 20, 89);
 
-  // Horizontale Linie
-  doc.setDrawColor(0, 0, 0);
-  doc.setLineWidth(0.5);
-  doc.line(20, 98, 190, 98);
+    // Horizontale Linie
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.5);
+    doc.line(20, 98, 190, 98);
 
-  // Tabellenheader für Warenkorb
-  let yOffset = 108;
+    // Tabellenheader für Warenkorb
+    let yOffset = 108;
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(0, 51, 102);
-  doc.text("Artikel im Warenkorb:", 20, yOffset);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Artikel im Warenkorb:", 20, yOffset);
 
-  yOffset += 8;
+    yOffset += 8;
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(10);
-  doc.setTextColor(0, 0, 0);
-  doc.text("Nr.", 20, yOffset);
-  doc.text("Bezeichnung", 30, yOffset);
-  doc.text("Artikelnummer", 140, yOffset);
-  doc.text("Menge", 175, yOffset);
+    // Spaltenüberschriften fett und schwarz
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Nr.", 20, yOffset);
+    doc.text("Bezeichnung", 30, yOffset);
+    doc.text("Artikelnummer", 140, yOffset);
+    doc.text("Menge", 175, yOffset);
 
-  yOffset += 6;
-  doc.setLineWidth(0.2);
-  doc.line(20, yOffset, 190, yOffset);
-  yOffset += 6;
+    yOffset += 6;
+    doc.setLineWidth(0.2);
+    doc.line(20, yOffset, 190, yOffset);
+    yOffset += 6;
 
-  // Inhalte einfügen
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(0, 0, 0);
+    // Inhalte in normaler Schrift
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
 
-  cartItems.forEach((item, index) => {
-    const maxWidth = 100;
-    const bezeichnungLines = doc.splitTextToSize(item.bezeichnung || item.name || "", maxWidth);
+cartItems.forEach((item, index) => {
+  const maxWidth = 100; // mehr Platz für die Artikelbezeichnung
+  const bezeichnungLines = doc.splitTextToSize(item.bezeichnung || item.name || "", maxWidth);
 
-    const lineHeight = 6;
-    const blockHeight = bezeichnungLines.length * lineHeight;
+  const lineHeight = 6;
+  const blockHeight = bezeichnungLines.length * lineHeight;
 
-    if (yOffset + blockHeight > 270) {
-      doc.addPage();
-      yOffset = 20;
+  if (yOffset + blockHeight > 270) {
+    doc.addPage();
+    yOffset = 20;
 
-      // Tabellenkopf auf neuer Seite wiederholen
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(10);
-      doc.text("Nr.", 20, yOffset);
-      doc.text("Bezeichnung", 30, yOffset);
-      doc.text("Artikelnummer", 140, yOffset);
-      doc.text("Menge", 175, yOffset);
-      yOffset += 6;
-      doc.line(20, yOffset, 190, yOffset);
-      yOffset += 6;
-      doc.setFont("helvetica", "normal");
-    }
+    // Tabellenkopf auf neuer Seite wiederholen
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("Nr.", 20, yOffset);
+    doc.text("Bezeichnung", 30, yOffset);
+    doc.text("Artikelnummer", 140, yOffset);
+    doc.text("Menge", 175, yOffset);
+    yOffset += 6;
+    doc.line(20, yOffset, 190, yOffset);
+    yOffset += 6;
+    doc.setFont("helvetica", "normal");
+  }
 
-    doc.text(String(index + 1), 20, yOffset);
-    doc.text(bezeichnungLines, 30, yOffset);
-    doc.text(item.artikelnummer || item.nummer || "", 140, yOffset);
-    doc.text(String(item.menge), 175, yOffset);
+  // Artikel-Index
+  doc.text(String(index + 1), 20, yOffset);
 
-    yOffset += blockHeight + 4;
-  });
+  // Artikelbezeichnung (mehrzeilig)
+  doc.text(bezeichnungLines, 30, yOffset);
 
-  doc.setLineWidth(0.5);
-  doc.line(20, yOffset + 2, 190, yOffset + 2);
+  // Artikelnummer
+  doc.text(item.artikelnummer || item.nummer || "", 140, yOffset);
+
+  // Menge
+  doc.text(String(item.menge), 175, yOffset);
+
+  yOffset += blockHeight + 4;
+});
+
+    // Trennlinie nach Warenkorb
+    doc.setLineWidth(0.5);
+    doc.line(20, yOffset + 2, 190, yOffset + 2);
+
+    // Hier kannst du ggf. weitere Infos anhängen wie Benutzerdaten
 
 // PDF mit korrektem Dateinamen öffnen
-    // PDF öffnen
+const pdfBlob = doc.output('blob');
+const pdfUrl = URL.createObjectURL(pdfBlob);
 
-   const pdfData = doc.output('blob');
-    const url = URL.createObjectURL(pdfData);
-    window.open(url);
+const tab = window.open();
+tab.document.write(`
+  <title>Anfrage_EWE_${requestNumber}.pdf</title>
+  <iframe width="100%" height="100%" style="border:none;" src="${pdfUrl}"></iframe>
+`);
   };
 
-
-  // ✨ Schicker Bestätigungsdialog für unbekannte Artikelnummern
-function zeigeUnbekannterArtikelDialog(artikelnummer, onConfirm, onCancel) {
-  const overlay = document.createElement('div');
-  overlay.id = "unbekannterArtikelOverlay";
-
-  Object.assign(overlay.style, {
-    position: "fixed",
-    top: 0, left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.5)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 9999,
-  });
-
-  const box = document.createElement('div');
-  Object.assign(box.style, {
-    background: "#fff",
-    padding: "25px 30px",
-    borderRadius: "14px",
-    fontFamily: "'Segoe UI', sans-serif",
-    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
-    textAlign: "center",
-    maxWidth: "380px",
-    lineHeight: "1.4",
-  });
-
-  box.innerHTML = `
-    <h2 style="margin-top:0; font-size:1.5rem;">⚠️ Unbekannte Artikelnummer</h2>
-    <p>Die Artikelnummer <strong>${artikelnummer}</strong> ist nicht in der Artikeldatenbank vorhanden.</p>
-    <p>Möchtest du diesen Artikel trotzdem in den Warenkorb aufnehmen?</p>
-    <div style="margin-top: 20px;">
-      <button id="btnUnbekanntJa" style="padding: 10px 16px; background:#28a745; color:#fff; border:none; border-radius:8px; cursor:pointer; margin-right: 15px;">Ja, hinzufügen</button>
-      <button id="btnUnbekanntNein" style="padding: 10px 16px; background:#dc3545; color:#fff; border:none; border-radius:8px; cursor:pointer;">Abbrechen</button>
-    </div>
-  `;
-
-  overlay.appendChild(box);
-  document.body.appendChild(overlay);
-
-  // Klick "Ja"
-  document.getElementById("btnUnbekanntJa").onclick = () => {
-    onConfirm();
-    document.body.removeChild(overlay);
-  };
-
-  // Klick "Nein"
-  document.getElementById("btnUnbekanntNein").onclick = () => {
-    onCancel();
-    document.body.removeChild(overlay);
+  eweLogo.onerror = function() {
+    alert("Logo konnte nicht geladen werden. PDF wird ohne Logo erstellt.");
+    // Optional: PDF ohne Logo generieren oder Fehlerbehandlung hier
   };
 }
+
+//const pdfBlob = doc.output('blob');
+//const pdfUrl = URL.createObjectURL(pdfBlob);
+
+//const tab = window.open();
+//tab.document.write(`
+//  <html>
+//    <head>
+//      <title>Anfrage_EWE_${requestNumber}.pdf</title>
+//      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+//      <style>
+//        html, body {
+//          margin: 0; padding: 0; height: 100vh; overflow: auto;
+//        }
+//        iframe {
+//          border: none;
+//          width: 100vw;
+//          height: 100vh;
+//        }
+//      </style>
+//    </head>
+//    <body>
+//      <iframe src="${pdfUrl}"></iframe>
+//    </body>
+//  </html>
+//`);
+
+
