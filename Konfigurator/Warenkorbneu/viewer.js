@@ -80,6 +80,7 @@ function renderPage(pageNum) {
 
       // Seiteninfo aktualisieren
       document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
+      updateNavigation(); // ← sorgt dafür, dass die Buttons initial korrekt aktiviert sind
     });
   });
 }
@@ -212,8 +213,8 @@ function highlightMatches(page, container, viewport) {
       const includesSecond = secondSearchText && text.includes(secondSearchText);
 
       if (includesFirst || includesSecond) {
-        const minY = Math.min(...line.map(i => i.y));
-        const height = Math.max(...line.map(i => i.h));
+        const minY = Math.min(...line.map(i => i.y))-6;
+        const height = Math.max(...line.map(i => i.h))+8;
         const box = document.createElement('div');
 
         box.className = 'highlight-box';
@@ -233,23 +234,43 @@ function highlightMatches(page, container, viewport) {
         box.title = 'Zum Warenkorb hinzufügen';
 
         // Klick auf Highlight → Artikel erkennen & anzeigen
-        box.addEventListener("click", () => {
-          const zeilentext = line.map(i => i.str).join(' ').trim();
-          const artikelnummerMatch = zeilentext.match(/\b(?:0392|[0-9]{7})-[a-zA-Z0-9]+\b|\b[0-9]{7}\b/);
+box.addEventListener("click", () => {
+  const zeilentext = line.map(i => i.str).join(' ').trim();
+  const artikelnummerMatch = zeilentext.match(/\b(?:0392|[0-9]{7})-[a-zA-Z0-9]+\b|\b[0-9]{7}\b/);
 
-          if (artikelnummerMatch) {
-            const artikelnummer = artikelnummerMatch[0];
-            const artikel = artikelMap.get(artikelnummer);
+  if (artikelnummerMatch) {
+    let artikelnummer = artikelnummerMatch[0];
 
-            if (artikel) {
-              zeigeArtikelDialogDirekt(artikelnummer, artikel);  // ✅ Besser: direkt übergeben
-              return;
-            }
-          }
+    if (/^\d{1,7}$/.test(artikelnummer)) {
+      artikelnummer = artikelnummer.padStart(7, '0');
+    }
 
-          // ⚠️ Fallback – nur Text anzeigen
-          zeigeArtikelDialog(zeilentext);
-        });
+    const artikel = artikelMap.get(artikelnummer);
+
+    if (artikel) {
+      zeigeArtikelDialogDirekt(artikelnummer, artikel);
+      return;
+    } else {
+      zeigeUnbekannterArtikelDialog(artikelnummer, 
+        () => { // onConfirm: hinzufügen
+          const unbekannterArtikel = {
+            name: zeilentext,  // <-- hier: kompletter Text als Name
+            nummer: artikelnummer,
+            preis: 0.00
+          };
+          hinzufuegenArtikel(unbekannterArtikel, 1);
+          zeigeHinzugefügtOverlay(`Artikel "${zeilentext}" (${artikelnummer}) wurde hinzugefügt`);
+        },
+        () => {
+          // Abbrechen - nichts tun
+        }
+      );
+      return;
+    }
+  }
+
+  zeigeArtikelDialog(zeilentext);
+});
 
         container.appendChild(box);
       }
@@ -266,6 +287,7 @@ function prevMatch() {
     currentPage = arr[i - 1];
     renderPage(currentPage);
     updateHelpers();
+    
   }
 }
 
@@ -276,6 +298,7 @@ function nextMatch() {
     currentPage = arr[i + 1];
     renderPage(currentPage);
     updateHelpers();
+    
   }
 }
 
@@ -527,7 +550,9 @@ function zeigeHinzugefügtOverlay(text) {
 
   Object.assign(overlay.style, {
     position: "fixed",
-    top: "20px",
+    bottom: "20px",
+    left: "50%",          // horizontal mittig
+    transform: "translateX(-50%)",  // horizontale Verschiebung, damit es genau mittig sitzt
     right: "20px",
     background: "#28a745",
     color: "white",
@@ -918,5 +943,59 @@ function generateCartPDF(cartItems) {
     const url = URL.createObjectURL(pdfData);
     window.open(url);
   };
-  
 
+
+  // ✨ Schicker Bestätigungsdialog für unbekannte Artikelnummern
+function zeigeUnbekannterArtikelDialog(artikelnummer, onConfirm, onCancel) {
+  const overlay = document.createElement('div');
+  overlay.id = "unbekannterArtikelOverlay";
+
+  Object.assign(overlay.style, {
+    position: "fixed",
+    top: 0, left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999,
+  });
+
+  const box = document.createElement('div');
+  Object.assign(box.style, {
+    background: "#fff",
+    padding: "25px 30px",
+    borderRadius: "14px",
+    fontFamily: "'Segoe UI', sans-serif",
+    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
+    textAlign: "center",
+    maxWidth: "380px",
+    lineHeight: "1.4",
+  });
+
+  box.innerHTML = `
+    <h2 style="margin-top:0; font-size:1.5rem;">⚠️ Unbekannte Artikelnummer</h2>
+    <p>Die Artikelnummer <strong>${artikelnummer}</strong> ist nicht in der Artikeldatenbank vorhanden.</p>
+    <p>Möchtest du diesen Artikel trotzdem in den Warenkorb aufnehmen?</p>
+    <div style="margin-top: 20px;">
+      <button id="btnUnbekanntJa" style="padding: 10px 16px; background:#28a745; color:#fff; border:none; border-radius:8px; cursor:pointer; margin-right: 15px;">Ja, hinzufügen</button>
+      <button id="btnUnbekanntNein" style="padding: 10px 16px; background:#dc3545; color:#fff; border:none; border-radius:8px; cursor:pointer;">Abbrechen</button>
+    </div>
+  `;
+
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+
+  // Klick "Ja"
+  document.getElementById("btnUnbekanntJa").onclick = () => {
+    onConfirm();
+    document.body.removeChild(overlay);
+  };
+
+  // Klick "Nein"
+  document.getElementById("btnUnbekanntNein").onclick = () => {
+    onCancel();
+    document.body.removeChild(overlay);
+  };
+}
