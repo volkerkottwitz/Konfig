@@ -477,7 +477,7 @@ function zeigeWarenkorb() {
       <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
 <button onclick="generateCartPDF(warenkorb); document.body.removeChild(document.getElementById('warenkorbDialog'));" 
         style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
-  Jetzt Anfragen
+  Jetzt AnfragenX
 </button>
         <button onclick="document.body.removeChild(document.getElementById('warenkorbDialog'))"
                 style="padding:10px 16px; background:#ccc; border:none; border-radius:8px;">Schließen</button>
@@ -1011,54 +1011,13 @@ cartItems.forEach((item, index) => {
     // Hier kannst du ggf. weitere Infos anhängen wie Benutzerdaten
 
 // PDF mit korrektem Dateinamen öffnen
-   const pdfData = doc.output('blob');
+    const pdfData = doc.output('blob');
     const url = URL.createObjectURL(pdfData);
     window.open(url);
   };
 
-
-//const pdfBlob = doc.output('blob');
-//const pdfUrl = URL.createObjectURL(pdfBlob);
-
-//const tab = window.open();
-//tab.document.write(`
-//  <title>Anfrage_EWE_${requestNumber}.pdf</title>
-//  <iframe width="100%" height="100%" style="border:none;" src="${pdfUrl}"></iframe>
-//`);
-//  };
-
-//  eweLogo.onerror = function() {
-//    alert("Logo konnte nicht geladen werden. PDF wird ohne Logo erstellt.");
-//    // Optional: PDF ohne Logo generieren oder Fehlerbehandlung hier
-//  };
+ } 
 
 
-}
-
-//const pdfBlob = doc.output('blob');
-//const pdfUrl = URL.createObjectURL(pdfBlob);
-
-//const tab = window.open();
-//tab.document.write(`
-//  <html>
-//    <head>
-//      <title>Anfrage_EWE_${requestNumber}.pdf</title>
-//      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//      <style>
-//        html, body {
-//          margin: 0; padding: 0; height: 100vh; overflow: auto;
-//        }
-//        iframe {
-//          border: none;
-//          width: 100vw;
-//          height: 100vh;
-//        }
-//      </style>
-//    </head>
-//    <body>
-//      <iframe src="${pdfUrl}"></iframe>
-//    </body>
-//  </html>
-//`);
 
 
