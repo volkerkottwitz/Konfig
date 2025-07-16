@@ -276,6 +276,10 @@ function highlightMatches(page, container, viewport) {
         klickDiv.title = `Artikel ${artikelnummer} anzeigen`;
 
         klickDiv.addEventListener('click', () => {
+          if (window.innerWidth <= 768) {  // typische Tablet/Smartphone-Schwelle
+  zoomFactor = 1.0;
+  renderPage(currentPage);
+}
           const artikel = artikelMap.get(artikelnummer);
           if (artikel) {
             zeigeArtikelDialogDirekt(artikelnummer, artikel);
@@ -1007,20 +1011,28 @@ cartItems.forEach((item, index) => {
     // Hier kannst du ggf. weitere Infos anhängen wie Benutzerdaten
 
 // PDF mit korrektem Dateinamen öffnen
-const pdfBlob = doc.output('blob');
-const pdfUrl = URL.createObjectURL(pdfBlob);
-
-const tab = window.open();
-tab.document.write(`
-  <title>Anfrage_EWE_${requestNumber}.pdf</title>
-  <iframe width="100%" height="100%" style="border:none;" src="${pdfUrl}"></iframe>
-`);
+   const pdfData = doc.output('blob');
+    const url = URL.createObjectURL(pdfData);
+    window.open(url);
   };
 
-  eweLogo.onerror = function() {
-    alert("Logo konnte nicht geladen werden. PDF wird ohne Logo erstellt.");
-    // Optional: PDF ohne Logo generieren oder Fehlerbehandlung hier
-  };
+
+//const pdfBlob = doc.output('blob');
+//const pdfUrl = URL.createObjectURL(pdfBlob);
+
+//const tab = window.open();
+//tab.document.write(`
+//  <title>Anfrage_EWE_${requestNumber}.pdf</title>
+//  <iframe width="100%" height="100%" style="border:none;" src="${pdfUrl}"></iframe>
+//`);
+//  };
+
+//  eweLogo.onerror = function() {
+//    alert("Logo konnte nicht geladen werden. PDF wird ohne Logo erstellt.");
+//    // Optional: PDF ohne Logo generieren oder Fehlerbehandlung hier
+//  };
+
+
 }
 
 //const pdfBlob = doc.output('blob');
