@@ -477,7 +477,7 @@ function zeigeWarenkorb() {
       <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
 <button onclick="generateCartPDF(warenkorb); document.body.removeChild(document.getElementById('warenkorbDialog'));" 
         style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
-  Jetzt AnfragenX
+  Jetzt Anfragen
 </button>
         <button onclick="document.body.removeChild(document.getElementById('warenkorbDialog'))"
                 style="padding:10px 16px; background:#ccc; border:none; border-radius:8px;">Schließen</button>
@@ -1010,10 +1010,12 @@ cartItems.forEach((item, index) => {
 
     // Hier kannst du ggf. weitere Infos anhängen wie Benutzerdaten
 
+
 // PDF mit korrektem Dateinamen öffnen
-    const pdfData = doc.output('blob');
-    const url = URL.createObjectURL(pdfData);
-    window.open(url);
+const pdfData = doc.output('blob');
+const url = URL.createObjectURL(pdfData);
+doc.save("Warenkorb.pdf");
+window.open(url);
   };
 
  } 
