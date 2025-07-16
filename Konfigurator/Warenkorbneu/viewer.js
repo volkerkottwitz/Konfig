@@ -148,7 +148,7 @@ function zeigeLeererSuchbegriffDialog() {
   });
 
   dialog.innerHTML = `
-    <div style="background:#fff; padding:25px 30px; border-radius:14px; max-width:400px; width:90%;
+    <div style="background:#fff; padding:25px 30px; border-radius:14px; max-width:400px; width:80%;
                 font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2); text-align:center;">
       <h2 style="margin-top:0; font-size:1.2rem;">🔍 Kein Suchbegriff</h2>
       <p>Bitte gib einen Suchbegriff ein.</p>
@@ -435,7 +435,7 @@ function zeigeWarenkorb() {
   `;
 
   let inhalt = `
-    <div style="background:#fff; padding:25px 30px; border-radius:14px; width:90%; max-width:600px;
+    <div style="background:#fff; padding:25px 30px; border-radius:14px; width:80%; max-width:600px;
                 font-family:'Segoe UI', sans-serif; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
       <h2 style="margin-top:0;">🛒 Ihr Warenkorb</h2>
       <table style="width:100%; border-collapse:collapse;">
@@ -612,16 +612,19 @@ function zeigeHinzugefügtOverlay(text) {
   overlay.textContent = `✅ ${text} hinzugefügt`;
 
   Object.assign(overlay.style, {
-    position: "fixed",
-    top: "20px",
-    right: "20px",
-    background: "#28a745",
-    color: "white",
-    padding: "12px 20px",
-    borderRadius: "10px",
+    position: 'fixed',
+    bottom: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    color: 'white',
+    padding: '12px 20px',
+    borderRadius: '8px',
+    fontSize: '14px',
     zIndex: 9999,
-    fontFamily: "Segoe UI, sans-serif",
-    fontSize: "1rem"
+    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+    transition: 'opacity 0.3s ease-in-out',
+    opacity: '1'
   });
 
   document.body.appendChild(overlay);
@@ -652,6 +655,7 @@ function zeigeArtikelDialog(roherText) {
     background: "#fff",
     padding: "25px 30px",
     borderRadius: "14px",
+    width: "80%",
     fontFamily: "'Segoe UI', sans-serif",
     boxShadow: "0 4px 20px rgba(0, 0, 0, 0.2)",
     textAlign: "center",
@@ -755,7 +759,7 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
     });
 
     mengeDialog.innerHTML = `
-      <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:440px; width:90%;
+      <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:440px; width:80%;
                   font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2); text-align: center;">
         <h2 style="margin-top:0; font-size:1.3rem;">🛒 Artikel bereits im Warenkorb</h2>
         <p style="font-size: 1.1rem; margin-bottom: 18px;">
@@ -828,7 +832,7 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
   });
 
   dialog.innerHTML = `
-    <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:480px; width:90%;
+    <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:480px; width:80%;
                 font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
       <h2 style="margin-top:0; font-size:1.4rem;">🛒 Artikel hinzufügen</h2>
       <p><strong>Bezeichnung:</strong><br>${bereinigt}</p>
@@ -1014,8 +1018,6 @@ cartItems.forEach((item, index) => {
 // PDF mit korrektem Dateinamen öffnen
     const pdfData = doc.output('blob');
     const url = URL.createObjectURL(pdfData);
-    doc.save("Warenkorb.pdf");
-
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     if (isIOS) {

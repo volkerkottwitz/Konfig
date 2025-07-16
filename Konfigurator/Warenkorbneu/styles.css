@@ -224,8 +224,25 @@ button:focus {
     input[type="text"] {
         width: 100%;
         max-width: 300px;
-        font-size: 16px;
+        font-size: 14px;
         padding: 12px 18px;
+    }
+
+
+        button {
+        padding: 8px 14px;
+        height: 36px;
+        font-size: 14px;
+        min-width: 40px;
+        line-height: 1.2;
+    }
+
+      .icon-button {
+    font-size: 14px;
+    height: 36px;
+    min-width: 40px;
+    padding: 8px 14px;
+    line-height: 1.2;
     }
 
 .button-row {
