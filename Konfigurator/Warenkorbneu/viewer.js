@@ -1012,13 +1012,24 @@ cartItems.forEach((item, index) => {
 
 
 // PDF mit korrektem Dateinamen öffnen
-const pdfData = doc.output('blob');
-const url = URL.createObjectURL(pdfData);
-doc.save("Warenkorb.pdf");
-window.open(url);
-  };
+    const pdfData = doc.output('blob');
+    const url = URL.createObjectURL(pdfData);
+    doc.save("Warenkorb.pdf");
 
- } 
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    if (isIOS) {
+      // Auf iOS: PDF in neuem Tab öffnen, Download per save() könnte problematisch sein
+      doc.save("Warenkorb.pdf");
+      window.open(url);
+    } else {
+      // Andere Geräte: PDF öffnen (oder speichern, wenn du möchtest)
+      window.open(url);
+      // Alternativ: doc.save("Warenkorb.pdf");
+    }
+  };
+}
+
 
 
 
