@@ -276,10 +276,10 @@ function highlightMatches(page, container, viewport) {
         klickDiv.title = `Artikel ${artikelnummer} anzeigen`;
 
         klickDiv.addEventListener('click', () => {
-          if (window.innerWidth <= 768) {  // typische Tablet/Smartphone-Schwelle
+         
   zoomFactor = 1.0;
   renderPage(currentPage);
-}
+
           const artikel = artikelMap.get(artikelnummer);
           if (artikel) {
             zeigeArtikelDialogDirekt(artikelnummer, artikel);
