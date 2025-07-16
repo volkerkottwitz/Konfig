@@ -277,8 +277,10 @@ function highlightMatches(page, container, viewport) {
 
         klickDiv.addEventListener('click', () => {
          
-  zoomFactor = 1.0;
-  renderPage(currentPage);
+          document.body.style.transform = 'scale(1)';
+document.body.style.transformOrigin = 'top left';
+window.scrollTo(0, 0);
+
 
           const artikel = artikelMap.get(artikelnummer);
           if (artikel) {
@@ -677,6 +679,7 @@ function zeigeArtikelDialog(roherText) {
 
   overlay.appendChild(box);
   document.body.appendChild(overlay);
+
 
   // Schließen per Button
   document.getElementById("fehlerOverlayClose").onclick = () => {
