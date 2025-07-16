@@ -277,9 +277,7 @@ function highlightMatches(page, container, viewport) {
 
         klickDiv.addEventListener('click', () => {
          
-          document.body.style.transform = 'scale(1)';
-document.body.style.transformOrigin = 'top left';
-window.scrollTo(0, 0);
+
 
 
           const artikel = artikelMap.get(artikelnummer);
