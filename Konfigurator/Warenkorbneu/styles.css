@@ -383,3 +383,40 @@ button:focus {
   100% { transform: scale(1); opacity: 1; }
 }
 
+@media screen and (max-width: 768px) {
+  /* Info Modal */
+  #infoModal > div {
+    padding: 15px 20px;
+    max-width: 90%;
+    font-size: 0.85rem; /* Schrift etwas kleiner */
+  }
+  #infoModal h2 {
+    font-size: 1.2rem;
+  }
+  #infoModal p {
+    font-size: 0.85rem;
+  }
+  #infoModal button {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+  }
+
+  /* Warenkorb */
+  #warenkorb {
+    width: calc(100% - 20px);
+    max-width: none;
+  }
+  #warenkorb h2 {
+    font-size: 1.1rem;
+  }
+  #warenkorb ul {
+    font-size: 0.85rem;
+  }
+  .btn-kaufen {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+  }
+  #warenkorb button {
+    font-size: 0.85rem;
+  }
+}
