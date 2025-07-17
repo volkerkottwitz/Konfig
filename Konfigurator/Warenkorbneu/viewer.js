@@ -1,3 +1,15 @@
+let csvGeladen = false;
+let pdfGerendert = false;
+let wurdeBereitsInitialGerendert = false;
+
+function ladebildschirmPruefen() {
+  if (csvGeladen && pdfGerendert) {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('pdfViewer').style.display = 'block';
+  }
+}
+
+
 // === 🛒 Artikel-Daten aus CSV laden ===
 const artikelMap = new Map();
 
@@ -25,9 +37,13 @@ fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/Warenkorb/images/ewe
       }
     }
 
-    window.artikelMap = artikelMap; // Global verfügbar
+    // ✅ CSV fertig geladen → global speichern und Ladeanzeige prüfen
+    window.artikelMap = artikelMap;
+    csvGeladen = true;
+    ladebildschirmPruefen();
   })
   .catch(err => console.error("CSV-Fehler:", err));
+
 
 // === 📄 PDF.js vorbereiten ===
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
@@ -74,11 +90,18 @@ function renderPage(pageNum) {
       clearHighlights(); // vorherige Treffer löschen
 
       // Treffer auf Seite hervorheben
-highlightMatches(page, wrapper, viewport);
+      highlightMatches(page, wrapper, viewport);
 
       // Seiteninfo aktualisieren
       document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
-      updateNavigation(); // ← sorgt dafür, dass die Buttons initial korrekt aktiviert sind
+      updateNavigation();
+
+      // ✅ Nur beim ersten Rendern den Ladezustand setzen
+      if (!wurdeBereitsInitialGerendert) {
+        pdfGerendert = true;
+        ladebildschirmPruefen();
+        wurdeBereitsInitialGerendert = true;
+      }
     });
   });
 }
@@ -284,6 +307,8 @@ function highlightMatches(page, container, viewport) {
           if (artikel) {
             zeigeArtikelDialogDirekt(artikelnummer, artikel);
           } else {
+              console.log("❌ Artikel NICHT in artikelMap:", artikelnummer);
+              console.log("➡️ Verwende lineText für Pseudo-Artikel:", lineText);
             const pseudoArtikel = {
               nummer: artikelnummer,
               name: lineText,
@@ -720,10 +745,10 @@ function hinzufuegenArtikel(artikelObjekt, menge) {
 function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
   if (document.getElementById('artikelDialog')) return;
 
-  const roherText1 = artikel.KURZTEXT1 ?? "";
-  const roherText2 = artikel.KURZTEXT2 ?? "";
-  const kompletterText = `${roherText1} ${roherText2}`.trim();
-  const bereinigt = bereinigeText(kompletterText);
+const kompletterText = (
+  (artikel.KURZTEXT1 ?? "") + " " + (artikel.KURZTEXT2 ?? "")
+).trim() || artikel.name || "";
+const bereinigt = bereinigeText(kompletterText);
 
   // Preis bereinigen und konvertieren
   const roherPreis = artikel.BRUTTOPREIS || "";
