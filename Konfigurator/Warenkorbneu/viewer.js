@@ -301,10 +301,7 @@ function highlightMatches(page, container, viewport) {
         klickDiv.addEventListener('click', () => {
          
 
-document.body.style.zoom = '1.0';
-zoomFactor = 1.0;
-renderPage(currentPage);
-updateNavigation();
+
 
 
           const artikel = artikelMap.get(artikelnummer);
@@ -862,15 +859,15 @@ const bereinigt = bereinigeText(kompletterText);
   });
 
   dialog.innerHTML = `
-    <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:480px; width:80%;
+    <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:480px; max-width: 90vw;max-height: 85vh;overflow: auto;width:80%;
                 font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
-      <h2 style="margin-top:0; font-size:1.4rem;">🛒 Artikel hinzufügen</h2>
+      <h2 style="margin-top:0; font-size:1.4rem;">🛒 Artikel X hinzufügen</h2>
       <p><strong>Bezeichnung:</strong><br>${bereinigt}</p>
       <p><strong>Artikelnummer:</strong> ${artikelnummer}</p>
       <p><strong>Bruttopreis:</strong> ${bruttopreis}</p>
       <label for="anzahlInput">Anzahl:</label>
       <input id="anzahlInput" type="number" min="1" value="1"
-             style="width:70px; padding:6px; margin-left:10px; font-size:0.8rem; border-radius:6px; border:1px solid #ccc;" />
+             style="width:70px; padding:4px; margin-left:10px; font-size:0.8rem; border-radius:4px; border:1px solid #ccc;" />
       <div style="margin-top:20px; display:flex; justify-content: flex-end; gap:10px;">
         <button id="abbrechenBtn"
                 style="padding:10px 16px; background:#d6d6d6; color:white; border:none;
