@@ -301,7 +301,7 @@ function highlightMatches(page, container, viewport) {
         klickDiv.addEventListener('click', () => {
          
 
-
+document.body.style.zoom = '1.0';
 
           const artikel = artikelMap.get(artikelnummer);
           if (artikel) {
@@ -794,7 +794,7 @@ const bereinigt = bereinigeText(kompletterText);
         </p>
         <label for="anzahlInput" style="display:block; margin-bottom: 6px;">Zusätzliche Menge:</label>
         <input id="anzahlInput" type="number" min="1" value="1"
-               style="width:80px; padding:6px; font-size:1rem; border-radius:6px; border:1px solid #ccc;" />
+               style="width:80px; padding:6px; font-size:0.8rem; border-radius:6px; border:1px solid #ccc;" />
         <div style="margin-top:20px; display:flex; justify-content:center; gap:15px;">
           <button id="abbrechenBestaetigung"
                   style="padding:10px 16px; background:#d6d6d6; color:white; border:none;
@@ -804,7 +804,7 @@ const bereinigt = bereinigeText(kompletterText);
                          border-radius:8px; cursor:pointer;">Entfernen</button>
           <button id="bestaetigenHinzufuegen"
                   style="padding:10px 16px; background:#00a1e1; color:white; border:none;
-                         border-radius:8px; cursor:pointer;">Menge erhöhen</button>
+                         border-radius:8px; cursor:pointer;">Hinzufügen</button>
         </div>
       </div>
     `;
@@ -866,7 +866,7 @@ const bereinigt = bereinigeText(kompletterText);
       <p><strong>Bruttopreis:</strong> ${bruttopreis}</p>
       <label for="anzahlInput">Anzahl:</label>
       <input id="anzahlInput" type="number" min="1" value="1"
-             style="width:70px; padding:6px; margin-left:10px; font-size:1rem; border-radius:6px; border:1px solid #ccc;" />
+             style="width:70px; padding:6px; margin-left:10px; font-size:0.8rem; border-radius:6px; border:1px solid #ccc;" />
       <div style="margin-top:20px; display:flex; justify-content: flex-end; gap:10px;">
         <button id="abbrechenBtn"
                 style="padding:10px 16px; background:#d6d6d6; color:white; border:none;
@@ -1049,7 +1049,7 @@ cartItems.forEach((item, index) => {
     if (isIOS) {
       // Auf iOS: PDF in neuem Tab öffnen, Download per save() könnte problematisch sein
       doc.save("Warenkorb.pdf");
-      window.open(url);
+      
     } else {
       // Andere Geräte: PDF öffnen (oder speichern, wenn du möchtest)
       window.open(url);
