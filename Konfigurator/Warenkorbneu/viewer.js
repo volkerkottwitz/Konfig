@@ -302,6 +302,10 @@ function highlightMatches(page, container, viewport) {
          
 
 document.body.style.zoom = '1.0';
+zoomFactor = 1.0;
+renderPage(currentPage);
+updateNavigation();
+
 
           const artikel = artikelMap.get(artikelnummer);
           if (artikel) {
