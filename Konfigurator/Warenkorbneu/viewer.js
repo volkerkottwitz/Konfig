@@ -298,27 +298,26 @@ function highlightMatches(page, container, viewport) {
 
         klickDiv.title = `Artikel ${artikelnummer} anzeigen`;
 
-klickDiv.addEventListener('click', () => {
-  const artikel = artikelMap.get(artikelnummer);
-  const artikelObjekt = artikel || {
-    nummer: artikelnummer,
-    name: lineText,
-    preis: 0
-  };
+        klickDiv.addEventListener('click', () => {
+         
 
-  if (window.innerWidth <= 768) {
-    // Mobile: Zoom zurücksetzen und Seite neu rendern
-    zoomFactor = 1.0;
-    document.body.style.zoom = '1.0';
 
-    renderPage(currentPage).then(() => {
-      zeigeArtikelDialogDirekt(artikelnummer, artikelObjekt);
-    });
-  } else {
-    // Desktop: Direkt Dialog anzeigen
-    zeigeArtikelDialogDirekt(artikelnummer, artikelObjekt);
-  }
-});
+
+
+          const artikel = artikelMap.get(artikelnummer);
+          if (artikel) {
+            zeigeArtikelDialogDirekt(artikelnummer, artikel);
+          } else {
+              console.log("❌ Artikel NICHT in artikelMap:", artikelnummer);
+              console.log("➡️ Verwende lineText für Pseudo-Artikel:", lineText);
+            const pseudoArtikel = {
+              nummer: artikelnummer,
+              name: lineText,
+              preis: 0
+            };
+            zeigeArtikelDialogDirekt(artikelnummer, pseudoArtikel);
+          }
+        });
 
         container.appendChild(klickDiv);
       }
