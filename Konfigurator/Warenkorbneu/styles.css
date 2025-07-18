@@ -121,7 +121,7 @@ button:focus {
     max-height: 100vh;
     margin-top: 20px;
     position: relative;
-    padding: 0;
+
 }
 /* Standard: Desktop zentriert */
 #pdfViewer {
@@ -130,9 +130,9 @@ button:focus {
     align-items: flex-start;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
+
 }
+
 
 /* ========== Highlight-Boxen ========== */
 .highlight-box {
@@ -377,6 +377,8 @@ button:focus {
   animation: pulse 1.4s infinite ease-in-out;
 }
 
+
+
 @keyframes pulse {
   0%   { transform: scale(1); opacity: 1; }
   50%  { transform: scale(1.15); opacity: 0.6; }
@@ -419,4 +421,14 @@ button:focus {
   #warenkorb button {
     font-size: 0.85rem;
   }
+
+}
+
+#canvasWrapper {
+  display: flex;
+  justify-content: center;
+}
+#canvasWrapper canvas {
+  margin: 0 auto;
+  display: block;
 }
