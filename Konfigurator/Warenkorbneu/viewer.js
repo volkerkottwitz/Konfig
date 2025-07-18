@@ -298,26 +298,27 @@ function highlightMatches(page, container, viewport) {
 
         klickDiv.title = `Artikel ${artikelnummer} anzeigen`;
 
-        klickDiv.addEventListener('click', () => {
-         
+klickDiv.addEventListener('click', () => {
+  const artikel = artikelMap.get(artikelnummer);
+  const artikelObjekt = artikel || {
+    nummer: artikelnummer,
+    name: lineText,
+    preis: 0
+  };
 
+  if (window.innerWidth <= 768) {
+    // Mobile: Zoom zurücksetzen und Seite neu rendern
+    zoomFactor = 1.0;
+    document.body.style.zoom = '1.0';
 
-
-
-          const artikel = artikelMap.get(artikelnummer);
-          if (artikel) {
-            zeigeArtikelDialogDirekt(artikelnummer, artikel);
-          } else {
-              console.log("❌ Artikel NICHT in artikelMap:", artikelnummer);
-              console.log("➡️ Verwende lineText für Pseudo-Artikel:", lineText);
-            const pseudoArtikel = {
-              nummer: artikelnummer,
-              name: lineText,
-              preis: 0
-            };
-            zeigeArtikelDialogDirekt(artikelnummer, pseudoArtikel);
-          }
-        });
+    renderPage(currentPage).then(() => {
+      zeigeArtikelDialogDirekt(artikelnummer, artikelObjekt);
+    });
+  } else {
+    // Desktop: Direkt Dialog anzeigen
+    zeigeArtikelDialogDirekt(artikelnummer, artikelObjekt);
+  }
+});
 
         container.appendChild(klickDiv);
       }
@@ -859,9 +860,9 @@ const bereinigt = bereinigeText(kompletterText);
   });
 
   dialog.innerHTML = `
-    <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:480px; max-width: 90vw;max-height: 85vh;overflow: auto;width:80%;
+    <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:480px; width:80%;
                 font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
-      <h2 style="margin-top:0; font-size:1.4rem;">🛒 Artikel X hinzufügen</h2>
+      <h2 style="margin-top:0; font-size:1.4rem;">🛒 Artikel hinzufügen</h2>
       <p><strong>Bezeichnung:</strong><br>${bereinigt}</p>
       <p><strong>Artikelnummer:</strong> ${artikelnummer}</p>
       <p><strong>Bruttopreis:</strong> ${bruttopreis}</p>
