@@ -2,94 +2,6 @@ let csvGeladen = false;
 let pdfGerendert = false;
 let wurdeBereitsInitialGerendert = false;
 
-// ===== ZOOM-MANAGEMENT FÜR MOBILE DIALOGE =====
-let originalViewportScale = 1;
-let isZoomResetActive = false;
-
-function getCurrentViewportScale() {
-  const visualViewport = window.visualViewport;
-  
-  if (visualViewport) {
-    return visualViewport.scale;
-  } else {
-    const devicePixelRatio = window.devicePixelRatio || 1;
-    const screenWidth = screen.width;
-    const windowWidth = window.innerWidth;
-    return Math.round((screenWidth / windowWidth) * devicePixelRatio * 100) / 100;
-  }
-}
-
-function resetViewportZoom() {
-  originalViewportScale = getCurrentViewportScale();
-  
-  if (originalViewportScale !== 1) {
-    isZoomResetActive = true;
-    
-    let viewportMeta = document.querySelector('meta[name="viewport"]');
-    if (!viewportMeta) {
-      viewportMeta = document.createElement('meta');
-      viewportMeta.name = 'viewport';
-      document.head.appendChild(viewportMeta);
-    }
-    
-    viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-    
-    if (navigator.userAgent.includes('Safari') && navigator.userAgent.includes('Mobile')) {
-      document.body.style.transform = 'scale(1)';
-      document.body.style.transformOrigin = 'top left';
-    }
-    
-    showZoomResetIndicator();
-    console.log(`🔍 Zoom zurückgesetzt von ${originalViewportScale} auf 1.0`);
-  }
-}
-
-function restoreViewportZoom() {
-  if (isZoomResetActive && originalViewportScale !== 1) {
-    const viewportMeta = document.querySelector('meta[name="viewport"]');
-    if (viewportMeta) {
-      viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes';
-    }
-    
-    if (document.body.style.transform) {
-      document.body.style.transform = '';
-      document.body.style.transformOrigin = '';
-    }
-    
-    isZoomResetActive = false;
-    console.log(`🔍 Zoom wiederhergestellt auf ${originalViewportScale}`);
-  }
-}
-
-function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-         (window.innerWidth <= 768);
-}
-
-function showZoomResetIndicator() {
-  const indicator = document.createElement('div');
-  indicator.style.cssText = `
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 161, 225, 0.9);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    z-index: 10000;
-    animation: fadeInOut 2s ease-in-out;
-  `;
-  indicator.textContent = '🔍 Zoom zurückgesetzt';
-  document.body.appendChild(indicator);
-  
-  setTimeout(() => {
-    if (indicator.parentNode) {
-      indicator.parentNode.removeChild(indicator);
-    }
-  }, 2000);
-}
-
 function ladebildschirmPruefen() {
   if (csvGeladen && pdfGerendert) {
     document.getElementById('loadingScreen').style.display = 'none';
@@ -97,16 +9,17 @@ function ladebildschirmPruefen() {
   }
 }
 
+
 // === 🛒 Artikel-Daten aus CSV laden ===
 const artikelMap = new Map();
 
 fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/Warenkorb/images/ewe-daten-2025.csv")
-  .then(res => res.arrayBuffer())
+  .then(res => res.arrayBuffer()) // UTF-8 sicherstellen
   .then(buffer => {
     const decoder = new TextDecoder("utf-8");
     const text = decoder.decode(buffer);
 
-    const rows = text.split('\n').slice(1);
+    const rows = text.split('\n').slice(1); // Header überspringen
     for (let row of rows) {
       const [
         MNR, KURZTEXT1, KURZTEXT2, GTIN, INTRASTATNUMMER,
@@ -114,6 +27,7 @@ fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/Warenkorb/images/ewe
         GEWICHT, B, H, T
       ] = row.split(';');
 
+      // Nur speichern, wenn Artikelnummer & mind. 1 Text vorhanden
       if (MNR && (KURZTEXT1 || KURZTEXT2)) {
         artikelMap.set(MNR.trim(), {
           KURZTEXT1: KURZTEXT1?.trim() ?? "",
@@ -123,11 +37,13 @@ fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/Warenkorb/images/ewe
       }
     }
 
+    // ✅ CSV fertig geladen → global speichern und Ladeanzeige prüfen
     window.artikelMap = artikelMap;
     csvGeladen = true;
     ladebildschirmPruefen();
   })
   .catch(err => console.error("CSV-Fehler:", err));
+
 
 // === 📄 PDF.js vorbereiten ===
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
@@ -160,6 +76,7 @@ function renderPage(pageNum) {
     canvas.height = viewport.height;
     const ctx = canvas.getContext('2d');
 
+    // Seite rendern
     page.render({ canvasContext: ctx, viewport }).promise.then(() => {
       const viewer = document.getElementById('pdfViewer');
       viewer.innerHTML = '';
@@ -170,12 +87,16 @@ function renderPage(pageNum) {
       wrapper.appendChild(canvas);
       viewer.appendChild(wrapper);
 
-      clearHighlights();
+      clearHighlights(); // vorherige Treffer löschen
+
+      // Treffer auf Seite hervorheben
       highlightMatches(page, wrapper, viewport);
 
+      // Seiteninfo aktualisieren
       document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
       updateNavigation();
 
+      // ✅ Nur beim ersten Rendern den Ladezustand setzen
       if (!wurdeBereitsInitialGerendert) {
         pdfGerendert = true;
         ladebildschirmPruefen();
@@ -196,11 +117,11 @@ function searchPDF() {
   searchText = normalize(document.getElementById('searchBox').value);
   secondSearchText = normalize(document.getElementById('searchBox2').value);
 
-  if (!searchText && !secondSearchText) {
-    zeigeLeererSuchbegriffDialog();
-    document.getElementById('loadingSpinnerOverlay').style.display = 'none';
-    return;
-  }
+if (!searchText && !secondSearchText) {
+  zeigeLeererSuchbegriffDialog();
+  document.getElementById('loadingSpinnerOverlay').style.display = 'none';
+  return;
+}
 
   matchPages.clear();
   let totalMatches = 0;
@@ -229,6 +150,7 @@ function searchPDF() {
     updateCurrentMatchInfo();
   });
 }
+
 
 function zeigeLeererSuchbegriffDialog() {
   if (document.getElementById("hinweisDialog")) return;
@@ -282,7 +204,6 @@ function countMatches(txt, s1, s2) {
   return s2 ? Math.min(c1, c2) : c1;
 }
 
-// === 🎯 VERBESSERTE HIGHLIGHT-FUNKTION MIT ZOOM-FIX ===
 function highlightMatches(page, container, viewport) {
   const canvas = container.querySelector('canvas');
   const scaleX = canvas.offsetWidth / canvas.width;
@@ -291,6 +212,7 @@ function highlightMatches(page, container, viewport) {
   page.getTextContent().then(tc => {
     const items = tc.items;
 
+    // Zeilen nach gerundeter Y-Position gruppieren
     const lines = {};
     items.forEach(item => {
       const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
@@ -299,31 +221,37 @@ function highlightMatches(page, container, viewport) {
       lines[y].push({ ...item, tx, y });
     });
 
+    // Suchbegriffe normalisieren
     const searchNorm = normalize(searchText);
     const search2Norm = normalize(secondSearchText);
 
     const zeilenMitArtikelnummer = new Set();
 
+    // Zeilen mit Artikelnummern analysieren
     Object.values(lines).forEach(lineItems => {
       const lineText = lineItems.map(i => i.str).join(' ');
       const lineTextNorm = normalize(lineText);
 
+      // Trefferlogik
       const hit1 = searchNorm && lineTextNorm.includes(searchNorm);
       const hit2 = search2Norm && lineTextNorm.includes(search2Norm);
 
-      let bgColor = 'rgba(0, 150, 255, 0.3)';
+      // Farben und Markierungslogik
+      let bgColor = 'rgba(0, 150, 255, 0.3)'; // Standard für nur Artikelnummer
       let ganzeZeileMarkieren = false;
 
       if (hit1 && hit2) {
-        bgColor = 'rgba(18, 189, 18, 0.15)';
+        bgColor = 'rgba(18, 189, 18, 0.15)'; // grün
         ganzeZeileMarkieren = true;
       } else if (hit1) {
-        bgColor = 'rgba(255, 165, 0, 0.2)';
+        bgColor = 'rgba(255, 165, 0, 0.2)'; // orange
         ganzeZeileMarkieren = true;
       } else if (hit2) {
-        bgColor = 'rgba(74, 235, 227, 0.2)';
+        bgColor = 'rgba(74, 235, 227, 0.2)'; // dunkleres blau
         ganzeZeileMarkieren = true;
       }
+
+      // Artikelnummern mit Regex finden (keine # davor!)
 
       const regex = /(?:^|[^\#\w])((?:0392-[a-zA-Z0-9]+|[0-9]{7}(?:-[a-zA-Z0-9]+)?)(\*{1,2})?)/g;
       let match;
@@ -331,6 +259,7 @@ function highlightMatches(page, container, viewport) {
         const artikelnummer = match[1];
         zeilenMitArtikelnummer.add(lineItems[0].y);
 
+        // Startelement finden
         let startItem = null;
         let accStr = '';
         for (let i = 0; i < lineItems.length; i++) {
@@ -342,6 +271,7 @@ function highlightMatches(page, container, viewport) {
         }
         if (!startItem) return;
 
+        // Position & Größe
         let x, y, width, height;
         if (ganzeZeileMarkieren) {
           const first = lineItems[0];
@@ -350,7 +280,7 @@ function highlightMatches(page, container, viewport) {
           width = canvas.offsetWidth;
           height = (startItem.height + 12) * scaleY;
         } else {
-          x = startItem.tx[4] * scaleX -5;
+          x = startItem.tx[4] * scaleX-3;
           y = (startItem.tx[5] - startItem.height - 9) * scaleY;
           width = artikelnummer.length * 11 * scaleX;
           height = (startItem.height + 12) * scaleY;
@@ -370,17 +300,15 @@ function highlightMatches(page, container, viewport) {
         klickDiv.title = `Artikel ${artikelnummer} anzeigen`;
 
         klickDiv.addEventListener('click', () => {
-          // 🔍 ZOOM-FIX: Automatisches Zurücksetzen des Zooms auf mobilen Geräten
-          if (isMobileDevice()) {
-            resetViewportZoom();
-          }
+         
+
 
           const artikel = artikelMap.get(artikelnummer);
           if (artikel) {
             zeigeArtikelDialogDirekt(artikelnummer, artikel);
           } else {
-            console.log("❌ Artikel NICHT in artikelMap:", artikelnummer);
-            console.log("➡️ Verwende lineText für Pseudo-Artikel:", lineText);
+              console.log("❌ Artikel NICHT in artikelMap:", artikelnummer);
+              console.log("➡️ Verwende lineText für Pseudo-Artikel:", lineText);
             const pseudoArtikel = {
               nummer: artikelnummer,
               name: lineText,
@@ -409,18 +337,18 @@ function highlightMatches(page, container, viewport) {
 
       let bgColor;
       if (hit1 && hit2) {
-        bgColor = 'rgba(18, 189, 18, 0.15)';
+        bgColor = 'rgba(18, 189, 18, 0.15)'; // grün
       } else if (hit1) {
-        bgColor = 'rgba(255, 165, 0, 0.2)';
+        bgColor = 'rgba(255, 165, 0, 0.2)'; // orange
       } else {
-        bgColor = 'rgba(74, 235, 227, 0.2)';
+        bgColor = 'rgba(74, 235, 227, 0.2)'; // dunkleres blau
       }
 
       const first = lineItems[0];
       const x = 0;
-      const y = (first.tx[5] - 15) * scaleY;
+      const y = (first.tx[5]  - 15) * scaleY;
       const width = canvas.offsetWidth;
-      const height = (17) * scaleY;
+      const height = ( + 17) * scaleY;
 
       const div = document.createElement('div');
       Object.assign(div.style, {
@@ -436,11 +364,6 @@ function highlightMatches(page, container, viewport) {
       div.title = `Keine Artikelnummer gefunden`;
 
       div.addEventListener('click', () => {
-        // 🔍 ZOOM-FIX: Automatisches Zurücksetzen des Zooms auf mobilen Geräten
-        if (isMobileDevice()) {
-          resetViewportZoom();
-        }
-        
         zeigeArtikelDialog(lineText);
       });
 
@@ -448,6 +371,8 @@ function highlightMatches(page, container, viewport) {
     });
   });
 }
+
+
 
 // Blättern zwischen Trefferseiten
 function prevMatch() {
@@ -470,26 +395,31 @@ function nextMatch() {
   }
 }
 
+// Hilfsfunktionen aktualisieren (z. B. Trefferinfo & Fortschrittsbalken)
 function updateHelpers() {
   updateCurrentMatchInfo();
   updateProgressBar();
 }
 
+// Aktuelle Trefferanzeige aktualisieren (z. B. „Treffer 2 / 7“)
 function updateCurrentMatchInfo() {
   const idx = [...matchPages].indexOf(currentPage) + 1;
   document.getElementById('currentMatchInfo').textContent = `📄 Treffer ${idx} / ${matchPages.size}`;
 }
 
+// Fortschrittsbalken-Anzeige entsprechend der aktuellen Trefferposition
 function updateProgressBar() {
   const idx = [...matchPages].indexOf(currentPage) + 1;
   document.getElementById('progressFill').style.width = `${(idx / matchPages.size) * 100}%`;
 }
 
+// Navigation (Zurück/Vor) aktivieren oder deaktivieren
 function updateNavigation() {
   document.getElementById('prev-page').disabled = currentPage <= 1;
   document.getElementById('next-page').disabled = currentPage >= pdfDoc.numPages;
 }
 
+// Navigieren mit Buttons
 document.getElementById('prev-page').onclick = () => {
   if (currentPage > 1) {
     currentPage--;
@@ -506,6 +436,7 @@ document.getElementById('next-page').onclick = () => {
   }
 };
 
+// Zoomfunktionen
 function zoomIn() {
   zoomFactor += 0.1;
   renderPage(currentPage);
@@ -518,8 +449,7 @@ function zoomOut() {
   }
 }
 
-// === 🛒 WARENKORB-FUNKTIONEN (Rest der ursprünglichen Funktionen) ===
-
+// Warenkorb-Dialog anzeigen
 function zeigeWarenkorb() {
   const dialog = document.createElement("div");
   dialog.id = "warenkorbDialog";
@@ -584,10 +514,12 @@ function zeigeWarenkorb() {
   document.body.appendChild(dialog);
 }
 
+// Warenkorb ausblenden
 function schließeWarenkorb() {
   document.getElementById("warenkorb").style.display = "none";
 }
 
+// Artikelmenge manuell aktualisieren
 function aktualisiereMenge(artikelName, neueMenge) {
   const menge = parseInt(neueMenge, 10);
   if (isNaN(menge) || menge < 1) return;
@@ -599,6 +531,7 @@ function aktualisiereMenge(artikelName, neueMenge) {
   }
 }
 
+// Infofenster öffnen/schließen
 function openInfo() {
   document.getElementById('infoModal').style.display = 'flex';
 }
@@ -606,6 +539,7 @@ function closeInfo() {
   document.getElementById('infoModal').style.display = 'none';
 }
 
+// Aktuelle Seite drucken
 function printCurrentPage() {
   const viewer = document.getElementById('pdfViewer');
   const canvas = viewer.querySelector('canvas');
@@ -627,6 +561,7 @@ function printCurrentPage() {
   `);
 }
 
+// Alle Trefferseiten drucken
 function printAllMatches() {
   if (!matchPages.size) return alert('Keine Treffer zum Drucken.');
 
@@ -676,6 +611,7 @@ function printAllMatches() {
   });
 }
 
+// Suche bei Enter-Taste in Suchfeldern auslösen
 document.getElementById("searchBox").addEventListener("keydown", function(e) {
   if (e.key === "Enter") searchPDF();
 });
@@ -683,6 +619,7 @@ document.getElementById("searchBox2").addEventListener("keydown", function(e) {
   if (e.key === "Enter") searchPDF();
 });
 
+// ESC-Taste: Warenkorb schließen, Suchfelder leeren, Fokus setzen
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
     document.getElementById("warenkorb").style.display = "none";
@@ -692,9 +629,16 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
+
+
+// ✅ Kurze Infoanzeige bei erfolgreichem Hinzufügen
 function zeigeHinzugefügtOverlay(text) {
   const overlay = document.createElement("div");
+  if (text.includes("entfernt")) {
+  overlay.textContent = `✅ ${text}`;
+} else {
   overlay.textContent = `✅ ${text} hinzugefügt`;
+}
 
   Object.assign(overlay.style, {
     position: 'fixed',
@@ -716,6 +660,8 @@ function zeigeHinzugefügtOverlay(text) {
   setTimeout(() => overlay.remove(), 2500);
 }
 
+
+// ⚠️ Fehlerdialog: Keine Artikelnummer gefunden
 function zeigeArtikelDialog(roherText) {
   const overlay = document.createElement('div');
   overlay.id = "artikelFehlerOverlay";
@@ -761,29 +707,31 @@ function zeigeArtikelDialog(roherText) {
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 
+
+  // Schließen per Button
   document.getElementById("fehlerOverlayClose").onclick = () => {
     document.body.removeChild(overlay);
-    // Zoom wiederherstellen nach Dialog-Schließung
-    if (isMobileDevice()) {
-      setTimeout(() => restoreViewportZoom(), 100);
-    }
   };
 }
 
+
+// 🧹 Hilfsfunktion: Bereinigt Artikeltext von Anführungszeichen & Leerzeichen
 function bereinigeText(text) {
   return text
-    .replace(/"{2,}/g, '"')
-    .replace(/^"/, '')
-    .replace(/([^0-9¼½¾])"$/, '$1')
-    .replace(/"$/, '')
-    .trim();
+    .replace(/"{2,}/g, '"')              // Doppelte Anführungszeichen zusammenfassen
+    .replace(/^"/, '')                   // Anführungszeichen am Anfang entfernen
+    .replace(/([^0-9¼½¾])"$/, '$1')      // Am Ende entfernen, wenn nicht nach Zahl/Bruch
+    .replace(/"$/, '')                   // Fallback
+    .trim();                             // Leerzeichen entfernen
 }
 
+
+// ➕ Artikel dem Warenkorb hinzufügen (mit Mengenerhöhung bei Duplikat)
 function hinzufuegenArtikel(artikelObjekt, menge) {
   const vorhandenerArtikel = warenkorb.find(item => item.nummer === artikelObjekt.nummer);
 
   if (vorhandenerArtikel) {
-    vorhandenerArtikel.menge += menge;
+    vorhandenerArtikel.menge += menge; // Menge erhöhen
   } else {
     warenkorb.push({
       name: artikelObjekt.name,
@@ -796,15 +744,17 @@ function hinzufuegenArtikel(artikelObjekt, menge) {
   zeigeHinzugefügtOverlay(`${artikelObjekt.name} (${artikelObjekt.nummer})`);
 }
 
-// === 🎯 ERWEITERTE ARTIKEL-DIALOG-FUNKTION MIT ZOOM-MANAGEMENT ===
+
+// 💬 Hauptdialog: Artikel anzeigen, Menge erfassen, ggf. erhöhen
 function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
   if (document.getElementById('artikelDialog')) return;
 
-  const kompletterText = (
-    (artikel.KURZTEXT1 ?? "") + " " + (artikel.KURZTEXT2 ?? "")
-  ).trim() || artikel.name || "";
-  const bereinigt = bereinigeText(kompletterText);
+const kompletterText = (
+  (artikel.KURZTEXT1 ?? "") + " " + (artikel.KURZTEXT2 ?? "")
+).trim() || artikel.name || "";
+const bereinigt = bereinigeText(kompletterText);
 
+  // Preis bereinigen und konvertieren
   const roherPreis = artikel.BRUTTOPREIS || "";
   const bruttopreisText = roherPreis
     .toString()
@@ -821,6 +771,7 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
 
   const vorhandenerArtikel = warenkorb.find(item => item.nummer === artikelnummer);
 
+  // Wenn Artikel bereits im Warenkorb → Dialog zur Mengenänderung
   if (vorhandenerArtikel) {
     const mengeDialog = document.createElement("div");
     mengeDialog.id = "artikelDialog";
@@ -864,25 +815,22 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
 
     document.body.appendChild(mengeDialog);
 
-    // Event Listener mit Zoom-Wiederherstellung
-    const closeDialogWithZoomRestore = () => {
+    // Abbrechen → Dialog schließen
+    document.getElementById("abbrechenBestaetigung").addEventListener("click", () => {
       mengeDialog.remove();
-      if (isMobileDevice()) {
-        setTimeout(() => restoreViewportZoom(), 100);
-      }
-    };
+    });
 
-    document.getElementById("abbrechenBestaetigung").addEventListener("click", closeDialogWithZoomRestore);
-
+    // Entfernen → Artikel aus dem Warenkorb löschen
     document.getElementById("entfernenArtikel").addEventListener("click", () => {
       const index = warenkorb.findIndex(item => item.nummer === artikelnummer);
       if (index !== -1) {
         warenkorb.splice(index, 1);
         zeigeHinzugefügtOverlay(`${bereinigt} wurde entfernt`);
       }
-      closeDialogWithZoomRestore();
+      mengeDialog.remove();
     });
 
+    // Menge erhöhen
     document.getElementById("bestaetigenHinzufuegen").addEventListener("click", () => {
       const zusatzmenge = parseInt(document.getElementById("anzahlInput").value, 10);
       if (isNaN(zusatzmenge) || zusatzmenge < 1) {
@@ -891,12 +839,13 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
       }
       vorhandenerArtikel.menge += zusatzmenge;
       zeigeHinzugefügtOverlay(`${bereinigt} (neu: ${vorhandenerArtikel.menge} Stück)`);
-      closeDialogWithZoomRestore();
+      mengeDialog.remove();
     });
 
-    return;
+    return; // keine weitere Anzeige
   }
 
+  // Wenn Artikel noch nicht im Warenkorb → regulärer Dialog
   const dialog = document.createElement("div");
   dialog.id = "artikelDialog";
   Object.assign(dialog.style, {
@@ -935,16 +884,12 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
 
   document.body.appendChild(dialog);
 
-  // Event Listener mit Zoom-Wiederherstellung
-  const closeDialogWithZoomRestore = () => {
+  // Abbrechen → Dialog schließen
+  document.getElementById("abbrechenBtn").addEventListener("click", () => {
     dialog.remove();
-    if (isMobileDevice()) {
-      setTimeout(() => restoreViewportZoom(), 100);
-    }
-  };
+  });
 
-  document.getElementById("abbrechenBtn").addEventListener("click", closeDialogWithZoomRestore);
-
+  // Hinzufügen
   document.getElementById("hinzufuegenBtn").addEventListener("click", () => {
     const menge = parseInt(document.getElementById("anzahlInput").value, 10);
     if (isNaN(menge) || menge < 1) {
@@ -960,9 +905,10 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
     });
 
     zeigeHinzugefügtOverlay(`${bereinigt} (${artikelnummer})`);
-    closeDialogWithZoomRestore();
+    dialog.remove();
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const searchBox = document.getElementById("searchBox");
@@ -971,24 +917,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+
+
+
+
 function generateRequestNumber() {
     const now = new Date();
-    const datePart = now.toISOString().slice(2, 10).replace(/-/g, "");
-    const timePart = now.toTimeString().slice(0, 5).replace(/:/g, "");
-    const randomNum = Math.floor(100 + Math.random() * 900);
+    const datePart = now.toISOString().slice(2, 10).replace(/-/g, ""); // YYMMDD
+    const timePart = now.toTimeString().slice(0, 5).replace(/:/g, ""); // HHMM
+    const randomNum = Math.floor(100 + Math.random() * 900); // 3-stellige Zufallszahl
 
     return `${datePart}${timePart}${randomNum}`;
 }
+
+
 
 function generateCartPDF(cartItems) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
   const eweLogo = new Image();
-  eweLogo.crossOrigin = "anonymous";
+  eweLogo.crossOrigin = "anonymous";  // wichtig, falls Logo von anderer Domain kommt
   eweLogo.src = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
 
   eweLogo.onload = function() {
+    // Header
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
     doc.setTextColor(0, 51, 102);
@@ -1016,10 +970,12 @@ function generateCartPDF(cartItems) {
     doc.text("Sehr geehrte Damen und Herren,", 20, 80);
     doc.text("anbei sende ich Ihnen meine Anfrage zu folgenden Artikeln:", 20, 89);
 
+    // Horizontale Linie
     doc.setDrawColor(0, 0, 0);
     doc.setLineWidth(0.5);
     doc.line(20, 98, 190, 98);
 
+    // Tabellenheader für Warenkorb
     let yOffset = 108;
 
     doc.setFont("helvetica", "bold");
@@ -1029,6 +985,7 @@ function generateCartPDF(cartItems) {
 
     yOffset += 8;
 
+    // Spaltenüberschriften fett und schwarz
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
@@ -1042,89 +999,75 @@ function generateCartPDF(cartItems) {
     doc.line(20, yOffset, 190, yOffset);
     yOffset += 6;
 
+    // Inhalte in normaler Schrift
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
 
-    cartItems.forEach((item, index) => {
-      const maxWidth = 100;
-      const bezeichnungLines = doc.splitTextToSize(item.bezeichnung || item.name || "", maxWidth);
+cartItems.forEach((item, index) => {
+  const maxWidth = 100; // mehr Platz für die Artikelbezeichnung
+  const bezeichnungLines = doc.splitTextToSize(item.bezeichnung || item.name || "", maxWidth);
 
-      const lineHeight = 6;
-      const blockHeight = bezeichnungLines.length * lineHeight;
+  const lineHeight = 6;
+  const blockHeight = bezeichnungLines.length * lineHeight;
 
-      if (yOffset + blockHeight > 270) {
-        doc.addPage();
-        yOffset = 20;
+  if (yOffset + blockHeight > 270) {
+    doc.addPage();
+    yOffset = 20;
 
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(10);
-        doc.text("Nr.", 20, yOffset);
-        doc.text("Bezeichnung", 30, yOffset);
-        doc.text("Artikelnummer", 140, yOffset);
-        doc.text("Menge", 175, yOffset);
-        yOffset += 6;
-        doc.line(20, yOffset, 190, yOffset);
-        yOffset += 6;
-        doc.setFont("helvetica", "normal");
-      }
+    // Tabellenkopf auf neuer Seite wiederholen
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text("Nr.", 20, yOffset);
+    doc.text("Bezeichnung", 30, yOffset);
+    doc.text("Artikelnummer", 140, yOffset);
+    doc.text("Menge", 175, yOffset);
+    yOffset += 6;
+    doc.line(20, yOffset, 190, yOffset);
+    yOffset += 6;
+    doc.setFont("helvetica", "normal");
+  }
 
-      doc.text(String(index + 1), 20, yOffset);
-      doc.text(bezeichnungLines, 30, yOffset);
-      doc.text(item.artikelnummer || item.nummer || "", 140, yOffset);
-      doc.text(String(item.menge), 175, yOffset);
+  // Artikel-Index
+  doc.text(String(index + 1), 20, yOffset);
 
-      yOffset += blockHeight + 4;
-    });
+  // Artikelbezeichnung (mehrzeilig)
+  doc.text(bezeichnungLines, 30, yOffset);
 
+  // Artikelnummer
+  doc.text(item.artikelnummer || item.nummer || "", 140, yOffset);
+
+  // Menge
+  doc.text(String(item.menge), 175, yOffset);
+
+  yOffset += blockHeight + 4;
+});
+
+    // Trennlinie nach Warenkorb
     doc.setLineWidth(0.5);
     doc.line(20, yOffset + 2, 190, yOffset + 2);
 
+    // Hier kannst du ggf. weitere Infos anhängen wie Benutzerdaten
+
+
+// PDF mit korrektem Dateinamen öffnen
     const pdfData = doc.output('blob');
     const url = URL.createObjectURL(pdfData);
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     if (isIOS) {
+      // Auf iOS: PDF in neuem Tab öffnen, Download per save() könnte problematisch sein
       doc.save("Warenkorb.pdf");
+      
     } else {
+      // Andere Geräte: PDF öffnen (oder speichern, wenn du möchtest)
       window.open(url);
+      // Alternativ: doc.save("Warenkorb.pdf");
     }
   };
 }
 
-// === 🎨 MOBILE DIALOG STYLES ===
-const mobileStyles = document.createElement('style');
-mobileStyles.textContent = `
-  @media screen and (max-width: 768px) {
-    #artikelDialog > div {
-      max-width: 95vw !important;
-      max-height: 90vh !important;
-      overflow-y: auto;
-      position: fixed !important;
-      top: 50% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      margin: 0 !important;
-    }
-    
-    .zoom-reset-indicator {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: rgba(0, 161, 225, 0.9);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 15px;
-      font-size: 12px;
-      z-index: 10000;
-      animation: fadeInOut 2s ease-in-out;
-    }
-    
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-  }
-`;
-document.head.appendChild(mobileStyles);
+
+
+
 
