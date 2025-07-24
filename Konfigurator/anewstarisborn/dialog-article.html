@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artikel hinzufügen - DUOVIEWER</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 30px;
+      background-color: #d2d2d4;
+      color: white;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 500px;
+      box-sizing: border-box;
+    }
+
+    .header img {
+      height: 60px;
+      margin-right: 15px;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .dialog-container {
+      background: #fefefe;
+      padding: 30px;
+      border-radius: 14px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+
+    .dialog-container h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      color: #333;
+      text-align: center;
+    }
+
+    .article-info {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #00a1e1;
+    }
+
+    .article-info p {
+      margin: 8px 0;
+      line-height: 1.4;
+    }
+
+    .article-info strong {
+      color: #333;
+    }
+
+    .quantity-section {
+      margin: 25px 0;
+      text-align: center;
+    }
+
+    .quantity-section label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .quantity-input {
+      width: 80px;
+      padding: 8px;
+      font-size: 16px;
+      border: 2px solid #ced4da;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .quantity-input:focus {
+      outline: none;
+      border-color: #00a1e1;
+      box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      min-width: 100px;
+    }
+
+    .btn-primary {
+      background-color: #00a1e1;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #07577f;
+    }
+
+    .btn-secondary {
+      background-color: #d6d6d6;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background-color: #bbb;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 4px solid #dc3545;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      
+      .dialog-container {
+        padding: 20px;
+      }
+      
+      .button-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="EWE Logo">
+    <h1>DUOVIEWER</h1>
+  </div>
+
+  <div class="dialog-container">
+    <div id="loading" class="loading">
+      <p>Lade Artikeldaten...</p>
+    </div>
+
+    <div id="content" style="display: none;">
+      <h2 id="dialog-title">🛒 Artikel hinzufügen</h2>
+      
+      <div class="article-info">
+        <p><strong>Bezeichnung:</strong><br><span id="article-name">-</span></p>
+        <p><strong>Artikelnummer:</strong> <span id="article-number">-</span></p>
+        <p><strong>Bruttopreis:</strong> <span id="article-price">-</span></p>
+      </div>
+
+      <div class="quantity-section">
+        <label for="quantity">Anzahl:</label>
+        <input type="number" id="quantity" class="quantity-input" min="1" value="1">
+      </div>
+
+      <div class="button-container" id="button-container">
+        <!-- Buttons werden dynamisch eingefügt -->
+      </div>
+    </div>
+
+    <div id="error" class="error" style="display: none;">
+      <p>Fehler beim Laden der Artikeldaten.</p>
+    </div>
+  </div>
+
+  <script>
+    let articleData = null;
+    let dialogType = 'add'; // 'add', 'existing', 'notfound'
+
+    // Warten auf Daten vom Hauptfenster
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.type === 'articleData') {
+        articleData = event.data;
+        displayArticleData();
+      }
+    });
+
+    // Fallback: Daten aus URL-Parametern lesen
+    window.addEventListener('load', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('data')) {
+        try {
+          articleData = JSON.parse(decodeURIComponent(urlParams.get('data')));
+          displayArticleData();
+        } catch (e) {
+          showError();
+        }
+      }
+    });
+
+    function displayArticleData() {
+      if (!articleData) {
+        showError();
+        return;
+      }
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+
+      // Artikel-Informationen anzeigen
+      document.getElementById('article-name').textContent = articleData.name || 'Unbekannt';
+      document.getElementById('article-number').textContent = articleData.nummer || 'Unbekannt';
+      document.getElementById('article-price').textContent = articleData.preis || '0,00 €';
+
+      // Dialog-Typ bestimmen und entsprechende Buttons anzeigen
+      dialogType = articleData.dialogType || 'add';
+      setupButtons();
+    }
+
+    function setupButtons() {
+      const container = document.getElementById('button-container');
+      const title = document.getElementById('dialog-title');
+      
+      container.innerHTML = '';
+
+      if (dialogType === 'existing') {
+        title.textContent = '🛒 Artikel bereits im Warenkorb';
+        
+        // Aktuelle Menge anzeigen
+        const currentQty = articleData.currentQuantity || 1;
+        document.querySelector('.article-info').innerHTML += 
+          `<p><strong>Aktuelle Menge:</strong> ${currentQty}</p>`;
+        
+        // Buttons für bestehenden Artikel
+        container.innerHTML = `
+          <button class="btn btn-secondary" onclick="closeDialog()">Abbrechen</button>
+          <button class="btn btn-danger" onclick="removeArticle()">Entfernen</button>
+          <button class="btn btn-primary" onclick="addQuantity()">Hinzufügen</button>
+        `;
+      } else if (dialogType === 'notfound') {
+        title.textContent = '📦 Keine Artikelnummer gefunden';
+        document.querySelector('.quantity-section').style.display = 'none';
+        
+        container.innerHTML = `
+          <button class="btn btn-primary" onclick="closeDialog()">OK</button>
+        `;
+      } else {
+        // Standard: Neuen Artikel hinzufügen
+        title.textContent = '🛒 Artikel hinzufügen';
+        
+        container.innerHTML = `
+          <button class="btn btn-secondary" onclick="closeDialog()">Abbrechen</button>
+          <button class="btn btn-primary" onclick="addArticle()">Hinzufügen</button>
+        `;
+      }
+    }
+
+    function addArticle() {
+      const quantity = parseInt(document.getElementById('quantity').value) || 1;
+      
+      if (quantity < 1) {
+        alert('Bitte eine gültige Anzahl eingeben.');
+        return;
+      }
+
+      // Daten an Hauptfenster senden
+      if (window.opener) {
+        window.opener.postMessage({
+          type: 'addToCart',
+          article: articleData,
+          quantity: quantity
+        }, '*');
+      }
+
+      closeDialog();
+    }
+
+    function addQuantity() {
+      const additionalQuantity = parseInt(document.getElementById('quantity').value) || 1;
+      
+      if (additionalQuantity < 1) {
+        alert('Bitte eine gültige Menge eingeben.');
+        return;
+      }
+
+      // Daten an Hauptfenster senden
+      if (window.opener) {
+        window.opener.postMessage({
+          type: 'addQuantity',
+          articleNumber: articleData.nummer,
+          quantity: additionalQuantity
+        }, '*');
+      }
+
+      closeDialog();
+    }
+
+    function removeArticle() {
+      // Daten an Hauptfenster senden
+      if (window.opener) {
+        window.opener.postMessage({
+          type: 'removeFromCart',
+          articleNumber: articleData.nummer
+        }, '*');
+      }
+
+      closeDialog();
+    }
+
+    function closeDialog() {
+      if (window.opener) {
+        window.opener.focus();
+      }
+      window.close();
+    }
+
+    function showError() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error').style.display = 'block';
+    }
+
+    // Escape-Taste zum Schließen
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeDialog();
+      }
+    });
+
+    // Enter-Taste für Hauptaktion
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter' && dialogType !== 'notfound') {
+        if (dialogType === 'existing') {
+          addQuantity();
+        } else {
+          addArticle();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
