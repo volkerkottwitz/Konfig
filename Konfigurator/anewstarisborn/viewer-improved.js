@@ -260,9 +260,9 @@ function highlightMatches(page, container, viewport) {
           height = (position.height + 12) * scaleY;
         } else {
           x = position.x;
-          y = position.y-5;
-          width = position.width+42;
-          height = position.height+1;
+          y = position.y;
+          width = position.width;
+          height = position.height;
         }
 
         const klickDiv = document.createElement('div');
