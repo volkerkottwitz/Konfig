@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel zur Merkliste hinzufügen</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dialog-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dialog-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00a1e1, #0077b6);
+        }
+
+        .ewe-logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        h1 {
+            color: #333;
+            margin: 0 0 25px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .article-info {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid #00a1e1;
+            text-align: left;
+        }
+
+        .article-info h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .article-info p {
+            margin: 8px 0;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .article-info strong {
+            color: #333;
+        }
+
+        .quantity-section {
+            margin: 30px 0;
+        }
+
+        .quantity-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .quantity-input {
+            width: 100px;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: #00a1e1;
+            box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.15);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00a1e1, #0077b6);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0077b6, #005577);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 161, 225, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .btn-secondary:hover {
+            background: #dee2e6;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c82333, #a71e2a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .status-message {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .status-existing {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-notfound {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #00a1e1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-overlay {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(40, 167, 69, 0.95);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            z-index: 10000;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Mobile Optimierungen */
+        @media (max-width: 600px) {
+            .dialog-container {
+                margin: 10px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .quantity-input {
+                font-size: 16px; /* Verhindert Zoom auf iOS */
+                min-height: 44px;
+            }
+        }
+
+        /* Accessibility */
+        .btn:focus {
+            outline: 2px solid #00a1e1;
+            outline-offset: 2px;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+        }
+
+        /* Animationen für bessere UX */
+        .dialog-container {
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dialog-container">
+        <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" 
+             alt="EWE Logo" class="ewe-logo">
+        
+        <h1 id="dialog-title">Artikel zur Merkliste hinzufügen</h1>
+        
+        <div id="article-content">
+            <div class="article-info">
+                <h3 id="article-name">Artikelname wird geladen...</h3>
+                <p><strong>Artikelnummer:</strong> <span id="article-number">-</span></p>
+                <p><strong>Preis:</strong> <span id="article-price">-</span></p>
+            </div>
+        </div>
+
+        <div id="status-section"></div>
+
+        <div id="quantity-section" class="quantity-section">
+            <label for="quantity">Anzahl:</label>
+            <input type="number" id="quantity" class="quantity-input" min="1" value="1">
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Wird verarbeitet...</p>
+        </div>
+
+        <div class="button-container" id="button-container">
+            <button class="btn btn-secondary" onclick="closeDialog()">Abbrechen</button>
+            <button class="btn btn-primary" id="main-action" onclick="handleMainAction()">
+                Zur Merkliste hinzufügen
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let articleData = null;
+        let dialogType = 'add';
+
+        // Nachrichten vom Hauptfenster empfangen
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'articleData') {
+                articleData = event.data;
+                dialogType = event.data.dialogType || 'add';
+                setupDialog();
+            }
+        });
+
+        function setupDialog() {
+            if (!articleData) return;
+
+            // Artikel-Informationen anzeigen
+            document.getElementById('article-name').textContent = articleData.name || 'Unbekannter Artikel';
+            document.getElementById('article-number').textContent = articleData.nummer || '-';
+            document.getElementById('article-price').textContent = articleData.preis || '0,00 €';
+
+            // Dialog je nach Typ konfigurieren
+            switch (dialogType) {
+                case 'add':
+                    setupAddDialog();
+                    break;
+                case 'existing':
+                    setupExistingDialog();
+                    break;
+                case 'notfound':
+                    setupNotFoundDialog();
+                    break;
+                default:
+                    setupAddDialog();
+            }
+        }
+
+        function setupAddDialog() {
+            document.getElementById('dialog-title').textContent = 'Artikel zur Merkliste hinzufügen';
+            document.getElementById('main-action').textContent = 'Zur Merkliste hinzufügen';
+            document.getElementById('main-action').className = 'btn btn-primary';
+            document.getElementById('quantity-section').style.display = 'block';
+        }
+
+        function setupExistingDialog() {
+            document.getElementById('dialog-title').textContent = 'Artikel bereits in der Merkliste';
+            
+            const statusSection = document.getElementById('status-section');
+            statusSection.innerHTML = `
+                <div class="status-message status-existing">
+                    <strong>Hinweis:</strong> Dieser Artikel ist bereits in Ihrer Merkliste 
+                    (aktuelle Menge: ${articleData.currentQuantity || 0}).
+                </div>
+            `;
+
+            // Button-Container anpassen
+            const buttonContainer = document.getElementById('button-container');
+            buttonContainer.innerHTML = `
+                <button class="btn btn-secondary" onclick="closeDialog()">Abbrechen</button>
+                <button class="btn btn-danger" onclick="removeFromCart()">Entfernen</button>
+                <button class="btn btn-primary" onclick="addQuantity()">Menge erhöhen</button>
+            `;
+
+            document.getElementById('quantity-section').style.display = 'block';
+            document.querySelector('label[for="quantity"]').textContent = 'Zusätzliche Menge:';
+        }
+
+        function setupNotFoundDialog() {
+            document.getElementById('dialog-title').textContent = 'Keine Artikelnummer gefunden';
+            
+            const statusSection = document.getElementById('status-section');
+            statusSection.innerHTML = `
+                <div class="status-message status-notfound">
+                    <strong>Hinweis:</strong> In der Auswahl wurde keine gültige Artikelnummer erkannt.
+                </div>
+            `;
+
+            document.getElementById('quantity-section').style.display = 'none';
+            
+            const buttonContainer = document.getElementById('button-container');
+            buttonContainer.innerHTML = `
+                <button class="btn btn-primary" onclick="closeDialog()">OK</button>
+            `;
+        }
+
+        function handleMainAction() {
+            if (dialogType === 'add') {
+                addToCart();
+            }
+        }
+
+        function addToCart() {
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            if (quantity < 1) {
+                alert('Bitte geben Sie eine gültige Anzahl ein.');
+                return;
+            }
+
+            showLoading(true);
+
+            // Nachricht an Hauptfenster senden
+            window.opener.postMessage({
+                type: 'addToCart',
+                article: articleData,
+                quantity: quantity
+            }, '*');
+
+            showSuccess('Artikel zur Merkliste hinzugefügt!');
+            
+            setTimeout(() => {
+                closeDialog();
+            }, 1500);
+        }
+
+        function addQuantity() {
+            const additionalQuantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            if (additionalQuantity < 1) {
+                alert('Bitte geben Sie eine gültige Anzahl ein.');
+                return;
+            }
+
+            showLoading(true);
+
+            // Nachricht an Hauptfenster senden
+            window.opener.postMessage({
+                type: 'addQuantity',
+                articleNumber: articleData.nummer,
+                quantity: additionalQuantity
+            }, '*');
+
+            showSuccess('Menge erhöht!');
+            
+            setTimeout(() => {
+                closeDialog();
+            }, 1500);
+        }
+
+        function removeFromCart() {
+            if (confirm('Möchten Sie diesen Artikel wirklich aus der Merkliste entfernen?')) {
+                showLoading(true);
+
+                // Nachricht an Hauptfenster senden
+                window.opener.postMessage({
+                    type: 'removeFromCart',
+                    articleNumber: articleData.nummer
+                }, '*');
+
+                showSuccess('Artikel entfernt!');
+                
+                setTimeout(() => {
+                    closeDialog();
+                }, 1500);
+            }
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+            document.getElementById('button-container').style.display = show ? 'none' : 'flex';
+        }
+
+        function showSuccess(message) {
+            showLoading(false);
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'success-overlay';
+            overlay.textContent = '✅ ' + message;
+            document.body.appendChild(overlay);
+
+            setTimeout(() => {
+                overlay.remove();
+            }, 2000);
+        }
+
+        function closeDialog() {
+            if (window.opener) {
+                window.close();
+            } else {
+                // Fallback für den Fall, dass das Fenster nicht geschlossen werden kann
+                document.body.innerHTML = `
+                    <div class="dialog-container">
+                        <h1>Dialog geschlossen</h1>
+                        <p>Sie können dieses Fenster jetzt schließen.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Keyboard-Navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeDialog();
+            } else if (event.key === 'Enter' && dialogType === 'add') {
+                handleMainAction();
+            }
+        });
+
+        // Fokus auf Anzahl-Eingabe setzen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const quantityInput = document.getElementById('quantity');
+                if (quantityInput && quantityInput.style.display !== 'none') {
+                    quantityInput.focus();
+                    quantityInput.select();
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
+
