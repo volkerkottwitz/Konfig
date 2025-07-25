@@ -485,7 +485,7 @@ function openArticleDialogMobile(artikelnummer, artikel, dialogType) {
 
   // Neues Fenster öffnen
   const dialogWindow = window.open(
-    'dialog-article.html',
+    'dialog-article-final.html',
     'articleDialog',
     'width=600,height=500,scrollbars=yes,resizable=yes'
   );
