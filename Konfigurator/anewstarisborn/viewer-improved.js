@@ -260,7 +260,7 @@ function highlightMatches(page, container, viewport) {
           height = (position.height + 12) * scaleY;
         } else {
           x = position.x;
-          y = position.y;
+          y = position.y-2;
           width = position.width;
           height = position.height-10;
         }
