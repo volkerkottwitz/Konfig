@@ -531,7 +531,7 @@ function openNoArticleDialog(lineText) {
   };
 
   const dialogWindow = window.open(
-    'dialog-article.html',
+    'dialog-article-final.html',
     'noArticleDialog',
     'width=500,height=400,scrollbars=yes,resizable=yes'
   );
