@@ -611,6 +611,10 @@ function bereinigeText(text) {
 }
 
 function zeigeHinzugefügtOverlay(text) {
+    // Auf Mobilgeräten nicht anzeigen
+  if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    return;
+  }
   const overlay = document.createElement("div");
   if (text.includes("entfernt")) {
     overlay.textContent = `✅ ${text}`;
