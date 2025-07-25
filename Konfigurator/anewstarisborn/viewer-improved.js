@@ -262,7 +262,7 @@ function highlightMatches(page, container, viewport) {
           x = position.x;
           y = position.y;
           width = position.width;
-          height = position.height;
+          height = position.height-10;
         }
 
         const klickDiv = document.createElement('div');
