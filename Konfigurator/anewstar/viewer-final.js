@@ -200,7 +200,7 @@ function countMatches(txt, s1, s2) {
   return s2 ? Math.min(c1, c2) : c1;
 }
 
-// === 📏 RESPONSIVE MARKIERUNGSGRÖSSENWERTE ===
+// === 📏 RESPONSIVE MARKIERUNGSGRÖSSENWERTE MIT ZOOM-ANPASSUNG ===
 function getMarkierungsWerte() {
   if (isMobileDevice()) {
     return { 
@@ -211,12 +211,20 @@ function getMarkierungsWerte() {
       zeilenHeight: 18
     };
   } else {
+    // Desktop: Markierungen skalieren mit Zoomfaktor
+    const baseWidthAdd = 42;
+    const baseHeightAdd = 1;
+    const baseYOffset = -5;
+    
+    // Skalierung basierend auf Zoomfaktor
+    const scaleFactor = Math.max(0.5, Math.min(3.0, zoomFactor)); // Begrenzt zwischen 0.5x und 3.0x
+    
     return { 
-      yOffset: -5, 
-      widthAdd: 42, 
-      heightAdd: 1,
-      zeilenYOffset: -17,
-      zeilenHeight: 18
+      yOffset: baseYOffset * scaleFactor, 
+      widthAdd: baseWidthAdd * scaleFactor, 
+      heightAdd: baseHeightAdd * scaleFactor,
+      zeilenYOffset: -17 * scaleFactor,
+      zeilenHeight: 18 * scaleFactor
     };
   }
 }
@@ -267,7 +275,7 @@ function highlightMatches(page, container, viewport) {
         ganzeZeileMarkieren = true;
       }
 
-      const regex = /(?:^|[^\#\w])((?:0392-[a-zA-Z0-9]+|[0-9]{7}(?:-[a-zA-Z0-9]+)?)(\*{1,2})?)/g;
+      const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|[0-9]{7}(?:-[a-zA-Z0-9]{2,})?)(\*{1,2})?)/g;
       let match;
       while ((match = regex.exec(lineText)) !== null) {
         const artikelnummer = match[1];
@@ -289,7 +297,13 @@ function highlightMatches(page, container, viewport) {
         } else {
           x = position.x;
           y = position.y + markierungsWerte.yOffset;
-          width = position.width + markierungsWerte.widthAdd;
+          let extraBreite = 0;
+          if (artikelnummer.includes('DIBT') || artikelnummer.startsWith('0392-')) {
+            // Zusätzliche Breite skaliert auch mit Zoomfaktor (nur auf Desktop)
+            const baseExtraBreite = 20;
+            extraBreite = isMobileDevice() ? baseExtraBreite : baseExtraBreite * Math.max(0.5, Math.min(3.0, zoomFactor));
+          }
+          width = position.width + markierungsWerte.widthAdd + extraBreite;
           height = position.height + markierungsWerte.heightAdd;
         }
 
@@ -349,24 +363,31 @@ function highlightMatches(page, container, viewport) {
         bgColor = 'rgba(74, 235, 227, 0.2)';
       }
 
-      const first = lineItems[0];
       const x = 0;
-      const y = (first.tx[5] + markierungsWerte.zeilenYOffset) * scaleY;
-      const width = canvas.offsetWidth;
-      const height = markierungsWerte.zeilenHeight * scaleY;
+      const minY = Math.min(...lineItems.map(i => i.tx[5]));
+      const maxY = Math.max(...lineItems.map(i => i.tx[5]));
+      const textHeight = maxY - minY;
+      
+      // Padding skaliert auch mit Zoomfaktor (nur auf Desktop)
+      const basePadding = 24;
+      const padding = isMobileDevice() ? basePadding : basePadding * Math.max(0.5, Math.min(3.0, zoomFactor));
 
-      const div = document.createElement('div');
-      Object.assign(div.style, {
-        position: 'absolute',
-        left: `${x}px`,
-        top: `${y}px`,
-        width: `${width}px`,
-        height: `${height}px`,
-        backgroundColor: bgColor,
-        cursor: 'pointer',
-        border: '1px solid rgba(0, 161, 225, 0.3)',
-        borderRadius: '2px'
-      });
+      const y = (minY + markierungsWerte.zeilenYOffset) * scaleY-1;
+      const height = (textHeight + padding) * scaleY;
+      const width = canvas.offsetWidth;
+
+const div = document.createElement('div');
+Object.assign(div.style, {
+  position: 'absolute',
+  left: `${x}px`,
+  top: `${y}px`,
+  width: `${width}px`,
+  height: `${height}px`,
+  backgroundColor: bgColor,
+  cursor: 'pointer',
+  border: '1px solid rgba(0, 161, 225, 0.3)',
+  borderRadius: '2px'
+});
 
       div.title = `Keine Artikelnummer gefunden`;
 
@@ -1294,4 +1315,3 @@ function generateMerklistePDF(merklisteItems) {
     }
   };
 }
-
