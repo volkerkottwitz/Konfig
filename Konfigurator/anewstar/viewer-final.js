@@ -232,8 +232,15 @@ function getMarkierungsWerte() {
 // === 🎯 VERBESSERTE HIGHLIGHT-FUNKTION MIT RESPONSIVE MARKIERUNGEN ===
 function highlightMatches(page, container, viewport) {
   const canvas = container.querySelector('canvas');
-  const scaleX = canvas.offsetWidth / canvas.width;
-  const scaleY = canvas.offsetHeight / canvas.height;
+  
+  // Basis-Skalierung zwischen Canvas und angezeigter Größe
+  const baseScaleX = canvas.offsetWidth / canvas.width;
+  const baseScaleY = canvas.offsetHeight / canvas.height;
+  
+  // Die Skalierung ist bereits im viewport enthalten, da renderPage mit zoomFactor aufgerufen wird
+  // Daher verwenden wir direkt die baseScale-Werte
+  const scaleX = baseScaleX;
+  const scaleY = baseScaleY;
 
   page.getTextContent().then(tc => {
     const items = tc.items;
@@ -295,7 +302,9 @@ function highlightMatches(page, container, viewport) {
           width = canvas.offsetWidth;
           height = (position.height + 9) * scaleY;
         } else {
-          x = position.x;
+          // 600px Offset pro Zoom-Schritt: nach links beim Vergrößern, nach rechts beim Verkleinern
+const zoomOffset = isMobileDevice() ? 0 : (zoomFactor - 1.0) * - 580;
+x = position.x + zoomOffset;
           y = position.y + markierungsWerte.yOffset;
           let extraBreite = 0;
           if (artikelnummer.includes('DIBT') || artikelnummer.startsWith('0392-')) {
@@ -404,7 +413,7 @@ Object.assign(div.style, {
   });
 }
 
-// === 🎯 PRÄZISE ARTIKELNUMMERN-POSITIONSBERECHNUNG ===
+// === 🎯 PRÄZISE ARTIKELNUMMERN-POSITIONSBERECHNUNG MIT ZOOM-ANPASSUNG ===
 function calculatePreciseArticlePosition(lineItems, artikelnummer, matchStart, scaleX, scaleY) {
   try {
     // Finde das Text-Item, das die Artikelnummer enthält
@@ -430,11 +439,16 @@ function calculatePreciseArticlePosition(lineItems, artikelnummer, matchStart, s
     // Berechne die durchschnittliche Zeichenbreite für dieses Text-Item
     const avgCharWidth = (targetItem.width || targetItem.tx[0] || 10) / Math.max(targetItem.str.length, 1);
     
-    // Berechne Position und Größe
-    const startX = (targetItem.tx[4] + (charOffset * avgCharWidth)) * scaleX;
-    const startY = (targetItem.tx[5] - targetItem.height - 2) * scaleY;
-    const width = (artikelnummer.length * avgCharWidth) * scaleX;
-    const height = (targetItem.height + 4) * scaleY;
+    // Berechne Position und Größe (Zoom ist bereits im viewport enthalten)
+    const baseStartX = targetItem.tx[4] + (charOffset * avgCharWidth);
+    const baseStartY = targetItem.tx[5] - targetItem.height - 2;
+    const baseWidth = artikelnummer.length * avgCharWidth;
+    const baseHeight = targetItem.height + 4;
+    
+    const startX = baseStartX * scaleX;
+    const startY = baseStartY * scaleY;
+    const width = baseWidth * scaleX;
+    const height = baseHeight * scaleY;
 
     return {
       x: Math.max(0, startX),
@@ -444,7 +458,7 @@ function calculatePreciseArticlePosition(lineItems, artikelnummer, matchStart, s
     };
   } catch (error) {
     console.warn('Fehler bei Positionsberechnung:', error);
-    // Fallback zur ursprünglichen Methode
+    // Fallback zur ursprünglichen Methode (Zoom ist bereits im viewport enthalten)
     const firstItem = lineItems[0];
     return {
       x: (firstItem.tx[4] - 3) * scaleX,

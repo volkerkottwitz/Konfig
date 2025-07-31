@@ -9,18 +9,27 @@ body {
 #header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 15px 20px;
   color: white;
   background-color: #d2d2d4;
   border-bottom: 2px solid #ddd;
   flex-wrap: nowrap;
   gap: 20px;
+  max-width: 100vw;
+  margin: 0 auto;
 }
 
-#header img {
-    height: 100px;
-    margin-right: 15px;
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 0 0 auto;
+}
+
+#header .header-left img {
+    height: 80px;
+    margin: 0;
 }
 
 .header-content {
@@ -28,17 +37,27 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
+  gap: 5px;
 }
 
 .header-content h1 {
   font-size: 2rem;
   margin: 0;
+  font-weight: 600;
 }
 
-
 .header-date {
-  font-size: 0.8rem;
-  opacity: 0.7;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
 }
 
 #header .buttons {
@@ -256,26 +275,57 @@ button:disabled:hover {
     }
 
     #header {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-        padding: 10px 20px;
+        padding: 12px 15px;
+        gap: 15px;
+        flex-wrap: wrap;
     }
 
-    #header img {
-        height: 60px;
-        margin: 0 0 10px 0;
+    .header-left {
+        order: 1;
+        flex: 0 0 auto;
+    }
+
+    #header .header-left img {
+        height: 50px;
+        margin: 0;
+    }
+
+    .header-content {
+        order: 2;
+        flex: 1;
+        min-width: 0;
+        gap: 3px;
     }
 
     .header-content h1 {
-        font-size: 20px;
+        font-size: 1.4rem;
+        font-weight: 600;
     }
 
     .header-date {
-        font-size: 12px;
+        font-size: 0.75rem;
+        opacity: 0.8;
+    }
+
+    .header-right {
+        order: 3;
+        flex: 0 0 auto;
     }
 
     #header .buttons {
-        margin-top: 10px;
+        margin: 0;
+        gap: 10px;
+    }
+
+    .icon-button {
+        font-size: 1.1rem;
+        padding: 8px 12px;
+        min-width: 40px;
+        height: 40px;
     }
 
     #pdfContainer {
@@ -490,40 +540,92 @@ button:disabled:hover {
 /* ========== Modal-Optimierungen ========== */
 @media screen and (max-width: 768px) {
     /* Info Modal */
+    #infoModal {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 5vh;
+        padding-bottom: 10vh; /* Platz für Browser-Linkzeile */
+    }
+    
     #infoModal > div {
         padding: 15px 20px;
-        max-width: 90%;
+        max-width: 95%;
+        max-height: 70vh;
         font-size: 0.85rem;
+        overflow-y: auto;
+        margin: 0;
     }
+    
     #infoModal h2 {
         font-size: 1.2rem;
+        margin-bottom: 10px;
     }
+    
     #infoModal p {
         font-size: 0.85rem;
+        margin: 8px 0;
     }
+    
     #infoModal button {
         font-size: 0.9rem;
         padding: 8px 14px;
-        background-color: #00a1e1; /* Korrigierte Farbe */
+        background-color: #00a1e1;
     }
 
     /* Merkliste */
     #merkliste {
         width: calc(100% - 20px);
         max-width: none;
+        max-height: 75vh;
+        top: 10vh;
+        bottom: auto;
+        overflow: hidden;
     }
+    
+    #merkliste > div {
+        max-height: 100%;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    
     #merkliste h2 {
         font-size: 1.1rem;
+        margin-bottom: 10px;
     }
+    
     #merkliste ul {
         font-size: 0.85rem;
+        max-height: 40vh;
+        overflow-y: auto;
+        flex: 1;
     }
+    
     .btn-kaufen {
         font-size: 0.9rem;
         padding: 8px 14px;
+        margin-bottom: 8px;
     }
+    
     #merkliste button {
         font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+
+    /* Allgemeine Modal-Dialoge (dynamisch erstellt) */
+    .modal-overlay {
+        padding: 10px;
+        align-items: flex-start !important;
+        padding-top: 5vh !important;
+        padding-bottom: 10vh !important;
+    }
+    
+    .modal-content {
+        max-width: 95% !important;
+        max-height: 70vh !important;
+        padding: 15px 20px !important;
+        overflow-y: auto !important;
+        margin: 0 !important;
     }
 }
 
@@ -720,9 +822,9 @@ input:focus {
     position: relative;
 }
 
-/* Einfache Tooltip-Unterstützung für Touch-Geräte */
-@media (hover: none) and (pointer: coarse) {
-    [title]:active::after {
+/* Tooltips nur auf Desktop-Geräten anzeigen */
+@media (hover: hover) and (pointer: fine) {
+    [title]:hover::after {
         content: attr(title);
         position: absolute;
         bottom: 100%;
@@ -736,8 +838,16 @@ input:focus {
         white-space: nowrap;
         z-index: 10000;
         pointer-events: none;
+        opacity: 0;
+        animation: tooltipFadeIn 0.3s ease forwards;
     }
 }
+
+@keyframes tooltipFadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 
 
 
@@ -774,7 +884,7 @@ input:focus {
   .header-left img {
     height: 50px;
     position: relative; 
-    top: 10px;
+    top: 0px;
   }
 
   .header-content h1 {
