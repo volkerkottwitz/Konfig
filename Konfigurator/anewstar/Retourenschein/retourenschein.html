@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Retourenschein PDF Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="retourenschein.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script> <!-- PapaParse -->
+</head>
+<body>
+  <header id="header">
+    <div class="header-left">
+      <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="EWE Logo" />
+    </div>
+    <div class="header-content">
+      <h1>Retourenschein</h1>
+      <div class="header-date" id="heute"></div>
+    </div>
+    <div class="header-right">
+      <div class="buttons">
+        <button onclick="generateRetourenscheinPDF()">PDF erzeugen</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="search-container">
+    <select id="kundenDropdown">
+      <option value="">-- Kunde auswählen --</option>
+      <!-- Optionen werden per JS geladen -->
+    </select>
+  </section>
+
+  <section id="kundenDetails" class="search-container">
+    <input type="text" id="name" placeholder="Name" />
+    <input type="text" id="firma" placeholder="Firma" />
+    <input type="text" id="telefon" placeholder="Telefon" />
+    <input type="text" id="email" placeholder="E-Mail" />
+    <input type="text" id="strasse" placeholder="Straße" />
+    <input type="text" id="ort" placeholder="Ort" />
+    <input type="text" id="plz" placeholder="PLZ" />
+    <input type="text" id="land" placeholder="Land" />
+  </section>
+
+  <script>
+    const dropdown = document.getElementById("kundenDropdown");
+    const inputs = {
+      name: document.getElementById("name"),
+      firma: document.getElementById("firma"),
+      telefon: document.getElementById("telefon"),
+      email: document.getElementById("email"),
+      strasse: document.getElementById("strasse"),
+      ort: document.getElementById("ort"),
+      plz: document.getElementById("plz"),
+      land: document.getElementById("land")
+    };
+
+    let kunden = [];
+
+    // CSV laden und parsen mit PapaParse
+    fetch("Kundenstamm.csv")
+      .then(response => {
+        if (!response.ok) throw new Error("CSV-Datei konnte nicht geladen werden");
+        return response.text();
+      })
+      .then(csvText => {
+        const results = Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true
+        });
+        kunden = results.data;
+
+        // Dropdown füllen
+        kunden.forEach((k, i) => {
+          const label = k.Name ? `${k.Name} – ${k.Firma}` : k.Firma || "Unbekannt";
+          const opt = document.createElement("option");
+          opt.value = i;
+          opt.textContent = label;
+          dropdown.appendChild(opt);
+        });
+
+        // Option für manuelle Eingabe ans Ende
+        const manualOpt = document.createElement("option");
+        manualOpt.value = "manuell";
+        manualOpt.textContent = "-- Manuelle Eingabe --";
+        dropdown.appendChild(manualOpt);
+      })
+      .catch(err => {
+        console.error("Fehler beim Laden der CSV:", err);
+        // Fallback: Manuelle Eingabe nur
+        const manualOpt = document.createElement("option");
+        manualOpt.value = "manuell";
+        manualOpt.textContent = "-- Manuelle Eingabe --";
+        dropdown.appendChild(manualOpt);
+      });
+
+    dropdown.addEventListener("change", function () {
+      const val = this.value;
+      if (val === "manuell" || val === "") {
+        Object.values(inputs).forEach(inp => (inp.value = ""));
+        return;
+      }
+
+      const kunde = kunden[val];
+      if (!kunde) return;
+
+      // Werte aus CSV den Inputs zuweisen, dabei ggf. leer lassen wenn nicht vorhanden
+      inputs.name.value = kunde.Name || "";
+      inputs.firma.value = kunde.Firma || "";
+      inputs.telefon.value = kunde.Telefon || "";
+      inputs.email.value = kunde.Email || "";
+      inputs.strasse.value = kunde.Straße || kunde.Strasse || ""; // achte auf Schreibweise!
+      inputs.ort.value = kunde.Ort || "";
+      inputs.plz.value = kunde.PLZ || "";
+      inputs.land.value = kunde.Land || "";
+    });
+
+    document.getElementById("heute").textContent = new Date().toLocaleDateString();
+
+    async function generateRetourenscheinPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.setTextColor(0, 51, 102);
+      doc.text("Retourenschein", 20, 20);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+
+      let y = 30;
+      doc.text("Kundendaten:", 20, y);
+      y += 6;
+
+      doc.text(`Name: ${inputs.name.value}`, 20, y);
+      y += 6;
+      doc.text(`Firma: ${inputs.firma.value}`, 20, y);
+      y += 6;
+      doc.text(`Telefon: ${inputs.telefon.value}`, 20, y);
+      y += 6;
+      doc.text(`E-Mail: ${inputs.email.value}`, 20, y);
+      y += 6;
+      doc.text(
+        `Adresse: ${inputs.strasse.value}, ${inputs.ort.value}, ${inputs.plz.value}, ${inputs.land.value}`,
+        20,
+        y
+      );
+      y += 10;
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.text("Rückgelieferte Artikel:", 20, y);
+      y += 8;
+
+      const artikel = window.merklisteItems || [];
+
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "bold");
+      doc.text("Nr.", 20, y);
+      doc.text("Bezeichnung", 30, y);
+      doc.text("Artikelnummer", 110, y);
+      doc.text("Menge", 160, y);
+      doc.text("Grund", 175, y);
+      y += 6;
+      doc.setDrawColor(0);
+      doc.line(20, y, 190, y);
+      y += 4;
+
+      doc.setFont("helvetica", "normal");
+
+      artikel.forEach((item, index) => {
+        const maxWidth = 75;
+        const bezeichnungLines = doc.splitTextToSize(item.bezeichnung || item.name || "", maxWidth);
+        const lineHeight = 6;
+        const blockHeight = bezeichnungLines.length * lineHeight;
+
+        if (y + blockHeight > 270) {
+          doc.addPage();
+          y = 20;
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(10);
+          doc.text("Nr.", 20, y);
+          doc.text("Bezeichnung", 30, y);
+          doc.text("Artikelnummer", 110, y);
+          doc.text("Menge", 160, y);
+          doc.text("Grund", 175, y);
+          y += 6;
+          doc.line(20, y, 190, y);
+          y += 6;
+          doc.setFont("helvetica", "normal");
+        }
+
+        doc.text(String(index + 1), 20, y);
+        doc.text(bezeichnungLines, 30, y);
+        doc.text(item.artikelnummer || item.nummer || "", 110, y);
+        doc.text(String(item.menge), 160, y);
+        doc.text(item.rueck || "", 175, y);
+
+        y += blockHeight + 4;
+      });
+
+      doc.save("Retourenschein.pdf");
+    }
+  </script>
+</body>
+</html>
