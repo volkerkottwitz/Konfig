@@ -796,7 +796,7 @@ function zeigeMerkliste() {
         <td><input type="number" min="1" value="${item.menge}" style="width:60px;"
               onchange="merkliste[${index}].menge = parseInt(this.value, 10)" /></td>
         <td>
-          <button onclick="merkliste.splice(${index},1); document.body.removeChild(document.getElementById('merklisteDialog')); zeigeMerkliste();"
+          <button onclick="merkliste.splice(${index},1); document.body.removeChild(document.getElementById('merklisteDialog')); openMerkliste();"
                   style="color:red; font-weight:bold; border:none; background:none; cursor:pointer;">✖</button>
         </td>
       </tr>
@@ -807,7 +807,12 @@ function zeigeMerkliste() {
         </tbody>
       </table>
       <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
-        <button onclick="generateMerklistePDF(merkliste); document.body.removeChild(document.getElementById('merklisteDialog'));" 
+        
+      <button onclick="window.open('retourenschein/retourenschein.html?merkliste=' + encodeURIComponent(JSON.stringify(merkliste)));"
+        style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
+  Retourenschein
+</button>
+      <button onclick="generateMerklistePDF(merkliste); document.body.removeChild(document.getElementById('merklisteDialog'));" 
                 style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
           Jetzt Anfragen
         </button>
@@ -976,7 +981,7 @@ function addAllTooltips() {
     'button[onclick="nextMatch()"]': 'Nächster Treffer',
     'button[onclick="zoomOut()"]': 'Verkleinern',
     'button[onclick="zoomIn()"]': 'Vergrößern',
-    'button[onclick="zeigeMerkliste()"]': 'Merkliste anzeigen',
+    'button[onclick="openMerkliste()"]': 'Merkliste anzeigen',
     '#searchBox': 'Ersten Suchbegriff eingeben',
     '#searchBox2': 'Zweiten Suchbegriff eingeben (optional)',
     '#header a': 'Zur EWE-Armaturen Webseite'
@@ -1329,3 +1334,6 @@ function generateMerklistePDF(merklisteItems) {
     }
   };
 }
+
+
+
