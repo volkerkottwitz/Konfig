@@ -141,7 +141,7 @@ if (merkliste && merkliste.length > 0) {
         document.body.removeChild(dialog);
         
         // Zur Retourenschein-Seite weiterleiten
-        window.open('retourenschein/retourenschein.html', '_blank');
+        window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/retourenschein/retourenschein.html', '_blank');
       });
 
       // Hover-Effekte für Retourenschein-Button
@@ -257,7 +257,7 @@ if (merkliste && merkliste.length > 0) {
             
             <script>
               function openRetourenschein() {
-                window.open('retourenschein/retourenschein.html', '_blank');
+                window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/retourenschein/retourenschein.html', '_blank');
               }
               
 function requestQuote() {
