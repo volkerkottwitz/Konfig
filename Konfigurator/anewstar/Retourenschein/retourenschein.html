@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Retourenschein PDF Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="retourenschein.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="retourenschein.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script> <!-- PapaParse -->
+  
+  <!-- PapaParse-Bibliothek für die CSV-Verarbeitung -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  
+  <!-- jQuery (wird von Select2 benötigt) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Select2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
   <header id="header">
     <div class="header-left">
-      <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="EWE Logo" />
+      <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="EWE Logo">
     </div>
     <div class="header-content">
       <h1>Retourenschein</h1>
@@ -25,25 +36,85 @@
     </div>
   </header>
 
+  <!-- Kundenauswahl -->
   <section class="search-container">
     <select id="kundenDropdown">
       <option value="">-- Kunde auswählen --</option>
-      <!-- Optionen werden per JS geladen -->
+      <!-- Kundenoptionen werden dynamisch per JavaScript geladen -->
     </select>
   </section>
 
+  <!-- Kundendaten -->
   <section id="kundenDetails" class="search-container">
-    <input type="text" id="name" placeholder="Name" />
-    <input type="text" id="firma" placeholder="Firma" />
-    <input type="text" id="telefon" placeholder="Telefon" />
-    <input type="text" id="email" placeholder="E-Mail" />
-    <input type="text" id="strasse" placeholder="Straße" />
-    <input type="text" id="ort" placeholder="Ort" />
-    <input type="text" id="plz" placeholder="PLZ" />
-    <input type="text" id="land" placeholder="Land" />
+    <input type="text" id="name" placeholder="Name">
+    <input type="text" id="firma" placeholder="Firma">
+    <input type="text" id="strasse" placeholder="Straße">
+    <input type="text" id="plz" placeholder="PLZ">
+    <input type="text" id="ort" placeholder="Ort">
+    <input type="text" id="land" placeholder="Land">
+    <input type="text" id="email" placeholder="E-Mail">
+    <input type="text" id="telefon" placeholder="Telefon">
+  </section>
+
+  <!-- Neue Felder für Retourenschein -->
+  <section id="retourenDetails" class="search-container">
+    <h3>Retourendetails</h3>
+    
+    <!-- Bearbeiter Dropdown -->
+    <select id="bearbeiterDropdown">
+      <option value="">-- Bearbeiter auswählen --</option>
+      <option value="Rafael Furtwängler">Rafael Furtwängler</option>
+      <option value="Christof Münster">Christof Münster</option>
+      <option value="Sascha Heusel">Sascha Heusel</option>
+      <option value="Bernhard Kneissl">Bernhard Kneissl</option>
+      <option value="Christopher-Sean Haus">Christopher-Sean Haus</option>
+      <option value="Sascha Barkowsky">Sascha Barkowsky</option>
+      <option value="Volker Kottwitz">Volker Kottwitz</option>
+      <option value="Volker Oesterwind">Volker Oesterwind</option>
+      <option value="Thomas Schönfüß">Thomas Schönfüß</option>
+      <option value="Thomas Wendt">Thomas Wendt</option>
+      <option value="Harald Natzke">Harald Natzke</option>
+      <option value="Lukas Pfeil">Lukas Pfeil</option>
+      <option value="Nancy Ullbricht">Nancy Ullbricht</option>
+      <option value="Heiner Birkholz">Heiner Birkholz</option>
+      <option value="Helmut Wölfel">Helmut Wölfel</option>
+      <option value="manuell">-- Manuelle Eingabe --</option>
+    </select>
+    
+    <!-- Manuelles Bearbeiter-Eingabefeld (initial versteckt) -->
+    <input type="text" id="bearbeiterManuell" placeholder="Bearbeiter (manuell)" style="display: none;">
+    
+    <!-- Anlieferung Dropdown -->
+    <select id="anlieferungDropdown">
+      <option value="">-- Anlieferung auswählen --</option>
+      <option value="PKW Außendienst">PKW Außendienst</option>
+      <option value="EWE-LW">EWE-LW</option>
+      <option value="Paketdienst">Paketdienst</option>
+      <option value="Spedition">Spedition</option>
+      <option value="Sonstiges">Sonstiges</option>
+    </select>
+    
+    <!-- Abholdatum mit Vor/Zurück-Pfeilen -->
+    <div id="abholdatumContainer">
+      <label for="abholdatum">Abholdatum:</label>
+      <div class="date-picker-container">
+        <button type="button" id="datumZurueck" class="date-arrow">◀</button>
+        <input type="date" id="abholdatum">
+        <button type="button" id="datumVor" class="date-arrow">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artikel aus Merkliste (wird dynamisch gefüllt) -->
+  <section id="artikelListe" class="search-container">
+    <h3>Artikel zur Rücksendung</h3>
+    <div id="artikelInhalt">
+      <p>Keine Artikel in der Merkliste gefunden. Bitte verwende den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>
+    </div>
   </section>
 
   <script>
+    // Referenzen auf die HTML-Elemente
     const dropdown = document.getElementById("kundenDropdown");
     const inputs = {
       name: document.getElementById("name"),
@@ -56,68 +127,225 @@
       land: document.getElementById("land")
     };
 
+    // Neue Felder
+    const retourenInputs = {
+      bearbeiter: document.getElementById("bearbeiterDropdown"),
+      bearbeiterManuell: document.getElementById("bearbeiterManuell"),
+      anlieferung: document.getElementById("anlieferungDropdown"),
+      abholdatum: document.getElementById("abholdatum")
+    };
+
+    // Variable, um die geladenen Kundendaten zu speichern
     let kunden = [];
 
-    // CSV laden und parsen mit PapaParse
-    fetch("Kundenstamm.csv")
+    // CSV-Datei laden und verarbeiten
+    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv")
       .then(response => {
-        if (!response.ok) throw new Error("CSV-Datei konnte nicht geladen werden");
+        if (!response.ok) {
+          throw new Error("Netzwerkantwort war nicht in Ordnung.");
+        }
         return response.text();
       })
       .then(csvText => {
+        // PapaParse verwenden, um den CSV-Text zu parsen
         const results = Papa.parse(csvText, {
-          header: true,
-          skipEmptyLines: true
+          header: true,          // Die erste Zeile als Spaltenüberschrift verwenden
+          skipEmptyLines: true,  // Leere Zeilen überspringen
+          bom: true              // Das BOM-Zeichen am Dateianfang ignorieren (wichtig!)
         });
         kunden = results.data;
 
-        // Dropdown füllen
-        kunden.forEach((k, i) => {
-          const label = k.Name ? `${k.Name} – ${k.Firma}` : k.Firma || "Unbekannt";
+        // Das Dropdown-Menü mit den geladenen Daten füllen
+        kunden.forEach((kunde, index) => {
+          // Label erstellen: "Name – Firma" oder nur "Firma", wenn kein Name vorhanden ist
+          const label = kunde.Name ? `${kunde.Name.trim()} – ${kunde.Firma.trim()}` : kunde.Firma.trim();
           const opt = document.createElement("option");
-          opt.value = i;
+          opt.value = index; // Den Array-Index als Wert verwenden
           opt.textContent = label;
           dropdown.appendChild(opt);
         });
 
-        // Option für manuelle Eingabe ans Ende
+        // Option für manuelle Eingabe am Ende hinzufügen
         const manualOpt = document.createElement("option");
         manualOpt.value = "manuell";
         manualOpt.textContent = "-- Manuelle Eingabe --";
         dropdown.appendChild(manualOpt);
+
+        // Select2 initialisieren
+        $(document).ready(function() {
+            $('#kundenDropdown').select2({
+                placeholder: "-- Kunde auswählen --",
+                allowClear: true
+            });
+            
+            // Auch für Bearbeiter-Dropdown
+            $('#bearbeiterDropdown').select2({
+                placeholder: "-- Bearbeiter auswählen --",
+                allowClear: true
+            });
+            
+            // Und für Anlieferung-Dropdown
+            $('#anlieferungDropdown').select2({
+                placeholder: "-- Anlieferung auswählen --",
+                allowClear: true
+            });
+        });
       })
-      .catch(err => {
-        console.error("Fehler beim Laden der CSV:", err);
-        // Fallback: Manuelle Eingabe nur
+      .catch(error => {
+        console.error("Fehler beim Laden oder Verarbeiten der CSV-Datei:", error);
+        // Fallback, falls das Laden fehlschlägt
         const manualOpt = document.createElement("option");
         manualOpt.value = "manuell";
-        manualOpt.textContent = "-- Manuelle Eingabe --";
+        manualOpt.textContent = "-- Manuelle Eingabe (Fehler beim Laden der Kundenliste) --";
         dropdown.appendChild(manualOpt);
       });
 
-    dropdown.addEventListener("change", function () {
-      const val = this.value;
-      if (val === "manuell" || val === "") {
-        Object.values(inputs).forEach(inp => (inp.value = ""));
+    // Event-Listener für das Kunden-Dropdown-Menü
+    $('#kundenDropdown').on('change', function () {
+      const selectedIndex = this.value;
+
+      // Felder leeren bei "Kunde auswählen" oder "Manuelle Eingabe"
+      if (selectedIndex === "" || selectedIndex === "manuell") {
+        Object.values(inputs).forEach(input => (input.value = ""));
         return;
       }
 
-      const kunde = kunden[val];
+      // Den ausgewählten Kunden aus dem Array holen
+      const kunde = kunden[selectedIndex];
       if (!kunde) return;
 
-      // Werte aus CSV den Inputs zuweisen, dabei ggf. leer lassen wenn nicht vorhanden
+      // Die Adresse in ihre Bestandteile aufteilen
+      const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+      
+      // Die Formularfelder mit den Kundendaten füllen
       inputs.name.value = kunde.Name || "";
       inputs.firma.value = kunde.Firma || "";
       inputs.telefon.value = kunde.Telefon || "";
-      inputs.email.value = kunde.Email || "";
-      inputs.strasse.value = kunde.Straße || kunde.Strasse || ""; // achte auf Schreibweise!
-      inputs.ort.value = kunde.Ort || "";
-      inputs.plz.value = kunde.PLZ || "";
-      inputs.land.value = kunde.Land || "";
+      inputs.email.value = kunde['E-Mail'] || ""; // Zugriff mit Klammern wegen des Bindestrichs
+      inputs.strasse.value = adresseTeile[0] || "";
+      inputs.ort.value = adresseTeile[1] || "";
+      inputs.plz.value = adresseTeile[2] || "";
+      inputs.land.value = adresseTeile[3] || "";
     });
 
-    document.getElementById("heute").textContent = new Date().toLocaleDateString();
+    // Event-Listener für Bearbeiter-Dropdown
+    $('#bearbeiterDropdown').on('change', function () {
+      const selectedValue = this.value;
+      const manuellesEingabefeld = retourenInputs.bearbeiterManuell;
+      
+      if (selectedValue === "manuell") {
+        manuellesEingabefeld.style.display = "block";
+        manuellesEingabefeld.focus();
+      } else {
+        manuellesEingabefeld.style.display = "none";
+        manuellesEingabefeld.value = "";
+      }
+    });
 
+    // Datepicker-Funktionalität
+    function initializeDatePicker() {
+      const abholdatumInput = retourenInputs.abholdatum;
+      const datumZurueckBtn = document.getElementById("datumZurueck");
+      const datumVorBtn = document.getElementById("datumVor");
+      
+      // Aktuelles Datum als Standard setzen
+      const heute = new Date();
+      abholdatumInput.value = heute.toISOString().split('T')[0];
+      
+      // Event-Listener für Vor/Zurück-Buttons
+      datumZurueckBtn.addEventListener('click', function() {
+        const currentDate = new Date(abholdatumInput.value);
+        currentDate.setDate(currentDate.getDate() - 1);
+        abholdatumInput.value = currentDate.toISOString().split('T')[0];
+      });
+      
+      datumVorBtn.addEventListener('click', function() {
+        const currentDate = new Date(abholdatumInput.value);
+        currentDate.setDate(currentDate.getDate() + 1);
+        abholdatumInput.value = currentDate.toISOString().split('T')[0];
+      });
+    }
+
+    // Merkliste aus localStorage laden
+    function ladeMerklisteAusLocalStorage() {
+      try {
+        const merklisteData = localStorage.getItem('merkliste');
+        if (merklisteData) {
+          const merkliste = JSON.parse(merklisteData);
+          
+          // Merkliste als globale Variable setzen
+          window.merklisteItems = merkliste.map(item => ({
+            nummer: item.nummer || item.artikelnummer || '',
+            name: item.name || item.bezeichnung || 'Unbekannter Artikel',
+            bezeichnung: item.name || item.bezeichnung || 'Unbekannter Artikel',
+            artikelnummer: item.nummer || item.artikelnummer || '',
+            menge: item.menge || 1,
+            preis: item.preis || '0,00 €'
+          }));
+          
+          // Artikel-Liste sofort aktualisieren
+          updateArtikelListe();
+          
+          // LocalStorage nach dem Laden löschen (optional)
+          localStorage.removeItem('merklisteForRetourenschein');
+          
+          console.log('Merkliste erfolgreich geladen:', merkliste.length, 'Artikel');
+        }
+      } catch (error) {
+        console.error('Fehler beim Laden der Merkliste:', error);
+      }
+    }
+
+    // Merkliste-Artikel anzeigen (falls vorhanden)
+    function updateArtikelListe() {
+      const artikelInhalt = document.getElementById("artikelInhalt");
+      
+      // Prüfen, ob window.merklisteItems existiert (aus viewer-final.js)
+      if (window.merklisteItems && window.merklisteItems.length > 0) {
+        let html = '<table class="artikel-tabelle">';
+        html += '<thead><tr><th>Artikelnummer</th><th>Bezeichnung</th><th>Menge</th><th>Retourengrund</th></tr></thead>';
+        html += '<tbody>';
+        
+        window.merklisteItems.forEach((artikel, index) => {
+          html += `<tr>
+            <td>${artikel.nummer || artikel.artikelnummer || 'N/A'}</td>
+            <td>${artikel.name || artikel.bezeichnung || 'N/A'}</td>
+            <td><input type="number" value="${artikel.menge || 1}" min="1" id="menge_${index}"></td>
+            <td>
+              <select id="grund_${index}">
+                <option value="">-- Grund auswählen --</option>
+                <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
+                <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
+                <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
+                <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
+                <option value="Doppelt bestellt">Doppelt bestellt</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </td>
+          </tr>`;
+        });
+        
+        html += '</tbody></table>';
+        artikelInhalt.innerHTML = html;
+      } else {
+        artikelInhalt.innerHTML = '<p>Keine Artikel in der Merkliste gefunden. Bitte verwende den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>';
+      }
+    }
+
+    // Heutiges Datum setzen
+    document.getElementById("heute").textContent = new Date().toLocaleDateString('de-DE');
+
+    // Initialisierung
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeDatePicker();
+      ladeMerklisteAusLocalStorage(); // Merkliste aus localStorage laden
+      updateArtikelListe();
+      
+      // Periodisch prüfen, ob neue Artikel hinzugefügt wurden
+      setInterval(updateArtikelListe, 2000);
+    });
+
+    // PDF-Generierungsfunktion (erweitert)
     async function generateRetourenscheinPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
@@ -132,28 +360,32 @@
       doc.setTextColor(0, 0, 0);
 
       let y = 30;
+      
+      // Kundendaten
       doc.text("Kundendaten:", 20, y);
       y += 6;
+      doc.text(`Name: ${inputs.name.value}`, 20, y); y += 6;
+      doc.text(`Firma: ${inputs.firma.value}`, 20, y); y += 6;
+      doc.text(`Telefon: ${inputs.telefon.value}`, 20, y); y += 6;
+      doc.text(`E-Mail: ${inputs.email.value}`, 20, y); y += 6;
+      doc.text(`Adresse: ${inputs.strasse.value}, ${inputs.ort.value}, ${inputs.plz.value}, ${inputs.land.value}`, 20, y); y += 10;
 
-      doc.text(`Name: ${inputs.name.value}`, 20, y);
-      y += 6;
-      doc.text(`Firma: ${inputs.firma.value}`, 20, y);
-      y += 6;
-      doc.text(`Telefon: ${inputs.telefon.value}`, 20, y);
-      y += 6;
-      doc.text(`E-Mail: ${inputs.email.value}`, 20, y);
-      y += 6;
-      doc.text(
-        `Adresse: ${inputs.strasse.value}, ${inputs.ort.value}, ${inputs.plz.value}, ${inputs.land.value}`,
-        20,
-        y
-      );
-      y += 10;
+      // Retourendetails
+      doc.setFont("helvetica", "bold");
+      doc.text("Retourendetails:", 20, y); y += 6;
+      doc.setFont("helvetica", "normal");
+      
+      const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" ? 
+        retourenInputs.bearbeiterManuell.value : retourenInputs.bearbeiter.value;
+      
+      doc.text(`Bearbeiter: ${bearbeiterWert}`, 20, y); y += 6;
+      doc.text(`Anlieferung: ${retourenInputs.anlieferung.value}`, 20, y); y += 6;
+      doc.text(`Abholdatum: ${retourenInputs.abholdatum.value}`, 20, y); y += 10;
 
+      // Artikel
       doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
-      doc.text("Rückgelieferte Artikel:", 20, y);
-      y += 8;
+      doc.text("Rückgelieferte Artikel:", 20, y); y += 8;
 
       const artikel = window.merklisteItems || [];
 
@@ -173,7 +405,8 @@
 
       artikel.forEach((item, index) => {
         const maxWidth = 75;
-        const bezeichnungLines = doc.splitTextToSize(item.bezeichnung || item.name || "", maxWidth);
+        const bezeichnung = item.bezeichnung || item.name || "";
+        const bezeichnungLines = doc.splitTextToSize(bezeichnung, maxWidth);
         const lineHeight = 6;
         const blockHeight = bezeichnungLines.length * lineHeight;
 
@@ -196,8 +429,16 @@
         doc.text(String(index + 1), 20, y);
         doc.text(bezeichnungLines, 30, y);
         doc.text(item.artikelnummer || item.nummer || "", 110, y);
-        doc.text(String(item.menge), 160, y);
-        doc.text(item.rueck || "", 175, y);
+        
+        // Menge aus Input-Feld holen
+        const mengeInput = document.getElementById(`menge_${index}`);
+        const menge = mengeInput ? mengeInput.value : (item.menge || "1");
+        doc.text(String(menge), 160, y);
+        
+        // Retourengrund aus Select-Feld holen
+        const grundSelect = document.getElementById(`grund_${index}`);
+        const grund = grundSelect ? grundSelect.value : "";
+        doc.text(grund, 175, y);
 
         y += blockHeight + 4;
       });
@@ -207,3 +448,4 @@
   </script>
 </body>
 </html>
+
