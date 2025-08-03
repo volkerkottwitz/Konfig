@@ -302,17 +302,18 @@
       
       // Prüfen, ob window.merklisteItems existiert (aus viewer-final.js)
       if (window.merklisteItems && window.merklisteItems.length > 0) {
-        let html = '<table class="artikel-tabelle">';
-        html += '<thead><tr><th>Artikelnummer</th><th>Bezeichnung</th><th>Menge</th><th>Retourengrund</th></tr></thead>';
-        html += '<tbody>';
+        // Desktop-Tabelle erstellen
+        let tableHtml = '<table class="artikel-tabelle">';
+        tableHtml += '<thead><tr><th>Artikelnummer</th><th>Bezeichnung</th><th>Menge</th><th>Retourengrund</th></tr></thead>';
+        tableHtml += '<tbody>';
         
         window.merklisteItems.forEach((artikel, index) => {
-          html += `<tr>
+          tableHtml += `<tr>
             <td>${artikel.nummer || artikel.artikelnummer || 'N/A'}</td>
             <td>${artikel.name || artikel.bezeichnung || 'N/A'}</td>
-            <td><input type="number" value="${artikel.menge || 1}" min="1" id="menge_${index}"></td>
+            <td><input type="number" value="${artikel.menge || 1}" min="1" id="menge_${index}" class="artikel-menge"></td>
             <td>
-              <select id="grund_${index}">
+              <select id="grund_${index}" class="artikel-grund">
                 <option value="">-- Grund auswählen --</option>
                 <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
                 <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
@@ -325,8 +326,74 @@
           </tr>`;
         });
         
-        html += '</tbody></table>';
-        artikelInhalt.innerHTML = html;
+        tableHtml += '</tbody></table>';
+
+        // Mobile-Karten erstellen
+        let cardsHtml = '<div class="artikel-karten">';
+        
+        window.merklisteItems.forEach((artikel, index) => {
+          cardsHtml += `<div class="artikel-karte">
+            <div class="artikel-karte-zeile">
+              <span class="artikel-karte-label">Artikelnummer:</span>
+              <span class="artikel-karte-wert">${artikel.nummer || artikel.artikelnummer || 'N/A'}</span>
+            </div>
+            <div class="artikel-karte-zeile">
+              <span class="artikel-karte-label">Bezeichnung:</span>
+              <span class="artikel-karte-wert">${artikel.name || artikel.bezeichnung || 'N/A'}</span>
+            </div>
+            <div class="artikel-karte-zeile">
+              <span class="artikel-karte-label">Menge:</span>
+              <input type="number" value="${artikel.menge || 1}" min="1" id="menge_mobile_${index}" class="artikel-menge">
+            </div>
+            <div class="artikel-karte-zeile">
+              <span class="artikel-karte-label">Retourengrund:</span>
+              <select id="grund_mobile_${index}" class="artikel-grund">
+                <option value="">-- Grund auswählen --</option>
+                <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
+                <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
+                <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
+                <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
+                <option value="Doppelt bestellt">Doppelt bestellt</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </div>
+          </div>`;
+        });
+        
+        cardsHtml += '</div>';
+
+        // Beide Versionen in den Container einfügen
+        artikelInhalt.innerHTML = tableHtml + cardsHtml;
+
+        // Event-Listener für Synchronisation zwischen Desktop und Mobile hinzufügen
+        window.merklisteItems.forEach((artikel, index) => {
+          // Menge synchronisieren
+          const mengeDesktop = document.getElementById(`menge_${index}`);
+          const mengeMobile = document.getElementById(`menge_mobile_${index}`);
+          
+          if (mengeDesktop && mengeMobile) {
+            mengeDesktop.addEventListener('input', function() {
+              mengeMobile.value = this.value;
+            });
+            mengeMobile.addEventListener('input', function() {
+              mengeDesktop.value = this.value;
+            });
+          }
+
+          // Grund synchronisieren
+          const grundDesktop = document.getElementById(`grund_${index}`);
+          const grundMobile = document.getElementById(`grund_mobile_${index}`);
+          
+          if (grundDesktop && grundMobile) {
+            grundDesktop.addEventListener('change', function() {
+              grundMobile.value = this.value;
+            });
+            grundMobile.addEventListener('change', function() {
+              grundDesktop.value = this.value;
+            });
+          }
+        });
+
       } else {
         artikelInhalt.innerHTML = '<p>Keine Artikel in der Merkliste gefunden. Bitte verwende den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>';
       }
@@ -398,52 +465,34 @@
       doc.text("Grund", 175, y);
       y += 6;
       doc.setDrawColor(0);
-      doc.line(20, y, 190, y);
+      doc.line(20, y, 200, y);
       y += 4;
 
       doc.setFont("helvetica", "normal");
-
       artikel.forEach((item, index) => {
-        const maxWidth = 75;
-        const bezeichnung = item.bezeichnung || item.name || "";
-        const bezeichnungLines = doc.splitTextToSize(bezeichnung, maxWidth);
-        const lineHeight = 6;
-        const blockHeight = bezeichnungLines.length * lineHeight;
-
-        if (y + blockHeight > 270) {
+        if (y > 270) {
           doc.addPage();
           y = 20;
-          doc.setFont("helvetica", "bold");
-          doc.setFontSize(10);
-          doc.text("Nr.", 20, y);
-          doc.text("Bezeichnung", 30, y);
-          doc.text("Artikelnummer", 110, y);
-          doc.text("Menge", 160, y);
-          doc.text("Grund", 175, y);
-          y += 6;
-          doc.line(20, y, 190, y);
-          y += 6;
-          doc.setFont("helvetica", "normal");
         }
 
-        doc.text(String(index + 1), 20, y);
-        doc.text(bezeichnungLines, 30, y);
-        doc.text(item.artikelnummer || item.nummer || "", 110, y);
+        // Werte aus den Eingabefeldern holen (Desktop oder Mobile)
+        const mengeElement = document.getElementById(`menge_${index}`) || document.getElementById(`menge_mobile_${index}`);
+        const grundElement = document.getElementById(`grund_${index}`) || document.getElementById(`grund_mobile_${index}`);
         
-        // Menge aus Input-Feld holen
-        const mengeInput = document.getElementById(`menge_${index}`);
-        const menge = mengeInput ? mengeInput.value : (item.menge || "1");
-        doc.text(String(menge), 160, y);
-        
-        // Retourengrund aus Select-Feld holen
-        const grundSelect = document.getElementById(`grund_${index}`);
-        const grund = grundSelect ? grundSelect.value : "";
-        doc.text(grund, 175, y);
+        const menge = mengeElement ? mengeElement.value : (item.menge || 1);
+        const grund = grundElement ? grundElement.value : '';
 
-        y += blockHeight + 4;
+        doc.text(`${index + 1}`, 20, y);
+        doc.text(item.name || item.bezeichnung || 'N/A', 30, y);
+        doc.text(item.nummer || item.artikelnummer || 'N/A', 110, y);
+        doc.text(menge.toString(), 160, y);
+        doc.text(grund || 'Nicht angegeben', 175, y);
+        y += 6;
       });
 
-      doc.save("Retourenschein.pdf");
+      // PDF speichern
+      const filename = `Retourenschein_${new Date().toISOString().split('T')[0]}.pdf`;
+      doc.save(filename);
     }
   </script>
 </body>

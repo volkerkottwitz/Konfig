@@ -211,7 +211,7 @@ button:hover {
   width: 100%;
 }
 
-/* ========== ARTIKEL-TABELLE ========== */
+/* ========== ARTIKEL-TABELLE (DESKTOP) ========== */
 .artikel-tabelle {
   width: 100%;
   border-collapse: collapse;
@@ -271,6 +271,73 @@ button:hover {
   box-shadow: 0 0 0 2px rgba(0, 161, 225, 0.25);
 }
 
+/* ========== ARTIKEL-KARTEN FÜR MOBILE (VERSTECKT AUF DESKTOP) ========== */
+.artikel-karten {
+  display: none;
+  width: 100%;
+  gap: 15px;
+  flex-direction: column;
+}
+
+.artikel-karte {
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.artikel-karte-zeile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.artikel-karte-zeile:last-child {
+  margin-bottom: 0;
+}
+
+.artikel-karte-label {
+  font-weight: bold;
+  color: #00a1e1;
+  font-size: 14px;
+  min-width: 100px;
+}
+
+.artikel-karte-wert {
+  flex: 1;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.artikel-karte input[type="number"] {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.artikel-karte select {
+  width: 100%;
+  max-width: 250px;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.artikel-karte input[type="number"]:focus,
+.artikel-karte select:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 2px rgba(0, 161, 225, 0.25);
+}
+
 /* ========== RESPONSIVE ANPASSUNGEN FÜR MOBILGERÄTE ========== */
 @media screen and (max-width: 768px) {
     #header {
@@ -325,22 +392,13 @@ button:hover {
         max-width: 200px;
     }
 
-    /* Artikel-Tabelle responsive */
+    /* MOBILE: Tabelle verstecken, Karten anzeigen */
     .artikel-tabelle {
-        font-size: 12px;
+        display: none;
     }
 
-    .artikel-tabelle th,
-    .artikel-tabelle td {
-        padding: 8px 4px;
-    }
-
-    .artikel-tabelle input[type="number"] {
-        width: 50px;
-    }
-
-    .artikel-tabelle select {
-        font-size: 11px;
+    .artikel-karten {
+        display: flex;
     }
 }
 
