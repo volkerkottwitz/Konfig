@@ -426,6 +426,14 @@
  * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
  * 2. Passen Sie die `logoUrl`-Variable an, sodass sie auf Ihr Logo zeigt.
  */
+/**
+ * Erzeugt einen Retourenschein im EWE-Design als PDF.
+ * Finale, polierte Version mit allen Detail-Anpassungen.
+ *
+ * ANLEITUNG:
+ * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
+ * 2. Passen Sie die `logoUrl`-Variable an, sodass sie auf Ihr Logo zeigt.
+ */
 async function generateRetourenscheinPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -449,7 +457,9 @@ async function generateRetourenscheinPDF() {
     const drawTextField = (x, y, label, value, width = 85, height = 6) => {
         doc.setFillColor(...fieldBackgroundColor).rect(x, y + 1, width, height, 'F');
         doc.setFontSize(7).setFont("helvetica", "bold").text(label, x, y);
-        doc.setFont("helvetica", "normal").setFontSize(10).text(value || '', x + 1, y + 5.5, { maxWidth: width - 2 });
+        doc.setFont("helvetica", "normal").setFontSize(10);
+        // KORREKTUR: Zeilenabstand für mehrzeiligen Text erhöht
+        doc.text(value || '', x + 1, y + 5.5, { maxWidth: width - 2, lineHeightFactor: 1.15 });
         doc.setDrawColor(0).line(x, y + height + 1, x + width, y + height + 1);
     };
 
@@ -493,7 +503,8 @@ async function generateRetourenscheinPDF() {
     drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Datum", today);
     const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" ? retourenInputs.bearbeiterManuell.value : retourenInputs.bearbeiter.value;
     drawTextField(page_width / 2 + 5, kundenBoxY + 15, "Bearbeiter", bearbeiterWert);
-    drawTextField(page_margin + 5, kundenBoxY + 20, "Adresse", inputs.strasse.value);
+    // KORREKTUR: Y-Position von "Adresse" leicht angepasst
+    drawTextField(page_margin + 5, kundenBoxY + 20.5, "Adresse", inputs.strasse.value);
     drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`);
     const separatorY = kundenBoxY + 42;
     doc.line(page_margin, separatorY, page_width - page_margin, separatorY);
@@ -534,34 +545,35 @@ async function generateRetourenscheinPDF() {
     }
     doc.line(page_margin + 22, tableStartY + tableHeaderHeight, page_margin + 22, tableStartY + tableTotalHeight);
     doc.line(page_margin + 103, tableStartY + tableHeaderHeight, page_margin + 103, tableStartY + tableTotalHeight);
+    // KORREKTUR: Vertikale Linie verkürzt, damit sie nicht in den Text ragt
     doc.line(page_margin + 148, tableStartY + tableHeaderHeight, page_margin + 148, tableStartY + tableTotalHeight);
     doc.line(page_margin + content_width - 12, tableStartY, page_margin + content_width - 12, tableStartY + tableTotalHeight);
     y = tableStartY + tableTotalHeight;
 
-    // --- 4. Interner Vermerk-Block (WIEDER EINGEFÜGT) ---
+    // --- 4. Interner Vermerk-Block ---
     y += 3;
     const internBoxY = y;
     const internBoxHeight = 28;
     doc.rect(page_margin, internBoxY, content_width, internBoxHeight);
+    // KORREKTUR: Y-Positionen der Labels für saubere Ausrichtung angepasst
     drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", "");
-    drawTextField(page_margin + 5, internBoxY + 11, "Auftragsnummer", "");
-    drawTextField(page_margin + 5, internBoxY + 19, "Reklamationsnummer", "");
+    drawTextField(page_margin + 5, internBoxY + 11.5, "Auftragsnummer", "");
+    drawTextField(page_margin + 5, internBoxY + 20, "Reklamationsnummer", "");
     drawTextField(page_width / 2 + 5, internBoxY + 3, "Kundennummer", "");
-    drawTextField(page_width / 2 + 5, internBoxY + 11, "Bezug zu Rechnungsnummer", "");
-    drawTextField(page_width / 2 + 5, internBoxY + 19, "Gutschrift", "");
+    drawTextField(page_width / 2 + 5, internBoxY + 11.5, "Bezug zu Rechnungsnummer", "");
+    drawTextField(page_width / 2 + 5, internBoxY + 20, "Gutschrift", "");
     y += internBoxHeight;
 
-    // --- 5. Reklamations-Block ---
+    // --- 5. Reklamations-Block (ohne graue Überschrift) ---
     y += 3;
-    doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
-    doc.setFontSize(10).setFont("helvetica", "bold").text("Reklamation", page_margin + 2, y + 5);
-    y += 7;
-    const reklBoxHeight = 15;
+    const reklBoxHeight = 22;
     doc.rect(page_margin, y, content_width, reklBoxHeight);
-    drawCheckBox(page_margin + 5, y + 3, "Neuware. Einlagern und zubuchen");
-    drawCheckBox(page_margin + 5, y + 9, "Rücksendung an den Kunden");
+    // KORREKTUR: "Reklamation" als erste Option hinzugefügt
+    drawCheckBox(page_margin + 5, y + 3, "Reklamation");
+    drawCheckBox(page_margin + 5, y + 10, "Neuware. Einlagern und zubuchen");
+    drawCheckBox(page_margin + 5, y + 17, "Rücksendung an den Kunden");
     drawCheckBox(page_width / 2 + 5, y + 3, "Reparatur - Kostenvoranschlag");
-    drawCheckBox(page_width / 2 + 5, y + 9, "Weiterleitung an");
+    drawCheckBox(page_width / 2 + 5, y + 10, "Weiterleitung an");
     y += reklBoxHeight;
 
     // --- 6. Notiz-Block ---
