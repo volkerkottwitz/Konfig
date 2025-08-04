@@ -368,8 +368,9 @@ button:hover {
 
 /* In Ihrer @media screen and (max-width: 768px) Regel */
 #retourenDetails,
-#artikelListe {
-    margin: 10px auto; /* ÄNDERUNG: Oben/unten 10px, links/rechts automatisch */
+#artikelListe,
+#bemerkungenSection {
+    margin: 10px auto; /* Oben/unten 10px, links/rechts automatisch */
     max-width: none;
     width: calc(100% - 20px); /* Behält einen Abstand von 10px auf jeder Seite bei */
 }
@@ -403,3 +404,40 @@ button:hover {
     }
 }
 
+/* ========== BEMERKUNGEN-BEREICH ========== */
+#bemerkungenSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 20px auto;
+  max-width: 900px; /* Gleiche Breite wie Artikelliste */
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#bemerkungenSection h3 {
+  margin: 0 0 15px 0;
+  color: #00a1e1;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+#bemerkungen {
+  width: 100%;
+  min-height: 100px; /* Mindesthöhe für das Textfeld */
+  padding: 10px 15px;
+  font-size: 16px;
+  font-family: 'Roboto Condensed', Arial, sans-serif; /* Stellt sicher, dass die Schriftart konsistent ist */
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box; /* Wichtig, damit Padding die Breite nicht beeinflusst */
+}
+
+#bemerkungen:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
