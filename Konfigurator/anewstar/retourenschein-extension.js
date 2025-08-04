@@ -117,8 +117,8 @@ merkliste.forEach((item, index) => {
           </div>
           ${merklisteHTML}
           <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-            <button id="retourenscheinBtn" style="padding: 12px 20px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">📋 Retourenschein</button>
-            <button id="jetztAnfragenBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">Jetzt Anfragen</button>
+            <button id="retourenscheinBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">📋 Retoure</button>
+            <button id="jetztAnfragenBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">📋 Anfrage</button>
             <button id="merklisteSchließenBtn" style="padding: 12px 20px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">Schließen</button>
           </div>
         </div>`;
@@ -263,8 +263,8 @@ merkliste.forEach((item, index) => {
             <h1>📝 Ihre Merkliste</h1>
             <div id="merklisteContainer"></div>
             <div style="margin-top: 20px;">
-              <button class="button retourenschein-btn" onclick="openRetourenschein()">📋 Retourenschein</button>
-              <button class="button" onclick="requestQuote()">Jetzt Anfragen</button>
+              <button class="button retourenschein-btn" onclick="openRetourenschein()">📋 Retoure</button>
+              <button class="button" onclick="requestQuote()">📋 Anfrage</button>
               <button class="button close-btn" onclick="window.close()">Schließen</button>
             </div>
             <script>
