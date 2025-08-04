@@ -464,7 +464,7 @@ async function generateRetourenscheinPDF() {
     };
 
     // --- 1. Header ---
-    let y = page_margin;
+    let y = page_margin -5;
     const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png'; // <-- HIER DEN PFAD ZUM LOGO ANPASSEN
     let logoHeight = 15;
     try {
@@ -477,10 +477,10 @@ async function generateRetourenscheinPDF() {
         doc.setFontSize(16).setFont("helvetica", "bold").text("EWE ARMATUREN", page_width - page_margin - 50, y + 5);
     }
 
-    doc.setFontSize(16).setFont("helvetica", "bold").text("Retourenschein", page_margin, y + 5);
+    doc.setFontSize(30).setFont("helvetica", "bold").text("Retourenschein", page_margin, y + 25);
     const introTextY = Math.max(y + 10, y + logoHeight + 3);
     doc.setFontSize(9).setFont("helvetica", "normal").text("Bitte Retourenschein ausfüllen, als Begleitdokument der Ware beilegen und per E-Mail an den zuständigen EWE-Innendienst schicken.", page_margin, introTextY, { maxWidth: content_width });
-    y = introTextY + 10;
+    y = introTextY + 5;
 
     // --- 2. Kunden- und Auftragsdaten ---
     
@@ -488,7 +488,7 @@ async function generateRetourenscheinPDF() {
     y += 7;
     const kundenBoxY = y;
     const kundenBoxHeight = 58;
-    doc.rect(page_margin, kundenBoxY, content_width, kundenBoxHeight);
+    doc.rect(page_margin, kundenBoxY, content_width, kundenBoxHeight-1);
     const today = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
     const abholDatum = retourenInputs.abholdatum.value ? new Date(retourenInputs.abholdatum.value).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
     const firma = inputs.firma.value ? `${inputs.firma.value}\n` : '';
@@ -500,7 +500,7 @@ async function generateRetourenscheinPDF() {
     drawTextField(page_margin + 5, kundenBoxY + 20.5, "Adresse", inputs.strasse.value);
     drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`);
     const separatorY = kundenBoxY + 42;
-    doc.line(page_margin, separatorY, page_width - page_margin, separatorY);
+    doc.line(page_margin, separatorY-2, page_width - page_margin, separatorY-2);
     drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", retourenInputs.anlieferung.value);
     drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", abholDatum);
     y = kundenBoxY + kundenBoxHeight;
@@ -538,7 +538,7 @@ async function generateRetourenscheinPDF() {
     doc.line(page_margin + 22, tableStartY + tableHeaderHeight, page_margin + 22, tableStartY + tableTotalHeight);
     doc.line(page_margin + 103, tableStartY + tableHeaderHeight, page_margin + 103, tableStartY + tableTotalHeight);
     doc.line(page_margin + 148, tableStartY + tableHeaderHeight, page_margin + 148, tableStartY + tableTotalHeight);
-    doc.line(page_margin + content_width - 12, tableStartY, page_margin + content_width - 12, tableStartY + tableTotalHeight);
+    doc.line(page_margin + content_width - 12, tableStartY + tableHeaderHeight, page_margin + content_width - 12, tableStartY + tableTotalHeight);
     y = tableStartY + tableTotalHeight;
 
     // --- 4. Interner Vermerk-Block ---
