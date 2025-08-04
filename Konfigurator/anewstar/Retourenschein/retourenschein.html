@@ -417,199 +417,154 @@
  * Erzeugt einen Retourenschein im EWE-Design als PDF.
  * Diese Funktion baut das Layout mit Linien und präzise positioniertem Text nach.
  *
- * WICHTIG:
- * 1. Die jsPDF-Bibliothek muss geladen sein.
- * 2. Für das Logo wird eine Variable `eweLogoBase64` benötigt.
- *    Diese sollte das Logo als Base64-kodierten String enthalten.
- *    (Beispiel: const eweLogoBase64 = 'data:image/png;base64,iVBORw0KGgo...';)
- */
-/**
- * Erzeugt einen Retourenschein im EWE-Design als PDF.
- * Finale Version: Lädt das Logo von einer Datei, hat ein zweizeiliges Artikelfeld,
- * hellblaue Hintergründe und den vollständigen unteren Block.
- *
+
  * ANLEITUNG:
  * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
  * 2. Passen Sie die `logoUrl`-Variable an, sodass sie auf Ihr Logo zeigt.
- */
-/**
- * Erzeugt einen Retourenschein im EWE-Design als PDF.
- * Finale Version 2: Mit Detail-Optimierungen basierend auf dem gerenderten PDF.
- *
- * ANLEITUNG:
- * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
- * 2. Stellen Sie sicher, dass die `logoUrl`-Variable auf Ihr Logo zeigt.
- */
-/**
- * Erzeugt einen Retourenschein im EWE-Design als PDF.
- * Finale, komplette Version mit allen Anpassungen inklusive zweizeiligem Namensfeld.
- *
- * ANLEITUNG:
- * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
- * 2. Stellen Sie sicher, dass die `logoUrl`-Variable auf Ihr Logo zeigt.
- * 3. Stellen Sie sicher, dass Ihr Formular die Input-IDs 'firma' und 'name' hat.
  */
 async function generateRetourenscheinPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
 
-    // --- Hilfsfunktion zum Laden eines Bildes von einer URL ---
-    const loadImage = (url) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.crossOrigin = 'Anonymous';
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
-                resolve(canvas.toDataURL('image/png'));
-            };
-            img.onerror = (err) => reject(err);
-            img.src = url;
-        });
-    };
+    // --- Hilfsfunktion zum Laden eines Bildes ---
+    const loadImage = (url) => new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = (err) => reject(err);
+        img.src = url;
+    });
 
-    // --- Globale Einstellungen und Farben ---
-    const page_margin = 15;
+    // --- Globale Einstellungen ---
+    const page_margin = 10; // KORREKTUR: Seitenrand verkleinert, um alles höher zu rücken
     const page_width = doc.internal.pageSize.getWidth();
     const content_width = page_width - (2 * page_margin);
     const fieldBackgroundColor = [230, 245, 255];
 
-    // --- Hilfsfunktionen zum Zeichnen (mit optionaler Höhe) ---
-    const drawTextField = (x, y, label, value, width = 80, height = 6) => {
-        doc.setFillColor(...fieldBackgroundColor);
-        doc.rect(x, y + 1, width, height, 'F');
-        doc.setFontSize(7);
-        doc.setFont("helvetica", "bold");
-        doc.text(label, x, y);
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
-        doc.text(value || '', x + 1, y + 5.5, { maxWidth: width - 2 });
-        doc.setDrawColor(0);
-        doc.line(x, y + height + 1, x + width, y + height + 1);
+    // --- Hilfsfunktionen zum Zeichnen ---
+    const drawTextField = (x, y, label, value, width = 85, height = 6) => {
+        doc.setFillColor(...fieldBackgroundColor).rect(x, y + 1, width, height, 'F');
+        doc.setFontSize(7).setFont("helvetica", "bold").text(label, x, y);
+        doc.setFont("helvetica", "normal").setFontSize(10).text(value || '', x + 1, y + 5.5, { maxWidth: width - 2 });
+        doc.setDrawColor(0).line(x, y + height + 1, x + width, y + height + 1);
     };
 
     const drawCheckBox = (x, y, label) => {
-        doc.setFontSize(10);
-        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10).setFont("helvetica", "normal");
         doc.rect(x, y, 4, 4);
         doc.text(label, x + 6, y + 3.5);
     };
 
     // --- 1. Header ---
+    let y = page_margin;
     const logoUrl = 'logo.png'; // <-- HIER DEN PFAD ZUM LOGO ANPASSEN
+    let logoHeight = 15; // Standardhöhe, falls Logo nicht lädt
     try {
-        const logoData = await loadImage(logoUrl);
+        const logoImg = await loadImage(logoUrl);
         const logoWidth = 40;
-        doc.addImage(logoData, 'PNG', page_width - page_margin - logoWidth, page_margin, logoWidth, 0);
+        const aspectRatio = logoImg.height / logoImg.width;
+        logoHeight = logoWidth * aspectRatio; // Korrekte Höhe berechnen
+        doc.addImage(logoImg, 'PNG', page_width - page_margin - logoWidth, y, logoWidth, logoHeight);
     } catch (error) {
         console.error("Fehler beim Laden des Logos:", error);
-        doc.setFontSize(16).setFont("helvetica", "bold").text("EWE ARMATUREN", page_width - page_margin - 50, page_margin + 5);
+        doc.setFontSize(16).setFont("helvetica", "bold").text("EWE ARMATUREN", page_width - page_margin - 50, y + 5);
     }
 
-    doc.setFontSize(16).setFont("helvetica", "bold").text("Retourenschein", page_margin, page_margin + 15);
-    doc.setFontSize(9).setFont("helvetica", "normal").text("Bitte Retourenschein ausfüllen, als Begleitdokument der Ware beilegen und per E-Mail an den zuständigen EWE-Innendienst schicken.", page_margin, page_margin + 25, { maxWidth: content_width });
+    doc.setFontSize(16).setFont("helvetica", "bold").text("Retourenschein", page_margin, y + 5);
+    // KORREKTUR: Text wird dynamisch unter dem Logo platziert
+    const introTextY = Math.max(y + 10, y + logoHeight + 3);
+    doc.setFontSize(9).setFont("helvetica", "normal").text("Bitte Retourenschein ausfüllen, als Begleitdokument der Ware beilegen und per E-Mail an den zuständigen EWE-Innendienst schicken.", page_margin, introTextY, { maxWidth: content_width });
+    y = introTextY + 10;
 
-    let y = page_margin + 35;
-
-    // --- 2. Kunden- und Auftragsdaten (mit zweizeiligem Namensfeld) ---
+    // --- 2. Kunden- und Auftragsdaten ---
     doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
     doc.setFontSize(10).setFont("helvetica", "bold").text("Kundenangaben", page_margin + 2, y + 5);
     y += 7;
     const kundenBoxY = y;
-    const kundenBoxHeight = 58; // Höhe der Box angepasst
+    const kundenBoxHeight = 58;
     doc.rect(page_margin, kundenBoxY, content_width, kundenBoxHeight);
 
-    const today = new Date().toISOString().split('T')[0];
+    // KORREKTUR: Datumsformat auf TT.MM.JJJJ geändert
+    const today = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const abholDatum = retourenInputs.abholdatum.value ? new Date(retourenInputs.abholdatum.value).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
 
-    // Feld "Name" mit doppelter Höhe (12mm)
     const firma = inputs.firma.value ? `${inputs.firma.value}\n` : '';
     const nameValue = `${firma}${inputs.name.value}`;
-    drawTextField(page_margin + 5, kundenBoxY + 5, "Name", nameValue, 80, 12);
-
-    // Felder auf der rechten Seite
+    drawTextField(page_margin + 5, kundenBoxY + 5, "Name", nameValue, 85, 12);
     drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Datum", today);
     const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" ? retourenInputs.bearbeiterManuell.value : retourenInputs.bearbeiter.value;
     drawTextField(page_width / 2 + 5, kundenBoxY + 15, "Bearbeiter", bearbeiterWert);
-
-    // Übrige linke Felder nach unten verschoben
     drawTextField(page_margin + 5, kundenBoxY + 20, "Adresse", inputs.strasse.value);
     drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`);
-
-    // Trennlinie und untere Felder
     const separatorY = kundenBoxY + 42;
     doc.line(page_margin, separatorY, page_width - page_margin, separatorY);
     drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", retourenInputs.anlieferung.value);
-    drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", retourenInputs.abholdatum.value);
-
+    drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", abholDatum);
     y = kundenBoxY + kundenBoxHeight;
 
     // --- 3. Artikeltabelle ---
-    y += 5;
+    y += 3;
     doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
     doc.setFontSize(9).setFont("helvetica", "bold").text("Bitte beachten Sie, dass die Ware ordnungsgemäß sowie transportgerecht zur Abholung verpackt werden muss!", page_margin + 2, y + 5);
     y += 7;
 
     const tableStartY = y;
-    const rowHeight = 12;
-    const maxRows = 6;
-    const tableHeaderHeight = 7;
+    const rowHeight = 12, maxRows = 5, tableHeaderHeight = 7;
     const tableBodyHeight = maxRows * rowHeight;
     const tableTotalHeight = tableHeaderHeight + tableBodyHeight;
     doc.rect(page_margin, tableStartY, content_width, tableTotalHeight);
-
     doc.setFillColor(240, 240, 240).rect(page_margin, tableStartY, content_width, tableHeaderHeight, 'F');
     doc.text("Menge", page_margin + 3, tableStartY + 5);
     doc.text("Artikelbezeichnung", page_margin + 25, tableStartY + 5);
-    doc.text("EWE-Artikelnummer", page_margin + 95, tableStartY + 5);
-    doc.text("Art der Rücklieferung", page_margin + 140, tableStartY + 5);
-
-    const artikel = window.merklisteItems || [];
-    doc.setFont("helvetica", "normal").setFontSize(9);
+    doc.text("EWE-Artikelnummer", page_margin + 105, tableStartY + 5);
+    doc.text("Art der Rücklieferung", page_margin + 150, tableStartY + 5);
 
     for (let i = 0; i < maxRows; i++) {
         const rowY = tableStartY + tableHeaderHeight + (i * rowHeight);
-        const item = artikel[i];
-
         doc.setFillColor(...fieldBackgroundColor).rect(page_margin + 1, rowY + 1, content_width - 2, rowHeight - 1, 'F');
-
+        const item = (window.merklisteItems || [])[i];
         if (item) {
             const menge = (document.getElementById(`menge_${i}`) || document.getElementById(`menge_mobile_${i}`))?.value || item.menge || 1;
             const grund = (document.getElementById(`grund_${i}`) || document.getElementById(`grund_mobile_${i}`))?.value || '';
+            doc.setFont("helvetica", "normal").setFontSize(9);
             doc.text(menge.toString(), page_margin + 3, rowY + 7);
-            doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 7, { maxWidth: 63 });
-            doc.text(item.nummer || item.artikelnummer || '', page_margin + 95, rowY + 7, { maxWidth: 40 });
-            doc.text(grund, page_margin + 140, rowY + 7, { maxWidth: 30 });
+            doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 7, { maxWidth: 78 });
+            doc.text(item.nummer || item.artikelnummer || '', page_margin + 105, rowY + 7, { maxWidth: 43 });
+            doc.text(grund, page_margin + 150, rowY + 7, { maxWidth: 30 });
         }
         doc.rect(page_margin + content_width - 10, rowY + (rowHeight - 4) / 2, 4, 4);
-        if (i < maxRows - 1) {
-            doc.line(page_margin, rowY + rowHeight, page_width - page_margin, rowY + rowHeight);
-        }
+        if (i < maxRows - 1) doc.line(page_margin, rowY + rowHeight, page_width - page_margin, rowY + rowHeight);
     }
-
     doc.line(page_margin + 22, tableStartY + tableHeaderHeight, page_margin + 22, tableStartY + tableTotalHeight);
-    doc.line(page_margin + 90, tableStartY + tableHeaderHeight, page_margin + 90, tableStartY + tableTotalHeight);
-    doc.line(page_margin + 135, tableStartY + tableHeaderHeight, page_margin + 135, tableStartY + tableTotalHeight);
+    doc.line(page_margin + 103, tableStartY + tableHeaderHeight, page_margin + 103, tableStartY + tableTotalHeight);
+    doc.line(page_margin + 148, tableStartY + tableHeaderHeight, page_margin + 148, tableStartY + tableTotalHeight);
     doc.line(page_margin + content_width - 12, tableStartY, page_margin + content_width - 12, tableStartY + tableTotalHeight);
     y = tableStartY + tableTotalHeight;
 
-    // --- 4. Unterer Detail- und Checkbox-Block ---
+    // --- 4. NEUER Reklamations-Block ---
     y += 3;
-    const bottomBoxY = y;
-    const bottomBoxHeight = 38;
-    doc.rect(page_margin, bottomBoxY, content_width, bottomBoxHeight);
+    doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
+    doc.setFontSize(10).setFont("helvetica", "bold").text("Reklamation", page_margin + 2, y + 5);
+    y += 7;
+    const reklBoxHeight = 22;
+    doc.rect(page_margin, y, content_width, reklBoxHeight);
+    drawCheckBox(page_margin + 5, y + 3, "Neuware. Einlagern und zubuchen");
+    drawCheckBox(page_margin + 5, y + 10, "Rücksendung an den Kunden");
+    drawCheckBox(page_width / 2 + 5, y + 3, "Reparatur - Kostenvoranschlag");
+    drawCheckBox(page_width / 2 + 5, y + 10, "Weiterleitung an");
+    y += reklBoxHeight;
 
-    drawTextField(page_margin + 5, bottomBoxY + 5, "Wareneingangsdatum", "");
-    drawTextField(page_margin + 5, bottomBoxY + 15, "Auftragsnummer", "");
-    drawTextField(page_margin + 5, bottomBoxY + 25, "Reklamationsnummer", "");
-    drawTextField(page_width / 2 + 5, bottomBoxY + 5, "Kundennummer", "");
-    drawTextField(page_width / 2 + 5, bottomBoxY + 15, "Bezug zu Rechnungsnummer", "");
-    drawTextField(page_width / 2 + 5, bottomBoxY + 25, "Gutschrift", "");
+    // --- 5. NEUER Notiz-Block ---
+    y += 3;
+    doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
+    doc.setFontSize(10).setFont("helvetica", "bold").text("Notizen", page_margin + 2, y + 5);
+    y += 7;
+    const notizBoxHeight = 30;
+    doc.rect(page_margin, y, content_width, notizBoxHeight);
+    y += notizBoxHeight;
 
-    // --- 5. Footer ---
-    const finalY = doc.internal.pageSize.getHeight() - 10;
+    // --- 6. Footer ---
+    const finalY = doc.internal.pageSize.getHeight() - 7;
     doc.setFontSize(7).setFont("helvetica", "normal");
     doc.text("VK-11 Retourenschein (Stand 05/2020)", page_margin, finalY);
     doc.text("Wilhelm Ewe GmbH & Co. KG - Volkmaroder Straße 19 - 38104 Braunschweig", page_width / 2, finalY, { align: 'center' });
