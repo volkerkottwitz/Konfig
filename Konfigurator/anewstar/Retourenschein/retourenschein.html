@@ -304,6 +304,7 @@
     }
 
     // Merkliste-Artikel anzeigen (falls vorhanden)
+    // Merkliste-Artikel anzeigen (falls vorhanden)
     function updateArtikelListe() {
       const artikelInhalt = document.getElementById("artikelInhalt");
       
@@ -401,11 +402,21 @@
           }
         });
 
+        // =================================================================
+        // KORREKTUR: Select2 auf die neu erstellten Dropdowns anwenden
+        // =================================================================
+        $('.artikel-grund').select2({
+            placeholder: "-- Grund auswählen --",
+            allowClear: true,
+            minimumResultsForSearch: Infinity // Versteckt das Suchfeld, da es hier nicht benötigt wird
+        });
+
       } else {
         artikelInhalt.innerHTML = '<p>Keine Artikel in der Merkliste gefunden. Bitte verwende den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>';
       }
     }
 
+    
     // Heutiges Datum setzen
     document.getElementById("heute").textContent = new Date().toLocaleDateString('de-DE');
 
@@ -413,10 +424,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       initializeDatePicker();
       ladeMerklisteAusLocalStorage(); // Merkliste aus localStorage laden
-      updateArtikelListe();
-      
-      // Periodisch prüfen, ob neue Artikel hinzugefügt wurden
-      setInterval(updateArtikelListe, 2000);
+      // updateArtikelListe() wird bereits innerhalb von ladeMerklisteAusLocalStorage() aufgerufen
     });
 
 
