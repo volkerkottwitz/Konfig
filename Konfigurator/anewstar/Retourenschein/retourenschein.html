@@ -440,6 +440,15 @@
  * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
  * 2. Stellen Sie sicher, dass die `logoUrl`-Variable auf Ihr Logo zeigt.
  */
+/**
+ * Erzeugt einen Retourenschein im EWE-Design als PDF.
+ * Finale, komplette Version mit allen Anpassungen inklusive zweizeiligem Namensfeld.
+ *
+ * ANLEITUNG:
+ * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
+ * 2. Stellen Sie sicher, dass die `logoUrl`-Variable auf Ihr Logo zeigt.
+ * 3. Stellen Sie sicher, dass Ihr Formular die Input-IDs 'firma' und 'name' hat.
+ */
 async function generateRetourenscheinPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -468,20 +477,18 @@ async function generateRetourenscheinPDF() {
     const content_width = page_width - (2 * page_margin);
     const fieldBackgroundColor = [230, 245, 255];
 
-    // --- Hilfsfunktionen zum Zeichnen ---
-    const drawTextField = (x, y, label, value, width = 80) => {
+    // --- Hilfsfunktionen zum Zeichnen (mit optionaler Höhe) ---
+    const drawTextField = (x, y, label, value, width = 80, height = 6) => {
         doc.setFillColor(...fieldBackgroundColor);
-        doc.rect(x, y + 1, width, 6, 'F');
-        // KORREKTUR: Schriftgröße des Labels verkleinert
+        doc.rect(x, y + 1, width, height, 'F');
         doc.setFontSize(7);
         doc.setFont("helvetica", "bold");
         doc.text(label, x, y);
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
-        // KORREKTUR: Y-Position des Wertes für bessere Zentrierung angepasst
-        doc.text(value || '', x + 1, y + 5.5);
+        doc.text(value || '', x + 1, y + 5.5, { maxWidth: width - 2 });
         doc.setDrawColor(0);
-        doc.line(x, y + 7, x + width, y + 7);
+        doc.line(x, y + height + 1, x + width, y + height + 1);
     };
 
     const drawCheckBox = (x, y, label) => {
@@ -492,10 +499,9 @@ async function generateRetourenscheinPDF() {
     };
 
     // --- 1. Header ---
-    const logoUrl = 'logo.png';
+    const logoUrl = 'logo.png'; // <-- HIER DEN PFAD ZUM LOGO ANPASSEN
     try {
         const logoData = await loadImage(logoUrl);
-        // Logo am oberen rechten Rand ausrichten, Höhe wird automatisch berechnet
         const logoWidth = 40;
         doc.addImage(logoData, 'PNG', page_width - page_margin - logoWidth, page_margin, logoWidth, 0);
     } catch (error) {
@@ -508,24 +514,37 @@ async function generateRetourenscheinPDF() {
 
     let y = page_margin + 35;
 
-    // --- 2. Kunden- und Auftragsdaten ---
+    // --- 2. Kunden- und Auftragsdaten (mit zweizeiligem Namensfeld) ---
     doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
     doc.setFontSize(10).setFont("helvetica", "bold").text("Kundenangaben", page_margin + 2, y + 5);
     y += 7;
     const kundenBoxY = y;
-    doc.rect(page_margin, kundenBoxY, content_width, 50);
-    // KORREKTUR: Datumsformat vereinheitlicht
+    const kundenBoxHeight = 58; // Höhe der Box angepasst
+    doc.rect(page_margin, kundenBoxY, content_width, kundenBoxHeight);
+
     const today = new Date().toISOString().split('T')[0];
-    drawTextField(page_margin + 5, kundenBoxY + 5, "Name", inputs.name.value);
+
+    // Feld "Name" mit doppelter Höhe (12mm)
+    const firma = inputs.firma.value ? `${inputs.firma.value}\n` : '';
+    const nameValue = `${firma}${inputs.name.value}`;
+    drawTextField(page_margin + 5, kundenBoxY + 5, "Name", nameValue, 80, 12);
+
+    // Felder auf der rechten Seite
     drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Datum", today);
-    drawTextField(page_margin + 5, kundenBoxY + 15, "Adresse", inputs.strasse.value);
     const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" ? retourenInputs.bearbeiterManuell.value : retourenInputs.bearbeiter.value;
     drawTextField(page_width / 2 + 5, kundenBoxY + 15, "Bearbeiter", bearbeiterWert);
-    drawTextField(page_margin + 5, kundenBoxY + 25, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`);
-    doc.line(page_margin, kundenBoxY + 32, page_width - page_margin, kundenBoxY + 32);
-    drawTextField(page_margin + 5, kundenBoxY + 35, "Anlieferung", retourenInputs.anlieferung.value);
-    drawTextField(page_width / 2 + 5, kundenBoxY + 35, "Abholung Datum", retourenInputs.abholdatum.value);
-    y = kundenBoxY + 50;
+
+    // Übrige linke Felder nach unten verschoben
+    drawTextField(page_margin + 5, kundenBoxY + 20, "Adresse", inputs.strasse.value);
+    drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`);
+
+    // Trennlinie und untere Felder
+    const separatorY = kundenBoxY + 42;
+    doc.line(page_margin, separatorY, page_width - page_margin, separatorY);
+    drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", retourenInputs.anlieferung.value);
+    drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", retourenInputs.abholdatum.value);
+
+    y = kundenBoxY + kundenBoxHeight;
 
     // --- 3. Artikeltabelle ---
     y += 5;
@@ -564,9 +583,7 @@ async function generateRetourenscheinPDF() {
             doc.text(item.nummer || item.artikelnummer || '', page_margin + 95, rowY + 7, { maxWidth: 40 });
             doc.text(grund, page_margin + 140, rowY + 7, { maxWidth: 30 });
         }
-        // KORREKTUR: Checkbox vertikal zentriert
         doc.rect(page_margin + content_width - 10, rowY + (rowHeight - 4) / 2, 4, 4);
-        // KORREKTUR: Horizontale Trennlinie hinzugefügt
         if (i < maxRows - 1) {
             doc.line(page_margin, rowY + rowHeight, page_width - page_margin, rowY + rowHeight);
         }
@@ -579,10 +596,9 @@ async function generateRetourenscheinPDF() {
     y = tableStartY + tableTotalHeight;
 
     // --- 4. Unterer Detail- und Checkbox-Block ---
-    // KORREKTUR: Abstand nach oben verringert
     y += 3;
     const bottomBoxY = y;
-    const bottomBoxHeight = 38; // Höhe leicht reduziert
+    const bottomBoxHeight = 38;
     doc.rect(page_margin, bottomBoxY, content_width, bottomBoxHeight);
 
     drawTextField(page_margin + 5, bottomBoxY + 5, "Wareneingangsdatum", "");
@@ -591,11 +607,6 @@ async function generateRetourenscheinPDF() {
     drawTextField(page_width / 2 + 5, bottomBoxY + 5, "Kundennummer", "");
     drawTextField(page_width / 2 + 5, bottomBoxY + 15, "Bezug zu Rechnungsnummer", "");
     drawTextField(page_width / 2 + 5, bottomBoxY + 25, "Gutschrift", "");
-
-    // KORREKTUR: Checkboxen neu positioniert, da die Box kleiner ist
-    const checkBoxY = bottomBoxY + 32;
-    // Dieser Block wurde entfernt, da er im Original-PDF nicht unter den Feldern, sondern in einem separaten Bereich ist.
-    // Wir lassen ihn hier weg, um dem Original treu zu bleiben.
 
     // --- 5. Footer ---
     const finalY = doc.internal.pageSize.getHeight() - 10;
