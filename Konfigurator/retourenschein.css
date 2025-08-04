@@ -1,0 +1,463 @@
+/* ========== BASIS-STILE ========== */
+body {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f9fa; /* Heller Hintergrund für besseren Kontrast */
+    color: #333; /* Dunklerer Text für Lesbarkeit */
+}
+
+/* ========== HEADER-BEREICH ========== */
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Verteilt Logo, Titel und Button */
+  padding: 15px 20px;
+  background-color: #d2d2d4; /* Neutrales Grau */
+  border-bottom: 2px solid #ddd;
+  flex-wrap: wrap; /* Erlaubt Umbruch auf kleinen Bildschirmen */
+  gap: 20px;
+}
+
+#header .header-left img {
+    height: 60px; /* Angepasste Logogröße */
+}
+
+.header-content {
+  text-align: center;
+  flex: 1; /* Nimmt den verfügbaren Platz in der Mitte ein */
+}
+
+.header-content h1 {
+  color:white;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.header-date {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ========== BUTTON-STILE ========== */
+button {
+    background-color: #00a1e1; /* Einheitliche Button-Farbe */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #07577f; /* Dunklerer Farbton beim Überfahren */
+}
+
+/* ========== CONTAINER FÜR DROPDOWN & KUNDENDETAILS ========== */
+.search-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Spezifische Stile für das Select2-Dropdown */
+.select2-container {
+    width: 80% !important; /* Wichtig, um die Breite zu steuern */
+    max-width: 500px;
+}
+
+/* Container für die untereinander angeordneten Eingabefelder */
+#kundenDetails {
+  display: flex;
+  flex-direction: column; /* Ordnet die Felder in einer Spalte an */
+  align-items: center;    /* Zentriert die Felder horizontal */
+  gap: 12px;              /* Abstand zwischen den Feldern */
+  padding: 10px 20px 20px 20px; /* Oben weniger Abstand, da schon vom Dropdown vorhanden */
+}
+
+#kundenDetails input {
+  width: 80%;             /* Breite der Eingabefelder */
+  max-width: 500px;       /* Maximale Breite auf großen Bildschirmen */
+  padding: 10px 15px;     /* Innenabstand für bessere Optik */
+  font-size: 16px;        /* Verhindert Auto-Zoom auf iOS-Geräten */
+  border: 1px solid #ced4da;
+  border-radius: 8px;     /* Leicht abgerundete Ecken */
+  transition: all 0.3s ease-in-out;
+}
+
+#kundenDetails input:focus {
+    outline: none;
+    border-color: #00a1e1; /* Hebt das aktive Feld farblich hervor */
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+/* ========== RETOURENDETAILS-BEREICH ========== */
+#retourenDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#retourenDetails h3 {
+  margin: 0 0 10px 0;
+  color: #00a1e1;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+#retourenDetails select,
+#retourenDetails input[type="text"] {
+  width: 80%;
+  max-width: 500px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+#retourenDetails select:focus,
+#retourenDetails input[type="text"]:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+/* ========== DATEPICKER-CONTAINER ========== */
+#abholdatumContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 80%;
+  max-width: 500px;
+}
+
+#abholdatumContainer label {
+  font-weight: bold;
+  color: #333;
+  font-size: 16px;
+}
+
+.date-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.date-arrow {
+  background-color: #00a1e1;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 40px;
+}
+
+.date-arrow:hover {
+  background-color: #07577f;
+}
+
+#abholdatum {
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  max-width: 200px;
+}
+
+#abholdatum:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+/* ========== ARTIKEL-LISTE-BEREICH ========== */
+#artikelListe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#artikelListe h3 {
+  margin: 0 0 15px 0;
+  color: #00a1e1;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+#artikelInhalt {
+  width: 100%;
+}
+
+/* ========== ARTIKEL-TABELLE (DESKTOP) ========== */
+.artikel-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.artikel-tabelle thead {
+  background-color: #00a1e1;
+  color: white;
+}
+
+.artikel-tabelle th,
+.artikel-tabelle td {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.artikel-tabelle th {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.artikel-tabelle td {
+  font-size: 13px;
+}
+
+.artikel-tabelle tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.artikel-tabelle input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.artikel-tabelle select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: white;
+}
+
+.artikel-tabelle input[type="number"]:focus,
+.artikel-tabelle select:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 2px rgba(0, 161, 225, 0.25);
+}
+
+/* ========== ARTIKEL-KARTEN FÜR MOBILE (VERSTECKT AUF DESKTOP) ========== */
+.artikel-karten {
+  display: none;
+  width: 100%;
+  gap: 15px;
+  flex-direction: column;
+}
+
+.artikel-karte {
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.artikel-karte-zeile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.artikel-karte-zeile:last-child {
+  margin-bottom: 0;
+}
+
+.artikel-karte-label {
+  font-weight: bold;
+  color: #00a1e1;
+  font-size: 14px;
+  min-width: 100px;
+}
+
+.artikel-karte-wert {
+  flex: 1;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.artikel-karte input[type="number"] {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.artikel-karte select {
+  width: 100%;
+  max-width: 250px;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.artikel-karte input[type="number"]:focus,
+.artikel-karte select:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 2px rgba(0, 161, 225, 0.25);
+}
+
+/* ========== RESPONSIVE ANPASSUNGEN FÜR MOBILGERÄTE ========== */
+@media screen and (max-width: 768px) {
+    #header {
+        flex-direction: column; /* Stapelt Header-Elemente untereinander */
+        text-align: center;
+    }
+
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+
+    #header .header-left img {
+        height: 50px;
+    }
+
+    button {
+        padding: 10px 16px;
+        font-size: 15px;
+    }
+
+    /* Stellt sicher, dass die Container die volle Breite nutzen */
+    .select2-container,
+    #kundenDetails input,
+    #retourenDetails select,
+    #retourenDetails input[type="text"] {
+        width: 90%;
+    }
+
+/* In Ihrer @media screen and (max-width: 768px) Regel */
+/* ========== ALLGEMEINE INHALTS-BOXEN ========== */
+#kundenDetails,
+#retourenDetails,
+#artikelListe,
+#bemerkungenSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 20px auto; /* Zentriert die Boxen und gibt ihnen vertikalen Abstand */
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Spezifische Breiten anpassen */
+#kundenDetails,
+#retourenDetails {
+  max-width: 600px;
+}
+
+#artikelListe,
+#bemerkungenSection {
+  max-width: 900px;
+}
+
+    #abholdatumContainer {
+        width: 90%;
+    }
+
+    .date-picker-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #abholdatum {
+        max-width: none;
+        width: 100%;
+    }
+
+    .date-arrow {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    /* MOBILE: Tabelle verstecken, Karten anzeigen */
+    .artikel-tabelle {
+        display: none;
+    }
+
+    .artikel-karten {
+        display: flex;
+    }
+}
+
+/* ========== BEMERKUNGEN-BEREICH ========== */
+#bemerkungenSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 20px auto;
+  max-width: 900px; /* Gleiche Breite wie Artikelliste */
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#bemerkungenSection h3 {
+  margin: 0 0 15px 0;
+  color: #00a1e1;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+#bemerkungen {
+  width: 100%;
+  min-height: 100px; /* Mindesthöhe für das Textfeld */
+  padding: 10px 15px;
+  font-size: 16px;
+  font-family: 'Roboto Condensed', Arial, sans-serif; /* Stellt sicher, dass die Schriftart konsistent ist */
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box; /* Wichtig, damit Padding die Breite nicht beeinflusst */
+}
+
+#bemerkungen:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
