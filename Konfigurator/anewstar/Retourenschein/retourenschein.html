@@ -416,7 +416,7 @@
       }
     }
 
-    
+
     // Heutiges Datum setzen
     document.getElementById("heute").textContent = new Date().toLocaleDateString('de-DE');
 
@@ -533,7 +533,17 @@ async function generateRetourenscheinPDF() {
         const item = (window.merklisteItems || [])[i];
         if (item) {
             const menge = (document.getElementById(`menge_${i}`) || document.getElementById(`menge_mobile_${i}`))?.value || item.menge || 1;
-            const grund = (document.getElementById(`grund_${i}`) || document.getElementById(`grund_mobile_${i}`))?.value || '';
+            // KORREKTUR: Wert aus dem jeweils sichtbaren Dropdown auslesen (Desktop vs. Mobile)
+            let grund = '';
+            const grundDesktopElement = document.getElementById(`grund_${i}`);
+            const grundMobileElement = document.getElementById(`grund_mobile_${i}`);
+
+            // Prüfen, welches Element sichtbar ist, und dessen Wert nehmen
+            if (grundMobileElement && window.getComputedStyle(grundMobileElement.parentElement.parentElement.parentElement).display !== 'none') {
+                grund = grundMobileElement.value;
+            } else if (grundDesktopElement) {
+                grund = grundDesktopElement.value;
+            }
             doc.setFont("helvetica", "normal").setFontSize(9);
             doc.text(menge.toString(), page_margin + 3, rowY + 6);
             doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 6, { maxWidth: 78 });
