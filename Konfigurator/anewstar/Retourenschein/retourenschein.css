@@ -366,12 +366,13 @@ button:hover {
         width: 90%;
     }
 
-    #retourenDetails,
-    #artikelListe {
-        margin: 10px;
-        max-width: none;
-        width: calc(100% - 20px);
-    }
+/* In Ihrer @media screen and (max-width: 768px) Regel */
+#retourenDetails,
+#artikelListe {
+    margin: 10px auto; /* ÄNDERUNG: Oben/unten 10px, links/rechts automatisch */
+    max-width: none;
+    width: calc(100% - 20px); /* Behält einen Abstand von 10px auf jeder Seite bei */
+}
 
     #abholdatumContainer {
         width: 90%;
