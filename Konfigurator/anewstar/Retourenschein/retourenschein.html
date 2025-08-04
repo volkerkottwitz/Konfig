@@ -14,7 +14,7 @@
   <!-- Select2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   
-  <!-- jQuery (wird von Select2 benötigt) -->
+  <!-- jQuery (wird von Select2 benötigt ) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <!-- Select2 JS -->
@@ -31,7 +31,7 @@
     </div>
     <div class="header-right">
       <div class="buttons">
-        <button onclick="generateRetourenscheinPDF()">PDF erzeugen</button>
+        <button onclick="generateRetourenscheinPDF( )">PDF erzeugen</button>
       </div>
     </div>
   </header>
@@ -113,6 +113,12 @@
     </div>
   </section>
 
+  <!-- NEU: Bemerkungen-Feld -->
+  <section id="bemerkungenSection" class="search-container">
+    <h3>Bemerkungen</h3>
+    <textarea id="bemerkungen" placeholder="Zusätzliche Informationen oder Notizen hier eingeben..."></textarea>
+  </section>
+
   <script>
     // Referenzen auf die HTML-Elemente
     const dropdown = document.getElementById("kundenDropdown");
@@ -132,14 +138,15 @@
       bearbeiter: document.getElementById("bearbeiterDropdown"),
       bearbeiterManuell: document.getElementById("bearbeiterManuell"),
       anlieferung: document.getElementById("anlieferungDropdown"),
-      abholdatum: document.getElementById("abholdatum")
+      abholdatum: document.getElementById("abholdatum"),
+      bemerkungen: document.getElementById("bemerkungen") // NEU: Referenz auf das Bemerkungsfeld
     };
 
     // Variable, um die geladenen Kundendaten zu speichern
     let kunden = [];
 
     // CSV-Datei laden und verarbeiten
-    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv")
+    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv" )
       .then(response => {
         if (!response.ok) {
           throw new Error("Netzwerkantwort war nicht in Ordnung.");
@@ -412,28 +419,8 @@
       setInterval(updateArtikelListe, 2000);
     });
 
-    // PDF-Generierungsfunktion (erweitert)
-/**
- * Erzeugt einen Retourenschein im EWE-Design als PDF.
- * Diese Funktion baut das Layout mit Linien und präzise positioniertem Text nach.
- *
 
-/**
- * Erzeugt einen Retourenschein im EWE-Design als PDF.
- * Finale, vollständige Version mit allen Blöcken, inklusive des internen Vermerk-Blocks.
- *
- * ANLEITUNG:
- * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
- * 2. Passen Sie die `logoUrl`-Variable an, sodass sie auf Ihr Logo zeigt.
- */
-/**
- * Erzeugt einen Retourenschein im EWE-Design als PDF.
- * Finale, polierte Version mit allen Detail-Anpassungen.
- *
- * ANLEITUNG:
- * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
- * 2. Passen Sie die `logoUrl`-Variable an, sodass sie auf Ihr Logo zeigt.
- */
+    // PDF-Generierungsfunktion (erweitert)
 /**
  * Erzeugt einen Retourenschein im EWE-Design als PDF.
  * Finale, polierte Version mit allen Detail-Korrekturen.
@@ -478,7 +465,7 @@ async function generateRetourenscheinPDF() {
 
     // --- 1. Header ---
     let y = page_margin;
-    const logoUrl = 'logo.png'; // <-- HIER DEN PFAD ZUM LOGO ANPASSEN
+    const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png'; // <-- HIER DEN PFAD ZUM LOGO ANPASSEN
     let logoHeight = 15;
     try {
         const logoImg = await loadImage(logoUrl);
@@ -496,7 +483,7 @@ async function generateRetourenscheinPDF() {
     y = introTextY + 10;
 
     // --- 2. Kunden- und Auftragsdaten ---
-    doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
+    
     doc.setFontSize(10).setFont("helvetica", "bold").text("Kundenangaben", page_margin + 2, y + 5);
     y += 7;
     const kundenBoxY = y;
@@ -507,9 +494,9 @@ async function generateRetourenscheinPDF() {
     const firma = inputs.firma.value ? `${inputs.firma.value}\n` : '';
     const nameValue = `${firma}${inputs.name.value}`;
     drawTextField(page_margin + 5, kundenBoxY + 5, "Name", nameValue, 85, 12);
-    drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Datum", today);
+    drawTextField(page_width / 2 + 5, kundenBoxY + 20.5, "Datum", today);
     const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" ? retourenInputs.bearbeiterManuell.value : retourenInputs.bearbeiter.value;
-    drawTextField(page_width / 2 + 5, kundenBoxY + 15, "Bearbeiter", bearbeiterWert);
+    drawTextField(page_width / 2 + 5, kundenBoxY + 30, "Bearbeiter", bearbeiterWert);
     drawTextField(page_margin + 5, kundenBoxY + 20.5, "Adresse", inputs.strasse.value);
     drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`);
     const separatorY = kundenBoxY + 42;
@@ -520,7 +507,7 @@ async function generateRetourenscheinPDF() {
 
     // --- 3. Artikeltabelle ---
     y += 3;
-    doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
+    
     doc.setFontSize(9).setFont("helvetica", "bold").text("Bitte beachten Sie, dass die Ware ordnungsgemäß sowie transportgerecht zur Abholung verpackt werden muss!", page_margin + 2, y + 5);
     y += 7;
     const tableStartY = y;
@@ -528,7 +515,6 @@ async function generateRetourenscheinPDF() {
     const tableBodyHeight = maxRows * rowHeight;
     const tableTotalHeight = tableHeaderHeight + tableBodyHeight;
     doc.rect(page_margin, tableStartY, content_width, tableTotalHeight);
-    doc.setFillColor(240, 240, 240).rect(page_margin, tableStartY, content_width, tableHeaderHeight, 'F');
     doc.text("Menge", page_margin + 3, tableStartY + 5);
     doc.text("Artikelbezeichnung", page_margin + 25, tableStartY + 5);
     doc.text("EWE-Artikelnummer", page_margin + 105, tableStartY + 5);
@@ -547,41 +533,39 @@ async function generateRetourenscheinPDF() {
             doc.text(grund, page_margin + 150, rowY + 6, { maxWidth: 30 });
         }
         doc.rect(page_margin + content_width - 10, rowY + (rowHeight - 4) / 2, 4, 4);
-        // KORREKTUR: Unterste Linie wird jetzt korrekt gezeichnet
         if (i < maxRows - 1) doc.line(page_margin, rowY + rowHeight, page_width - page_margin, rowY + rowHeight);
     }
     doc.line(page_margin + 22, tableStartY + tableHeaderHeight, page_margin + 22, tableStartY + tableTotalHeight);
     doc.line(page_margin + 103, tableStartY + tableHeaderHeight, page_margin + 103, tableStartY + tableTotalHeight);
-    // KORREKTUR: Vertikale Linie beginnt erst UNTER dem Header
     doc.line(page_margin + 148, tableStartY + tableHeaderHeight, page_margin + 148, tableStartY + tableTotalHeight);
     doc.line(page_margin + content_width - 12, tableStartY, page_margin + content_width - 12, tableStartY + tableTotalHeight);
     y = tableStartY + tableTotalHeight;
 
     // --- 4. Interner Vermerk-Block ---
-    y += 3;
+    // KORREKTUR: Abstand nach oben vergrößert
+    y += 7;
     const internBoxY = y;
-    const internBoxHeight = 28;
+    const internBoxHeight = 29;
     doc.rect(page_margin, internBoxY, content_width, internBoxHeight);
     // KORREKTUR: Y-Positionen der Labels für saubere Ausrichtung final angepasst
     drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", "");
-    drawTextField(page_margin + 5, internBoxY + 11.5, "Auftragsnummer", "");
-    drawTextField(page_margin + 5, internBoxY + 20, "Reklamationsnummer", "");
+    drawTextField(page_margin + 5, internBoxY + 12.5, "Auftragsnummer", "");
+    drawTextField(page_margin + 5, internBoxY + 22, "Reklamationsnummer", "");
     drawTextField(page_width / 2 + 5, internBoxY + 3, "Kundennummer", "");
-    drawTextField(page_width / 2 + 5, internBoxY + 11.5, "Bezug zu Rechnungsnummer", "");
-    drawTextField(page_width / 2 + 5, internBoxY + 20, "Gutschrift", "");
+    drawTextField(page_width / 2 + 5, internBoxY + 12.5, "Bezug zu Rechnungsnummer", "");
+    drawTextField(page_width / 2 + 5, internBoxY + 22, "Gutschrift", "");
     y += internBoxHeight;
 
     // --- 5. Reklamations-Block ---
-    y += 3;
+    y += 5;
     const reklBoxHeight = 22;
     doc.rect(page_margin, y, content_width, reklBoxHeight);
-    // KORREKTUR: Checkboxen für vertikale Zentrierung neu positioniert
-    const reklCenterY = y + reklBoxHeight / 2;
-    drawCheckBox(page_margin + 5, reklCenterY - 7, "Reklamation");
-    drawCheckBox(page_margin + 5, reklCenterY, "Neuware. Einlagern und zubuchen");
-    drawCheckBox(page_margin + 5, reklCenterY + 7, "Rücksendung an den Kunden");
-    drawCheckBox(page_width / 2 + 5, reklCenterY - 7, "Reparatur - Kostenvoranschlag");
-    drawCheckBox(page_width / 2 + 5, reklCenterY, "Weiterleitung an");
+    // KORREKTUR: Checkboxen nach oben verschoben
+    drawCheckBox(page_margin + 5, y + 2, "Reklamation");
+    drawCheckBox(page_margin + 5, y + 9, "Neuware. Einlagern und zubuchen");
+    drawCheckBox(page_margin + 5, y + 16, "Rücksendung an den Kunden");
+    drawCheckBox(page_width / 2 + 5, y + 2, "Reparatur - Kostenvoranschlag");
+    drawCheckBox(page_width / 2 + 5, y + 9, "Weiterleitung an");
     y += reklBoxHeight;
 
     // --- 6. Notiz-Block ---
@@ -591,9 +575,12 @@ async function generateRetourenscheinPDF() {
     y += 7;
     const notizBoxHeight = 20;
     doc.rect(page_margin, y, content_width, notizBoxHeight);
+    // NEU: Text aus dem Bemerkungsfeld in die Notiz-Box einfügen
+    doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.bemerkungen.value, page_margin + 2, y + 5, { maxWidth: content_width - 4 });
 
+    y += notizBoxHeight;
     // --- 7. Footer ---
-    const finalY = doc.internal.pageSize.getHeight() - 7;
+    const finalY = doc.internal.pageSize.getHeight() - 4;
     doc.setFontSize(7).setFont("helvetica", "normal");
     doc.text("VK-11 Retourenschein (Stand 05/2020)", page_margin, finalY);
     doc.text("Wilhelm Ewe GmbH & Co. KG - Volkmaroder Straße 19 - 38104 Braunschweig", page_width / 2, finalY, { align: 'center' });
@@ -603,6 +590,8 @@ async function generateRetourenscheinPDF() {
     const filename = `Retourenschein_${inputs.name.value.replace(/ /g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(filename);
 }
+
+
   </script>
 </body>
 </html>
