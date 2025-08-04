@@ -119,6 +119,35 @@
     <textarea id="bemerkungen" placeholder="Zusätzliche Informationen oder Notizen hier eingeben..."></textarea>
   </section>
 
+    <!-- NEU: Reklamations-Optionen -->
+  <section id="reklamationSection" class="search-container">
+    <h3></h3>
+    <div class="reklamation-grid">
+      <div class="reklamation-option">
+        <input type="checkbox" id="checkReklamation">
+        <label for="checkReklamation">Reklamation</label>
+      </div>
+      <div class="reklamation-option">
+        <input type="checkbox" id="checkReparatur">
+        <label for="checkReparatur">Reparatur - Kostenvoranschlag</label>
+      </div>
+      <div class="reklamation-option">
+        <input type="checkbox" id="checkNeuware">
+        <label for="checkNeuware">Neuware. Einlagern und zubuchen</label>
+      </div>
+      <div class="reklamation-option">
+        <input type="checkbox" id="checkWeiterleitung">
+        <label for="checkWeiterleitung">Weiterleitung an:</label>
+      </div>
+      <div class="reklamation-option">
+        <input type="checkbox" id="checkRuecksendung">
+        <label for="checkRuecksendung">Rücksendung an den Kunden</label>
+      </div>
+      <!-- Dieses Textfeld wird per JS gesteuert -->
+      <input type="text" id="weiterleitungAnName" placeholder="Name eintragen" style="display: none;">
+    </div>
+  </section>
+
   <script>
     // Referenzen auf die HTML-Elemente
     const dropdown = document.getElementById("kundenDropdown");
@@ -139,7 +168,13 @@
       bearbeiterManuell: document.getElementById("bearbeiterManuell"),
       anlieferung: document.getElementById("anlieferungDropdown"),
       abholdatum: document.getElementById("abholdatum"),
-      bemerkungen: document.getElementById("bemerkungen") // NEU: Referenz auf das Bemerkungsfeld
+      bemerkungen: document.getElementById("bemerkungen"), 
+      checkReklamation: document.getElementById("checkReklamation"),
+      checkNeuware: document.getElementById("checkNeuware"),
+      checkRuecksendung: document.getElementById("checkRuecksendung"),
+      checkReparatur: document.getElementById("checkReparatur"),
+      checkWeiterleitung: document.getElementById("checkWeiterleitung"),
+      weiterleitungAnName: document.getElementById("weiterleitungAnName")
     };
 
     // Variable, um die geladenen Kundendaten zu speichern
@@ -302,6 +337,17 @@
         console.error('Fehler beim Laden der Merkliste:', error);
       }
     }
+
+        // NEU: Event-Listener für die "Weiterleitung an"-Checkbox
+    retourenInputs.checkWeiterleitung.addEventListener('change', function() {
+      if (this.checked) {
+        retourenInputs.weiterleitungAnName.style.display = 'block';
+        retourenInputs.weiterleitungAnName.focus();
+      } else {
+        retourenInputs.weiterleitungAnName.style.display = 'none';
+        retourenInputs.weiterleitungAnName.value = ''; // Feld leeren, wenn Checkbox deaktiviert wird
+      }
+    });
 
     // Merkliste-Artikel anzeigen (falls vorhanden)
     // Merkliste-Artikel anzeigen (falls vorhanden)
@@ -578,12 +624,35 @@ async function generateRetourenscheinPDF() {
     y += 5;
     const reklBoxHeight = 22;
     doc.rect(page_margin, y, content_width, reklBoxHeight);
-    // KORREKTUR: Checkboxen nach oben verschoben
+
+    // NEU: Checkboxen basierend auf der Auswahl im Formular zeichnen
+    if (retourenInputs.checkReklamation.checked) {
+        doc.setFont("helvetica", "bold").text('X', page_margin + 6, y + 5.5);
+    }
     drawCheckBox(page_margin + 5, y + 2, "Reklamation");
+
+    if (retourenInputs.checkNeuware.checked) {
+        doc.setFont("helvetica", "bold").text('X', page_margin + 6, y + 12.5);
+    }
     drawCheckBox(page_margin + 5, y + 9, "Neuware. Einlagern und zubuchen");
+
+    if (retourenInputs.checkRuecksendung.checked) {
+        doc.setFont("helvetica", "bold").text('X', page_margin + 6, y + 19.5);
+    }
     drawCheckBox(page_margin + 5, y + 16, "Rücksendung an den Kunden");
+
+    if (retourenInputs.checkReparatur.checked) {
+        doc.setFont("helvetica", "bold").text('X', page_width / 2 + 6, y + 5.5);
+    }
     drawCheckBox(page_width / 2 + 5, y + 2, "Reparatur - Kostenvoranschlag");
+
+    if (retourenInputs.checkWeiterleitung.checked) {
+        doc.setFont("helvetica", "bold").text('X', page_width / 2 + 6, y + 12.5);
+        // Den Namen aus dem Textfeld daneben schreiben
+        doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.weiterleitungAnName.value, page_width / 2 + 35, y + 12.5, { maxWidth: 50 });
+    }
     drawCheckBox(page_width / 2 + 5, y + 9, "Weiterleitung an");
+    
     y += reklBoxHeight;
 
     // --- 6. Notiz-Block ---
