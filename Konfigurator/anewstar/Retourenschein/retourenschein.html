@@ -493,7 +493,7 @@ async function generateRetourenscheinPDF() {
     const logoUrl = 'logo.png'; // <-- HIER DEN DATEINAMEN ODER DIE URL ZUM LOGO ANGEBEN
     try {
         const logoData = await loadImage(logoUrl);
-        doc.addImage(logoData, 'PNG', page_width - page_margin - 40, page_margin, 40, 0);
+        doc.addImage(logoData, 'PNG', page_width - page_margin - 40, page_margin -15, 40, 0);
     } catch (error) {
         console.error("Fehler beim Laden des Logos:", error);
         doc.setFontSize(16);
