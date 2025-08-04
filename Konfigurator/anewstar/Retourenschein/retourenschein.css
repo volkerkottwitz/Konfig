@@ -368,17 +368,19 @@ button:hover {
 
 /* In Ihrer @media screen and (max-width: 768px) Regel */
 /* ========== ALLGEMEINE INHALTS-BOXEN ========== */
+/* ========== ALLGEMEINE INHALTS-BOXEN ========== */
 #kundenDetails,
 #retourenDetails,
 #artikelListe,
-#bemerkungenSection {
+#bemerkungenSection,
+#reklamationSection { /* <-- HIER HINZUFÜGEN */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
   padding: 20px;
   background-color: #ffffff;
-  margin: 20px auto; /* Zentriert die Boxen und gibt ihnen vertikalen Abstand */
+  margin: 20px auto;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
@@ -460,4 +462,64 @@ button:hover {
   outline: none;
   border-color: #00a1e1;
   box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+/* ========== REKLAMATION-OPTIONEN ========== */
+
+
+#reklamationSection h3 {
+  margin: 0 0 15px 0;
+  color: #00a1e1;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.reklamation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Zwei Spalten */
+  gap: 10px 20px; /* Abstand zwischen Zeilen und Spalten */
+  width: 100%;
+  max-width: 600px; /* Passt zur Breite von #retourenDetails */
+}
+
+.reklamation-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#reklamationSection input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #00a1e1; /* Färbt die Checkbox in Ihrer Markenfarbe */
+}
+
+#reklamationSection label {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#weiterleitungAnName {
+  grid-column: 2; /* Sorgt dafür, dass das Feld in der zweiten Spalte bleibt */
+  padding: 8px 12px;
+  font-size: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  margin-top: -5px; /* Rückt es etwas näher an die Checkbox */
+}
+
+#weiterleitungAnName:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+/* Responsive Anpassung für die Grid-Ansicht */
+@media (max-width: 500px) {
+  .reklamation-grid {
+    grid-template-columns: 1fr; /* Eine Spalte auf sehr kleinen Bildschirmen */
+  }
+  #weiterleitungAnName {
+    grid-column: 1; /* Nimmt die volle Breite ein */
+  }
 }
