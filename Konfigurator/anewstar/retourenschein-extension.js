@@ -252,7 +252,7 @@ merkliste.forEach((item, index) => {
                 background: #00a1e1; color: white; text-decoration: none;
                 border-radius: 8px; border: none; cursor: pointer; font-size: 14px;
               }
-              .retourenschein-btn { background: #28a745; }
+              .retourenschein-btn { background: #00a1e1; }
               .close-btn { background: #6c757d; }
               .artikel { margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
               .entfernen { color: red; cursor: pointer; margin-top: 4px; display: inline-block; }
