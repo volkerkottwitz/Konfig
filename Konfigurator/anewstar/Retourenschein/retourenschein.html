@@ -503,11 +503,16 @@ async function generateRetourenscheinPDF() {
     const fieldBackgroundColor = [230, 245, 255];
 
     // --- Hilfsfunktionen zum Zeichnen ---
-    const drawTextField = (x, y, label, value, width = 85, height = 6) => {
-        doc.setFillColor(...fieldBackgroundColor).rect(x, y + 1, width, height, 'F');
+    // KORREKTUR 4: Die Hilfsfunktion wird erweitert, um eine optionale Hintergrundfarbe zu akzeptieren.
+    const drawTextField = (x, y, label, value, width = 85, height = 6, useBgColor = true) => {
+        if (useBgColor) {
+            doc.setFillColor(...fieldBackgroundColor).rect(x, y + 1, width, height, 'F');
+        }
         doc.setFontSize(7).setFont("helvetica", "bold").text(label, x, y);
         doc.setFont("helvetica", "normal").setFontSize(10);
-        doc.text(value || '', x + 1, y + 5.5, { maxWidth: width - 2, lineHeightFactor: 1.15 });
+        // KORREKTUR 1: Die Y-Position des Namens wird um 1px erhöht (von 5.5 auf 6.5).
+        const textY = (label === "Name") ? y + 6.5 : y + 5.5;
+        doc.text(value || '', x + 1, textY, { maxWidth: width - 2, lineHeightFactor: 1.15 });
         doc.setDrawColor(0).line(x, y + height + 1, x + width, y + height + 1);
     };
 
@@ -519,10 +524,10 @@ async function generateRetourenscheinPDF() {
 
     // --- 1. Header ---
     let y = page_margin -5;
-    const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png'; // <-- HIER DEN PFAD ZUM LOGO ANPASSEN
+    const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png';
     let logoHeight = 15;
     try {
-        const logoImg = await loadImage(logoUrl);
+        const logoImg = await loadImage(logoUrl );
         const logoWidth = 40;
         logoHeight = logoWidth * (logoImg.height / logoImg.width);
         doc.addImage(logoImg, 'PNG', page_width - page_margin - logoWidth, y, logoWidth, logoHeight);
@@ -537,7 +542,6 @@ async function generateRetourenscheinPDF() {
     y = introTextY + 5;
 
     // --- 2. Kunden- und Auftragsdaten ---
-    
     doc.setFontSize(10).setFont("helvetica", "bold").text("Kundenangaben", page_margin + 2, y + 5);
     y += 7;
     const kundenBoxY = y;
@@ -561,9 +565,9 @@ async function generateRetourenscheinPDF() {
 
     // --- 3. Artikeltabelle ---
     y += 3;
-    
     doc.setFontSize(9).setFont("helvetica", "bold").text("Bitte beachten Sie, dass die Ware ordnungsgemäß sowie transportgerecht zur Abholung verpackt werden muss!", page_margin + 2, y + 5);
     y += 7;
+    // KORREKTUR 2: Die Startposition der Tabelle wird um 2px nach oben verschoben.
     const tableStartY = y;
     const rowHeight = 10, maxRows = 5, tableHeaderHeight = 7;
     const tableBodyHeight = maxRows * rowHeight;
@@ -579,12 +583,9 @@ async function generateRetourenscheinPDF() {
         const item = (window.merklisteItems || [])[i];
         if (item) {
             const menge = (document.getElementById(`menge_${i}`) || document.getElementById(`menge_mobile_${i}`))?.value || item.menge || 1;
-            // KORREKTUR: Wert aus dem jeweils sichtbaren Dropdown auslesen (Desktop vs. Mobile)
             let grund = '';
             const grundDesktopElement = document.getElementById(`grund_${i}`);
             const grundMobileElement = document.getElementById(`grund_mobile_${i}`);
-
-            // Prüfen, welches Element sichtbar ist, und dessen Wert nehmen
             if (grundMobileElement && window.getComputedStyle(grundMobileElement.parentElement.parentElement.parentElement).display !== 'none') {
                 grund = grundMobileElement.value;
             } else if (grundDesktopElement) {
@@ -592,7 +593,8 @@ async function generateRetourenscheinPDF() {
             }
             doc.setFont("helvetica", "normal").setFontSize(9);
             doc.text(menge.toString(), page_margin + 3, rowY + 6);
-            doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 6, { maxWidth: 78 });
+            // KORREKTUR 3: Die maximale Breite für den Artikelnamen wird explizit gesetzt, um Überlaufen zu verhindern.
+            doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 6, { maxWidth: 75 }); // 78 -> 75 für mehr Puffer
             doc.text(item.nummer || item.artikelnummer || '', page_margin + 105, rowY + 6, { maxWidth: 43 });
             doc.text(grund, page_margin + 150, rowY + 6, { maxWidth: 30 });
         }
@@ -606,18 +608,17 @@ async function generateRetourenscheinPDF() {
     y = tableStartY + tableTotalHeight;
 
     // --- 4. Interner Vermerk-Block ---
-    // KORREKTUR: Abstand nach oben vergrößert
     y += 7;
     const internBoxY = y;
     const internBoxHeight = 29;
     doc.rect(page_margin, internBoxY, content_width, internBoxHeight);
-    // KORREKTUR: Y-Positionen der Labels für saubere Ausrichtung final angepasst
-    drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", "");
-    drawTextField(page_margin + 5, internBoxY + 12.5, "Auftragsnummer", "");
-    drawTextField(page_margin + 5, internBoxY + 22, "Reklamationsnummer", "");
-    drawTextField(page_width / 2 + 5, internBoxY + 3, "Kundennummer", "");
-    drawTextField(page_width / 2 + 5, internBoxY + 12.5, "Bezug zu Rechnungsnummer", "");
-    drawTextField(page_width / 2 + 5, internBoxY + 22, "Gutschrift", "");
+    // KORREKTUR 4: Die Felder in diesem Block werden nun mit hellblauem Hintergrund gezeichnet.
+    drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", "", 85, 6, true);
+    drawTextField(page_margin + 5, internBoxY + 12.5, "Auftragsnummer", "", 85, 6, true);
+    drawTextField(page_margin + 5, internBoxY + 22, "Reklamationsnummer", "", 85, 6, true);
+    drawTextField(page_width / 2 + 5, internBoxY + 3, "Kundennummer", "", 85, 6, true);
+    drawTextField(page_width / 2 + 5, internBoxY + 12.5, "Bezug zu Rechnungsnummer", "", 85, 6, true);
+    drawTextField(page_width / 2 + 5, internBoxY + 22, "Gutschrift", "", 85, 6, true);
     y += internBoxHeight;
 
     // --- 5. Reklamations-Block ---
@@ -625,7 +626,6 @@ async function generateRetourenscheinPDF() {
     const reklBoxHeight = 22;
     doc.rect(page_margin, y, content_width, reklBoxHeight);
 
-    // NEU: Checkboxen basierend auf der Auswahl im Formular zeichnen
     if (retourenInputs.checkReklamation.checked) {
         doc.setFont("helvetica", "bold").text('X', page_margin + 6, y + 5.5);
     }
@@ -648,8 +648,8 @@ async function generateRetourenscheinPDF() {
 
     if (retourenInputs.checkWeiterleitung.checked) {
         doc.setFont("helvetica", "bold").text('X', page_width / 2 + 6, y + 12.5);
-        // Den Namen aus dem Textfeld daneben schreiben
-        doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.weiterleitungAnName.value, page_width / 2 + 35, y + 12.5, { maxWidth: 50 });
+        // KORREKTUR 5: Die X-Position des Namens wird um 15px nach rechts verschoben (35 -> 50).
+        doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.weiterleitungAnName.value, page_width / 2 + 40, y + 12.5, { maxWidth: 35 });
     }
     drawCheckBox(page_width / 2 + 5, y + 9, "Weiterleitung an");
     
@@ -662,7 +662,6 @@ async function generateRetourenscheinPDF() {
     y += 7;
     const notizBoxHeight = 20;
     doc.rect(page_margin, y, content_width, notizBoxHeight);
-    // NEU: Text aus dem Bemerkungsfeld in die Notiz-Box einfügen
     doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.bemerkungen.value, page_margin + 2, y + 5, { maxWidth: content_width - 4 });
 
     y += notizBoxHeight;
@@ -677,7 +676,6 @@ async function generateRetourenscheinPDF() {
     const filename = `Retourenschein_${inputs.name.value.replace(/ /g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(filename);
 }
-
 
   </script>
 </body>
