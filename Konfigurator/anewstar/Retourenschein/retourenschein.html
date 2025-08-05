@@ -592,11 +592,11 @@ async function generateRetourenscheinPDF() {
                 grund = grundDesktopElement.value;
             }
             doc.setFont("helvetica", "normal").setFontSize(9);
-            doc.text(menge.toString(), page_margin + 3, rowY + 6);
+            doc.text(menge.toString(), page_margin + 3, rowY + 5);
             // KORREKTUR 3: Die maximale Breite für den Artikelnamen wird explizit gesetzt, um Überlaufen zu verhindern.
-            doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 6, { maxWidth: 75 }); // 78 -> 75 für mehr Puffer
-            doc.text(item.nummer || item.artikelnummer || '', page_margin + 105, rowY + 6, { maxWidth: 43 });
-            doc.text(grund, page_margin + 150, rowY + 6, { maxWidth: 30 });
+            doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 5, { maxWidth: 75 }); // 78 -> 75 für mehr Puffer
+            doc.text(item.nummer || item.artikelnummer || '', page_margin + 105, rowY + 5, { maxWidth: 43 });
+            doc.text(grund, page_margin + 150, rowY + 5, { maxWidth: 30 });
         }
         doc.rect(page_margin + content_width - 10, rowY + (rowHeight - 4) / 2, 4, 4);
         if (i < maxRows - 1) doc.line(page_margin, rowY + rowHeight, page_width - page_margin, rowY + rowHeight);
@@ -657,7 +657,7 @@ async function generateRetourenscheinPDF() {
 
     // --- 6. Notiz-Block ---
     y += 3;
-    doc.setFillColor(240, 240, 240).rect(page_margin, y, content_width, 7, 'F');
+    
     doc.setFontSize(10).setFont("helvetica", "bold").text("Notizen", page_margin + 2, y + 5);
     y += 7;
     const notizBoxHeight = 20;
