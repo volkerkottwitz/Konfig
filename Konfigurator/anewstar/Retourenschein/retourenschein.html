@@ -551,7 +551,9 @@ async function generateRetourenscheinPDF() {
     const abholDatum = retourenInputs.abholdatum.value ? new Date(retourenInputs.abholdatum.value).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
     const firma = inputs.firma.value ? `${inputs.firma.value}\n` : '';
     const nameValue = `${firma}${inputs.name.value}`;
-    drawTextField(page_margin + 5, kundenBoxY + 5, "Name", nameValue, 85, 12);
+    drawTextField(page_margin + 5, kundenBoxY + 5, "Firma", inputs.firma.value, 85, 12); 
+// NEU: Ansprechpartner rechts daneben
+    drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Ansprechpartner", inputs.name.value);
     drawTextField(page_width / 2 + 5, kundenBoxY + 20.5, "Datum", today);
     const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" ? retourenInputs.bearbeiterManuell.value : retourenInputs.bearbeiter.value;
     drawTextField(page_width / 2 + 5, kundenBoxY + 30, "Bearbeiter", bearbeiterWert);
