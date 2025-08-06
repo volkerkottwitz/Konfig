@@ -2,248 +2,100 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wasserzählerschacht Konfigurator</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="images/icon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400&display=swap" rel="stylesheet">
-    <div id="info-box"></div>
+    <title>Spracheingabe-Test</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f4f4f4; }
+        .container { text-align: center; }
+        #bemerkungen {
+            width: 400px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #mic-button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        #mic-button.is-recording {
+            background-color: #ff4136; /* Rot, wenn die Aufnahme läuft */
+            color: white;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- Fortschrittsanzeige -->
-<div class="progress-container">
-    <div class="progress-bar"></div>
-</div>
-<div class="progress-text">Schritt 1 von 10</div>
-
-
-    <header>
-        <img src="images/logo.png" alt="Firmenlogo" class="logo">
-        <h1>Wasserzählerschacht-Konfigurator</h1>
-    </header>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <main>
-
-
-
-        
-
-<!-- Startseite -->
-<section class="screen active" id="screen1">
-    <h2>Wählen Sie eine Produktgruppe</h2>
-    <div class="button-container">
-        <!-- Flexoripp Auswahl -->
-        <div class="selection-container">
-            <img src="images/flexoripp.jpg" alt="Produktbild" class="product-image" onclick="openProduktInfo()">
-            <button onclick="saveProduktgruppe('Flexoripp')">Flexoripp</button>
-        </div>
-
-        <!-- Megaripp Auswahl -->
-        <div class="selection-container">
-            <img src="images/megaripp.png" alt="Produktbild" class="product-image" onclick="openProduktInfo()">
-            <button onclick="window.location.href='megaripp.html'">Megaripp</button>
-        </div>
-
-        <!-- Preisliste Auswahl -->
-        <div class="selection-container">
-            <img src="images/ImagePrice.png" alt="Produktbild" class="product-image" onclick="openProduktInfo()">
-            <button onclick="window.location.href='SuchPreisliste.html'">Preisliste</button>
-        </div>
+    <div class="container">
+        <h2>Bemerkungen (mit Spracheingabe)</h2>
+        <textarea id="bemerkungen" rows="5" placeholder="Klicken Sie auf das Mikrofon, um zu sprechen..."></textarea>
+        <button id="mic-button">🎤 Spracheingabe starten</button>
     </div>
-</section>
 
+    <script>
+        // Prüfen, ob die Web Speech API im Browser verfügbar ist
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = SpeechRecognition ? new SpeechRecognition() : null;
 
+        const micButton = document.getElementById('mic-button');
+        const bemerkungenTextarea = document.getElementById('bemerkungen');
 
-<!-- Produktinfo-Bildschirm -->
-<section class="screen" id="produktInfoScreen">
-    <h2>Produktbeschreibung</h2>
-    <h2></h2>
-    <button class="back-btn" onclick="goBack()">Zurück</button>
-    <iframe src="images/pdfflex.pdf" width="100%" height="600px"></iframe>
-</section>
+        if (recognition) {
+            // Konfiguration der Spracherkennung
+            recognition.continuous = false; // Nur eine Äußerung auf einmal erkennen
+            recognition.lang = 'de-DE';     // Sprache auf Deutsch setzen
+            recognition.interimResults = false; // Nur finale Ergebnisse verwenden
 
+            micButton.addEventListener('click', () => {
+                if (micButton.classList.contains('is-recording')) {
+                    // Aufnahme stoppen, wenn sie bereits läuft
+                    recognition.stop();
+                } else {
+                    // Aufnahme starten
+                    try {
+                        recognition.start();
+                    } catch(e) {
+                        alert("Fehler: Die Spracherkennung konnte nicht gestartet werden. Möglicherweise läuft sie bereits.");
+                    }
+                }
+            });
 
+            // Event-Handler für den Start der Aufnahme
+            recognition.onstart = () => {
+                micButton.classList.add('is-recording');
+                micButton.textContent = '🔴 Aufnahme läuft...';
+            };
 
-<!-- Schachtauswahl -->
-<section class="screen" id="screen2">
-    <h2>Wählen Sie einen Schacht</h2>
-    <button onclick="saveSchacht('Schacht 190mm Q3 2,5|4 1“')">Schacht 190mm Q3 2,5|4 1“</button>
-    <button onclick="saveSchacht('Schacht 220mm Q3 2,5|4 1“')">Schacht 220mm Q3 2,5|4 1“</button>
-    <button onclick="saveSchacht('Schacht 260mm Q3 6,3|10 x 5/4“')">Schacht 260mm Q3 6,3|10 x 5/4“</button>
-    <button onclick="saveSchacht('Schacht Österreich 175mm Q3 4|10 5/4“ x 1“')">Schacht Österr. 175mm Q3 4|10 5/4“ x 1“</button>
-    <button class="back-btn" onclick="prevScreen('screen1')">Zurück</button>
+            // Event-Handler für das Ende der Aufnahme
+            recognition.onend = () => {
+                micButton.classList.remove('is-recording');
+                micButton.textContent = '🎤 Spracheingabe starten';
+            };
 
-</section>
+            // Event-Handler, wenn ein Ergebnis vorliegt
+            recognition.onresult = (event) => {
+                const currentText = bemerkungenTextarea.value;
+                const speechResult = event.results[0][0].transcript;
 
+                // Fügt das Ergebnis zum bestehenden Text hinzu (mit einem Leerzeichen)
+                bemerkungenTextarea.value = currentText ? `${currentText} ${speechResult}` : speechResult;
+            };
 
-<!-- Rohrdeckung -->
-<section class="screen" id="screen3">
-    <h2>Wählen Sie eine Rohrdeckung</h2>
-    <button onclick="saveRohrdeckung('Rohrdeckung 0,75m')">0,75m</button>
-    <button onclick="saveRohrdeckung('Rohrdeckung 1,00m')">1,00m</button>
-    <button onclick="saveRohrdeckung('Rohrdeckung 1,25m')">1,25m</button>
-    <button onclick="saveRohrdeckung('Rohrdeckung 1,50m')">1,50m</button>
-    <button onclick="saveRohrdeckung('Rohrdeckung 1,75m')">1,75m</button>
-    <button onclick="saveRohrdeckung('Rohrdeckung 2,00m')">2,00m</button>
-    <button class="back-btn" onclick="prevScreen('screen2')">Zurück</button>
-</section>
+            // Event-Handler für Fehler
+            recognition.onerror = (event) => {
+                alert(`Fehler bei der Spracherkennung: ${event.error}`);
+            };
 
-<!-- Deckel -->
-<section class="screen" id="screen4">
-    <h2>Wählen Sie einen Deckel</h2>
-    <button onclick="saveDeckel('Deckel A15 mit SU')">Deckel A15 mit SU</button>
-    <button onclick="saveDeckel('Deckel A15 + Stehbolzen')">Deckel A15 + Stehbolzen</button>
-    <button onclick="saveDeckel('Deckel B125 mit SU')">Deckel B125 mit SU</button>
-    <button onclick="saveDeckel('Deckel B125 + Stehbolzen')">Deckel B125 + Stehbolzen</button>
-    <button onclick="saveDeckel('Einfache Schachtumrandung')">Einfache Schachtumrandung</button>
-    <button class="back-btn" onclick="prevScreen('screen3')">Zurück</button>
-</section>
+        } else {
+            // Fallback, wenn die API nicht unterstützt wird
+            micButton.disabled = true;
+            micButton.textContent = 'Spracheingabe nicht unterstützt';
+            alert('Ihr Browser unterstützt die Web Speech API leider nicht. Bitte versuchen Sie es mit Chrome oder Edge.');
+        }
+    </script>
 
-        <!-- Abfrage Druckminderer -->
-        <section class="screen" id="screen4a">
-            <h2>Benötigen Sie eine WZ-Anlage mit oder ohne Druckminderer?</h2>
-            <button onclick="chooseDruckminderer('mit')">Ohne Druckminderer</button>
-            <button onclick="chooseDruckminderer('ohne')">Mit Druckminderer</button>
-            <button class="back-btn" onclick="prevScreen('screen4')">Zurück</button>
-        </section>
-
-
-
-        <!-- Wasserzähleranlagen mit Druckminderer -->
-        <section class="screen" id="screen5-mit">
-            <h2>Wählen Sie eine WZ-Anlage ohne Druckminderer</h2>
-            <button onclick="saveWasserzaehleranlage('Kugelhahn/Kugelhahn')">Kugelhahn/Kugelhahn</button>
-            <button onclick="saveWasserzaehleranlage('Kugelhahn/KSR')">Kugelhahn/KSR</button>
-            <button onclick="saveWasserzaehleranlage('Kugelhahn/KMR/Kugelhahn')">Kugelhahn/KMR/Kugelhahn</button>
-            <button onclick="saveWasserzaehleranlage('Freistrom/Freistrom')">Freistrom/Freistrom</button>
-            <button onclick="saveWasserzaehleranlage('Freistrom/KSR')">Freistrom/KSR</button>
-            <button onclick="saveWasserzaehleranlage('Freistrom/KMR/Freistrom')">Freistrom/KMR/Freistrom</button>
-                   <button class="back-btn" onclick="prevScreen('screen4a')">Zurück</button>
-        </section>
-
-        <!-- Wasserzähleranlagen ohne Druckminderer -->
-        <section class="screen" id="screen5-ohne">
-            <h2>Wählen Sie eine WZ-Anlage mit Druckminderer</h2>
-            <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/KSR')">Freistrom/Druckminderer/KSR</button>
-            <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/Freistrom')">Freistrom/Druckminderer/Freistrom</button>
-            <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/Kugelhahn')">Kugelhahn/Druckminderer/Kugelhahn</button>
-            <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/KSR')">Kugelhahn/Druckminderer/KSR</button>
-            <button class="back-btn" onclick="prevScreen('screen4a')">Zurück</button>
-        </section>
-
-
-<!-- PE-Verschraubungen -->
-<section class="screen" id="screen6">
-    <h2>Wählen Sie eine PE-Verschraubung mit O-Ring Technik</h2>
-    <button onclick="savePEVerschraubung('PE-Verschraubung bleifreies Messing')">PE-Verschraubung bleifreies Messing</button>
-    <button onclick="savePEVerschraubung('PE-Verschraubung PP')">PE-Verschraubung PP</button>
-    <button onclick="savePEVerschraubung('PE-Schweisstutzen')">PE-Schweisstutzen</button>
-    <button onclick="savePEVerschraubung('PE-Schweissmuffe')">PE-Schweissmuffe</button>
-    <button onclick="skipNextScreens()">Ohne Verschraubung weiter</button>
-    <button class="back-btn" onclick="prevScreen('screen4a')">Zurück</button>
-</section>
-
-
-<!-- PE-Größe Auswahl -->
-<section class="screen" id="screen7">
-    <h2>Wählen Sie das Anschlußgewinde 1“ oder 5/4“</h2>
-    <button onclick="savePEGroesse('1“')">1“</button>
-    <button onclick="savePEGroesse('5/4“')">5/4“</button>
-    <button class="back-btn" onclick="prevScreen('screen6')">Zurück</button>
-</section>
-
-
-<!-- PE-Größen -->
-<section class="screen" id="screen8">
-    <h2>Wählen Sie die Größe der PE-Verbindung</h2>
-    <button onclick="savePEGroesseVerbindung('PE-Größe 32')">PE-Größe 32</button>
-    <button onclick="savePEGroesseVerbindung('PE-Größe 40')">PE-Größe 40</button>
-    <button onclick="savePEGroesseVerbindung('PE-Größe 50')">PE-Größe 50</button>
-    <button onclick="savePEGroesseVerbindung('PE-Größe 63')">PE-Größe 63</button>
-    <button class="back-btn" onclick="prevScreen('screen6')">Zurück</button>
-</section>
-
-
-<!-- Auswahl der Verbinder -->
-<section class="screen" id="screen9">
-    <h2>Wählen Sie die Anzahl der Verbinder</h2>
-    <button onclick="saveVerbinderAndNext('1')">Ein Verbinder</button>
-    <button onclick="saveVerbinderAndNext('2')">Zwei Verbinder</button>
-    <button class="back-btn" onclick="prevScreen('screen8')">Zurück</button>
-</section>
-
-<!-- Wasserzählerschachtschlüssel 15mm -->
-<section class="screen" id="screen10">
-    <h2>Wasserzählerschachtschlüssel 15mm</h2>
-    <button onclick="saveWasserzaehlerSchluessel('Ja')">Ja</button>
-    <button onclick="saveWasserzaehlerSchluessel('Nein')">Nein</button>
-    <button class="back-btn" onclick="prevScreen('screen9')">Zurück</button>
-</section>
-
-<!-- Zusammenfassung -->
-<section class="screen" id="summaryScreen">
-    <h2>Ihre Auswahl:</h2>
-    <p id="summary"></p>
-    <button onclick="showUserDataScreen()">Generiere Anfrage</button>
-    <button onclick="window.location.href='index.html'">Neu starten</button>
-    <button class="back-btn" onclick="prevScreen('screen10')">Zurück</button>
-</section>
-
-<!-- Benutzer-Daten Bildschirm (wird anfangs versteckt) -->
-<section class="screen" id="userDataScreen">
-    <h2>Ihre Daten</h2>
-    <form id="userDataForm">
-        <div class="input-container">
-            <label for="name">Name*</label>
-            <input type="text" id="name" name="name" required placeholder="Ihr Name">
-        </div>
-        
-        <div class="input-container">
-            <label for="street">Straße*</label>
-            <input type="text" id="street" name="street" required placeholder="Ihre Straße">
-        </div>
-        
-        <div class="input-container">
-            <label for="postalCode">PLZ*</label>
-            <input type="text" id="postalCode" name="postalCode" required placeholder="Ihre PLZ">
-        </div>
-
-        <div class="input-container">
-            <label for="city">Ort*</label>
-            <input type="text" id="city" name="city" required placeholder="Ihr Ort">
-        </div>
-        
-        <div class="input-container">
-            <label for="email">E-Mail*</label>
-            <input type="email" id="email" name="email" required placeholder="Ihre E-Mail-Adresse">
-        </div>
-
-        <div class="input-container">
-            <label for="phone">Telefon</label>
-            <input type="tel" id="phone" name="phone" placeholder="Ihre Telefonnummer (optional)">
-        </div>
-        
-        <div class="input-container">
-            <label for="comments">Bemerkungen</label>
-            <textarea id="comments" name="comments" placeholder="Ihre Bemerkungen (optional)"></textarea>
-        </div>
-
-        <div class="form-buttons">
-            <button type="submit" class="submit-btn">Daten absenden</button>
-        </div>
-    </form>
-    <button class="back-btn" onclick="prevScreen('summaryScreen')">Zurück</button>
-</section>
-
-
-    </main>
-
-    <script src="script.js"></script>
 </body>
 </html>
-
