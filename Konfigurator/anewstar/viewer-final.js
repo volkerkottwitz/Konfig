@@ -59,7 +59,7 @@ const merkliste = []; // Geändert von warenkorb zu merkliste
 const merklisteInhalt = document.getElementById("merklisteInhalt");
 
 // PDF-URL
-const url = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/pdf2025.pdf';
+const url = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/images/pdf2025.pdf';
 
 // === 📥 PDF laden & initial anzeigen ===
 pdfjsLib.getDocument(url).promise.then(pdf => {
@@ -808,7 +808,7 @@ function zeigeMerkliste() {
       </table>
       <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
         
-      <button onclick="window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/retourenschein/retourenschein.html?merkliste=' + encodeURIComponent(JSON.stringify(merkliste)));"
+      <button onclick="window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html?merkliste=' + encodeURIComponent(JSON.stringify(merkliste)));"
         style="padding:10px 16px; background:#00a1e1; color:white; border:none; border-radius:8px;">
   Retourenschein
 </button>
