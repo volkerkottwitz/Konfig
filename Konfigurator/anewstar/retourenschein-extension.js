@@ -180,125 +180,312 @@ merkliste.forEach((item, index) => {
       merklisteWindow.document.write(`
         <html>
           <head>
-          <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 15px; background-color: #f4f4f4; }
-  
-  /* Bisherige Styles bleiben erhalten... */
-  .button { /* ... */ }
-  .retourenschein-btn { /* ... */ }
-  .close-btn { /* ... */ }
-
-  /* --- NEUE UND VERBESSERTE STYLES --- */
-  .artikel {
-    background-color: #ffffff;
-    margin-bottom: 12px;
-    padding: 15px;
-    border: 1px solid #e1e1e1;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  }
-  .artikel-info {
-    margin-bottom: 12px; /* Abstand zur Aktionszeile */
-  }
-  .artikel-name {
-    font-weight: 600; /* Fettgedruckt */
-    font-size: 1.1em;
-    display: block; /* Eigene Zeile */
-    margin-bottom: 4px;
-  }
-  .artikel-details {
-    color: #555;
-    font-size: 0.9em;
-  }
-  .artikel-aktionen {
-    display: flex; /* Flexbox für die Anordnung */
-    justify-content: space-between; /* Elemente an die Enden verteilen */
-    align-items: center; /* Vertikal zentrieren */
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #f0f0f0; /* Trennlinie */
-  }
-  .mengen-steuerung {
-    display: flex;
-    align-items: center;
-  }
-  .mengen-steuerung label {
-    margin-right: 8px;
-    font-size: 0.9em;
-    color: #333;
-  }
-  input[type="number"] {
-    padding: 6px;
-    width: 60px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-  }
-  .entfernen-btn { /* Gezielter Style für den Button */
-    background: none;
-    border: none;
-    color: #d9534f; /* Dezentes Rot */
-    cursor: pointer;
-    font-size: 1rem; /* Größer für leichtere Berührung */
-    padding: 0 5px;
-  }
-</style>
             <title>Ihre Merkliste</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
-              body { font-family: Arial, sans-serif; padding: 20px; }
-              .button {
-                display: inline-block; padding: 12px 20px; margin: 10px 5px;
-                background: #00a1e1; color: white; text-decoration: none;
-                border-radius: 8px; border: none; cursor: pointer; font-size: 14px;
+              /* === DIALOG-INSPIRIERTES DESIGN === */
+              body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
               }
-              .retourenschein-btn { background: #00a1e1; }
-              .close-btn { background: #6c757d; }
-              .artikel { margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
-              .entfernen { color: red; cursor: pointer; margin-top: 4px; display: inline-block; }
-              input[type="number"] { padding: 3px; width: 50px; }
+
+              .main-container {
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                padding: 30px;
+                max-width: 500px;
+                width: 100%;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+                margin-bottom: 20px;
+              }
+
+              .main-container::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #00a1e1, #0077b6);
+              }
+
+              .ewe-logo {
+                width: 80px;
+                height: auto;
+                margin-bottom: 20px;
+                opacity: 0.9;
+              }
+
+              h1 {
+                color: #333;
+                margin: 0 0 25px 0;
+                font-size: 1.5rem;
+                font-weight: 600;
+              }
+
+              /* === ARTIKEL-KARTEN === */
+              .artikel {
+                background: #f8f9fa;
+                border-radius: 12px;
+                padding: 20px;
+                margin: 15px 0;
+                border-left: 4px solid #00a1e1;
+                text-align: left;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+                transition: all 0.3s ease;
+              }
+
+              .artikel:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+              }
+
+              .artikel-info {
+                margin-bottom: 15px;
+              }
+
+              .artikel-name {
+                font-weight: 600;
+                font-size: 1.1rem;
+                color: #333;
+                display: block;
+                margin-bottom: 8px;
+              }
+
+              .artikel-details {
+                color: #555;
+                font-size: 0.9rem;
+                line-height: 1.5;
+              }
+
+              .artikel-details strong {
+                color: #333;
+              }
+
+              .artikel-aktionen {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid #e1e5e9;
+              }
+
+              .mengen-steuerung {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+              }
+
+              .mengen-steuerung label {
+                font-weight: 600;
+                color: #333;
+                font-size: 0.9rem;
+              }
+
+              .quantity-input {
+                width: 80px;
+                padding: 8px 12px;
+                font-size: 16px;
+                border: 2px solid #e1e5e9;
+                border-radius: 8px;
+                text-align: center;
+                transition: all 0.3s ease;
+              }
+
+              .quantity-input:focus {
+                outline: none;
+                border-color: #00a1e1;
+                box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.15);
+              }
+
+              .entfernen-btn {
+                background: linear-gradient(135deg, #dc3545, #c82333);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 8px 12px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                min-width: 80px;
+              }
+
+              .entfernen-btn:hover {
+                background: linear-gradient(135deg, #c82333, #a71e2a);
+                transform: translateY(-1px);
+                box-shadow: 0 3px 8px rgba(220, 53, 69, 0.3);
+              }
+
+              /* === BUTTON-CONTAINER === */
+              .button-container {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                margin-top: 30px;
+                flex-wrap: wrap;
+              }
+
+              .btn {
+                padding: 14px 24px;
+                border: none;
+                border-radius: 10px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                min-width: 120px;
+                position: relative;
+                overflow: hidden;
+              }
+
+              .btn-primary {
+                background: linear-gradient(135deg, #00a1e1, #0077b6);
+                color: white;
+              }
+
+              .btn-primary:hover {
+                background: linear-gradient(135deg, #0077b6, #005577);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 161, 225, 0.3);
+              }
+
+              .btn-secondary {
+                background: #e9ecef;
+                color: #495057;
+              }
+
+              .btn-secondary:hover {
+                background: #dee2e6;
+                transform: translateY(-1px);
+              }
+
+              /* === EMPTY STATE === */
+              .empty-state {
+                color: #666;
+                font-style: italic;
+                text-align: center;
+                padding: 40px 20px;
+                background: #f8f9fa;
+                border-radius: 12px;
+                margin: 20px 0;
+              }
+
+              /* === MOBILE OPTIMIERUNGEN === */
+              @media (max-width: 600px) {
+                .main-container {
+                  margin: 10px;
+                  padding: 20px;
+                }
+
+                h1 {
+                  font-size: 1.3rem;
+                }
+
+                .button-container {
+                  flex-direction: column;
+                  gap: 10px;
+                }
+
+                .btn {
+                  width: 100%;
+                  min-width: auto;
+                }
+
+                .artikel-aktionen {
+                  flex-direction: column;
+                  gap: 15px;
+                  align-items: stretch;
+                }
+
+                .mengen-steuerung {
+                  justify-content: center;
+                }
+
+                .quantity-input {
+                  font-size: 16px; /* Verhindert Zoom auf iOS */
+                  min-height: 44px;
+                }
+              }
+
+              /* === ANIMATIONEN === */
+              .main-container {
+                animation: fadeInUp 0.4s ease;
+              }
+
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(30px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
             </style>
           </head>
           <body>
-            <h1>📝 Ihre Merkliste</h1>
-            <div id="merklisteContainer"></div>
-            <div style="margin-top: 20px;">
-              <button class="button retourenschein-btn" onclick="openRetourenschein()">📋 Retoure</button>
-              <button class="button" onclick="requestQuote()">📋 Anfrage</button>
-              <button class="button close-btn" onclick="window.close()">Schließen</button>
+            <div class="main-container">
+              <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" 
+                   alt="EWE Logo" class="ewe-logo">
+              
+              <h1>📝 Ihre Merkliste</h1>
+              
+              <div id="merklisteContainer"></div>
+              
+              <div class="button-container">
+                <button class="btn btn-primary" onclick="openRetourenschein()">📋 Retoure</button>
+                <button class="btn btn-primary" onclick="requestQuote()">📋 Anfrage</button>
+                <button class="btn btn-secondary" onclick="window.close()">Schließen</button>
+              </div>
             </div>
+
             <script>
               let merkliste = JSON.parse(localStorage.getItem('merklisteForRetourenschein') || '[]');
 
-function renderMerkliste() {
-  const container = document.getElementById('merklisteContainer');
-  if (merkliste.length === 0) {
-    container.innerHTML = '<p style="color: #666; font-style: italic;">Ihre Merkliste ist leer.</p>';
-    return;
-  }
+              function renderMerkliste() {
+                const container = document.getElementById('merklisteContainer');
+                if (merkliste.length === 0) {
+                  container.innerHTML = '<div class="empty-state">Ihre Merkliste ist leer.</div>';
+                  return;
+                }
 
-  container.innerHTML = ''; 
-  
-  merkliste.forEach((item, index) => {
-    const div = document.createElement('div');
-    div.className = 'artikel';
-    // KORREKTUR: Das Backtick am Anfang und Ende von innerHTML wird mit einem Backslash maskiert (\`)
-    div.innerHTML = \`
-      <div class="artikel-info">
-        <strong class="artikel-name">\${item.name}</strong>
-        <small class="artikel-details">Art.-Nr.: \${item.nummer} &bull; Preis: \${item.preis}</small>
-      </div>
-      <div class="artikel-aktionen">
-        <div class="mengen-steuerung">
-          <label for="menge-\${index}">Menge:</label>
-          <input type="number" id="menge-\${index}" min="1" value="\${item.menge}" onchange="updateMenge(this, \${index})">
-        </div>
-        <button class="entfernen-btn" onclick="removeItem(\${index})" title="Artikel entfernen">🗑️</button>
-      </div>
-    \`;
-    container.appendChild(div);
-  });
-}
+                container.innerHTML = ''; 
+                
+                merkliste.forEach((item, index) => {
+                  const div = document.createElement('div');
+                  div.className = 'artikel';
+                  div.innerHTML = \`
+                    <div class="artikel-info">
+                      <strong class="artikel-name">\${item.name}</strong>
+                      <div class="artikel-details">
+                        <p><strong>Artikelnummer:</strong> \${item.nummer}</p>
+                        <p><strong>Preis:</strong> \${item.preis}</p>
+                      </div>
+                    </div>
+                    <div class="artikel-aktionen">
+                      <div class="mengen-steuerung">
+                        <label for="menge-\${index}">Menge:</label>
+                        <input type="number" id="menge-\${index}" class="quantity-input" min="1" value="\${item.menge}" onchange="updateMenge(this, \${index})">
+                      </div>
+                      <button class="entfernen-btn" onclick="removeItem(\${index})" title="Artikel entfernen">🗑️ Entfernen</button>
+                    </div>
+                  \`;
+                  container.appendChild(div);
+                });
+              }
 
               // GEÄNDERT: updateMenge ruft jetzt die Funktion im Hauptfenster auf
               function updateMenge(input, index) {
@@ -317,13 +504,15 @@ function renderMerkliste() {
 
               // GEÄNDERT: removeItem ruft jetzt die Funktion im Hauptfenster auf
               function removeItem(index) {
-                merkliste.splice(index, 1);
-                localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-                // NEU: Synchronisiere mit dem Hauptfenster
-                if (window.opener && window.opener.updateMerklisteFromChild) {
-                  window.opener.updateMerklisteFromChild(merkliste);
+                if (confirm('Möchten Sie diesen Artikel wirklich aus der Merkliste entfernen?')) {
+                  merkliste.splice(index, 1);
+                  localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
+                  // NEU: Synchronisiere mit dem Hauptfenster
+                  if (window.opener && window.opener.updateMerklisteFromChild) {
+                    window.opener.updateMerklisteFromChild(merkliste);
+                  }
+                  renderMerkliste();
                 }
-                renderMerkliste();
               }
 
               function openRetourenschein() {
@@ -336,6 +525,13 @@ function renderMerkliste() {
                 }
                 window.close();
               }
+
+              // Keyboard-Navigation
+              document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                  window.close();
+                }
+              });
 
               renderMerkliste();
             </script>
@@ -357,3 +553,4 @@ function renderMerkliste() {
     console.log('✅ Retourenschein-Erweiterung erfolgreich geladen!');
   }
 })();
+
