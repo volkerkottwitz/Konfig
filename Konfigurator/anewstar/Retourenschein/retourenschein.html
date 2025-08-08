@@ -113,6 +113,17 @@
     </div>
   </section>
 
+  <!-- Manueller Artikel-Eingabebereich (wird nur angezeigt, wenn keine Artikel vorhanden sind) -->
+  <section id="manuelleArtikelSection" class="search-container" style="display: none;">
+    <h3>Artikel manuell hinzufügen</h3>
+    <div id="manuelleArtikelContainer">
+      <!-- Wird dynamisch mit JavaScript gefüllt -->
+    </div>
+    <div class="button-container">
+      <button type="button" id="artikelHinzufuegenBtn" class="btn btn-primary">Artikel hinzufügen</button>
+    </div>
+  </section>
+
   <!-- NEU: Bemerkungen-Feld -->
   <section id="bemerkungenSection" class="search-container">
     <h3>Bemerkungen</h3>
@@ -121,7 +132,7 @@
 
     <!-- NEU: Reklamations-Optionen -->
   <section id="reklamationSection" class="search-container">
-    <h3></h3>
+    <h3>Interne Vermerke</h3>
     <div class="reklamation-grid">
       <div class="reklamation-option">
         <input type="checkbox" id="checkReklamation">
@@ -332,13 +343,17 @@
           localStorage.removeItem('merklisteForRetourenschein');
           
           console.log('Merkliste erfolgreich geladen:', merkliste.length, 'Artikel');
+        } else {
+          // Keine Merkliste vorhanden, manuelle Eingabe anzeigen
+          showManuelleArtikelEingabe();
         }
       } catch (error) {
         console.error('Fehler beim Laden der Merkliste:', error);
+        showManuelleArtikelEingabe();
       }
     }
 
-        // NEU: Event-Listener für die "Weiterleitung an"-Checkbox
+    // NEU: Event-Listener für die "Weiterleitung an"-Checkbox
     retourenInputs.checkWeiterleitung.addEventListener('change', function() {
       if (this.checked) {
         retourenInputs.weiterleitungAnName.style.display = 'block';
@@ -349,119 +364,181 @@
       }
     });
 
-    // Merkliste-Artikel anzeigen (falls vorhanden)
-    // Merkliste-Artikel anzeigen (falls vorhanden)
-    function updateArtikelListe() {
-      const artikelInhalt = document.getElementById("artikelInhalt");
-      
-      // Prüfen, ob window.merklisteItems existiert (aus viewer-final.js)
-      if (window.merklisteItems && window.merklisteItems.length > 0) {
-        // Desktop-Tabelle erstellen
-        let tableHtml = '<table class="artikel-tabelle">';
-        tableHtml += '<thead><tr><th>Artikelnummer</th><th>Bezeichnung</th><th>Menge</th><th>Retourengrund</th></tr></thead>';
-        tableHtml += '<tbody>';
-        
-        window.merklisteItems.forEach((artikel, index) => {
-          tableHtml += `<tr>
-            <td>${artikel.nummer || artikel.artikelnummer || 'N/A'}</td>
-            <td>${artikel.name || artikel.bezeichnung || 'N/A'}</td>
-            <td><input type="number" value="${artikel.menge || 1}" min="1" id="menge_${index}" class="artikel-menge"></td>
-            <td>
-              <select id="grund_${index}" class="artikel-grund">
-                <option value="">-- Grund auswählen --</option>
-                <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
-                <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
-                <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
-                <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
-                <option value="Doppelt bestellt">Doppelt bestellt</option>
-                <option value="Sonstiges">Sonstiges</option>
-              </select>
-            </td>
-          </tr>`;
-        });
-        
-        tableHtml += '</tbody></table>';
-
-        // Mobile-Karten erstellen
-        let cardsHtml = '<div class="artikel-karten">';
-        
-        window.merklisteItems.forEach((artikel, index) => {
-          cardsHtml += `<div class="artikel-karte">
-            <div class="artikel-karte-zeile">
-              <span class="artikel-karte-label">Artikelnummer:</span>
-              <span class="artikel-karte-wert">${artikel.nummer || artikel.artikelnummer || 'N/A'}</span>
-            </div>
-            <div class="artikel-karte-zeile">
-              <span class="artikel-karte-label">Bezeichnung:</span>
-              <span class="artikel-karte-wert">${artikel.name || artikel.bezeichnung || 'N/A'}</span>
-            </div>
-            <div class="artikel-karte-zeile">
-              <span class="artikel-karte-label">Menge:</span>
-              <input type="number" value="${artikel.menge || 1}" min="1" id="menge_mobile_${index}" class="artikel-menge">
-            </div>
-            <div class="artikel-karte-zeile">
-              <span class="artikel-karte-label">Retourengrund:</span>
-              <select id="grund_mobile_${index}" class="artikel-grund">
-                <option value="">-- Grund auswählen --</option>
-                <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
-                <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
-                <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
-                <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
-                <option value="Doppelt bestellt">Doppelt bestellt</option>
-                <option value="Sonstiges">Sonstiges</option>
-              </select>
-            </div>
-          </div>`;
-        });
-        
-        cardsHtml += '</div>';
-
-        // Beide Versionen in den Container einfügen
-        artikelInhalt.innerHTML = tableHtml + cardsHtml;
-
-        // Event-Listener für Synchronisation zwischen Desktop und Mobile hinzufügen
-        window.merklisteItems.forEach((artikel, index) => {
-          // Menge synchronisieren
-          const mengeDesktop = document.getElementById(`menge_${index}`);
-          const mengeMobile = document.getElementById(`menge_mobile_${index}`);
-          
-          if (mengeDesktop && mengeMobile) {
-            mengeDesktop.addEventListener('input', function() {
-              mengeMobile.value = this.value;
-            });
-            mengeMobile.addEventListener('input', function() {
-              mengeDesktop.value = this.value;
-            });
-          }
-
-          // Grund synchronisieren
-          const grundDesktop = document.getElementById(`grund_${index}`);
-          const grundMobile = document.getElementById(`grund_mobile_${index}`);
-          
-          if (grundDesktop && grundMobile) {
-            grundDesktop.addEventListener('change', function() {
-              grundMobile.value = this.value;
-            });
-            grundMobile.addEventListener('change', function() {
-              grundDesktop.value = this.value;
-            });
-          }
-        });
-
-        // =================================================================
-        // KORREKTUR: Select2 auf die neu erstellten Dropdowns anwenden
-        // =================================================================
-        $('.artikel-grund').select2({
-            placeholder: "-- Grund auswählen --",
-            allowClear: true,
-            minimumResultsForSearch: Infinity // Versteckt das Suchfeld, da es hier nicht benötigt wird
-        });
-
-      } else {
-        artikelInhalt.innerHTML = '<p>Keine Artikel in der Merkliste gefunden. Bitte verwende den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>';
+    // Funktion zum Entfernen eines Artikels
+    function removeArtikel(index) {
+      if (confirm('Möchten Sie diesen Artikel wirklich entfernen?')) {
+        window.merklisteItems.splice(index, 1);
+        updateArtikelListe();
       }
     }
 
+    // Merkliste-Artikel anzeigen (falls vorhanden) - VERBESSERTE VERSION
+    function updateArtikelListe() {
+      const artikelInhalt = document.getElementById("artikelInhalt");
+      const manuelleArtikelSection = document.getElementById("manuelleArtikelSection");
+      
+      // Prüfen, ob window.merklisteItems existiert und Artikel vorhanden sind
+      if (window.merklisteItems && window.merklisteItems.length > 0) {
+        // Manuelle Eingabe verstecken, wenn Artikel vorhanden sind
+        manuelleArtikelSection.style.display = 'none';
+        
+        // Artikel-Karten erstellen (neues Design)
+        let cardsHtml = '<div class="artikel-karten-container">';
+        
+        window.merklisteItems.forEach((artikel, index) => {
+          cardsHtml += `
+            <div class="artikel-karte">
+              <div class="artikel-info">
+                <div class="artikel-name">${artikel.name || artikel.bezeichnung || 'Unbekannter Artikel'}</div>
+                <div class="artikel-details">
+                  <p><strong>Artikelnummer:</strong> ${artikel.nummer || artikel.artikelnummer || 'N/A'}</p>
+                  <p><strong>Preis:</strong> ${artikel.preis || '0,00 €'}</p>
+                </div>
+              </div>
+              <div class="artikel-aktionen">
+                <div class="mengen-steuerung">
+                  <label for="menge_${index}">Menge:</label>
+                  <input type="number" id="menge_${index}" class="quantity-input" min="1" value="${artikel.menge || 1}">
+                </div>
+                <div class="grund-steuerung">
+                  <label for="grund_${index}">Retourengrund:</label>
+                  <select id="grund_${index}" class="artikel-grund">
+                    <option value="">-- Grund auswählen --</option>
+                    <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
+                    <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
+                    <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
+                    <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
+                    <option value="Doppelt bestellt">Doppelt bestellt</option>
+                    <option value="Sonstiges">Sonstiges</option>
+                  </select>
+                </div>
+                <button class="entfernen-btn" onclick="removeArtikel(${index})" title="Artikel entfernen">
+                  🗑️ Entfernen
+                </button>
+              </div>
+            </div>`;
+        });
+        
+        cardsHtml += '</div>';
+        artikelInhalt.innerHTML = cardsHtml;
+
+        // Event-Listener für Mengen-Änderungen hinzufügen
+        window.merklisteItems.forEach((artikel, index) => {
+          const mengeInput = document.getElementById(`menge_${index}`);
+          if (mengeInput) {
+            mengeInput.addEventListener('input', function() {
+              window.merklisteItems[index].menge = parseInt(this.value) || 1;
+            });
+          }
+        });
+
+        // Select2 auf die neu erstellten Dropdowns anwenden
+        $('.artikel-grund').select2({
+            placeholder: "-- Grund auswählen --",
+            allowClear: true,
+            minimumResultsForSearch: Infinity // Versteckt das Suchfeld
+        });
+
+      } else {
+        // Keine Artikel vorhanden, manuelle Eingabe anzeigen
+        artikelInhalt.innerHTML = '<div class="empty-state">Keine Artikel in der Merkliste gefunden. Sie können unten manuell Artikel hinzufügen.</div>';
+        showManuelleArtikelEingabe();
+      }
+    }
+
+    // NEU: Manuelle Artikel-Eingabe anzeigen
+    function showManuelleArtikelEingabe() {
+      const manuelleArtikelSection = document.getElementById("manuelleArtikelSection");
+      const manuelleArtikelContainer = document.getElementById("manuelleArtikelContainer");
+      
+      manuelleArtikelSection.style.display = 'block';
+      
+      // Bis zu 5 Eingabefelder für manuelle Artikel erstellen
+      let manuelleHtml = '';
+      for (let i = 0; i < 5; i++) {
+        manuelleHtml += `
+          <div class="manueller-artikel" id="manuellerArtikel_${i}">
+            <h4>Artikel ${i + 1}</h4>
+            <div class="artikel-eingabe-grid">
+              <div class="eingabe-feld">
+                <label for="manuellerName_${i}">Artikelname:</label>
+                <input type="text" id="manuellerName_${i}" placeholder="Artikelname eingeben">
+              </div>
+              <div class="eingabe-feld">
+                <label for="manuelleNummer_${i}">Artikelnummer:</label>
+                <input type="text" id="manuelleNummer_${i}" placeholder="Artikelnummer eingeben">
+              </div>
+              <div class="eingabe-feld">
+                <label for="manuelleMenge_${i}">Stückzahl:</label>
+                <input type="number" id="manuelleMenge_${i}" min="1" value="1">
+              </div>
+              <div class="eingabe-feld">
+                <label for="manuellerGrund_${i}">Rückgabegrund:</label>
+                <select id="manuellerGrund_${i}" class="artikel-grund">
+                  <option value="">-- Grund auswählen --</option>
+                  <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
+                  <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
+                  <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
+                  <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
+                  <option value="Doppelt bestellt">Doppelt bestellt</option>
+                  <option value="Sonstiges">Sonstiges</option>
+                </select>
+              </div>
+            </div>
+          </div>`;
+      }
+      
+      manuelleArtikelContainer.innerHTML = manuelleHtml;
+      
+      // Select2 auf die manuellen Dropdowns anwenden
+      $('.artikel-grund').select2({
+          placeholder: "-- Grund auswählen --",
+          allowClear: true,
+          minimumResultsForSearch: Infinity
+      });
+    }
+
+    // NEU: Manuell hinzugefügte Artikel zur Merkliste hinzufügen
+    function addManuelleArtikel() {
+      if (!window.merklisteItems) {
+        window.merklisteItems = [];
+      }
+      
+      let hinzugefuegt = 0;
+      
+      for (let i = 0; i < 5; i++) {
+        const name = document.getElementById(`manuellerName_${i}`).value.trim();
+        const nummer = document.getElementById(`manuelleNummer_${i}`).value.trim();
+        const menge = parseInt(document.getElementById(`manuelleMenge_${i}`).value) || 1;
+        const grund = document.getElementById(`manuellerGrund_${i}`).value;
+        
+        // Nur hinzufügen, wenn mindestens Name oder Nummer ausgefüllt ist
+        if (name || nummer) {
+          const neuerArtikel = {
+            name: name || 'Manuell hinzugefügter Artikel',
+            nummer: nummer || 'N/A',
+            bezeichnung: name || 'Manuell hinzugefügter Artikel',
+            artikelnummer: nummer || 'N/A',
+            menge: menge,
+            preis: '0,00 €',
+            grund: grund
+          };
+          
+          window.merklisteItems.push(neuerArtikel);
+          hinzugefuegt++;
+        }
+      }
+      
+      if (hinzugefuegt > 0) {
+        updateArtikelListe();
+        alert(`${hinzugefuegt} Artikel wurden hinzugefügt.`);
+      } else {
+        alert('Bitte füllen Sie mindestens den Namen oder die Artikelnummer für einen Artikel aus.');
+      }
+    }
+
+    // Event-Listener für den "Artikel hinzufügen"-Button
+    document.getElementById('artikelHinzufuegenBtn').addEventListener('click', addManuelleArtikel);
 
     // Heutiges Datum setzen
     document.getElementById("heute").textContent = new Date().toLocaleDateString('de-DE');
@@ -470,9 +547,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       initializeDatePicker();
       ladeMerklisteAusLocalStorage(); // Merkliste aus localStorage laden
-      // updateArtikelListe() wird bereits innerhalb von ladeMerklisteAusLocalStorage() aufgerufen
     });
-
 
     // PDF-Generierungsfunktion (erweitert)
 /**
@@ -497,20 +572,18 @@ async function generateRetourenscheinPDF() {
     });
 
     // --- Globale Einstellungen ---
-    const page_margin = 10;
+    const page_margin = 5;
     const page_width = doc.internal.pageSize.getWidth();
     const content_width = page_width - (2 * page_margin);
     const fieldBackgroundColor = [230, 245, 255];
 
     // --- Hilfsfunktionen zum Zeichnen ---
-    // KORREKTUR 4: Die Hilfsfunktion wird erweitert, um eine optionale Hintergrundfarbe zu akzeptieren.
     const drawTextField = (x, y, label, value, width = 85, height = 6, useBgColor = true) => {
         if (useBgColor) {
             doc.setFillColor(...fieldBackgroundColor).rect(x, y + 1, width, height, 'F');
         }
         doc.setFontSize(7).setFont("helvetica", "bold").text(label, x, y);
         doc.setFont("helvetica", "normal").setFontSize(10);
-        // KORREKTUR 1: Die Y-Position des Namens wird um 1px erhöht (von 5.5 auf 6.5).
         const textY = (label === "Name") ? y + 6.5 : y + 5.5;
         doc.text(value || '', x + 1, textY, { maxWidth: width - 2, lineHeightFactor: 1.15 });
         doc.setDrawColor(0).line(x, y + height + 1, x + width, y + height + 1);
@@ -523,7 +596,7 @@ async function generateRetourenscheinPDF() {
     };
 
     // --- 1. Header ---
-    let y = page_margin -5;
+    let y = page_margin;
     const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png';
     let logoHeight = 15;
     try {
@@ -552,7 +625,6 @@ async function generateRetourenscheinPDF() {
     const firma = inputs.firma.value ? `${inputs.firma.value}\n` : '';
     const nameValue = `${firma}${inputs.name.value}`;
     drawTextField(page_margin + 5, kundenBoxY + 5, "Firma", inputs.firma.value, 85, 12); 
-// NEU: Ansprechpartner rechts daneben
     drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Ansprechpartner", inputs.name.value);
     drawTextField(page_width / 2 + 5, kundenBoxY + 20.5, "Datum", today);
     const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" ? retourenInputs.bearbeiterManuell.value : retourenInputs.bearbeiter.value;
@@ -568,8 +640,7 @@ async function generateRetourenscheinPDF() {
     // --- 3. Artikeltabelle ---
     y += 3;
     doc.setFontSize(9).setFont("helvetica", "bold").text("Bitte beachten Sie, dass die Ware ordnungsgemäß sowie transportgerecht zur Abholung verpackt werden muss!", page_margin + 2, y + 5);
-    y += 7;
-    // KORREKTUR 2: Die Startposition der Tabelle wird um 2px nach oben verschoben.
+    y += 5; // Artikel um 2px nach oben
     const tableStartY = y;
     const rowHeight = 10, maxRows = 5, tableHeaderHeight = 7;
     const tableBodyHeight = maxRows * rowHeight;
@@ -584,19 +655,17 @@ async function generateRetourenscheinPDF() {
         doc.setFillColor(...fieldBackgroundColor).rect(page_margin + 1, rowY + 1, content_width - 2, rowHeight - 1, 'F');
         const item = (window.merklisteItems || [])[i];
         if (item) {
-            const menge = (document.getElementById(`menge_${i}`) || document.getElementById(`menge_mobile_${i}`))?.value || item.menge || 1;
+            const menge = document.getElementById(`menge_${i}`)?.value || item.menge || 1;
             let grund = '';
-            const grundDesktopElement = document.getElementById(`grund_${i}`);
-            const grundMobileElement = document.getElementById(`grund_mobile_${i}`);
-            if (grundMobileElement && window.getComputedStyle(grundMobileElement.parentElement.parentElement.parentElement).display !== 'none') {
-                grund = grundMobileElement.value;
-            } else if (grundDesktopElement) {
-                grund = grundDesktopElement.value;
+            const grundElement = document.getElementById(`grund_${i}`);
+            if (grundElement) {
+                grund = grundElement.value;
+            } else if (item.grund) {
+                grund = item.grund;
             }
             doc.setFont("helvetica", "normal").setFontSize(9);
             doc.text(menge.toString(), page_margin + 3, rowY + 5);
-            // KORREKTUR 3: Die maximale Breite für den Artikelnamen wird explizit gesetzt, um Überlaufen zu verhindern.
-            doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 5, { maxWidth: 75 }); // 78 -> 75 für mehr Puffer
+            doc.text(item.name || item.bezeichnung || '', page_margin + 25, rowY + 5, { maxWidth: 75 });
             doc.text(item.nummer || item.artikelnummer || '', page_margin + 105, rowY + 5, { maxWidth: 43 });
             doc.text(grund, page_margin + 150, rowY + 5, { maxWidth: 30 });
         }
@@ -614,7 +683,6 @@ async function generateRetourenscheinPDF() {
     const internBoxY = y;
     const internBoxHeight = 29;
     doc.rect(page_margin, internBoxY, content_width, internBoxHeight);
-    // KORREKTUR 4: Die Felder in diesem Block werden nun mit hellblauem Hintergrund gezeichnet.
     drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", "", 85, 6, true);
     drawTextField(page_margin + 5, internBoxY + 12.5, "Auftragsnummer", "", 85, 6, true);
     drawTextField(page_margin + 5, internBoxY + 22, "Reklamationsnummer", "", 85, 6, true);
@@ -650,8 +718,7 @@ async function generateRetourenscheinPDF() {
 
     if (retourenInputs.checkWeiterleitung.checked) {
         doc.setFont("helvetica", "bold").text('X', page_width / 2 + 6, y + 12.5);
-        // KORREKTUR 5: Die X-Position des Namens wird um 15px nach rechts verschoben (35 -> 50).
-        doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.weiterleitungAnName.value, page_width / 2 + 40, y + 12.5, { maxWidth: 35 });
+        doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.weiterleitungAnName.value, page_width / 2 + 55, y + 12.5, { maxWidth: 35 });
     }
     drawCheckBox(page_width / 2 + 5, y + 9, "Weiterleitung an");
     
