@@ -113,14 +113,15 @@
     </div>
   </section>
 
-  <!-- Manueller Artikel-Eingabebereich (wird nur angezeigt, wenn keine Artikel vorhanden sind) -->
-  <section id="manuelleArtikelSection" class="search-container" style="display: none;">
+  <!-- Manueller Artikel-Eingabebereich (IMMER SICHTBAR) -->
+  <section id="manuelleArtikelSection" class="search-container">
     <h3>Artikel manuell hinzufügen</h3>
     <div id="manuelleArtikelContainer">
       <!-- Wird dynamisch mit JavaScript gefüllt -->
     </div>
     <div class="button-container">
-      <button type="button" id="artikelHinzufuegenBtn" class="btn btn-primary">Artikel hinzufügen</button>
+      <button type="button" id="weiterenartikelBtn" class="btn btn-secondary">+ Weiteren Artikel hinzufügen</button>
+      <button type="button" id="artikelHinzufuegenBtn" class="btn btn-primary">Artikel zur Liste hinzufügen</button>
     </div>
   </section>
 
@@ -190,6 +191,9 @@
 
     // Variable, um die geladenen Kundendaten zu speichern
     let kunden = [];
+    
+    // Zähler für dynamische manuelle Artikel
+    let manuelleArtikelCounter = 0;
 
     // CSV-Datei laden und verarbeiten
     fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv" )
@@ -343,13 +347,9 @@
           localStorage.removeItem('merklisteForRetourenschein');
           
           console.log('Merkliste erfolgreich geladen:', merkliste.length, 'Artikel');
-        } else {
-          // Keine Merkliste vorhanden, manuelle Eingabe anzeigen
-          showManuelleArtikelEingabe();
         }
       } catch (error) {
         console.error('Fehler beim Laden der Merkliste:', error);
-        showManuelleArtikelEingabe();
       }
     }
 
@@ -375,13 +375,9 @@
     // Merkliste-Artikel anzeigen (falls vorhanden) - VERBESSERTE VERSION
     function updateArtikelListe() {
       const artikelInhalt = document.getElementById("artikelInhalt");
-      const manuelleArtikelSection = document.getElementById("manuelleArtikelSection");
       
       // Prüfen, ob window.merklisteItems existiert und Artikel vorhanden sind
       if (window.merklisteItems && window.merklisteItems.length > 0) {
-        // Manuelle Eingabe verstecken, wenn Artikel vorhanden sind
-        manuelleArtikelSection.style.display = 'none';
-        
         // Artikel-Karten erstellen (neues Design)
         let cardsHtml = '<div class="artikel-karten-container">';
         
@@ -440,61 +436,101 @@
         });
 
       } else {
-        // Keine Artikel vorhanden, manuelle Eingabe anzeigen
+        // Keine Artikel vorhanden
         artikelInhalt.innerHTML = '<div class="empty-state">Keine Artikel in der Merkliste gefunden. Sie können unten manuell Artikel hinzufügen.</div>';
-        showManuelleArtikelEingabe();
       }
     }
 
-    // NEU: Manuelle Artikel-Eingabe anzeigen
-    function showManuelleArtikelEingabe() {
-      const manuelleArtikelSection = document.getElementById("manuelleArtikelSection");
+    // NEU: Einzelnes manuelles Eingabefeld erstellen
+    function createManuelleArtikelField(index) {
+      return `
+        <div class="manueller-artikel" id="manuellerArtikel_${index}">
+          <div class="artikel-header">
+            <h4>Artikel ${index + 1}</h4>
+            ${index > 0 ? `<button type="button" class="remove-artikel-btn" onclick="removeManuelleArtikelField(${index})">✕</button>` : ''}
+          </div>
+          <div class="artikel-eingabe-grid">
+            <div class="eingabe-feld">
+              <label for="manuellerName_${index}">Artikelname:</label>
+              <input type="text" id="manuellerName_${index}" placeholder="Artikelname eingeben">
+            </div>
+            <div class="eingabe-feld">
+              <label for="manuelleNummer_${index}">Artikelnummer:</label>
+              <input type="text" id="manuelleNummer_${index}" placeholder="Artikelnummer eingeben">
+            </div>
+            <div class="eingabe-feld">
+              <label for="manuelleMenge_${index}">Stückzahl:</label>
+              <input type="number" id="manuelleMenge_${index}" min="1" value="1">
+            </div>
+            <div class="eingabe-feld">
+              <label for="manuellerGrund_${index}">Rückgabegrund:</label>
+              <select id="manuellerGrund_${index}" class="artikel-grund">
+                <option value="">-- Grund auswählen --</option>
+                <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
+                <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
+                <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
+                <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
+                <option value="Doppelt bestellt">Doppelt bestellt</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // NEU: Manuelle Artikel-Eingabe initialisieren (immer sichtbar)
+    function initManuelleArtikelEingabe() {
       const manuelleArtikelContainer = document.getElementById("manuelleArtikelContainer");
       
-      manuelleArtikelSection.style.display = 'block';
+      // Erstes Eingabefeld erstellen
+      manuelleArtikelCounter = 1;
+      manuelleArtikelContainer.innerHTML = createManuelleArtikelField(0);
       
-      // Bis zu 5 Eingabefelder für manuelle Artikel erstellen
-      let manuelleHtml = '';
-      for (let i = 0; i < 5; i++) {
-        manuelleHtml += `
-          <div class="manueller-artikel" id="manuellerArtikel_${i}">
-            <h4>Artikel ${i + 1}</h4>
-            <div class="artikel-eingabe-grid">
-              <div class="eingabe-feld">
-                <label for="manuellerName_${i}">Artikelname:</label>
-                <input type="text" id="manuellerName_${i}" placeholder="Artikelname eingeben">
-              </div>
-              <div class="eingabe-feld">
-                <label for="manuelleNummer_${i}">Artikelnummer:</label>
-                <input type="text" id="manuelleNummer_${i}" placeholder="Artikelnummer eingeben">
-              </div>
-              <div class="eingabe-feld">
-                <label for="manuelleMenge_${i}">Stückzahl:</label>
-                <input type="number" id="manuelleMenge_${i}" min="1" value="1">
-              </div>
-              <div class="eingabe-feld">
-                <label for="manuellerGrund_${i}">Rückgabegrund:</label>
-                <select id="manuellerGrund_${i}" class="artikel-grund">
-                  <option value="">-- Grund auswählen --</option>
-                  <option value="Artikel passt nicht / falsche Größe">Artikel passt nicht / falsche Größe</option>
-                  <option value="Artikel gefällt nicht">Artikel gefällt nicht</option>
-                  <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
-                  <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
-                  <option value="Doppelt bestellt">Doppelt bestellt</option>
-                  <option value="Sonstiges">Sonstiges</option>
-                </select>
-              </div>
-            </div>
-          </div>`;
-      }
-      
-      manuelleArtikelContainer.innerHTML = manuelleHtml;
-      
-      // Select2 auf die manuellen Dropdowns anwenden
-      $('.artikel-grund').select2({
+      // Select2 auf das erste Dropdown anwenden
+      $(`#manuellerGrund_0`).select2({
           placeholder: "-- Grund auswählen --",
           allowClear: true,
           minimumResultsForSearch: Infinity
+      });
+    }
+
+    // NEU: Weiteres manuelles Eingabefeld hinzufügen
+    function addManuelleArtikelField() {
+      const manuelleArtikelContainer = document.getElementById("manuelleArtikelContainer");
+      
+      // Neues Feld hinzufügen
+      const newFieldHtml = createManuelleArtikelField(manuelleArtikelCounter);
+      manuelleArtikelContainer.insertAdjacentHTML('beforeend', newFieldHtml);
+      
+      // Select2 auf das neue Dropdown anwenden
+      $(`#manuellerGrund_${manuelleArtikelCounter}`).select2({
+          placeholder: "-- Grund auswählen --",
+          allowClear: true,
+          minimumResultsForSearch: Infinity
+      });
+      
+      manuelleArtikelCounter++;
+    }
+
+    // NEU: Manuelles Eingabefeld entfernen
+    function removeManuelleArtikelField(index) {
+      const fieldToRemove = document.getElementById(`manuellerArtikel_${index}`);
+      if (fieldToRemove) {
+        fieldToRemove.remove();
+        
+        // Nummerierung der verbleibenden Felder aktualisieren
+        updateManuelleArtikelNummering();
+      }
+    }
+
+    // NEU: Nummerierung der manuellen Artikel aktualisieren
+    function updateManuelleArtikelNummering() {
+      const manuelleArtikel = document.querySelectorAll('.manueller-artikel');
+      manuelleArtikel.forEach((artikel, index) => {
+        const header = artikel.querySelector('h4');
+        if (header) {
+          header.textContent = `Artikel ${index + 1}`;
+        }
       });
     }
 
@@ -505,39 +541,54 @@
       }
       
       let hinzugefuegt = 0;
+      const manuelleArtikel = document.querySelectorAll('.manueller-artikel');
       
-      for (let i = 0; i < 5; i++) {
-        const name = document.getElementById(`manuellerName_${i}`).value.trim();
-        const nummer = document.getElementById(`manuelleNummer_${i}`).value.trim();
-        const menge = parseInt(document.getElementById(`manuelleMenge_${i}`).value) || 1;
-        const grund = document.getElementById(`manuellerGrund_${i}`).value;
+      manuelleArtikel.forEach((artikel, index) => {
+        const nameInput = artikel.querySelector(`input[id*="manuellerName"]`);
+        const nummerInput = artikel.querySelector(`input[id*="manuelleNummer"]`);
+        const mengeInput = artikel.querySelector(`input[id*="manuelleMenge"]`);
+        const grundSelect = artikel.querySelector(`select[id*="manuellerGrund"]`);
         
-        // Nur hinzufügen, wenn mindestens Name oder Nummer ausgefüllt ist
-        if (name || nummer) {
-          const neuerArtikel = {
-            name: name || 'Manuell hinzugefügter Artikel',
-            nummer: nummer || 'N/A',
-            bezeichnung: name || 'Manuell hinzugefügter Artikel',
-            artikelnummer: nummer || 'N/A',
-            menge: menge,
-            preis: '0,00 €',
-            grund: grund
-          };
+        if (nameInput && nummerInput && mengeInput && grundSelect) {
+          const name = nameInput.value.trim();
+          const nummer = nummerInput.value.trim();
+          const menge = parseInt(mengeInput.value) || 1;
+          const grund = grundSelect.value;
           
-          window.merklisteItems.push(neuerArtikel);
-          hinzugefuegt++;
+          // Nur hinzufügen, wenn mindestens Name oder Nummer ausgefüllt ist
+          if (name || nummer) {
+            const neuerArtikel = {
+              name: name || 'Manuell hinzugefügter Artikel',
+              nummer: nummer || 'N/A',
+              bezeichnung: name || 'Manuell hinzugefügter Artikel',
+              artikelnummer: nummer || 'N/A',
+              menge: menge,
+              preis: '0,00 €',
+              grund: grund
+            };
+            
+            window.merklisteItems.push(neuerArtikel);
+            hinzugefuegt++;
+            
+            // Felder nach dem Hinzufügen leeren
+            nameInput.value = '';
+            nummerInput.value = '';
+            mengeInput.value = '1';
+            $(grundSelect).val('').trigger('change');
+          }
         }
-      }
+      });
       
       if (hinzugefuegt > 0) {
         updateArtikelListe();
-        alert(`${hinzugefuegt} Artikel wurden hinzugefügt.`);
+        alert(`${hinzugefuegt} Artikel wurden zur Liste hinzugefügt.`);
       } else {
         alert('Bitte füllen Sie mindestens den Namen oder die Artikelnummer für einen Artikel aus.');
       }
     }
 
-    // Event-Listener für den "Artikel hinzufügen"-Button
+    // Event-Listener für die Buttons
+    document.getElementById('weiterenartikelBtn').addEventListener('click', addManuelleArtikelField);
     document.getElementById('artikelHinzufuegenBtn').addEventListener('click', addManuelleArtikel);
 
     // Heutiges Datum setzen
@@ -546,6 +597,7 @@
     // Initialisierung
     document.addEventListener('DOMContentLoaded', function() {
       initializeDatePicker();
+      initManuelleArtikelEingabe(); // Manuelle Eingabe initialisieren
       ladeMerklisteAusLocalStorage(); // Merkliste aus localStorage laden
     });
 
