@@ -34,7 +34,8 @@ body {
 }
 
 .header-date {
-  font-size: 0.9rem;
+  color:white;
+  font-size: 1rem;
   opacity: 0.8;
 }
 
@@ -350,7 +351,7 @@ button:hover {
   border-left: 4px solid #00a1e1;
 }
 
-/* ========== MANUELLE ARTIKEL-EINGABE ========== */
+/* ========== MANUELLE ARTIKEL-EINGABE (IMMER SICHTBAR) ========== */
 #manuelleArtikelSection {
   display: flex;
   flex-direction: column;
@@ -378,12 +379,42 @@ button:hover {
   border-left: 4px solid #00a1e1;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
-.manueller-artikel h4 {
-  margin: 0 0 15px 0;
+.artikel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.artikel-header h4 {
+  margin: 0;
   color: #333;
   font-size: 1.1rem;
+}
+
+.remove-artikel-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.remove-artikel-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
 }
 
 .artikel-eingabe-grid {
@@ -448,6 +479,16 @@ button:hover {
   background: linear-gradient(135deg, #0077b6, #005577);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 161, 225, 0.3);
+}
+
+.btn-secondary {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.btn-secondary:hover {
+  background: #dee2e6;
+  transform: translateY(-1px);
 }
 
 /* ========== RESPONSIVE ANPASSUNGEN FÜR MOBILGERÄTE ========== */
@@ -542,6 +583,11 @@ button:hover {
     .btn {
         width: 100%;
         min-width: auto;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
     }
 }
 
