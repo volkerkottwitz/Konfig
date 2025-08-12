@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interne Angebotsanforderung</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="interneAnfrage.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <!-- PapaParse-Bibliothek für die CSV-Verarbeitung -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  
+  <!-- jQuery (wird von Select2 benötigt ) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Select2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</head>
+<body>
+  <header id="header">
+    <div class="header-left">
+      <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="Firmenlogo">
+    </div>
+    <div class="header-content">
+      <h1>Interne Anfrage</h1>
+      <div class="header-date" id="heute"></div>
+    </div>
+    <div class="header-right">
+      <div class="buttons">
+        <button onclick="generateAngebotsanfragePDF()">PDF-Anfrage erzeugen</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Kundenauswahl -->
+  <section class="search-container">
+    <select id="kundenDropdown">
+      <option value="">-- Kunde auswählen --</option>
+      <!-- Kundenoptionen werden dynamisch per JavaScript geladen -->
+    </select>
+  </section>
+
+  <!-- Kundendaten -->
+  <section id="kundenDetails" class="search-container">
+    <input type="text" id="name" placeholder="Name">
+    <input type="text" id="firma" placeholder="Firma">
+    <input type="text" id="strasse" placeholder="Straße">
+    <input type="text" id="plz" placeholder="PLZ">
+    <input type="text" id="ort" placeholder="Ort">
+    <input type="text" id="land" placeholder="Land">
+    <input type="text" id="email" placeholder="E-Mail">
+    <input type="text" id="telefon" placeholder="Telefon">
+  </section>
+
+  <!-- Artikel aus Merkliste (wird dynamisch gefüllt) -->
+  <section id="artikelListe" class="search-container">
+    <h3>Artikel für das Angebot</h3>
+    <div id="artikelInhalt">
+      <p>Keine Artikel in der Merkliste gefunden. Bitte verwenden Sie den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>
+    </div>
+  </section>
+
+  <!-- Manueller Artikel-Eingabebereich (IMMER SICHTBAR) -->
+  <section id="manuelleArtikelSection" class="search-container">
+    <h3>Artikel manuell hinzufügen</h3>
+    <div id="manuelleArtikelContainer">
+      <!-- Wird dynamisch mit JavaScript gefüllt -->
+    </div>
+    <div class="button-container">
+      <button type="button" id="weiterenartikelBtn" class="btn btn-secondary">+ Weiteren Artikel hinzufügen</button>
+      <button type="button" id="artikelHinzufuegenBtn" class="btn btn-primary">Artikel zur Liste hinzufügen</button>
+    </div>
+  </section>
+
+  <!-- NEU: Briefing-Felder -->
+  <section id="briefingSection" class="search-container">
+    <h3>Briefing für den Innendienst</h3>
+    <div class="briefing-grid">
+      <div class="briefing-field">
+        <label for="hintergrund">Hintergrund:</label>
+        <textarea id="hintergrund" placeholder="Kontext des Kundengesprächs, z.B. warum der Kunde dieses Angebot benötigt..."></textarea>
+      </div>
+      <div class="briefing-field">
+        <label for="fokus">Fokus im Angebot:</label>
+        <textarea id="fokus" placeholder="Was soll im Angebot besonders hervorgehoben werden? (z.B. Energieeffizienz, Wartungsarmut)..."></textarea>
+      </div>
+      <div class="briefing-field">
+        <label for="preisgestaltung">Preisgestaltung:</label>
+        <textarea id="preisgestaltung" placeholder="Vereinbarte Rabatte, Sonderkonditionen, kostenlose Zugaben..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Referenzen auf die HTML-Elemente
+    const dropdown = document.getElementById("kundenDropdown");
+    const inputs = {
+      name: document.getElementById("name"),
+      firma: document.getElementById("firma"),
+      telefon: document.getElementById("telefon"),
+      email: document.getElementById("email"),
+      strasse: document.getElementById("strasse"),
+      ort: document.getElementById("ort"),
+      plz: document.getElementById("plz"),
+      land: document.getElementById("land")
+    };
+
+    // Neue Briefing-Felder
+    const briefingInputs = {
+      hintergrund: document.getElementById("hintergrund"),
+      fokus: document.getElementById("fokus"),
+      preisgestaltung: document.getElementById("preisgestaltung")
+    };
+
+    // Variable, um die geladenen Kundendaten zu speichern
+    let kunden = [];
+    
+    // Zähler für dynamische manuelle Artikel
+    let manuelleArtikelCounter = 0;
+
+    // CSV-Datei laden und verarbeiten
+    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv" )
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Netzwerkantwort war nicht in Ordnung.");
+        }
+        return response.text();
+      })
+      .then(csvText => {
+        // PapaParse verwenden, um den CSV-Text zu parsen
+        const results = Papa.parse(csvText, {
+          header: true,          // Die erste Zeile als Spaltenüberschrift verwenden
+          skipEmptyLines: true,  // Leere Zeilen überspringen
+          bom: true              // Das BOM-Zeichen am Dateianfang ignorieren (wichtig!)
+        });
+        kunden = results.data;
+
+        // Das Dropdown-Menü mit den geladenen Daten füllen
+        kunden.forEach((kunde, index) => {
+          // Label erstellen: "Name – Firma" oder nur "Firma", wenn kein Name vorhanden ist
+          const label = kunde.Name ? `${kunde.Name.trim()} – ${kunde.Firma.trim()}` : kunde.Firma.trim();
+          const opt = document.createElement("option");
+          opt.value = index; // Den Array-Index als Wert verwenden
+          opt.textContent = label;
+          dropdown.appendChild(opt);
+        });
+
+        // Option für manuelle Eingabe am Ende hinzufügen
+        const manualOpt = document.createElement("option");
+        manualOpt.value = "manuell";
+        manualOpt.textContent = "-- Manuelle Eingabe --";
+        dropdown.appendChild(manualOpt);
+
+        // Select2 initialisieren
+        $(document).ready(function() {
+            $("#kundenDropdown").select2({
+                placeholder: "-- Kunde auswählen --",
+                allowClear: true
+            });
+        });
+      })
+      .catch(error => {
+        console.error("Fehler beim Laden oder Verarbeiten der CSV-Datei:", error);
+        // Fallback, falls das Laden fehlschlägt
+        const manualOpt = document.createElement("option");
+        manualOpt.value = "manuell";
+        manualOpt.textContent = "-- Manuelle Eingabe (Fehler beim Laden der Kundenliste) --";
+        dropdown.appendChild(manualOpt);
+      });
+
+    // Event-Listener für das Kunden-Dropdown-Menü
+    $("#kundenDropdown").on("change", function () {
+      const selectedIndex = this.value;
+
+      // Felder leeren bei "Kunde auswählen" oder "Manuelle Eingabe"
+      if (selectedIndex === "" || selectedIndex === "manuell") {
+        Object.values(inputs).forEach(input => (input.value = ""));
+        return;
+      }
+
+      // Den ausgewählten Kunden aus dem Array holen
+      const kunde = kunden[selectedIndex];
+      if (!kunde) return;
+
+      // Die Adresse in ihre Bestandteile aufteilen
+      const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+      
+      // Die Formularfelder mit den Kundendaten füllen
+      inputs.name.value = kunde.Name || "";
+      inputs.firma.value = kunde.Firma || "";
+      inputs.telefon.value = kunde.Telefon || "";
+      inputs.email.value = kunde["E-Mail"] || ""; // Zugriff mit Klammern wegen des Bindestrichs
+      inputs.strasse.value = adresseTeile[0] || "";
+      inputs.ort.value = adresseTeile[1] || "";
+      inputs.plz.value = adresseTeile[2] || "";
+      inputs.land.value = adresseTeile[3] || "";
+    });
+
+    // Merkliste aus localStorage laden
+    function ladeMerklisteAusLocalStorage() {
+      try {
+        const merklisteData = localStorage.getItem("merklisteForRetourenschein");
+        if (merklisteData) {
+          const merkliste = JSON.parse(merklisteData);
+          
+          // Merkliste als globale Variable setzen
+          window.merklisteItems = merkliste.map(item => ({
+            nummer: item.nummer || item.artikelnummer || "",
+            name: item.name || item.bezeichnung || "Unbekannter Artikel",
+            bezeichnung: item.name || item.bezeichnung || "Unbekannter Artikel",
+            artikelnummer: item.nummer || item.artikelnummer || "",
+            menge: item.menge || 1,
+            preis: item.preis || "0,00 €"
+          }));
+          
+          // Artikel-Liste sofort aktualisieren
+          updateArtikelListe();
+          
+          // LocalStorage nach dem Laden löschen (optional)
+          localStorage.removeItem("merklisteForRetourenschein");
+          
+          console.log("Merkliste erfolgreich geladen:", merkliste.length, "Artikel");
+        }
+      } catch (error) {
+        console.error("Fehler beim Laden der Merkliste:", error);
+      }
+    }
+
+    // Funktion zum Entfernen eines Artikels
+    function removeArtikel(index) {
+      if (confirm("Möchten Sie diesen Artikel wirklich entfernen?")) {
+        window.merklisteItems.splice(index, 1);
+        updateArtikelListe();
+      }
+    }
+
+    // Merkliste-Artikel anzeigen (falls vorhanden) - VERBESSERTE VERSION
+    function updateArtikelListe() {
+      const artikelInhalt = document.getElementById("artikelInhalt");
+      
+      // Prüfen, ob window.merklisteItems existiert und Artikel vorhanden sind
+      if (window.merklisteItems && window.merklisteItems.length > 0) {
+        // Artikel-Karten erstellen (neues Design)
+        let cardsHtml = "<div class=\"artikel-karten-container\">";
+        
+        window.merklisteItems.forEach((artikel, index) => {
+          cardsHtml += `
+            <div class=\"artikel-karte\">
+              <div class=\"artikel-info\">
+                <div class=\"artikel-name\">${artikel.name || artikel.bezeichnung || "Unbekannter Artikel"}</div>
+                <div class=\"artikel-details\">
+                  <p><strong>Artikelnummer:</strong> ${artikel.nummer || artikel.artikelnummer || "N/A"}</p>
+                  <p><strong>Menge:</strong> <input type=\"number\" value=\"${artikel.menge}\" min=\"1\" onchange=\"window.merklisteItems[${index}].menge = parseInt(this.value)\"></p>
+                  <p><strong>Preis:</strong> ${artikel.preis}</p>
+                </div>
+              </div>
+              <div class=\"artikel-aktionen\">
+                <div class=\"grund-steuerung\">
+                  <label for=\"grund-${index}\">Spezifikation / Notiz:</label>
+                  <textarea id=\"grund-${index}\" class=\"artikel-grund\" placeholder=\"Zusätzliche Spezifikationen oder Notizen\" onchange=\"window.merklisteItems[${index}].spezifikation = this.value\"></textarea>
+                </div>
+                <button class=\"entfernen-btn\" onclick=\"removeArtikel(${index})\">Artikel entfernen</button>
+              </div>
+            </div>
+          `;
+        });
+        cardsHtml += "</div>";
+        artikelInhalt.innerHTML = cardsHtml;
+      } else {
+        artikelInhalt.innerHTML = "<p>Keine Artikel in der Merkliste gefunden. Bitte verwenden Sie den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>";
+      }
+    }
+
+    // Manuelle Artikel-Eingabe
+    function addManuelleArtikelSection() {
+      const container = document.getElementById("manuelleArtikelContainer");
+      const newIndex = manuelleArtikelCounter++;
+      const html = `
+        <div class=\"manueller-artikel\" id=\"manuellerArtikel-${newIndex}\">
+          <div class=\"artikel-header\">
+            <h4>Manueller Artikel ${newIndex + 1}</h4>
+            <button type=\"button\" class=\"remove-artikel-btn\" onclick=\"removeManuelleArtikel(${newIndex})\">&times;</button>
+          </div>
+          <div class=\"artikel-eingabe-grid\">
+            <div class=\"eingabe-feld\">
+              <label for=\"manuellArtikelNummer-${newIndex}\">Artikelnummer:</label>
+              <input type=\"text\" id=\"manuellArtikelNummer-${newIndex}\" placeholder=\"Artikelnummer\">
+            </div>
+            <div class=\"eingabe-feld\">
+              <label for=\"manuellArtikelName-${newIndex}\">Bezeichnung:</label>
+              <input type=\"text\" id=\"manuellArtikelName-${newIndex}\" placeholder=\"Bezeichnung\">
+            </div>
+            <div class=\"eingabe-feld\">
+              <label for=\"manuellArtikelMenge-${newIndex}\">Menge:</label>
+              <input type=\"number\" id=\"manuellArtikelMenge-${newIndex}\" value=\"1\" min=\"1\">
+            </div>
+            <div class=\"eingabe-feld\">
+              <label for=\"manuellArtikelSpezifikation-${newIndex}\">Spezifikation / Notiz:</label>
+              <textarea id=\"manuellArtikelSpezifikation-${newIndex}\" placeholder=\"Zusätzliche Spezifikationen oder Notizen\"></textarea>
+            </div>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML("beforeend", html);
+    }
+
+    function removeManuelleArtikel(index) {
+      if (confirm("Möchten Sie diesen manuellen Artikel wirklich entfernen?")) {
+        const element = document.getElementById(`manuellerArtikel-${index}`);
+        if (element) {
+          element.remove();
+        }
+      }
+    }
+
+    document.getElementById("weiterenartikelBtn").addEventListener("click", addManuelleArtikelSection);
+
+    document.getElementById("artikelHinzufuegenBtn").addEventListener("click", function() {
+      const manuelleArtikel = [];
+      for (let i = 0; i < manuelleArtikelCounter; i++) {
+        const artikelElement = document.getElementById(`manuellerArtikel-${i}`);
+        if (artikelElement) { // Prüfen, ob das Element noch existiert (nicht entfernt wurde)
+          const nummer = document.getElementById(`manuellArtikelNummer-${i}`).value;
+          const name = document.getElementById(`manuellArtikelName-${i}`).value;
+          const menge = parseInt(document.getElementById(`manuellArtikelMenge-${i}`).value);
+          const spezifikation = document.getElementById(`manuellArtikelSpezifikation-${i}`).value;
+
+          if (name && menge > 0) { // Nur hinzufügen, wenn Bezeichnung und Menge vorhanden sind
+            manuelleArtikel.push({
+              nummer: nummer,
+              name: name,
+              menge: menge,
+              spezifikation: spezifikation
+            });
+          }
+        }
+      }
+
+      if (manuelleArtikel.length > 0) {
+        if (!window.merklisteItems) {
+          window.merklisteItems = [];
+        }
+        window.merklisteItems = window.merklisteItems.concat(manuelleArtikel);
+        updateArtikelListe();
+
+        // Manuelle Eingabefelder leeren und zurücksetzen
+        document.getElementById("manuelleArtikelContainer").innerHTML = "";
+        manuelleArtikelCounter = 0;
+        addManuelleArtikelSection(); // Ein leeres Feld für die nächste Eingabe bereitstellen
+      } else {
+        alert("Bitte geben Sie mindestens einen manuellen Artikel mit Bezeichnung und Menge ein.");
+      }
+    });
+
+    // Datum im Header anzeigen
+    function displayCurrentDate() {
+      const today = new Date();
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("heute").textContent = today.toLocaleDateString("de-DE", options);
+    }
+
+    // Initialisierungen beim Laden der Seite
+    document.addEventListener("DOMContentLoaded", function() {
+      displayCurrentDate();
+      ladeMerklisteAusLocalStorage();
+      addManuelleArtikelSection(); // Ein leeres Feld für die erste manuelle Eingabe
+    });
+
+    // PDF Generierung - Professionelle Implementierung
+    async function generateAngebotsanfragePDF() {
+      try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Firmenlogo laden (falls verfügbar)
+        const logoUrl = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
+        let logoImg = null;
+        try {
+          logoImg = await loadImageAsBase64(logoUrl);
+        } catch (error) {
+          console.warn("Logo konnte nicht geladen werden:", error);
+        }
+        
+        // Seitenränder und Positionen definieren
+        const margin = 20;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        let yPosition = margin;
+        
+        // Header mit Logo und Datum
+        if (logoImg) {
+          doc.addImage(logoImg, "PNG", margin, yPosition, 40, 20);
+        }
+        
+        // Aktuelles Datum rechts oben
+        const heute = new Date();
+        const datumString = heute.toLocaleDateString("de-DE", { 
+          year: "numeric", 
+          month: "long", 
+          day: "numeric" 
+        });
+        doc.setFontSize(10);
+        doc.setTextColor(100, 100, 100);
+        doc.text(datumString, pageWidth - margin, yPosition + 10, { align: "right" });
+        
+        yPosition += 40;
+        
+        // Haupttitel
+        doc.setFontSize(20);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont("helvetica", "bold");
+        doc.text("INTERNE ANGEBOTSANFORDERUNG", pageWidth / 2, yPosition, { align: "center" });
+        
+        yPosition += 20;
+        
+        // Kundendaten-Sektion
+        doc.setFontSize(14);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(0, 161, 225); // Firmenfarbe
+        doc.text("KUNDENDATEN", margin, yPosition);
+        
+        yPosition += 10;
+        
+        // Kundendaten sammeln
+        const kundenDaten = {
+          firma: inputs.firma.value || "Nicht angegeben",
+          name: inputs.name.value || "Nicht angegeben",
+          strasse: inputs.strasse.value || "Nicht angegeben",
+          plz: inputs.plz.value || "",
+          ort: inputs.ort.value || "",
+          email: inputs.email.value || "Nicht angegeben",
+          telefon: inputs.telefon.value || "Nicht angegeben"
+        };
+        
+        // Adresse zusammensetzen
+        const adresse = `${kundenDaten.strasse}, ${kundenDaten.plz} ${kundenDaten.ort}`.trim();
+        
+        // Kundendaten-Tabelle
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(0, 0, 0);
+        
+        const kundenInfos = [
+          ["Firma:", kundenDaten.firma],
+          ["Ansprechpartner:", kundenDaten.name],
+          ["Adresse:", adresse || "Nicht angegeben"],
+          ["E-Mail:", kundenDaten.email],
+          ["Telefon:", kundenDaten.telefon]
+        ];
+        
+        kundenInfos.forEach(([label, value]) => {
+          doc.setFont("helvetica", "bold");
+          doc.text(label, margin, yPosition);
+          doc.setFont("helvetica", "normal");
+          doc.text(value, margin + 35, yPosition);
+          yPosition += 6;
+        });
+        
+        yPosition += 10;
+        
+        // Briefing-Sektion
+        doc.setFontSize(14);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(0, 161, 225);
+        doc.text("BRIEFING FÜR DEN INNENDIENST", margin, yPosition);
+        
+        yPosition += 10;
+        
+        // Briefing-Daten sammeln
+        const briefingDaten = {
+          hintergrund: briefingInputs.hintergrund.value || "Nicht angegeben",
+          fokus: briefingInputs.fokus.value || "Nicht angegeben",
+          preisgestaltung: briefingInputs.preisgestaltung.value || "Nicht angegeben"
+        };
+        
+        // Briefing-Felder
+        const briefingFelder = [
+          ["Hintergrund:", briefingDaten.hintergrund],
+          ["Fokus im Angebot:", briefingDaten.fokus],
+          ["Preisgestaltung:", briefingDaten.preisgestaltung]
+        ];
+        
+        doc.setFontSize(10);
+        briefingFelder.forEach(([label, value]) => {
+          doc.setFont("helvetica", "bold");
+          doc.text(label, margin, yPosition);
+          yPosition += 6;
+          
+          doc.setFont("helvetica", "normal");
+          const splitText = doc.splitTextToSize(value, pageWidth - 2 * margin);
+          doc.text(splitText, margin, yPosition);
+          yPosition += splitText.length * 4 + 6;
+        });
+        
+        yPosition += 5;
+        
+        // Artikel-Sektion
+        doc.setFontSize(14);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(0, 161, 225);
+        doc.text("ANGEBOTSDETAILS", margin, yPosition);
+        
+        yPosition += 15;
+        
+        // Artikel sammeln
+        const alleArtikel = [];
+        
+        // Artikel aus Merkliste
+        if (window.merklisteItems && window.merklisteItems.length > 0) {
+          window.merklisteItems.forEach(artikel => {
+            alleArtikel.push({
+              nummer: artikel.nummer || artikel.artikelnummer || "N/A",
+              bezeichnung: artikel.name || artikel.bezeichnung || "Unbekannter Artikel",
+              menge: artikel.menge || 1,
+              spezifikation: artikel.spezifikation || "Keine Angabe"
+            });
+          });
+        }
+        
+        // Artikel-Tabelle erstellen
+        if (alleArtikel.length > 0) {
+          // Tabellen-Header
+          doc.setFontSize(9);
+          doc.setFont("helvetica", "bold");
+          doc.setFillColor(240, 240, 240);
+          doc.rect(margin, yPosition, pageWidth - 2 * margin, 8, "F");
+          
+          const colWidths = [25, 60, 15, 60]; // Spaltenbreiten
+          let xPos = margin + 2;
+          
+          doc.text("Pos.", xPos, yPosition + 5);
+          xPos += colWidths[0];
+          doc.text("Artikel-Nr.", xPos, yPosition + 5);
+          xPos += colWidths[1];
+          doc.text("Menge", xPos, yPosition + 5);
+          xPos += colWidths[2];
+          doc.text("Spezifikation / Notiz", xPos, yPosition + 5);
+          
+          yPosition += 12;
+          
+          // Artikel-Zeilen
+          doc.setFont("helvetica", "normal");
+          alleArtikel.forEach((artikel, index) => {
+            // Prüfen ob neue Seite benötigt wird
+            if (yPosition > pageHeight - 40) {
+              doc.addPage();
+              yPosition = margin;
+            }
+            
+            xPos = margin + 2;
+            doc.text((index + 1).toString(), xPos, yPosition);
+            xPos += colWidths[0];
+            
+            const artikelNr = doc.splitTextToSize(artikel.nummer, colWidths[1] - 4);
+            doc.text(artikelNr, xPos, yPosition);
+            xPos += colWidths[1];
+            
+            doc.text(artikel.menge.toString(), xPos, yPosition);
+            xPos += colWidths[2];
+            
+            const spezifikation = doc.splitTextToSize(artikel.spezifikation, colWidths[3] - 4);
+            doc.text(spezifikation, xPos, yPosition);
+            
+            yPosition += Math.max(artikelNr.length, spezifikation.length) * 4 + 4;
+            
+            // Trennlinie
+            doc.setDrawColor(200, 200, 200);
+            doc.line(margin, yPosition, pageWidth - margin, yPosition);
+            yPosition += 2;
+          });
+        } else {
+          doc.setFontSize(10);
+          doc.setFont("helvetica", "italic");
+          doc.text("Keine Artikel angegeben.", margin, yPosition);
+          yPosition += 10;
+        }
+        
+        // Fußzeile mit Kontaktdaten
+        yPosition = pageHeight - 30;
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(100, 100, 100);
+        doc.text("Erstellt von: [Ihr Name] | Außendienstmitarbeiter", margin, yPosition);
+        doc.text("Kontakt: [Ihre Telefonnummer] | [Ihre E-Mail-Adresse]", margin, yPosition + 5);
+        
+        // PDF speichern
+        const kundenName = kundenDaten.firma.replace(/[^a-zA-Z0-9]/g, "-");
+        const datumDatei = heute.toISOString().split("T")[0];
+        const filename = `Angebotsanforderung_${kundenName}_${datumDatei}.pdf`;
+        
+        doc.save(filename);
+        
+        console.log("PDF erfolgreich erstellt:", filename);
+        
+      } catch (error) {
+        console.error("Fehler bei der PDF-Erstellung:", error);
+        alert("Fehler bei der PDF-Erstellung. Bitte überprüfen Sie die Konsole für Details.");
+      }
+    }
+    
+    // Hilfsfunktion zum Laden von Bildern als Base64
+    function loadImageAsBase64(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          const dataURL = canvas.toDataURL("image/png");
+          resolve(dataURL);
+        };
+        img.onerror = reject;
+        img.src = url;
+      });
+    }
+  </script>
+</body>
+</html>
+
+
