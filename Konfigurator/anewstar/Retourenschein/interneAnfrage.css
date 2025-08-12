@@ -1,0 +1,535 @@
+/* ========== BASIS-STILE ========== */
+body {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f9fa; /* Heller Hintergrund für besseren Kontrast */
+    color: #333; /* Dunklerer Text für Lesbarkeit */
+}
+
+/* ========== HEADER-BEREICH ========== */
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Verteilt Logo, Titel und Button */
+  padding: 15px 20px;
+  background-color: #d2d2d4; /* Neutrales Grau */
+  border-bottom: 2px solid #ddd;
+  flex-wrap: wrap; /* Erlaubt Umbruch auf kleinen Bildschirmen */
+  gap: 20px;
+}
+
+#header .header-left img {
+    height: 60px; /* Angepasste Logogröße */
+}
+
+.header-content {
+  text-align: center;
+  flex: 1; /* Nimmt den verfügbaren Platz in der Mitte ein */
+}
+
+.header-content h1 {
+  color:white;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.header-date {
+  color:white;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* ========== BUTTON-STILE ========== */
+button {
+    background-color: #00a1e1; /* Einheitliche Button-Farbe */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #07577f; /* Dunklerer Farbton beim Überfahren */
+}
+
+/* ========== CONTAINER FÜR DROPDOWN & KUNDENDETAILS ========== */
+.search-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Spezifische Stile für das Select2-Dropdown */
+.select2-container {
+    width: 80% !important; /* Wichtig, um die Breite zu steuern */
+    max-width: 500px;
+}
+
+/* Container für die untereinander angeordneten Eingabefelder */
+#kundenDetails {
+  display: flex;
+  flex-direction: column; /* Ordnet die Felder in einer Spalte an */
+  align-items: center;    /* Zentriert die Felder horizontal */
+  gap: 12px;              /* Abstand zwischen den Feldern */
+  padding: 10px 20px 20px 20px; /* Oben weniger Abstand, da schon vom Dropdown vorhanden */
+}
+
+#kundenDetails input {
+  width: 80%;             /* Breite der Eingabefelder */
+  max-width: 500px;       /* Maximale Breite auf großen Bildschirmen */
+  padding: 10px 15px;     /* Innenabstand für bessere Optik */
+  font-size: 16px;        /* Verhindert Auto-Zoom auf iOS-Geräten */
+  border: 1px solid #ced4da;
+  border-radius: 8px;     /* Leicht abgerundete Ecken */
+  transition: all 0.3s ease-in-out;
+}
+
+#kundenDetails input:focus {
+    outline: none;
+    border-color: #00a1e1; /* Hebt das aktive Feld farblich hervor */
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+/* ========== ARTIKEL-LISTE-BEREICH ========== */
+#artikelListe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#artikelListe h3 {
+  margin: 0 0 15px 0;
+  color: #00a1e1;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+#artikelInhalt {
+  width: 100%;
+}
+
+/* ========== NEUE ARTIKEL-KARTEN (INSPIRIERT VON MOBILE MERKLISTE) ========== */
+.artikel-karten-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.artikel-karte {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  border-left: 4px solid #00a1e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.artikel-karte:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.artikel-info {
+  margin-bottom: 15px;
+}
+
+.artikel-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.artikel-details {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.artikel-details p {
+  margin: 4px 0;
+}
+
+.artikel-details strong {
+  color: #333;
+}
+
+.artikel-aktionen {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e1e5e9;
+  align-items: start;
+}
+
+.mengen-steuerung,
+.grund-steuerung {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mengen-steuerung label,
+.grund-steuerung label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.quantity-input {
+  width: 100%;
+  max-width: 120px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.quantity-input:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.15);
+}
+
+.artikel-grund {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.artikel-grund:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.15);
+}
+
+.entfernen-btn {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  justify-self: center;
+  min-width: 140px;
+}
+
+.entfernen-btn:hover {
+  background: linear-gradient(135deg, #c82333, #a71e2a);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  margin: 20px 0;
+  border-left: 4px solid #00a1e1;
+}
+
+/* ========== MANUELLE ARTIKEL-EINGABE (IMMER SICHTBAR) ========== */
+#manuelleArtikelSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#manuelleArtikelSection h3 {
+  margin: 0 0 20px 0;
+  color: #00a1e1;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.manueller-artikel {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #00a1e1;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.artikel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.artikel-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.remove-artikel-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.remove-artikel-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.artikel-eingabe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.eingabe-feld {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.eingabe-feld label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.eingabe-feld input,
+.eingabe-feld select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.eingabe-feld input:focus,
+.eingabe-feld select:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.15);
+}
+
+.button-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00a1e1, #0077b6);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0077b6, #005577);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 161, 225, 0.3);
+}
+
+.btn-secondary {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.btn-secondary:hover {
+  background: #dee2e6;
+  transform: translateY(-1px);
+}
+
+/* ========== RESPONSIVE ANPASSUNGEN FÜR MOBILGERÄTE ========== */
+@media screen and (max-width: 768px) {
+    #header {
+        flex-direction: column; /* Stapelt Header-Elemente untereinander */
+        text-align: center;
+    }
+
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+
+    #header .header-left img {
+        height: 50px;
+    }
+
+    button {
+        padding: 10px 16px;
+        font-size: 15px;
+    }
+
+    /* Stellt sicher, dass die Container die volle Breite nutzen */
+    .select2-container,
+    #kundenDetails input,
+    #briefingSection textarea,
+    #briefingSection input[type="text"] {
+        width: 90%;
+    }
+
+    /* ========== ALLGEMEINE INHALTS-BOXEN ========== */
+    #kundenDetails,
+    #artikelListe,
+    #briefingSection,
+    #manuelleArtikelSection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      background-color: #ffffff;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      width: calc(100% - 20px);
+    }
+
+    /* Spezifische Breiten anpassen */
+    #kundenDetails {
+      max-width: 600px;
+    }
+
+    #artikelListe,
+    #briefingSection,
+    #manuelleArtikelSection {
+      max-width: 900px;
+    }
+
+    .artikel-aktionen {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .artikel-eingabe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* ========== BRIEFING-BEREICH ========== */
+#briefingSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 20px auto;
+  max-width: 900px; /* Gleiche Breite wie Artikelliste */
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#briefingSection h3 {
+  margin: 0 0 15px 0;
+  color: #00a1e1;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.briefing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px; /* Etwas schmaler als die Artikel, da Textfelder */
+}
+
+.briefing-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.briefing-field label {
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+}
+
+.briefing-field textarea {
+  width: 100%;
+  min-height: 80px; /* Mindesthöhe für die Textfelder */
+  padding: 10px 15px;
+  font-size: 16px;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
+  resize: vertical; /* Erlaubt vertikales Resizing */
+}
+
+.briefing-field textarea:focus {
+  outline: none;
+  border-color: #00a1e1;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+
