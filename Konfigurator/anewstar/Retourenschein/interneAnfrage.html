@@ -26,7 +26,7 @@
       <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="Firmenlogo">
     </div>
     <div class="header-content">
-      <h1>Interne Anfrage</h1>
+      <input type="text" id="mainTitleInput" value="Interne Anfrage" class="editable-title">
       <div class="header-date" id="heute"></div>
     </div>
     <div class="header-right">
@@ -35,6 +35,45 @@
       </div>
     </div>
   </header>
+
+  <!-- Sachbearbeiter Auswahl -->
+  <section class="search-container">
+    <select id="sachbearbeiterDropdown">
+      <option value="">-- Innendienst auswählen --</option>
+      <option value="Denise Otto">Denise Otto</option>
+      <option value="Sascha Heusel">Sascha Heusel</option>
+      <option value="Nadine Suhr">Nadine Suhr</option>
+      <option value="Nils Vokuhl">Nils Vokuhl</option>
+      <option value="Claudia Batke">Claudia Batke</option>
+      <option value="Karsten Walter">Karsten Walter</option>
+      <option value="manuell">-- Manuelle Eingabe --</option>
+    </select>
+    <input type="text" id="sachbearbeiterManuell" placeholder="Sachbearbeiter (manuell)" style="display: none;">
+  </section>
+
+  <!-- Außendienstmitarbeiter Auswahl -->
+  <section class="search-container">
+    <select id="aussendienstDropdown">
+      <option value="">-- Außendienstmitarbeiter auswählen --</option>
+      <option value="Rafael Furtwängler">Rafael Furtwängler</option>
+      <option value="Christof Münster">Christof Münster</option>
+      <option value="Sascha Heusel">Sascha Heusel</option>
+      <option value="Bernhard Kneissl">Bernhard Kneissl</option>
+      <option value="Christopher-Sean Haus">Christopher-Sean Haus</option>
+      <option value="Sascha Barkowsky">Sascha Barkowsky</option>
+      <option value="Volker Kottwitz">Volker Kottwitz</option>
+      <option value="Volker Oesterwind">Volker Oesterwind</option>
+      <option value="Thomas Schönfüß">Thomas Schönfüß</option>
+      <option value="Thomas Wendt">Thomas Wendt</option>
+      <option value="Harald Natzke">Harald Natzke</option>
+      <option value="Lukas Pfeil">Lukas Pfeil</option>
+      <option value="Nancy Ullbricht">Nancy Ullbricht</option>
+      <option value="Heiner Birkholz">Heiner Birkholz</option>
+      <option value="Helmut Wölfel">Helmut Wölfel</option>
+      <option value="manuell">-- Manuelle Eingabe --</option>
+    </select>
+    <input type="text" id="aussendienstManuell" placeholder="Außendienstmitarbeiter (manuell)" style="display: none;">
+  </section>
 
   <!-- Kundenauswahl -->
   <section class="search-container">
@@ -98,6 +137,10 @@
   <script>
     // Referenzen auf die HTML-Elemente
     const dropdown = document.getElementById("kundenDropdown");
+    const sachbearbeiterDropdown = document.getElementById("sachbearbeiterDropdown");
+    const sachbearbeiterManuellInput = document.getElementById("sachbearbeiterManuell");
+    const aussendienstDropdown = document.getElementById("aussendienstDropdown");
+    const aussendienstManuellInput = document.getElementById("aussendienstManuell");
     const inputs = {
       name: document.getElementById("name"),
       firma: document.getElementById("firma"),
@@ -161,6 +204,14 @@
                 placeholder: "-- Kunde auswählen --",
                 allowClear: true
             });
+            $("#sachbearbeiterDropdown").select2({
+                placeholder: "-- Sachbearbeiter auswählen --",
+                allowClear: true
+            });
+            $("#aussendienstDropdown").select2({
+                placeholder: "-- Außendienstmitarbeiter auswählen --",
+                allowClear: true
+            });
         });
       })
       .catch(error => {
@@ -171,6 +222,28 @@
         manualOpt.textContent = "-- Manuelle Eingabe (Fehler beim Laden der Kundenliste) --";
         dropdown.appendChild(manualOpt);
       });
+
+    // Event-Listener für Sachbearbeiter-Dropdown
+    $("#sachbearbeiterDropdown").on("change", function () {
+      if (this.value === "manuell") {
+        sachbearbeiterManuellInput.style.display = "block";
+        sachbearbeiterManuellInput.focus();
+      } else {
+        sachbearbeiterManuellInput.style.display = "none";
+        sachbearbeiterManuellInput.value = "";
+      }
+    });
+
+    // Event-Listener für Außendienstmitarbeiter-Dropdown
+    $("#aussendienstDropdown").on("change", function () {
+      if (this.value === "manuell") {
+        aussendienstManuellInput.style.display = "block";
+        aussendienstManuellInput.focus();
+      } else {
+        aussendienstManuellInput.style.display = "none";
+        aussendienstManuellInput.value = "";
+      }
+    });
 
     // Event-Listener für das Kunden-Dropdown-Menü
     $("#kundenDropdown").on("change", function () {
@@ -370,6 +443,27 @@
       addManuelleArtikelSection(); // Ein leeres Feld für die erste manuelle Eingabe
     });
 
+    // Hilfsfunktionen für Mitarbeiter-Werte
+    function getSachbearbeiterValue() {
+      const dropdown = document.getElementById("sachbearbeiterDropdown");
+      const manualInput = document.getElementById("sachbearbeiterManuell");
+      
+      if (dropdown.value === "manuell") {
+        return manualInput.value || "";
+      }
+      return dropdown.value || "";
+    }
+    
+    function getAussendienstmitarbeiterValue() {
+      const dropdown = document.getElementById("aussendienstDropdown");
+      const manualInput = document.getElementById("aussendienstManuell");
+      
+      if (dropdown.value === "manuell") {
+        return manualInput.value || "";
+      }
+      return dropdown.value || "";
+    }
+
     // PDF Generierung - Professionelle Implementierung
     async function generateAngebotsanfragePDF() {
       try {
@@ -389,35 +483,125 @@
         const margin = 20;
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
+        const contentHeight = pageHeight - 2 * margin;
         let yPosition = margin;
+        let currentPage = 1;
         
-        // Header mit Logo und Datum
-        if (logoImg) {
-          doc.addImage(logoImg, "PNG", margin, yPosition, 40, 20);
+        // Funktion für blaue Designbalken (links)
+        function addBlueDesignBars() {
+          // Drei blaue Balken links wie im Referenz-PDF
+          doc.setFillColor(0, 161, 225); // EWE Blau
+          doc.rect(0, 40, 4, 20, 'F'); // Erster Balken
+          doc.rect(0, 65, 4, 20, 'F'); // Zweiter Balken  
+          doc.rect(0, 90, 4, 20, 'F'); // Dritter Balken
         }
         
-        // Aktuelles Datum rechts oben
-        const heute = new Date();
-        const datumString = heute.toLocaleDateString("de-DE", { 
-          year: "numeric", 
-          month: "long", 
-          day: "numeric" 
-        });
-        doc.setFontSize(10);
-        doc.setTextColor(100, 100, 100);
-        doc.text(datumString, pageWidth - margin, yPosition + 10, { align: "right" });
+        // Funktion für Header auf jeder Seite
+        function addPageHeader(pageNum, totalPages) {
+          // Blaue Designbalken hinzufügen
+          addBlueDesignBars();
+          
+          // Logo (vergrößert um 5px in der Höhe)
+          if (logoImg) {
+            const logoWidth = 40;
+            const logoHeight = 25; // Von 20 auf 25 erhöht (+5px)
+            doc.addImage(logoImg, "PNG", margin, margin, logoWidth, logoHeight, undefined, 'FAST');
+          }
+          
+          // Datum und Seitenangabe rechts oben
+          const heute = new Date();
+          const datumString = heute.toLocaleDateString("de-DE", { 
+            year: "numeric", 
+            month: "long", 
+            day: "numeric" 
+          });
+          
+          doc.setFontSize(10);
+          doc.setTextColor(100, 100, 100);
+          doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
+          
+          // Seitenangabe nur bei mehrseitigen PDFs
+          if (totalPages > 1) {
+            doc.text(`Seite ${pageNum} von ${totalPages}`, pageWidth - margin, margin + 20, { align: "right" });
+          }
+          
+          // Editierbare Überschrift (klein, unter Datum)
+          const mainTitle = document.getElementById("mainTitleInput").value || "INTERNE ANGEBOTSANFORDERUNG";
+          doc.setFontSize(8);
+          doc.setTextColor(100, 100, 100);
+          doc.text(mainTitle.toUpperCase(), pageWidth - margin, margin + 30, { align: "right" });
+        }
         
-        yPosition += 40;
+        // Funktion für neue Seite
+        function addNewPage() {
+          doc.addPage();
+          currentPage++;
+          yPosition = margin + 50; // Platz für Header lassen
+        }
+        
+        // Funktion um zu prüfen, ob neue Seite benötigt wird
+        function checkPageBreak(neededSpace) {
+          if (yPosition + neededSpace > pageHeight - margin) {
+            addNewPage();
+            return true;
+          }
+          return false;
+        }
+        
+        // Erste Seite Header
+        addPageHeader(1, 1); // Wird später mit korrekter Seitenzahl aktualisiert
+        
+        yPosition += 50; // Platz für Header
         
         // Haupttitel
+        const mainTitle = document.getElementById("mainTitleInput").value || "INTERNE ANGEBOTSANFORDERUNG";
         doc.setFontSize(20);
         doc.setTextColor(0, 0, 0);
         doc.setFont("helvetica", "bold");
-        doc.text("INTERNE ANGEBOTSANFORDERUNG", pageWidth / 2, yPosition, { align: "center" });
+        doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
         
         yPosition += 20;
         
+        // Mitarbeiter-Informationen
+        const sachbearbeiter = getSachbearbeiterValue();
+        const aussendienstmitarbeiter = getAussendienstmitarbeiterValue();
+        
+        if (sachbearbeiter || aussendienstmitarbeiter) {
+          checkPageBreak(40);
+          
+          doc.setFontSize(14);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(0, 161, 225); // Firmenfarbe
+          doc.text("BEARBEITUNG", margin, yPosition);
+          
+          yPosition += 10;
+          
+          doc.setFontSize(10);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(0, 0, 0); // Schwarz
+          
+          if (sachbearbeiter) {
+            doc.setFont("helvetica", "bold");
+            doc.text("Innendienst:", margin, yPosition);
+            doc.setFont("helvetica", "normal");
+            doc.text(sachbearbeiter, margin + 35, yPosition);
+            yPosition += 6;
+          }
+          
+          if (aussendienstmitarbeiter) {
+            doc.setFont("helvetica", "bold");
+            doc.text("ausgestellt von:", margin, yPosition);
+            doc.setFont("helvetica", "normal");
+            doc.text(aussendienstmitarbeiter, margin + 35, yPosition);
+            yPosition += 6;
+          }
+          
+          yPosition += 10;
+        }
+        
         // Kundendaten-Sektion
+        checkPageBreak(50);
+        
         doc.setFontSize(14);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(0, 161, 225); // Firmenfarbe
@@ -442,7 +626,7 @@
         // Kundendaten-Tabelle
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
-        doc.setTextColor(0, 0, 0);
+        doc.setTextColor(0, 0, 0); // Schwarz
         
         const kundenInfos = [
           ["Firma:", kundenDaten.firma],
@@ -453,6 +637,7 @@
         ];
         
         kundenInfos.forEach(([label, value]) => {
+          checkPageBreak(8);
           doc.setFont("helvetica", "bold");
           doc.text(label, margin, yPosition);
           doc.setFont("helvetica", "normal");
@@ -463,6 +648,8 @@
         yPosition += 10;
         
         // Briefing-Sektion
+        checkPageBreak(30);
+        
         doc.setFontSize(14);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(0, 161, 225);
@@ -486,12 +673,17 @@
         
         doc.setFontSize(10);
         briefingFelder.forEach(([label, value]) => {
+          const splitText = doc.splitTextToSize(value, pageWidth - 2 * margin);
+          const neededSpace = 6 + splitText.length * 4 + 6;
+          checkPageBreak(neededSpace);
+          
           doc.setFont("helvetica", "bold");
+          doc.setTextColor(0, 0, 0); // Schwarz
           doc.text(label, margin, yPosition);
           yPosition += 6;
           
           doc.setFont("helvetica", "normal");
-          const splitText = doc.splitTextToSize(value, pageWidth - 2 * margin);
+          doc.setTextColor(0, 0, 0); // Schwarz für Briefing-Text
           doc.text(splitText, margin, yPosition);
           yPosition += splitText.length * 4 + 6;
         });
@@ -499,6 +691,8 @@
         yPosition += 5;
         
         // Artikel-Sektion
+        checkPageBreak(30);
+        
         doc.setFontSize(14);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(0, 161, 225);
@@ -524,84 +718,108 @@
         // Artikel-Tabelle erstellen
         if (alleArtikel.length > 0) {
           // Tabellen-Header
+          checkPageBreak(20);
+          
           doc.setFontSize(9);
           doc.setFont("helvetica", "bold");
-          doc.setFillColor(240, 240, 240);
-          doc.rect(margin, yPosition, pageWidth - 2 * margin, 8, "F");
+          doc.setTextColor(0, 0, 0); // Schwarz
           
-          const colWidths = [25, 60, 15, 60]; // Spaltenbreiten
-          let xPos = margin + 2;
+          // Header-Zeile
+          doc.text("Pos", margin, yPosition);
+          doc.text("Menge", margin + 20, yPosition);
+          doc.text("Artikel", margin + 40, yPosition);
+          doc.text("Spezifikation", margin + 120, yPosition);
           
-          doc.text("Pos.", xPos, yPosition + 5);
-          xPos += colWidths[0];
-          doc.text("Artikel-Nr.", xPos, yPosition + 5);
-          xPos += colWidths[1];
-          doc.text("Menge", xPos, yPosition + 5);
-          xPos += colWidths[2];
-          doc.text("Spezifikation / Notiz", xPos, yPosition + 5);
+          yPosition += 8;
           
-          yPosition += 12;
+          // Trennlinie
+          doc.setDrawColor(200, 200, 200);
+          doc.line(margin, yPosition, pageWidth - margin, yPosition);
+          yPosition += 8; // Abstand nach der Trennlinie
           
           // Artikel-Zeilen
-          doc.setFont("helvetica", "normal");
           alleArtikel.forEach((artikel, index) => {
-            // Prüfen ob neue Seite benötigt wird
-            if (yPosition > pageHeight - 40) {
-              doc.addPage();
-              yPosition = margin;
+            // Platz für Artikel berechnen (Artikelnummer + Bezeichnung + Spezifikation)
+            const artikelBezeichnungLines = doc.splitTextToSize(artikel.bezeichnung, 75);
+            const spezifikationLines = doc.splitTextToSize(artikel.spezifikation, 65);
+            const maxLines = Math.max(artikelBezeichnungLines.length, spezifikationLines.length);
+            const artikelHoehe = Math.max(16, 8 + maxLines * 4); // Mindestens 16px Höhe
+            
+            checkPageBreak(artikelHoehe + 5);
+            
+            const startY = yPosition;
+            
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0, 0, 0); // Schwarz
+            
+            // Position
+            doc.text((index + 1).toString(), margin, startY);
+            
+            // Menge
+            doc.text(artikel.menge.toString() + " Stk", margin + 20, startY);
+            
+            // Artikelnummer (fett)
+            doc.setFont("helvetica", "bold");
+            doc.text(artikel.nummer, margin + 40, startY);
+            
+            // Artikelbezeichnung (normal, kann 2 Zeilen einnehmen)
+            doc.setFont("helvetica", "normal");
+            doc.text(artikelBezeichnungLines, margin + 40, startY + 6);
+            
+            // Spezifikation
+            doc.text(spezifikationLines, margin + 120, startY);
+            
+            yPosition += artikelHoehe;
+            
+            // Trennlinie nach jedem Artikel (außer dem letzten)
+            if (index < alleArtikel.length - 1) {
+              doc.setDrawColor(230, 230, 230);
+              doc.line(margin, yPosition, pageWidth - margin, yPosition);
+              yPosition += 5; // Abstand nach der Trennlinie
             }
-            
-            xPos = margin + 2;
-            doc.text((index + 1).toString(), xPos, yPosition);
-            xPos += colWidths[0];
-            
-            const artikelNr = doc.splitTextToSize(artikel.nummer, colWidths[1] - 4);
-            doc.text(artikelNr, xPos, yPosition);
-            xPos += colWidths[1];
-            
-            doc.text(artikel.menge.toString(), xPos, yPosition);
-            xPos += colWidths[2];
-            
-            const spezifikation = doc.splitTextToSize(artikel.spezifikation, colWidths[3] - 4);
-            doc.text(spezifikation, xPos, yPosition);
-            
-            yPosition += Math.max(artikelNr.length, spezifikation.length) * 4 + 4;
-            
-            // Trennlinie
-            doc.setDrawColor(200, 200, 200);
-            doc.line(margin, yPosition, pageWidth - margin, yPosition);
-            yPosition += 2;
           });
         } else {
+          checkPageBreak(15);
           doc.setFontSize(10);
           doc.setFont("helvetica", "italic");
+          doc.setTextColor(100, 100, 100);
           doc.text("Keine Artikel angegeben.", margin, yPosition);
-          yPosition += 10;
         }
         
-        // Fußzeile mit Kontaktdaten
-        yPosition = pageHeight - 30;
-        doc.setFontSize(8);
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(100, 100, 100);
-        doc.text("Erstellt von: [Ihr Name] | Außendienstmitarbeiter", margin, yPosition);
-        doc.text("Kontakt: [Ihre Telefonnummer] | [Ihre E-Mail-Adresse]", margin, yPosition + 5);
+        // Header auf allen Seiten aktualisieren mit korrekter Seitenzahl
+        const totalPages = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+          doc.setPage(i);
+          // Header neu zeichnen mit korrekter Seitenzahl
+          if (i > 1) {
+            addPageHeader(i, totalPages);
+          } else {
+            // Erste Seite Header aktualisieren
+            if (totalPages > 1) {
+              doc.setFontSize(10);
+              doc.setTextColor(100, 100, 100);
+              doc.text(`Seite 1 von ${totalPages}`, pageWidth - margin, margin + 20, { align: "right" });
+            }
+          }
+        }
+        
+        // Dateiname generieren
+        const firmaName = inputs.firma.value || "Unbekannt";
+        const cleanFirmaName = firmaName.replace(/[^a-zA-Z0-9äöüÄÖÜß\-]/g, "-");
+        const heute = new Date();
+        const datumForFilename = heute.toISOString().split('T')[0];
+        const filename = `Angebotsanforderung_${cleanFirmaName}_${datumForFilename}.pdf`;
         
         // PDF speichern
-        const kundenName = kundenDaten.firma.replace(/[^a-zA-Z0-9]/g, "-");
-        const datumDatei = heute.toISOString().split("T")[0];
-        const filename = `Angebotsanforderung_${kundenName}_${datumDatei}.pdf`;
-        
         doc.save(filename);
-        
-        console.log("PDF erfolgreich erstellt:", filename);
+        console.log(`PDF erfolgreich erstellt: ${filename}`);
         
       } catch (error) {
         console.error("Fehler bei der PDF-Erstellung:", error);
-        alert("Fehler bei der PDF-Erstellung. Bitte überprüfen Sie die Konsole für Details.");
+        alert("Fehler bei der PDF-Erstellung. Bitte versuchen Sie es erneut.");
       }
     }
-    
+
     // Hilfsfunktion zum Laden von Bildern als Base64
     function loadImageAsBase64(url) {
       return new Promise((resolve, reject) => {
@@ -623,5 +841,3 @@
   </script>
 </body>
 </html>
-
-
