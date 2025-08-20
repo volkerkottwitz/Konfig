@@ -6,19 +6,64 @@
   <title>Interne Angebotsanforderung</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="interneAnfrage.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
-  <!-- PapaParse-Bibliothek für die CSV-Verarbeitung -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   
   <!-- Select2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  
-  <!-- jQuery (wird von Select2 benötigt ) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
-  <!-- Select2 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <!-- Stile für die Anwendung -->
+  <style>
+    .search-highlight {
+      background-color: rgba(0, 0, 0, 0.2 );
+      font-weight: bold;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+    .header-right .buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    /* Stile für die neuen Container */
+    .form-section-container {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 25px auto;
+      background-color: #fdfdfd;
+      max-width: 900px;
+    }
+
+    /* ===== HIER WURDEN DIE ÄNDERUNGEN VORGENOMMEN ===== */
+    .form-section-container h3 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      
+      /* 1. Farbe auf Blau geändert */
+      color: #00a1e1; /* Ein professioneller Blauton */
+      
+      /* 2. Unterstrich entfernt (border-bottom wurde gelöscht) */
+      
+      /* 3. Schriftgröße angepasst (optional, falls nötig) */
+      font-size: 1.3em; /* Passt oft gut zu anderen h3-Elementen */
+    }
+    
+    .centered-form-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .centered-form-layout > * {
+      width: 100%;
+      max-width: 500px;
+    }
+    .centered-form-layout .select2-container {
+        width: 100% !important;
+        max-width: 500px;
+    }
+  </style>
 </head>
 <body>
   <header id="header">
@@ -31,112 +76,110 @@
     </div>
     <div class="header-right">
       <div class="buttons">
-        <button onclick="generateAngebotsanfragePDF()">PDF-Anfrage erzeugen</button>
+        <button onclick="window.close( )" class="btn btn-secondary">🔙 Zurück</button>
+        <button onclick="generateAngebotsanfragePDF()" class="btn btn-primary">PDF erzeugen</button>
       </div>
     </div>
   </header>
 
-  <!-- Sachbearbeiter Auswahl -->
-  <section class="search-container">
-    <select id="sachbearbeiterDropdown">
-      <option value="">-- Innendienst auswählen --</option>
-      <option value="Denise Otto">Denise Otto</option>
-      <option value="Sascha Heusel">Sascha Heusel</option>
-      <option value="Nadine Suhr">Nadine Suhr</option>
-      <option value="Nils Vokuhl">Nils Vokuhl</option>
-      <option value="Claudia Batke">Claudia Batke</option>
-      <option value="Karsten Walter">Karsten Walter</option>
-      <option value="manuell">-- Manuelle Eingabe --</option>
-    </select>
-    <input type="text" id="sachbearbeiterManuell" placeholder="Sachbearbeiter (manuell)" style="display: none;">
+  <!-- CONTAINER "BEARBEITUNG" -->
+  <section class="form-section-container">
+    <h3>Bearbeitung</h3>
+    <div class="centered-form-layout">
+      <select id="sachbearbeiterDropdown">
+        <option value="">-- Innendienst auswählen --</option>
+        <option value="Denise Otto">Denise Otto</option>
+        <option value="Sascha Heusel">Sascha Heusel</option>
+        <option value="Nadine Suhr">Nadine Suhr</option>
+        <option value="Nils Vokuhl">Nils Vokuhl</option>
+        <option value="Claudia Batke">Claudia Batke</option>
+        <option value="Karsten Walter">Karsten Walter</option>
+        <option value="manuell">-- Manuelle Eingabe --</option>
+      </select>
+      <input type="text" id="sachbearbeiterManuell" placeholder="Sachbearbeiter (manuell)" style="display: none;">
+      
+      <select id="aussendienstDropdown">
+        <option value="">-- Außendienstmitarbeiter auswählen --</option>
+        <option value="Rafael Furtwängler">Rafael Furtwängler</option>
+        <option value="Christof Münster">Christof Münster</option>
+        <option value="Sascha Heusel">Sascha Heusel</option>
+        <option value="Bernhard Kneissl">Bernhard Kneissl</option>
+        <option value="Christopher-Sean Haus">Christopher-Sean Haus</option>
+        <option value="Sascha Barkowsky">Sascha Barkowsky</option>
+        <option value="Volker Kottwitz">Volker Kottwitz</option>
+        <option value="Volker Oesterwind">Volker Oesterwind</option>
+        <option value="Thomas Schönfüß">Thomas Schönfüß</option>
+        <option value="Thomas Wendt">Thomas Wendt</option>
+        <option value="Harald Natzke">Harald Natzke</option>
+        <option value="Lukas Pfeil">Lukas Pfeil</option>
+        <option value="Nancy Ullbricht">Nancy Ullbricht</option>
+        <option value="Heiner Birkholz">Heiner Birkholz</option>
+        <option value="Helmut Wölfel">Helmut Wölfel</option>
+        <option value="manuell">-- Manuelle Eingabe --</option>
+      </select>
+      <input type="text" id="aussendienstManuell" placeholder="Außendienstmitarbeiter (manuell)" style="display: none;">
+    </div>
   </section>
 
-  <!-- Außendienstmitarbeiter Auswahl -->
-  <section class="search-container">
-    <select id="aussendienstDropdown">
-      <option value="">-- Außendienstmitarbeiter auswählen --</option>
-      <option value="Rafael Furtwängler">Rafael Furtwängler</option>
-      <option value="Christof Münster">Christof Münster</option>
-      <option value="Sascha Heusel">Sascha Heusel</option>
-      <option value="Bernhard Kneissl">Bernhard Kneissl</option>
-      <option value="Christopher-Sean Haus">Christopher-Sean Haus</option>
-      <option value="Sascha Barkowsky">Sascha Barkowsky</option>
-      <option value="Volker Kottwitz">Volker Kottwitz</option>
-      <option value="Volker Oesterwind">Volker Oesterwind</option>
-      <option value="Thomas Schönfüß">Thomas Schönfüß</option>
-      <option value="Thomas Wendt">Thomas Wendt</option>
-      <option value="Harald Natzke">Harald Natzke</option>
-      <option value="Lukas Pfeil">Lukas Pfeil</option>
-      <option value="Nancy Ullbricht">Nancy Ullbricht</option>
-      <option value="Heiner Birkholz">Heiner Birkholz</option>
-      <option value="Helmut Wölfel">Helmut Wölfel</option>
-      <option value="manuell">-- Manuelle Eingabe --</option>
-    </select>
-    <input type="text" id="aussendienstManuell" placeholder="Außendienstmitarbeiter (manuell)" style="display: none;">
+  <!-- CONTAINER "KUNDENDATEN" -->
+  <section class="form-section-container">
+    <h3>Kundendaten</h3>
+    <div id="kundenDetails" class="centered-form-layout">
+      <select id="kundenDropdown">
+        <option value="">-- Kunde auswählen --</option>
+      </select>
+      <input type="text" id="name" placeholder="Name">
+      <input type="text" id="firma" placeholder="Firma">
+      <input type="text" id="strasse" placeholder="Straße">
+      <input type="text" id="plz" placeholder="PLZ">
+      <input type="text" id="ort" placeholder="Ort">
+      <input type="text" id="land" placeholder="Land">
+      <input type="text" id="email" placeholder="E-Mail">
+      <input type="text" id="telefon" placeholder="Telefon">
+    </div>
   </section>
 
-  <!-- Kundenauswahl -->
-  <section class="search-container">
-    <select id="kundenDropdown">
-      <option value="">-- Kunde auswählen --</option>
-      <!-- Kundenoptionen werden dynamisch per JavaScript geladen -->
-    </select>
-  </section>
-
-  <!-- Kundendaten -->
-  <section id="kundenDetails" class="search-container">
-    <input type="text" id="name" placeholder="Name">
-    <input type="text" id="firma" placeholder="Firma">
-    <input type="text" id="strasse" placeholder="Straße">
-    <input type="text" id="plz" placeholder="PLZ">
-    <input type="text" id="ort" placeholder="Ort">
-    <input type="text" id="land" placeholder="Land">
-    <input type="text" id="email" placeholder="E-Mail">
-    <input type="text" id="telefon" placeholder="Telefon">
-  </section>
-
-  <!-- Artikel aus Merkliste (wird dynamisch gefüllt) -->
+  <!-- Der Rest des HTML bleibt unverändert -->
   <section id="artikelListe" class="search-container">
     <h3>Artikel für das Angebot</h3>
-    <div id="artikelInhalt">
-      <p>Keine Artikel in der Merkliste gefunden. Bitte verwenden Sie den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>
-    </div>
+    <div id="artikelInhalt"></div>
   </section>
-
-  <!-- Manueller Artikel-Eingabebereich (IMMER SICHTBAR) -->
   <section id="manuelleArtikelSection" class="search-container">
     <h3>Artikel manuell hinzufügen</h3>
-    <div id="manuelleArtikelContainer">
-      <!-- Wird dynamisch mit JavaScript gefüllt -->
-    </div>
+    <div id="manuelleArtikelContainer"></div>
     <div class="button-container">
       <button type="button" id="weiterenartikelBtn" class="btn btn-secondary">+ Weiteren Artikel hinzufügen</button>
       <button type="button" id="artikelHinzufuegenBtn" class="btn btn-primary">Artikel zur Liste hinzufügen</button>
     </div>
   </section>
-
-  <!-- NEU: Briefing-Felder -->
   <section id="briefingSection" class="search-container">
-    <h3>Briefing für den Innendienst</h3>
+    <h3>Mitteilung für den Innendienst</h3>
     <div class="briefing-grid">
       <div class="briefing-field">
         <label for="hintergrund">Hintergrund:</label>
-        <textarea id="hintergrund" placeholder="Kontext des Kundengesprächs, z.B. warum der Kunde dieses Angebot benötigt..."></textarea>
+        <textarea id="hintergrund" placeholder="..."></textarea>
       </div>
       <div class="briefing-field">
         <label for="fokus">Fokus im Angebot:</label>
-        <textarea id="fokus" placeholder="Was soll im Angebot besonders hervorgehoben werden? (z.B. Energieeffizienz, Wartungsarmut)..."></textarea>
+        <textarea id="fokus" placeholder="..."></textarea>
       </div>
       <div class="briefing-field">
         <label for="preisgestaltung">Preisgestaltung:</label>
-        <textarea id="preisgestaltung" placeholder="Vereinbarte Rabatte, Sonderkonditionen, kostenlose Zugaben..."></textarea>
+        <textarea id="preisgestaltung" placeholder="..."></textarea>
       </div>
     </div>
   </section>
 
+  <!-- SKRIPTE -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- 5. Ihr Hauptskript -->
   <script>
     // Referenzen auf die HTML-Elemente
-    const dropdown = document.getElementById("kundenDropdown");
+    const dropdown = document.getElementById("kundenDropdown" );
     const sachbearbeiterDropdown = document.getElementById("sachbearbeiterDropdown");
     const sachbearbeiterManuellInput = document.getElementById("sachbearbeiterManuell");
     const aussendienstDropdown = document.getElementById("aussendienstDropdown");
@@ -166,7 +209,7 @@
     let manuelleArtikelCounter = 0;
 
     // CSV-Datei laden und verarbeiten
-    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv" )
+    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv"  )
       .then(response => {
         if (!response.ok) {
           throw new Error("Netzwerkantwort war nicht in Ordnung.");
@@ -176,18 +219,34 @@
       .then(csvText => {
         // PapaParse verwenden, um den CSV-Text zu parsen
         const results = Papa.parse(csvText, {
-          header: true,          // Die erste Zeile als Spaltenüberschrift verwenden
-          skipEmptyLines: true,  // Leere Zeilen überspringen
-          bom: true              // Das BOM-Zeichen am Dateianfang ignorieren (wichtig!)
+          header: true,
+          skipEmptyLines: true,
+          bom: true
         });
         kunden = results.data;
 
-        // Das Dropdown-Menü mit den geladenen Daten füllen
+        // Dropdown mit "Name – Firma (PLZ Ort)" füllen
         kunden.forEach((kunde, index) => {
-          // Label erstellen: "Name – Firma" oder nur "Firma", wenn kein Name vorhanden ist
-          const label = kunde.Name ? `${kunde.Name.trim()} – ${kunde.Firma.trim()}` : kunde.Firma.trim();
+          const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
+          const ort = adresseTeile.length > 1 ? adresseTeile[1] : '';
+          const plz = adresseTeile.length > 2 ? adresseTeile[2] : '';
+
+          const nameTeil = kunde.Name ? `${kunde.Name.trim()} – ` : '';
+          const firmaTeil = kunde.Firma ? kunde.Firma.trim() : 'Unbekannte Firma';
+          
+          let ortsTeil = '';
+          if (plz && ort) {
+            ortsTeil = ` (${plz} ${ort})`;
+          } else if (ort) {
+            ortsTeil = ` (${ort})`;
+          } else if (plz) {
+            ortsTeil = ` (${plz})`;
+          }
+          
+          const label = `${nameTeil}${firmaTeil}${ortsTeil}`;
+          
           const opt = document.createElement("option");
-          opt.value = index; // Den Array-Index als Wert verwenden
+          opt.value = index;
           opt.textContent = label;
           dropdown.appendChild(opt);
         });
@@ -198,25 +257,69 @@
         manualOpt.textContent = "-- Manuelle Eingabe --";
         dropdown.appendChild(manualOpt);
 
-        // Select2 initialisieren
-        $(document).ready(function() {
-            $("#kundenDropdown").select2({
-                placeholder: "-- Kunde auswählen --",
-                allowClear: true
+        // ===============================================================================
+        // PREMIUM-SUCHE: Multi-Keyword-Matcher und visuelle Hervorhebung
+        // ===============================================================================
+        
+        // Verbesserte Suchfunktion, die mehrere Begriffe verarbeitet
+        function customMatcher(params, data) {
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+            if (typeof data.text === 'undefined') {
+                return null;
+            }
+            const searchTerms = params.term.toLowerCase().split(' ').filter(Boolean);
+            const optionText = data.text.toLowerCase();
+            const allTermsMatch = searchTerms.every(term => optionText.includes(term));
+            if (allTermsMatch) {
+                return data;
+            }
+            return null;
+        }
+
+        // Funktion zur visuellen Hervorhebung der Suchergebnisse
+        function formatResult(data) {
+            if (!data.text) {
+                return data.text;
+            }
+            const searchTerm = $(".select2-search__field").val() || '';
+            if (searchTerm === '') {
+                return data.text;
+            }
+            
+            const searchTerms = searchTerm.toLowerCase().split(' ').filter(Boolean);
+            let highlightedText = data.text;
+
+            searchTerms.forEach(term => {
+                // 'gi' = global (alle Vorkommen), case-insensitive
+                const regex = new RegExp(term, 'gi');
+                highlightedText = highlightedText.replace(regex, (match) => {
+                    return `<span class="search-highlight">${match}</span>`;
+                });
             });
-            $("#sachbearbeiterDropdown").select2({
-                placeholder: "-- Sachbearbeiter auswählen --",
-                allowClear: true
-            });
-            $("#aussendienstDropdown").select2({
-                placeholder: "-- Außendienstmitarbeiter auswählen --",
-                allowClear: true
-            });
+
+            return $(`<span>${highlightedText}</span>`);
+        }
+
+        // Initialisierung aller Select2-Dropdowns
+        $("#kundenDropdown").select2({
+            placeholder: "-- Kunde auswählen --",
+            allowClear: true,
+            matcher: customMatcher,      // Unsere neue Multi-Keyword-Suche
+            templateResult: formatResult // Unsere neue Funktion zur Hervorhebung
+        });
+        $("#sachbearbeiterDropdown").select2({
+            placeholder: "-- Sachbearbeiter auswählen --",
+            allowClear: true
+        });
+        $("#aussendienstDropdown").select2({
+            placeholder: "-- Außendienstmitarbeiter auswählen --",
+            allowClear: true
         });
       })
       .catch(error => {
         console.error("Fehler beim Laden oder Verarbeiten der CSV-Datei:", error);
-        // Fallback, falls das Laden fehlschlägt
         const manualOpt = document.createElement("option");
         manualOpt.value = "manuell";
         manualOpt.textContent = "-- Manuelle Eingabe (Fehler beim Laden der Kundenliste) --";
@@ -249,29 +352,27 @@
     $("#kundenDropdown").on("change", function () {
       const selectedIndex = this.value;
 
-      // Felder leeren bei "Kunde auswählen" oder "Manuelle Eingabe"
       if (selectedIndex === "" || selectedIndex === "manuell") {
         Object.values(inputs).forEach(input => (input.value = ""));
         return;
       }
 
-      // Den ausgewählten Kunden aus dem Array holen
       const kunde = kunden[selectedIndex];
       if (!kunde) return;
 
-      // Die Adresse in ihre Bestandteile aufteilen
       const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
       
-      // Die Formularfelder mit den Kundendaten füllen
       inputs.name.value = kunde.Name || "";
       inputs.firma.value = kunde.Firma || "";
       inputs.telefon.value = kunde.Telefon || "";
-      inputs.email.value = kunde["E-Mail"] || ""; // Zugriff mit Klammern wegen des Bindestrichs
+      inputs.email.value = kunde["E-Mail"] || "";
       inputs.strasse.value = adresseTeile[0] || "";
       inputs.ort.value = adresseTeile[1] || "";
       inputs.plz.value = adresseTeile[2] || "";
       inputs.land.value = adresseTeile[3] || "";
     });
+
+    // --- Der Rest Ihres Skripts bleibt unverändert ---
 
     // Merkliste aus localStorage laden
     function ladeMerklisteAusLocalStorage() {
@@ -280,7 +381,6 @@
         if (merklisteData) {
           const merkliste = JSON.parse(merklisteData);
           
-          // Merkliste als globale Variable setzen
           window.merklisteItems = merkliste.map(item => ({
             nummer: item.nummer || item.artikelnummer || "",
             name: item.name || item.bezeichnung || "Unbekannter Artikel",
@@ -290,12 +390,8 @@
             preis: item.preis || "0,00 €"
           }));
           
-          // Artikel-Liste sofort aktualisieren
           updateArtikelListe();
-          
-          // LocalStorage nach dem Laden löschen (optional)
           localStorage.removeItem("merklisteForRetourenschein");
-          
           console.log("Merkliste erfolgreich geladen:", merkliste.length, "Artikel");
         }
       } catch (error) {
@@ -311,13 +407,11 @@
       }
     }
 
-    // Merkliste-Artikel anzeigen (falls vorhanden) - VERBESSERTE VERSION
+    // Merkliste-Artikel anzeigen
     function updateArtikelListe() {
       const artikelInhalt = document.getElementById("artikelInhalt");
       
-      // Prüfen, ob window.merklisteItems existiert und Artikel vorhanden sind
       if (window.merklisteItems && window.merklisteItems.length > 0) {
-        // Artikel-Karten erstellen (neues Design)
         let cardsHtml = "<div class=\"artikel-karten-container\">";
         
         window.merklisteItems.forEach((artikel, index) => {
@@ -396,13 +490,13 @@
       const manuelleArtikel = [];
       for (let i = 0; i < manuelleArtikelCounter; i++) {
         const artikelElement = document.getElementById(`manuellerArtikel-${i}`);
-        if (artikelElement) { // Prüfen, ob das Element noch existiert (nicht entfernt wurde)
+        if (artikelElement) {
           const nummer = document.getElementById(`manuellArtikelNummer-${i}`).value;
           const name = document.getElementById(`manuellArtikelName-${i}`).value;
           const menge = parseInt(document.getElementById(`manuellArtikelMenge-${i}`).value);
           const spezifikation = document.getElementById(`manuellArtikelSpezifikation-${i}`).value;
 
-          if (name && menge > 0) { // Nur hinzufügen, wenn Bezeichnung und Menge vorhanden sind
+          if (name && menge > 0) {
             manuelleArtikel.push({
               nummer: nummer,
               name: name,
@@ -420,10 +514,9 @@
         window.merklisteItems = window.merklisteItems.concat(manuelleArtikel);
         updateArtikelListe();
 
-        // Manuelle Eingabefelder leeren und zurücksetzen
         document.getElementById("manuelleArtikelContainer").innerHTML = "";
         manuelleArtikelCounter = 0;
-        addManuelleArtikelSection(); // Ein leeres Feld für die nächste Eingabe bereitstellen
+        addManuelleArtikelSection();
       } else {
         alert("Bitte geben Sie mindestens einen manuellen Artikel mit Bezeichnung und Menge ein.");
       }
@@ -440,28 +533,20 @@
     document.addEventListener("DOMContentLoaded", function() {
       displayCurrentDate();
       ladeMerklisteAusLocalStorage();
-      addManuelleArtikelSection(); // Ein leeres Feld für die erste manuelle Eingabe
+      addManuelleArtikelSection();
     });
 
     // Hilfsfunktionen für Mitarbeiter-Werte
     function getSachbearbeiterValue() {
       const dropdown = document.getElementById("sachbearbeiterDropdown");
       const manualInput = document.getElementById("sachbearbeiterManuell");
-      
-      if (dropdown.value === "manuell") {
-        return manualInput.value || "";
-      }
-      return dropdown.value || "";
+      return dropdown.value === "manuell" ? manualInput.value || "" : dropdown.value || "";
     }
     
     function getAussendienstmitarbeiterValue() {
       const dropdown = document.getElementById("aussendienstDropdown");
       const manualInput = document.getElementById("aussendienstManuell");
-      
-      if (dropdown.value === "manuell") {
-        return manualInput.value || "";
-      }
-      return dropdown.value || "";
+      return dropdown.value === "manuell" ? manualInput.value || "" : dropdown.value || "";
     }
 
     // PDF Generierung - Professionelle Implementierung
@@ -653,7 +738,7 @@
         doc.setFontSize(14);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(0, 161, 225);
-        doc.text("BRIEFING FÜR DEN INNENDIENST", margin, yPosition);
+        doc.text("MITTEILUNG FÜR DEN INNENDIENST", margin, yPosition);
         
         yPosition += 10;
         
@@ -717,25 +802,30 @@
         
         // Artikel-Tabelle erstellen
         if (alleArtikel.length > 0) {
-          // Tabellen-Header
-          checkPageBreak(20);
           
-          doc.setFontSize(9);
-          doc.setFont("helvetica", "bold");
-          doc.setTextColor(0, 0, 0); // Schwarz
+          // Funktion für Tabellen-Header
+          function drawTableHeader() {
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 0, 0); // Schwarz
+            
+            // Header-Zeile
+            doc.text("Pos", margin, yPosition);
+            doc.text("Menge", margin + 20, yPosition);
+            doc.text("Artikel", margin + 40, yPosition);
+            doc.text("Spezifikation", margin + 120, yPosition);
+            
+            yPosition += 8;
+            
+            // Trennlinie
+            doc.setDrawColor(200, 200, 200);
+            doc.line(margin, yPosition, pageWidth - margin, yPosition);
+            yPosition += 8; // Abstand nach der Trennlinie
+          }
           
-          // Header-Zeile
-          doc.text("Pos", margin, yPosition);
-          doc.text("Menge", margin + 20, yPosition);
-          doc.text("Artikel", margin + 40, yPosition);
-          doc.text("Spezifikation", margin + 120, yPosition);
-          
-          yPosition += 8;
-          
-          // Trennlinie
-          doc.setDrawColor(200, 200, 200);
-          doc.line(margin, yPosition, pageWidth - margin, yPosition);
-          yPosition += 8; // Abstand nach der Trennlinie
+          // Ersten Tabellen-Header zeichnen
+          checkPageBreak(30); // Mindestens 30mm für Header + ersten Artikel
+          drawTableHeader();
           
           // Artikel-Zeilen
           alleArtikel.forEach((artikel, index) => {
@@ -745,7 +835,18 @@
             const maxLines = Math.max(artikelBezeichnungLines.length, spezifikationLines.length);
             const artikelHoehe = Math.max(16, 8 + maxLines * 4); // Mindestens 16px Höhe
             
-            checkPageBreak(artikelHoehe + 5);
+            // Prüfen ob genug Platz für den Artikel vorhanden ist
+            if (yPosition + artikelHoehe > pageHeight - margin) {
+              // Neue Seite beginnen
+              doc.addPage();
+              currentPage++;
+              yPosition = margin + 30; // Platz für Header lassen
+              
+              // Header auf neuer Seite wiederholen
+              addPageHeader(currentPage, currentPage); // Wird später korrigiert
+              yPosition += 20;
+              drawTableHeader();
+            }
             
             const startY = yPosition;
             

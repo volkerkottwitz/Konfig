@@ -1,4 +1,7 @@
 /* ========== BASIS-STILE ========== */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap' );
+
 body {
     font-family: 'Roboto Condensed', Arial, sans-serif;
     margin: 0;
@@ -6,17 +9,21 @@ body {
     color: #333; /* Dunklerer Text für Lesbarkeit */
 }
 
+
+
 /* ========== HEADER-BEREICH ========== */
 #header {
+
   display: flex;
-  align-items: center;
-  justify-content: space-between; /* Verteilt Logo, Titel und Button */
+  justify-content: center; /* ZENTRIERT die Gruppe der Elemente horizontal */
+  align-items: center;     /* Zentriert alle Elemente vertikal auf einer Linie */
+  gap: 40px;               /* Fügt einen großzügigen Abstand ZWISCHEN den Elementen hinzu */
   padding: 15px 20px;
-  background-color: #d2d2d4; /* Neutrales Grau */
+  background-color: #d2d2d4; /* Der graue Hintergrund bleibt */
   border-bottom: 2px solid #ddd;
-  flex-wrap: wrap; /* Erlaubt Umbruch auf kleinen Bildschirmen */
-  gap: 20px;
+  flex-wrap: wrap; /* Erlaubt einen sauberen Umbruch auf kleinen Bildschirmen */
 }
+
 
 #header .header-left img {
     height: 60px; /* Angepasste Logogröße */
@@ -24,7 +31,7 @@ body {
 
 .header-content {
   text-align: center;
-  flex: 1; /* Nimmt den verfügbaren Platz in der Mitte ein */
+  
 }
 
 .header-content h1 {
@@ -562,4 +569,31 @@ button:hover {
     font-size: 1.5rem;
   }
 }
+
+
+
+/* ========== ZURÜCK-BUTTON STILE ========== */
+.back-button {
+    background-color: #6c757d !important; /* Grau */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Abstand zum PDF-Button */
+}
+
+.back-button:hover {
+    background-color: #5a6268 !important; /* Dunkleres Grau beim Hover */
+}
+
+/* ========== BUTTON-CONTAINER ========== */
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 

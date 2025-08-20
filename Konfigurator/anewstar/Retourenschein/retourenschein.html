@@ -6,19 +6,59 @@
   <title>Retourenschein PDF Generator</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="retourenschein.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
-  <!-- PapaParse-Bibliothek für die CSV-Verarbeitung -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   
   <!-- Select2 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  
-  <!-- jQuery (wird von Select2 benötigt ) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
-  <!-- Select2 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <!-- Stile für die Anwendung -->
+  <style>
+    .search-highlight {
+      background-color: rgba(0, 0, 0, 0.2 );
+      font-weight: bold;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+    .header-right .buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    /* ===== NEUE STILE FÜR CONTAINER UND ZENTRIERTES LAYOUT ===== */
+    .form-section-container {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 25px auto; /* Zentriert den Container selbst */
+      background-color: #fdfdfd;
+      max-width: 900px; /* Begrenzt die maximale Breite */
+
+      
+    }
+    .form-section-container h3 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 25px;
+      padding-bottom: 1px;
+            /* 1. Farbe auf Blau geändert */
+      color: #00a1e1; /* Ein professioneller Blauton */
+      font-size: 1.3em;
+    }
+    .centered-form-layout {
+      display: flex;
+      flex-direction: column; /* Elemente untereinander anordnen */
+      align-items: center;   /* Elemente horizontal zentrieren */
+      gap: 15x;             /* Abstand zwischen den Elementen */
+    }
+    .centered-form-layout > * {
+      width: 100%;
+      max-width: 500px; /* Maximale Breite für Eingabefelder und Dropdowns */
+    }
+    /* Stellt sicher, dass Select2 die volle Breite einnimmt */
+    .centered-form-layout .select2-container {
+        width: 100% !important;
+        max-width: 500px;
+    }
+  </style>
 </head>
 <body>
   <header id="header">
@@ -31,107 +71,90 @@
     </div>
     <div class="header-right">
       <div class="buttons">
-        <button onclick="generateRetourenscheinPDF( )">PDF erzeugen</button>
+        <button onclick="window.close( )" class="btn btn-secondary">🔙 Zurück</button>
+        <button onclick="generateRetourenscheinPDF()" class="btn btn-primary">PDF erzeugen</button>
       </div>
     </div>
   </header>
 
-  <!-- Kundenauswahl -->
-  <section class="search-container">
-    <select id="kundenDropdown">
-      <option value="">-- Kunde auswählen --</option>
-      <!-- Kundenoptionen werden dynamisch per JavaScript geladen -->
-    </select>
+  <!-- ===== CONTAINER "KUNDENDATEN" ===== -->
+  <section class="form-section-container">
+    <h3>Kundendaten</h3>
+    <div id="kundenDetails" class="centered-form-layout">
+      <select id="kundenDropdown">
+        <option value="">-- Kunde auswählen --</option>
+      </select>
+      <input type="text" id="name" placeholder="Name">
+      <input type="text" id="firma" placeholder="Firma">
+      <input type="text" id="strasse" placeholder="Straße">
+      <input type="text" id="plz" placeholder="PLZ">
+      <input type="text" id="ort" placeholder="Ort">
+      <input type="text" id="land" placeholder="Land">
+      <input type="text" id="email" placeholder="E-Mail">
+      <input type="text" id="telefon" placeholder="Telefon">
+    </div>
   </section>
 
-  <!-- Kundendaten -->
-  <section id="kundenDetails" class="search-container">
-    <input type="text" id="name" placeholder="Name">
-    <input type="text" id="firma" placeholder="Firma">
-    <input type="text" id="strasse" placeholder="Straße">
-    <input type="text" id="plz" placeholder="PLZ">
-    <input type="text" id="ort" placeholder="Ort">
-    <input type="text" id="land" placeholder="Land">
-    <input type="text" id="email" placeholder="E-Mail">
-    <input type="text" id="telefon" placeholder="Telefon">
-  </section>
-
-  <!-- Neue Felder für Retourenschein -->
-  <section id="retourenDetails" class="search-container">
+  <!-- ===== CONTAINER "RETOURENDETAILS" (angepasst an neuen Stil) ===== -->
+  <section class="form-section-container">
     <h3>Retourendetails</h3>
-    
-    <!-- Bearbeiter Dropdown -->
-    <select id="bearbeiterDropdown">
-      <option value="">-- Bearbeiter auswählen --</option>
-      <option value="Rafael Furtwängler">Rafael Furtwängler</option>
-      <option value="Christof Münster">Christof Münster</option>
-      <option value="Sascha Heusel">Sascha Heusel</option>
-      <option value="Bernhard Kneissl">Bernhard Kneissl</option>
-      <option value="Christopher-Sean Haus">Christopher-Sean Haus</option>
-      <option value="Sascha Barkowsky">Sascha Barkowsky</option>
-      <option value="Volker Kottwitz">Volker Kottwitz</option>
-      <option value="Volker Oesterwind">Volker Oesterwind</option>
-      <option value="Thomas Schönfüß">Thomas Schönfüß</option>
-      <option value="Thomas Wendt">Thomas Wendt</option>
-      <option value="Harald Natzke">Harald Natzke</option>
-      <option value="Lukas Pfeil">Lukas Pfeil</option>
-      <option value="Nancy Ullbricht">Nancy Ullbricht</option>
-      <option value="Heiner Birkholz">Heiner Birkholz</option>
-      <option value="Helmut Wölfel">Helmut Wölfel</option>
-      <option value="manuell">-- Manuelle Eingabe --</option>
-    </select>
-    
-    <!-- Manuelles Bearbeiter-Eingabefeld (initial versteckt) -->
-    <input type="text" id="bearbeiterManuell" placeholder="Bearbeiter (manuell)" style="display: none;">
-    
-    <!-- Anlieferung Dropdown -->
-    <select id="anlieferungDropdown">
-      <option value="">-- Anlieferung auswählen --</option>
-      <option value="PKW Außendienst">PKW Außendienst</option>
-      <option value="EWE-LW">EWE-LW</option>
-      <option value="Paketdienst">Paketdienst</option>
-      <option value="Spedition">Spedition</option>
-      <option value="Sonstiges">Sonstiges</option>
-    </select>
-    
-    <!-- Abholdatum mit Vor/Zurück-Pfeilen -->
-    <div id="abholdatumContainer">
-      <label for="abholdatum">Abholdatum:</label>
-      <div class="date-picker-container">
-        <button type="button" id="datumZurueck" class="date-arrow">◀</button>
-        <input type="date" id="abholdatum">
-        <button type="button" id="datumVor" class="date-arrow">▶</button>
+    <div id="retourenDetails" class="centered-form-layout">
+      <select id="bearbeiterDropdown">
+        <option value="">-- Bearbeiter auswählen --</option>
+        <option value="Rafael Furtwängler">Rafael Furtwängler</option>
+        <option value="Christof Münster">Christof Münster</option>
+        <option value="Sascha Heusel">Sascha Heusel</option>
+        <option value="Bernhard Kneissl">Bernhard Kneissl</option>
+        <option value="Christopher-Sean Haus">Christopher-Sean Haus</option>
+        <option value="Sascha Barkowsky">Sascha Barkowsky</option>
+        <option value="Volker Kottwitz">Volker Kottwitz</option>
+        <option value="Volker Oesterwind">Volker Oesterwind</option>
+        <option value="Thomas Schönfüß">Thomas Schönfüß</option>
+        <option value="Thomas Wendt">Thomas Wendt</option>
+        <option value="Harald Natzke">Harald Natzke</option>
+        <option value="Lukas Pfeil">Lukas Pfeil</option>
+        <option value="Nancy Ullbricht">Nancy Ullbricht</option>
+        <option value="Heiner Birkholz">Heiner Birkholz</option>
+        <option value="Helmut Wölfel">Helmut Wölfel</option>
+        <option value="manuell">-- Manuelle Eingabe --</option>
+      </select>
+      <input type="text" id="bearbeiterManuell" placeholder="Bearbeiter (manuell)" style="display: none;">
+      <select id="anlieferungDropdown">
+        <option value="">-- Anlieferung auswählen --</option>
+        <option value="PKW Außendienst">PKW Außendienst</option>
+        <option value="EWE-LW">EWE-LW</option>
+        <option value="Paketdienst">Paketdienst</option>
+        <option value="Spedition">Spedition</option>
+        <option value="Sonstiges">Sonstiges</option>
+      </select>
+      <div id="abholdatumContainer">
+        <label for="abholdatum">Abholdatum:</label>
+        <div class="date-picker-container">
+          <button type="button" id="datumZurueck" class="date-arrow">◀</button>
+          <input type="date" id="abholdatum">
+          <button type="button" id="datumVor" class="date-arrow">▶</button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Artikel aus Merkliste (wird dynamisch gefüllt) -->
+  <!-- Der Rest des HTML bleibt strukturell gleich -->
   <section id="artikelListe" class="search-container">
     <h3>Artikel zur Rücksendung</h3>
-    <div id="artikelInhalt">
-      <p>Keine Artikel in der Merkliste gefunden. Bitte verwende den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>
-    </div>
+    <div id="artikelInhalt"></div>
   </section>
-
-  <!-- Manueller Artikel-Eingabebereich (IMMER SICHTBAR) -->
   <section id="manuelleArtikelSection" class="search-container">
     <h3>Artikel manuell hinzufügen</h3>
-    <div id="manuelleArtikelContainer">
-      <!-- Wird dynamisch mit JavaScript gefüllt -->
-    </div>
+    <div id="manuelleArtikelContainer"></div>
     <div class="button-container">
       <button type="button" id="weiterenartikelBtn" class="btn btn-secondary">+ Weiteren Artikel hinzufügen</button>
       <button type="button" id="artikelHinzufuegenBtn" class="btn btn-primary">Artikel zur Liste hinzufügen</button>
     </div>
   </section>
-
-  <!-- NEU: Bemerkungen-Feld -->
   <section id="bemerkungenSection" class="search-container">
     <h3>Bemerkungen</h3>
-    <textarea id="bemerkungen" placeholder="Zusätzliche Informationen oder Notizen hier eingeben..."></textarea>
+    <textarea id="bemerkungen" placeholder="..."></textarea>
   </section>
-
-    <!-- NEU: Reklamations-Optionen -->
   <section id="reklamationSection" class="search-container">
     <h3>Interne Vermerke</h3>
     <div class="reklamation-grid">
@@ -155,14 +178,21 @@
         <input type="checkbox" id="checkRuecksendung">
         <label for="checkRuecksendung">Rücksendung an den Kunden</label>
       </div>
-      <!-- Dieses Textfeld wird per JS gesteuert -->
       <input type="text" id="weiterleitungAnName" placeholder="Name eintragen" style="display: none;">
     </div>
   </section>
 
+  <!-- SKRIPTE -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+  <!-- 5. Ihr Hauptskript -->
   <script>
     // Referenzen auf die HTML-Elemente
-    const dropdown = document.getElementById("kundenDropdown");
+    const dropdown = document.getElementById("kundenDropdown" );
     const inputs = {
       name: document.getElementById("name"),
       firma: document.getElementById("firma"),
@@ -196,7 +226,7 @@
     let manuelleArtikelCounter = 0;
 
     // CSV-Datei laden und verarbeiten
-    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv" )
+    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv"  )
       .then(response => {
         if (!response.ok) {
           throw new Error("Netzwerkantwort war nicht in Ordnung.");
@@ -206,18 +236,34 @@
       .then(csvText => {
         // PapaParse verwenden, um den CSV-Text zu parsen
         const results = Papa.parse(csvText, {
-          header: true,          // Die erste Zeile als Spaltenüberschrift verwenden
-          skipEmptyLines: true,  // Leere Zeilen überspringen
-          bom: true              // Das BOM-Zeichen am Dateianfang ignorieren (wichtig!)
+          header: true,
+          skipEmptyLines: true,
+          bom: true
         });
         kunden = results.data;
 
-        // Das Dropdown-Menü mit den geladenen Daten füllen
+        // Dropdown mit "Name – Firma (PLZ Ort)" füllen
         kunden.forEach((kunde, index) => {
-          // Label erstellen: "Name – Firma" oder nur "Firma", wenn kein Name vorhanden ist
-          const label = kunde.Name ? `${kunde.Name.trim()} – ${kunde.Firma.trim()}` : kunde.Firma.trim();
+          const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
+          const ort = adresseTeile.length > 1 ? adresseTeile[1] : '';
+          const plz = adresseTeile.length > 2 ? adresseTeile[2] : '';
+
+          const nameTeil = kunde.Name ? `${kunde.Name.trim()} – ` : '';
+          const firmaTeil = kunde.Firma ? kunde.Firma.trim() : 'Unbekannte Firma';
+          
+          let ortsTeil = '';
+          if (plz && ort) {
+            ortsTeil = ` (${plz} ${ort})`;
+          } else if (ort) {
+            ortsTeil = ` (${ort})`;
+          } else if (plz) {
+            ortsTeil = ` (${plz})`;
+          }
+          
+          const label = `${nameTeil}${firmaTeil}${ortsTeil}`;
+          
           const opt = document.createElement("option");
-          opt.value = index; // Den Array-Index als Wert verwenden
+          opt.value = index;
           opt.textContent = label;
           dropdown.appendChild(opt);
         });
@@ -228,29 +274,70 @@
         manualOpt.textContent = "-- Manuelle Eingabe --";
         dropdown.appendChild(manualOpt);
 
-        // Select2 initialisieren
-        $(document).ready(function() {
-            $('#kundenDropdown').select2({
-                placeholder: "-- Kunde auswählen --",
-                allowClear: true
-            });
+        // ===============================================================================
+        // PREMIUM-SUCHE: Multi-Keyword-Matcher und visuelle Hervorhebung
+        // ===============================================================================
+        
+        // Verbesserte Suchfunktion, die mehrere Begriffe verarbeitet
+        function customMatcher(params, data) {
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+            if (typeof data.text === 'undefined') {
+                return null;
+            }
+            const searchTerms = params.term.toLowerCase().split(' ').filter(Boolean);
+            const optionText = data.text.toLowerCase();
+            const allTermsMatch = searchTerms.every(term => optionText.includes(term));
+            if (allTermsMatch) {
+                return data;
+            }
+            return null;
+        }
+
+        // Funktion zur visuellen Hervorhebung der Suchergebnisse
+        function formatResult(data) {
+            if (!data.text) {
+                return data.text;
+            }
+            const searchTerm = $(".select2-search__field").val() || '';
+            if (searchTerm === '') {
+                return data.text;
+            }
             
-            // Auch für Bearbeiter-Dropdown
-            $('#bearbeiterDropdown').select2({
-                placeholder: "-- Bearbeiter auswählen --",
-                allowClear: true
+            const searchTerms = searchTerm.toLowerCase().split(' ').filter(Boolean);
+            let highlightedText = data.text;
+
+            searchTerms.forEach(term => {
+                const regex = new RegExp(term, 'gi');
+                highlightedText = highlightedText.replace(regex, (match) => {
+                    return `<span class="search-highlight">${match}</span>`;
+                });
             });
-            
-            // Und für Anlieferung-Dropdown
-            $('#anlieferungDropdown').select2({
-                placeholder: "-- Anlieferung auswählen --",
-                allowClear: true
-            });
+
+            return $(`<span>${highlightedText}</span>`);
+        }
+
+        // Initialisierung aller Select2-Dropdowns
+        $('#kundenDropdown').select2({
+            placeholder: "-- Kunde auswählen --",
+            allowClear: true,
+            matcher: customMatcher,      // Unsere neue Multi-Keyword-Suche
+            templateResult: formatResult // Unsere neue Funktion zur Hervorhebung
+        });
+        
+        $('#bearbeiterDropdown').select2({
+            placeholder: "-- Bearbeiter auswählen --",
+            allowClear: true
+        });
+        
+        $('#anlieferungDropdown').select2({
+            placeholder: "-- Anlieferung auswählen --",
+            allowClear: true
         });
       })
       .catch(error => {
         console.error("Fehler beim Laden oder Verarbeiten der CSV-Datei:", error);
-        // Fallback, falls das Laden fehlschlägt
         const manualOpt = document.createElement("option");
         manualOpt.value = "manuell";
         manualOpt.textContent = "-- Manuelle Eingabe (Fehler beim Laden der Kundenliste) --";
@@ -261,24 +348,20 @@
     $('#kundenDropdown').on('change', function () {
       const selectedIndex = this.value;
 
-      // Felder leeren bei "Kunde auswählen" oder "Manuelle Eingabe"
       if (selectedIndex === "" || selectedIndex === "manuell") {
         Object.values(inputs).forEach(input => (input.value = ""));
         return;
       }
 
-      // Den ausgewählten Kunden aus dem Array holen
       const kunde = kunden[selectedIndex];
       if (!kunde) return;
 
-      // Die Adresse in ihre Bestandteile aufteilen
       const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
       
-      // Die Formularfelder mit den Kundendaten füllen
       inputs.name.value = kunde.Name || "";
       inputs.firma.value = kunde.Firma || "";
       inputs.telefon.value = kunde.Telefon || "";
-      inputs.email.value = kunde['E-Mail'] || ""; // Zugriff mit Klammern wegen des Bindestrichs
+      inputs.email.value = kunde['E-Mail'] || "";
       inputs.strasse.value = adresseTeile[0] || "";
       inputs.ort.value = adresseTeile[1] || "";
       inputs.plz.value = adresseTeile[2] || "";
