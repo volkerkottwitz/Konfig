@@ -1,4 +1,7 @@
 /* ========== Basislayout ========== */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap' );
+
 body {
     font-family: 'Roboto Condensed', Arial, sans-serif;
     margin: 0;
@@ -9,7 +12,7 @@ body {
 #header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 15px 20px;
   color: white;
   background-color: #d2d2d4;
@@ -28,7 +31,7 @@ body {
 }
 
 #header .header-left img {
-    height: 80px;
+    height: 70px;
     margin: 0;
 }
 
@@ -37,14 +40,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
+  
   gap: 5px;
 }
 
 .header-content h1 {
+  color:white;
   font-size: 2rem;
   margin: 0;
-  font-weight: 600;
 }
 
 .header-date {
@@ -899,4 +902,30 @@ input:focus {
     position: relative; 
     font-size: 0.8rem;
   }
+}
+
+/* ======================================== */
+/*         STILE FÜR DEN BILD-BUTTON        */
+/* ======================================== */
+
+/* Grund-Styling für den klickbaren Link */
+.image-button {
+  display: block; /* Stellt sicher, dass der Link sich wie ein Block verhält */
+  line-height: 0; /* Entfernt unerwünschten Leerraum unter dem Bild */
+}
+
+/* Styling für das Bild im Link */
+.image-button img {
+  height: 50px; /* Passen Sie die Höhe nach Bedarf an */
+  width: auto;  /* Die Breite passt sich automatisch an */
+  border-radius: 8px; /* Leicht abgerundete Ecken, falls gewünscht */
+  transition: all 0.3s ease; /* Sorgt für einen weichen Übergang beim Hover */
+  opacity: 0.9; /* Macht das Bild standardmäßig leicht transparent */
+}
+
+/* Der Hover-Effekt */
+.image-button:hover img {
+  opacity: 1; /* Volle Deckkraft beim Hover */
+  transform: scale(1.05); /* Vergrößert das Bild leicht */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Fügt einen dezenten Schatten hinzu */
 }
