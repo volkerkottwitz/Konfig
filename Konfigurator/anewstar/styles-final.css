@@ -271,149 +271,7 @@ button:disabled:hover {
     min-width: 100px;
 }
 
-/* ========== Responsive: Tablet & Handy ========== */
-@media screen and (max-width: 768px) {
-    .zoom-buttons {
-        display: none;
-    }
 
-    #header {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 12px 15px;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-
-    .header-left {
-        order: 1;
-        flex: 0 0 auto;
-    }
-
-    #header .header-left img {
-        height: 50px;
-        margin: 0;
-    }
-
-    .header-content {
-        order: 2;
-        flex: 1;
-        min-width: 0;
-        gap: 3px;
-    }
-
-    .header-content h1 {
-        font-size: 1.4rem;
-        font-weight: 600;
-    }
-
-    .header-date {
-        font-size: 0.75rem;
-        opacity: 0.8;
-    }
-
-    .header-right {
-        order: 3;
-        flex: 0 0 auto;
-    }
-
-    #header .buttons {
-        margin: 0;
-        gap: 10px;
-    }
-
-    .icon-button {
-        font-size: 1.1rem;
-        padding: 8px 12px;
-        min-width: 40px;
-        height: 40px;
-    }
-
-    #pdfContainer {
-        height: auto;
-        max-height: none;
-        margin-top: 0px;
-        padding: 0px;
-        /* Verbesserte Touch-Scrolling */
-        -webkit-overflow-scrolling: touch;
-    }
-
-    #pdfViewer canvas {
-        width: 100% !important;
-        height: auto !important;
-        max-width: 100%;
-        /* Performance-Optimierung für mobile Geräte */
-        image-rendering: optimizeQuality;
-    }
-
-    .search-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 20px;
-    }
-
-    input[type="text"] {
-        width: 100%;
-        max-width: 300px;
-        font-size: 16px; /* Verhindert Zoom auf iOS */
-        padding: 12px 18px;
-    }
-
-    button {
-        padding: 8px 14px;
-        height: 36px;
-        font-size: 16px;
-        min-width: 44px; /* Touch-optimiert */
-        line-height: 1.2;
-    }
-
-    .icon-button {
-        font-size: 16px;
-        height: 36px;
-        min-width: 44px; /* Touch-optimiert */
-        padding: 8px 14px;
-        line-height: 1.2;
-    }
-
-    .buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-    
-    .button-row {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        max-width: 320px;
-    }
-
-    .button-row button {
-        flex: 1;
-        min-width: 0;
-        max-width: 33%;
-        font-size: 15px;
-        padding: 10px;
-        text-align: center;
-    }
-
-    /* Touch-optimierte Highlight-Boxen */
-    .highlight-box {
-        min-height: 44px !important;
-        min-width: 44px !important;
-    }
-
-    .highlight-box:active {
-        transform: scale(0.95);
-        background-color: rgba(255, 230, 0, 0.8);
-    }
-}
 
 /* ========== Merkliste Panel (ehemals Warenkorb) ========== */
 #merkliste {
@@ -485,15 +343,7 @@ button:disabled:hover {
     background-color: #07577f;
 }
 
-/* Mobiloptimierung */
-@media screen and (max-width: 768px) {
-    #merkliste {
-        right: 10px;
-        top: 80px;
-        width: calc(100% - 20px);
-        max-width: none;
-    }
-}
+
 
 #merkliste ul li {
     margin-bottom: 10px;
@@ -501,18 +351,7 @@ button:disabled:hover {
     padding-bottom: 5px;
 }
 
-/* ========== Extra kleine Geräte ========== */
-@media screen and (max-width: 380px) {
-    #searchStatus {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
-    /* Verhindert horizontales Scrollen */
-    body {
-        overflow-x: hidden;
-    }
-}
+
 
 /* ========== Ladebildschirm ========== */
 #loadingScreen {
@@ -540,97 +379,7 @@ button:disabled:hover {
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* ========== Modal-Optimierungen ========== */
-@media screen and (max-width: 768px) {
-    /* Info Modal */
-    #infoModal {
-        padding: 10px;
-        align-items: flex-start;
-        padding-top: 5vh;
-        padding-bottom: 10vh; /* Platz für Browser-Linkzeile */
-    }
-    
-    #infoModal > div {
-        padding: 15px 20px;
-        max-width: 95%;
-        max-height: 70vh;
-        font-size: 0.85rem;
-        overflow-y: auto;
-        margin: 0;
-    }
-    
-    #infoModal h2 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-    
-    #infoModal p {
-        font-size: 0.85rem;
-        margin: 8px 0;
-    }
-    
-    #infoModal button {
-        font-size: 0.9rem;
-        padding: 8px 14px;
-        background-color: #00a1e1;
-    }
 
-    /* Merkliste */
-    #merkliste {
-        width: calc(100% - 20px);
-        max-width: none;
-        max-height: 75vh;
-        top: 10vh;
-        bottom: auto;
-        overflow: hidden;
-    }
-    
-    #merkliste > div {
-        max-height: 100%;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    #merkliste h2 {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-    }
-    
-    #merkliste ul {
-        font-size: 0.85rem;
-        max-height: 40vh;
-        overflow-y: auto;
-        flex: 1;
-    }
-    
-    .btn-kaufen {
-        font-size: 0.9rem;
-        padding: 8px 14px;
-        margin-bottom: 8px;
-    }
-    
-    #merkliste button {
-        font-size: 0.85rem;
-        padding: 6px 12px;
-    }
-
-    /* Allgemeine Modal-Dialoge (dynamisch erstellt) */
-    .modal-overlay {
-        padding: 10px;
-        align-items: flex-start !important;
-        padding-top: 5vh !important;
-        padding-bottom: 10vh !important;
-    }
-    
-    .modal-content {
-        max-width: 95% !important;
-        max-height: 70vh !important;
-        padding: 15px 20px !important;
-        overflow-y: auto !important;
-        margin: 0 !important;
-    }
-}
 
 #canvasWrapper {
     display: flex;
@@ -875,34 +624,6 @@ input:focus {
     justify-content: flex-end;
 }
 
-/* Anpassung für mobile Ansicht, falls nötig */
-@media screen and (max-width: 768px) {
-  #header {
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .header-left img {
-    height: 50px;
-    position: relative; 
-    top: 0px;
-  }
-
-  .header-content h1 {
-    font-size: 1.2rem;
-  }
-
-  .header-date {
-    font-size: 12px;
-  }
-
-  .icon-button {
-    position: relative; 
-    font-size: 0.8rem;
-  }
-}
 
 /* ======================================== */
 /*         STILE FÜR DEN BILD-BUTTON        */
@@ -928,4 +649,239 @@ input:focus {
   opacity: 1; /* Volle Deckkraft beim Hover */
   transform: scale(1.05); /* Vergrößert das Bild leicht */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Fügt einen dezenten Schatten hinzu */
+}
+
+/* ======================================== */
+/*         STILE FÜR HAMBURGER-MENÜ         */
+/* ======================================== */
+
+/* Hamburger-Button standardmäßig verstecken */
+#hamburger-btn {
+  display: none;
+  font-size: 24px; /* Größeres Icon für leichtere Bedienung */
+  background: none;
+  border: none;
+  color: #005A8C; /* Bessere Sichtbarkeit als Weiß auf hellem Grund */
+  padding: 5px 10px;
+  z-index: 10001; /* Stellt sicher, dass er über allem liegt */
+}
+
+/* Mobiles Navigationsmenü */
+#mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Startet außerhalb des Bildschirms */
+  width: 280px;
+  max-width: 80%;
+  height: 100%;
+  background-color: #f8f9fa;
+  box-shadow: -4px 0 15px rgba(0,0,0,0.15 );
+  z-index: 10000;
+  transition: right 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px; /* Platz für den Header */
+}
+
+#mobile-nav a {
+  padding: 18px 25px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #005A8C;
+  border-bottom: 1px solid #e0e0e0;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+#mobile-nav a:hover {
+  background-color: #e9ecef;
+}
+
+/* Wenn das Menü aktiv ist */
+#mobile-nav.active {
+  right: 0; /* Schiebt das Menü ins Bild */
+}
+
+/* Overlay für den Hintergrund, wenn das Menü offen ist */
+body.mobile-nav-open::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+}
+
+/* ================================================== */
+/*      RESPONSIVE: ALLES FÜR TABLET & HANDY          */
+/* ================================================== */
+@media screen and (max-width: 768px) {
+
+    /* ========== 1. NEUES, SAUBERES HEADER-LAYOUT ========== */
+    #header {
+        display: flex;
+        justify-content: space-between; /* Verteilt den Platz: links, mitte, rechts */
+        align-items: center;
+        padding: 10px 15px;
+        flex-wrap: nowrap; /* Verhindert den Umbruch in die nächste Zeile */
+        gap: 15px;
+    }
+
+    .header-left {
+        flex: 0 0 auto; /* Nimmt nur den nötigen Platz, wächst/schrumpft nicht */
+        order: 1; /* Stellt sicher, dass es links ist */
+    }
+
+    #header .header-left img {
+        height: 45px; /* Angepasste Größe für Mobile */
+        margin: 0;
+    }
+
+    .header-content {
+        flex: 1 1 auto; /* Darf wachsen und den freien Platz füllen */
+        text-align: center; /* Zentriert den Titel perfekt */
+        order: 2; /* Stellt sicher, dass es in der Mitte ist */
+        min-width: 0;
+        gap: 2px;
+    }
+
+    .header-content h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .header-date {
+        font-size: 0.7rem;
+    }
+
+    .header-right {
+        flex: 0 0 auto; /* Nimmt nur den nötigen Platz */
+        order: 3; /* Stellt sicher, dass es rechts ist */
+    }
+
+    /* Original-Buttons auf Mobile verstecken & Hamburger anzeigen */
+    #header .buttons.desktop-buttons {
+        display: none;
+    }
+
+    #hamburger-btn {
+        display: block;
+    }
+
+    /* ========== 2. ANDERE WICHTIGE MOBILE ANPASSUNGEN ========== */
+    .zoom-buttons {
+        display: none;
+    }
+
+    #pdfContainer {
+        height: auto;
+        max-height: none;
+        margin-top: 10px;
+        padding: 0;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #pdfViewer canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+        image-rendering: optimizeQuality;
+    }
+
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    input[type="text"] {
+        width: 90%;
+        max-width: 320px;
+        font-size: 16px; /* Verhindert Auto-Zoom auf iOS */
+        padding: 12px 18px;
+    }
+
+    button {
+        padding: 10px 16px;
+        height: 40px;
+        font-size: 16px;
+        min-width: 44px; /* Touch-freundliche Mindestgröße */
+    }
+
+    .icon-button {
+        font-size: 18px;
+        height: 40px;
+        min-width: 44px;
+        padding: 8px 12px;
+    }
+
+    .button-row {
+        flex-wrap: nowrap;
+        gap: 10px;
+        width: 100%;
+        max-width: 340px;
+    }
+
+    .button-row button {
+        flex: 1;
+        min-width: 0;
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    /* Touch-optimierte Highlight-Boxen */
+    .highlight-box {
+        min-height: 44px !important;
+        min-width: 44px !important;
+    }
+
+    .highlight-box:active {
+        transform: scale(0.95);
+        background-color: rgba(255, 230, 0, 0.8);
+    }
+
+    /* ========== 3. MOBILE MODAL-ANPASSUNGEN ========== */
+    #infoModal, .modal-overlay {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 5vh;
+    }
+    
+    #infoModal > div, .modal-content {
+        max-width: 95% !important;
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        margin: 0 !important;
+    }
+
+    /* Merkliste als Modal auf Mobile */
+    #merkliste {
+        width: calc(100% - 20px);
+        max-width: none;
+        max-height: 75vh;
+        top: 10vh;
+        left: 10px; /* Zentriert es besser als 'right' */
+        right: 10px;
+        bottom: auto;
+        overflow: hidden;
+    }
+    
+    #merkliste > div {
+        max-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #merkliste h2 {
+        font-size: 1.1rem;
+    }
+    
+    #merkliste ul {
+        font-size: 0.85rem;
+        max-height: 40vh;
+        flex: 1;
+    }
 }

@@ -1336,4 +1336,56 @@ function generateMerklistePDF(merklisteItems) {
 }
 
 
+// ========================================
+//         FUNKTIONALITÄT FÜR HAMBURGER-MENÜ
+// ========================================
 
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileNav = document.getElementById('mobile-nav');
+  const body = document.body;
+
+  if (hamburgerBtn && mobileNav) {
+    // Menü öffnen/schließen beim Klick auf den Button
+    hamburgerBtn.addEventListener('click', function(event) {
+      event.stopPropagation(); // Verhindert, dass der Klick sofort wieder schließt
+      toggleMobileNav();
+    });
+
+    // Menü schließen, wenn man daneben klickt
+    body.addEventListener('click', function(event) {
+        if (mobileNav.classList.contains('active')) {
+            // Prüfen, ob der Klick außerhalb des Menüs war
+            if (!mobileNav.contains(event.target)) {
+                closeMobileNav();
+            }
+        }
+    });
+  }
+});
+
+function toggleMobileNav() {
+  const mobileNav = document.getElementById('mobile-nav');
+  const body = document.body;
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+
+  const isActive = mobileNav.classList.toggle('active');
+  body.classList.toggle('mobile-nav-open', isActive);
+  
+  // Ändert das Icon zu einem "X", wenn das Menü offen ist
+  if (isActive) {
+    hamburgerBtn.innerHTML = '✖';
+  } else {
+    hamburgerBtn.innerHTML = '☰';
+  }
+}
+
+function closeMobileNav() {
+  const mobileNav = document.getElementById('mobile-nav');
+  const body = document.body;
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+
+  mobileNav.classList.remove('active');
+  body.classList.remove('mobile-nav-open');
+  hamburgerBtn.innerHTML = '☰';
+}
