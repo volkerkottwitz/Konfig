@@ -19,29 +19,38 @@
   <img src="images/ewe-icon-180.png" alt="Lade..." class="loading-logo">
 </div>
 
-  <div id="header">
-    <div class="header-left">
-      <a href="https://www.ewe-armaturen.de" target="_blank" rel="noopener" title="Zur EWE-Armaturen Webseite">
-        <img src="images/logo.png" alt="EWE Logo">
+<div id="header">
+  <div class="header-left">
+    <a href="https://www.ewe-armaturen.de" target="_blank" rel="noopener" title="Zur EWE-Armaturen Webseite">
+      <img src="images/logo.png" alt="EWE Logo">
+    </a>
+  </div>
+  <div class="header-content">
+    <h1>DuoViewer</h1>
+    <div id="header-date" class="header-date"></div>
+  </div>
+  <div class="header-right">
+    <!-- Diese Buttons sind nur auf dem Desktop sichtbar -->
+    <div class="buttons desktop-buttons">
+      <button onclick="openMerkliste( )" class="icon-button" title="Merkliste anzeigen">📝</button>
+      <a href="megaripp.html" class="image-button" title="Konfigurator MEGARIPP">
+        <img src="images/megaripp.png" alt="Konfigurator MEGARIPP">
+      </a>
+      <a href="https://www.youtube.com/watch?v=0_29ByAIswI" class="image-button" title="EWE-Image Film" target="_blank" rel="noopener noreferrer">
+        <img src="images/ewe-film.jpg" alt="EWE-Image Film Logo">
       </a>
     </div>
-    <div class="header-content">
-      <h1>DuoViewer</h1>
-      <div id="header-date" class="header-date"></div>
-    </div>
-    <div class="header-right">
-      <div class="buttons">
-        <button onclick="openMerkliste()" class="icon-button" title="Merkliste anzeigen">📝</button>
-            <a href="megaripp.html" class="image-button" title="Konfigurator MEGARIPP">
-      <img src="images/megaripp.png" alt="Konfigurator MEGARIPP">
-              
-            <a href="https://www.youtube.com/watch?v=0_29ByAIswI" class="image-button" title="EWE-Image Film" target="_blank" rel="noopener noreferrer">
-  <img src="images/ewe-film.jpg" alt="EWE-Image Film Logo">
-</a>
-    </a>
-      </div>
-    </div>
+    <!-- Hamburger-Button nur für Mobile -->
+    <button id="hamburger-btn" class="icon-button">☰</button>
   </div>
+</div>
+
+<!-- Das mobile Navigationsmenü (außerhalb des Headers ) -->
+<div id="mobile-nav">
+  <a href="#" onclick="openMerkliste(); closeMobileNav();">📝 Merkliste</a>
+  <a href="megaripp.html">🔧 Konfigurator MEGARIPP</a>
+  <a href="https://www.youtube.com/watch?v=0_29ByAIswI" target="_blank" rel="noopener noreferrer">🎬 EWE-Image Film</a>
+</div>
 
   <div class="search-container">
     <input type="text" id="searchBox" placeholder="Suchbegriff 1" title="Ersten Suchbegriff eingeben">
