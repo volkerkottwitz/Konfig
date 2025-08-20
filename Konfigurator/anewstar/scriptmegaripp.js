@@ -25,13 +25,13 @@ let lastSelections = {
 // Mappt die Screen-IDs zu den entsprechenden Vorschaubildern
 const screenImages = {
     screen2: 'images/sensus.jpg',
-    screen3: 'images/Kugel Freistrom Eingang.png',
-    screen4: 'images/ausgang.jpg',
+    screen3: 'images/Kugel freistrom Eingang.jpg',
+    screen4: 'images/ausgangksr.jpg',
     screen5: 'images/wz_freistrom.jpg',
     screen6: 'images/pe-rohr-eingang.jpg',
-    screen7: 'images/pe-rohr-ausgang.jpg',
+    screen7: 'images/pe-rohr-eingang.jpg',
     screen7b: 'images/schachtabdeckung.jpg',
-    screen8: 'images/schluessel.jpg'
+    screen8: 'images/schluessel6kant.jpg'
 };
 
 // Speichert die Teile der Artikelnummer
