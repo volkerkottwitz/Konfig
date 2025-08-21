@@ -26,7 +26,7 @@ let lastSelections = {
 const screenImages = {
     screen2: 'images/sensus.jpg',
     screen3: 'images/Kugel freistrom Eingang.jpg',
-    screen4: 'images/ausgangksr.jpg',
+    screen4: 'images/ausgangksr.JPG',
     screen5: 'images/wz_freistrom.jpg',
     screen6: 'images/pe-rohr-eingang.jpg',
     screen7: 'images/pe-rohr-eingang.jpg',
@@ -279,6 +279,30 @@ function generatePDF() {
     const comments = document.getElementById('comments').value || "Keine Bemerkungen";
 
     // Inhalt des PDFs erstellen (gekürzt für die Übersicht)
+    
+    // Firmenname und Adresse
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
+
+    // Logo einfügen
+    doc.addImage(eweLogo, 'PNG', 156, 5, 30, 30);
+
+    // Datum
+    const currentDate = new Date().toLocaleDateString();
+    doc.setFontSize(10);
+    doc.text(`Datum: ${currentDate}`, 158, 40);
+
+    // Betreff
+    
+    doc.setTextColor(0, 51, 102);
+    
     const requestNumber = generateRequestNumber();
     doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
     doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.text("Sehr geehrte Damen und Herren,", 20, 85);
