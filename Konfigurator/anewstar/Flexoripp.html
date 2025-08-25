@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wasserzählerschacht Konfigurator</title>
+    <!-- Papa Parse Bibliothek für CSV-Verarbeitung -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <!-- === GEÄNDERT: Link zur neuen CSS-Datei === -->
+    <link rel="stylesheet" href="stylesFLEXO.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <!-- Die Google Fonts sind bereits im neuen CSS importiert, dieser Link kann aber als Fallback bleiben -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400&display=swap" rel="stylesheet">
+    <div id="info-box"></div>
+</head>
+
+<body>
+<div id="custom-tooltip"></div>
+<!-- Fortschrittsanzeige -->
+
+<header>
+    <img src="images/logo.png" alt="Firmenlogo" class="logo">
+    <h1>Flexoripp-Konfigurator</h1>
+
+    <div class="progress-container">
+    <div class="progress-bar"></div>
+</div>
+<div class="progress-text">Schritt 1 von 9</div>
+
+</header>
+
+<!-- === NEU: Container für die visuelle Navigationsleiste === -->
+<div id="visual-nav-container" class="visual-nav">
+    <!-- Die kleinen Bilder werden hier von JavaScript eingefügt -->
+</div>
+<!-- === ENDE === -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+<main>
+    <!-- === NEU: Allgemeiner Info-Bildschirm für PDFs === -->
+    <section class="screen" id="infoScreen">
+        <h2 id="infoScreenTitle">Produktinformation</h2>
+        <iframe id="infoScreenPdf" src="" width="100%" height="500px" style="border:none;"></iframe>
+        <button class="back-btn" onclick="closeInfoScreen()">Zurück zum Konfigurator</button>
+    </section>
+
+    <!-- Hier folgen Ihre anderen Screens (screen2, screen3, etc.) -->
+
+
+
+
+
+<!-- Schachtauswahl (Neuer Startbildschirm) -->
+<section class="screen active" id="screen2">
+    <h2>Wählen Sie eine Zählergröße</h2>
+    <div class="info-image-container">
+        <img src="images/sensus.jpg" alt="Info Zählergröße" class="info-image fade-in pulse" data-pdf="https://de.wikipedia.org/wiki/Wasserz%C3%A4hler">
+    </div>
+    <div class="button-group">
+        <button onclick="saveSchacht('Schacht 190mm Q3 2,5|4 1“', this.innerText)">Zähler 190mm Q3 2,5|4 1“</button>
+        <button onclick="saveSchacht('Schacht 220mm Q3 2,5|4 1“', this.innerText)">Zähler 220mm Q3 2,5|4 1“</button>
+        <button onclick="saveSchacht('Schacht 260mm Q3 6,3|10 x 5/4“', this.innerText)">Zähler 260mm Q3 6,3|10 x 5/4“</button>
+        <button onclick="saveSchacht('Schacht Österreich 175mm Q3 4|10 5/4“ x 1“', this.innerText)">Zähler Österr. 175mm Q3 4|10 5/4“ x 1“</button>
+    </div>
+    <button class="back-btn" onclick="window.location.href='index-final.html'">Zurück zur Startseite</button>
+</section>
+
+<!-- Rohrdeckung -->
+<section class="screen" id="screen3">
+    <h2>Wählen Sie eine Rohrdeckung</h2>
+    <div class="info-image-container">
+        <img src="images/Rohrdeckungschacht.JPG" alt="Info Rohrdeckung" class="info-image fade-in pulse" data-pdf="https://www.ewe-armaturen.de/fileadmin/ewe-downloads/prospekte/p-d_flexoripp-megaripp.pdf#page=11">
+    </div>
+    <div class="button-group">
+        <button onclick="saveRohrdeckung('Rohrdeckung 0,75m', this.innerText)">Rohrdeckung 0,75m</button>
+        <button onclick="saveRohrdeckung('Rohrdeckung 1,00m', this.innerText)">Rohrdeckung 1,00m</button>
+        <button onclick="saveRohrdeckung('Rohrdeckung 1,25m', this.innerText)">Rohrdeckung 1,25m</button>
+        <button onclick="saveRohrdeckung('Rohrdeckung 1,50m', this.innerText)">Rohrdeckung 1,50m</button>
+        <button onclick="saveRohrdeckung('Rohrdeckung 1,75m', this.innerText)">Rohrdeckung 1,75m</button>
+        <button onclick="saveRohrdeckung('Rohrdeckung 2,00m', this.innerText)">Rohrdeckung 2,00m</button>
+    </div>
+    <button class="back-btn" onclick="prevScreen('screen2')">Zurück</button>
+</section>
+
+<!-- Deckel -->
+<section class="screen" id="screen4">
+    <h2>Wählen Sie einen Deckel</h2>
+    <div class="info-image-container">
+            <video src="images/deckelvideo.mp4" 
+           class="info-image" 
+           autoplay 
+           loop 
+           muted 
+           playsinline 
+           data-pdf="https://www.ewe-armaturen.de/fileadmin/ewe-downloads/benutzerinformationen/bi-d_flexoripp.pdf#page=30">
+        Ihr Browser unterstützt keine Videos.
+    </video>
+    </div>
+    <div class="button-group">
+        <button onclick="saveDeckel('Deckel A15 mit SU', this.innerText)">Deckel A15 mit Schachtumrandung</button>
+        <button onclick="saveDeckel('Deckel A15 + Stehbolzen', this.innerText)">Deckel A15 + Schachtumrandung mit Stehbolzen</button>
+        <button onclick="saveDeckel('Deckel B125 mit SU', this.innerText)">Deckel B125 mit Schachtumrandung</button>
+        <button onclick="saveDeckel('Deckel B125 + Stehbolzen', this.innerText)">Deckel B125 + Schachtumrandung mit Stehbolzen </button>
+        <button onclick="saveDeckel('Abdeckhaube', this.innerText)">Abdeckhaube (max 200kg)</button>
+    </div>
+    <button class="back-btn" onclick="prevScreen('screen3')">Zurück</button>
+</section>
+
+<!-- Abfrage Druckminderer -->
+<section class="screen" id="screen4a">
+    <h2>Benötigen Sie eine WZ-Anlage mit oder ohne Druckminderer?</h2>
+    <div class="info-image-container">
+        <img src="images/mitoderohne.png" alt="Info Druckminderer" class="info-image fade-in pulse" data-pdf="https://de.wikipedia.org/wiki/Druckminderer">
+    </div>
+    <div class="button-group">
+        <button onclick="chooseDruckminderer('mit', this.innerText)">Ohne Druckminderer</button>
+        <button onclick="chooseDruckminderer('ohne', this.innerText)">Mit Druckminderer</button>
+    </div>
+    <button class="back-btn" onclick="prevScreen('screen4')">Zurück</button>
+</section>
+
+<!-- Wasserzähleranlagen ohne Druckminderer -->
+<section class="screen" id="screen5-mit">
+    <h2>Wählen Sie eine WZ-Anlage ohne Druckminderer</h2>
+    <div class="info-image-container">
+        <img src="images/swzanlageohnedruckminderer.JPG" alt="Info WZ-Anlage" class="info-image fade-in pulse" data-pdf="https://www.ewe-armaturen.de/fileadmin/ewe-downloads/benutzerinformationen/bi-d_flexoripp.pdf#page=11">
+    </div>
+    <div class="button-group">
+        <button onclick="saveWasserzaehleranlage('Kugelhahn/Kugelhahn', this.innerText)">Kugelhahn/Kugelhahn</button>
+        <button onclick="saveWasserzaehleranlage('Kugelhahn/KSR', this.innerText)">Kugelhahn/KSR</button>
+        <button onclick="saveWasserzaehleranlage('Kugelhahn/KMR/Kugelhahn', this.innerText)">Kugelhahn/KMR/Kugelhahn</button>
+        <button onclick="saveWasserzaehleranlage('Freistrom/Freistrom', this.innerText)">Freistrom/Freistrom</button>
+        <button onclick="saveWasserzaehleranlage('Freistrom/KSR', this.innerText)">Freistrom/KSR</button>
+        <button onclick="saveWasserzaehleranlage('Freistrom/KMR/Freistrom', this.innerText)">Freistrom/KMR/Freistrom</button>
+    </div>
+    <button class="back-btn" onclick="prevScreen('screen4a')">Zurück</button>
+</section>
+
+<!-- Wasserzähleranlagen mit Druckminderer -->
+<section class="screen" id="screen5-ohne">
+    <h2>Wählen Sie eine WZ-Anlage mit Druckminderer</h2>
+    <div class="info-image-container">
+        <img src="images/swzanlagemitdruckminderer.JPG" alt="Info WZ-Anlage" class="info-image fade-in pulse" data-pdf="https://www.ewe-armaturen.de/fileadmin/ewe-downloads/benutzerinformationen/bi-d_flexoripp.pdf#page=11">
+    </div>
+    <div class="button-group">
+        <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/KSR', this.innerText)">Freistrom/Druckminderer/KSR</button>
+        <button onclick="saveWasserzaehleranlage('Freistrom/Druckminderer/Freistrom', this.innerText)">Freistrom/Druckminderer/Freistrom</button>
+        <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/Kugelhahn', this.innerText)">Kugelhahn/Druckminderer/Kugelhahn</button>
+        <button onclick="saveWasserzaehleranlage('Kugelhahn/Druckminderer/KSR', this.innerText)">Kugelhahn/Druckminderer/KSR</button>
+    </div>
+    <button class="back-btn" onclick="prevScreen('screen4a')">Zurück</button>
+</section>
+
+<!-- PE-Verschraubungen -->
+<section class="screen" id="screen6">
+    <h2>Wählen Sie eine PE-Verschraubung mit O-Ring Technik</h2>
+<!-- NEU (mit Video ) -->
+<div class="info-image-container">
+    <video src="images/verbinder.mp4" 
+           class="info-image" 
+           autoplay 
+           loop 
+           muted 
+           playsinline 
+           data-pdf="https://www.ewe-armaturen.de/fileadmin/ewe-downloads/benutzerinformationen/bi-d_pe-schweissstutzen.pdf">
+        Ihr Browser unterstützt keine Videos.
+    </video>
+</div>
+    <div class="button-group">
+        <button onclick="savePEVerschraubung('PE-Verschraubung bleifreies Messing', this.innerText)">PE-Verschraubung bleifreies Messing</button>
+        <button onclick="savePEVerschraubung('PE-Verschraubung PP', this.innerText)">PE-Verschraubung PP</button>
+        <button onclick="savePEVerschraubung('PE-Schweißstutzen', this.innerText)">PE-Schweißstutzen</button>
+        <button onclick="savePEVerschraubung('PE-Schweißmuffe', this.innerText)">PE-Schweißmuffe</button>
+        <button onclick="skipNextScreens(this.innerText)">Ohne Verschraubung weiter</button>
+    </div>
+    <button class="back-btn" onclick="goBackFromPEVerschraubung()">Zurück</button>
+</section>
+
+<!-- PE-Größen -->
+<section class="screen" id="screen8">
+    <h2>Wählen Sie die Größe der PE-Verbindung</h2>
+    <div class="info-image-container">
+        <img src="images/PERohrGr.JPG" alt="Info PE-Größe" class="info-image fade-in pulse" data-pdf="images/PERohrGrklein.JPG">
+    </div>
+    <div class="button-group">
+        <button onclick="savePEGroesseVerbindung('PE-Größe 32', this.innerText)">PE-Größe 32</button>
+        <button onclick="savePEGroesseVerbindung('PE-Größe 40', this.innerText)">PE-Größe 40</button>
+        <button onclick="savePEGroesseVerbindung('PE-Größe 50', this.innerText)">PE-Größe 50</button>
+        <button onclick="savePEGroesseVerbindung('PE-Größe 63', this.innerText)">PE-Größe 63</button>
+    </div>
+    <button class="back-btn" onclick="prevScreen('screen6')">Zurück</button>
+</section>
+
+<!-- Auswahl der Verbinder -->
+<section class="screen" id="screen9">
+    <h2>Wählen Sie die Anzahl der Verbinder</h2>
+    <div class="info-image-container">
+        <img src="images/4verbinder.jpg" alt="Info Verbinder" class="info-image fade-in pulse" data-pdf="https://www.ewe-armaturen.de/fileadmin/ewe-downloads/benutzerinformationen/bi-d_pe-schweissstutzen.pdf">
+    </div>
+    <div class="button-group">
+        <button onclick="saveVerbinderAndNext('1', this.innerText)">Ein Verbinder</button>
+        <button onclick="saveVerbinderAndNext('2', this.innerText)">Zwei Verbinder</button>
+    </div>
+    <button class="back-btn" onclick="prevScreen('screen8')">Zurück</button>
+</section>
+
+<!-- Wasserzählerschachtschlüssel 15mm -->
+<section class="screen" id="screen10">
+    <h2>Wasserzählerschachtschlüssel 15mm</h2>
+    <div class="info-image-container">
+        <img src="images/schluessel.jpg" alt="Info Schachtschlüssel" class="info-image fade-in pulse" data-pdf="images/EWEKurzinfo2025.pdf#page=6">
+    </div>
+    <div class="button-group">
+        <button onclick="saveWasserzaehlerSchluessel('Ja', this.innerText)">Ja</button>
+        <button onclick="saveWasserzaehlerSchluessel('Nein', this.innerText)">Nein</button>
+    </div>
+    <button class="back-btn" onclick="goBackFromSchluessel()">Zurück</button>
+</section>
+
+    <!-- Zusammenfassung -->
+    <section class="screen" id="summaryScreen">
+        <h2>Ihre Auswahl:</h2>
+        <p id="summary"></p>
+        <div class="button-group">
+            <button onclick="showUserDataScreen()">Generiere Anfrage</button>
+            <button onclick="window.location.href='flexoripp.html'">Neu starten</button>
+        </div>
+        <button class="back-btn" onclick="prevScreen('screen10')">Zurück</button>
+    </section>
+
+    <!-- Benutzer-Daten Bildschirm -->
+    <section class="screen" id="userDataScreen">
+        <h2>Ihre Daten</h2>
+        <div class="form-container">
+            <form id="userDataForm">
+                <div class="input-container">
+                    <label for="firstName">Vorname*</label> <!-- NEU: Vorname -->
+                    <input type="text" id="firstName" name="firstName" required placeholder="Ihr Vorname">
+                </div>
+                <div class="input-container">
+                    <label for="lastName">Nachname*</label> <!-- NEU: Nachname (aus altem "Name") -->
+                    <input type="text" id="lastName" name="lastName" required placeholder="Ihr Nachname">
+                </div>
+                
+                <div class="input-container">
+                    <label for="company">Firma</label> <!-- NEU: Firma -->
+                    <input type="text" id="company" name="company" placeholder="Ihre Firma (optional)">
+                </div>
+                
+                <div class="input-container">
+                    <label for="street">Straße*</label>
+                    <input type="text" id="street" name="street" required placeholder="Ihre Straße">
+                </div>
+                
+                <div class="input-container">
+                    <label for="postalCode">PLZ*</label>
+                    <input type="text" id="postalCode" name="postalCode" required placeholder="Ihre PLZ">
+                </div>
+
+                <div class="input-container">
+                    <label for="city">Ort*</label>
+                    <input type="text" id="city" name="city" required placeholder="Ihr Ort">
+                </div>
+                
+                <div class="input-container">
+                    <label for="email">E-Mail*</label>
+                    <input type="email" id="email" name="email" required placeholder="Ihre E-Mail-Adresse">
+                </div>
+
+                <div class="input-container">
+                    <label for="phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Ihre Telefonnummer (optional)">
+                </div>
+                
+                <div class="input-container">
+                    <label for="comments">Bemerkungen</label>
+                    <textarea id="comments" name="comments" placeholder="Ihre Bemerkungen (optional)"></textarea>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn">Daten absenden</button>
+                </div>
+            </form>
+        </div>
+        <button class="back-btn" onclick="prevScreen('summaryScreen')">Zurück</button>
+    </section>
+
+</main>
+
+<script src="scriptflexoripp.js"></script>
+</body>
+</html>
