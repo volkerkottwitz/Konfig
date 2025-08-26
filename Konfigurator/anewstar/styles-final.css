@@ -547,6 +547,50 @@ input:focus {
     color: #666;
 }
 
+
+/* ======================================== */
+/*         STILE FÜR SUCHOPERATOREN         */
+/* ======================================== */
+
+.search-operator-group {
+  display: flex;
+  border-radius: 8px; /* Abgerundete Ecken für die ganze Gruppe */
+  overflow: hidden;   /* Stellt sicher, dass die Ecken der inneren Buttons abgeschnitten werden */
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  margin: 5px 0; /* Etwas Abstand */
+}
+
+.operator-btn {
+  background-color: transparent; /* Buttons sind standardmäßig durchsichtig */
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  border-radius: 0;
+  border-right: 1px solid #ccc; /* Trennlinie */
+}
+
+.operator-btn:last-child {
+  border-right: none; /* Der letzte Button braucht keine rechte Trennlinie */
+}
+
+.operator-btn:hover:not(.active) {
+  background-color: #e9ecef; /* Leichter Hover-Effekt für inaktive Buttons */
+}
+
+/* Stil für den aktiven Button */
+.operator-btn.active {
+  background-color: #00a1e1; /* Hauptfarbe für den aktiven Zustand */
+  color: white;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.15); /* Leichter 3D-Effekt */
+}
+
+
 /* ========== RESPONSIVE DIALOG-OPTIMIERUNGEN ========== */
 @media (max-width: 600px) {
     .modal-content {
@@ -567,7 +611,25 @@ input:focus {
         font-size: 16px; /* Verhindert Zoom auf iOS */
         min-height: 44px;
     }
+
+        /* ... andere mobile Stile ... */
+
+    .search-operator-group {
+      width: 100%; /* Volle Breite innerhalb des Containers */
+      max-width: 340px; /* Gleiche Breite wie die Button-Zeile */
+    }
+
+    .operator-btn {
+      flex-grow: 1; /* Sorgt dafür, dass die Buttons den Platz gleichmäßig ausfüllen */
+      font-size: 14px;
+    }
+
+    /* ... andere mobile Stile ... */
+    
 }
+
+
+
 
 /* ========== TOOLTIP STYLES ========== */
 [title] {

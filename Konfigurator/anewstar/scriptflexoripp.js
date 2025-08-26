@@ -1412,3 +1412,95 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/* ================================================== */
+/* +++ NEU: Logik für den Inaktivitäts-Timer +++ */
+/* ================================================== */
+
+/* ================================================== */
+/* +++ NEU (Version 2): Logik für den Inaktivitäts-Timer mit dynamischer Positionierung +++ */
+/* ================================================== */
+
+/* ================================================== */
+/* +++ NEU (Version 3): Logik für den Inaktivitäts-Timer, positioniert im aktiven Screen +++ */
+/* ================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Konfiguration ---
+    const INACTIVITY_SECONDS = 5;
+    const INACTIVITY_TIME_MS = INACTIVITY_SECONDS * 1000;
+
+    // --- Elemente aus dem HTML holen ---
+    const hintContainer = document.getElementById('inactivity-hint-container');
+    const hintVideo = document.getElementById('inactivity-video');
+    
+    if (!hintContainer || !hintVideo) {
+        console.log("Inaktivitäts-Video-Container nicht gefunden. Feature ist deaktiviert.");
+        return;
+    }
+
+    let inactivityTimer;
+
+    // --- Funktionen ---
+
+    // Funktion, die das Video anzeigt und im aktiven Screen platziert
+// Funktion, die das Video anzeigt, positioniert und startet (JETZT MIT ZUFALLS-LOGIK)
+function showHintVideo() {
+    const activeScreen = document.querySelector('.screen.active');
+
+    // Zeige das Video nur an, wenn wir auf einem Konfigurations-Screen sind
+    if (activeScreen && activeScreen.id.startsWith('screen')) {
+        console.log(`Benutzer ist ${INACTIVITY_SECONDS}s inaktiv. Zeige Hinweis-Video.`);
+
+        // =======================================================
+        // +++ HIER IST DIE NEUE ZUFALLS-LOGIK +++
+        // =======================================================
+        
+        // 1. Liste der verfügbaren Videos. Passen Sie die Dateinamen hier an!
+        const videoQuellen = [
+            'images/ausseninnenhilft.mp4',
+            'images/tipp_video_2.mp4'  // Ersetzen Sie dies mit dem Namen Ihres zweiten Videos
+        ];
+
+        // 2. Wähle einen zufälligen Index aus der Liste (0 für das erste, 1 für das zweite)
+        const zufallsIndex = Math.floor(Math.random() * videoQuellen.length);
+        
+        // 3. Hole die zufällig ausgewählte Video-URL
+        const zufallsVideo = videoQuellen[zufallsIndex];
+        
+        console.log(`Spiele zufälliges Video ab: ${zufallsVideo}`);
+
+        // 4. Setze die Quelle des Video-Elements auf das zufällige Video
+        hintVideo.src = zufallsVideo;
+
+        // =======================================================
+        
+        // Der Rest der Funktion bleibt gleich:
+        activeScreen.appendChild(hintContainer);
+        hintContainer.style.display = 'block';
+        hintVideo.currentTime = 0;
+        hintVideo.play().catch(e => console.error("Autoplay für Hinweis-Video blockiert:", e));
+    }
+}
+
+
+    // Funktion, die den Timer zurücksetzt und das Video versteckt
+    function resetInactivity() {
+        if (hintContainer.style.display === 'block') {
+            hintContainer.style.display = 'none';
+            hintVideo.pause();
+        }
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(showHintVideo, INACTIVITY_TIME_MS);
+    }
+
+    // --- Event-Listener für Benutzeraktivität (unverändert) ---
+    window.addEventListener('mousemove', resetInactivity, { passive: true });
+    window.addEventListener('mousedown', resetInactivity, { passive: true });
+    window.addEventListener('keypress', resetInactivity, { passive: true });
+    window.addEventListener('scroll', resetInactivity, { passive: true });
+    window.addEventListener('touchstart', resetInactivity, { passive: true });
+
+    // --- Initialer Start ---
+    resetInactivity();
+});

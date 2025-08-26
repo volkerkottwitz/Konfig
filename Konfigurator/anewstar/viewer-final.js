@@ -109,12 +109,17 @@ function clearHighlights() {
 }
 
 // === 🔍 Volltextsuche durchführen ===
+// === 🔍 Volltextsuche durchführen (ANGEPASSTE VERSION) ===
 function searchPDF() {
   document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
   searchText = normalize(document.getElementById('searchBox').value);
   secondSearchText = normalize(document.getElementById('searchBox2').value);
 
-  if (!searchText && !secondSearchText) {
+  // NEU: Aktiven Suchoperator auslesen
+  const activeOperatorBtn = document.querySelector('.operator-btn.active');
+  const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und'; // 'und' als sicherer Standard
+
+  if (!searchText) { // Nur der erste Suchbegriff ist zwingend
     zeigeLeererSuchbegriffDialog();
     document.getElementById('loadingSpinnerOverlay').style.display = 'none';
     return;
@@ -128,8 +133,34 @@ function searchPDF() {
     tasks.push(pdfDoc.getPage(p).then(page =>
       page.getTextContent().then(tc => {
         const pageText = normalize(tc.items.map(i => i.str).join(' '));
-        if (pageText.includes(searchText) && (!secondSearchText || pageText.includes(secondSearchText))) {
+        
+        const hasFirstTerm = pageText.includes(searchText);
+        const hasSecondTerm = secondSearchText && pageText.includes(secondSearchText);
+
+        let isMatch = false;
+
+        // NEUE LOGIK basierend auf dem ausgewählten Operator
+        if (!secondSearchText) {
+            // Wenn nur das erste Feld ausgefüllt ist, wird immer nur danach gesucht.
+            isMatch = hasFirstTerm;
+        } else {
+            switch (searchOperator) {
+                case 'und':
+                    isMatch = hasFirstTerm && hasSecondTerm;
+                    break;
+                case 'oder':
+                    isMatch = hasFirstTerm || hasSecondTerm;
+                    break;
+                case 'ohne':
+                    isMatch = hasFirstTerm && !hasSecondTerm;
+                    break;
+            }
+        }
+
+        if (isMatch) {
           matchPages.add(p);
+          // Die Zählung der Treffer bleibt zur Vereinfachung so,
+          // da die Seitenzahl die wichtigere Information ist.
           totalMatches += countMatches(pageText, searchText, secondSearchText);
         }
       })
@@ -137,53 +168,16 @@ function searchPDF() {
   }
 
   Promise.all(tasks).then(() => {
-    document.getElementById('searchInfo').textContent = `🔍 ${matchPages.size} Seite(n), ${totalMatches} Treffer`;
-    if (matchPages.size) {
-      currentPage = [...matchPages][0];
-      renderPage(currentPage);
+    if (matchPages.size > 0) {
+        document.getElementById('searchInfo').textContent = `🔍 ${matchPages.size} Seite(n) gefunden.`;
+        currentPage = [...matchPages][0];
+        renderPage(currentPage);
+    } else {
+        document.getElementById('searchInfo').textContent = '🔍 Keine Treffer für Ihre Suche gefunden.';
     }
     document.getElementById('loadingSpinnerOverlay').style.display = 'none';
     updateNavigation();
     updateCurrentMatchInfo();
-  });
-}
-
-function zeigeLeererSuchbegriffDialog() {
-  if (document.getElementById("hinweisDialog")) return;
-
-  const dialog = document.createElement("div");
-  dialog.id = "hinweisDialog";
-  Object.assign(dialog.style, {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.4)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 9999
-  });
-
-  dialog.innerHTML = `
-    <div style="background:#fff; padding:25px 30px; border-radius:14px; max-width:400px; width:80%;
-                font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2); text-align:center;">
-      <h2 style="margin-top:0; font-size:1.2rem;">🔍 Kein Suchbegriff</h2>
-      <p>Bitte gib einen Suchbegriff ein.</p>
-      <button id="leererSuchbegriffOk"
-              style="margin-top:20px; padding:10px 16px; background:#00a1e1; color:white; border:none;
-                     border-radius:8px; cursor:pointer;">
-        OK
-      </button>
-    </div>
-  `;
-
-  document.body.appendChild(dialog);
-
-  document.getElementById("leererSuchbegriffOk").addEventListener("click", () => {
-    dialog.remove();
-    document.getElementById("searchBox")?.focus();
   });
 }
 
@@ -955,18 +949,7 @@ function updateHeaderDate() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const searchBox = document.getElementById("searchBox");
-  if (searchBox) {
-    searchBox.focus();
-  }
-  
-  // Datum im Header aktualisieren
-  updateHeaderDate();
-  
-  // Tooltips hinzufügen
-  addAllTooltips();
-});
+
 
 // === 💬 TOOLTIPS HINZUFÜGEN ===
 function addAllTooltips() {
@@ -1336,34 +1319,6 @@ function generateMerklistePDF(merklisteItems) {
 }
 
 
-// ========================================
-//         FUNKTIONALITÄT FÜR HAMBURGER-MENÜ
-// ========================================
-
-document.addEventListener('DOMContentLoaded', function() {
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-  const mobileNav = document.getElementById('mobile-nav');
-  const body = document.body;
-
-  if (hamburgerBtn && mobileNav) {
-    // Menü öffnen/schließen beim Klick auf den Button
-    hamburgerBtn.addEventListener('click', function(event) {
-      event.stopPropagation(); // Verhindert, dass der Klick sofort wieder schließt
-      toggleMobileNav();
-    });
-
-    // Menü schließen, wenn man daneben klickt
-    body.addEventListener('click', function(event) {
-        if (mobileNav.classList.contains('active')) {
-            // Prüfen, ob der Klick außerhalb des Menüs war
-            if (!mobileNav.contains(event.target)) {
-                closeMobileNav();
-            }
-        }
-    });
-  }
-});
-
 function toggleMobileNav() {
   const mobileNav = document.getElementById('mobile-nav');
   const body = document.body;
@@ -1389,3 +1344,65 @@ function closeMobileNav() {
   body.classList.remove('mobile-nav-open');
   hamburgerBtn.innerHTML = '☰';
 }
+
+
+// ===================================================================
+//   ALLES AUSFÜHREN, WENN DIE SEITE FERTIG GELADEN IST
+// ===================================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // --- 1. Fokus auf das erste Suchfeld setzen ---
+  const searchBox = document.getElementById("searchBox");
+  if (searchBox) {
+    searchBox.focus();
+  }
+
+  // --- 2. Datum im Header aktualisieren ---
+  updateHeaderDate();
+  
+  // --- 3. Alle Tooltips initialisieren ---
+  addAllTooltips();
+
+  // --- 4. Funktionalität für das Hamburger-Menü (Mobile) ---
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileNav = document.getElementById('mobile-nav');
+  const body = document.body;
+
+  if (hamburgerBtn && mobileNav) {
+    // Menü öffnen/schließen beim Klick auf den Button
+    hamburgerBtn.addEventListener('click', function(event) {
+      event.stopPropagation(); // Verhindert, dass der Klick sofort wieder schließt
+      toggleMobileNav();
+    });
+
+    // Menü schließen, wenn man daneben klickt
+    body.addEventListener('click', function(event) {
+        if (mobileNav.classList.contains('active')) {
+            // Prüfen, ob der Klick außerhalb des Menüs war
+            if (!mobileNav.contains(event.target) && event.target !== hamburgerBtn) {
+                closeMobileNav();
+            }
+        }
+    });
+  }
+
+  // --- 5. Funktionalität für die Suchoperator-Buttons (UND, ODER, OHNE) ---
+  const operatorGroup = document.getElementById('search-operator-group');
+  if (operatorGroup) {
+    operatorGroup.addEventListener('click', function(e) {
+      // Nur reagieren, wenn ein Button mit der Klasse 'operator-btn' geklickt wurde
+      if (e.target.classList.contains('operator-btn')) {
+        
+        // Alle Buttons in der Gruppe deaktivieren
+        operatorGroup.querySelectorAll('.operator-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Nur den geklickten Button aktivieren
+        e.target.classList.add('active');
+      }
+    });
+  }
+
+}); // Ende des einzigen DOMContentLoaded-Listeners
