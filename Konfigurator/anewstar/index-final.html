@@ -57,18 +57,27 @@
 </div>
 
 
-  <div class="search-container">
-    <input type="text" id="searchBox" placeholder="Suchbegriff 1" title="Ersten Suchbegriff eingeben">
-    <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (optional)" title="Zweiten Suchbegriff eingeben (optional)">
-<div class="button-row">
-  <button onclick="searchPDF()" class="icon-button" title="Suche starten">🔍</button>
-  <button onclick="printCurrentPage()" class="icon-button" title="Aktuelle Seite drucken">🖨️</button>
-  <button onclick="printAllMatches()" class="icon-button" title="Alle Treffer drucken">🖨️ Alle</button>
-</div>
-    <div id="loadingSpinnerOverlay">
-      <img src="images/ewe-icon-180.png" class="rotating-logo" alt="Lädt…">
-    </div>
+<div class="search-container">
+  <input type="text" id="searchBox" placeholder="Suchbegriff 1" title="Ersten Suchbegriff eingeben">
+
+  <!-- NEUE SUCHOPERATOR-BUTTONS -->
+  <div id="search-operator-group" class="search-operator-group">
+    <button class="operator-btn active" data-op="und" title="Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen">UND</button>
+    <button class="operator-btn" data-op="oder" title="Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt">ODER</button>
+    <button class="operator-btn" data-op="ohne" title="Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten">OHNE</button>
   </div>
+
+  <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (verknüpft)" title="Zweiten Suchbegriff eingeben (optional)">
+
+  <div class="button-row">
+    <button onclick="searchPDF()" class="icon-button" title="Suche starten">🔍</button>
+    <button onclick="printCurrentPage()" class="icon-button" title="Aktuelle Seite drucken">🖨️</button>
+    <button onclick="printAllMatches()" class="icon-button" title="Alle Treffer drucken">🖨️ Alle</button>
+  </div>
+  <div id="loadingSpinnerOverlay">
+    <img src="images/ewe-icon-180.png" class="rotating-logo" alt="Lädt…">
+  </div>
+</div>
 
 <div id="infoSection">
   <div id="searchStatus">
