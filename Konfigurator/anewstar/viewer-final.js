@@ -2,6 +2,7 @@ let csvGeladen = false;
 let pdfGerendert = false;
 let wurdeBereitsInitialGerendert = false;
 
+
 function ladebildschirmPruefen() {
   if (csvGeladen && pdfGerendert) {
     document.getElementById('loadingScreen').style.display = 'none';
@@ -223,23 +224,19 @@ function getMarkierungsWerte() {
   }
 }
 
-// === 🎯 VERBESSERTE HIGHLIGHT-FUNKTION MIT RESPONSIVE MARKIERUNGEN ===
+// === 🎯 VERBESSERTE HIGHLIGHT-FUNKTION MIT RESPONSIVE MARKIERUNGEN (KORRIGIERT) ===
 function highlightMatches(page, container, viewport) {
   const canvas = container.querySelector('canvas');
   
-  // Basis-Skalierung zwischen Canvas und angezeigter Größe
   const baseScaleX = canvas.offsetWidth / canvas.width;
   const baseScaleY = canvas.offsetHeight / canvas.height;
   
-  // Die Skalierung ist bereits im viewport enthalten, da renderPage mit zoomFactor aufgerufen wird
-  // Daher verwenden wir direkt die baseScale-Werte
   const scaleX = baseScaleX;
   const scaleY = baseScaleY;
 
   page.getTextContent().then(tc => {
     const items = tc.items;
 
-    // Zeilen nach gerundeter Y-Position gruppieren
     const lines = {};
     items.forEach(item => {
       const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
@@ -254,7 +251,6 @@ function highlightMatches(page, container, viewport) {
     const zeilenMitArtikelnummer = new Set();
     const markierungsWerte = getMarkierungsWerte();
 
-    // Zeilen mit Artikelnummern analysieren
     Object.values(lines).forEach(lineItems => {
       const lineText = lineItems.map(i => i.str).join(' ');
       const lineTextNorm = normalize(lineText);
@@ -283,7 +279,6 @@ function highlightMatches(page, container, viewport) {
         const matchStart = match.index + match[0].indexOf(artikelnummer);
         zeilenMitArtikelnummer.add(lineItems[0].y);
 
-        // VERBESSERTE POSITIONSBERECHNUNG
         const position = calculatePreciseArticlePosition(lineItems, artikelnummer, matchStart, scaleX, scaleY);
         
         if (!position) continue;
@@ -296,13 +291,11 @@ function highlightMatches(page, container, viewport) {
           width = canvas.offsetWidth;
           height = (position.height + 9) * scaleY;
         } else {
-          // 600px Offset pro Zoom-Schritt: nach links beim Vergrößern, nach rechts beim Verkleinern
-const zoomOffset = isMobileDevice() ? 0 : (zoomFactor - 1.0) * - 580;
-x = position.x + zoomOffset;
+          const zoomOffset = isMobileDevice() ? 0 : (zoomFactor - 1.0) * - 580;
+          x = position.x + zoomOffset;
           y = position.y + markierungsWerte.yOffset;
           let extraBreite = 0;
           if (artikelnummer.includes('DIBT') || artikelnummer.startsWith('0392-')) {
-            // Zusätzliche Breite skaliert auch mit Zoomfaktor (nur auf Desktop)
             const baseExtraBreite = 20;
             extraBreite = isMobileDevice() ? baseExtraBreite : baseExtraBreite * Math.max(0.5, Math.min(3.0, zoomFactor));
           }
@@ -323,7 +316,10 @@ x = position.x + zoomOffset;
           borderRadius: '2px'
         });
 
-        klickDiv.title = `Artikel ${artikelnummer} anzeigen`;
+        // =======================================================
+        // HIER IST DIE ERSTE KORREKTUR
+        klickDiv.setAttribute('data-tooltip', `Artikel ${artikelnummer} anzeigen`);
+        // =======================================================
 
         klickDiv.addEventListener('click', () => {
           const artikel = artikelMap.get(artikelnummer);
@@ -344,7 +340,6 @@ x = position.x + zoomOffset;
       }
     });
 
-    // Zeilen ohne Artikelnummer aber mit Treffer
     Object.values(lines).forEach(lineItems => {
       const yKey = lineItems[0].y;
       if (zeilenMitArtikelnummer.has(yKey)) return;
@@ -371,7 +366,6 @@ x = position.x + zoomOffset;
       const maxY = Math.max(...lineItems.map(i => i.tx[5]));
       const textHeight = maxY - minY;
       
-      // Padding skaliert auch mit Zoomfaktor (nur auf Desktop)
       const basePadding = 24;
       const padding = isMobileDevice() ? basePadding : basePadding * Math.max(0.5, Math.min(3.0, zoomFactor));
 
@@ -379,20 +373,23 @@ x = position.x + zoomOffset;
       const height = (textHeight + padding) * scaleY;
       const width = canvas.offsetWidth;
 
-const div = document.createElement('div');
-Object.assign(div.style, {
-  position: 'absolute',
-  left: `${x}px`,
-  top: `${y}px`,
-  width: `${width}px`,
-  height: `${height}px`,
-  backgroundColor: bgColor,
-  cursor: 'pointer',
-  border: '1px solid rgba(0, 161, 225, 0.3)',
-  borderRadius: '2px'
-});
+      const div = document.createElement('div');
+      Object.assign(div.style, {
+        position: 'absolute',
+        left: `${x}px`,
+        top: `${y}px`,
+        width: `${width}px`,
+        height: `${height}px`,
+        backgroundColor: bgColor,
+        cursor: 'pointer',
+        border: '1px solid rgba(0, 161, 225, 0.3)',
+        borderRadius: '2px'
+      });
 
-      div.title = `Keine Artikelnummer gefunden`;
+      // =======================================================
+      // HIER IST DIE ZWEITE KORREKTUR
+      div.setAttribute('data-tooltip', `Keine Artikelnummer gefunden`);
+      // =======================================================
 
       div.addEventListener('click', () => {
         if (isMobileDevice()) {
@@ -951,10 +948,12 @@ function updateHeaderDate() {
 
 
 
-// === 💬 TOOLTIPS HINZUFÜGEN ===
+// === 💬 TOOLTIPS HINZUFÜGEN (FINALE, VOLLSTÄNDIGE VERSION) ===
 function addAllTooltips() {
-  // Button-Tooltips
+  // Tooltips für alle Elemente definieren.
+  // Die Selektoren sind jetzt exakt auf den bekannten HTML-Code abgestimmt.
   const tooltips = {
+    // Buttons in der Hauptleiste
     'button[onclick="searchPDF()"]': 'Suche starten',
     'button[onclick="printCurrentPage()"]': 'Aktuelle Seite drucken',
     'button[onclick="printAllMatches()"]': 'Alle Treffer drucken',
@@ -964,20 +963,49 @@ function addAllTooltips() {
     'button[onclick="nextMatch()"]': 'Nächster Treffer',
     'button[onclick="zoomOut()"]': 'Verkleinern',
     'button[onclick="zoomIn()"]': 'Vergrößern',
-    'button[onclick="openMerkliste()"]': 'Merkliste anzeigen',
+    
+    // Such-Operatoren (jetzt mit den exakten Selektoren aus dem HTML)
+    '.operator-btn[data-op=\'und\']': 'Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen',
+    '.operator-btn[data-op=\'oder\']': 'Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt',
+    '.operator-btn[data-op=\'ohne\']': 'Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten',
+
+    // Suchfelder (jetzt mit den exakten Selektoren aus dem HTML)
     '#searchBox': 'Ersten Suchbegriff eingeben',
     '#searchBox2': 'Zweiten Suchbegriff eingeben (optional)',
-    '#header a': 'Zur EWE-Armaturen Webseite'
+    
+    // Header-Elemente und die drei Bilder (jetzt mit den exakten Selektoren aus dem HTML)
+    'a[href="https://www.ewe-armaturen.de"]': 'Zur EWE-Armaturen Webseite',
+    'a[href="megaripp.html"]': 'Konfigurator MEGARIPP',
+    'a[href="flexoripp.html"]': 'Konfigurator FLEXORIPP',
+    'a[href*="youtube.com"]': 'EWE-Image Film', // Dieser Selektor ist robust für den YouTube-Link
+
+    // Merkliste-Button (jetzt mit dem exakten Selektor aus dem HTML )
+    'button[onclick="openMerkliste( )"]': 'Merkliste anzeigen'
   };
 
   Object.entries(tooltips).forEach(([selector, tooltip]) => {
-    const element = document.querySelector(selector);
-    if (element) {
-      element.title = tooltip;
-      element.setAttribute('aria-label', tooltip);
+    const elements = document.querySelectorAll(selector);
+    
+    if (elements.length > 0) {
+      elements.forEach(element => {
+        // Schritt 1: Das neue, sichere data-tooltip Attribut setzen
+        element.setAttribute('data-tooltip', tooltip);
+        
+        // Schritt 2: Ein aria-label für Barrierefreiheit setzen
+        element.setAttribute('aria-label', tooltip);
+        
+        // Schritt 3: Das alte, störende title-Attribut SICHER entfernen
+        if (element.hasAttribute('title')) {
+          element.removeAttribute('title');
+        }
+      });
+    } else {
+      console.warn(`Tooltip-Element wurde nicht gefunden für Selektor: ${selector}`);
     }
   });
 }
+
+
 
 // === 💬 DESKTOP MODAL DIALOGE ===
 
@@ -1347,10 +1375,10 @@ function closeMobileNav() {
 
 
 // ===================================================================
-//   ALLES AUSFÜHREN, WENN DIE SEITE FERTIG GELADEN IST
+//   ALLES AUSFÜHREN, WENN DIE SEITE UND ALLE INHALTE FERTIG GELADEN SIND
 // ===================================================================
 
-document.addEventListener('DOMContentLoaded', function() {
+window.onload = function() {
 
   // --- 1. Fokus auf das erste Suchfeld setzen ---
   const searchBox = document.getElementById("searchBox");
@@ -1361,8 +1389,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // --- 2. Datum im Header aktualisieren ---
   updateHeaderDate();
   
-  // --- 3. Alle Tooltips initialisieren ---
-  addAllTooltips();
+  // --- 3. Alle Tooltips initialisieren (JETZT mit einer winzigen Verzögerung) ---
+  // Dies stellt sicher, dass auch dynamisch nachgeladene Elemente (wie die Suchleiste)
+  // sicher im DOM vorhanden sind, bevor das Skript läuft.
+  setTimeout(function() {
+    addAllTooltips();
+  }, 0); // Die 0ms Verzögerung reicht aus, um die Ausführung ans Ende der Event-Queue zu schieben.
 
   // --- 4. Funktionalität für das Hamburger-Menü (Mobile) ---
   const hamburgerBtn = document.getElementById('hamburger-btn');
@@ -1405,4 +1437,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-}); // Ende des einzigen DOMContentLoaded-Listeners
+}; // Ende des window.onload Blocks

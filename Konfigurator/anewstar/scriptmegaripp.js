@@ -420,7 +420,10 @@ function addVisualNavStep(screenId, step, selectionText) {
     const navContainer = document.getElementById('visual-nav-container');
     const imageSrc = screenImages[screenId];
     const tooltipElement = document.getElementById('custom-tooltip');
-    
+
+    // NEU: Prüft, ob es sich um ein Gerät mit Touchscreen handelt.
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
     if (imageSrc && selectionText) {
         const navImage = document.createElement('img');
         navImage.src = imageSrc;
@@ -428,20 +431,24 @@ function addVisualNavStep(screenId, step, selectionText) {
         navImage.dataset.targetScreen = screenId;
         navImage.dataset.stepNumber = step;
 
-        navImage.addEventListener('mouseenter', function(event) {
-            tooltipElement.textContent = `Ihre Auswahl: "${selectionText}"`;
-            tooltipElement.style.display = 'block';
-            const rect = navImage.getBoundingClientRect();
-            tooltipElement.style.left = `${rect.left + window.scrollX + rect.width / 2 - tooltipElement.offsetWidth / 2}px`;
-            tooltipElement.style.top = `${rect.top + window.scrollY - tooltipElement.offsetHeight - 10}px`;
-            setTimeout(() => { tooltipElement.style.opacity = '1'; }, 10);
-        });
+        // NEU: Die Tooltip-Events werden NUR hinzugefügt, wenn es KEIN Touch-Gerät ist.
+        if (!isTouchDevice) {
+            navImage.addEventListener('mouseenter', function(event) {
+                tooltipElement.textContent = `Ihre Auswahl: "${selectionText}"`;
+                tooltipElement.style.display = 'block';
+                const rect = navImage.getBoundingClientRect();
+                tooltipElement.style.left = `${rect.left + window.scrollX + rect.width / 2 - tooltipElement.offsetWidth / 2}px`;
+                tooltipElement.style.top = `${rect.top + window.scrollY - tooltipElement.offsetHeight - 10}px`;
+                setTimeout(() => { tooltipElement.style.opacity = '1'; }, 10);
+            });
 
-        navImage.addEventListener('mouseleave', function() {
-            tooltipElement.style.opacity = '0';
-            setTimeout(() => { tooltipElement.style.display = 'none'; }, 200);
-        });
+            navImage.addEventListener('mouseleave', function() {
+                tooltipElement.style.opacity = '0';
+                setTimeout(() => { tooltipElement.style.display = 'none'; }, 200);
+            });
+        }
 
+        // Der Klick-Event zum Springen bleibt für alle Geräte erhalten.
         navImage.addEventListener('click', jumpToScreenFromNav);
         navContainer.appendChild(navImage);
     }

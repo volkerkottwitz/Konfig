@@ -1251,7 +1251,10 @@ function addVisualNavStep(screenId, step, selectionText) {
     const navContainer = document.getElementById('visual-nav-container');
     const imageSrc = screenImages[screenId];
     const tooltipElement = document.getElementById('custom-tooltip');
-    
+
+    // Diese Zeile prüft, ob es sich um ein Gerät mit Touchscreen handelt.
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
     if (imageSrc && selectionText) {
         const navImage = document.createElement('img');
         navImage.src = imageSrc;
@@ -1259,29 +1262,30 @@ function addVisualNavStep(screenId, step, selectionText) {
         navImage.dataset.targetScreen = screenId;
         navImage.dataset.stepNumber = step;
 
-        navImage.addEventListener('mouseenter', function(event) {
-            tooltipElement.textContent = `Ihre Auswahl: "${selectionText}"`;
-            tooltipElement.style.display = 'block';
-            const rect = navImage.getBoundingClientRect();
-            tooltipElement.style.left = `${rect.left + window.scrollX + rect.width / 2 - tooltipElement.offsetWidth / 2}px`;
-            tooltipElement.style.top = `${rect.top + window.scrollY - tooltipElement.offsetHeight - 10}px`;
-            setTimeout(() => { tooltipElement.style.opacity = '1'; }, 10);
-        });
+        // =================================================================
+        // HIER IST DIE ENTSCHEIDENDE ÄNDERUNG:
+        // Der Code für den Tooltip wird nur ausgeführt, wenn es KEIN Touch-Gerät ist.
+        // Dadurch wird das "Anklicken" des Tooltips auf dem Handy verhindert.
+        // =================================================================
+        if (!isTouchDevice) {
+            navImage.addEventListener('mouseenter', function(event) {
+                tooltipElement.textContent = `Ihre Auswahl: "${selectionText}"`;
+                tooltipElement.style.display = 'block';
+                const rect = navImage.getBoundingClientRect();
+                tooltipElement.style.left = `${rect.left + window.scrollX + rect.width / 2 - tooltipElement.offsetWidth / 2}px`;
+                tooltipElement.style.top = `${rect.top + window.scrollY - tooltipElement.offsetHeight - 10}px`;
+                setTimeout(() => { tooltipElement.style.opacity = '1'; }, 10);
+            });
 
-        navImage.addEventListener('mouseleave', function() {
-            tooltipElement.style.opacity = '0';
-            setTimeout(() => { tooltipElement.style.display = 'none'; }, 200);
-        });
+            navImage.addEventListener('mouseleave', function() {
+                tooltipElement.style.opacity = '0';
+                setTimeout(() => { tooltipElement.style.display = 'none'; }, 200);
+            });
+        }
 
+        // Der Klick-Event zum Springen bleibt für alle Geräte erhalten.
         navImage.addEventListener('click', jumpToScreenFromNav);
         navContainer.appendChild(navImage);
-    }
-}
-
-function removeLastVisualNavStep() {
-    const navContainer = document.getElementById('visual-nav-container');
-    if (navContainer.lastChild) {
-        navContainer.removeChild(navContainer.lastChild);
     }
 }
 
@@ -1427,7 +1431,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Konfiguration ---
-    const INACTIVITY_SECONDS = 5;
+    const INACTIVITY_SECONDS = 15;
     const INACTIVITY_TIME_MS = INACTIVITY_SECONDS * 1000;
 
     // --- Elemente aus dem HTML holen ---

@@ -554,11 +554,11 @@ input:focus {
 
 .search-operator-group {
   display: flex;
-  border-radius: 8px; /* Abgerundete Ecken für die ganze Gruppe */
-  overflow: hidden;   /* Stellt sicher, dass die Ecken der inneren Buttons abgeschnitten werden */
+  border-radius: 8px; 
+  /* overflow: hidden; */ /* Entfernt oder auskommentiert */
   border: 1px solid #ccc;
   background-color: #f0f0f0;
-  margin: 5px 0; /* Etwas Abstand */
+  margin: 5px 0; 
 }
 
 .operator-btn {
@@ -588,6 +588,11 @@ input:focus {
   background-color: #00a1e1; /* Hauptfarbe für den aktiven Zustand */
   color: white;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.15); /* Leichter 3D-Effekt */
+}
+
+/* NEUE REGEL HINZUFÜGEN */
+.tooltip-wrapper {
+  display: contents;
 }
 
 
@@ -631,15 +636,15 @@ input:focus {
 
 
 
-/* ========== TOOLTIP STYLES ========== */
-[title] {
+/* ========== TOOLTIP STYLES (KORRIGIERT) ========== */
+[data-tooltip] {
     position: relative;
 }
 
 /* Tooltips nur auf Desktop-Geräten anzeigen */
 @media (hover: hover) and (pointer: fine) {
-    [title]:hover::after {
-        content: attr(title);
+    [data-tooltip]:hover::after {
+        content: attr(data-tooltip); /* <-- WICHTIG: Hier auch geändert */
         position: absolute;
         bottom: 100%;
         left: 50%;
