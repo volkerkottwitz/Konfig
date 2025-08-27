@@ -1300,31 +1300,17 @@ function removeLastVisualNavStep() {
 }
 
 
-// ===================================================================
-//      FINALE, KORRIGIERTE jumpToScreenFromNav-Funktion
-// ===================================================================
-// ===================================================================
-//      FINALE, ROBUSTE jumpToScreenFromNav-Funktion (v3)
-// ===================================================================
-// ===================================================================
-//      FINALE, VEREINFACHTE jumpToScreenFromNav-Funktion
-// ===================================================================
-// ===================================================================
-//      FINALE, ROBUSTE jumpToScreenFromNav-Funktion (v5 - Anti-Ghost-Node)
-// ===================================================================
-// ===================================================================
-//      FINALE, ROBUSTE jumpToScreenFromNav-Funktion (v6 - mit Daten-Reset)
-// ===================================================================
-// ===================================================================
-//      FINALE, KORRIGIERTE jumpToScreenFromNav-Funktion (v7)
-// ===================================================================
-// =================================================================
-// +++ FINALE, KORREKTE jumpToScreenFromNav-Funktion +++
+
 // =================================================================
 // =================================================================
 // +++ FINALE, GEHÄRTETE jumpToScreenFromNav-Funktion +++
 // =================================================================
 function jumpToScreenFromNav(event) {
+        const tooltipElement = document.getElementById('custom-tooltip');
+    if (tooltipElement) {
+        tooltipElement.style.display = 'none';
+        tooltipElement.style.opacity = '0';
+    }
     const targetElement = event.currentTarget;
     const targetScreenId = targetElement.dataset.targetScreen;
     const targetStep = parseInt(targetElement.dataset.stepNumber);
