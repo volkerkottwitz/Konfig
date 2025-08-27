@@ -1,3 +1,43 @@
+// scriptflexoripp.js
+
+// 1. Leeres Datenbank-Objekt initialisieren
+const datenbank = {
+    schaechte: [],
+    zubehoer: [],
+    verschraubungen: []
+};
+
+// 2. Funktion zum Laden EINER CSV-Datei
+function ladeCsv(dateiPfad, datenbankSchluessel) {
+    return new Promise(resolve => {
+        Papa.parse(dateiPfad, {
+            download: true,
+            header: true, // WICHTIG: Erkennt die Spaltennamen aus der ersten Zeile
+            skipEmptyLines: true,
+            complete: (results) => {
+                datenbank[datenbankSchluessel] = results.data;
+                resolve();
+            }
+        });
+    });
+}
+
+// 3. Alle CSV-Dateien laden, wenn die Seite startet
+document.addEventListener('DOMContentLoaded', async () => {
+    // Wir warten, bis alle drei Dateien geladen und verarbeitet sind.
+    await Promise.all([
+        ladeCsv('images/schaechte.csv', 'schaechte'),
+        ladeCsv('images/zubehoer.csv', 'zubehoer'),
+        ladeCsv('images/verschraubungen.csv', 'verschraubungen')
+    ]);
+
+    console.log("Datenbank erfolgreich geladen:", datenbank);
+
+    // Hier können Sie den Rest Ihrer Initialisierungs-Logik platzieren,
+    // z.B. den Event-Listener für den Submit-Button, falls nötig.
+});
+
+
 // Speichert die Auswahl des Benutzers
 let userSelection = {
     produktgruppe: 'Flexoripp',
@@ -27,6 +67,8 @@ let lastSelections = {
     selection10: '',
 };
 
+let gefundeneArtikelGlobal = {}; // NEU: Hier speichern wir das Ergebnis
+
 // Mappt die Screen-IDs zu den entsprechenden Vorschaubildern
 // === KORRIGIERTE Zuordnung der Bilder zu den Screens ===
 const screenImages = {
@@ -43,31 +85,272 @@ const screenImages = {
 };
 
 
-// Steuerung, ob die nächsten Bildschirme übersprungen werden sollen
-let skipNextSteps = false;
 
-// Funktion zum Speichern der Auswahl in den neuen Variablen
-/**
- * Speichert die Auswahl in der 'lastSelections'-Variable für die Zusammenfassung.
- * @param {string} selection - Der ausgewählte Wert.
- * @param {number} number - Die Schrittnummer (1-10).
- */
 function saveLastSelection(selection, number) {
     if (number >= 1 && number <= 10) {
         lastSelections[`selection${number}`] = selection;
     }
 }
 
+/**
+ * Findet die passenden Artikelnummern (DEBUG-VERSION mit console.log).
+ * Diese Version gibt detaillierte Vergleichsdaten in der Konsole aus.
+ * @param {object} selection - Das 'userSelection'-Objekt aus dem Konfigurator.
+ * @returns {object} - Ein Objekt mit den gefundenen Artikeln und deren Details.
+ */
+function findeArtikelnummern(selection) {
+    const ergebnis = {
+        schacht: null,
+        deckel: null,
+        verschraubung: null,
+        schluessel: null,
+        fehler: []
+    };
 
-// Wechselt zum nächsten Bildschirm und speichert die Auswahl
-// NEUE nextScreen Funktion (mit Animation)
-// ===================================================================
-//      FINALE, KORRIGIERTE NAVIGATION (EXAKT WIE MEGARIPP)
-// ===================================================================
+    // =================================================================
+    // +++ NEUE HILFSFUNKTION ZUR NORMALISIERUNG VON GEWINDEN +++
+    // =================================================================
+    const normalisiereGewinde = (gewindeText) => {
+        if (!gewindeText) return null;
+        let text = gewindeText.trim();
+        
+        // Ersetze Sonderzeichen
+        text = text.replace('¼', '1/4').replace('½', '1/2');
+        
+        // Entferne ALLE Anführungszeichen
+        text = text.replace(/["']/g, '');
 
-// ===================================================================
-//      FINALE NAVIGATION (1:1-KOPIE DER MEGARIPP-LOGIK)
-// ===================================================================
+        // Entferne alle Leerzeichen
+        text = text.replace(/\s/g, '');
+        
+        return text;
+    };
+    // =================================================================
+
+        
+    // Hilfsfunktionen zum Parsen der Benutzereingaben
+    const parseDezimalzahl = (text) => {
+        if (!text) return null;
+        const match = text.match(/(\d+([,.]\d+)?)/);
+        return match ? match[0].replace(',', '.') : null;
+    };
+    const parseKlasse = (text) => {
+        if (!text) return null;
+        // Das "i" am Ende ignoriert Groß-/Kleinschreibung (z.B. findet "b125" in "B125")
+        const match = text.match(/A15|B125/i); 
+        return match ? match[0].toUpperCase() : null; // Gibt immer A15/B125 in Großbuchstaben 
+    };
+    
+    const parseBaulaenge = (text) => {
+        if (!text) return null;
+        const match = text.match(/\d+\s*mm/);
+        return match ? match[0] : null;
+    };
+
+    // =================================================================
+    // +++ Schachtsuche (Ihre Version, unverändert) +++
+    // =================================================================
+    console.log(`%c--- Starte Schachtsuche ---`, 'color: orange; font-weight: bold;');
+    if (selection.schacht && selection.rohrdeckung && selection.wasserzaehleranlage) {
+        const suchBaulaenge = parseBaulaenge(selection.schacht);
+        const suchRohrdeckung = parseDezimalzahl(selection.rohrdeckung); 
+        const suchAnlage = selection.wasserzaehleranlage.trim().toLowerCase().replace(/[\s/-]/g, '');
+
+        console.log(`Suchkriterien: Baulänge='${suchBaulaenge}', Rohrdeckung='${suchRohrdeckung}', Anlage enthält='${suchAnlage}'`);
+        
+        if (datenbank.schaechte && datenbank.schaechte.length > 0) {
+            console.log(`Durchsuche ${datenbank.schaechte.length} Schacht-Artikel...`);
+            ergebnis.schacht = datenbank.schaechte.find((s, index) => {
+                if (!s.Baulaenge || !s.Rohrdeckung || !s.Wasserzaehleranlage) return false;
+
+                const dbBaulaenge = s.Baulaenge.trim();
+                const dbRohrdeckung = s.Rohrdeckung.trim();
+                const dbAnlage = s.Wasserzaehleranlage.trim().toLowerCase().replace(/[\s–/-]/g, '');
+
+                const isMatch = dbBaulaenge.replace(/\s/g, '') === suchBaulaenge.replace(/\s/g, '') &&
+                                dbRohrdeckung === suchRohrdeckung &&
+                                dbAnlage.includes(suchAnlage);
+
+                if (isMatch) {
+                    console.log(`  ==> TREFFER! Schacht gefunden:`, s);
+                }
+                return isMatch;
+            });
+        }
+        if (!ergebnis.schacht) ergebnis.fehler.push(`Schacht nicht gefunden (Suche: Baulänge='${suchBaulaenge}', Rohrdeckung='${suchRohrdeckung}', Anlage='${suchAnlage}')`);
+    } else {
+        ergebnis.fehler.push("Schacht-Informationen unvollständig.");
+    }
+    console.log(`%c--- Schachtsuche beendet ---`, 'color: orange; font-weight: bold;');
+
+
+// =================================================================
+// +++ Deckelsuche (ANGEPASST FÜR SPEZIALFALL "ABDECKHAUBE") +++
+// =================================================================
+// =================================================================
+// +++ Deckelsuche (DIAGNOSE-WERKZEUG) +++
+// =================================================================
+console.log(`%c--- Starte Deckelsuche ---`, 'color: blue; font-weight: bold;');
+if (selection.deckel) {
+    const benutzerAuswahlText = selection.deckel.toLowerCase();
+    console.log(`Benutzerauswahl (roh): "${selection.deckel}" -> (lowercase): "${benutzerAuswahlText}"`);
+
+    // Schritt 1: Leite die exakten Suchkriterien aus der Benutzerauswahl ab.
+    let suchKlasse = parseKlasse(benutzerAuswahlText);
+    let suchBefestigung;
+
+    if (benutzerAuswahlText.includes('abdeckhaube')) {
+        suchBefestigung = 'lose';
+    } else if (benutzerAuswahlText.includes('+ stehbolzen')) {
+        suchBefestigung = 'stehbolzen';
+    } else if (benutzerAuswahlText.includes('mit su')) {
+        suchBefestigung = 'schrauben';
+    }
+
+    console.log(`==> Abgeleitete Suchkriterien: Klasse='${suchKlasse}', Befestigung='${suchBefestigung}'`);
+
+    // Schritt 2: Finde den passenden Artikel in der Datenbank.
+    if (datenbank.zubehoer && datenbank.zubehoer.length > 0) {
+        console.log(`Starte Suche in ${datenbank.zubehoer.length} Zubehör-Artikeln...`);
+        ergebnis.deckel = datenbank.zubehoer.find((d, index) => {
+            console.log(`--- [Check #${index}] Artikel: ${d.Artikelnummer} ---`);
+
+            if (!d.Kategorie || !d.Befestigung || !d.Klasse) {
+                console.log(`  -> FEHLER: Artikel hat unvollständige Daten (Kategorie/Befestigung/Klasse fehlt). Überspringe.`);
+                return false;
+            }
+
+            const dbKategorie = d.Kategorie.trim().toLowerCase();
+            if (dbKategorie !== 'deckel') {
+                console.log(`  -> Falsche Kategorie ('${dbKategorie}'). Überspringe.`);
+                return false;
+            }
+
+            const dbBefestigung = d.Befestigung.trim().toLowerCase();
+            const dbKlasse = d.Klasse.trim();
+            
+            console.log(`  DB-Werte: Klasse='${dbKlasse}', Befestigung='${dbBefestigung}'`);
+
+            let isMatch = false;
+            if (suchBefestigung === 'lose') {
+                isMatch = (dbBefestigung === 'lose');
+                console.log(`  Vergleich (lose): '${dbBefestigung}' === 'lose'? -> ${isMatch}`);
+            } else {
+                const klasseMatch = (dbKlasse === suchKlasse);
+                const befestigungMatch = (dbBefestigung === suchBefestigung);
+                isMatch = klasseMatch && befestigungMatch;
+                console.log(`  Vergleich (Standard):`);
+                console.log(`    Klasse: '${dbKlasse}' === '${suchKlasse}'? -> ${klasseMatch}`);
+                console.log(`    Befestigung: '${dbBefestigung}' === '${suchBefestigung}'? -> ${befestigungMatch}`);
+                console.log(`    Gesamtergebnis -> ${isMatch}`);
+            }
+            
+            if(isMatch) console.log(`  ==> TREFFER GEFUNDEN BEI CHECK #${index}!`);
+            return isMatch;
+        });
+    }
+
+    // Schritt 3: Fehlerbehandlung.
+    if (!ergebnis.deckel) {
+        ergebnis.fehler.push(`Deckel für Auswahl "${selection.deckel}" nicht gefunden.`);
+    } else {
+        console.log(`%c  ==> FINALER TREFFER! Deckel gefunden:`, 'background: #222; color: #bada55', ergebnis.deckel);
+    }
+
+} else {
+    ergebnis.fehler.push("Kein Deckel ausgewählt.");
+}
+console.log(`%c--- Deckelsuche beendet ---`, 'color: blue; font-weight: bold;');
+
+
+
+
+
+    // =================================================================
+    // +++ Verschraubungssuche (ANGEPASST AN NEUE CSV-STRUKTUR) +++
+    // =================================================================
+    console.log(`%c--- Starte Verschraubungssuche ---`, 'color: green; font-weight: bold;');
+    if (selection.peVerschraubung && !selection.peVerschraubung.toLowerCase().includes('ohne')) {
+        const schachtFuerGewinde = ergebnis.schacht;
+        
+        if (schachtFuerGewinde && schachtFuerGewinde.Gewinde) {
+            const peGroesse = parseDezimalzahl(selection.groesseVerbindung);
+            const schachtGewindeNormalisiert = normalisiereGewinde(schachtFuerGewinde.Gewinde);
+            const benutzerAuswahlText = selection.peVerschraubung.toLowerCase();
+            const anzahl = selection.verbinder && selection.verbinder.toLowerCase().includes('zwei') ? 2 : 1;
+            
+            let gefundenerArtikel;
+
+            if (datenbank.verschraubungen && datenbank.verschraubungen.length > 0) {
+                gefundenerArtikel = datenbank.verschraubungen.find((v, index) => {
+                    if (!v.Kategorie || !v.PE_Rohr_d || !v.Gewinde) return false;
+
+                    const dbKategorie = v.Kategorie.trim().toLowerCase();
+                    const dbPeRohr = v.PE_Rohr_d.trim();
+                    const dbGewindeNormalisiert = normalisiereGewinde(v.Gewinde);
+
+                    // KORREKTUR: Exakter Vergleich, da die CSV jetzt saubere Daten hat.
+                    const basisKriterienPassen = dbPeRohr === peGroesse && dbGewindeNormalisiert === schachtGewindeNormalisiert;
+                    if (!basisKriterienPassen) {
+                        return false;
+                    }
+
+                    // Typ-Prüfung (bleibt gleich)
+                    const userWantsMuffe = benutzerAuswahlText.includes('muffe');
+                    const userWantsStutzen = benutzerAuswahlText.includes('stutzen');
+                    
+                    if (userWantsMuffe && dbKategorie.includes('muffe')) return true;
+                    if (userWantsStutzen && dbKategorie.includes('stutzen')) return true;
+                    
+                    if (!userWantsMuffe && !userWantsStutzen && dbKategorie.includes('verschraubung')) {
+                        if (!v.Material) return false;
+                        const materialSuche = benutzerAuswahlText.includes('messing') ? 'messing' : 'polypropylen';
+                        return v.Material.trim().toLowerCase().includes(materialSuche);
+                    }
+                    
+                    return false;
+                });
+            }
+
+            // Ergebnis verarbeiten... (unverändert)
+            if (gefundenerArtikel) {
+                ergebnis.verschraubung = { ...gefundenerArtikel, menge: anzahl };
+            } else {
+                ergebnis.fehler.push(`Verschraubung/Muffe/Stutzen nicht gefunden (Suche für PE-Größe='${peGroesse}', Gewinde='${schachtGewindeNormalisiert}')`);
+            }
+
+        } else {
+            ergebnis.fehler.push("Verschraubungssuche übersprungen, da Schacht oder Schacht-Gewinde nicht gefunden wurde.");
+        }
+    }
+    console.log(`%c--- Verschraubungssuche beendet ---`, 'color: green; font-weight: bold;');
+
+
+
+    
+    // =================================================================
+    // +++ Schlüsselsuche (Ihre Version, unverändert) +++
+    // =================================================================
+    console.log(`%c--- Starte Schlüsselsuche ---`, 'color: purple; font-weight: bold;');
+    if (selection.wasserzaehlerSchluessel && selection.wasserzaehlerSchluessel.toLowerCase() === 'ja') {
+        console.log("Suchkriterium: Kategorie='schluessel'");
+        if (datenbank.zubehoer && datenbank.zubehoer.length > 0) {
+             ergebnis.schluessel = datenbank.zubehoer.find(z => z.Kategorie && z.Kategorie.trim().toLowerCase() === 'schluessel');
+             if (ergebnis.schluessel) {
+                 console.log(`  ==> TREFFER! Schlüssel gefunden:`, ergebnis.schluessel);
+             } else {
+                 ergebnis.fehler.push("Schachtschlüssel im Zubehör nicht gefunden.");
+             }
+        }
+    } else {
+        console.log("Kein Schlüssel vom Benutzer ausgewählt.");
+    }
+    console.log(`%c--- Schlüsselsuche beendet ---`, 'color: purple; font-weight: bold;');
+
+    console.log("Funktion findeArtikelnummern beendet. Ergebnis:", ergebnis);
+    return ergebnis;
+}
+
 
 // ===================================================================
 //      FINALE nextScreen-Funktion (1:1-KOPIE DER MEGARIPP-LOGIK)
@@ -135,15 +418,18 @@ if (nextScreenId === 'summaryScreen') {
 function prevScreen(prevScreenId) {
     const currentScreen = document.querySelector('.screen.active');
     
-    // === DIE ENTSCHEIDENDE KORREKTUR ===
-    // Prüfen, ob wir uns auf einem regulären Schritt-Screen befinden.
+        // === DIE ENTSCHEIDENDE KORREKTUR ===
+    // Prüfen, ob wir uns auf einem regulären Schritt-Screen befinden ODER
+    // ob wir vom summaryScreen zurückgehen.
     const isStepBackward = currentScreen && currentScreen.id.startsWith('screen');
+    const isComingFromSummary = currentScreen && currentScreen.id === 'summaryScreen';
 
-    if (isStepBackward) {
-        // Nur bei einem echten Schritt zurück:
-        currentStep--; // Zähler verringern
+    if (isStepBackward || isComingFromSummary) { // <-- Bedingung erweitert
+        currentStep--; // Zähler verringern (auch beim Zurück vom Summary)
         removeLastVisualNavStep(); // Und das Bild aus der Leiste entfernen
     }
+
+
     // === ENDE DER KORREKTUR ===
     // 2. Die Fortschrittsanzeige SOFORT für den neuen, aktuellen Schritt aktualisieren.
     updateProgressBar(currentStep, totalSteps);
@@ -433,41 +719,91 @@ function resetConfig() {
 // ===================================================================
 //      FINALE, NEUE updateSummary-Funktion (wie Megaripp)
 // ===================================================================
+// ERSETZEN Sie Ihre alte updateSummary-Funktion mit dieser.
+
+// ===================================================================
+//      FINALE updateSummary-Funktion (MIT ARTIKELNUMMER)
+// ===================================================================
 function updateSummary() {
     const summaryContainer = document.getElementById('summary');
     summaryContainer.innerHTML = ''; // Alten Inhalt leeren
 
-    // Definieren, welche Auswahl in welcher Reihenfolge angezeigt wird
-    const summaryItems = [
-        { label: 'Zählergröße', value: lastSelections.selection2, step: 1, screen: 'screen2' },
-        { label: 'Rohrdeckung', value: lastSelections.selection3, step: 2, screen: 'screen3' },
-        { label: 'Deckel', value: lastSelections.selection4, step: 3, screen: 'screen4' },
-        { label: 'WZ-Anlage', value: lastSelections.selection5, step: 4, screen: 'screen4a' },
-        // Auswahl 6 (Anzahl Verbinder) und 7 (Typ) werden zusammengefasst
-        { label: 'PE-Verschraubung', value: lastSelections.selection7 ? `${lastSelections.selection7} (${lastSelections.selection6})` : 'Ohne Verschraubung', step: 6, screen: 'screen6' },
-        { label: 'PE-Größe', value: lastSelections.selection9, step: 7, screen: 'screen8' },
-        { label: 'Schachtschlüssel', value: lastSelections.selection10, step: 9, screen: 'screen10' }
-    ];
+    // 1. Ihre Artikelsuche-Funktion aufrufen. Das funktioniert ja jetzt perfekt.
+    gefundeneArtikel = findeArtikelnummern(userSelection);
+    gefundeneArtikelGlobal = findeArtikelnummern(userSelection);
 
-    summaryItems.forEach(item => {
-        // Nur Elemente anzeigen, für die ein Wert existiert
-        if (item.value) {
-            const summaryButton = document.createElement('button');
-            summaryButton.className = 'summary-item-btn';
-            
-            // Label und Wert in separate <span>-Tags packen für das Styling
-            summaryButton.innerHTML = `<span class="summary-label">${item.label}:</span> <span class="summary-value">${item.value}</span>`;
-            
-            // Daten für den Sprung zurück speichern (noch nicht aktiv)
-            summaryButton.dataset.targetScreen = item.screen;
-            summaryButton.dataset.stepNumber = item.step;
-            
-            // Hier könnte man einen Event-Listener für das Zurückspringen hinzufügen
-            // summaryButton.addEventListener('click', jumpToScreenFromNav);
-            
-            summaryContainer.appendChild(summaryButton);
+    // 2. Eine wiederverwendbare Hilfsfunktion, um jede Zeile im Ergebnis zu erstellen.
+    const erstelleErgebnisZeile = (label, wert, artikel) => {
+        const zeile = document.createElement('div');
+        zeile.className = 'summary-item-btn'; // Wir nutzen Ihr vorhandenes CSS
+
+        // Standard-Text, falls nichts ausgewählt wurde
+        if (!wert) {
+            zeile.innerHTML = `<span class="summary-label">${label}:</span> <span class="summary-value" style="color: #888;">Nicht gewählt</span>`;
+            return zeile;
         }
-    });
+
+        // =======================================================
+        // +++ HIER IST DIE ÄNDERUNG: Artikelnummer hinzufügen +++
+        // =======================================================
+        let artikelDetailsHtml = '';
+        // Prüfen, ob ein Artikel UND eine Artikelnummer gefunden wurden
+        if (artikel && artikel.Artikelnummer) {
+            // Preis nur anzeigen, wenn er auch existiert
+            const preisText = artikel.Preis ? ` | Preis: ${artikel.Preis} €` : '';
+            
+            // HTML für die Artikelnummer und den Preis erstellen
+            artikelDetailsHtml = `<span class="summary-articleno">Art.-Nr.: ${artikel.Artikelnummer}${preisText}</span>`;
+        }
+        // =======================================================
+        // +++ ENDE DER ÄNDERUNG +++
+        // =======================================================
+
+        // Den finalen HTML-Code für die Zeile zusammensetzen
+        zeile.innerHTML = `
+            <div>
+                <span class="summary-label">${label}:</span>
+                <span class="summary-value">${wert}</span>
+                ${artikelDetailsHtml} 
+            </div>`;
+        
+        return zeile;
+    };
+
+    // 3. Alle konfigurierten Teile nacheinander durchgehen und im Ergebnisbildschirm anzeigen
+    
+    // Hauptartikel: Schacht
+    const schachtBeschreibung = `${userSelection.schacht} | ${userSelection.rohrdeckung} | ${userSelection.wasserzaehleranlage}`;
+    summaryContainer.appendChild(erstelleErgebnisZeile('Schacht-Konfiguration', schachtBeschreibung, gefundeneArtikel.schacht));
+
+    // Zubehör: Deckel
+    summaryContainer.appendChild(erstelleErgebnisZeile('Deckel', userSelection.deckel, gefundeneArtikel.deckel));
+
+    // Zubehör: Verschraubung (mit spezieller Logik für die Menge)
+    let verschraubungText = 'Ohne Verschraubung';
+    if (userSelection.peVerschraubung) {
+        const anzahl = gefundeneArtikel.verschraubung && gefundeneArtikel.verschraubung.menge === 2 ? 'Zwei Verbinder' : 'Ein Verbinder';
+        verschraubungText = `${anzahl} ${userSelection.peVerschraubung} (Größe ${userSelection.groesseVerbindung})`;
+    }
+    summaryContainer.appendChild(erstelleErgebnisZeile('PE-Verschraubung', verschraubungText, gefundeneArtikel.verschraubung));
+
+    // Zubehör: Schlüssel
+    summaryContainer.appendChild(erstelleErgebnisZeile('Schachtschlüssel', userSelection.wasserzaehlerSchluessel, gefundeneArtikel.schluessel));
+
+    // 4. Fehler anzeigen, falls Ihre Suchfunktion welche zurückgibt
+    if (gefundeneArtikel.fehler.length > 0) {
+        const fehlerBox = document.createElement('div');
+        fehlerBox.className = 'summary-error-box'; // Klasse für Styling
+        
+        let fehlerListeHtml = gefundeneArtikel.fehler.map(fehler => `<li>${fehler}</li>`).join('');
+        
+        fehlerBox.innerHTML = `
+            <strong>Konfiguration unvollständig oder Artikel nicht gefunden:</strong>
+            <ul>${fehlerListeHtml}</ul>
+        `;
+        
+        summaryContainer.appendChild(fehlerBox);
+    }
 }
 
 
@@ -493,7 +829,9 @@ function generatePDF() {
     const requestNumber = generateRequestNumber();
 
     // Holen der Benutzerdaten aus dem Formular
-    const name = document.getElementById('name').value;
+    const firstName = document.getElementById('firstName').value; // NEU
+    const lastName = document.getElementById('lastName').value;   // NEU (ehemals 'name')
+    const company = document.getElementById('company').value || "Nicht angegeben"; // NEU
     const street = document.getElementById('street').value;
     const postalCode = document.getElementById('postalCode').value;
     const city = document.getElementById('city').value;
@@ -545,38 +883,89 @@ function generatePDF() {
     doc.line(20, 108, 190, 108);
 
     // Auswahlpunkte
+ // --- NEUE LOGIK FÜR DIE ZUSAMMENSTELLUNG ---
     let yOffset = 118;
-    let selections = [
-        `Ein Flexoripp ${lastSelections.selection2} in ${lastSelections.selection3}.`,
-        `Mit dem ${lastSelections.selection4}.`,
-        `Die Wasserzähleranlage ist ${lastSelections.selection5}.`
-    ];
-    
-    // Wenn selection6 nicht leer ist, füge die entsprechenden Zeilen hinzu
-    if (lastSelections.selection6) {
-        selections.push(`${lastSelections.selection6} ist/sind gewünscht und zwar:`);
-        selections.push(`Die ${lastSelections.selection7} in ${lastSelections.selection9} x ${lastSelections.selection8}.`);
-    }
-    
-    // Die Wasserzählerschachtschlüssel Zeile immer hinzufügen
-    selections.push(`Wasserzählerschachtschlüssel 15mm: ${lastSelections.selection10}`);
-    
-    // Abschnitt Zusammenstellung
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.setTextColor(0, 51, 102);
-    doc.text("Zusammenstellung:", 20, yOffset);
-
+    doc.text("Ihre Konfiguration:", 20, yOffset);
     yOffset += 8;
+
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
-    selections.forEach((item) => {
-        doc.text(`${item}`, 25, yOffset);
-        yOffset += 8;
-    });
 
-    // Bild auf Höhe der Zusammenstellung ziehen
+    // =======================================================
+    // +++ HIER IST DIE EINFACHE ÄNDERUNG +++
+    // =======================================================
+    // Eine Hilfsfunktion, die Text bei einer festen Breite umbricht.
+    const addZeileMitArtikel = (label, beschreibung, artikel) => {
+        if (!beschreibung) return;
+
+        const startXLabel = 25;
+        const startXText = 65;
+        const maxTextBreite = 90; // Feste Breite, lässt rechts Platz für das Bild (160 - 65 - Puffer)
+
+        doc.setFont("helvetica", "bold");
+        doc.text(label, startXLabel, yOffset);
+        doc.setFont("helvetica", "normal");
+
+        // Text umbrechen und ausgeben
+        const beschreibungZeilen = doc.splitTextToSize(beschreibung, maxTextBreite);
+        doc.text(beschreibungZeilen, startXText, yOffset);
+
+        // y-Position für die nächste Zeile berechnen
+        let naechsteYPos = yOffset + (beschreibungZeilen.length * 5); // ca. 5 Einheiten pro Zeile
+
+        if (artikel && artikel.Artikelnummer) {
+            const preisText = artikel.Preis ? ` | Preis: ${artikel.Preis} €` : '';
+            doc.setFontSize(8);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`Art.-Nr.: ${artikel.Artikelnummer}${preisText}`, startXText, naechsteYPos);
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            naechsteYPos += 4; // Extra Platz für die Artikelnummer
+        }
+        
+        // Den globalen yOffset aktualisieren
+        yOffset = naechsteYPos + 4;
+    };
+    // =======================================================
+
+    // Jetzt die Zeilen erstellen
+    addZeileMitArtikel("Schacht:", `${userSelection.schacht} | ${userSelection.rohrdeckung} | ${userSelection.wasserzaehleranlage}`, gefundeneArtikelGlobal.schacht);
+    addZeileMitArtikel("Deckel:", userSelection.deckel, gefundeneArtikelGlobal.deckel);
+    
+
+let verschraubungText = 'Ohne Verschraubung';
+if (userSelection.peVerschraubung) {
+    const anzahl = gefundeneArtikelGlobal.verschraubung && gefundeneArtikelGlobal.verschraubung.menge === 2 ? '2 x' : '1 x';
+    
+    // =======================================================
+    // +++ HIER IST DIE ÄNDERUNG FÜR DIE ÖSTERREICH-REGEL +++
+    // =======================================================
+    let schachtGewinde = '';
+    // Prüfe zuerst, ob überhaupt ein Schacht gefunden wurde
+    if (gefundeneArtikelGlobal.schacht) {
+        // Prüfe, ob die Benutzerauswahl für den Schacht "Österr." enthält
+        if (userSelection.schacht.includes('Österr')) {
+            // Wenn ja, setze das Gewinde für die Anzeige fest auf 1"
+            schachtGewinde = '1"';
+        } else {
+            // Wenn nein, nimm das normale Gewinde aus der Datenbank
+            schachtGewinde = gefundeneArtikelGlobal.schacht.Gewinde;
+        }
+    }
+    // =======================================================
+    
+    // Baue den Text mit dem (potenziell überschriebenen) Gewinde zusammen.
+    verschraubungText = `${anzahl} ${userSelection.peVerschraubung} (${userSelection.groesseVerbindung} x ${schachtGewinde})`;
+}
+
+    addZeileMitArtikel("Anschluss:", verschraubungText, gefundeneArtikelGlobal.verschraubung);
+    addZeileMitArtikel("Schlüssel:", userSelection.wasserzaehlerSchluessel, gefundeneArtikelGlobal.schluessel);
+
+    // Bild an seiner festen Position hinzufügen
     doc.addImage(flexorippImage, 'JPEG', 160, 122, 20, 35);
 
     // Trennlinie
@@ -594,9 +983,17 @@ function generatePDF() {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
+    
+    // NEU: Vorname und Nachname
     doc.text("Name:", 25, yOffset);
-    doc.text(name, 60, yOffset);
+    doc.text(`${firstName} ${lastName}`, 60, yOffset);
     yOffset += 8;
+
+    // NEU: Firma
+    doc.text("Firma:", 25, yOffset);
+    doc.text(company, 60, yOffset);
+    yOffset += 8;
+
     doc.text("Straße:", 25, yOffset);
     doc.text(street, 60, yOffset);
     yOffset += 8;
@@ -617,9 +1014,18 @@ function generatePDF() {
 
 
     // PDF öffnen
-    const pdfData = doc.output('blob');
-    const url = URL.createObjectURL(pdfData);
-    window.open(url);
+    // ALT:
+    // const pdfData = doc.output('blob');
+    // const url = URL.createObjectURL(pdfData);
+    // window.open(url);
+
+    // NEU:
+    // 1. Den gewünschten Dateinamen zusammenbauen.
+    const fileName = `Anfrage Flexoripp ${requestNumber}.pdf`;
+
+    // 2. Die save()-Methode aufrufen, um den Download mit dem neuen Namen zu starten.
+    doc.save(fileName);
+    // =======================================================
 }
 
 
@@ -805,12 +1211,13 @@ let lastActiveScreenId = '';
  * Öffnet den Info-Bildschirm und lädt die korrekte PDF.
  * @param {HTMLElement} imageElement - Das angeklickte Bild-Element.
  */
+// ERSETZEN Sie Ihre aktuelle openInfoScreen-Funktion mit dieser:
 function openInfoScreen(imageElement) {
-    const pdfPath = imageElement.getAttribute('data-pdf');
-    if (!pdfPath) {
-        console.error("Kein 'data-pdf'-Attribut auf dem Bild gefunden.");
-        return;
+    const pdfPath = imageElement.getAttribute("data-pdf");
+    if (pdfPath) {
+        window.open(pdfPath, "_blank");
     }
+
 
     // Den aktuellen Screen merken
     const currentScreen = document.querySelector('.screen.active');
@@ -845,7 +1252,10 @@ function addVisualNavStep(screenId, step, selectionText) {
     const navContainer = document.getElementById('visual-nav-container');
     const imageSrc = screenImages[screenId];
     const tooltipElement = document.getElementById('custom-tooltip');
-    
+
+    // Diese Zeile prüft, ob es sich um ein Gerät mit Touchscreen handelt.
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
     if (imageSrc && selectionText) {
         const navImage = document.createElement('img');
         navImage.src = imageSrc;
@@ -853,31 +1263,42 @@ function addVisualNavStep(screenId, step, selectionText) {
         navImage.dataset.targetScreen = screenId;
         navImage.dataset.stepNumber = step;
 
-        navImage.addEventListener('mouseenter', function(event) {
-            tooltipElement.textContent = `Ihre Auswahl: "${selectionText}"`;
-            tooltipElement.style.display = 'block';
-            const rect = navImage.getBoundingClientRect();
-            tooltipElement.style.left = `${rect.left + window.scrollX + rect.width / 2 - tooltipElement.offsetWidth / 2}px`;
-            tooltipElement.style.top = `${rect.top + window.scrollY - tooltipElement.offsetHeight - 10}px`;
-            setTimeout(() => { tooltipElement.style.opacity = '1'; }, 10);
-        });
+        // =================================================================
+        // HIER IST DIE ENTSCHEIDENDE ÄNDERUNG:
+        // Der Code für den Tooltip wird nur ausgeführt, wenn es KEIN Touch-Gerät ist.
+        // Dadurch wird das "Anklicken" des Tooltips auf dem Handy verhindert.
+        // =================================================================
+        if (!isTouchDevice) {
+            navImage.addEventListener('mouseenter', function(event) {
+                tooltipElement.textContent = `Ihre Auswahl: "${selectionText}"`;
+                tooltipElement.style.display = 'block';
+                const rect = navImage.getBoundingClientRect();
+                tooltipElement.style.left = `${rect.left + window.scrollX + rect.width / 2 - tooltipElement.offsetWidth / 2}px`;
+                tooltipElement.style.top = `${rect.top + window.scrollY - tooltipElement.offsetHeight - 10}px`;
+                setTimeout(() => { tooltipElement.style.opacity = '1'; }, 10);
+            });
 
-        navImage.addEventListener('mouseleave', function() {
-            tooltipElement.style.opacity = '0';
-            setTimeout(() => { tooltipElement.style.display = 'none'; }, 200);
-        });
+            navImage.addEventListener('mouseleave', function() {
+                tooltipElement.style.opacity = '0';
+                setTimeout(() => { tooltipElement.style.display = 'none'; }, 200);
+            });
+        }
 
+        // Der Klick-Event zum Springen bleibt für alle Geräte erhalten.
         navImage.addEventListener('click', jumpToScreenFromNav);
         navContainer.appendChild(navImage);
     }
 }
 
+// FÜGE DIESE FEHLENDE FUNKTION HINZU
 function removeLastVisualNavStep() {
     const navContainer = document.getElementById('visual-nav-container');
+    // Prüft, ob überhaupt ein Bild zum Entfernen da ist
     if (navContainer.lastChild) {
         navContainer.removeChild(navContainer.lastChild);
     }
 }
+
 
 // ===================================================================
 //      FINALE, KORRIGIERTE jumpToScreenFromNav-Funktion
@@ -897,6 +1318,12 @@ function removeLastVisualNavStep() {
 // ===================================================================
 //      FINALE, KORRIGIERTE jumpToScreenFromNav-Funktion (v7)
 // ===================================================================
+// =================================================================
+// +++ FINALE, KORREKTE jumpToScreenFromNav-Funktion +++
+// =================================================================
+// =================================================================
+// +++ FINALE, GEHÄRTETE jumpToScreenFromNav-Funktion +++
+// =================================================================
 function jumpToScreenFromNav(event) {
     const targetElement = event.currentTarget;
     const targetScreenId = targetElement.dataset.targetScreen;
@@ -907,24 +1334,51 @@ function jumpToScreenFromNav(event) {
         return;
     }
 
-    // === DIE ENTSCHEIDENDE KORREKTUR ===
-    // Die Schleife startet jetzt bei targetStep, nicht bei targetStep + 1.
-    // Das stellt sicher, dass auch die Auswahl des Ziel-Schritts gelöscht wird.
-    for (let i = targetStep; i <= 10; i++) {
+    // --- Logik zum Zurücksetzen der Auswahlen (diese ist korrekt) ---
+    for (let i = targetStep + 1; i <= 10; i++) {
+        const keyMap = {
+            2: 'schacht', 3: 'rohrdeckung', 4: 'deckel', 5: 'wasserzaehleranlage',
+            6: 'verbinder', 7: 'peVerschraubung', 8: 'groesseVerbindung', 9: 'verbinder',
+            10: 'wasserzaehlerSchluessel'
+        };
+        
+        const selectionKey = keyMap[i];
+        if (selectionKey && userSelection[selectionKey]) {
+            userSelection[selectionKey] = '';
+        }
         if (lastSelections[`selection${i}`]) {
-            lastSelections[`selection${i}`] = null;
+            lastSelections[`selection${i}`] = '';
         }
     }
-    // === ENDE DER KORREKTUR ===
+    userSelection.peGroesse = '';
+    userSelection.peVerbindung = '';
 
+    // --- UI-Logik zum Entfernen der Bilder und Aktualisieren der Leiste ---
     const navContainer = document.getElementById('visual-nav-container');
-    while (navContainer.lastChild && parseInt(navContainer.lastChild.dataset.stepNumber) >= targetStep) {
-        navContainer.removeChild(navContainer.lastChild);
-    }
 
+    // =======================================================
+    // +++ HIER IST DIE KORREKTUR +++
+    // =======================================================
+    // Diese Schleife prüft jetzt sicher, ob .dataset existiert, bevor sie darauf zugreift.
+    while (navContainer.lastChild) {
+        const lastNode = navContainer.lastChild;
+        // Wir prüfen, ob der Knoten ein Element ist UND ein dataset mit stepNumber hat.
+        if (lastNode.nodeType === 1 && lastNode.dataset && parseInt(lastNode.dataset.stepNumber) >= targetStep) {
+            navContainer.removeChild(lastNode);
+        } else {
+            // Wenn der Knoten kein passendes Bild ist (z.B. ein Textknoten),
+            // entfernen wir ihn trotzdem, um die Schleife nicht unendlich laufen zu lassen,
+            // oder wir brechen ab, wenn wir auf einen unerwarteten Knoten stoßen.
+            // In diesem Fall ist ein Abbruch sicherer.
+            break; 
+        }
+    }
+    // =======================================================
+    
     currentStep = targetStep;
     updateProgressBar(currentStep, totalSteps);
 
+    // --- Screen-Wechsel-Logik (unverändert) ---
     const targetScreen = document.getElementById(targetScreenId);
     if (currentScreen && targetScreen) {
         currentScreen.classList.remove('active');
@@ -940,6 +1394,7 @@ function jumpToScreenFromNav(event) {
         }, { once: true });
     }
 }
+
 
 
 // ===================================================================
@@ -972,3 +1427,95 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/* ================================================== */
+/* +++ NEU: Logik für den Inaktivitäts-Timer +++ */
+/* ================================================== */
+
+/* ================================================== */
+/* +++ NEU (Version 2): Logik für den Inaktivitäts-Timer mit dynamischer Positionierung +++ */
+/* ================================================== */
+
+/* ================================================== */
+/* +++ NEU (Version 3): Logik für den Inaktivitäts-Timer, positioniert im aktiven Screen +++ */
+/* ================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Konfiguration ---
+    const INACTIVITY_SECONDS = 15;
+    const INACTIVITY_TIME_MS = INACTIVITY_SECONDS * 1000;
+
+    // --- Elemente aus dem HTML holen ---
+    const hintContainer = document.getElementById('inactivity-hint-container');
+    const hintVideo = document.getElementById('inactivity-video');
+    
+    if (!hintContainer || !hintVideo) {
+        console.log("Inaktivitäts-Video-Container nicht gefunden. Feature ist deaktiviert.");
+        return;
+    }
+
+    let inactivityTimer;
+
+    // --- Funktionen ---
+
+    // Funktion, die das Video anzeigt und im aktiven Screen platziert
+// Funktion, die das Video anzeigt, positioniert und startet (JETZT MIT ZUFALLS-LOGIK)
+function showHintVideo() {
+    const activeScreen = document.querySelector('.screen.active');
+
+    // Zeige das Video nur an, wenn wir auf einem Konfigurations-Screen sind
+    if (activeScreen && activeScreen.id.startsWith('screen')) {
+        console.log(`Benutzer ist ${INACTIVITY_SECONDS}s inaktiv. Zeige Hinweis-Video.`);
+
+        // =======================================================
+        // +++ HIER IST DIE NEUE ZUFALLS-LOGIK +++
+        // =======================================================
+        
+        // 1. Liste der verfügbaren Videos. Passen Sie die Dateinamen hier an!
+        const videoQuellen = [
+            'images/ausseninnenhilft.mp4',
+            'images/tipp_video_2.mp4'  // Ersetzen Sie dies mit dem Namen Ihres zweiten Videos
+        ];
+
+        // 2. Wähle einen zufälligen Index aus der Liste (0 für das erste, 1 für das zweite)
+        const zufallsIndex = Math.floor(Math.random() * videoQuellen.length);
+        
+        // 3. Hole die zufällig ausgewählte Video-URL
+        const zufallsVideo = videoQuellen[zufallsIndex];
+        
+        console.log(`Spiele zufälliges Video ab: ${zufallsVideo}`);
+
+        // 4. Setze die Quelle des Video-Elements auf das zufällige Video
+        hintVideo.src = zufallsVideo;
+
+        // =======================================================
+        
+        // Der Rest der Funktion bleibt gleich:
+        activeScreen.appendChild(hintContainer);
+        hintContainer.style.display = 'block';
+        hintVideo.currentTime = 0;
+        hintVideo.play().catch(e => console.error("Autoplay für Hinweis-Video blockiert:", e));
+    }
+}
+
+
+    // Funktion, die den Timer zurücksetzt und das Video versteckt
+    function resetInactivity() {
+        if (hintContainer.style.display === 'block') {
+            hintContainer.style.display = 'none';
+            hintVideo.pause();
+        }
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(showHintVideo, INACTIVITY_TIME_MS);
+    }
+
+    // --- Event-Listener für Benutzeraktivität (unverändert) ---
+    window.addEventListener('mousemove', resetInactivity, { passive: true });
+    window.addEventListener('mousedown', resetInactivity, { passive: true });
+    window.addEventListener('keypress', resetInactivity, { passive: true });
+    window.addEventListener('scroll', resetInactivity, { passive: true });
+    window.addEventListener('touchstart', resetInactivity, { passive: true });
+
+    // --- Initialer Start ---
+    resetInactivity();
+});
