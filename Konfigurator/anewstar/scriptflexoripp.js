@@ -1292,6 +1292,16 @@ function addVisualNavStep(screenId, step, selectionText) {
     }
 }
 
+// FÜGE DIESE FEHLENDE FUNKTION HINZU
+function removeLastVisualNavStep() {
+    const navContainer = document.getElementById('visual-nav-container');
+    // Prüft, ob überhaupt ein Bild zum Entfernen da ist
+    if (navContainer.lastChild) {
+        navContainer.removeChild(navContainer.lastChild);
+    }
+}
+
+
 // ===================================================================
 //      FINALE, KORRIGIERTE jumpToScreenFromNav-Funktion
 // ===================================================================
