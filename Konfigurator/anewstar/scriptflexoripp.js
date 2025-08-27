@@ -1211,12 +1211,15 @@ let lastActiveScreenId = '';
  * Öffnet den Info-Bildschirm und lädt die korrekte PDF.
  * @param {HTMLElement} imageElement - Das angeklickte Bild-Element.
  */
+// ERSETZEN Sie Ihre aktuelle openInfoScreen-Funktion mit dieser:
 function openInfoScreen(imageElement) {
     const pdfPath = imageElement.getAttribute('data-pdf');
     if (!pdfPath) {
         console.error("Kein 'data-pdf'-Attribut auf dem Bild gefunden.");
         return;
     }
+
+
 
     // Den aktuellen Screen merken
     const currentScreen = document.querySelector('.screen.active');
