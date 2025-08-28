@@ -120,11 +120,25 @@ function searchPDF() {
   const activeOperatorBtn = document.querySelector('.operator-btn.active');
   const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und'; // 'und' als sicherer Standard
 
-  if (!searchText) { // Nur der erste Suchbegriff ist zwingend
-    zeigeLeererSuchbegriffDialog();
-    document.getElementById('loadingSpinnerOverlay').style.display = 'none';
-    return;
-  }
+// NEUER Block mit Nutzermeldung
+if (!searchText && !secondSearchText) {
+  const searchInfo = document.getElementById('searchInfo');
+  
+  // Nachricht anzeigen
+  searchInfo.textContent = '⚠️ Bitte geben Sie zuerst einen Suchbegriff ein.';
+  searchInfo.style.color = '#dc3545'; // Eine auffällige Farbe (Rot)
+
+  // Lade-Spinner ausblenden
+  document.getElementById('loadingSpinnerOverlay').style.display = 'none';
+  
+  // Nachricht nach 3 Sekunden wieder zurücksetzen
+  setTimeout(() => {
+    searchInfo.textContent = ''; // Text leeren
+    searchInfo.style.color = ''; // Farbe zurücksetzen
+  }, 3000);
+
+  return; // Suche abbrechen
+}
 
   matchPages.clear();
   let totalMatches = 0;
