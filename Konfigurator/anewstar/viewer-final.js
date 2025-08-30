@@ -193,6 +193,7 @@ if (!searchText && !secondSearchText) {
     document.getElementById('loadingSpinnerOverlay').style.display = 'none';
     updateNavigation();
     updateCurrentMatchInfo();
+    updateHelpers();
   });
 }
 
@@ -703,10 +704,68 @@ function nextMatch() {
   }
 }
 
+// In Ihrer viewer-final.js
+
+function removeCurrentHit() {
+  if (matchPages.size <= 1) return; // Sicherheitsabfrage
+
+  const pagesArray = [...matchPages];
+  const currentIndex = pagesArray.indexOf(currentPage);
+
+  // 1. Aktuelle Seite aus der Trefferliste entfernen
+  matchPages.delete(currentPage);
+
+  // 2. Nächste anzuzeigende Seite bestimmen
+  const newPagesArray = [...matchPages];
+  let nextIndex = currentIndex - 1; // Versuche, zur vorherigen Seite zu springen
+
+  // Wenn es keine vorherige Seite mehr gibt, nimm die erste verfügbare
+  if (nextIndex < 0) {
+    nextIndex = 0;
+  }
+  
+  // Wenn die Liste leer ist, bleibe auf der aktuellen Seite (wird dann leer angezeigt)
+  if (newPagesArray.length > 0) {
+    currentPage = newPagesArray[nextIndex];
+    renderPage(currentPage);
+  } else {
+    // Wenn keine Treffer mehr übrig sind, leere den Viewer
+    document.getElementById('pdfViewer').innerHTML = `
+      <div style="text-align: center; padding: 50px; color: #666;">
+          <h2>Keine Treffer mehr</h2>
+          <p>Sie haben alle Trefferseiten aus der Liste entfernt.</p>
+      </div>
+    `;
+    document.getElementById('searchInfo').textContent = '🔍 Keine Treffer mehr vorhanden.';
+    document.getElementById('removeHitBtn').style.display = 'none'; // Button ausblenden
+  }
+  
+  // 3. Helfer (Trefferanzeige, etc.) aktualisieren
+  updateHelpers();
+}
+
+
+// Neue, verbesserte Version
 function updateHelpers() {
   updateCurrentMatchInfo();
   updateProgressBar();
+
+  const removeHitBtn = document.getElementById('removeHitBtn');
+  if (removeHitBtn) {
+    // --- NEUE, KOMBINIERTE PRÜFUNG ---
+    // Der Button wird NUR angezeigt, wenn:
+    // 1. Es mehr als einen Treffer gibt UND
+    // 2. Die aktuelle Seite eine Trefferseite ist.
+    const isCurrentlyOnMatchPage = matchPages.has(currentPage);
+
+    if (matchPages.size > 1 && isCurrentlyOnMatchPage) {
+      removeHitBtn.style.display = 'block';
+    } else {
+      removeHitBtn.style.display = 'none';
+    }
+  }
 }
+
 
 function updateCurrentMatchInfo() {
   const idx = [...matchPages].indexOf(currentPage) + 1;
@@ -1409,6 +1468,12 @@ window.onload = function() {
   setTimeout(function() {
     addAllTooltips();
   }, 0); // Die 0ms Verzögerung reicht aus, um die Ausführung ans Ende der Event-Queue zu schieben.
+
+  // --- NEU: Funktionalität für "Trefferseite entfernen"-Button ---
+  const removeHitBtn = document.getElementById('removeHitBtn');
+  if (removeHitBtn) {
+    removeHitBtn.addEventListener('click', removeCurrentHit);
+  }
 
   // --- 4. Funktionalität für das Hamburger-Menü (Mobile) ---
   const hamburgerBtn = document.getElementById('hamburger-btn');
