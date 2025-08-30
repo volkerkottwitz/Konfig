@@ -952,3 +952,62 @@ body.mobile-nav-open::after {
         flex: 1;
     }
 }
+
+/* In Ihrer styles-final.css */
+
+/* =================================================================== */
+/*   STIL FÜR "TREFFERSEITE ENTFERNEN"-BUTTON (RESPONSIVE V3)          */
+/* =================================================================== */
+
+/* --- 1. Grundstil (gilt für alle Größen, aber Mobile-First) --- */
+#removeHitBtn {
+  position: absolute;
+  z-index: 10;
+
+  /* Standard-Positionierung für Mobile: OBEN RECHTS */
+  top: 10px;
+  right: 10px;
+  left: auto;
+  transform: none;
+
+  /* --- NEU: Höhe für Mobile um ca. 1/4 reduziert --- */
+  padding: 4px 10px;  /* Vertikales Padding von 5px auf 4px reduziert */
+  font-size: 11px;    /* Schriftgröße von 12px auf 11px reduziert */
+  border-radius: 12px;/* Etwas weniger Rundung, passend zur geringeren Höhe */
+
+  /* Allgemeines Aussehen */
+  background-color: rgba(220, 53, 69, 0.85);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+#removeHitBtn:hover {
+  background-color: rgba(220, 53, 69, 1);
+  transform: scale(1.05);
+}
+
+
+/* --- 2. Media Query für Desktops (Bildschirme breiter als 768px) --- */
+@media screen and (min-width: 769px) {
+  #removeHitBtn {
+    /* Positionierung auf 3/4 der Breite */
+    left: 75%;
+    transform: translateX(-50%);
+    right: auto;
+
+    /* Wieder die ursprüngliche, größere Darstellung für Desktops */
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 20px;
+  }
+
+  #removeHitBtn:hover {
+    /* Hover-Effekt für Desktop anpassen */
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
