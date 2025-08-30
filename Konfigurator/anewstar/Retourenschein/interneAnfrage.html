@@ -267,19 +267,93 @@
     const kundenSucheInput = document.getElementById('kundenSuche');
     const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
 
-    fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.csv" )
-      .then(response => response.ok ? response.text() : Promise.reject("Netzwerkantwort war nicht in Ordnung."))
-      .then(csvText => {
-        kunden = Papa.parse(csvText, { header: true, skipEmptyLines: true, bom: true }).data;
-        console.log("Kundenstamm mit", kunden.length, "Einträgen geladen.");
-        kundenSucheInput.disabled = false;
-        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
-      })
-      .catch(error => {
-        console.error("Fehler beim Laden der CSV-Datei:", error);
-        kundenSucheInput.placeholder = "Fehler beim Laden der Kundenliste";
+// =================================================================
+// ===== NEUER CODE-BLOCK (Native Web Crypto API) =====
+// =================================================================
+
+// Diese Funktion startet den gesamten Prozess
+async function initializeEncryptedCustomerSearch() {
+    const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+    const kundenSucheInput = document.getElementById('kundenSuche' );
+
+    // 1. Passwort abfragen (oder aus dem Session-Speicher nehmen)
+    let password = sessionStorage.getItem('customerDataPassword');
+    if (!password) {
+        password = prompt("Bitte geben Sie das Passwort für den Zugriff auf die Kundendaten ein:", "");
+        if (!password) {
+            kundenSucheInput.placeholder = "Zugriff verweigert.";
+            kundenSucheInput.disabled = true;
+            return;
+        }
+    }
+
+    try {
+        kundenSucheInput.placeholder = "Lade und entschlüssele Kundendaten...";
         kundenSucheInput.disabled = true;
-      });
+
+        // 2. Verschlüsselte Datei laden
+        const response = await fetch(encryptedFilePath);
+        if (!response.ok) {
+            throw new Error('Fehler beim Laden der Kundendatei (Status: ' + response.status + ').');
+        }
+        const encryptedArrayBuffer = await response.arrayBuffer();
+
+        // 3. Daten mit der Web Crypto API entschlüsseln
+        const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
+        
+        // 4. CSV-Text mit PapaParse verarbeiten
+        kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
+
+        // ERFOLG!
+        sessionStorage.setItem('customerDataPassword', password);
+        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+        kundenSucheInput.disabled = false;
+        console.log("✅ Erfolgreich geladen und entschlüsselt mit Web Crypto API.");
+
+    } catch (error) {
+        // FEHLERBEHANDLUNG
+        sessionStorage.removeItem('customerDataPassword');
+        alert("Fehler: " + error.message + ". Wahrscheinlich ist das Passwort falsch.");
+        kundenSucheInput.placeholder = "Fehler beim Laden.";
+        kundenSucheInput.disabled = true;
+        console.error(error);
+    }
+}
+
+// Hilfsfunktion, die die eigentliche Entschlüsselung durchführt
+async function decryptData(encryptedArrayBuffer, password) {
+    const ITERATIONS = 480000;
+    const SALT_SIZE_BYTES = 16;
+    const NONCE_SIZE_BYTES = 12;
+
+    // Daten aus der Datei extrahieren
+    const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
+    const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+    const data = encryptedArrayBuffer.slice(SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+
+    // Passwort in einen Basisschlüssel umwandeln
+    const passwordKey = await window.crypto.subtle.importKey(
+        'raw', new TextEncoder().encode(password), { name: 'PBKDF2' }, false, ['deriveKey']
+    );
+
+    // Starken AES-Schlüssel ableiten
+    const aesKey = await window.crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: salt, iterations: ITERATIONS, hash: 'SHA-256' },
+        passwordKey, { name: 'AES-GCM', length: 256 }, true, ['decrypt']
+    );
+
+    // Daten entschlüsseln
+    const decryptedData = await window.crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: nonce }, aesKey, data
+    );
+
+    // Entschlüsselte Daten in Text umwandeln
+    return new TextDecoder().decode(decryptedData);
+}
+
+// Den gesamten Prozess starten, sobald die Seite geladen ist
+document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch);
+
 
     kundenSucheInput.addEventListener('input', function() {
         activeResultIndex = -1; // Reset bei neuer Eingabe
