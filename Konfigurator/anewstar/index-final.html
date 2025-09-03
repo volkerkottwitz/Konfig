@@ -21,27 +21,34 @@
 
 <div id="header">
   <div class="header-left">
-    <a href="https://www.ewe-armaturen.de" target="_blank" rel="noopener" title="Zur EWE-Armaturen Webseite">
+<!-- Korrekte und funktionierende Struktur -->
+<a href="https://www.ewe-armaturen.de" 
+   target="_blank" 
+   rel="noopener" 
+   data-tooltip="Zur EWE-Armaturen Webseite">
       <img src="images/logo.png" alt="EWE Logo">
-    </a>
+</a>
   </div>
   <div class="header-content">
-    <h1>DuoViewer</h1>
-    <div id="header-date" class="header-date"></div>
+    <h1 id="openDocDialogBtn" title="Dokumentenauswahl anzeigen">DuoViewer</h1>
+  <!--  <div id="header-date" class="header-date"></div>-->
   </div>
   <div class="header-right">
     <!-- Diese Buttons sind nur auf dem Desktop sichtbar -->
     <div class="buttons desktop-buttons">
-      <button onclick="openMerkliste( )" class="icon-button" title="Merkliste anzeigen">📝</button>
-      <a href="megaripp.html" class="image-button" title="Konfigurator MEGARIPP">
-        <img src="images/megaripp.png" alt="Konfigurator MEGARIPP">
-      </a>
-        <a href="flexoripp.html" class="image-button" title="Konfigurator FLEXORIPP">
-        <img src="images/flexoripp.png" alt="Konfigurator FLEXORIPP">
-      </a>
-      <a href="https://www.youtube.com/watch?v=0_29ByAIswI" class="image-button" title="EWE-Image Film" target="_blank" rel="noopener noreferrer">
-        <img src="images/ewe-film.jpg" alt="EWE-Image Film Logo">
-      </a>
+      
+<a onclick="openMegarippKonfigurator()" class="image-button" style="cursor: pointer;">
+  <img src="images/megaripp.png" alt="Konfigurator MEGARIPP">
+</a>
+<a onclick="openFlexorippKonfigurator()" class="image-button" style="cursor: pointer;">
+  <img src="images/flexoripp.png" alt="Konfigurator FLEXORIPP">
+</a>
+<a onclick="openYoutubeChannel( )" class="image-button" style="cursor: pointer;">
+  <img src="images/ewe-film1.jpg" alt="EWE-Image Film Logo">
+</a>
+
+      <a onclick="openMerkliste()" class="merkliste-icon-button" data-tooltip="Merkliste anzeigen">📝</a>
+
     </div>
     <!-- Hamburger-Button nur für Mobile -->
     <button id="hamburger-btn" class="icon-button">☰</button>
@@ -58,21 +65,21 @@
 
 
 <div class="search-container">
-  <input type="text" id="searchBox" placeholder="Suchbegriff 1" title="Ersten Suchbegriff eingeben">
+  <input type="text" id="searchBox" placeholder="Suchbegriff 1">
 
   <!-- NEUE SUCHOPERATOR-BUTTONS -->
   <div id="search-operator-group" class="search-operator-group">
-    <button class="operator-btn active" data-op="und" title="Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen">UND</button>
-    <button class="operator-btn" data-op="oder" title="Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt">ODER</button>
-    <button class="operator-btn" data-op="ohne" title="Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten">OHNE</button>
+    <button class="operator-btn active" data-op="und">UND</button>
+    <button class="operator-btn" data-op="oder">ODER</button>
+    <button class="operator-btn" data-op="ohne">OHNE</button>
   </div>
 
-  <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (verknüpft)" title="Zweiten Suchbegriff eingeben (optional)">
+  <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (verknüpft)">
 
   <div class="button-row">
-    <button onclick="searchPDF()" class="icon-button" title="Suche starten">🔍</button>
-    <button onclick="printCurrentPage()" class="icon-button" title="Aktuelle Seite drucken">🖨️</button>
-    <button onclick="printAllMatches()" class="icon-button" title="Alle Treffer drucken">🖨️ Alle</button>
+    <button onclick="searchPDF()" class="icon-button">🔍</button>
+    <button onclick="printCurrentPage()" class="icon-button">🖨️</button>
+    <button onclick="printAllMatches()" class="icon-button">🖨️ Alle</button>
   </div>
   <div id="loadingSpinnerOverlay">
     <img src="images/ewe-icon-180.png" class="rotating-logo" alt="Lädt…">
@@ -89,15 +96,15 @@
 </div>
 
   <div class="navigation-buttons">
-    <button id="prev-page" title="Vorherige Seite">◀ PDF</button>
-    <button onclick="prevMatch()" title="Vorheriger Treffer" disabled>⬅ 🎯</button>
-    <button onclick="nextMatch()" title="Nächster Treffer" disabled>🎯 ➡</button>
-    <button id="next-page" title="Nächste Seite">PDF ▶</button>
+    <button id="prev-page">◀ PDF</button>
+    <button onclick="prevMatch()">⬅ 🎯</button>
+    <button onclick="nextMatch()">🎯 ➡</button>
+    <button id="next-page" >PDF ▶</button>
   </div>
 
   <div class="zoom-buttons">
-    <button onclick="zoomOut()" title="Verkleinern">🔍 –</button>
-    <button onclick="zoomIn()" title="Vergrößern">🔍 +</button>
+    <button onclick="zoomOut()">🔍 –</button>
+    <button onclick="zoomIn()">🔍 +</button>
   </div>
 
   <div id="pdfContainer">
@@ -147,5 +154,18 @@
   <script src="viewer-final.js"></script>
   
  <script src="retourenschein-extension.js"></script>
+
+<!-- Dokumenten-Auswahl-Dialog -->
+<div id="docDialog" style="display: none;">
+  <div class="doc-dialog-header">
+    <h2>Dokument auswählen</h2>
+    <button id="closeDocDialogBtn" title="Schließen">✖</button>
+  </div>
+  <div id="docDialogList">
+    <!-- Die Liste der Dokumente wird hier per JavaScript eingefügt -->
+  </div>
+</div>
+
+
 </body>
 </html>
