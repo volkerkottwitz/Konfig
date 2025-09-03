@@ -117,7 +117,9 @@ merkliste.forEach((item, index) => {
           </div>
           ${merklisteHTML}
           <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-            <button id="retourenscheinBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">📋 Retoure</button>
+          <button id="jetztKaufenBtn" style="padding: 12px 20px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">🛒 Kaufen</button>
+
+          <button id="retourenscheinBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">📋 Retoure</button>
             <button id="jetztAnfragenBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">📋 Anfrage</button>
             <button id="merklisteSchließenBtn" style="padding: 12px 20px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">Schließen</button>
           </div>
@@ -145,6 +147,15 @@ merkliste.forEach((item, index) => {
           openMerklisteDialogDesktop();
         });
       });
+
+      // Event-Listener für den neuen "Kaufen"-Button
+document.getElementById("jetztKaufenBtn").addEventListener("click", () => {
+  if (merkliste && merkliste.length > 0) {
+    localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
+  }
+  document.body.removeChild(dialog);
+  window.open('Kaufen.html', '_blank');
+});
 
       document.getElementById("retourenscheinBtn").addEventListener("click", () => {
         if (merkliste && merkliste.length > 0) {
@@ -378,6 +389,9 @@ merkliste.forEach((item, index) => {
                 transform: translateY(-1px);
               }
 
+              .btn-buy { background: #28a745; color: white; } /* Stil für Kaufen-Button */
+
+
               /* === EMPTY STATE === */
               .empty-state {
                 color: #666;
@@ -453,6 +467,8 @@ merkliste.forEach((item, index) => {
               <div id="merklisteContainer"></div>
               
               <div class="button-container">
+              <button class="btn btn-buy" onclick="buyItems()">🛒 Kaufen</button>
+
                 <button class="btn btn-primary" onclick="openRetourenschein()">📋 Retoure</button>
                 <button class="btn btn-primary" onclick="requestQuote()">📋 Anfrage</button>
                 <button class="btn btn-secondary" onclick="window.close()">Schließen</button>
@@ -521,6 +537,13 @@ merkliste.forEach((item, index) => {
                   renderMerkliste();
                 }
               }
+// NEUE FUNKTION FÜR DEN KAUFEN-BUTTON
+function buyItems() {
+  // Die Merkliste ist bereits aktuell im localStorage.
+  // Wir öffnen die Kaufen.html Seite und schließen optional das aktuelle Fenster.
+  window.open('Kaufen.html', '_blank');
+  window.close(); // Schließt das mobile Merklisten-Fenster
+}
 
               function openRetourenschein() {
                 window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html', '_blank' );

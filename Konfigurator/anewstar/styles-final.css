@@ -1011,3 +1011,115 @@ body.mobile-nav-open::after {
   }
 }
 
+/* ======================================================== */
+/*      STYLING FÜR DEN NEUEN MERKLISTEN-ICON-LINK          */
+/* ======================================================== */
+
+.merkliste-icon-button {
+    /* Schriftgröße für das Emoji anpassen */
+    font-size: 36px;
+    
+    /* Standard-Link-Unterstreichung entfernen */
+    text-decoration: none;
+    
+    /* Farbe des Emojis festlegen (falls nötig) */
+    color: #333;
+    
+    /* Sicherstellen, dass der Klick-Cursor erscheint */
+    cursor: pointer;
+    
+    /* Übergang für den Hover-Effekt definieren */
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Subtiler Hover-Effekt */
+.merkliste-icon-button:hover {
+    transform: scale(1.1);
+    opacity: 0.7;
+}
+
+
+/* --- Stil für den klickbaren Header --- */
+#openDocDialogBtn {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+#openDocDialogBtn:hover {
+  color: #00a1e1; /* EWE Blau als Hover-Effekt */
+}
+
+/* --- Stil für den Dokumenten-Auswahl-Dialog --- */
+#docDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(248, 249, 250, 0.98 ); /* Leicht durchsichtiges Weiß */
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box; /* Wichtig für Padding */
+}
+
+.doc-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #dee2e6;
+  padding-bottom: 15px;
+  flex-shrink: 0; /* Header soll nicht schrumpfen */
+}
+
+.doc-dialog-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+#closeDocDialogBtn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+#docDialogList {
+  overflow-y: auto;
+  padding-top: 20px;
+  flex-grow: 1; /* Liste füllt den verfügbaren Platz */
+}
+
+/* --- Stil für die Listeneinträge --- */
+.doc-category-group {
+  margin-bottom: 25px;
+}
+
+.doc-category-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.doc-link {
+  display: block;
+  padding: 12px 15px;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: #212529;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-link:hover {
+  border-color: #00a1e1;
+  background-color: #f0f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}

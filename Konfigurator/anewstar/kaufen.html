@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaufabwicklung</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #444;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        #artikel-zusammenfassung table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        #artikel-zusammenfassung th, #artikel-zusammenfassung td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        #artikel-zusammenfassung th {
+            background-color: #f8f8f8;
+        }
+        #artikel-zusammenfassung .text-right {
+            text-align: right;
+        }
+        #gesamtbetrag-container {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        #bezahl-optionen {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        #status-message {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+    </style>
+
+    <!-- SDKs für PayPal und Stripe -->
+    <!-- WICHTIG: Ersetzen Sie die Platzhalter durch Ihre echten Test-API-Schlüssel! -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ARQ9_Pcc3vofXe9DUt6YkQ25wmRxE4Ra_ZxwaV4oXyXNQKS2J61jnfBD3vGxe5u96JYdyFMNvfLvmBeI&currency=EUR"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🛒 Kaufabwicklung</h1>
+
+        <!-- 1. Zusammenfassung der Artikel -->
+        <div id="artikel-zusammenfassung">
+            <h2>Ihre Bestellung</h2>
+            <!-- Die Tabelle wird per JavaScript befüllt -->
+        </div>
+
+        <!-- 2. Gesamtbetrag -->
+        <div id="gesamtbetrag-container">
+            <!-- Der Gesamtbetrag wird per JavaScript eingefügt -->
+        </div>
+
+        <!-- 3. Bezahloptionen -->
+        <div id="bezahl-optionen">
+            <h2>Wählen Sie eine Bezahlmethode</h2>
+            <!-- PayPal Button Container -->
+            <div id="paypal-button-container"></div>
+            <!-- Stripe (Mastercard etc. ) wird über Stripe Checkout abgewickelt -->
+            <button id="stripe-checkout-button" style="background-color: #635bff; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;">Mit Kreditkarte bezahlen</button>
+        </div>
+
+        <!-- Statusmeldungen -->
+        <div id="status-message"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const artikelContainer = document.getElementById('artikel-zusammenfassung');
+            const gesamtbetragContainer = document.getElementById('gesamtbetrag-container');
+            const statusMessage = document.getElementById('status-message');
+            
+            // Schritt 1: Artikel aus dem localStorage laden
+            const merkliste = JSON.parse(localStorage.getItem('merklisteForRetourenschein') || '[]');
+            let gesamtbetrag = 0;
+            let stripeLineItems = [];
+
+            if (merkliste.length === 0) {
+                artikelContainer.innerHTML = '<p>Ihr Warenkorb ist leer.</p>';
+                document.getElementById('bezahl-optionen').style.display = 'none';
+                return;
+            }
+
+            // Schritt 2: Tabelle mit Artikeln erstellen und Gesamtbetrag berechnen
+            let tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Artikel</th>
+                            <th class="text-right">Menge</th>
+                            <th class="text-right">Einzelpreis</th>
+                            <th class="text-right">Gesamt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            merkliste.forEach(item => {
+                // Preis von String (z.B. "5,00 €") in eine Zahl umwandeln
+                // NEUE, KORRIGIERTE ZEILE:
+const preisString = String(item.preis); // Zuerst sicher in einen String umwandeln
+const preisNumerisch = parseFloat(preisString.replace('€', '').replace(',', '.').trim());
+const menge = parseInt(item.menge, 10);
+                const zeilensumme = preisNumerisch * menge;
+                gesamtbetrag += zeilensumme;
+
+                tableHTML += `
+                    <tr>
+                        <td><strong>${item.name}</strong>  
+<small>${item.nummer}</small></td>
+                        <td class="text-right">${menge}</td>
+                        <td class="text-right">${preisNumerisch.toFixed(2).replace('.', ',')} €</td>
+                        <td class="text-right">${zeilensumme.toFixed(2).replace('.', ',')} €</td>
+                    </tr>
+                `;
+
+                // Daten für Stripe Checkout vorbereiten
+                stripeLineItems.push({
+                    price_data: {
+                        currency: 'eur',
+                        product_data: {
+                            name: item.name,
+                        },
+                        unit_amount: Math.round(preisNumerisch * 100), // Betrag in Cent
+                    },
+                    quantity: menge,
+                });
+            });
+
+            tableHTML += '</tbody></table>';
+            artikelContainer.innerHTML += tableHTML;
+            gesamtbetragContainer.textContent = `Gesamtbetrag: ${gesamtbetrag.toFixed(2).replace('.', ',')} €`;
+
+            // Schritt 3: Bezahlfunktionen initialisieren
+
+            // --- PayPal Integration ---
+            try {
+                paypal.Buttons({
+                    createOrder: function(data, actions) {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: gesamtbetrag.toFixed(2) // Dynamischer Gesamtbetrag
+                                }
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            statusMessage.className = 'success';
+                            statusMessage.textContent = `Zahlung erfolgreich! Transaktions-ID: ${details.id}. Vielen Dank für Ihren Einkauf!`;
+                            document.getElementById('bezahl-optionen').style.display = 'none';
+                        });
+                    },
+                    onError: function(err) {
+                        statusMessage.className = 'error';
+                        statusMessage.textContent = 'Bei der PayPal-Zahlung ist ein Fehler aufgetreten.';
+                    }
+                }).render('#paypal-button-container');
+            } catch (e) {
+                console.error("PayPal SDK konnte nicht geladen werden. Prüfen Sie Ihre Client-ID.");
+                document.getElementById('paypal-button-container').innerHTML = "<p class='error'>PayPal konnte nicht geladen werden.</p>";
+            }
+
+            // --- Stripe (Mastercard etc.) Integration ---
+            try {
+                const stripe = Stripe('DEIN_STRIPE_TEST_PUBLISHABLE_KEY');
+                const stripeButton = document.getElementById('stripe-checkout-button');
+
+                stripeButton.addEventListener('click', function() {
+                    // Leitet zur sicheren Bezahlseite von Stripe weiter
+                    stripe.redirectToCheckout({
+                        lineItems: stripeLineItems,
+                        mode: 'payment',
+                        successUrl: window.location.href + '?payment_status=success',
+                        cancelUrl: window.location.href + '?payment_status=cancel',
+                    });
+                });
+            } catch (e) {
+                console.error("Stripe SDK konnte nicht geladen werden. Prüfen Sie Ihren Publishable Key.");
+                document.getElementById('stripe-checkout-button').style.display = 'none';
+            }
+
+            // Statusmeldung nach Stripe-Weiterleitung anzeigen
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('payment_status') === 'success') {
+                statusMessage.className = 'success';
+                statusMessage.textContent = 'Zahlung erfolgreich! Vielen Dank für Ihren Einkauf!';
+                document.getElementById('bezahl-optionen').style.display = 'none';
+            } else if (urlParams.get('payment_status') === 'cancel') {
+                statusMessage.className = 'error';
+                statusMessage.textContent = 'Die Zahlung wurde abgebrochen.';
+            }
+        });
+    </script>
+
+</body>
+</html>

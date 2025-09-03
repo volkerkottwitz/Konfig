@@ -19,7 +19,7 @@ function isMobileDevice() {
 // === 🛒 Artikel-Daten aus CSV laden ===
 const artikelMap = new Map();
 
-fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/Warenkorb/images/ewe-daten-2025.csv")
+fetch("https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/images/ewe-daten-2025.csv")
   .then(res => res.arrayBuffer())
   .then(buffer => {
     const decoder = new TextDecoder("utf-8");
@@ -60,14 +60,32 @@ const merkliste = []; // Geändert von warenkorb zu merkliste
 const merklisteInhalt = document.getElementById("merklisteInhalt");
 
 // PDF-URL
-const url = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/images/pdf2025.pdf';
+// === const url = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/images/pdf2025.pdf'; ===
 
 // === 📥 PDF laden & initial anzeigen ===
-pdfjsLib.getDocument(url).promise.then(pdf => {
-  pdfDoc = pdf;
-  renderPage(currentPage);
-  updateNavigation();
-}).catch(err => alert('Fehler beim Laden: ' + err.message));
+// ===pdfjsLib.getDocument(url).promise.then(pdf => {
+// ===  pdfDoc = pdf;
+// ===  renderPage(currentPage);
+// ===  updateNavigation();
+// === }).catch(err => alert('Fehler beim Laden: ' + err.message));
+
+function loadAndRenderPdf(pdfPath) {
+  // Reset für die Suche und Anzeige
+  document.getElementById('searchInfo').textContent = '';
+  document.getElementById('pdfViewer').innerHTML = '<div class="loading">Lade PDF...</div>';
+  matchPages.clear();
+  currentPage = 1;
+
+  pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
+    pdfDoc = pdf;
+    renderPage(currentPage);
+    updateNavigation();
+  }).catch(err => {
+    alert('Fehler beim Laden des PDFs: ' + err.message);
+    document.getElementById('pdfViewer').innerHTML = '<h2>Fehler beim Laden des Dokuments.</h2>';
+  });
+}
+
 
 // === 🖼️ Seite rendern ===
 function renderPage(pageNum) {
@@ -1021,7 +1039,6 @@ function updateHeaderDate() {
 
 
 
-// === 💬 TOOLTIPS HINZUFÜGEN (FINALE, VOLLSTÄNDIGE VERSION) ===
 function addAllTooltips() {
   // Tooltips für alle Elemente definieren.
   // Die Selektoren sind jetzt exakt auf den bekannten HTML-Code abgestimmt.
@@ -1048,13 +1065,14 @@ function addAllTooltips() {
     
     // Header-Elemente und die drei Bilder (jetzt mit den exakten Selektoren aus dem HTML)
     'a[href="https://www.ewe-armaturen.de"]': 'Zur EWE-Armaturen Webseite',
-    'a[href="megaripp.html"]': 'Konfigurator MEGARIPP',
-    'a[href="flexoripp.html"]': 'Konfigurator FLEXORIPP',
-    'a[href*="youtube.com"]': 'EWE-Image Film', // Dieser Selektor ist robust für den YouTube-Link
+    'a[onclick="openMegarippKonfigurator()"]': 'Konfigurator MEGARIPP', // <-- GEÄNDERT
+    'a[onclick="openFlexorippKonfigurator()"]': 'Konfigurator FLEXORIPP', // <-- GEÄNDERT
+    'a[onclick="openYoutubeChannel()"]': 'EWE-Youtube Kanal', // <-- GEÄNDERT
 
-    // Merkliste-Button (jetzt mit dem exakten Selektor aus dem HTML )
-    'button[onclick="openMerkliste( )"]': 'Merkliste anzeigen'
+
   };
+
+
 
   Object.entries(tooltips).forEach(([selector, tooltip]) => {
     const elements = document.querySelectorAll(selector);
@@ -1453,8 +1471,84 @@ function closeMobileNav() {
 
 window.onload = function() {
 
+      // ===================================================================
+    //   NEUE LOGIK FÜR DOKUMENTEN-AUSWAHL UND INITIALISIERUNG
+    // ===================================================================
+
+    const openBtn = document.getElementById('openDocDialogBtn');
+    const closeBtn = document.getElementById('closeDocDialogBtn');
+    const dialog = document.getElementById('docDialog');
+    const listContainer = document.getElementById('docDialogList');
+    let pdfsData = [];
+
+    function populateDocList() {
+      const groupedPdfs = pdfsData.reduce((acc, pdf) => {
+        const category = pdf.category || 'Allgemein';
+        if (!acc[category]) { acc[category] = []; }
+        acc[category].push(pdf);
+        return acc;
+      }, {});
+
+      listContainer.innerHTML = '';
+
+      for (const category in groupedPdfs) {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'doc-category-group';
+        const title = document.createElement('div');
+        title.className = 'doc-category-title';
+        title.textContent = category;
+        groupDiv.appendChild(title);
+
+        groupedPdfs[category].forEach(pdf => {
+          const link = document.createElement('a');
+          link.className = 'doc-link';
+          link.textContent = pdf.name;
+          link.href = '#';
+          link.dataset.path = pdf.path;
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadAndRenderPdf(e.target.dataset.path);
+            dialog.style.display = 'none';
+          });
+          groupDiv.appendChild(link);
+        });
+        listContainer.appendChild(groupDiv);
+      }
+    }
+
+    if (openBtn && dialog && closeBtn) {
+        openBtn.addEventListener('click', () => { dialog.style.display = 'flex'; });
+        closeBtn.addEventListener('click', () => { dialog.style.display = 'none'; });
+    }
+
+    async function initializeDocumentHandling() {
+      try {
+        const response = await fetch('pdf/pdfs.json');
+        pdfsData = await response.json();
+        const defaultPdf = pdfsData.find(pdf => pdf.isDefault);
+        const initialPdfPath = defaultPdf ? defaultPdf.path : (pdfsData.length > 0 ? pdfsData[0].path : '');
+        if (initialPdfPath) {
+          loadAndRenderPdf(initialPdfPath);
+        } else {
+          document.getElementById('pdfViewer').innerHTML = '<h2>Keine Dokumente konfiguriert.</h2>';
+        }
+        populateDocList();
+      } catch (error) {
+        console.error("Fehler beim Laden oder Verarbeiten von pdfs.json:", error);
+        alert("Die Konfigurationsdatei für die Dokumente konnte nicht geladen werden.");
+      }
+    }
+
+    initializeDocumentHandling();
+
+    // ===================================================================
+    //   ENDE DER NEUEN LOGIK
+    // ===================================================================
+
+
   // --- 1. Fokus auf das erste Suchfeld setzen ---
   const searchBox = document.getElementById("searchBox");
+  
   if (searchBox) {
     searchBox.focus();
   }
@@ -1517,3 +1611,31 @@ window.onload = function() {
   }
 
 }; // Ende des window.onload Blocks
+function openMegarippKonfigurator() {
+  // Öffnet megaripp.html in einem neuen Fenster (oder Tab)
+  // Der Browser merkt sich, dass unser Skript dieses Fenster geöffnet hat.
+  window.open('megaripp.html', '_blank');
+}
+
+// ======================================================== */
+//   FUNKTION ZUM ÖFFNEN DES FLEXORIPP-KONFIGURATORS         */
+// ======================================================== */
+
+function openFlexorippKonfigurator() {
+  // Öffnet flexoripp.html in einem neuen, vom Skript kontrollierten Fenster
+  window.open('flexoripp.html', '_blank');
+}
+
+// ======================================================== */
+//   FUNKTION ZUM ÖFFNEN DES EWE YOUTUBE-KANALS             */
+// ======================================================== */
+
+function openYoutubeChannel() {
+  // Die vollständige URL zum YouTube-Kanal
+  const youtubeUrl = 'https://www.youtube.com/@ewe-armaturen4154/videos';
+  
+  // Öffnet die URL in einem neuen, vom Skript kontrollierten Fenster
+  window.open(youtubeUrl, '_blank' );
+}
+
+
