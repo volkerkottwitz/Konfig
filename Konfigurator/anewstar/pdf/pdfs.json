@@ -7,43 +7,43 @@
   },
   {
     "name": "Alle Benutzerinformationen",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/PDF/bi-d_flexoripp_merged_Benutzerinfo.pdf",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_flexoripp_merged_Benutzerinfo.pdf",
     "category": "Benutzerinformationen",
     "isDefault": false
   },
   {
     "name": "BI + Prospekt: Standrohre divers",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/PDF/p-d_standrohre_merged_compressed.pdf",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_standrohre_merged_compressed.pdf",
     "category": "Prospekte",
     "isDefault": false
   },
   {
     "name": "Sicherheitsdatenblätter: Gefahrstoffe",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/PDF/SDgefahren.pdf",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/SDgefahren.pdf",
     "category": "Sicherheitsdatenblätter",
     "isDefault": false
   },
   {
     "name": "Bi + Prospekte: Anbohren AZ Guss Stahl PE DAV Abwasser",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/PDF/ilovepdf_mergedanbohren.pdf",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedanbohren.pdf",
     "category": "Sammeldokumente",
     "isDefault": false
   },
   {
     "name": "Sammeldokumente: Gartenarmaturen/Bauwasser",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/PDF/ilovepdf_mergedgarten.pdf",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedgarten.pdf",
     "category": "Sammeldokumente",
     "isDefault": false
   },
   {
     "name": "Sammeldokument: Leistungsverzeichnis und andere",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/PDF/ilovepdf_mergedothers.pdf",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedothers.pdf",
     "category": "Sammeldokumente",
     "isDefault": false
   },
   {
     "name": "BI + Prospekt: Wasserzähleranlagen",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/PDF/ilovepdf_mergedwza.pdf",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedwza.pdf",
     "category": "Sammeldokumente",
     "isDefault": false
   }
