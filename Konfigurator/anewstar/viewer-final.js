@@ -56,6 +56,37 @@ let pdfDoc = null, currentPage = 1, zoomFactor = 1.0;
 let searchText = '', secondSearchText = '', matchPages = new Set();
 let aktuellerArtikelText = "";
 const merkliste = []; // Geändert von warenkorb zu merkliste
+// ===================================================================
+//   FUNKTION ZUR AKTUALISIERUNG DES MERKLISTEN-ZAHLEN-BADGES
+// ===================================================================
+function updateMerklisteIcon() {
+  // 1. Finde den Merkliste-Button im HTML
+  const merklisteBtn = document.querySelector('a[onclick*="openMerkliste"]');
+  
+  // 2. Prüfe, ob der Button gefunden wurde
+  if (merklisteBtn) {
+    // 3. Ermittle die Anzahl der verschiedenen Artikel in der Merkliste
+    const anzahl = merkliste.length;
+
+    // 4. Entscheide, was zu tun ist
+    if (anzahl > 0) {
+      // WENN ARTIKEL VORHANDEN SIND:
+      // Setze die Anzahl in das 'data-count'-Attribut des Buttons.
+      // Das CSS wird diesen Wert auslesen und anzeigen.
+      merklisteBtn.dataset.count = anzahl;
+      
+      // Füge die CSS-Klasse '.has-items' hinzu.
+      // Das macht den Badge (das ::after-Element) sichtbar.
+      merklisteBtn.classList.add('has-items');
+    } else {
+      // WENN KEINE ARTIKEL VORHANDEN SIND:
+      // Entferne die CSS-Klasse, um den Badge wieder zu verstecken.
+      merklisteBtn.classList.remove('has-items');
+    }
+  }
+}
+
+
 
 const merklisteInhalt = document.getElementById("merklisteInhalt");
 
@@ -80,6 +111,7 @@ function loadAndRenderPdf(pdfPath) {
     pdfDoc = pdf;
     renderPage(currentPage);
     updateNavigation();
+    updateHelpers(); 
   }).catch(err => {
     alert('Fehler beim Laden des PDFs: ' + err.message);
     document.getElementById('pdfViewer').innerHTML = '<h2>Fehler beim Laden des Dokuments.</h2>';
@@ -203,7 +235,7 @@ if (!searchText && !secondSearchText) {
   Promise.all(tasks).then(() => {
     if (matchPages.size > 0) {
         document.getElementById('searchInfo').textContent = `🔍 ${matchPages.size} Seite(n) gefunden.`;
-        currentPage = [...matchPages][0];
+        currentPage = [...matchPages].sort((a, b) => a - b)[0];
         renderPage(currentPage);
     } else {
         document.getElementById('searchInfo').textContent = '🔍 Keine Treffer für Ihre Suche gefunden.';
@@ -656,6 +688,8 @@ function removeFromMerkliste(articleNumber) {
     const artikel = merkliste[index];
     merkliste.splice(index, 1);
     zeigeHinzugefügtOverlay(`${artikel.name} wurde entfernt`);
+
+    updateMerklisteIcon();
   }
 }
 
@@ -703,7 +737,7 @@ function zeigeHinzugefügtOverlay(text) {
 
 // === 🔄 NAVIGATION UND STEUERUNG ===
 function prevMatch() {
-  const arr = [...matchPages];
+  const arr = [...matchPages].sort((a, b) => a - b);
   const i = arr.indexOf(currentPage);
   if (i > 0) {
     currentPage = arr[i - 1];
@@ -713,7 +747,7 @@ function prevMatch() {
 }
 
 function nextMatch() {
-  const arr = [...matchPages];
+  const arr = [...matchPages].sort((a, b) => a - b);
   const i = arr.indexOf(currentPage);
   if (i < arr.length - 1) {
     currentPage = arr[i + 1];
@@ -724,75 +758,119 @@ function nextMatch() {
 
 // In Ihrer viewer-final.js
 
-function removeCurrentHit() {
-  if (matchPages.size <= 1) return; // Sicherheitsabfrage
+// In Ihrer viewer-final.js
 
-  const pagesArray = [...matchPages];
-  const currentIndex = pagesArray.indexOf(currentPage);
+// In Ihrer viewer-final.js
+
+function removeCurrentHit() {
+  if (!matchPages.has(currentPage)) return;
+
+  const oldSortedPages = [...matchPages].sort((a, b) => a - b);
+  const oldIndex = oldSortedPages.indexOf(currentPage);
 
   // 1. Aktuelle Seite aus der Trefferliste entfernen
   matchPages.delete(currentPage);
 
-  // 2. Nächste anzuzeigende Seite bestimmen
-  const newPagesArray = [...matchPages];
-  let nextIndex = currentIndex - 1; // Versuche, zur vorherigen Seite zu springen
+  // 2. Nächste anzuzeigende Seite bestimmen (jetzt auf Basis der sortierten Liste)
+  const newSortedPages = [...matchPages].sort((a, b) => a - b);
 
-  // Wenn es keine vorherige Seite mehr gibt, nimm die erste verfügbare
-  if (nextIndex < 0) {
-    nextIndex = 0;
-  }
-  
-  // Wenn die Liste leer ist, bleibe auf der aktuellen Seite (wird dann leer angezeigt)
-  if (newPagesArray.length > 0) {
-    currentPage = newPagesArray[nextIndex];
+  if (newSortedPages.length > 0) {
+    // Fall A: Es sind noch Treffer übrig.
+    // Wähle den Index, der dem alten am nächsten ist.
+    let nextIndex = oldIndex;
+    if (nextIndex >= newSortedPages.length) {
+      // Wenn wir das letzte Element gelöscht haben, nimm das neue letzte Element.
+      nextIndex = newSortedPages.length - 1;
+    }
+    
+    currentPage = newSortedPages[nextIndex];
     renderPage(currentPage);
+
   } else {
-    // Wenn keine Treffer mehr übrig sind, leere den Viewer
-    document.getElementById('pdfViewer').innerHTML = `
-      <div style="text-align: center; padding: 50px; color: #666;">
-          <h2>Keine Treffer mehr</h2>
-          <p>Sie haben alle Trefferseiten aus der Liste entfernt.</p>
-      </div>
-    `;
-    document.getElementById('searchInfo').textContent = '🔍 Keine Treffer mehr vorhanden.';
-    document.getElementById('removeHitBtn').style.display = 'none'; // Button ausblenden
+    // Fall B: Das war der letzte Treffer.
+    currentPage = 1;
+    renderPage(currentPage);
+    document.getElementById('searchInfo').textContent = '';
   }
   
-  // 3. Helfer (Trefferanzeige, etc.) aktualisieren
+  // 3. Helfer aktualisieren (dieser Aufruf bleibt entscheidend)
   updateHelpers();
 }
 
 
-// Neue, verbesserte Version
+
+// In Ihrer viewer-final.js
+
+function addCurrentHit() {
+  if (matchPages.has(currentPage)) return; // Sicherheitsabfrage
+  matchPages.add(currentPage);
+  updateHelpers();
+}
+
+
+
+// In Ihrer viewer-final.js
+
 function updateHelpers() {
   updateCurrentMatchInfo();
   updateProgressBar();
 
   const removeHitBtn = document.getElementById('removeHitBtn');
-  if (removeHitBtn) {
-    // --- NEUE, KOMBINIERTE PRÜFUNG ---
-    // Der Button wird NUR angezeigt, wenn:
-    // 1. Es mehr als einen Treffer gibt UND
-    // 2. Die aktuelle Seite eine Trefferseite ist.
-    const isCurrentlyOnMatchPage = matchPages.has(currentPage);
+  const addHitBtn = document.getElementById('addHitBtn');
 
-    if (matchPages.size > 1 && isCurrentlyOnMatchPage) {
-      removeHitBtn.style.display = 'block';
-    } else {
-      removeHitBtn.style.display = 'none';
-    }
+  if (!removeHitBtn || !addHitBtn) return; // Sicherheitsabfrage
+
+  const isCurrentlyOnMatchPage = matchPages.has(currentPage);
+
+  // Standardmäßig beide Buttons ausblenden
+  removeHitBtn.style.display = 'none';
+  addHitBtn.style.display = 'none';
+
+  // --- FINALE, KORRIGIERTE LOGIK ---
+  if (isCurrentlyOnMatchPage) {
+    // Zustand 1: Wir sind auf einer Trefferseite.
+    // Zeige IMMER den "Entfernen"-Button an, auch wenn es der letzte Treffer ist.
+    removeHitBtn.style.display = 'block';
+  } else {
+    // Zustand 2: Wir sind NICHT auf einer Trefferseite.
+    // Zeige IMMER den "Hinzufügen"-Button an.
+    addHitBtn.style.display = 'block';
   }
 }
 
 
+
+// In Ihrer viewer-final.js
+
 function updateCurrentMatchInfo() {
-  const idx = [...matchPages].indexOf(currentPage) + 1;
-  document.getElementById('currentMatchInfo').textContent = `📄 Treffer ${idx} / ${matchPages.size}`;
+  // --- GEÄNDERT: Das Array wird vor der Index-Suche sortiert ---
+  const sortedPages = [...matchPages].sort((a, b) => a - b);
+  const idx = sortedPages.indexOf(currentPage) + 1;
+
+  // Nur eine Anzeige ausgeben, wenn es auch Treffer gibt und die Seite ein Treffer ist
+  if (idx > 0 && matchPages.size > 0) {
+    document.getElementById('currentMatchInfo').textContent = `🎯 Treffer ${idx} / ${matchPages.size}`;
+  } else {
+    document.getElementById('currentMatchInfo').textContent = ''; // Ansonsten Anzeige leeren
+  }
 }
 
+
+// In Ihrer viewer-final.js
+
 function updateProgressBar() {
-  const idx = [...matchPages].indexOf(currentPage) + 1;
-  document.getElementById('progressFill').style.width = `${(idx / matchPages.size) * 100}%`;
+  // --- GEÄNDERT: Das Array wird vor der Index-Suche sortiert ---
+  const sortedPages = [...matchPages].sort((a, b) => a - b);
+  const idx = sortedPages.indexOf(currentPage) + 1;
+
+  // Nur die Breite aktualisieren, wenn es auch Treffer gibt
+  if (matchPages.size > 0 && idx > 0) {
+    const progressPercentage = (idx / matchPages.size) * 100;
+    document.getElementById('progressFill').style.width = `${progressPercentage}%`;
+  } else {
+    // Wenn keine Treffer da sind, Balken zurücksetzen
+    document.getElementById('progressFill').style.width = '0%';
+  }
 }
 
 // === 🔄 VERBESSERTE NAVIGATION MIT TREFFER-BUTTON-STEUERUNG ===
@@ -943,24 +1021,73 @@ function printCurrentPage() {
 
   if (!win) return alert('Pop-up-Blocker verhindert das Drucken.');
 
+  // --- NEU: HTML mit CSS-Druckregeln ---
   win.document.write(`
     <html>
-      <head><title>Diese Seite(n) sind aus der Preisliste 2025 von EWE-Armaturen.</title></head>
+      <head>
+        <title>Druckansicht - ${document.title}</title>
+        <style>
+          /* CSS-Regeln, die nur für den Druck gelten */
+          @media print {
+            @page {
+              size: A4; /* Definiert das Papierformat */
+              margin: 15mm; /* Ein angemessener Rand */
+            }
+            body {
+              margin: 0;
+              padding: 0;
+            }
+            .print-page {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              overflow: hidden;
+            }
+            img {
+              max-width: 100%;
+              max-height: 100%;
+              object-fit: contain; /* Das ist die Magie: Skaliert das Bild passend */
+            }
+          }
+          /* Stile für die Bildschirmanzeige (optional, aber gut für die Vorschau) */
+          body { margin: 0; padding: 0; }
+          .print-page { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
+          img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        </style>
+      </head>
       <body style="margin:0;padding:0">
-        <img src="${dataUrl}" style="width:100%;height:auto" onload="window.print();window.close()">
+        <!-- Das Bild wird in einen Container mit der Klasse "print-page" gepackt -->
+        <div class="print-page">
+            <img src="${dataUrl}" onload="window.print(); setTimeout(window.close, 100);">
+        </div>
       </body>
     </html>
   `);
+  win.document.close();
 }
 
 function printAllMatches() {
-  if (!matchPages.size) return alert('Keine Treffer zum Drucken.');
+  if (!matchPages.size) {
+    alert('Keine Treffer zum Drucken.');
+    return;
+  }
 
-  const pagesToPrint = [...matchPages];
-  const images = [];
+  // Die bewährte Sicherheitsabfrage für mobile Geräte
+  const limit = 14;
+  if (isMobileDevice() && matchPages.size > limit) {
+    alert(`Auf mobilen Geräten können maximal ${limit} Seiten auf einmal gedruckt werden, um Probleme zu vermeiden. Sie versuchen, ${matchPages.size} Seiten zu drucken. Bitte reduzieren Sie die Anzahl der Trefferseiten.`);
+    return;
+  }
 
-  document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
+  // Ihr bewährter Code-Ablauf beginnt hier
+ document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
 
+  // Die Seiten werden korrekt sortiert
+  const pagesToPrint = [...matchPages].sort((a, b) => a - b);
+
+  // Der Promise.all-Ansatz, der die Bilder im Speicher sammelt
   const renderPromises = pagesToPrint.map(pageNum =>
     pdfDoc.getPage(pageNum).then(page => {
       const viewport = page.getViewport({ scale: 2.0 * zoomFactor });
@@ -968,39 +1095,62 @@ function printAllMatches() {
       canvas.width = viewport.width;
       canvas.height = viewport.height;
       return page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise.then(() => {
-        images.push(canvas.toDataURL('image/png'));
+        return canvas.toDataURL('image/png');
       });
     })
   );
 
-  Promise.all(renderPromises).then(() => {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Pop-up-Blocker verhindert das Drucken.');
-      document.getElementById('loadingSpinnerOverlay').style.display = 'none';
-      return;
-    }
-
-    const html = `
-      <html>
-        <head><title>Diese Seite(n) sind aus der Preisliste 2025 von EWE-Armaturen.</title></head>
-        <body style="margin:0;padding:0">
-          ${images.map(img => `<img src="${img}" style="width:100%;page-break-after:always;">`).join('')}
-          <script>
-            window.onload = function() {
-              window.print();window.close();
-              window.onafterprint = function() { window.close(); };
-            };
-          </script>
-        </body>
-      </html>
-    `;
-
-    printWindow.document.write(html);
-    printWindow.document.close();
+  // Ersetzen Sie den kompletten Promise.all-Block durch diesen:
+  Promise.all(renderPromises).then(images => {
+    // 1. Spinner sofort ausblenden. Die Haupt-App ist sofort wieder frei.
     document.getElementById('loadingSpinnerOverlay').style.display = 'none';
+
+    // 2. Den Rest der Operation in einen setTimeout von 0ms auslagern.
+    // Dies gibt dem Browser einen Moment Zeit, das Ausblenden des Spinners
+    // zu verarbeiten, bevor das neue, potenziell blockierende Fenster geöffnet wird.
+    setTimeout(() => {
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) {
+        alert('Pop-up-Blocker verhindert das Drucken.');
+        return;
+      }
+
+      // Ihr funktionierender HTML-Code bleibt exakt gleich.
+      const html = `
+        <html>
+          <head>
+            <title>Diese Seite(n) sind aus der Preisliste 2025 von EWE-Armaturen.</title>
+            <style>
+              @media print { @page { size: A4; margin: 15mm; } body { margin: 0; padding: 0; } .print-page { page-break-after: always; text-align: center; } img { max-width: 100%; max-height: 95vh; object-fit: contain; } }
+              body { margin: 0; padding: 0; }
+            </style>
+          </head>
+          <body style="margin:0;padding:0">
+            ${images.map(img => `<div class="print-page"><img src="${img}"></div>`).join('')}
+            <script>
+              window.onload = function() {
+                window.print();
+                setTimeout(function() { window.close(); }, 100);
+              };
+            <\/script>
+          </body>
+        </html>
+      `;
+
+      printWindow.document.write(html);
+      printWindow.document.close();
+      window.focus();
+    }, 0); // Die magische 0
+
+  }).catch(error => {
+    // Wichtig: Spinner auch im Fehlerfall ausblenden.
+    console.error("Fehler beim Rendern der Druckseiten:", error);
+    document.getElementById('loadingSpinnerOverlay').style.display = 'none';
+    window.focus();
+    alert("Ein Fehler ist beim Erstellen der Druckansicht aufgetreten.");
   });
 }
+
 
 // === ⌨️ KEYBOARD-EVENTS ===
 document.getElementById("searchBox").addEventListener("keydown", function(e) {
@@ -1039,62 +1189,62 @@ function updateHeaderDate() {
 
 
 
-function addAllTooltips() {
+// === function addAllTooltips() {
   // Tooltips für alle Elemente definieren.
   // Die Selektoren sind jetzt exakt auf den bekannten HTML-Code abgestimmt.
-  const tooltips = {
+// ===  const tooltips = {
     // Buttons in der Hauptleiste
-    'button[onclick="searchPDF()"]': 'Suche starten',
-    'button[onclick="printCurrentPage()"]': 'Aktuelle Seite drucken',
-    'button[onclick="printAllMatches()"]': 'Alle Treffer drucken',
-    '#prev-page': 'Vorherige Seite',
-    '#next-page': 'Nächste Seite',
-    'button[onclick="prevMatch()"]': 'Vorheriger Treffer',
-    'button[onclick="nextMatch()"]': 'Nächster Treffer',
-    'button[onclick="zoomOut()"]': 'Verkleinern',
-    'button[onclick="zoomIn()"]': 'Vergrößern',
+// ===    'button[onclick="searchPDF()"]': 'Suche starten',
+// ===    'button[onclick="printCurrentPage()"]': 'Aktuelle Seite drucken',
+// ===    'button[onclick="printAllMatches()"]': 'Alle Treffer drucken',
+// ===    '#prev-page': 'Vorherige Seite',
+// ===    '#next-page': 'Nächste Seite',
+// ===    'button[onclick="prevMatch()"]': 'Vorheriger Treffer',
+// ===    'button[onclick="nextMatch()"]': 'Nächster Treffer',
+// ===    'button[onclick="zoomOut()"]': 'Verkleinern',
+// ===    'button[onclick="zoomIn()"]': 'Vergrößern',
     
     // Such-Operatoren (jetzt mit den exakten Selektoren aus dem HTML)
-    '.operator-btn[data-op=\'und\']': 'Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen',
-    '.operator-btn[data-op=\'oder\']': 'Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt',
-    '.operator-btn[data-op=\'ohne\']': 'Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten',
+// ===    '.operator-btn[data-op=\'und\']': 'Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen',
+// ===    '.operator-btn[data-op=\'oder\']': 'Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt',
+// ===    '.operator-btn[data-op=\'ohne\']': 'Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten',
 
     // Suchfelder (jetzt mit den exakten Selektoren aus dem HTML)
-    '#searchBox': 'Ersten Suchbegriff eingeben',
-    '#searchBox2': 'Zweiten Suchbegriff eingeben (optional)',
+// ===    '#searchBox': 'Ersten Suchbegriff eingeben',
+// ===    '#searchBox2': 'Zweiten Suchbegriff eingeben (optional)',
     
     // Header-Elemente und die drei Bilder (jetzt mit den exakten Selektoren aus dem HTML)
-    'a[href="https://www.ewe-armaturen.de"]': 'Zur EWE-Armaturen Webseite',
-    'a[onclick="openMegarippKonfigurator()"]': 'Konfigurator MEGARIPP', // <-- GEÄNDERT
-    'a[onclick="openFlexorippKonfigurator()"]': 'Konfigurator FLEXORIPP', // <-- GEÄNDERT
-    'a[onclick="openYoutubeChannel()"]': 'EWE-Youtube Kanal', // <-- GEÄNDERT
+// ===    'a[href="https://www.ewe-armaturen.de"]': 'Zur EWE-Armaturen Webseite',
+// ===    'a[onclick="openMegarippKonfigurator()"]': 'Konfigurator MEGARIPP', // <-- GEÄNDERT
+// ===    'a[onclick="openFlexorippKonfigurator()"]': 'Konfigurator FLEXORIPP', // <-- GEÄNDERT
+// ===    'a[onclick="openYoutubeChannel()"]': 'EWE-Youtube Kanal', // <-- GEÄNDERT
 
 
-  };
+// ===  };
 
 
 
-  Object.entries(tooltips).forEach(([selector, tooltip]) => {
-    const elements = document.querySelectorAll(selector);
+// ===  Object.entries(tooltips).forEach(([selector, tooltip]) => {
+// ===    const elements = document.querySelectorAll(selector);
     
-    if (elements.length > 0) {
-      elements.forEach(element => {
-        // Schritt 1: Das neue, sichere data-tooltip Attribut setzen
-        element.setAttribute('data-tooltip', tooltip);
+// ===    if (elements.length > 0) {
+// ===      elements.forEach(element => {
+// ===        // Schritt 1: Das neue, sichere data-tooltip Attribut setzen
+// ===        element.setAttribute('data-tooltip', tooltip);
         
         // Schritt 2: Ein aria-label für Barrierefreiheit setzen
-        element.setAttribute('aria-label', tooltip);
+// ===        element.setAttribute('aria-label', tooltip);
         
         // Schritt 3: Das alte, störende title-Attribut SICHER entfernen
-        if (element.hasAttribute('title')) {
-          element.removeAttribute('title');
-        }
-      });
-    } else {
-      console.warn(`Tooltip-Element wurde nicht gefunden für Selektor: ${selector}`);
-    }
-  });
-}
+// ===        if (element.hasAttribute('title')) {
+// ===          element.removeAttribute('title');
+// ===        }
+// ===      });
+// ===    } else {
+// ===      console.warn(`Tooltip-Element wurde nicht gefunden für Selektor: ${selector}`);
+// ===    }
+// ===  });
+// ===}
 
 
 
@@ -1235,6 +1385,9 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
         zeigeHinzugefügtOverlay(`${bereinigt} wurde entfernt`);
       }
       mengeDialog.remove();
+
+      updateMerklisteIcon();
+
     });
 
     // Menge erhöhen
@@ -1313,6 +1466,8 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
 
     zeigeHinzugefügtOverlay(`${bereinigt} (${artikelnummer})`);
     dialog.remove();
+
+    updateMerklisteIcon(); 
   });
 }
 
@@ -1480,6 +1635,7 @@ window.onload = function() {
     const dialog = document.getElementById('docDialog');
     const listContainer = document.getElementById('docDialogList');
     let pdfsData = [];
+    updateMerklisteIcon();
 
     function populateDocList() {
       const groupedPdfs = pdfsData.reduce((acc, pdf) => {
@@ -1559,14 +1715,20 @@ window.onload = function() {
   // --- 3. Alle Tooltips initialisieren (JETZT mit einer winzigen Verzögerung) ---
   // Dies stellt sicher, dass auch dynamisch nachgeladene Elemente (wie die Suchleiste)
   // sicher im DOM vorhanden sind, bevor das Skript läuft.
-  setTimeout(function() {
-    addAllTooltips();
-  }, 0); // Die 0ms Verzögerung reicht aus, um die Ausführung ans Ende der Event-Queue zu schieben.
+ // ---  setTimeout(function() {
+ // ---    addAllTooltips();
+ // ---  }, 0); // Die 0ms Verzögerung reicht aus, um die Ausführung ans Ende der Event-Queue zu schieben.
 
   // --- NEU: Funktionalität für "Trefferseite entfernen"-Button ---
   const removeHitBtn = document.getElementById('removeHitBtn');
   if (removeHitBtn) {
     removeHitBtn.addEventListener('click', removeCurrentHit);
+  }
+
+    // HIER DEN NEUEN LISTENER HINZUFÜGEN
+  const addHitBtn = document.getElementById('addHitBtn');
+  if (addHitBtn) {
+    addHitBtn.addEventListener('click', addCurrentHit);
   }
 
   // --- 4. Funktionalität für das Hamburger-Menü (Mobile) ---
