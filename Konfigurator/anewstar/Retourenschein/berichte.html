@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bericht erstellen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="interneAnfrage.css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+  <style>
+    /* Basis-Stile (teilweise aus externer CSS zur Sicherheit hier dupliziert ) */
+    .form-section-container {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 25px auto;
+      background-color: #fdfdfd;
+      max-width: 900px;
+    }
+    .form-section-container h3 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      color: #00a1e1;
+      font-size: 1.3em;
+    }
+    .centered-form-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .centered-form-layout > * {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* === KORREKTE STILE FÜR DIE SUCHFUNKTION (WIE IN interneAnfrage.html) === */
+
+    /* 1. Der entscheidende Stil für die Hervorhebung */
+    .search-highlight {
+      background-color: rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+
+    /* 2. Wrapper für die Positionierung der Ergebnisliste */
+    .search-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    /* 3. Suchleiste selbst */
+    #kundenSuche {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        box-sizing: border-box;
+        transition: all 0.2s ease-in-out;
+    }
+    #kundenSuche:focus {
+        outline: none;
+        border-color: #00a1e1;
+        box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+    }
+
+    
+
+    /* 4. Elegante, schwebende Ergebnisliste */
+    #suchErgebnisse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    .ergebnis-item {
+        padding: 12px 20px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
+    .ergebnis-item:last-child {
+        border-bottom: none;
+    }
+    .ergebnis-item.active, 
+    .ergebnis-item:hover {
+        background-color: #f0f8ff;
+    }
+    .ergebnis-item.no-results {
+        cursor: default;
+        color: #888;
+    }
+    .ergebnis-item.no-results:hover {
+        background-color: white;
+    }
+
+    /* === Stile für Spracheingabe === */
+    #spracheingabe-container, #aufgaben-container {
+        text-align: center;
+        border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 25px auto; background-color: #fdfdfd; max-width: 900px;
+    }
+    #bericht-text, #aufgaben-text {
+        width: 100%; height: 200px; margin-top: 1rem; padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+    }
+    #aufgaben-text { height: 120px; }
+    .aufnahme-button { margin-top: 1rem; padding: 0.8rem 1.5rem; font-size: 1rem; cursor: pointer; border: none; border-radius: 4px; background-color: #28a745; color: white; transition: background-color 0.3s; }
+    .aufnahme-button:hover { background-color: #218838; }
+    .aufnahme-button.recording { background-color: #dc3545; }
+    .aufnahme-status { margin-top: 1rem; color: #666; min-height: 20px; }
+
+#kundenSuche {
+    width: 100% !important; /* Zwingt das Suchfeld, die volle Breite seines Containers einzunehmen */
+    box-sizing: border-box; /* Stellt sicher, dass Padding und Border die Breite nicht verändern */
+
+}
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="header-left">
+      <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="Firmenlogo">
+    </div>
+    <div class="header-content">
+      <input type="text" id="mainTitleInput" value="Besuchsbericht" class="editable-title">
+      <div class="header-date" id="heute"></div>
+    </div>
+    <div class="header-right">
+      <div class="buttons">
+        <button onclick="window.close( )" class="btn btn-secondary">🔙 Zurück</button>
+        <button onclick="generateBerichtPDF()" class="btn btn-primary">Bericht als PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="form-section-container">
+    <h3>Kundendaten</h3>
+    <div id="kundenDetails" class="centered-form-layout">
+      <div class="search-wrapper">
+        <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
+        <div id="suchErgebnisse" style="display: none;"></div>
+      </div>
+      <input type="text" id="name" placeholder="Name">
+      <input type="text" id="firma" placeholder="Firma">
+      <input type="text" id="strasse" placeholder="Straße">
+      <input type="text" id="plz" placeholder="PLZ">
+      <input type="text" id="ort" placeholder="Ort">
+      <input type="text" id="land" placeholder="Land">
+      <input type="text" id="email" placeholder="E-Mail">
+      <input type="text" id="telefon" placeholder="Telefon">
+    </div>
+  </section>
+
+  <section class="form-section-container">
+    <h3>Bearbeitung</h3>
+    <div class="centered-form-layout">
+      <select id="sachbearbeiterDropdown">
+        <option value="">-- Innendienst auswählen --</option>
+        <option value="Denise Otto">Denise Otto</option>
+        <option value="Sascha Heusel">Sascha Heusel</option>
+        <option value="Nadine Suhr">Nadine Suhr</option>
+        <option value="Nils Vokuhl">Nils Vokuhl</option>
+        <option value="Claudia Batke">Claudia Batke</option>
+        <option value="Karsten Walter">Karsten Walter</option>
+        <option value="manuell">-- Manuelle Eingabe --</option>
+      </select>
+      <input type="text" id="sachbearbeiterManuell" placeholder="Sachbearbeiter (manuell)" style="display: none;">
+      <select id="aussendienstDropdown">
+        <option value="">-- Außendienstmitarbeiter auswählen --</option>
+        <option value="Rafael Furtwängler">Rafael Furtwängler</option>
+        <option value="Christof Münster">Christof Münster</option>
+        <option value="Sascha Heusel">Sascha Heusel</option>
+        <option value="Bernhard Kneissl">Bernhard Kneissl</option>
+        <option value="Christopher-Sean Haus">Christopher-Sean Haus</option>
+        <option value="Sascha Barkowsky">Sascha Barkowsky</option>
+        <option value="Volker Kottwitz">Volker Kottwitz</option>
+        <option value="Volker Oesterwind">Volker Oesterwind</option>
+        <option value="Thomas Schönfüß">Thomas Schönfüß</option>
+        <option value="Thomas Wendt">Thomas Wendt</option>
+        <option value="Harald Natzke">Harald Natzke</option>
+        <option value="Lukas Pfeil">Lukas Pfeil</option>
+        <option value="Nancy Ullbricht">Nancy Ullbricht</option>
+        <option value="Heiner Birkholz">Heiner Birkholz</option>
+        <option value="Helmut Wölfel">Helmut Wölfel</option>
+        <option value="manuell">-- Manuelle Eingabe --</option>
+      </select>
+      <input type="text" id="aussendienstManuell" placeholder="Außendienstmitarbeiter (manuell)" style="display: none;">
+    </div>
+  </section>
+
+  <section id="spracheingabe-container">
+    <h3>Berichtsinhalt per Sprache eingeben</h3>
+    <p>Klicken Sie auf "Aufnahme starten" und diktieren Sie Ihren Bericht.</p>
+    <button id="aufnahme-button-bericht" class="aufnahme-button">Aufnahme starten</button>
+    <textarea id="bericht-text" placeholder="Ihr diktierter Bericht erscheint hier..."></textarea>
+    <div id="aufnahme-status-bericht" class="aufnahme-status"></div>
+  </section>
+
+  <section id="aufgaben-container">
+    <h3>Zu erledigende Aufgaben</h3>
+    <p>Diktieren Sie hier die Aufgaben, die sich aus dem Gespräch ergeben haben.</p>
+    <button id="aufnahme-button-aufgaben" class="aufnahme-button">Aufnahme starten</button>
+    <textarea id="aufgaben-text" placeholder="Ihre diktierten Aufgaben erscheinen hier..."></textarea>
+    <div id="aufnahme-status-aufgaben" class="aufnahme-status"></div>
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    let kunden = [];
+
+    document.addEventListener("DOMContentLoaded", function( ) {
+      displayCurrentDate();
+      initializeEncryptedCustomerSearch();
+      initializeDropdowns();
+      initializeSpeechRecognition();
+    });
+
+    function displayCurrentDate() {
+      const today = new Date();
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      document.getElementById("heute").textContent = today.toLocaleDateString("de-DE", options);
+    }
+
+    function initializeDropdowns() {
+      $("#sachbearbeiterDropdown").select2({ placeholder: "-- Innendienst auswählen --", allowClear: true });
+      $("#aussendienstDropdown").select2({ placeholder: "-- Außendienstmitarbeiter auswählen --", allowClear: true });
+      $("#sachbearbeiterDropdown").on("change", function () { handleManualInput(this, document.getElementById("sachbearbeiterManuell")); });
+      $("#aussendienstDropdown").on("change", function () { handleManualInput(this, document.getElementById("aussendienstManuell")); });
+    }
+    
+    function initializeSpeechRecognition() {
+        setupSpeechRecognition('aufnahme-button-bericht', 'bericht-text', 'aufnahme-status-bericht');
+        setupSpeechRecognition('aufnahme-button-aufgaben', 'aufgaben-text', 'aufnahme-status-aufgaben');
+    }
+
+    function handleManualInput(dropdown, manualInput) {
+      manualInput.style.display = dropdown.value === "manuell" ? "block" : "none";
+      if (dropdown.value === "manuell") manualInput.focus(); else manualInput.value = "";
+    }
+
+    async function initializeEncryptedCustomerSearch() {
+        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+        const kundenSucheInput = document.getElementById('kundenSuche' );
+        let password = sessionStorage.getItem('customerDataPassword');
+        if (!password) {
+            password = prompt("Passwort für Kundendaten:", "");
+            if (!password) {
+                kundenSucheInput.placeholder = "Zugriff verweigert.";
+                kundenSucheInput.disabled = true;
+                return;
+            }
+        }
+        try {
+            kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
+            kundenSucheInput.disabled = true;
+            const response = await fetch(encryptedFilePath);
+            if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
+            const encryptedArrayBuffer = await response.arrayBuffer();
+            const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
+            kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
+            sessionStorage.setItem('customerDataPassword', password);
+            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+            kundenSucheInput.disabled = false;
+            initializeCustomerSearchListeners();
+        } catch (error) {
+            sessionStorage.removeItem('customerDataPassword');
+            alert("Fehler: " + error.message + ". Passwort falsch?");
+            kundenSucheInput.placeholder = "Fehler beim Laden.";
+            kundenSucheInput.disabled = true;
+        }
+    }
+
+    async function decryptData(encryptedArrayBuffer, password) {
+        const ITERATIONS = 480000, SALT_SIZE_BYTES = 16, NONCE_SIZE_BYTES = 12;
+        const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
+        const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+        const data = encryptedArrayBuffer.slice(SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+        const passwordKey = await window.crypto.subtle.importKey('raw', new TextEncoder().encode(password), { name: 'PBKDF2' }, false, ['deriveKey']);
+        const aesKey = await window.crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: ITERATIONS, hash: 'SHA-256' }, passwordKey, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
+        const decryptedData = await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, aesKey, data);
+        return new TextDecoder().decode(decryptedData);
+    }
+
+    function initializeCustomerSearchListeners() {
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
+        let activeResultIndex = -1;
+
+        kundenSucheInput.addEventListener('input', function() {
+            activeResultIndex = -1;
+            const suchbegriff = this.value.toLowerCase();
+            if (suchbegriff.length < 2) {
+                suchErgebnisseContainer.style.display = 'none';
+                return;
+            }
+            const suchbegriffe = suchbegriff.split(' ').filter(Boolean);
+            const treffer = kunden.filter(kunde => {
+                const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
+                const ort = adresseTeile[1] || '';
+                const plz = adresseTeile[2] || '';
+                const suchString = `${kunde.Name || ''} ${kunde.Firma || ''} ${plz} ${ort}`.toLowerCase();
+                return suchbegriffe.every(term => suchString.includes(term));
+            }).slice(0, 50);
+            zeigeSuchErgebnisse(treffer, suchbegriffe);
+        });
+
+        kundenSucheInput.addEventListener('keydown', function(e) {
+            const ergebnisse = suchErgebnisseContainer.querySelectorAll('.ergebnis-item:not(.no-results)');
+            if (ergebnisse.length === 0) return;
+            switch (e.key) {
+                case 'ArrowDown': e.preventDefault(); activeResultIndex = (activeResultIndex + 1) % ergebnisse.length; updateActiveResult(ergebnisse); break;
+                case 'ArrowUp': e.preventDefault(); activeResultIndex = (activeResultIndex - 1 + ergebnisse.length) % ergebnisse.length; updateActiveResult(ergebnisse); break;
+                case 'Enter': e.preventDefault(); if (activeResultIndex > -1) ergebnisse[activeResultIndex].click(); else if (ergebnisse.length === 1) ergebnisse[0].click(); break;
+                case 'Escape': suchErgebnisseContainer.style.display = 'none'; break;
+            }
+        });
+
+        function updateActiveResult(ergebnisse) {
+            ergebnisse.forEach(item => item.classList.remove('active'));
+            if (activeResultIndex > -1) {
+                const activeItem = ergebnisse[activeResultIndex];
+                activeItem.classList.add('active');
+                activeItem.scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        function zeigeSuchErgebnisse(treffer, suchbegriffe) {
+            if (treffer.length === 0) {
+                suchErgebnisseContainer.innerHTML = '<div class="ergebnis-item no-results">Keine Treffer gefunden</div>';
+            } else {
+                suchErgebnisseContainer.innerHTML = treffer.map(kunde => {
+                    const originalIndex = kunden.indexOf(kunde);
+                    const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
+                    const ort = adresseTeile[1] || '';
+                    const plz = adresseTeile[2] || '';
+                    let label = `${kunde.Name ? kunde.Name.trim() + ' – ' : ''}${kunde.Firma ? kunde.Firma.trim() : ''}${(plz || ort) ? ` (${plz} ${ort})` : ''}`;
+                    suchbegriffe.forEach(term => {
+                        label = label.replace(new RegExp(term, 'gi'), match => `<span class="search-highlight">${match}</span>`);
+                    });
+                    return `<div class="ergebnis-item" data-index="${originalIndex}">${label}</div>`;
+                }).join('');
+            }
+            suchErgebnisseContainer.style.display = 'block';
+        }
+
+        suchErgebnisseContainer.addEventListener('click', function(e) {
+            const ergebnisItem = e.target.closest('.ergebnis-item');
+            if (ergebnisItem && ergebnisItem.dataset.index) {
+                const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
+                const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+                document.getElementById("name").value = kunde.Name || "";
+                document.getElementById("firma").value = kunde.Firma || "";
+                document.getElementById("telefon").value = kunde.Telefon || "";
+                document.getElementById("email").value = kunde["E-Mail"] || "";
+                document.getElementById("strasse").value = adresseTeile[0] || "";
+                document.getElementById("ort").value = adresseTeile[1] || "";
+                document.getElementById("plz").value = adresseTeile[2] || "";
+                document.getElementById("land").value = adresseTeile[3] || "";
+                kundenSucheInput.value = '';
+                suchErgebnisseContainer.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
+                suchErgebnisseContainer.style.display = 'none';
+            }
+        });
+    }
+
+    function setupSpeechRecognition(buttonId, textId, statusId) {
+        const aufnahmeButton = document.getElementById(buttonId);
+        const zielTextarea = document.getElementById(textId);
+        const statusDiv = document.getElementById(statusId);
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            aufnahmeButton.disabled = true;
+            statusDiv.textContent = 'Browser unterstützt Web Speech API nicht.';
+            return;
+        }
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'de-DE';
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        aufnahmeButton.addEventListener('click', () => { if (aufnahmeButton.textContent.includes('starten')) recognition.start(); else recognition.stop(); });
+        recognition.onstart = () => { aufnahmeButton.textContent = 'Aufnahme stoppen'; aufnahmeButton.classList.add('recording'); statusDiv.textContent = 'Höre zu...'; };
+        recognition.onend = () => { aufnahmeButton.textContent = 'Aufnahme starten'; aufnahmeButton.classList.remove('recording'); statusDiv.textContent = 'Aufnahme beendet.'; };
+        recognition.onerror = (event) => { statusDiv.textContent = 'Fehler: ' + event.error; };
+        recognition.onresult = (event) => {
+            let transkript = '';
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) transkript += event.results[i][0].transcript.trim() + '. ';
+            }
+            zielTextarea.value += transkript;
+        };
+
+    }
+
+        // =================================================================
+    // ===== HILFSFUNKTIONEN (HIER WURDE DIE FEHLENDE FUNKTION ERGÄNZT) =====
+    // =================================================================
+
+    function getSachbearbeiterValue() {
+      const dropdown = document.getElementById("sachbearbeiterDropdown");
+      const manualInput = document.getElementById("sachbearbeiterManuell");
+      return dropdown.value === "manuell" ? manualInput.value || "" : dropdown.value || "";
+    }
+    
+    function getAussendienstmitarbeiterValue() {
+      const dropdown = document.getElementById("aussendienstDropdown");
+      const manualInput = document.getElementById("aussendienstManuell");
+      return dropdown.value === "manuell" ? manualInput.value || "" : dropdown.value || "";
+    }
+
+    // HIER IST DIE FEHLENDE FUNKTION:
+    function loadImageAsBase64(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL("image/png"));
+        };
+        img.onerror = reject;
+        img.src = url;
+      });
+    }
+
+
+    // --- Angepasste PDF-Generierungsfunktion ---
+   // =================================================================
+    // ===== PDF-GENERIERUNGSFUNKTION (MIT KORREKTUREN) =====
+    // =================================================================
+
+    async function generateBerichtPDF() {
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const logoImg = await loadImageAsBase64("https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" ).catch(() => null);
+            
+            const margin = 20;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            let yPosition = margin;
+
+            function addPageHeader() {
+                // KORREKTUR 1: Logo-Dimensionen angepasst (Breite 40, Höhe 15)
+                if (logoImg) doc.addImage(logoImg, "PNG", margin, margin, 40, 30, undefined, 'FAST');
+                
+                const heute = new Date();
+                const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
+                doc.setFontSize(10);
+                doc.setTextColor(100);
+                doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
+                const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
+                doc.text(`Berichts-Nr: ${berichtsNummer}`, pageWidth - margin, margin + 20, { align: "right" });
+            }
+
+            function checkPageBreak(neededSpace) {
+                if (yPosition + neededSpace > pageHeight - margin) {
+                    doc.addPage();
+                    yPosition = margin;
+                    addPageHeader();
+                    yPosition += 30; // Platz für Header auf neuer Seite
+                }
+            }
+
+            addPageHeader();
+            yPosition += 40; // Etwas weniger Platz nach dem Header
+
+            const mainTitle = document.getElementById("mainTitleInput").value || "Bericht";
+            doc.setFontSize(20);
+            doc.setTextColor(0);
+            doc.setFont("helvetica", "bold");
+            doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
+            yPosition += 20;
+
+            function drawSection(title, data) {
+                checkPageBreak(20 + data.length * 6);
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(0, 161, 225);
+                doc.text(title, margin, yPosition);
+                yPosition += 10;
+                doc.setFontSize(10);
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0);
+                data.forEach(item => {
+                    const splitItem = doc.splitTextToSize(item, pageWidth - 2 * margin - 35); // Textumbruch für lange Werte
+                    doc.text(splitItem, margin, yPosition);
+                    yPosition += splitItem.length * 5;
+                });
+                yPosition += 5; // Etwas weniger Abstand nach der Sektion
+            }
+
+            // KORREKTUR 2: Reihenfolge geändert (Kunde zuerst)
+            drawSection("KUNDE", [
+                `${document.getElementById("firma").value || 'N/A'}`,
+                `${document.getElementById("name").value || 'N/A'}`,
+                `${document.getElementById("strasse").value || 'N/A'}`,
+                `${document.getElementById("ort").value} ${document.getElementById("plz").value}`,
+                `${document.getElementById("email").value || 'N/A'}`,
+                `${document.getElementById("telefon").value || 'N/A'}`
+            ]);
+
+            drawSection("BEARBEITUNG", [
+                `Innendienst: ${getSachbearbeiterValue() || 'N/A'}`,
+                `Ausgestellt von: ${getAussendienstmitarbeiterValue() || 'N/A'}`
+            ]);
+
+            const berichtInhalt = document.getElementById('bericht-text').value;
+            if (berichtInhalt.trim()) {
+                checkPageBreak(30);
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(0, 161, 225);
+                doc.text("BERICHTSINHALT", margin, yPosition);
+                yPosition += 10;
+                doc.setFontSize(11);
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0);
+                const splitBericht = doc.splitTextToSize(berichtInhalt, pageWidth - 2 * margin);
+                checkPageBreak(splitBericht.length * 5);
+                doc.text(splitBericht, margin, yPosition);
+                yPosition += splitBericht.length * 5 + 10;
+            }
+
+            const aufgabenInhalt = document.getElementById('aufgaben-text').value;
+            if (aufgabenInhalt.trim()) {
+                checkPageBreak(30);
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(0, 161, 225);
+                doc.text("ZU ERLEDIGENDE AUFGABEN", margin, yPosition);
+                yPosition += 10;
+                doc.setFontSize(11);
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0);
+                const splitAufgaben = doc.splitTextToSize(aufgabenInhalt, pageWidth - 2 * margin);
+                checkPageBreak(splitAufgaben.length * 5);
+                doc.text(splitAufgaben, margin, yPosition);
+            }
+
+            const firmaName = (document.getElementById("firma").value || "Bericht").replace(/[^a-zA-Z0-9]/g, "-");
+            const datumForFilename = new Date().toISOString().split('T')[0];
+            doc.save(`${firmaName}_${datumForFilename}.pdf`);
+
+        } catch (error) {
+            console.error("Fehler bei der PDF-Erstellung:", error);
+            alert("Fehler bei der PDF-Erstellung. Bitte Konsole prüfen: " + error.message);
+        }
+    }
+  </script>
+
+  <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
+  <button onclick="generateBerichtPDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
+    Bericht als PDF
+  </button>
+</section>
+
+</body>
+</html>
