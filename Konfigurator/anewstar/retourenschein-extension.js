@@ -145,6 +145,8 @@ merkliste.forEach((item, index) => {
           localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
           document.body.removeChild(dialog);
           openMerklisteDialogDesktop();
+
+          updateMerklisteIcon();
         });
       });
 

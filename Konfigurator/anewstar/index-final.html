@@ -11,6 +11,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles-final.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  
 </head>
 <body>
 
@@ -30,26 +33,58 @@
 </a>
   </div>
   <div class="header-content">
-    <h1 id="openDocDialogBtn" title="Dokumentenauswahl anzeigen">DuoViewer</h1>
+    <h1>DuoViewer</h1>
   <!--  <div id="header-date" class="header-date"></div>-->
   </div>
   <div class="header-right">
     <!-- Diese Buttons sind nur auf dem Desktop sichtbar -->
-    <div class="buttons desktop-buttons">
-      
-<a onclick="openMegarippKonfigurator()" class="image-button" style="cursor: pointer;">
-  <img src="images/megaripp.png" alt="Konfigurator MEGARIPP">
-</a>
-<a onclick="openFlexorippKonfigurator()" class="image-button" style="cursor: pointer;">
-  <img src="images/flexoripp.png" alt="Konfigurator FLEXORIPP">
-</a>
-<a onclick="openYoutubeChannel( )" class="image-button" style="cursor: pointer;">
-  <img src="images/ewe-film1.jpg" alt="EWE-Image Film Logo">
+
+<!-- In .header-right -->
+<div class="buttons desktop-buttons">
+
+  <!-- NEU: Der Button zum Öffnen des Dokumenten-Dialogs -->
+<!-- NEU: Der Button zum Öffnen des Dokumenten-Dialogs -->
+<button id="openDocDialogBtn" class="header-icon-btn" data-tooltip="Dokumentauswahl anzeigen">
+  <i class="bi bi-collection"></i>
+</button>
+
+<!-- Die bereits vorhandenen Links -->
+<a href="#" onclick="openMerkliste( ); return false;" class="header-icon-btn" data-tooltip="Merkliste anzeigen">
+  <i class="bi bi-list-check"></i>
 </a>
 
-      <a onclick="openMerkliste()" class="merkliste-icon-button" data-tooltip="Merkliste anzeigen">📝</a>
+  <!-- ======================================================== -->
+  <!--     HIER IST DER BUTTON MIT DEM KORRIGIERTEN PFAD      -->
+  <!-- ======================================================== -->
+  <a href="Retourenschein/berichte.html" 
+     class="header-icon-btn" 
+     data-tooltip="Bericht diktieren"
+     target="_blank" 
+     rel="noopener noreferrer">
+    <i class="bi bi-mic-fill"></i>
+  </a>
 
-    </div>
+<a href="megaripp.html" 
+   class="header-icon-btn" 
+   data-tooltip="Konfigurator MEGARIPP"
+   target="_blank" 
+   rel="noopener">
+  <i class="bi bi-gear-wide-connected"></i>
+</a>
+<a href="flexoripp.html"
+   class="header-icon-btn" 
+   data-tooltip="Konfigurator FLEXORIPP"
+   target="_blank" 
+   rel="noopener">
+  <i class="bi bi-gear-wide-connected"></i>
+</a>
+<a href="https://www.youtube.com/watch?v=0_29ByAIswI" class="header-icon-btn" target="_blank" rel="noopener noreferrer" data-tooltip="EWE-Youtube Kanal">
+  <i class="bi bi-film"></i>
+</a>
+
+</div>
+
+
     <!-- Hamburger-Button nur für Mobile -->
     <button id="hamburger-btn" class="icon-button">☰</button>
   </div>
@@ -58,28 +93,28 @@
 <!-- Das mobile Navigationsmenü (außerhalb des Headers  ) -->
 <div id="mobile-nav">
   <a href="#" onclick="openMerkliste(); closeMobileNav();">📝 Merkliste</a>
-  <a href="megaripp.html">🔧 Konfigurator MEGARIPP</a>
-  <a href="flexoripp.html">🔧 Konfigurator FLEXORIPP</a>
-  <a href="https://www.youtube.com/watch?v=0_29ByAIswI" target="_blank" rel="noopener noreferrer">🎬 EWE-Image Film</a>
+  <a href="megaripp.html" target="_blank" rel="noopener noreferrer">🔧 Konfigurator MEGARIPP</a>
+  <a href="flexoripp.html "target="_blank" rel="noopener noreferrer">🔧 Konfigurator FLEXORIPP</a>
+  <a href="https://www.youtube.com/watch?v=0_29ByAIswI" target="_blank" rel="noopener noreferrer">🎬 EWE-Youtube Kanal</a>
 </div>
 
 
 <div class="search-container">
-  <input type="text" id="searchBox" placeholder="Suchbegriff 1">
+  <input type="text" id="searchBox" placeholder="Suchbegriff 1" data-tooltip="Ersten Suchbegriff eingeben">
 
   <!-- NEUE SUCHOPERATOR-BUTTONS -->
   <div id="search-operator-group" class="search-operator-group">
-    <button class="operator-btn active" data-op="und">UND</button>
-    <button class="operator-btn" data-op="oder">ODER</button>
-    <button class="operator-btn" data-op="ohne">OHNE</button>
+    <button class="operator-btn active" data-op="und" data-tooltip="Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen">UND</button>
+    <button class="operator-btn" data-op="oder" data-tooltip="Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt">ODER</button>
+    <button class="operator-btn" data-op="ohne" data-tooltip="Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten">OHNE</button>
   </div>
 
-  <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (verknüpft)">
+  <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (verknüpft)" data-tooltip="Zweiten Suchbegriff eingeben (optional)">
 
   <div class="button-row">
-    <button onclick="searchPDF()" class="icon-button">🔍</button>
-    <button onclick="printCurrentPage()" class="icon-button">🖨️</button>
-    <button onclick="printAllMatches()" class="icon-button">🖨️ Alle</button>
+    <button onclick="searchPDF()" class="icon-button" data-tooltip="Suche starten">🔍</button>
+    <button onclick="printCurrentPage()" class="icon-button" data-tooltip="Aktuelle Seite drucken">🖨️</button>
+    <button onclick="printAllMatches()" class="icon-button" data-tooltip="Alle Treffer drucken">🖨️ Alle</button>
   </div>
   <div id="loadingSpinnerOverlay">
     <img src="images/ewe-icon-180.png" class="rotating-logo" alt="Lädt…">
@@ -96,19 +131,21 @@
 </div>
 
   <div class="navigation-buttons">
-    <button id="prev-page">◀ PDF</button>
-    <button onclick="prevMatch()">⬅ 🎯</button>
-    <button onclick="nextMatch()">🎯 ➡</button>
-    <button id="next-page" >PDF ▶</button>
+    <button id="prev-page" data-tooltip="Vorherige Seite">◀ PDF</button>
+    <button onclick="prevMatch()" data-tooltip="Vorheriger Treffer" disabled>⬅ 🎯</button>
+    <button onclick="nextMatch()" data-tooltip="Nächster Treffer" disabled>🎯 ➡</button>
+    <button id="next-page" data-tooltip="Nächste Seite">PDF ▶</button>
   </div>
 
   <div class="zoom-buttons">
-    <button onclick="zoomOut()">🔍 –</button>
-    <button onclick="zoomIn()">🔍 +</button>
+    <button onclick="zoomOut()" data-tooltip="Verkleinern">🔍 –</button>
+    <button onclick="zoomIn()" data-tooltip="Vergrößern">🔍 +</button>
   </div>
 
+
   <div id="pdfContainer">
-    <button id="removeHitBtn" style="display: none;">Trefferseite entfernen</button>
+    <button id="removeHitBtn" style="display: none;" data-tooltip="Die aktuelle Seite wird aus Ihrer Mappe entfernt">Seite entfernen</button>
+    <button id="addHitBtn" style="display: none;" data-tooltip="Die aktuelle Seite wird Ihrer Mappe hinzugefügt">Seite hinzufügen</button>
     <div id="pdfViewer"></div>
   </div>
 

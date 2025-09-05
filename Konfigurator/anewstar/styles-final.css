@@ -636,35 +636,48 @@ input:focus {
 
 
 
-/* ========== TOOLTIP STYLES (KORRIGIERT) ========== */
+/* ========== TOOLTIP STYLES (VERBESSERT) ========== */
 [data-tooltip] {
-    position: relative;
+    position: relative; /* Wichtig als Bezugspunkt */
 }
 
 /* Tooltips nur auf Desktop-Geräten anzeigen */
 @media (hover: hover) and (pointer: fine) {
     [data-tooltip]:hover::after {
-        content: attr(data-tooltip); /* <-- WICHTIG: Hier auch geändert */
+        content: attr(data-tooltip);
         position: absolute;
-        bottom: 100%;
+        
+        /* NEU: Positionierung unterhalb des Elements */
+        top: 100%;   /* Beginnt direkt unter dem Element */
+        margin-top: 8px; /* Fügt einen kleinen Abstand hinzu */
+
+        /* Alte Positionierung entfernen */
+        /* bottom: 100%; */
+
+        /* Zentrierung bleibt gleich */
         left: 50%;
         transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.8);
+
+        /* Aussehen bleibt gleich */
+        background: rgba(0, 0, 0, 0.85);
         color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 13px;
         white-space: nowrap;
         z-index: 10000;
         pointer-events: none;
+        
+        /* Animation anpassen für das Erscheinen von unten */
         opacity: 0;
-        animation: tooltipFadeIn 0.3s ease forwards;
+        animation: tooltipFadeInFromTop 0.3s ease forwards;
     }
 }
 
-@keyframes tooltipFadeIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(5px); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* NEU: Angepasste Animation */
+@keyframes tooltipFadeInFromTop {
+    from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 
@@ -990,7 +1003,6 @@ body.mobile-nav-open::after {
   transform: scale(1.05);
 }
 
-
 /* --- 2. Media Query für Desktops (Bildschirme breiter als 768px) --- */
 @media screen and (min-width: 769px) {
   #removeHitBtn {
@@ -1010,6 +1022,61 @@ body.mobile-nav-open::after {
     transform: translateX(-50%) scale(1.05);
   }
 }
+
+
+/* In Ihrer styles-final.css (unter den Stilen für #removeHitBtn einfügen) */
+
+/* =================================================================== */
+/*   STIL FÜR "TREFFERSEITE HINZUFÜGEN"-BUTTON                        */
+/* =================================================================== */
+
+#addHitBtn {
+  /* Exakt die gleichen Positionierungs- und Größenregeln wie #removeHitBtn, */
+  /* damit sie denselben Platz einnehmen. */
+  position: absolute;
+  z-index: 10;
+  top: 10px;
+  right: 10px;
+  left: auto;
+  transform: none;
+  padding: 4px 10px;
+  font-size: 11px;
+  border-radius: 12px;
+
+  /* --- Anderes Farbschema für "Hinzufügen" --- */
+  background-color: rgba(25, 135, 84, 0.85); /* Ein positives Grün */
+  
+  /* Restliche Stile sind identisch */
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+#addHitBtn:hover {
+  background-color: rgba(25, 135, 84, 1);
+  transform: scale(1.05);
+}
+
+/* Desktop-Anpassungen für den neuen Button sicherstellen */
+@media screen and (min-width: 769px) {
+  #addHitBtn {
+    left: 75%;
+    transform: translateX(-50%);
+    right: auto;
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 20px;
+  }
+
+  #addHitBtn:hover {
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+
 
 /* ======================================================== */
 /*      STYLING FÜR DEN NEUEN MERKLISTEN-ICON-LINK          */
@@ -1123,3 +1190,69 @@ body.mobile-nav-open::after {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
+
+
+/* --- Stile für die neuen Header-Icon-Buttons --- */
+.header-icon-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0.1 );
+  border-radius: 50%; /* Macht die Buttons rund */
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.header-icon-btn i {
+  font-size: 22px; /* Größe des Icons */
+  color: #343a40; /* Dunkelgraue Farbe für die Icons */
+}
+
+.header-icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1); /* Leichter Zoom-Effekt */
+}
+
+
+/* ======================================== */
+/*         STIL FÜR MERKLISTEN-BADGE        */
+/* ======================================== */
+
+/* Macht den Button zum Bezugspunkt für den Badge */
+.header-icon-btn.has-items {
+  position: relative;
+}
+
+/* Dies ist der eigentliche rote Zahlen-Badge */
+.header-icon-btn.has-items::after {
+  /* Zeigt den Inhalt aus dem 'data-count' Attribut an (z.B. "3") */
+  content: attr(data-count); 
+  
+  /* Positionierung oben rechts am Button */
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  
+  /* Aussehen des Kreises */
+  background-color: #dc3545; /* Kräftiges Rot */
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  font-family: Arial, sans-serif; /* Eine gut lesbare Schrift für Zahlen */
+  line-height: 15px; /* Zentriert die Zahl vertikal im Kreis */
+  text-align: center;
+  border-radius: 50%; /* Macht es rund */
+  
+  /* Größe und Abstände */
+  min-width: 18px; /* Stellt sicher, dass auch eine "1" einen schönen Kreis hat */
+  height: 18px;
+  padding: 0 4px; /* Gibt mehrstelligen Zahlen etwas Luft */
+  
+  /* Ein kleiner Rand in der Header-Farbe, damit es sich abhebt */
+  border: 2px solid #d2d2d4; 
+  box-sizing: border-box; /* Stellt sicher, dass Padding und Border die Größe nicht sprengen */
+}
+
+
