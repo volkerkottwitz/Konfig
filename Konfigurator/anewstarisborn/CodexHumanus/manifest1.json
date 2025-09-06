@@ -1,0 +1,20 @@
+{
+  "name": "Codex",
+  "short_name": "Codex",
+  "start_url": "/Konfig/Konfigurator/anewstarisborn/CodexHumanus/SuchCodexHumanus1-3.html",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#0077c8",
+  "icons": [
+    {
+      "src": "images/codexhumanus.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/codexhumanus.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
