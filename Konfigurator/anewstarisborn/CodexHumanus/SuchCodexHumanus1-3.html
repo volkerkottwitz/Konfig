@@ -13,264 +13,239 @@
     
     <link rel="icon" type="image/png" href="images/codexhumanus.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <style>
+   
+   
+   
+   <style>
+    /* ======================================== */
+    /*         1. GRUNDEINSTELLUNGEN            */
+    /* ======================================== */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap' );
 
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
-
-        * {
-            font-family: 'Roboto Condensed', Arial, sans-serif;
-        }
-        
-        body {
-            
-            margin: 0;
-            background-color: #f8f9fa;
-        }
-        #header {
-    display: flex;
-    align-items: center;  /* Vertikale Zentrierung */
-    justify-content: center;  /* Horizontale Zentrierung */
-    padding: 15px 30px;
-    background-color: #d2d2d4;
-    color: white;
-    border-bottom: 2px solid #ddd;
+    * {
+        font-family: 'Roboto Condensed', Arial, sans-serif;
+    }
     
-}
-
-#header img {
-    height: 100px;
-    margin-right: 15px;  /* Abstand zwischen Logo und Button */
-}
-
-#header h1 {
-    font-size: 24px;
-    margin-right: 15px;  /* Abstand zwischen Titel und Button */
-    
-}
-
-        .search-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-            flex-wrap: wrap;
-            
-        }
-        input[type="text"] {
-            padding: 10px 18px;
-            font-size: 16px;
-            border: 1px solid #ced4da;
-            border-radius: 25px;
-            width: 240px;
-            transition: all 0.3s ease-in-out;
-        }
-        input[type="text"]:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(88, 70, 19, 0.25);
-            border-color: #cfce85;
-        }
-
-button {
-    background-color: #8B6F47; /* dezentes Braun */
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #6F5536; /* dunkleres Braun beim Hover */
-}
-
-        button:focus {
-            outline: none;
-        }
-
-        #header .buttons {
-            display: flex;
-            gap: 15px;
-            
-        }
-
-        #infoSection {
-            margin-top: 15px;
-            color: #333;
-            font-size: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            
-        }
-        #progressBar {
-            width: 60%;
-            height: 6px;
-            background-color: #e0e0e0;
-            border-radius: 2px;
-            margin-top: 10px;
-            overflow: hidden;
-        }
-        
-#progressFill {
-    height: 100%;
-    background-color: #8B6F47; /* selbes Braun wie Buttons */
-    width: 0%;
-    border-radius: 2px;
-    transition: width 0.4s ease;
-}
-
-#pdfContainer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Stelle sicher, dass die PDF-Seite oben bleibt */
-    overflow: auto;
-    width: 100%;  /* Stellt sicher, dass der Container die volle Breite einnimmt */
-    height: auto;  /* Erlaubt es dem Container, sich basierend auf der Bildgröße anzupassen */
-    max-height: 100vh;  /* Stellt sicher, dass der Container die Höhe des Viewports nicht überschreitet */
-    margin-top: 20px;
-    position: relative; /* Für die vertikale Zentrierung */
-    
-}
-
-/* ======================================================== */
-/*   NEU: FIX FÜR "DOPPELTE BEWEGUNG" AUF MOBILGERÄTEN    */
-/* ======================================================== */
-#pdfContainer {
-    touch-action: pan-y; /* Erlaubt vertikales Scrollen, unterdrückt horizontales */
-}
-
-
-
-#pdfViewer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* <--- HIER statt center */
-    width: 100%;
-    max-width: 1200px;
-    
-}
-
-/* ======================================== */
-/*         NEU: STILE FÜR ANIMATIONEN       */
-/* ======================================== */
-
-#animationWrapper {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    max-width: 1200px;
-}
-
-#pdfViewer {
-    display: flex;
-    width: 100%;
-    transition: transform 0.4s ease-in-out;
-}
-
-#pdfViewer > canvas {
-    width: 100%;
-    height: auto;
-    flex-shrink: 0;
-}
-
-
-@media screen and (max-width: 768px) {
-    #pdfContainer {
-        height: auto;  /* Auf kleineren Bildschirmen die Höhe dynamisch anpassen */
-        max-height: none;  /* Entfernt die max-height-Einschränkung */
-        margin-top: 10px;  /* Weniger Platz oben */
-        padding: 10px;  /* Innenabstand hinzufügen */
+    body {
+        margin: 0;
+        background-color: #f8f9fa;
     }
 
-    #pdfViewer {
-        width: 100%;
-        height: auto;  /* Höhe automatisch anpassen */
-        
+    /* ======================================== */
+    /*         2. HEADER & STEUERUNG            */
+    /* ======================================== */
+    #header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 30px;
+        background-color: #d2d2d4;
+        color: white;
+        border-bottom: 2px solid #ddd;
     }
 
-/* KLASSISCHE CSS-ALTERNATIVE (falls die obere nicht geht) */
-
-/* Grundregel für alle Canvases im Viewer */
-#pdfViewer > canvas {
-    width: 50%;
-    height: auto;
-    flex-shrink: 0;
-}
-
-/* Sonderregel: Wenn ein Canvas das EINZIGE Kind ist (also keine Animation läuft) */
-#pdfViewer > canvas:only-child {
-    width: 100%;
-}
-
-}
-
-@media screen and (max-width: 480px) {
-    #pdfContainer {
-        padding: 5px;  /* Weniger Innenabstand auf sehr kleinen Bildschirmen */
+    #header img {
+        height: 100px;
+        margin-right: 15px;
     }
 
-    #pdfViewer {
-        padding: 0;  /* Entferne unnötigen Innenabstand */
+    #header h1 {
+        font-size: 24px;
+        margin-right: 15px;
     }
-}
 
-        .navigation-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            
-        }
+    .search-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        padding: 20px;
+        flex-wrap: wrap;
+    }
 
-        .zoom-buttons {
+    input[type="text"] {
+        padding: 10px 18px;
+        font-size: 16px;
+        border: 1px solid #ced4da;
+        border-radius: 25px;
+        width: 240px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    input[type="text"]:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(88, 70, 19, 0.25);
+        border-color: #cfce85;
+    }
+
+    button {
+        background-color: #8B6F47;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #6F5536;
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    .navigation-buttons,
+    .zoom-buttons {
         display: flex;
         justify-content: center;
         gap: 20px;
+        margin-top: 20px;
+    }
+
+    .zoom-buttons {
         margin-top: 10px;
+    }
+
+    /* ======================================== */
+    /*       3. INFO & LADEBALKEN               */
+    /* ======================================== */
+    #infoSection {
+        margin-top: 15px;
+        color: #333;
+        font-size: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #progressBar {
+        width: 60%;
+        height: 6px;
+        background-color: #e0e0e0;
+        border-radius: 2px;
+        margin-top: 10px;
+        overflow: hidden;
+    }
         
-        }
+    #progressFill {
+        height: 100%;
+        background-color: #8B6F47;
+        width: 0%;
+        border-radius: 2px;
+        transition: width 0.4s ease;
+    }
 
-        @media screen and (max-width: 768px) {
-        .zoom-buttons {
+    #loadingSpinnerOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.85);
         display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .rotating-logo {
+        width: 60px;
+        height: 60px;
+        animation: spin 1.5s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* ======================================== */
+    /*         4. PDF-ANZEIGE & ANIMATION       */
+    /*         (HIER WAR DER FEHLER)            */
+    /* ======================================== */
+
+    /* Der scrollbare Hauptcontainer für das PDF */
+    #pdfContainer {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        overflow: auto;
+        width: 100%;
+        height: auto;
+        max-height: 100vh;
+        margin-top: 20px;
+        position: relative;
+        touch-action: pan-y; /* Nur vertikales Scrollen mit Touch erlauben */
+    }
+
+    /* Ein unsichtbarer Wrapper, der die Animation begrenzt */
+    #animationWrapper {
+        position: relative;
+        overflow: hidden; /* Verhindert, dass die zweite Seite sichtbar wird */
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    /* Der Container, der die Seiten (Canvas) hält und animiert wird */
+    #pdfViewer {
+        display: flex;
+        justify-content: center; /* Zentriert die Seite im Normalzustand */
+        width: 100%;
+        transition: transform 0.4s ease-in-out;
+    }
+
+    /* --- ANZEIGEREGELN FÜR DIE PDF-SEITEN (CANVAS) --- */
+    /* Diese Regeln gelten jetzt für ALLE Geräte (Desktop & Mobil) */
+
+    /* Grundregel für den Normalzustand (1 Seite, z.B. beim Zoomen) */
+    #pdfViewer > canvas {
+        width: 100%;
+        height: auto;
+        flex-shrink: 0; /* Verhindert, dass das Canvas schrumpft */
+    }
+
+    /* Regel NUR für die Animation (wenn MEHR als 1 Seite im Viewer ist) */
+    #pdfViewer > canvas:not(:only-child) {
+        width: 50%;
+    }
+
+    /* ======================================== */
+    /*         5. MOBILE ANPASSUNGEN            */
+    /* ======================================== */
+
+    @media screen and (max-width: 768px) {
+        #pdfContainer {
+            height: auto;
+            max-height: none;
+            margin-top: 10px;
+            padding: 10px;
         }
-}
+
+        
+
+        /* Die Zoom-Buttons auf mobilen Geräten ausblenden */
+        .zoom-buttons {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        #pdfContainer {
+            padding: 5px;
+        }
+
+        #pdfViewer {
+            padding: 0;
+        }
+    }
+
+
+</style>
 
 
 
-
-
-
-#loadingSpinnerOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.85);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.rotating-logo {
-  width: 60px; /* Größe anpassen */
-  height: 60px;
-  animation: spin 1.5s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
-
-
-    </style>
 </head>
 
 <body>
@@ -328,206 +303,234 @@ button:hover {
 
 <script>
 
-    // GANZ AM ANFANG DES <SCRIPT>-BLOCKS EINFÜGEN
-// Prüft, ob es ein typisches Mobilgerät ist (Touch ODER schmaler Bildschirm)
-// Stellt sicher, dass diese Funktion am Anfang des Scripts steht
-// ERSETZEN SIE DIE ALTE isMobileDevice-FUNKTION HIERMIT
 
+// ===================================================================
+//   1. HILFSFUNKTIONEN & GLOBALE VARIABLEN
+// ===================================================================
+
+/**
+ * Prüft, ob es sich um ein typisches Mobilgerät handelt (Touch-fähig UND schmaler Bildschirm).
+ * @returns {boolean} True, wenn es ein Mobilgerät ist.
+ */
 function isMobileDevice() {
     const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
     const isNarrow = window.innerWidth < 768;
-    // Nur WENN BEIDES zutrifft, ist es ein Mobilgerät für unsere Zwecke.
-    return isTouch && isNarrow; 
+    return isTouch && isNarrow;
 }
 
-
+// Konfiguration für die PDF.js-Bibliothek
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
+
+// ===================================================================
+//   1. HILFSFUNKTIONEN & GLOBALE VARIABLEN (FINALE KORREKTUR)
+// ===================================================================
+
+// ... (isMobileDevice Funktion) ...
+
+// Globale Variablen für den Zustand der Anwendung
 let pdfDoc = null;
-let scale = 2.0;
-const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf";
+let currentPage = 1;
+let isAnimating = false;
+let matchPages = new Set();
 let searchText = "";
 let secondSearchText = "";
-let matchPages = new Set();
-let currentPage = 1;
-let zoomFactor = 1.0; // Startzoom
+const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf";
 
+// KORREKTE LOGIK: Getrennte Variablen für Qualität und Zoom
+const scale = 2.0;      // Feste Basis-Skalierung für hohe Render-Qualität
+let zoomFactor = 1.5;   // Interaktiver Zoom-Faktor, startet neutral bei 1.0 (keine Veränderung )
+
+// ===================================================================
+//   2. INITIALISIERUNG (PDF LADEN )
+// ===================================================================
 
 pdfjsLib.getDocument(url).promise.then(pdf => {
     pdfDoc = pdf;
-    renderPage(currentPage);
-    updateNavigation(); // ✅ jetzt ist pdfDoc gesetzt
-    updatePdfLink(); // <-- HIER
+    renderPage(currentPage); // Die erste Seite beim Start laden
+    updateUiAfterNavigation();
+   
 }).catch(err => {
     console.error("Fehler beim Laden des PDFs:", err);
     alert("Fehler beim Laden des PDFs.");
 });
 
 
+// ===================================================================
+//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage)
+// ===================================================================
 
+/**
+ * Rendert eine PDF-Seite. Unterscheidet zwischen einer einfachen Anzeige (z.B. Zoom)
+ * und einer animierten Anzeige (Seitenwechsel).
+ * @param {number} num - Die Seitenzahl, die angezeigt werden soll.
+ * @param {string} direction - 'next', 'prev' oder 'none'. Bestimmt, ob animiert wird.
+ */
+// ===================================================================
+//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage) - FINALE VERSION
+// ===================================================================
 
+/**
+ * Rendert eine PDF-Seite. Unterscheidet zwischen einer einfachen Anzeige (z.B. Zoom)
+ * und einer animierten Anzeige (Seitenwechsel).
+ * @param {number} num - Die Seitenzahl, die angezeigt werden soll.
+ * @param {string} direction - 'next', 'prev' oder 'none'. Bestimmt, ob animiert wird.
+ */
+// ===================================================================
+//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage ) - FINALE VERSION
+// ===================================================================
 
 // ===================================================================
-//   NEU: ANGEPASSTE renderPage FUNKTION MIT ANIMATION
+//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage) - FINALE KORREKTUR
 // ===================================================================
-// ===================================================================
-//   FINALE, OPTIMIERTE renderPage FUNKTION (MIT FIX FÜR DEN SPRUNG)
-// ===================================================================
-// ===================================================================
-//   FINALE, KORRIGIERTE renderPage FUNKTION FÜR BEIDE RICHTUNGEN
-// ===================================================================
-let isAnimating = false;
 
 function renderPage(num, direction = 'none') {
     if (isAnimating || !pdfDoc) return;
 
     const pdfViewer = document.getElementById('pdfViewer');
     const oldCanvas = pdfViewer.querySelector('canvas');
+    const totalScale = scale * zoomFactor; // Gesamt-Skalierung berechnen
 
-    // --- Fall 1: Keine Animation ---
+    // --- Fall A: Einfache Anzeige (Start, Zoom) ---
+    // Dieser Teil ist für die korrekte Größe und Qualität beim Start und Zoom zuständig.
     if (direction === 'none' || !oldCanvas) {
+        isAnimating = true;
         pdfDoc.getPage(num).then(page => {
+            pdfViewer.style.width = '100%';
+            pdfViewer.style.justifyContent = 'center';
+
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
-            const viewport = page.getViewport({ scale: scale * zoomFactor });
+            const viewport = page.getViewport({ scale: totalScale });
+
             canvas.height = viewport.height;
             canvas.width = viewport.width;
 
-            pdfViewer.innerHTML = ''; 
+            // Anzeigegröße NUR HIER anpassen
+            if (isMobileDevice()) {
+                canvas.style.width = '100%';
+                canvas.style.height = 'auto';
+            } else {
+                canvas.style.width = `${viewport.width}px`;
+                canvas.style.height = `${viewport.height}px`;
+            }
+
+            pdfViewer.innerHTML = '';
             pdfViewer.appendChild(canvas);
 
             const renderContext = { canvasContext: ctx, viewport: viewport };
             page.render(renderContext).promise.then(() => {
                 if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
+                isAnimating = false;
             });
             document.getElementById("pdfContainer").scrollTop = 0;
         });
         return;
     }
 
-    // --- Fall 2: Animation starten ---
+    // --- Fall B: Animierter Seitenwechsel ---
+    // DIESER TEIL IST JETZT KORRIGIERT UND RESPEKTIERT DIE CSS-ANIMATION
     isAnimating = true;
     pdfViewer.style.justifyContent = 'flex-start';
 
     pdfDoc.getPage(num).then(page => {
-        const viewport = page.getViewport({ scale: scale * zoomFactor });
+        const viewport = page.getViewport({ scale: totalScale });
         const newCanvas = document.createElement("canvas");
+        
+        // WICHTIG: Nur die interne Auflösung setzen, NICHT die Anzeigegröße.
+        // Die Anzeigegröße (width: 50%) wird vom CSS gesteuert!
         newCanvas.height = viewport.height;
         newCanvas.width = viewport.width;
         newCanvas.style.backgroundColor = 'white';
 
+        // Der Rest der funktionierenden Animationslogik
         pdfViewer.style.transition = 'none';
         pdfViewer.style.width = '200%';
 
-// ERSETZEN SIE DEN OBEREN BLOCK DURCH DIESEN HIER
-
-// ERSETZEN SIE IHREN ANIMATIONS-BLOCK DURCH DIESEN HIER
-
-// ERSETZEN SIE DEN ALTEN ANIMATIONS-BLOCK DURCH DIESE FINALE VERSION
-
-if (isMobileDevice()) {
-    // ---- HANDY-LOGIK (mit -50%) ----
-    if (direction === 'next') {
-        pdfViewer.appendChild(newCanvas);
-        pdfViewer.style.transform = 'translateX(0)';
-    } else { // 'prev'
-        pdfViewer.insertBefore(newCanvas, oldCanvas);
-        pdfViewer.style.transform = 'translateX(-50%)';
-    }
-
-    requestAnimationFrame(() => {
-        pdfViewer.style.transition = 'transform 0.5s ease-in-out';
         if (direction === 'next') {
+            pdfViewer.appendChild(newCanvas);
+            pdfViewer.style.transform = 'translateX(0)';
+        } else {
+            pdfViewer.insertBefore(newCanvas, oldCanvas);
             pdfViewer.style.transform = 'translateX(-50%)';
-        } else { // 'prev'
-            pdfViewer.style.transform = 'translateX(0)';
         }
-    });
 
-} else {
-    // ---- DESKTOP-LOGIK (mit -100%) ----
-    if (direction === 'next') {
-        pdfViewer.appendChild(newCanvas);
-        pdfViewer.style.transform = 'translateX(0)';
-    } else { // 'prev'
-        pdfViewer.insertBefore(newCanvas, oldCanvas);
-        pdfViewer.style.transform = 'translateX(-100%)';
-    }
+        requestAnimationFrame(() => {
+            pdfViewer.style.transition = 'transform 3s ease-in-out';
+            if (direction === 'next') {
+                pdfViewer.style.transform = 'translateX(-50%)';
+            } else {
+                pdfViewer.style.transform = 'translateX(0)';
+            }
+        });
 
-    requestAnimationFrame(() => {
-        pdfViewer.style.transition = 'transform 0.5s ease-in-out';
-        if (direction === 'next') {
-            pdfViewer.style.transform = 'translateX(-100%)';
-        } else { // 'prev'
-            pdfViewer.style.transform = 'translateX(0)';
-        }
-    });
-}
-
-
-
-        
         const renderContext = { canvasContext: newCanvas.getContext('2d'), viewport: viewport };
         page.render(renderContext).promise.then(() => {
             if (matchPages.has(num)) highlightMatches(page, newCanvas, viewport);
             newCanvas.style.backgroundColor = 'transparent';
         });
 
-        // ======================================================
-        //   NEU: ÜBERARBEITETE, ROBUSTE AUFRÄUM-LOGIK
-        // ======================================================
         pdfViewer.addEventListener('transitionend', function cleanup() {
-            // Zuerst Animationen für alle Aufräumarbeiten deaktivieren
             pdfViewer.style.transition = 'none';
-
             if (direction === 'next') {
-                // Die alte Seite (das erste Kind) entfernen
                 if (oldCanvas) oldCanvas.remove();
-                // WICHTIG: Die Transformation sofort zurücksetzen, damit
-                // die neue Seite (jetzt das einzige Kind) richtig positioniert ist.
-                pdfViewer.style.transform = 'translateX(0)';
-            } else { // 'prev'
-                // Die alte Seite (das zweite Kind) entfernen
-                if (pdfViewer.children.length > 1) {
-                    pdfViewer.children[1].remove();
-                }
-                // Die Transformation ist hier bereits bei 0, also ist nichts zu tun.
+            } else {
+                if (pdfViewer.children.length > 1) pdfViewer.children[1].remove();
             }
-            
-            // Gemeinsame Stile für den Normalzustand wiederherstellen
+            pdfViewer.style.transform = 'translateX(0)';
             pdfViewer.style.width = '';
-            pdfViewer.style.justifyContent = 'center'; 
-
+            pdfViewer.style.justifyContent = 'center';
             document.getElementById("pdfContainer").scrollTop = 0;
             isAnimating = false;
-
         }, { once: true });
     });
 }
 
+
+// ===================================================================
+//   4. ZUSATZFUNKTION (Mausrad-Zoom)
+// ===================================================================
+// HINWEIS: Diese Funktion hat eine eigene `scale`-Variable verwendet, die zu Konflikten führte.
+// Sie ist jetzt auskommentiert, da die Zoom-Buttons `zoomFactor` verwenden.
+// Wenn Sie diese Funktion nutzen wollen, muss sie ebenfalls `zoomFactor` ändern.
+
+/*
 document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
     if (event.ctrlKey) {
         event.preventDefault();
-        scale += event.deltaY * -0.01;
-        scale = Math.min(Math.max(0.5, scale), 3.0);
+        // Diese Funktion müsste `zoomFactor` anstelle von `scale` ändern.
+        // zoomFactor += event.deltaY * -0.01;
+        // zoomFactor = Math.min(Math.max(0.5, zoomFactor), 3.0);
         renderPage(currentPage);
     }
 });
+*/
 
 
-// Funktion zur Normalisierung von typografischen Anführungszeichen und Zollzeichen
+
+// ===================================================================
+//   5. SUCHE & HERVORHEBUNG
+// ===================================================================
+
+/**
+ * Normalisiert verschiedene Arten von Anführungszeichen zu Standardzeichen,
+ * um die Suchkonsistenz zu verbessern.
+ * @param {string} text - Der zu normalisierende Text.
+ * @returns {string} Der normalisierte Text.
+ */
 function normalizeQuotes(text) {
     return text
-        .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"')  // Alle typografischen " und ″ → "
-        .replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'"); // Alle typografischen ' und ′ → '
+        .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"') // Diverse doppelte Anführungszeichen
+        .replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'"); // Diverse einfache Anführungszeichen
 }
 
-// Hauptsuchfunktion
+/**
+ * Die Hauptfunktion zum Durchsuchen des gesamten PDF-Dokuments.
+ * Verwendet die globalen Variablen `searchText` und `secondSearchText`.
+ */
 function searchPDF() {
+    // 1. Vorbereitung: Ladeanzeige zeigen, alte Ergebnisse löschen
     document.getElementById("loadingSpinnerOverlay").style.display = "flex";
-    currentPage = 1;
-
-    // Suchbegriffe normalisieren
     searchText = normalizeQuotes(document.getElementById("searchBox").value.trim());
     secondSearchText = normalizeQuotes(document.getElementById("searchBox2").value.trim());
     matchPages.clear();
@@ -537,62 +540,130 @@ function searchPDF() {
         return alert("Bitte mindestens den ersten Suchbegriff eingeben.");
     }
 
-    let searchPromises = [];
-    let totalMatches = 0;
-
+    // 2. Asynchrone Suche: Alle Seiten parallel durchsuchen
+    const searchPromises = [];
     for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
         searchPromises.push(
             pdfDoc.getPage(pageNum).then(page =>
                 page.getTextContent().then(textContent => {
-                    const rawText = textContent.items.map(item => item.str).join(" ");
-                    const pageText = normalizeQuotes(rawText).toLowerCase();
-                    const searchTextLower = searchText.toLowerCase();
-                    const secondSearchTextLower = secondSearchText.toLowerCase();
+                    const pageText = textContent.items.map(item => item.str).join(" ").toLowerCase();
+                    const normalizedPageText = normalizeQuotes(pageText);
 
-                    // Beide Begriffe müssen auf der Seite vorkommen
-                    const hasFirst = pageText.includes(searchTextLower);
-                    const hasSecond = secondSearchText ? pageText.includes(secondSearchTextLower) : true;
+                    const hasFirst = normalizedPageText.includes(searchText.toLowerCase());
+                    const hasSecond = secondSearchText ? normalizedPageText.includes(secondSearchText.toLowerCase()) : true;
 
                     if (hasFirst && hasSecond) {
                         matchPages.add(pageNum);
-
-                        // Anzahl der gemeinsamen Treffer zählen
-                        let countFirst = (pageText.match(new RegExp(searchTextLower, 'g')) || []).length;
-                        let countSecond = secondSearchText ? (pageText.match(new RegExp(secondSearchTextLower, 'g')) || []).length : 0;
-
-                        if (secondSearchText) {
-                            totalMatches += Math.min(countFirst, countSecond); // Minimum zählt als gemeinsame Trefferanzahl
-                        } else {
-                            totalMatches += countFirst;
-                        }
                     }
                 })
             )
         );
     }
 
+    // 3. Auswertung: Nach Abschluss aller Suchen die Ergebnisse anzeigen
     Promise.all(searchPromises).then(() => {
+        document.getElementById("loadingSpinnerOverlay").style.display = "none";
+
         if (matchPages.size > 0) {
-            currentPage = [...matchPages][0];
+            currentPage = [...matchPages][0]; // Springe zur ersten gefundenen Seite
             renderPage(currentPage);
             updateCurrentMatchInfo();
             updateProgressBar();
-            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit ${totalMatches} Treffern gefunden.`;
+            // Die Zählung der Treffer ist komplex und potenziell langsam,
+            // daher konzentrieren wir uns auf die gefundenen Seiten.
+            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit Treffern gefunden.`;
         } else {
             document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
             document.getElementById("currentMatchInfo").textContent = "";
             document.getElementById("progressFill").style.width = "0%";
         }
-        document.getElementById("loadingSpinnerOverlay").style.display = "none";
     });
 }
 
+/**
+ * Hebt die Suchbegriffe auf einem gerenderten Canvas hervor.
+ * Diese Funktion ist verbessert, um einzelne Wörter statt ganzer Zeilen zu markieren.
+ * @param {PDFPageProxy} page - Das PDF.js-Seitenobjekt.
+ * @param {HTMLCanvasElement} canvas - Das Canvas, auf dem gezeichnet wird.
+ * @param {PDFPageViewport} viewport - Der Viewport, der für das Rendern verwendet wurde.
+ */
+function highlightMatches(page, canvas, viewport) {
+    const searchTextLower = searchText.toLowerCase();
+    const secondSearchTextLower = secondSearchText ? secondSearchText.toLowerCase() : null;
+    const highlightColor = "rgba(255, 255, 0, 0.4)"; // Einheitliches, halbtransparentes Gelb
+
+    page.getTextContent().then(textContent => {
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = highlightColor;
+
+        for (const item of textContent.items) {
+            const itemTextLower = item.str.toLowerCase();
+            let isMatch = false;
+
+            // Prüfen, ob die Suchbegriffe im Text-Item vorkommen
+            const firstMatch = itemTextLower.includes(searchTextLower);
+            if (secondSearchTextLower) {
+                // Bei zwei Suchbegriffen müssen beide auf der Seite sein (wurde in searchPDF geprüft),
+                // hier heben wir jedes Vorkommen von beiden hervor.
+                isMatch = firstMatch || itemTextLower.includes(secondSearchTextLower);
+            } else {
+                isMatch = firstMatch;
+            }
+
+            if (isMatch) {
+                // Transformation anwenden, um die exakte Position auf dem Canvas zu bekommen
+                const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+                const x = tx[4];
+                const y = tx[5];
+                
+                // Ein Rechteck über dem Text-Item zeichnen
+                // Ein kleiner Puffer wird hinzugefügt, damit die Markierung nicht direkt am Text klebt.
+                ctx.fillRect(x - 1, y - item.height + 2, item.width + 2, item.height);
+            }
+        }
+    });
+}
+
+
+/**
+ * Aktualisiert die Info-Anzeige "Seite X von Y" für die Suchergebnisse.
+ */
+function updateCurrentMatchInfo() {
+    if (matchPages.size === 0) {
+        document.getElementById("currentMatchInfo").textContent = "";
+        return;
+    }
+    const pages = [...matchPages];
+    const index = pages.indexOf(currentPage);
+    document.getElementById("currentMatchInfo").textContent = `📄 Treffer ${index + 1} von ${pages.length}`;
+}
+
+/**
+ * Aktualisiert den Fortschrittsbalken basierend auf der aktuellen Position in den Suchergebnissen.
+ */
+function updateProgressBar() {
+    if (matchPages.size === 0) {
+        document.getElementById("progressFill").style.width = "0%";
+        return;
+    }
+    const pages = [...matchPages];
+    const index = pages.indexOf(currentPage) + 1;
+    const percent = (index / pages.length) * 100;
+    document.getElementById("progressFill").style.width = `${percent}%`;
+}
+
+
+// ===================================================================
+//   6. EVENT LISTENER (z.B. für Enter-Taste)
+// ===================================================================
+
 document.getElementById("searchBox").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
-        event.preventDefault();
+        event.preventDefault(); // Verhindert, dass die Seite neu geladen wird
         searchPDF();
     }
 });
+
 document.getElementById("searchBox2").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -601,299 +672,194 @@ document.getElementById("searchBox2").addEventListener("keydown", function(event
 });
 
 
-
-function highlightMatches(page, canvas, viewport) {
-    page.getTextContent().then(textContent => {
-        const ctx = canvas.getContext("2d");
-        const items = textContent.items;
-        const lines = {};
-        items.forEach(item => {
-            const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
-            const y = Math.round(tx[5]);
-            if (!lines[y]) lines[y] = [];
-            lines[y].push({
-                text: item.str.toLowerCase(),
-                x: tx[4],
-                y: tx[5] - item.height,
-                width: item.width,
-                height: item.height
-            });
-        });
-
-        for (let y in lines) {
-            const line = lines[y];
-            const fullLineText = line.map(word => word.text).join(" ");
-            const includesFirst = searchText && fullLineText.includes(searchText.toLowerCase());
-            const includesSecond = secondSearchText && fullLineText.includes(secondSearchText.toLowerCase());
-
-            if (includesFirst || includesSecond) {
-                const minX = Math.min(...line.map(w => w.x));
-                const maxX = Math.max(...line.map(w => w.x + w.width));
-                const lineHeight = Math.max(...line.map(w => w.height));
-                const yPos = Math.min(...line.map(w => w.y));
-
-                ctx.fillStyle = includesFirst ? "rgba(255, 255, 0, 0.3)" : "rgba(0, 255, 255, 0.3)";
-                ctx.fillRect(minX, yPos, maxX - minX, lineHeight);
-            }
-        }
-    });
-}
-
-function updateCurrentMatchInfo() {
-    let pages = [...matchPages];
-    let index = pages.indexOf(currentPage);
-    document.getElementById("currentMatchInfo").textContent = `📄 Seite ${index + 1} von ${pages.length}`;
-}
-
-function updateProgressBar() {
-    const pages = [...matchPages];
-    const index = pages.indexOf(currentPage) + 1;
-    const percent = (index / pages.length) * 100;
-    document.getElementById("progressFill").style.width = percent + "%";
-}
-
 // ===================================================================
-//   NEU: ANGEPASSTE NAVIGATIONSAUFRUFE
+//   7. NAVIGATION & INTERAKTIONEN (KORRIGIERTE VERSION)
 // ===================================================================
+
+/**
+ * Blättert zum VORHERIGEN SUCHTREFFER.
+ */
 function prevMatch() {
+    if (matchPages.size === 0) return; // Funktion ohne Suchtreffer beenden
     const pages = [...matchPages];
-    let index = pages.indexOf(currentPage);
-    if (index > 0) {
-        currentPage = pages[index - 1];
-        renderPage(currentPage, 'prev'); // Richtung übergeben
-        updateCurrentMatchInfo();
-        updateProgressBar();
-        updatePdfLink(); // <-- HIER HINZUFÜGEN
+    const currentIndex = pages.indexOf(currentPage);
+    if (currentIndex > 0) {
+        currentPage = pages[currentIndex - 1];
+        renderPage(currentPage, 'prev');
+        updateUiAfterNavigation();
     }
 }
 
+/**
+ * Blättert zum NÄCHSTEN SUCHTREFFER.
+ */
 function nextMatch() {
+    if (matchPages.size === 0) return; // Funktion ohne Suchtreffer beenden
     const pages = [...matchPages];
-    let index = pages.indexOf(currentPage);
-    if (index < pages.length - 1) {
-        currentPage = pages[index + 1];
-        renderPage(currentPage, 'next'); // Richtung übergeben
-        updateCurrentMatchInfo();
-        updateProgressBar();
-        updatePdfLink(); // <-- HIER HINZUFÜGEN
+    const currentIndex = pages.indexOf(currentPage);
+    if (currentIndex < pages.length - 1) {
+        currentPage = pages[currentIndex + 1];
+        renderPage(currentPage, 'next');
+        updateUiAfterNavigation();
     }
 }
 
+/**
+ * Vergrößert die Ansicht der Seite.
+ */
 function zoomIn() {
-    zoomFactor += 0.1; // Vergrößern
-    renderPage(currentPage); // Seite neu rendern
-    resetScrollPosition(); // Scroll zurücksetzen
+    zoomFactor += 0.25;
+    renderPage(currentPage);
+    resetScrollPosition();
 }
 
+/**
+ * Verkleinert die Ansicht der Seite.
+ */
 function zoomOut() {
-    if (zoomFactor > 0.1) { // Verhindern, dass der Zoom negativ wird
-        zoomFactor -= 0.1; // Verkleinern
-        renderPage(currentPage); // Seite neu rendern
-        resetScrollPosition(); // Scroll zurücksetzen
+    if (zoomFactor > 0.5) {
+        zoomFactor -= 0.25;
+        renderPage(currentPage);
+        resetScrollPosition();
     }
 }
 
+/**
+ * Setzt die Scroll-Position des PDF-Containers zurück nach oben.
+ */
 function resetScrollPosition() {
-    // Scrollposition zurücksetzen, um die Seite oben anzuzeigen
-    const pdfContainer = document.getElementById("pdfContainer");
-    pdfContainer.scrollTop = 0;
+    document.getElementById("pdfContainer").scrollTop = 0;
 }
 
-
-document.getElementById("prev-page").addEventListener("click", () => {
-    if (currentPage <= 1) return;
-    currentPage--;
-    renderPage(currentPage, 'prev'); // Richtung übergeben
-    updateNavigation();
-    updatePdfLink(); // <-- HIER HINZUFÜGEN
-});
-
-document.getElementById("next-page").addEventListener("click", () => {
-    if (currentPage >= pdfDoc.numPages) return;
-    currentPage++;
-    renderPage(currentPage, 'next'); // Richtung übergeben
-    updateNavigation();
-    updatePdfLink(); // <-- HIER HINZUFÜGEN
-});
-
-function updateNavigation() {
+/**
+ * Aktualisiert alle UI-Elemente, die von der Seitenzahl abhängen.
+ */
+function updateUiAfterNavigation() {
+    // Buttons für normales Blättern (de)aktivieren
     document.getElementById("prev-page").disabled = (currentPage <= 1);
     document.getElementById("next-page").disabled = (currentPage >= pdfDoc.numPages);
     
+    // Link zum direkten Öffnen des PDFs auf der aktuellen Seite aktualisieren
+    updatePdfLink();
+
+    // UI für Suchergebnisse aktualisieren, falls vorhanden
+    if (matchPages.size > 0) {
+        updateCurrentMatchInfo();
+        updateProgressBar();
+    }
 }
 
 
+// ===================================================================
+//   8. EVENT LISTENER FÜR BUTTONS (KORRIGIERTE VERSION)
+// ===================================================================
 
+// Listener für das normale Blättern (PDF-Buttons)
+document.getElementById("prev-page").addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--;
+        renderPage(currentPage, 'prev');
+        updateUiAfterNavigation();
+    }
+});
+
+document.getElementById("next-page").addEventListener("click", () => {
+    if (currentPage < pdfDoc.numPages) {
+        currentPage++;
+        renderPage(currentPage, 'next');
+        updateUiAfterNavigation();
+    }
+});
+
+// Die `onclick`-Attribute im HTML rufen direkt die Funktionen
+// prevMatch(), nextMatch(), zoomIn() und zoomOut() auf.
+// Daher brauchen wir für diese keine expliziten Event-Listener hier.
+
+
+// ===================================================================
+//   9. DRUCKFUNKTION
+// ===================================================================
+
+/**
+ * Erstellt eine hochauflösende Ansicht der aktuellen Seite und öffnet sie
+ * in einem neuen, druckfreundlichen Tab.
+ */
 function printCurrentPage() {
     if (!pdfDoc) return;
 
     pdfDoc.getPage(currentPage).then(page => {
-        const scaleFactor = 2.0;
-        const viewport = page.getViewport({ scale: scaleFactor });
+        const printScale = 2.0; // Feste, hohe Skalierung für gute Druckqualität
+        const viewport = page.getViewport({ scale: printScale });
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
         canvas.width = viewport.width;
         canvas.height = viewport.height;
 
-        const renderContext = {
-            canvasContext: ctx,
-            viewport: viewport
-        };
+        const renderContext = { canvasContext: ctx, viewport: viewport };
 
         page.render(renderContext).promise.then(() => {
-            const dataUrl = canvas.toDataURL();
+            const dataUrl = canvas.toDataURL(); // Das gerenderte Bild in eine URL umwandeln
 
-            const newTab = window.open();
-            newTab.document.write(`
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
                 <html lang="de">
                 <head>
-                    <title>PDF-Seite drucken</title>
+                    <meta charset="UTF-8">
+                    <title>Druckansicht - Seite ${currentPage}</title>
                     <style>
-                        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
-
-                        body {
-                            font-family: 'Roboto Condensed', Arial, sans-serif;
-                            margin: 0;
-                            background-color: #f8f9fa;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                        }
-
-.header-bar {
-    width: 100%;
-    background-color: #d2d2d4; /* angeglichen an Startbildschirm */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    flex-wrap: wrap;
-}
-
-.header-content {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.logo {
-    height: 120px;
-}
-
-.app-name {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    
-}
-
-.button-bar {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 30px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-}
-
-.btn-secondary:hover {
-    background-color: #545b62;
-}
-
-                        img {
-                            max-width: 100%;
-                            height: auto;
-                            margin-bottom: 20px;
-                        }
-
+                        body { margin: 0; text-align: center; background-color: #f8f9fa; }
+                        .print-header { padding: 15px; background-color: #d2d2d4; border-bottom: 1px solid #ccc; display: flex; justify-content: center; align-items: center; gap: 15px; }
+                        .print-header button { padding: 8px 15px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer; }
+                        img { max-width: 100%; height: auto; margin-top: 20px; }
                         @media print {
-                            @page {
-                                size: auto;
-                                margin: 0;
-                            }
-                            html, body {
-                                margin: 0;
-                                padding: 0;
-                                width: 100%;
-                                height: 100%;
-                                overflow: hidden;
-                            }
-                            img {
-                                width: 100%;
-                                height: auto;
-                                margin: 0;
-                            }
-                            .header-bar,
-                            .navigation-buttons,
-                            .zoom-buttons,
-                            .button-bar {
-                                display: none !important;
-                            }
+                            .print-header { display: none; }
+                            img { margin-top: 0; }
+                            @page { margin: 0; size: auto; }
                         }
                     </style>
                 </head>
                 <body>
-                    <div class="header-bar">
-    <div class="header-content">
-        <img src="images/codexhumanus.png" alt="Logo" class="logo">
-        <span class="app-name">DUOVIEWER</span>
-        <div class="button-bar">
-            <button class="btn" onclick="window.print()">🖨️ Drucken</button>
-            <a href="mailto:?subject=PDF-Seite&amp;body=Hier ist die Seite:%0D%0A" target="_blank">
-                <button class="btn">📧 E-Mail</button>
-            </a>
-            <button class="btn btn-secondary" onclick="window.close()">🔙 Zurück</button>
-        </div>
-    </div>
-</div>
-                    <img src="${dataUrl}" alt="PDF Seite">
+                    <div class="print-header">
+                        <img src="images/codexhumanus.png" alt="Logo" style="height: 40px;">
+                        <button onclick="window.print()">🖨️ Jetzt drucken</button>
+                        <button onclick="window.close()">❌ Schließen</button>
+                    </div>
+                    <img src="${dataUrl}" alt="PDF Seite ${currentPage}">
                 </body>
                 </html>
             `);
-            newTab.document.close();
+            printWindow.document.close();
         });
     });
 }
 
+
 // ===================================================================
-//   NEU: Wischgesten (Swipe) für mobiles Blättern
+//   10. WISCHGESTEN (SWIPE) FÜR MOBILE GERÄTE
 // ===================================================================
-const pdfContainer = document.getElementById('pdfContainer');
-if (pdfContainer) {
+
+const pdfContainerForSwipe = document.getElementById('pdfContainer');
+if (pdfContainerForSwipe) {
   let startX = 0;
   let startY = 0;
   let distanzX = 0;
   let distanzY = 0;
   const mindestDistanz = 50; // Mindest-Wischdistanz in Pixeln
 
-  pdfContainer.addEventListener('touchstart', function(e) {
+  // Startpunkt des Touch-Events speichern
+  pdfContainerForSwipe.addEventListener('touchstart', function(e) {
     const touch = e.touches[0];
     startX = touch.screenX;
     startY = touch.screenY;
+    // Distanzen für neue Geste zurücksetzen
+    distanzX = 0;
+    distanzY = 0;
   }, { passive: true });
 
-  pdfContainer.addEventListener('touchmove', function(e) {
+  // Während der Bewegung die Distanz berechnen
+  pdfContainerForSwipe.addEventListener('touchmove', function(e) {
     if (e.touches.length > 0) {
         const touch = e.touches[0];
         distanzX = touch.screenX - startX;
@@ -901,34 +867,31 @@ if (pdfContainer) {
     }
   }, { passive: true });
 
-// Innerhalb des touchend-Listeners
-pdfContainer.addEventListener('touchend', function(e) {
+  // Am Ende des Touch-Events die Geste auswerten
+  pdfContainerForSwipe.addEventListener('touchend', function(e) {
+    // Nur als horizontalen Swipe werten, wenn die Bewegung in X-Richtung deutlich größer ist
     if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
         if (distanzX < 0) {
-            if (currentPage < pdfDoc.numPages) {
-                currentPage++;
-                renderPage(currentPage, 'next'); // Direkt aufrufen
-                updateNavigation();
-                updatePdfLink(); // <-- HIER HINZUFÜGEN
-            }
+            // Swipe nach links -> Nächste Seite
+            goToNextPage();
         } else {
-            if (currentPage > 1) {
-                currentPage--;
-                renderPage(currentPage, 'prev'); // Direkt aufrufen
-                updateNavigation();
-                updatePdfLink(); // <-- HIER HINZUFÜGEN
-            }
+            // Swipe nach rechts -> Vorherige Seite
+            goToPrevPage();
         }
     }
-    startX = 0; startY = 0; distanzX = 0; distanzY = 0;
-});
-
+  });
 }
+
+
 // ===================================================================
-//   ENDE DES NEUEN WISCHGESTEN-CODES
+//   11. UI-HILFSFUNKTIONEN (Link & Info-Modal)
 // ===================================================================
 
-function updatePdfLink( ) {
+/**
+ * Aktualisiert den Link des Logos, sodass er immer auf die aktuell
+ * angezeigte Seite im Original-PDF verweist.
+ */
+function updatePdfLink() {
     const link = document.getElementById('pdfLink');
     if (link) {
         const baseUrl = "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf";
@@ -936,31 +899,52 @@ function updatePdfLink( ) {
     }
 }
 
+// ===================================================================
+//   11. INFO-MODAL STEUERUNG (WIEDERHERGESTELLT)
+// ===================================================================
+
+/**
+ * Öffnet das Informations-Modal.
+ * Diese Funktion wird vom "📝 Info"-Button im HTML aufgerufen.
+ */
+function openInfo() {
+    document.getElementById('infoModal').style.display = 'flex';
+}
+
+/**
+ * Schließt das Informations-Modal.
+ * Diese Funktion wird vom "Schließen"-Button im Modal selbst aufgerufen.
+ */
+function closeInfo() {
+    document.getElementById('infoModal').style.display = 'none';
+}
+
+
 </script>
-
-
-<!-- Info Modal -->
+<!-- =================================================================== -->
+<!--         INFO-MODAL FENSTER (WIEDERHERGESTELLT)                    -->
+<!-- =================================================================== -->
 <div id="infoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
      background-color: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
+  
   <div style="background:white; padding:25px 30px; border-radius:10px; max-width:400px; text-align:center; font-family: Arial, sans-serif;">
     <h2>Information</h2>
-    <p>Diese Anwendung wurde für meine Frau<br><br><strong>und alle Freundinnen von meiner Frau</strong><br></p>
-    <p>entwickelt.<br><br><br>Ich hoffe dieses Programm <strong>hilft ein wenig.</strong>.</p>
-    <p><br>
+    <p>Diese Anwendung wurde für meine Frau  
+  
+<strong>und alle Freundinnen von meiner Frau</strong>  
+</p>
+    <p>entwickelt.  
+  
+  
+Ich hoffe dieses Programm <strong>hilft ein wenig.</strong>.</p>
+    <p>  
+
       
     </p>
     <button onclick="closeInfo()" style="margin-top:15px; padding:8px 16px; border:none; background-color:#927851; color:white; border-radius:5px;">Schließen</button>
   </div>
-</div>
 
-<script>
-function openInfo() {
-    document.getElementById('infoModal').style.display = 'flex';
-}
-function closeInfo() {
-    document.getElementById('infoModal').style.display = 'none';
-}
-</script>
+</div>
 
 </body>
 
