@@ -120,16 +120,18 @@ function loadAndRenderPdf(pdfPath) {
 
 
 // ===================================================================
-//   NEU: ANGEPASSTE renderPage FUNKTION MIT ANIMATION
+//   NEU: FINALE renderPage FUNKTION MIT ANIMATION & ALLEN FIXES
 // ===================================================================
-let isAnimating = false; // Globale Variable, um Animationen zu sperren
+let isAnimating = false;
 
 function renderPage(pageNum, direction = 'none') {
-    if (isAnimating) return; // Verhindert neue Animation während eine läuft
+    if (isAnimating) return;
+    
+    // WICHTIG: Highlights sofort löschen, um "Geister-Highlights" zu vermeiden.
+    clearHighlights();
 
     pdfDoc.getPage(pageNum).then(page => {
         const viewport = page.getViewport({ scale: 2.0 * zoomFactor });
-
         const canvas = document.createElement('canvas');
         canvas.width = viewport.width;
         canvas.height = viewport.height;
@@ -137,17 +139,19 @@ function renderPage(pageNum, direction = 'none') {
 
         const pdfViewer = document.getElementById('pdfViewer');
         const oldCanvas = pdfViewer.querySelector('canvas');
+        const wrapper = document.getElementById('animationWrapper');
 
         page.render({ canvasContext: ctx, viewport }).promise.then(() => {
-            // Beim ersten Laden oder ohne Richtung einfach die Seite anzeigen
+            // Modus für das erste Laden oder wenn keine Animation gewünscht ist
             if (direction === 'none' || !oldCanvas) {
                 pdfViewer.innerHTML = '';
                 pdfViewer.appendChild(canvas);
-                // Alte Logik für Ladebildschirm und Highlights
-                clearHighlights();
-                highlightMatches(page, pdfViewer.parentElement, viewport);
+                
+                highlightMatches(page, wrapper, viewport);
                 document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
                 updateNavigation();
+                updateHelpers(); // KORREKTUR: updateHelpers() hier aufrufen
+
                 if (!wurdeBereitsInitialGerendert) {
                     pdfGerendert = true;
                     ladebildschirmPruefen();
@@ -156,25 +160,23 @@ function renderPage(pageNum, direction = 'none') {
                 return;
             }
 
-            isAnimating = true; // Animation sperren
-
-            // Animation vorbereiten
+            // Animationslogik
+            isAnimating = true;
             pdfViewer.style.transition = 'none';
 
             if (direction === 'next') {
                 pdfViewer.appendChild(canvas);
                 pdfViewer.style.transform = 'translateX(0)';
-            } else { // 'prev'
+            } else {
                 pdfViewer.insertBefore(canvas, oldCanvas);
                 pdfViewer.style.transform = 'translateX(-100%)';
             }
 
-            // Kurzer Timeout, damit der Browser die Startposition registriert
             setTimeout(() => {
                 pdfViewer.style.transition = 'transform 0.4s ease-in-out';
                 if (direction === 'next') {
                     pdfViewer.style.transform = 'translateX(-100%)';
-                } else { // 'prev'
+                } else {
                     pdfViewer.style.transform = 'translateX(0)';
                 }
             }, 20);
@@ -190,18 +192,16 @@ function renderPage(pageNum, direction = 'none') {
                 pdfViewer.style.transition = 'none';
                 pdfViewer.style.transform = 'translateX(0)';
                 
-                // Alte Logik nach der Animation ausführen
-                clearHighlights();
-                highlightMatches(page, pdfViewer.parentElement, viewport);
+                highlightMatches(page, wrapper, viewport);
                 document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
                 updateNavigation();
+                updateHelpers(); // KORREKTUR: updateHelpers() auch hier aufrufen
 
-                isAnimating = false; // Animation freigeben
-            }, 450); // Etwas länger als die CSS-Transition
+                isAnimating = false;
+            }, 450);
         });
     });
 }
-
 
 // === 🧹 Treffer-Hervorhebungen entfernen ===
 function clearHighlights() {
@@ -784,69 +784,67 @@ function zeigeHinzugefügtOverlay(text) {
   setTimeout(() => overlay.remove(), 2500);
 }
 
-// ===================================================================
-//   NEU: ANGEPASSTE NAVIGATIONSAUFRUFE
-// ===================================================================
+// --- Navigation für Such-Treffer ---
+
 function prevMatch() {
-  const arr = [...matchPages];
+  const arr = [...matchPages].sort((a, b) => a - b);
   const i = arr.indexOf(currentPage);
   if (i > 0) {
     currentPage = arr[i - 1];
-    renderPage(currentPage, 'prev'); // Richtung übergeben
-    updateHelpers();
+    // WICHTIG: Richtung 'prev' für die Animation übergeben
+    renderPage(currentPage, 'prev'); 
+    // updateHelpers() wird jetzt von renderPage() aufgerufen, daher hier nicht mehr zwingend nötig, schadet aber nicht.
   }
 }
 
 function nextMatch() {
-  const arr = [...matchPages];
+  const arr = [...matchPages].sort((a, b) => a - b);
   const i = arr.indexOf(currentPage);
   if (i < arr.length - 1) {
     currentPage = arr[i + 1];
-    renderPage(currentPage, 'next'); // Richtung übergeben
-    updateHelpers();
+    // WICHTIG: Richtung 'next' für die Animation übergeben
+    renderPage(currentPage, 'next');
   }
 }
-
-
-
 
 
 // In Ihrer viewer-final.js
 
+// In Ihrer viewer-final.js
+
+// In Ihrer viewer-final.js
+
+// ===================================================================
+//   NEU: KORRIGIERTE removeCurrentHit FUNKTION
+// ===================================================================
 function removeCurrentHit() {
   if (!matchPages.has(currentPage)) return;
 
+  const seiteVorEntfernen = currentPage; // WICHTIG: Aktuelle Seite merken
   const oldSortedPages = [...matchPages].sort((a, b) => a - b);
   const oldIndex = oldSortedPages.indexOf(currentPage);
 
-  // 1. Aktuelle Seite aus der Trefferliste entfernen
   matchPages.delete(currentPage);
 
-  // 2. Nächste anzuzeigende Seite bestimmen (jetzt auf Basis der sortierten Liste)
   const newSortedPages = [...matchPages].sort((a, b) => a - b);
 
   if (newSortedPages.length > 0) {
-    // Fall A: Es sind noch Treffer übrig.
-    // Wähle den Index, der dem alten am nächsten ist.
     let nextIndex = oldIndex;
     if (nextIndex >= newSortedPages.length) {
-      // Wenn wir das letzte Element gelöscht haben, nimm das neue letzte Element.
       nextIndex = newSortedPages.length - 1;
     }
-    
     currentPage = newSortedPages[nextIndex];
-    renderPage(currentPage);
-
+    renderPage(currentPage, 'none'); // Ohne Animation zur nächsten Trefferseite springen
   } else {
-    // Fall B: Das war der letzte Treffer.
-    currentPage = 1;
-    renderPage(currentPage);
-    document.getElementById('searchInfo').textContent = '';
+    // FIX: Das war der letzte Treffer. Bleibe auf der aktuellen Seite.
+    currentPage = seiteVorEntfernen; 
+    document.getElementById('searchInfo').textContent = 'Letzter Treffer entfernt.';
+    // Kein renderPage() nötig, da wir auf der Seite bleiben, nur die Helfer aktualisieren.
   }
   
-  // 3. Helfer aktualisieren (dieser Aufruf bleibt entscheidend)
-  updateHelpers();
+  updateHelpers(); // Helfer aktualisieren, um die Buttons neu zu zeichnen
 }
+
 
 
 
@@ -939,19 +937,21 @@ function updateNavigation() {
   if (nextMatchBtn) nextMatchBtn.disabled = !hasTreffer;
 }
 
+// --- Navigation für normale PDF-Seiten ---
+
 document.getElementById('prev-page').onclick = () => {
-  if (currentPage > 1) {
+  if (currentPage > 1 && !isAnimating) { // Zusätzliche Prüfung, ob gerade animiert wird
     currentPage--;
-    renderPage(currentPage, 'prev'); // Richtung übergeben
-    updateHelpers();
+    // WICHTIG: Richtung 'prev' für die Animation übergeben
+    renderPage(currentPage, 'prev');
   }
 };
 
 document.getElementById('next-page').onclick = () => {
-  if (currentPage < pdfDoc.numPages) {
+  if (currentPage < pdfDoc.numPages && !isAnimating) { // Zusätzliche Prüfung, ob gerade animiert wird
     currentPage++;
-    renderPage(currentPage, 'next'); // Richtung übergeben
-    updateHelpers();
+    // WICHTIG: Richtung 'next' für die Animation übergeben
+    renderPage(currentPage, 'next');
   }
 };
 
@@ -1848,34 +1848,24 @@ window.onload = function() {
       }
     }, { passive: true });
 
-// Innerhalb des window.onload-Blocks, im touchend-Listener
+// Innerhalb des touchend-Listeners
 pdfContainer.addEventListener('touchend', function(e) {
-    // Nur ausführen, wenn die horizontale Bewegung dominant war
     if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-      
-      // Nach links wischen -> Nächste Seite
-      if (distanzX < 0) {
-        if (currentPage < pdfDoc.numPages) {
-            currentPage++;
-            renderPage(currentPage, 'next'); // Direkt aufrufen
-            updateHelpers();
+        if (distanzX < 0) {
+            if (currentPage < pdfDoc.numPages) {
+                currentPage++;
+                renderPage(currentPage, 'next'); // Direkt aufrufen
+                updateNavigation();
+            }
+        } else {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(currentPage, 'prev'); // Direkt aufrufen
+                updateNavigation();
+            }
         }
-      } 
-      // Nach rechts wischen -> Vorherige Seite
-      else {
-        if (currentPage > 1) {
-            currentPage--;
-            renderPage(currentPage, 'prev'); // Direkt aufrufen
-            updateHelpers();
-        }
-      }
     }
-
-    // Variablen für die nächste Geste zurücksetzen
-    startX = 0;
-    startY = 0;
-    distanzX = 0;
-    distanzY = 0;
+    startX = 0; startY = 0; distanzX = 0; distanzY = 0;
 });
 
   }
