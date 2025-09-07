@@ -204,28 +204,23 @@ button:disabled:hover {
 /* ======================================== */
 /*         NEU: STILE FÜR ANIMATIONEN       */
 /* ======================================== */
-
-/* Der Wrapper, der als "Bühne" dient und alles Überflüssige ausblendet. */
 #animationWrapper {
-    position: relative; /* Wichtig für die Positionierung der Kinder */
-    overflow: hidden;   /* Versteckt die Seite, die aus dem Bild geschoben wird */
+    position: relative;
+    overflow: hidden;
     width: 100%;
-    max-width: 1200px; /* Sollte mit #pdfViewer übereinstimmen */
+    max-width: 1200px;
 }
-
-/* Der Viewer selbst wird flexibel, um alte und neue Seite aufzunehmen. */
 #pdfViewer {
     display: flex;
     width: 100%;
-    transition: transform 0.4s ease-in-out; /* Die eigentliche Animations-Magie! */
+    transition: transform 0.4s ease-in-out;
 }
-
-/* Jede Canvas (PDF-Seite) im Viewer. */
 #pdfViewer > canvas {
     width: 100%;
     height: auto;
-    flex-shrink: 0; /* Verhindert, dass die Canvas schrumpft, wenn zwei da sind. */
+    flex-shrink: 0;
 }
+
 
 /* ========== VERBESSERTE HIGHLIGHT-BOXEN ========== */
 .highlight-box {
