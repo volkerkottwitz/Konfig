@@ -177,7 +177,7 @@
         max-height: 100vh;
         margin-top: 20px;
         position: relative;
-        touch-action: pan-y; /* Nur vertikales Scrollen mit Touch erlauben */
+        touch-action: pan-y pinch-zoom; /* Nur vertikales Scrollen mit Touch erlauben */
     }
 
     /* Ein unsichtbarer Wrapper, der die Animation begrenzt */
@@ -384,6 +384,7 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 //   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage) - FINALE KORREKTUR
 // ===================================================================
 
+
 function renderPage(num, direction = 'none') {
     if (isAnimating || !pdfDoc) return;
 
@@ -456,7 +457,7 @@ function renderPage(num, direction = 'none') {
         }
 
         requestAnimationFrame(() => {
-            pdfViewer.style.transition = 'transform 3s ease-in-out';
+            pdfViewer.style.transition = 'transform 0.5s ease-in-out';
             if (direction === 'next') {
                 pdfViewer.style.transform = 'translateX(-50%)';
             } else {
