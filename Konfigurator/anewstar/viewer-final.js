@@ -204,8 +204,13 @@ function renderPage(pageNum, direction = 'none') {
 }
 
 // === 🧹 Treffer-Hervorhebungen entfernen ===
+// ===================================================================
+//   SCHNELLER FIX: clearHighlights FUNKTION (Vorschlag 2)
+// ===================================================================
 function clearHighlights() {
-  document.querySelectorAll('.highlight-box').forEach(el => el.remove());
+  // Findet alle Highlight-Boxen, die sich INNERHALB des #animationWrapper befinden.
+  // Das ist wichtig, da der #animationWrapper die alte und neue Canvas kurzzeitig enthält.
+  document.getElementById("animationWrapper").querySelectorAll(".highlight-box").forEach(el => el.remove());
 }
 
 // === 🔍 Volltextsuche durchführen ===
