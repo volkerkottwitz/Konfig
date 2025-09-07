@@ -137,29 +137,84 @@
         transition: width 0.4s ease;
     }
 
-    #loadingSpinnerOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.85);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
+/* Das Overlay, das den ganzen Bildschirm abdeckt */
+#search-progress-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: none; /* Standardmäßig versteckt */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+}
 
-    .rotating-logo {
-        width: 60px;
-        height: 60px;
-        animation: spin 1.5s linear infinite;
-    }
+/* Der Container für Logo, Ring und Text */
+.progress-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+/* Das Logo in der Mitte */
+
+.progress-logo {
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+    position: relative; /* Notwendig für die Verschiebung */
+    top: 45px;          /* <-- HIER IST DIE VERSCHIEBUNG UM 15px NACH UNTEN */
+}
+
+/* Der SVG-Ring, der um das Logo liegt */
+.progress-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.progress-ring__background,
+.progress-ring__circle {
+    fill: transparent;
+    stroke-width: 8; /* <-- Ring etwas dicker gemacht */
+}
+
+/* Der graue Hintergrund-Ring */
+.progress-ring__background {
+    stroke: #e0e0e0;
+}
+
+/* Der farbige Fortschritts-Ring */
+.progress-ring__circle {
+    stroke: #8B6F47;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition: stroke-dashoffset 0.2s linear;
+}
+
+
+/* Der Text unter dem Logo */
+/* NEUE REGEL */
+#progress-text {
+    margin-top: 70px; /* <-- Geändert von 20px */
+    font-size: 16px;
+    color: #333;
+}
+
+
+/* Die Keyframe-Animation für das drehende Logo */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
     /* ======================================== */
     /*         4. PDF-ANZEIGE & ANIMATION       */
@@ -264,9 +319,25 @@
         <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (optional)">
         <button onclick="searchPDF()">🔍 Suche</button>
         <button onclick="printCurrentPage()">🖨️</button>
-        <div id="loadingSpinnerOverlay">
-            <img src="images/codexhumanus.png" alt="Lädt..." class="rotating-logo" />
-          </div>
+<!-- NEUE, RUNDE LADEANZEIGE -->
+<div id="search-progress-overlay">
+    <div class="progress-container">
+        <!-- Der SVG-Code für den runden Balken -->
+        <svg class="progress-ring" width="100" height="100"> <!-- Größe angepasst -->
+
+<circle class="progress-ring__background" r="45" cx="50" cy="50"/> <!-- Werte angepasst -->
+<circle class="progress-ring__circle" r="45" cx="50" cy="50"/>     <!-- Werte angepasst -->
+
+
+
+        </svg>
+        <!-- Das drehende Logo in der Mitte -->
+        <img src="images/codexhumanus.png" class="progress-logo" alt="Sucht...">
+        <!-- Die Textanzeige für den Fortschritt -->
+        <span id="progress-text"></span>
+    </div>
+</div>
+
     
     </div>
 
@@ -509,57 +580,70 @@ function normalizeQuotes(text) {
  * Die Hauptfunktion zum Durchsuchen des gesamten PDF-Dokuments.
  * Verwendet die globalen Variablen `searchText` und `secondSearchText`.
  */
-function searchPDF() {
-    // 1. Vorbereitung: Ladeanzeige zeigen, alte Ergebnisse löschen
-    document.getElementById("loadingSpinnerOverlay").style.display = "flex";
+/**
+ * Die Hauptfunktion zum Durchsuchen des gesamten PDF-Dokuments.
+ * Zeigt währenddessen eine runde Ladeanzeige mit Fortschritt an.
+ */
+async function searchPDF() {
+    // --- 1. Vorbereitung & Ladeanzeige starten ---
+    const overlay = document.getElementById('search-progress-overlay');
+    const circle = document.querySelector('.progress-ring__circle');
+    const progressText = document.getElementById('progress-text');
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+
+    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+    circle.style.strokeDashoffset = circumference;
+    progressText.textContent = "Suche wird vorbereitet...";
+    overlay.style.display = 'flex';
+
     searchText = normalizeQuotes(document.getElementById("searchBox").value.trim());
     secondSearchText = normalizeQuotes(document.getElementById("searchBox2").value.trim());
     matchPages.clear();
 
     if (!searchText) {
-        document.getElementById("loadingSpinnerOverlay").style.display = "none";
+        overlay.style.display = 'none';
         return alert("Bitte mindestens den ersten Suchbegriff eingeben.");
     }
 
-    // 2. Asynchrone Suche: Alle Seiten parallel durchsuchen
-    const searchPromises = [];
-    for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
-        searchPromises.push(
-            pdfDoc.getPage(pageNum).then(page =>
-                page.getTextContent().then(textContent => {
-                    const pageText = textContent.items.map(item => item.str).join(" ").toLowerCase();
-                    const normalizedPageText = normalizeQuotes(pageText);
+    // --- 2. Seiten sequenziell durchsuchen, um den Fortschritt zu aktualisieren ---
+    const numPages = pdfDoc.numPages;
+    for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+        const page = await pdfDoc.getPage(pageNum);
+        const textContent = await page.getTextContent();
+        
+        const pageText = textContent.items.map(item => item.str).join(" ").toLowerCase();
+        const normalizedPageText = normalizeQuotes(pageText);
 
-                    const hasFirst = normalizedPageText.includes(searchText.toLowerCase());
-                    const hasSecond = secondSearchText ? normalizedPageText.includes(secondSearchText.toLowerCase()) : true;
+        const hasFirst = normalizedPageText.includes(searchText.toLowerCase());
+        const hasSecond = secondSearchText ? normalizedPageText.includes(secondSearchText.toLowerCase()) : true;
 
-                    if (hasFirst && hasSecond) {
-                        matchPages.add(pageNum);
-                    }
-                })
-            )
-        );
+        if (hasFirst && hasSecond) {
+            matchPages.add(pageNum);
+        }
+
+        // --- Fortschrittsanzeige aktualisieren ---
+        const progress = pageNum / numPages;
+        const offset = circumference - progress * circumference;
+        circle.style.strokeDashoffset = offset;
+        progressText.textContent = `Durchsuche Seite ${pageNum} von ${numPages}... (${Math.round(progress * 100)}%)`;
     }
 
-    // 3. Auswertung: Nach Abschluss aller Suchen die Ergebnisse anzeigen
-    Promise.all(searchPromises).then(() => {
-        document.getElementById("loadingSpinnerOverlay").style.display = "none";
+    // --- 3. Auswertung & Ladeanzeige beenden ---
+    overlay.style.display = 'none';
 
-        if (matchPages.size > 0) {
-            currentPage = [...matchPages][0]; // Springe zur ersten gefundenen Seite
-            renderPage(currentPage);
-            updateCurrentMatchInfo();
-            updateProgressBar();
-            // Die Zählung der Treffer ist komplex und potenziell langsam,
-            // daher konzentrieren wir uns auf die gefundenen Seiten.
-            document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit Treffern gefunden.`;
-        } else {
-            document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
-            document.getElementById("currentMatchInfo").textContent = "";
-            document.getElementById("progressFill").style.width = "0%";
-        }
-    });
+    if (matchPages.size > 0) {
+        currentPage = [...matchPages][0];
+        renderPage(currentPage);
+        updateUiAfterNavigation(); // Stellt sicher, dass auch die Treffer-UI aktualisiert wird
+        document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit Treffern gefunden.`;
+    } else {
+        document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
+        document.getElementById("currentMatchInfo").textContent = "";
+        document.getElementById("progressFill").style.width = "0%";
+    }
 }
+
 
 /**
  * Hebt die Suchbegriffe auf einem gerenderten Canvas hervor.
