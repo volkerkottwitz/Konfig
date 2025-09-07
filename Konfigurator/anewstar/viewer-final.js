@@ -119,40 +119,89 @@ function loadAndRenderPdf(pdfPath) {
 }
 
 
-// === 🖼️ Seite rendern ===
-function renderPage(pageNum) {
-  pdfDoc.getPage(pageNum).then(page => {
-    const viewport = page.getViewport({ scale: 2.0 * zoomFactor });
+// ===================================================================
+//   NEU: ANGEPASSTE renderPage FUNKTION MIT ANIMATION
+// ===================================================================
+let isAnimating = false; // Globale Variable, um Animationen zu sperren
 
-    const canvas = document.createElement('canvas');
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-    const ctx = canvas.getContext('2d');
+function renderPage(pageNum, direction = 'none') {
+    if (isAnimating) return; // Verhindert neue Animation während eine läuft
 
-    page.render({ canvasContext: ctx, viewport }).promise.then(() => {
-      const viewer = document.getElementById('pdfViewer');
-      viewer.innerHTML = '';
+    pdfDoc.getPage(pageNum).then(page => {
+        const viewport = page.getViewport({ scale: 2.0 * zoomFactor });
 
-      const wrapper = document.createElement('div');
-      wrapper.style.position = 'relative';
-      wrapper.id = 'canvasWrapper';
-      wrapper.appendChild(canvas);
-      viewer.appendChild(wrapper);
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext('2d');
 
-      clearHighlights();
-      highlightMatches(page, wrapper, viewport);
+        const pdfViewer = document.getElementById('pdfViewer');
+        const oldCanvas = pdfViewer.querySelector('canvas');
 
-      document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
-      updateNavigation();
+        page.render({ canvasContext: ctx, viewport }).promise.then(() => {
+            // Beim ersten Laden oder ohne Richtung einfach die Seite anzeigen
+            if (direction === 'none' || !oldCanvas) {
+                pdfViewer.innerHTML = '';
+                pdfViewer.appendChild(canvas);
+                // Alte Logik für Ladebildschirm und Highlights
+                clearHighlights();
+                highlightMatches(page, pdfViewer.parentElement, viewport);
+                document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
+                updateNavigation();
+                if (!wurdeBereitsInitialGerendert) {
+                    pdfGerendert = true;
+                    ladebildschirmPruefen();
+                    wurdeBereitsInitialGerendert = true;
+                }
+                return;
+            }
 
-      if (!wurdeBereitsInitialGerendert) {
-        pdfGerendert = true;
-        ladebildschirmPruefen();
-        wurdeBereitsInitialGerendert = true;
-      }
+            isAnimating = true; // Animation sperren
+
+            // Animation vorbereiten
+            pdfViewer.style.transition = 'none';
+
+            if (direction === 'next') {
+                pdfViewer.appendChild(canvas);
+                pdfViewer.style.transform = 'translateX(0)';
+            } else { // 'prev'
+                pdfViewer.insertBefore(canvas, oldCanvas);
+                pdfViewer.style.transform = 'translateX(-100%)';
+            }
+
+            // Kurzer Timeout, damit der Browser die Startposition registriert
+            setTimeout(() => {
+                pdfViewer.style.transition = 'transform 0.4s ease-in-out';
+                if (direction === 'next') {
+                    pdfViewer.style.transform = 'translateX(-100%)';
+                } else { // 'prev'
+                    pdfViewer.style.transform = 'translateX(0)';
+                }
+            }, 20);
+
+            // Aufräumen nach der Animation
+            setTimeout(() => {
+                if (direction === 'next') {
+                    oldCanvas.remove();
+                } else {
+                    pdfViewer.querySelectorAll('canvas')[1].remove();
+                }
+
+                pdfViewer.style.transition = 'none';
+                pdfViewer.style.transform = 'translateX(0)';
+                
+                // Alte Logik nach der Animation ausführen
+                clearHighlights();
+                highlightMatches(page, pdfViewer.parentElement, viewport);
+                document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
+                updateNavigation();
+
+                isAnimating = false; // Animation freigeben
+            }, 450); // Etwas länger als die CSS-Transition
+        });
     });
-  });
 }
+
 
 // === 🧹 Treffer-Hervorhebungen entfernen ===
 function clearHighlights() {
@@ -735,30 +784,32 @@ function zeigeHinzugefügtOverlay(text) {
   setTimeout(() => overlay.remove(), 2500);
 }
 
-// === 🔄 NAVIGATION UND STEUERUNG ===
+// ===================================================================
+//   NEU: ANGEPASSTE NAVIGATIONSAUFRUFE
+// ===================================================================
 function prevMatch() {
-  const arr = [...matchPages].sort((a, b) => a - b);
+  const arr = [...matchPages];
   const i = arr.indexOf(currentPage);
   if (i > 0) {
     currentPage = arr[i - 1];
-    renderPage(currentPage);
+    renderPage(currentPage, 'prev'); // Richtung übergeben
     updateHelpers();
   }
 }
 
 function nextMatch() {
-  const arr = [...matchPages].sort((a, b) => a - b);
+  const arr = [...matchPages];
   const i = arr.indexOf(currentPage);
   if (i < arr.length - 1) {
     currentPage = arr[i + 1];
-    renderPage(currentPage);
+    renderPage(currentPage, 'next'); // Richtung übergeben
     updateHelpers();
   }
 }
 
-// In Ihrer viewer-final.js
 
-// In Ihrer viewer-final.js
+
+
 
 // In Ihrer viewer-final.js
 
@@ -891,7 +942,7 @@ function updateNavigation() {
 document.getElementById('prev-page').onclick = () => {
   if (currentPage > 1) {
     currentPage--;
-    renderPage(currentPage);
+    renderPage(currentPage, 'prev'); // Richtung übergeben
     updateHelpers();
   }
 };
@@ -899,7 +950,7 @@ document.getElementById('prev-page').onclick = () => {
 document.getElementById('next-page').onclick = () => {
   if (currentPage < pdfDoc.numPages) {
     currentPage++;
-    renderPage(currentPage);
+    renderPage(currentPage, 'next'); // Richtung übergeben
     updateHelpers();
   }
 };
@@ -1772,7 +1823,70 @@ window.onload = function() {
     });
   }
 
+   // ===================================================================
+  //   NEU: HIER IST DIE PERFEKTE STELLE FÜR DIE WISCHGESTEN-INITIALISIERUNG
+  // ===================================================================
+  const pdfContainer = document.getElementById('pdfContainer');
+  if (pdfContainer) {
+    let startX = 0;
+    let startY = 0;
+    let distanzX = 0;
+    let distanzY = 0;
+    const mindestDistanz = 50; // Mindest-Wischdistanz in Pixeln
+
+    pdfContainer.addEventListener('touchstart', function(e) {
+      const touch = e.touches[0];
+      startX = touch.screenX;
+      startY = touch.screenY;
+    }, { passive: true });
+
+    pdfContainer.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 0) {
+          const touch = e.touches[0];
+          distanzX = touch.screenX - startX;
+          distanzY = touch.screenY - startY;
+      }
+    }, { passive: true });
+
+// Innerhalb des window.onload-Blocks, im touchend-Listener
+pdfContainer.addEventListener('touchend', function(e) {
+    // Nur ausführen, wenn die horizontale Bewegung dominant war
+    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+      
+      // Nach links wischen -> Nächste Seite
+      if (distanzX < 0) {
+        if (currentPage < pdfDoc.numPages) {
+            currentPage++;
+            renderPage(currentPage, 'next'); // Direkt aufrufen
+            updateHelpers();
+        }
+      } 
+      // Nach rechts wischen -> Vorherige Seite
+      else {
+        if (currentPage > 1) {
+            currentPage--;
+            renderPage(currentPage, 'prev'); // Direkt aufrufen
+            updateHelpers();
+        }
+      }
+    }
+
+    // Variablen für die nächste Geste zurücksetzen
+    startX = 0;
+    startY = 0;
+    distanzX = 0;
+    distanzY = 0;
+});
+
+  }
+  // ===================================================================
+  //   ENDE DES NEUEN WISCHGESTEN-CODES
+  // ===================================================================
+
+
 }; // Ende des window.onload Blocks
+
+
 function openMegarippKonfigurator() {
   // Öffnet megaripp.html in einem neuen Fenster (oder Tab)
   // Der Browser merkt sich, dass unser Skript dieses Fenster geöffnet hat.
