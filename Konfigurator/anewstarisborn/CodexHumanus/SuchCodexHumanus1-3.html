@@ -341,19 +341,21 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 // ===================================================================
 let isAnimating = false; // Globale Variable, um Animationen zu sperren
 
+
+
 function renderPage(num, direction = 'none') {
     if (isAnimating) return;
 
     pdfDoc.getPage(num).then(page => {
         const scaleFactor = zoomFactor;
-        let viewport = page.getViewport({ scale: scale * scaleFactor });
+        const viewport = page.getViewport({ scale: scale * scaleFactor });
 
-        let canvas = document.createElement("canvas");
-        let ctx = canvas.getContext("2d");
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
         canvas.width = viewport.width;
         canvas.height = viewport.height;
 
-        let renderContext = {
+        const renderContext = {
             canvasContext: ctx,
             viewport: viewport
         };
@@ -363,7 +365,7 @@ function renderPage(num, direction = 'none') {
 
         page.render(renderContext).promise.then(() => {
             if (direction === 'none' || !oldCanvas) {
-                pdfViewer.innerHTML = "";
+                pdfViewer.innerHTML = '';
                 pdfViewer.appendChild(canvas);
                 if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
                 document.getElementById("pdfContainer").scrollTop = 0;
@@ -372,40 +374,49 @@ function renderPage(num, direction = 'none') {
 
             isAnimating = true;
 
+            // 1. Animation vorbereiten (keine Transition, richtige Startposition)
             pdfViewer.style.transition = 'none';
-
             if (direction === 'next') {
                 pdfViewer.appendChild(canvas);
-                pdfViewer.style.transform = 'translateX(0)';
+                // Startposition ist bereits 0, keine Änderung nötig
             } else { // 'prev'
                 pdfViewer.insertBefore(canvas, oldCanvas);
-                pdfViewer.style.transform = 'translateX(-100%)';
+                pdfViewer.style.transform = 'translateX(-100%)'; // Start links außerhalb
             }
 
-            setTimeout(() => {
+            // 2. Die eigentliche Animation auslösen
+            // Wir nutzen hier requestAnimationFrame für eine flüssigere Darstellung
+            requestAnimationFrame(() => {
                 pdfViewer.style.transition = 'transform 0.4s ease-in-out';
                 if (direction === 'next') {
-                    pdfViewer.style.transform = 'translateX(-100%)';
+                    pdfViewer.style.transform = 'translateX(-100%)'; // Nach links schieben
                 } else { // 'prev'
-                    pdfViewer.style.transform = 'translateX(0)';
+                    pdfViewer.style.transform = 'translateX(0)'; // Nach rechts schieben
                 }
-            }, 20);
+            });
 
-            setTimeout(() => {
-                if (direction === 'next') {
-                    oldCanvas.remove();
-                } else {
-                    pdfViewer.querySelectorAll('canvas')[1].remove();
+            // 3. Aufräumen nach der Animation
+            pdfViewer.addEventListener('transitionend', function cleanup() {
+                // WICHTIG: Den Event Listener sofort wieder entfernen, damit er nur einmal feuert.
+                pdfViewer.removeEventListener('transitionend', cleanup);
+
+                // Alte Canvas entfernen
+                if (direction === 'next' && pdfViewer.children.length > 1) {
+                    pdfViewer.children[0].remove();
+                } else if (direction === 'prev' && pdfViewer.children.length > 1) {
+                    pdfViewer.children[1].remove();
                 }
 
+                // Reset für die nächste Animation
                 pdfViewer.style.transition = 'none';
                 pdfViewer.style.transform = 'translateX(0)';
                 
+                // Alte Logik nach der Animation ausführen
                 if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
                 document.getElementById("pdfContainer").scrollTop = 0;
 
-                isAnimating = false;
-            }, 450);
+                isAnimating = false; // Animation freigeben
+            }, { once: true }); // { once: true } ist eine moderne Alternative zum manuellen Entfernen
         });
     });
 }
