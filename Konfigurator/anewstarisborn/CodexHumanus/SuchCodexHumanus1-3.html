@@ -423,10 +423,10 @@ function renderPage(num, direction = 'none') {
 
 // ERSETZEN SIE IHREN ANIMATIONS-BLOCK DURCH DIESEN HIER
 
-if (isMobileDevice()) {
-    // ---- HANDY-LOGIK ----
-    document.title = "DEBUG: HANDY-LOGIK AKTIV"; // <--- DEBUGGER FÜR HANDY
+// ERSETZEN SIE DEN ALTEN ANIMATIONS-BLOCK DURCH DIESE FINALE VERSION
 
+if (isMobileDevice()) {
+    // ---- HANDY-LOGIK (mit -50%) ----
     if (direction === 'next') {
         pdfViewer.appendChild(newCanvas);
         pdfViewer.style.transform = 'translateX(0)';
@@ -445,9 +445,7 @@ if (isMobileDevice()) {
     });
 
 } else {
-    // ---- DESKTOP-LOGIK ----
-    document.title = "DEBUG: DESKTOP-LOGIK AKTIV"; // <--- DEBUGGER FÜR DESKTOP
-
+    // ---- DESKTOP-LOGIK (mit -100%) ----
     if (direction === 'next') {
         pdfViewer.appendChild(newCanvas);
         pdfViewer.style.transform = 'translateX(0)';
@@ -457,8 +455,7 @@ if (isMobileDevice()) {
     }
 
     requestAnimationFrame(() => {
-        // Ich lasse die 2s hier drin, damit Sie es auf dem Desktop gut sehen können
-        pdfViewer.style.transition = 'transform 0.5s ease-in-out'; 
+        pdfViewer.style.transition = 'transform 0.5s ease-in-out';
         if (direction === 'next') {
             pdfViewer.style.transform = 'translateX(-100%)';
         } else { // 'prev'
@@ -466,6 +463,7 @@ if (isMobileDevice()) {
         }
     });
 }
+
 
 
         
