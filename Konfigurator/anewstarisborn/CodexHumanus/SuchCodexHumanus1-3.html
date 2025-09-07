@@ -120,7 +120,7 @@ button:hover {
     transition: width 0.4s ease;
 }
 
-        #pdfContainer {
+#pdfContainer {
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Stelle sicher, dass die PDF-Seite oben bleibt */
@@ -132,6 +132,14 @@ button:hover {
     position: relative; /* Für die vertikale Zentrierung */
     
 }
+
+/* ======================================================== */
+/*   NEU: FIX FÜR "DOPPELTE BEWEGUNG" AUF MOBILGERÄTEN    */
+/* ======================================================== */
+#pdfContainer {
+    touch-action: pan-y; /* Erlaubt vertikales Scrollen, unterdrückt horizontales */
+}
+
 
 
 #pdfViewer {
