@@ -260,8 +260,8 @@ button:hover {
 
 <body>
     <div id="header">
-        <a href="https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf" target="_blank" rel="noopener">
-            <img src="images/codexhumanus.png" alt="EWE Logo">
+        <a id="pdfLink" href="https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf" target="_blank" rel="noopener">
+       <img src="images/codexhumanus.png" alt="EWE Logo">
         </a>
         <h1>DUOVIEWER</h1>
         <div class="buttons">
@@ -328,6 +328,7 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
     pdfDoc = pdf;
     renderPage(currentPage);
     updateNavigation(); // ✅ jetzt ist pdfDoc gesetzt
+    updatePdfLink(); // <-- HIER
 }).catch(err => {
     console.error("Fehler beim Laden des PDFs:", err);
     alert("Fehler beim Laden des PDFs.");
@@ -340,88 +341,109 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 // ===================================================================
 //   NEU: ANGEPASSTE renderPage FUNKTION MIT ANIMATION
 // ===================================================================
-let isAnimating = false; // Globale Variable, um Animationen zu sperren
-
+// ===================================================================
+//   FINALE, OPTIMIERTE renderPage FUNKTION (MIT FIX FÜR DEN SPRUNG)
+// ===================================================================
+// ===================================================================
+//   FINALE, KORRIGIERTE renderPage FUNKTION FÜR BEIDE RICHTUNGEN
+// ===================================================================
+let isAnimating = false;
 
 function renderPage(num, direction = 'none') {
-    if (isAnimating) return;
+    if (isAnimating || !pdfDoc) return;
+
+    const pdfViewer = document.getElementById('pdfViewer');
+    const oldCanvas = pdfViewer.querySelector('canvas');
+
+    // --- Fall 1: Keine Animation ---
+    if (direction === 'none' || !oldCanvas) {
+        pdfDoc.getPage(num).then(page => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const viewport = page.getViewport({ scale: scale * zoomFactor });
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            pdfViewer.innerHTML = ''; 
+            pdfViewer.appendChild(canvas);
+
+            const renderContext = { canvasContext: ctx, viewport: viewport };
+            page.render(renderContext).promise.then(() => {
+                if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
+            });
+            document.getElementById("pdfContainer").scrollTop = 0;
+        });
+        return;
+    }
+
+    // --- Fall 2: Animation starten ---
+    isAnimating = true;
+    pdfViewer.style.justifyContent = 'flex-start';
 
     pdfDoc.getPage(num).then(page => {
-        const scaleFactor = zoomFactor;
-        const viewport = page.getViewport({ scale: scale * scaleFactor });
+        const viewport = page.getViewport({ scale: scale * zoomFactor });
+        const newCanvas = document.createElement("canvas");
+        newCanvas.height = viewport.height;
+        newCanvas.width = viewport.width;
+        newCanvas.style.backgroundColor = 'white';
 
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
+        pdfViewer.style.transition = 'none';
+        pdfViewer.style.width = '200%';
 
-        const renderContext = {
-            canvasContext: ctx,
-            viewport: viewport
-        };
+        if (direction === 'next') {
+            pdfViewer.appendChild(newCanvas);
+            pdfViewer.style.transform = 'translateX(0)';
+        } else { // 'prev'
+            pdfViewer.insertBefore(newCanvas, oldCanvas);
+            pdfViewer.style.transform = 'translateX(-100%)';
+        }
 
-        const pdfViewer = document.getElementById("pdfViewer");
-        const oldCanvas = pdfViewer.querySelector('canvas');
-
-        page.render(renderContext).promise.then(() => {
-            if (direction === 'none' || !oldCanvas) {
-                pdfViewer.innerHTML = '';
-                pdfViewer.appendChild(canvas);
-                if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
-                document.getElementById("pdfContainer").scrollTop = 0;
-                return;
-            }
-
-            isAnimating = true;
-
-            // 1. Animation vorbereiten
-            pdfViewer.style.transition = 'none';
+        requestAnimationFrame(() => {
+            pdfViewer.style.transition = 'transform 0.4s ease-in-out';
             if (direction === 'next') {
-                pdfViewer.appendChild(canvas);
-            } else { // 'prev'
-                pdfViewer.insertBefore(canvas, oldCanvas);
                 pdfViewer.style.transform = 'translateX(-100%)';
+            } else { // 'prev'
+                pdfViewer.style.transform = 'translateX(0)';
             }
+        });
+        
+        const renderContext = { canvasContext: newCanvas.getContext('2d'), viewport: viewport };
+        page.render(renderContext).promise.then(() => {
+            if (matchPages.has(num)) highlightMatches(page, newCanvas, viewport);
+            newCanvas.style.backgroundColor = 'transparent';
+        });
 
-            // 2. Animation auslösen
-            requestAnimationFrame(() => {
-                pdfViewer.style.transition = 'transform 0.4s ease-in-out';
-                if (direction === 'next') {
-                    pdfViewer.style.transform = 'translateX(-100%)';
-                } else { // 'prev'
-                    pdfViewer.style.transform = 'translateX(0)';
-                }
-            });
+        // ======================================================
+        //   NEU: ÜBERARBEITETE, ROBUSTE AUFRÄUM-LOGIK
+        // ======================================================
+        pdfViewer.addEventListener('transitionend', function cleanup() {
+            // Zuerst Animationen für alle Aufräumarbeiten deaktivieren
+            pdfViewer.style.transition = 'none';
 
-            // 3. Aufräumen nach der Animation (KORRIGIERTER TEIL)
-            pdfViewer.addEventListener('transitionend', function cleanup() {
-                // WICHTIG: Den Event Listener sofort wieder entfernen.
-                pdfViewer.removeEventListener('transitionend', cleanup);
-
-                // === KORREKTUR START ===
-                // SCHRITT A: Zuerst die alte, nicht mehr sichtbare Canvas entfernen.
-                if (direction === 'next' && pdfViewer.children.length > 1) {
-                    pdfViewer.children[0].remove();
-                } else if (direction === 'prev' && pdfViewer.children.length > 1) {
+            if (direction === 'next') {
+                // Die alte Seite (das erste Kind) entfernen
+                if (oldCanvas) oldCanvas.remove();
+                // WICHTIG: Die Transformation sofort zurücksetzen, damit
+                // die neue Seite (jetzt das einzige Kind) richtig positioniert ist.
+                pdfViewer.style.transform = 'translateX(0)';
+            } else { // 'prev'
+                // Die alte Seite (das zweite Kind) entfernen
+                if (pdfViewer.children.length > 1) {
                     pdfViewer.children[1].remove();
                 }
+                // Die Transformation ist hier bereits bei 0, also ist nichts zu tun.
+            }
+            
+            // Gemeinsame Stile für den Normalzustand wiederherstellen
+            pdfViewer.style.width = '';
+            pdfViewer.style.justifyContent = 'center'; 
 
-                // SCHRITT B: Erst DANACH die Transformation zurücksetzen.
-                // Da die alte Canvas weg ist, gibt es keinen visuellen Sprung mehr.
-                pdfViewer.style.transition = 'none';
-                pdfViewer.style.transform = 'translateX(0)';
-                // === KORREKTUR ENDE ===
+            document.getElementById("pdfContainer").scrollTop = 0;
+            isAnimating = false;
 
-                // Alte Logik nach der Animation ausführen
-                if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
-                document.getElementById("pdfContainer").scrollTop = 0;
-
-                isAnimating = false; // Animation für den nächsten Klick freigeben
-            }, { once: true });
-        });
+        }, { once: true });
     });
 }
-
 
 document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
     if (event.ctrlKey) {
@@ -581,6 +603,7 @@ function prevMatch() {
         renderPage(currentPage, 'prev'); // Richtung übergeben
         updateCurrentMatchInfo();
         updateProgressBar();
+        updatePdfLink(); // <-- HIER HINZUFÜGEN
     }
 }
 
@@ -592,6 +615,7 @@ function nextMatch() {
         renderPage(currentPage, 'next'); // Richtung übergeben
         updateCurrentMatchInfo();
         updateProgressBar();
+        updatePdfLink(); // <-- HIER HINZUFÜGEN
     }
 }
 
@@ -621,6 +645,7 @@ document.getElementById("prev-page").addEventListener("click", () => {
     currentPage--;
     renderPage(currentPage, 'prev'); // Richtung übergeben
     updateNavigation();
+    updatePdfLink(); // <-- HIER HINZUFÜGEN
 });
 
 document.getElementById("next-page").addEventListener("click", () => {
@@ -628,6 +653,7 @@ document.getElementById("next-page").addEventListener("click", () => {
     currentPage++;
     renderPage(currentPage, 'next'); // Richtung übergeben
     updateNavigation();
+    updatePdfLink(); // <-- HIER HINZUFÜGEN
 });
 
 function updateNavigation() {
@@ -823,12 +849,14 @@ pdfContainer.addEventListener('touchend', function(e) {
                 currentPage++;
                 renderPage(currentPage, 'next'); // Direkt aufrufen
                 updateNavigation();
+                updatePdfLink(); // <-- HIER HINZUFÜGEN
             }
         } else {
             if (currentPage > 1) {
                 currentPage--;
                 renderPage(currentPage, 'prev'); // Direkt aufrufen
                 updateNavigation();
+                updatePdfLink(); // <-- HIER HINZUFÜGEN
             }
         }
     }
@@ -840,6 +868,13 @@ pdfContainer.addEventListener('touchend', function(e) {
 //   ENDE DES NEUEN WISCHGESTEN-CODES
 // ===================================================================
 
+function updatePdfLink( ) {
+    const link = document.getElementById('pdfLink');
+    if (link) {
+        const baseUrl = "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf";
+        link.href = `${baseUrl}#page=${currentPage}`;
+    }
+}
 
 </script>
 
