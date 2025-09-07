@@ -109,7 +109,7 @@ function loadAndRenderPdf(pdfPath) {
 
   pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
     pdfDoc = pdf;
-    renderPage(currentPage);
+    renderPage(currentPage,'none');
     updateNavigation();
     updateHelpers(); 
   }).catch(err => {
@@ -285,7 +285,7 @@ if (!searchText && !secondSearchText) {
     if (matchPages.size > 0) {
         document.getElementById('searchInfo').textContent = `🔍 ${matchPages.size} Seite(n) gefunden.`;
         currentPage = [...matchPages].sort((a, b) => a - b)[0];
-        renderPage(currentPage);
+        renderPage(currentPage,  'none');
     } else {
         document.getElementById('searchInfo').textContent = '🔍 Keine Treffer für Ihre Suche gefunden.';
     }
@@ -957,14 +957,15 @@ document.getElementById('next-page').onclick = () => {
 
 function zoomIn() {
   zoomFactor += 0.1;
-  renderPage(currentPage);
+  renderPage(currentPage, 'none'); // 'none' hinzugefügt
 }
 
 function zoomOut() {
   if (zoomFactor > 0.1) {
     zoomFactor -= 0.1;
-    renderPage(currentPage);
+    renderPage(currentPage, 'none'); // 'none' hinzugefügt
   }
+
 }
 
 // === 🛒 MERKLISTE-FUNKTIONEN (ehemals Warenkorb) ===
@@ -1850,23 +1851,24 @@ window.onload = function() {
 
 // Innerhalb des touchend-Listeners
 pdfContainer.addEventListener('touchend', function(e) {
-    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-        if (distanzX < 0) {
-            if (currentPage < pdfDoc.numPages) {
-                currentPage++;
-                renderPage(currentPage, 'next'); // Direkt aufrufen
-                updateNavigation();
-            }
-        } else {
-            if (currentPage > 1) {
-                currentPage--;
-                renderPage(currentPage, 'prev'); // Direkt aufrufen
-                updateNavigation();
-            }
-        }
+  if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+    if (distanzX < 0) { // Links wischen
+      if (currentPage < pdfDoc.numPages && !isAnimating) {
+          currentPage++;
+          renderPage(currentPage, 'next');
+          updateHelpers(); // Besser als nur updateNavigation()
+      }
+    } else { // Rechts wischen
+      if (currentPage > 1 && !isAnimating) {
+          currentPage--;
+          renderPage(currentPage, 'prev');
+          updateHelpers(); // Besser als nur updateNavigation()
+      }
     }
-    startX = 0; startY = 0; distanzX = 0; distanzY = 0;
+  }
+  startX = 0; startY = 0; distanzX = 0; distanzY = 0;
 });
+
 
   }
   // ===================================================================
