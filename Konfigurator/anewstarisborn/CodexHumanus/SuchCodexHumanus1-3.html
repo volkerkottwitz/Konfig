@@ -696,6 +696,59 @@ function printCurrentPage() {
     });
 }
 
+// ===================================================================
+//   NEU: Wischgesten (Swipe) für mobiles Blättern
+// ===================================================================
+const pdfContainer = document.getElementById('pdfContainer');
+if (pdfContainer) {
+  let startX = 0;
+  let startY = 0;
+  let distanzX = 0;
+  let distanzY = 0;
+  const mindestDistanz = 50; // Mindest-Wischdistanz in Pixeln
+
+  pdfContainer.addEventListener('touchstart', function(e) {
+    const touch = e.touches[0];
+    startX = touch.screenX;
+    startY = touch.screenY;
+  }, { passive: true });
+
+  pdfContainer.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        distanzX = touch.screenX - startX;
+        distanzY = touch.screenY - startY;
+    }
+  }, { passive: true });
+
+  pdfContainer.addEventListener('touchend', function(e) {
+    // Nur ausführen, wenn die horizontale Bewegung dominant war
+    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+      
+      // Nach links wischen -> Nächste Seite
+      if (distanzX < 0) {
+        // Simuliert einen Klick auf den "Nächste Seite"-Button
+        document.getElementById('next-page').click();
+      } 
+      // Nach rechts wischen -> Vorherige Seite
+      else {
+        // Simuliert einen Klick auf den "Vorherige Seite"-Button
+        document.getElementById('prev-page').click();
+      }
+    }
+
+    // Variablen für die nächste Geste zurücksetzen
+    startX = 0;
+    startY = 0;
+    distanzX = 0;
+    distanzY = 0;
+  });
+}
+// ===================================================================
+//   ENDE DES NEUEN WISCHGESTEN-CODES
+// ===================================================================
+
+
 </script>
 
 
