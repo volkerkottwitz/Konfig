@@ -838,7 +838,7 @@ function printCurrentPage() {
 
 
 // ===================================================================
-//   10. WISCHGESTEN (SWIPE) FÜR MOBILE GERÄTE (WIEDERHERGESTELLT)
+//   10. WISCHGESTEN (SWIPE) FÜR MOBILGERÄTE (FINALE, EINDEUTIGE VERSION)
 // ===================================================================
 const pdfContainer = document.getElementById('pdfContainer');
 if (pdfContainer) {
@@ -852,7 +852,6 @@ if (pdfContainer) {
     const touch = e.touches[0];
     startX = touch.screenX;
     startY = touch.screenY;
-    // Wichtig: Distanzen für jede neue Geste zurücksetzen
     distanzX = 0;
     distanzY = 0;
   }, { passive: true });
@@ -866,20 +865,26 @@ if (pdfContainer) {
   }, { passive: true });
 
   pdfContainer.addEventListener('touchend', function(e) {
-    // Nur als horizontalen Swipe werten, wenn die Bewegung in X-Richtung deutlich größer ist
     if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
         if (distanzX < 0) {
-            // Swipe nach links -> Nächste Seite
-            // Wir rufen die ZENTRALE Navigationsfunktion auf
-            nextMatch(); // Oder goToNextPage(), je nachdem, welche Sie verwenden
+            // Swipe nach links -> Nächste PDF-Seite
+            if (currentPage < pdfDoc.numPages) {
+                currentPage++;
+                renderPage(currentPage, 'next');
+                updateUiAfterNavigation(); // UI aktualisieren
+            }
         } else {
-            // Swipe nach rechts -> Vorherige Seite
-            // Wir rufen die ZENTRALE Navigationsfunktion auf
-            prevMatch(); // Oder goToPrevPage(), je nachdem, welche Sie verwenden
+            // Swipe nach rechts -> Vorherige PDF-Seite
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(currentPage, 'prev');
+                updateUiAfterNavigation(); // UI aktualisieren
+            }
         }
     }
   });
 }
+
 
 
 // ===================================================================
