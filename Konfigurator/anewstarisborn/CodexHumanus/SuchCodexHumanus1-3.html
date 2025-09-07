@@ -367,47 +367,27 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
  * @param {string} direction - 'next', 'prev' oder 'none'. Bestimmt, ob animiert wird.
  */
 // ===================================================================
-//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage) - FINALE VERSION
+//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage) - FINALE, SAUBERE VERSION
 // ===================================================================
-
-/**
- * Rendert eine PDF-Seite. Unterscheidet zwischen einer einfachen Anzeige (z.B. Zoom)
- * und einer animierten Anzeige (Seitenwechsel).
- * @param {number} num - Die Seitenzahl, die angezeigt werden soll.
- * @param {string} direction - 'next', 'prev' oder 'none'. Bestimmt, ob animiert wird.
- */
-// ===================================================================
-//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage ) - FINALE VERSION
-// ===================================================================
-
-// ===================================================================
-//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage) - FINALE KORREKTUR
-// ===================================================================
-
 
 function renderPage(num, direction = 'none') {
     if (isAnimating || !pdfDoc) return;
 
     const pdfViewer = document.getElementById('pdfViewer');
     const oldCanvas = pdfViewer.querySelector('canvas');
-    const totalScale = scale * zoomFactor; // Gesamt-Skalierung berechnen
+    const totalScale = scale * zoomFactor;
 
     // --- Fall A: Einfache Anzeige (Start, Zoom) ---
-    // Dieser Teil ist für die korrekte Größe und Qualität beim Start und Zoom zuständig.
     if (direction === 'none' || !oldCanvas) {
         isAnimating = true;
         pdfDoc.getPage(num).then(page => {
             pdfViewer.style.width = '100%';
             pdfViewer.style.justifyContent = 'center';
-
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
             const viewport = page.getViewport({ scale: totalScale });
-
             canvas.height = viewport.height;
             canvas.width = viewport.width;
-
-            // Anzeigegröße NUR HIER anpassen
             if (isMobileDevice()) {
                 canvas.style.width = '100%';
                 canvas.style.height = 'auto';
@@ -415,10 +395,8 @@ function renderPage(num, direction = 'none') {
                 canvas.style.width = `${viewport.width}px`;
                 canvas.style.height = `${viewport.height}px`;
             }
-
             pdfViewer.innerHTML = '';
             pdfViewer.appendChild(canvas);
-
             const renderContext = { canvasContext: ctx, viewport: viewport };
             page.render(renderContext).promise.then(() => {
                 if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
@@ -430,21 +408,22 @@ function renderPage(num, direction = 'none') {
     }
 
     // --- Fall B: Animierter Seitenwechsel ---
-    // DIESER TEIL IST JETZT KORRIGIERT UND RESPEKTIERT DIE CSS-ANIMATION
     isAnimating = true;
+
+    // FINALE KORREKTUR: Entfernt den Inline-Style vom alten Canvas.
+    if (oldCanvas) {
+        oldCanvas.style.width = ''; 
+    }
+
     pdfViewer.style.justifyContent = 'flex-start';
 
     pdfDoc.getPage(num).then(page => {
         const viewport = page.getViewport({ scale: totalScale });
         const newCanvas = document.createElement("canvas");
-        
-        // WICHTIG: Nur die interne Auflösung setzen, NICHT die Anzeigegröße.
-        // Die Anzeigegröße (width: 50%) wird vom CSS gesteuert!
         newCanvas.height = viewport.height;
         newCanvas.width = viewport.width;
         newCanvas.style.backgroundColor = 'white';
 
-        // Der Rest der funktionierenden Animationslogik
         pdfViewer.style.transition = 'none';
         pdfViewer.style.width = '200%';
 
@@ -457,7 +436,7 @@ function renderPage(num, direction = 'none') {
         }
 
         requestAnimationFrame(() => {
-            pdfViewer.style.transition = 'transform 0.5s ease-in-out';
+            pdfViewer.style.transition = 'transform 0.4s ease-in-out';
             if (direction === 'next') {
                 pdfViewer.style.transform = 'translateX(-50%)';
             } else {
@@ -486,6 +465,7 @@ function renderPage(num, direction = 'none') {
         }, { once: true });
     });
 }
+
 
 
 // ===================================================================
