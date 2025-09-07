@@ -112,6 +112,7 @@ button:hover {
             margin-top: 10px;
             overflow: hidden;
         }
+        
 #progressFill {
     height: 100%;
     background-color: #8B6F47; /* selbes Braun wie Buttons */
@@ -184,17 +185,25 @@ button:hover {
     }
 
     #pdfViewer {
-        width: 100%;  /* Auf mobilen Geräten die volle Breite */
+        width: 100%;
         height: auto;  /* Höhe automatisch anpassen */
-        will-change: transform;
+        
     }
 
-    #pdfViewer canvas {
-        width: 100%;  /* Canvas auf die volle Breite des Containers setzen */
-        height: auto;  /* Höhe automatisch anpassen, um das Seitenverhältnis zu erhalten */
-        max-width: 100%;  /* Verhindert, dass der Canvas zu groß wird */
-        transform: translateZ(0);
-    }
+/* KLASSISCHE CSS-ALTERNATIVE (falls die obere nicht geht) */
+
+/* Grundregel für alle Canvases im Viewer */
+#pdfViewer > canvas {
+    width: 50%;
+    height: auto;
+    flex-shrink: 0;
+}
+
+/* Sonderregel: Wenn ein Canvas das EINZIGE Kind ist (also keine Animation läuft) */
+#pdfViewer > canvas:only-child {
+    width: 100%;
+}
+
 }
 
 @media screen and (max-width: 480px) {
@@ -232,6 +241,8 @@ button:hover {
 
 
 
+
+
 #loadingSpinnerOverlay {
   position: fixed;
   top: 0;
@@ -255,6 +266,8 @@ button:hover {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
 
 
     </style>
@@ -314,6 +327,20 @@ button:hover {
     </div>
 
 <script>
+
+    // GANZ AM ANFANG DES <SCRIPT>-BLOCKS EINFÜGEN
+// Prüft, ob es ein typisches Mobilgerät ist (Touch ODER schmaler Bildschirm)
+// Stellt sicher, dass diese Funktion am Anfang des Scripts steht
+// ERSETZEN SIE DIE ALTE isMobileDevice-FUNKTION HIERMIT
+
+function isMobileDevice() {
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isNarrow = window.innerWidth < 768;
+    // Nur WENN BEIDES zutrifft, ist es ein Mobilgerät für unsere Zwecke.
+    return isTouch && isNarrow; 
+}
+
+
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
 let pdfDoc = null;
@@ -392,22 +419,55 @@ function renderPage(num, direction = 'none') {
         pdfViewer.style.transition = 'none';
         pdfViewer.style.width = '200%';
 
-        if (direction === 'next') {
-            pdfViewer.appendChild(newCanvas);
-            pdfViewer.style.transform = 'translateX(0)';
-        } else { // 'prev'
-            pdfViewer.insertBefore(newCanvas, oldCanvas);
-            pdfViewer.style.transform = 'translateX(-100%)';
-        }
+// ERSETZEN SIE DEN OBEREN BLOCK DURCH DIESEN HIER
 
-        requestAnimationFrame(() => {
-            pdfViewer.style.transition = 'transform 0.4s ease-in-out';
-            if (direction === 'next') {
-                pdfViewer.style.transform = 'translateX(-100%)';
-            } else { // 'prev'
-                pdfViewer.style.transform = 'translateX(0)';
-            }
-        });
+// ERSETZEN SIE IHREN ANIMATIONS-BLOCK DURCH DIESEN HIER
+
+if (isMobileDevice()) {
+    // ---- HANDY-LOGIK ----
+    document.title = "DEBUG: HANDY-LOGIK AKTIV"; // <--- DEBUGGER FÜR HANDY
+
+    if (direction === 'next') {
+        pdfViewer.appendChild(newCanvas);
+        pdfViewer.style.transform = 'translateX(0)';
+    } else { // 'prev'
+        pdfViewer.insertBefore(newCanvas, oldCanvas);
+        pdfViewer.style.transform = 'translateX(-50%)';
+    }
+
+    requestAnimationFrame(() => {
+        pdfViewer.style.transition = 'transform 0.5s ease-in-out';
+        if (direction === 'next') {
+            pdfViewer.style.transform = 'translateX(-50%)';
+        } else { // 'prev'
+            pdfViewer.style.transform = 'translateX(0)';
+        }
+    });
+
+} else {
+    // ---- DESKTOP-LOGIK ----
+    document.title = "DEBUG: DESKTOP-LOGIK AKTIV"; // <--- DEBUGGER FÜR DESKTOP
+
+    if (direction === 'next') {
+        pdfViewer.appendChild(newCanvas);
+        pdfViewer.style.transform = 'translateX(0)';
+    } else { // 'prev'
+        pdfViewer.insertBefore(newCanvas, oldCanvas);
+        pdfViewer.style.transform = 'translateX(-100%)';
+    }
+
+    requestAnimationFrame(() => {
+        // Ich lasse die 2s hier drin, damit Sie es auf dem Desktop gut sehen können
+        pdfViewer.style.transition = 'transform 0.5s ease-in-out'; 
+        if (direction === 'next') {
+            pdfViewer.style.transform = 'translateX(-100%)';
+        } else { // 'prev'
+            pdfViewer.style.transform = 'translateX(0)';
+        }
+    });
+}
+
+
         
         const renderContext = { canvasContext: newCanvas.getContext('2d'), viewport: viewport };
         page.render(renderContext).promise.then(() => {
