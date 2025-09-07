@@ -342,7 +342,6 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 let isAnimating = false; // Globale Variable, um Animationen zu sperren
 
 
-
 function renderPage(num, direction = 'none') {
     if (isAnimating) return;
 
@@ -374,52 +373,54 @@ function renderPage(num, direction = 'none') {
 
             isAnimating = true;
 
-            // 1. Animation vorbereiten (keine Transition, richtige Startposition)
+            // 1. Animation vorbereiten
             pdfViewer.style.transition = 'none';
             if (direction === 'next') {
                 pdfViewer.appendChild(canvas);
-                // Startposition ist bereits 0, keine Änderung nötig
             } else { // 'prev'
                 pdfViewer.insertBefore(canvas, oldCanvas);
-                pdfViewer.style.transform = 'translateX(-100%)'; // Start links außerhalb
+                pdfViewer.style.transform = 'translateX(-100%)';
             }
 
-            // 2. Die eigentliche Animation auslösen
-            // Wir nutzen hier requestAnimationFrame für eine flüssigere Darstellung
+            // 2. Animation auslösen
             requestAnimationFrame(() => {
                 pdfViewer.style.transition = 'transform 0.4s ease-in-out';
                 if (direction === 'next') {
-                    pdfViewer.style.transform = 'translateX(-100%)'; // Nach links schieben
+                    pdfViewer.style.transform = 'translateX(-100%)';
                 } else { // 'prev'
-                    pdfViewer.style.transform = 'translateX(0)'; // Nach rechts schieben
+                    pdfViewer.style.transform = 'translateX(0)';
                 }
             });
 
-            // 3. Aufräumen nach der Animation
+            // 3. Aufräumen nach der Animation (KORRIGIERTER TEIL)
             pdfViewer.addEventListener('transitionend', function cleanup() {
-                // WICHTIG: Den Event Listener sofort wieder entfernen, damit er nur einmal feuert.
+                // WICHTIG: Den Event Listener sofort wieder entfernen.
                 pdfViewer.removeEventListener('transitionend', cleanup);
 
-                // Alte Canvas entfernen
+                // === KORREKTUR START ===
+                // SCHRITT A: Zuerst die alte, nicht mehr sichtbare Canvas entfernen.
                 if (direction === 'next' && pdfViewer.children.length > 1) {
                     pdfViewer.children[0].remove();
                 } else if (direction === 'prev' && pdfViewer.children.length > 1) {
                     pdfViewer.children[1].remove();
                 }
 
-                // Reset für die nächste Animation
+                // SCHRITT B: Erst DANACH die Transformation zurücksetzen.
+                // Da die alte Canvas weg ist, gibt es keinen visuellen Sprung mehr.
                 pdfViewer.style.transition = 'none';
                 pdfViewer.style.transform = 'translateX(0)';
-                
+                // === KORREKTUR ENDE ===
+
                 // Alte Logik nach der Animation ausführen
                 if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
                 document.getElementById("pdfContainer").scrollTop = 0;
 
-                isAnimating = false; // Animation freigeben
-            }, { once: true }); // { once: true } ist eine moderne Alternative zum manuellen Entfernen
+                isAnimating = false; // Animation für den nächsten Klick freigeben
+            }, { once: true });
         });
     });
 }
+
 
 document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
     if (event.ctrlKey) {
