@@ -186,12 +186,14 @@ button:hover {
     #pdfViewer {
         width: 100%;  /* Auf mobilen Geräten die volle Breite */
         height: auto;  /* Höhe automatisch anpassen */
+        will-change: transform;
     }
 
     #pdfViewer canvas {
         width: 100%;  /* Canvas auf die volle Breite des Containers setzen */
         height: auto;  /* Höhe automatisch anpassen, um das Seitenverhältnis zu erhalten */
         max-width: 100%;  /* Verhindert, dass der Canvas zu groß wird */
+        transform: translateZ(0);
     }
 }
 
