@@ -838,29 +838,26 @@ function printCurrentPage() {
 
 
 // ===================================================================
-//   10. WISCHGESTEN (SWIPE) FÜR MOBILE GERÄTE
+//   10. WISCHGESTEN (SWIPE) FÜR MOBILE GERÄTE (WIEDERHERGESTELLT)
 // ===================================================================
-
-const pdfContainerForSwipe = document.getElementById('pdfContainer');
-if (pdfContainerForSwipe) {
+const pdfContainer = document.getElementById('pdfContainer');
+if (pdfContainer) {
   let startX = 0;
   let startY = 0;
   let distanzX = 0;
   let distanzY = 0;
   const mindestDistanz = 50; // Mindest-Wischdistanz in Pixeln
 
-  // Startpunkt des Touch-Events speichern
-  pdfContainerForSwipe.addEventListener('touchstart', function(e) {
+  pdfContainer.addEventListener('touchstart', function(e) {
     const touch = e.touches[0];
     startX = touch.screenX;
     startY = touch.screenY;
-    // Distanzen für neue Geste zurücksetzen
+    // Wichtig: Distanzen für jede neue Geste zurücksetzen
     distanzX = 0;
     distanzY = 0;
   }, { passive: true });
 
-  // Während der Bewegung die Distanz berechnen
-  pdfContainerForSwipe.addEventListener('touchmove', function(e) {
+  pdfContainer.addEventListener('touchmove', function(e) {
     if (e.touches.length > 0) {
         const touch = e.touches[0];
         distanzX = touch.screenX - startX;
@@ -868,16 +865,17 @@ if (pdfContainerForSwipe) {
     }
   }, { passive: true });
 
-  // Am Ende des Touch-Events die Geste auswerten
-  pdfContainerForSwipe.addEventListener('touchend', function(e) {
+  pdfContainer.addEventListener('touchend', function(e) {
     // Nur als horizontalen Swipe werten, wenn die Bewegung in X-Richtung deutlich größer ist
     if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
         if (distanzX < 0) {
             // Swipe nach links -> Nächste Seite
-            goToNextPage();
+            // Wir rufen die ZENTRALE Navigationsfunktion auf
+            nextMatch(); // Oder goToNextPage(), je nachdem, welche Sie verwenden
         } else {
             // Swipe nach rechts -> Vorherige Seite
-            goToPrevPage();
+            // Wir rufen die ZENTRALE Navigationsfunktion auf
+            prevMatch(); // Oder goToPrevPage(), je nachdem, welche Sie verwenden
         }
     }
   });
