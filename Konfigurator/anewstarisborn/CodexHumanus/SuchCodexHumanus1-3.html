@@ -143,6 +143,30 @@ button:hover {
     
 }
 
+/* ======================================== */
+/*         NEU: STILE FÜR ANIMATIONEN       */
+/* ======================================== */
+
+#animationWrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+}
+
+#pdfViewer {
+    display: flex;
+    width: 100%;
+    transition: transform 0.4s ease-in-out;
+}
+
+#pdfViewer > canvas {
+    width: 100%;
+    height: auto;
+    flex-shrink: 0;
+}
+
+
 @media screen and (max-width: 768px) {
     #pdfContainer {
         height: auto;  /* Auf kleineren Bildschirmen die Höhe dynamisch anpassen */
@@ -274,6 +298,7 @@ button:hover {
     </div>
 
     <div id="pdfContainer">
+        <div id="animationWrapper"> <!-- NEUER WRAPPER -->
         <div id="pdfViewer"></div>
     </div>
 
@@ -303,7 +328,14 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
 
 
 
-function renderPage(num) {
+// ===================================================================
+//   NEU: ANGEPASSTE renderPage FUNKTION MIT ANIMATION
+// ===================================================================
+let isAnimating = false; // Globale Variable, um Animationen zu sperren
+
+function renderPage(num, direction = 'none') {
+    if (isAnimating) return;
+
     pdfDoc.getPage(num).then(page => {
         const scaleFactor = zoomFactor;
         let viewport = page.getViewport({ scale: scale * scaleFactor });
@@ -318,16 +350,54 @@ function renderPage(num) {
             viewport: viewport
         };
 
-        // PDF Viewer zurücksetzen, bevor die neue Seite gerendert wird
         const pdfViewer = document.getElementById("pdfViewer");
-        pdfViewer.innerHTML = "";
-        pdfViewer.appendChild(canvas);
+        const oldCanvas = pdfViewer.querySelector('canvas');
 
         page.render(renderContext).promise.then(() => {
-            if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
+            if (direction === 'none' || !oldCanvas) {
+                pdfViewer.innerHTML = "";
+                pdfViewer.appendChild(canvas);
+                if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
+                document.getElementById("pdfContainer").scrollTop = 0;
+                return;
+            }
 
-            // Scrollposition zurücksetzen, um die Seite oben auszurichten
-            document.getElementById("pdfContainer").scrollTop = 0; // nach dem Rendern nach oben scrollen
+            isAnimating = true;
+
+            pdfViewer.style.transition = 'none';
+
+            if (direction === 'next') {
+                pdfViewer.appendChild(canvas);
+                pdfViewer.style.transform = 'translateX(0)';
+            } else { // 'prev'
+                pdfViewer.insertBefore(canvas, oldCanvas);
+                pdfViewer.style.transform = 'translateX(-100%)';
+            }
+
+            setTimeout(() => {
+                pdfViewer.style.transition = 'transform 0.4s ease-in-out';
+                if (direction === 'next') {
+                    pdfViewer.style.transform = 'translateX(-100%)';
+                } else { // 'prev'
+                    pdfViewer.style.transform = 'translateX(0)';
+                }
+            }, 20);
+
+            setTimeout(() => {
+                if (direction === 'next') {
+                    oldCanvas.remove();
+                } else {
+                    pdfViewer.querySelectorAll('canvas')[1].remove();
+                }
+
+                pdfViewer.style.transition = 'none';
+                pdfViewer.style.transform = 'translateX(0)';
+                
+                if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
+                document.getElementById("pdfContainer").scrollTop = 0;
+
+                isAnimating = false;
+            }, 450);
         });
     });
 }
@@ -479,12 +549,15 @@ function updateProgressBar() {
     document.getElementById("progressFill").style.width = percent + "%";
 }
 
+// ===================================================================
+//   NEU: ANGEPASSTE NAVIGATIONSAUFRUFE
+// ===================================================================
 function prevMatch() {
     const pages = [...matchPages];
     let index = pages.indexOf(currentPage);
     if (index > 0) {
         currentPage = pages[index - 1];
-        renderPage(currentPage);
+        renderPage(currentPage, 'prev'); // Richtung übergeben
         updateCurrentMatchInfo();
         updateProgressBar();
     }
@@ -495,7 +568,7 @@ function nextMatch() {
     let index = pages.indexOf(currentPage);
     if (index < pages.length - 1) {
         currentPage = pages[index + 1];
-        renderPage(currentPage);
+        renderPage(currentPage, 'next'); // Richtung übergeben
         updateCurrentMatchInfo();
         updateProgressBar();
     }
@@ -525,14 +598,14 @@ function resetScrollPosition() {
 document.getElementById("prev-page").addEventListener("click", () => {
     if (currentPage <= 1) return;
     currentPage--;
-    renderPage(currentPage);
+    renderPage(currentPage, 'prev'); // Richtung übergeben
     updateNavigation();
 });
 
 document.getElementById("next-page").addEventListener("click", () => {
     if (currentPage >= pdfDoc.numPages) return;
     currentPage++;
-    renderPage(currentPage);
+    renderPage(currentPage, 'next'); // Richtung übergeben
     updateNavigation();
 });
 
@@ -721,28 +794,26 @@ if (pdfContainer) {
     }
   }, { passive: true });
 
-  pdfContainer.addEventListener('touchend', function(e) {
-    // Nur ausführen, wenn die horizontale Bewegung dominant war
+// Innerhalb des touchend-Listeners
+pdfContainer.addEventListener('touchend', function(e) {
     if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-      
-      // Nach links wischen -> Nächste Seite
-      if (distanzX < 0) {
-        // Simuliert einen Klick auf den "Nächste Seite"-Button
-        document.getElementById('next-page').click();
-      } 
-      // Nach rechts wischen -> Vorherige Seite
-      else {
-        // Simuliert einen Klick auf den "Vorherige Seite"-Button
-        document.getElementById('prev-page').click();
-      }
+        if (distanzX < 0) {
+            if (currentPage < pdfDoc.numPages) {
+                currentPage++;
+                renderPage(currentPage, 'next'); // Direkt aufrufen
+                updateNavigation();
+            }
+        } else {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(currentPage, 'prev'); // Direkt aufrufen
+                updateNavigation();
+            }
+        }
     }
+    startX = 0; startY = 0; distanzX = 0; distanzY = 0;
+});
 
-    // Variablen für die nächste Geste zurücksetzen
-    startX = 0;
-    startY = 0;
-    distanzX = 0;
-    distanzY = 0;
-  });
 }
 // ===================================================================
 //   ENDE DES NEUEN WISCHGESTEN-CODES
