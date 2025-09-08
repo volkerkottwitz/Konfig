@@ -1,8 +1,24 @@
 [
   {
-    "name": "EWE Preisliste 2025 (Hauptliste)",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/images/pdf2025.pdf",
+    "name": "EWE-Preisliste 2025 (Hauptliste)",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2025.pdf",
     "category": "Preislisten",
+    "isDefault": true
+  },
+    {
+    "name": "EWE-Ersatzteilprospekt Wasserzählerschacht",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Ersatzteile_fuer_EWE-WZ-Schaechte_u_FLEXORIPP.pdf",
+    "category": "Ersatzteile",
+    "isDefault": true
+  },  {
+    "name": "EWE-Ersatzteilprospekt Wasserzähleranlagen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Ersatzteile_fuer_Wasserzaehler-Anlagen.pdf",
+    "category": "Ersatzteile",
+    "isDefault": true
+  },  {
+    "name": "EWE-Zubehör divers für Wasserzählerschächte",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/EWEKurzinfo2025.pdf",
+    "category": "Ersatzteile",
     "isDefault": true
   },
   {
