@@ -91,7 +91,7 @@ function updateMerklisteIcon() {
 const merklisteInhalt = document.getElementById("merklisteInhalt");
 
 // PDF-URL
-// === const url = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/images/pdf2025.pdf'; ===
+// === const url = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2025.pdf'; ===
 
 // === 📥 PDF laden & initial anzeigen ===
 // ===pdfjsLib.getDocument(url).promise.then(pdf => {
@@ -1119,7 +1119,7 @@ function printAllMatches() {
       const html = `
         <html>
           <head>
-            <title>Diese Seite(n) sind aus der Preisliste 2025 von EWE-Armaturen.</title>
+            <title>Diese Seite(n) sind aus der Prospekten/BI´s/Preislisten 2025 von EWE-Armaturen.</title>
             <style>
               @media print { @page { size: A4; margin: 15mm; } body { margin: 0; padding: 0; } .print-page { page-break-after: always; text-align: center; } img { max-width: 100%; max-height: 95vh; object-fit: contain; } }
               body { margin: 0; padding: 0; }
