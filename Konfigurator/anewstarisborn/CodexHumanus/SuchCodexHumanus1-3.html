@@ -902,51 +902,69 @@ function printCurrentPage() {
 
 
 // ===================================================================
-//   10. WISCHGESTEN (SWIPE) FÜR MOBILGERÄTE (FINALE, EINDEUTIGE VERSION)
+//   10. WISCHGESTEN (SWIPE) - VERBESSERTE VERSION MIT "ZIEHEN"
 // ===================================================================
-const pdfContainer = document.getElementById('pdfContainer');
-if (pdfContainer) {
-  let startX = 0;
-  let startY = 0;
-  let distanzX = 0;
-  let distanzY = 0;
-  const mindestDistanz = 50; // Mindest-Wischdistanz in Pixeln
+const pdfContainerForSwipe = document.getElementById('pdfContainer');
+if (pdfContainerForSwipe) {
+    let startX = 0;
+    let currentX = 0;
+    let distanzX = 0;
+    let isSwiping = false;
 
-  pdfContainer.addEventListener('touchstart', function(e) {
-    const touch = e.touches[0];
-    startX = touch.screenX;
-    startY = touch.screenY;
-    distanzX = 0;
-    distanzY = 0;
-  }, { passive: true });
+    pdfContainerForSwipe.addEventListener('touchstart', function(e) {
+        // Nur starten, wenn keine andere Animation läuft und es ein einfacher Touch ist
+        if (isAnimating || e.touches.length > 1) return;
 
-  pdfContainer.addEventListener('touchmove', function(e) {
-    if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        distanzX = touch.screenX - startX;
-        distanzY = touch.screenY - startY;
-    }
-  }, { passive: true });
+        startX = e.touches[0].clientX;
+        isSwiping = true;
+        
+        // Deaktiviert die CSS-Transition, damit die Seite dem Finger exakt folgt
+        pdfViewer.style.transition = 'none';
+    }, { passive: true });
 
-  pdfContainer.addEventListener('touchend', function(e) {
-    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-        if (distanzX < 0) {
-            // Swipe nach links -> Nächste PDF-Seite
-            if (currentPage < pdfDoc.numPages) {
-                currentPage++;
-                renderPage(currentPage, 'next');
-                updateUiAfterNavigation(); // UI aktualisieren
-            }
-        } else {
-            // Swipe nach rechts -> Vorherige PDF-Seite
-            if (currentPage > 1) {
-                currentPage--;
-                renderPage(currentPage, 'prev');
-                updateUiAfterNavigation(); // UI aktualisieren
-            }
+    pdfContainerForSwipe.addEventListener('touchmove', function(e) {
+        if (!isSwiping || isAnimating) return;
+
+        currentX = e.touches[0].clientX;
+        distanzX = currentX - startX;
+
+        // Verhindert, dass man "über den Rand hinaus" wischt
+        if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
+            distanzX = distanzX / 4; // Widerstand am Anfang/Ende
         }
-    }
-  });
+        
+        // Bewegt den Viewer mit dem Finger mit
+        pdfViewer.style.transform = `translateX(${distanzX}px)`;
+    }, { passive: true });
+
+    pdfContainerForSwipe.addEventListener('touchend', function(e) {
+        if (!isSwiping || isAnimating) return;
+        isSwiping = false;
+
+        // Aktiviert die CSS-Transition wieder für eine weiche "Snap"-Animation
+        pdfViewer.style.transition = 'transform 0.3s ease-out';
+
+        const threshold = pdfViewer.clientWidth / 3; // Schwellenwert: 1/3 der Bildschirmbreite
+
+        // --- Entscheidung beim Loslassen ---
+
+        // 1. Nach links wischen (zur nächsten Seite)
+        if (distanzX < -threshold && currentPage < pdfDoc.numPages) {
+            currentPage++;
+            renderPage(currentPage, 'next'); // Löst die normale Slide-Animation aus
+            updateUiAfterNavigation();
+        } 
+        // 2. Nach rechts wischen (zur vorherigen Seite)
+        else if (distanzX > threshold && currentPage > 1) {
+            currentPage--;
+            renderPage(currentPage, 'prev'); // Löst die normale Slide-Animation aus
+            updateUiAfterNavigation();
+        } 
+        // 3. Nicht weit genug gewischt -> zurückfedern
+        else {
+            pdfViewer.style.transform = 'translateX(0)';
+        }
+    });
 }
 
 
