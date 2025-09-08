@@ -902,53 +902,171 @@ function printCurrentPage() {
 
 
 // ===================================================================
-//   10. WISCHGESTEN (SWIPE) - ROBUSTE & STABILE VERSION
+//   10. WISCHGESTEN (SWIPE) - STUFE 3: NAHTLOSES ZIEHEN & SNAPPEN
 // ===================================================================
-const pdfContainer = document.getElementById('pdfContainer');
-if (pdfContainer) {
-  let startX = 0;
-  let startY = 0;
-  let distanzX = 0;
-  let distanzY = 0;
-  const mindestDistanz = 50; // Mindest-Wischdistanz in Pixeln
+const swipeContainer = document.getElementById('pdfContainer');
+if (swipeContainer) {
+    let startX = 0;
+    let currentX = 0;
+    let distanzX = 0;
+    let isSwiping = false;
+    let oldCanvas = null;
+    let newCanvas = null;
 
-  pdfContainer.addEventListener('touchstart', function(e) {
-    // Nur Wischgesten mit einem Finger zulassen, um Zoom nicht zu stören
-    if (e.touches.length > 1) {
-      return;
-    }
-    const touch = e.touches[0];
-    startX = touch.screenX;
-    startY = touch.screenY;
-    distanzX = 0;
-    distanzY = 0;
-  }, { passive: true });
+    const viewer = document.getElementById('pdfViewer');
 
-  pdfContainer.addEventListener('touchmove', function(e) {
-    if (e.touches.length > 1) {
-      return;
-    }
-    const touch = e.touches[0];
-    distanzX = touch.screenX - startX;
-    distanzY = touch.screenY - startY;
-  }, { passive: true });
+    swipeContainer.addEventListener('touchstart', (e) => {
+        if (isAnimating || e.touches.length > 1) return;
 
-  pdfContainer.addEventListener('touchend', function(e) {
-    // Nur ausführen, wenn die horizontale Bewegung dominant war
-    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-      
-      // Nach links wischen -> Nächste Seite
-      if (distanzX < 0) {
-        // Simuliert einen Klick auf den "Nächste Seite"-Button
-        document.getElementById('next-page').click();
-      } 
-      // Nach rechts wischen -> Vorherige Seite
-      else {
-        // Simuliert einen Klick auf den "Vorherige Seite"-Button
-        document.getElementById('prev-page').click();
-      }
-    }
-  });
+        isSwiping = true;
+        startX = e.touches[0].clientX;
+        distanzX = 0;
+
+        // Das aktuell sichtbare Canvas für die Interaktion merken
+        oldCanvas = viewer.querySelector('canvas');
+        if (!oldCanvas) return;
+
+        // Alle Animationen ausschalten für direktes Folgen
+        viewer.style.transition = 'none';
+        oldCanvas.style.transition = 'none';
+
+    }, { passive: true });
+
+    swipeContainer.addEventListener('touchmove', (e) => {
+        if (!isSwiping || !oldCanvas) return;
+
+        currentX = e.touches[0].clientX;
+        distanzX = currentX - startX;
+
+        // Widerstand am Anfang und Ende des Dokuments
+        if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
+            distanzX /= 3;
+        }
+
+        // Das Canvas direkt mit dem Finger bewegen
+        oldCanvas.style.transform = `translateX(${distanzX}px)`;
+    }, { passive: true });
+
+    swipeContainer.addEventListener('touchend', (e) => {
+        if (!isSwiping || !oldCanvas) return;
+        isSwiping = false;
+
+        const threshold = viewer.clientWidth / 4; // Schwellenwert: 1/4 der Breite
+
+        // --- Entscheidung beim Loslassen ---
+
+        // 1. WEIT GENUG NACH LINKS GEWISCHT (-> NÄCHSTE SEITE)
+        if (distanzX < -threshold && currentPage < pdfDoc.numPages) {
+            isAnimating = true;
+            currentPage++;
+            
+            // Neue Seite im Hintergrund erstellen
+            pdfDoc.getPage(currentPage).then(page => {
+                const totalScale = scale * zoomFactor; 
+                const viewport = page.getViewport({ scale: totalScale });
+                newCanvas = document.createElement('canvas');
+                newCanvas.width = viewport.width;
+                newCanvas.height = viewport.height;
+                if (isMobileDevice()) {
+                    newCanvas.style.width = '100%';
+                    newCanvas.style.height = 'auto';
+                } else {
+                    newCanvas.style.width = `${viewport.width}px`;
+                    newCanvas.style.height = `${viewport.height}px`;
+                }
+                
+                // Neue Seite rechts außerhalb des sichtbaren Bereichs platzieren
+                newCanvas.style.position = 'absolute';
+                newCanvas.style.top = '0';
+                newCanvas.style.left = '100%';
+                viewer.appendChild(newCanvas);
+
+// NEUER, KORRIGIERTER TEIL
+// Animation für beide Seiten aktivieren
+oldCanvas.style.transition = 'transform 0.3s ease-out';
+newCanvas.style.transition = 'transform 0.3s ease-out';
+
+// Die Animation im nächsten Frame starten, um sicherzustellen, dass die Transition aktiv ist
+requestAnimationFrame(() => {
+    oldCanvas.style.transform = 'translateX(-100%)';
+    newCanvas.style.transform = 'translateX(-100%)';
+});
+
+
+                // Nach der Animation aufräumen
+                newCanvas.addEventListener('transitionend', () => {
+                    viewer.innerHTML = ''; // Alles leeren
+                    viewer.appendChild(newCanvas); // Nur die neue Seite behalten
+                    newCanvas.style.position = 'static';
+                    newCanvas.style.transform = 'none';
+                    isAnimating = false;
+                    updateUiAfterNavigation();
+                }, { once: true });
+
+                // Die neue Seite rendern, während sie animiert wird
+                const renderContext = { canvasContext: newCanvas.getContext('2d'), viewport: viewport };
+                page.render(renderContext);
+            });
+        }
+// NEUER, VOLLSTÄNDIGER BLOCK FÜR "ZURÜCK"
+else if (distanzX > threshold && currentPage > 1) {
+    isAnimating = true;
+    currentPage--;
+    
+    // Neue Seite (die vorherige) im Hintergrund erstellen
+    pdfDoc.getPage(currentPage).then(page => {
+        const totalScale = scale * zoomFactor;
+        const viewport = page.getViewport({ scale: totalScale });
+        newCanvas = document.createElement('canvas');
+        newCanvas.width = viewport.width;
+        newCanvas.height = viewport.height;
+        if (isMobileDevice()) {
+            newCanvas.style.width = '100%';
+            newCanvas.style.height = 'auto';
+        } else {
+            newCanvas.style.width = `${viewport.width}px`;
+            newCanvas.style.height = `${viewport.height}px`;
+        }
+        
+        // Neue Seite LINKS außerhalb des sichtbaren Bereichs platzieren
+        newCanvas.style.position = 'absolute';
+        newCanvas.style.top = '0';
+        newCanvas.style.left = '-100%'; // <-- Der Hauptunterschied
+        viewer.appendChild(newCanvas);
+
+        // Animation für beide Seiten aktivieren
+        oldCanvas.style.transition = 'transform 0.3s ease-out';
+        newCanvas.style.transition = 'transform 0.3s ease-out';
+
+        // Animation im nächsten Frame starten
+        requestAnimationFrame(() => {
+            // Beide Seiten nach RECHTS aus dem Bild schieben
+            oldCanvas.style.transform = 'translateX(100%)'; // <-- Unterschied
+            newCanvas.style.transform = 'translateX(100%)'; // <-- Unterschied
+        });
+
+        // Nach der Animation aufräumen
+        newCanvas.addEventListener('transitionend', () => {
+            viewer.innerHTML = '';
+            viewer.appendChild(newCanvas);
+            newCanvas.style.position = 'static';
+            newCanvas.style.transform = 'none';
+            isAnimating = false;
+            updateUiAfterNavigation();
+        }, { once: true });
+
+        // Die neue Seite rendern, während sie animiert wird
+        const renderContext = { canvasContext: newCanvas.getContext('2d'), viewport: viewport };
+        page.render(renderContext);
+    });
+}
+
+        // 3. NICHT WEIT GENUG GEWISCHT -> ZURÜCKFEDERN
+        else {
+            oldCanvas.style.transition = 'transform 0.3s ease-out';
+            oldCanvas.style.transform = 'translateX(0)';
+        }
+    });
 }
 
 
