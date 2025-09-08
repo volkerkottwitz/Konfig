@@ -156,7 +156,7 @@ document.getElementById("jetztKaufenBtn").addEventListener("click", () => {
     localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
   }
   document.body.removeChild(dialog);
-  window.open('Kaufen.html', '_blank');
+  window.open('kaufen.html', '_blank');
 });
 
       document.getElementById("retourenscheinBtn").addEventListener("click", () => {
