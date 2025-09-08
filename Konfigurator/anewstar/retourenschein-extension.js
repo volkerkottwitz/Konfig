@@ -542,8 +542,8 @@ document.getElementById("jetztKaufenBtn").addEventListener("click", () => {
 // NEUE FUNKTION FÜR DEN KAUFEN-BUTTON
 function buyItems() {
   // Die Merkliste ist bereits aktuell im localStorage.
-  // Wir öffnen die Kaufen.html Seite und schließen optional das aktuelle Fenster.
-  window.open('Kaufen.html', '_blank');
+  // Wir öffnen die kaufen.html Seite und schließen optional das aktuelle Fenster.
+  window.open('kaufen.html', '_blank');
   window.close(); // Schließt das mobile Merklisten-Fenster
 }
 
