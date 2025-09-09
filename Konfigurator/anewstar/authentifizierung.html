@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentifizierung erforderlich</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS bleibt unverändert */
+        body { font-family: 'Roboto Condensed', Arial, sans-serif; margin: 0; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; padding: 20px; box-sizing: border-box; }
+        .login-container { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1 ); padding: 2.5rem 3rem; text-align: center; max-width: 450px; width: 100%; }
+        .login-logo { height: 60px; margin-bottom: 1.5rem; }
+        .login-container h3 { margin-top: 0; margin-bottom: 0.5rem; color: #333; font-size: 1.5rem; font-weight: 600; }
+        .login-container p { color: #666; margin-bottom: 2rem; }
+        input[type="password"] { padding: 12px 18px; font-size: 16px; border: 1px solid #ced4da; border-radius: 25px; width: 100%; box-sizing: border-box; transition: all 0.3s ease-in-out; margin-bottom: 1.5rem; }
+        input[type="password"]:focus { outline: none; box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25); border-color: #00a1e1; }
+        button { background-color: #00a1e1; color: white; border: none; padding: 12px 20px; border-radius: 10px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; width: 100%; font-weight: 600; }
+        button:hover { background-color: #07577f; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        #status { margin-top: 1.5rem; min-height: 20px; font-weight: 600; }
+        .status-error { color: #dc3545; }
+        .status-loading { color: #666; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="EWE Firmenlogo" class="login-logo">
+        <h3>Zugriff gesichert</h3>
+        <p>Bitte geben Sie das Passwort für die Kundendatenbank ein.</p>
+        
+        <input type="password" id="passwordInput" placeholder="Passwort" autofocus>
+        
+        <button id="submitButton">Sicher Anmelden & Starten</button>
+        
+        <p id="status"></p>
+    </div>
+
+    <script>
+        // Diese Funktion wird nur zur Validierung des Passworts verwendet.
+        async function validatePassword(password ) {
+            const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+            const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+            if (!response.ok) throw new Error('Netzwerkfehler');
+            
+            const encryptedArrayBuffer = await response.arrayBuffer();
+            
+            // Wir entschlüsseln hier nur, um zu prüfen, ob es klappt. Das Ergebnis wird nicht gespeichert.
+            const ITERATIONS = 480000, SALT_SIZE_BYTES = 16, NONCE_SIZE_BYTES = 12;
+            const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
+            const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+            const data = encryptedArrayBuffer.slice(SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+            const passwordKey = await window.crypto.subtle.importKey('raw', new TextEncoder().encode(password), { name: 'PBKDF2' }, false, ['deriveKey']);
+            const aesKey = await window.crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: ITERATIONS, hash: 'SHA-256' }, passwordKey, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
+            await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, aesKey, data);
+            
+            // Wenn wir hier ankommen, ohne dass ein Fehler geworfen wurde, ist das Passwort korrekt.
+            return true;
+        }
+
+        async function handleLogin(password) {
+            const status = document.getElementById('status');
+            const submitButton = document.getElementById('submitButton');
+            const passwordInput = document.getElementById('passwordInput');
+
+            if (!password) {
+                status.textContent = 'Bitte geben Sie ein Passwort ein.';
+                status.className = 'status-error';
+                return;
+            }
+
+            status.textContent = 'Prüfe Passwort...';
+            status.className = 'status-loading';
+            submitButton.disabled = true;
+            passwordInput.disabled = true;
+
+            try {
+                // Prüfen, ob das Passwort korrekt ist.
+                await validatePassword(password);
+
+                // ERFOLG! Speichere jetzt nur das Passwort.
+                sessionStorage.setItem('customerDataPassword', password);
+                
+                // Leite zum Hauptprogramm weiter.
+                window.location.href = 'index-final.html';
+
+            } catch (error) {
+                status.textContent = 'Fehler: Das Passwort ist falsch.';
+                status.className = 'status-error';
+                submitButton.disabled = false;
+                passwordInput.disabled = false;
+                passwordInput.focus();
+                console.error("Fehler bei der Passwort-Validierung:", error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const submitButton = document.getElementById('submitButton');
+            const passwordInput = document.getElementById('passwordInput');
+
+            submitButton.addEventListener('click', () => {
+                handleLogin(passwordInput.value.trim());
+            });
+
+            passwordInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    handleLogin(passwordInput.value.trim());
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

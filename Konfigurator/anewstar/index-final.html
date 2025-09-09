@@ -22,73 +22,86 @@
   <img src="images/ewe-icon-180.png" alt="Lade..." class="loading-logo">
 </div>
 
+<!-- ======================================================= -->
+<!--         START: Überarbeiteter und geordneter Header         -->
+<!-- ======================================================= -->
 <div id="header">
+
+  <!-- 1. Linker Bereich: Logo -->
   <div class="header-left">
-<!-- Korrekte und funktionierende Struktur -->
-<a href="https://www.ewe-armaturen.de" 
-   target="_blank" 
-   rel="noopener" 
-   data-tooltip="Zur EWE-Armaturen Webseite">
+    <a href="https://www.ewe-armaturen.de" 
+       target="_blank" 
+       rel="noopener" 
+       data-tooltip="Zur EWE-Armaturen Webseite">
       <img src="images/logo.png" alt="EWE Logo">
-</a>
+    </a>
   </div>
-  <div class="header-content">
-    <h1>DuoViewer</h1>
-  <!--  <div id="header-date" class="header-date"></div>-->
+
+  <!-- 2. Mittlerer Bereich: Titel der App und aktuelles Dokument -->
+  <div class="header-center-title">
+    <h1 class="main-title">DuoViewer</h1>
+    <div id="document-display-container">
+      <span id="current-document-name" title="Aktuell geöffnetes Dokument"></span>
+    </div>
   </div>
+
+  <!-- 3. Rechter Bereich: Alle Icons und Buttons -->
   <div class="header-right">
-    <!-- Diese Buttons sind nur auf dem Desktop sichtbar -->
+    
+    <!-- Buttons, die nur auf dem Desktop sichtbar sind -->
+    <div class="buttons desktop-buttons">
+      
+      <button id="openDocDialogBtn" class="header-icon-btn" data-tooltip="Dokumentauswahl anzeigen">
+        <i class="bi bi-collection"></i>
+      </button>
 
-<!-- In .header-right -->
-<div class="buttons desktop-buttons">
+      <a href="#" onclick="openMerkliste( ); return false;" class="header-icon-btn" data-tooltip="Merkliste anzeigen">
+        <i class="bi bi-list-check"></i>
+      </a>
 
-  <!-- NEU: Der Button zum Öffnen des Dokumenten-Dialogs -->
-<!-- NEU: Der Button zum Öffnen des Dokumenten-Dialogs -->
-<button id="openDocDialogBtn" class="header-icon-btn" data-tooltip="Dokumentauswahl anzeigen">
-  <i class="bi bi-collection"></i>
-</button>
+      <a href="Retourenschein/berichte.html" 
+         class="header-icon-btn" 
+         data-tooltip="Bericht diktieren"
+         target="_blank" 
+         rel="opener">
+        <i class="bi bi-mic-fill"></i>
+      </a>
 
-<!-- Die bereits vorhandenen Links -->
-<a href="#" onclick="openMerkliste( ); return false;" class="header-icon-btn" data-tooltip="Merkliste anzeigen">
-  <i class="bi bi-list-check"></i>
-</a>
+      <a href="megaripp.html" 
+         class="header-icon-btn" 
+         data-tooltip="Konfigurator MEGARIPP"
+         target="_blank" 
+         rel="noopener">
+        <i class="bi bi-gear-wide-connected"></i>
+      </a>
 
-  <!-- ======================================================== -->
-  <!--     HIER IST DER BUTTON MIT DEM KORRIGIERTEN PFAD      -->
-  <!-- ======================================================== -->
-  <a href="Retourenschein/berichte.html" 
-     class="header-icon-btn" 
-     data-tooltip="Bericht diktieren"
-     target="_blank" 
-     rel="noopener noreferrer">
-    <i class="bi bi-mic-fill"></i>
-  </a>
+      <a href="flexoripp.html"
+         class="header-icon-btn" 
+         data-tooltip="Konfigurator FLEXORIPP"
+         target="_blank" 
+         rel="noopener">
+        <i class="bi bi-gear-wide-connected"></i>
+      </a>
 
-<a href="megaripp.html" 
-   class="header-icon-btn" 
-   data-tooltip="Konfigurator MEGARIPP"
-   target="_blank" 
-   rel="noopener">
-  <i class="bi bi-gear-wide-connected"></i>
-</a>
-<a href="flexoripp.html"
-   class="header-icon-btn" 
-   data-tooltip="Konfigurator FLEXORIPP"
-   target="_blank" 
-   rel="noopener">
-  <i class="bi bi-gear-wide-connected"></i>
-</a>
-<a href="https://www.youtube.com/watch?v=0_29ByAIswI" class="header-icon-btn" target="_blank" rel="noopener noreferrer" data-tooltip="EWE-Youtube Kanal">
-  <i class="bi bi-film"></i>
-</a>
+      <a href="https://www.youtube.com/watch?v=0_29ByAIswI" 
+         class="header-icon-btn" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         data-tooltip="EWE-Youtube Kanal">
+        <i class="bi bi-film"></i>
+      </a>
 
-</div>
+    </div>
 
-
-    <!-- Hamburger-Button nur für Mobile -->
+    <!-- Hamburger-Button, der nur auf mobilen Geräten sichtbar ist -->
     <button id="hamburger-btn" class="icon-button">☰</button>
   </div>
+
 </div>
+<!-- ======================================================= -->
+<!--          ENDE: Überarbeiteter und geordneter Header         -->
+<!-- ======================================================= -->
+
 
 <!-- Das mobile Navigationsmenü (außerhalb des Headers  ) -->
 <div id="mobile-nav">
@@ -103,7 +116,7 @@
   </a>
 
   <!-- Bericht diktieren -->
-  <a href="Retourenschein/berichte.html" target="_blank" rel="noopener noreferrer" onclick="closeMobileNav()">
+  <a href="Retourenschein/berichte.html" target="_blank" rel="opener" onclick="closeMobileNav()">
     <i class="bi bi-mic-fill"></i> Bericht diktieren
   </a>
 

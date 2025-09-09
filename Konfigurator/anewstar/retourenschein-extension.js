@@ -164,7 +164,7 @@ document.getElementById("jetztKaufenBtn").addEventListener("click", () => {
           localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
         }
         document.body.removeChild(dialog);
-        window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html', '_blank' );
+window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html', '_blank', 'rel="opener' );
       });
 
       document.getElementById("jetztAnfragenBtn").addEventListener("click", () => {
@@ -172,8 +172,8 @@ document.getElementById("jetztKaufenBtn").addEventListener("click", () => {
           localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
         }
         document.body.removeChild(dialog);
-        window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html', '_blank' );
-      });
+window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html', '_blank', 'rel="opener' );  
+    });
 
        // const dialogElement = document.getElementById('merklisteDialog');
        // if (dialogElement) {
