@@ -53,6 +53,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 
 // === 🔧 Variablen für Viewer-Funktionalität ===
 let pdfDoc = null, currentPage = 1, zoomFactor = 1.0;
+let currentDocumentName = '';
 let searchText = '', secondSearchText = '', matchPages = new Set();
 let aktuellerArtikelText = "";
 const merkliste = []; // Geändert von warenkorb zu merkliste
@@ -90,6 +91,21 @@ function updateMerklisteIcon() {
 
 const merklisteInhalt = document.getElementById("merklisteInhalt");
 
+
+// ===================================================================
+//   FUNKTION ZUR AKTUALISIERUNG DES DOKUMENTENNAMENS IM HEADER
+// ===================================================================
+function updateHeaderDocumentName() {
+  const docNameElement = document.getElementById('current-document-name');
+  if (docNameElement) {
+    // Setzt den sichtbaren Text (der ggf. mit "..." gekürzt wird)
+    docNameElement.textContent = currentDocumentName; 
+    // Setzt den vollen Text als Tooltip für die Maus (Desktop)
+    docNameElement.setAttribute('title', currentDocumentName); 
+  }
+}
+
+
 // PDF-URL
 // === const url = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2025.pdf'; ===
 
@@ -100,23 +116,36 @@ const merklisteInhalt = document.getElementById("merklisteInhalt");
 // ===  updateNavigation();
 // === }).catch(err => alert('Fehler beim Laden: ' + err.message));
 
+// Alter Code:
+// Neuer Code:
 function loadAndRenderPdf(pdfPath) {
+  // 1. Lade-Spinner anzeigen
+  document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
+
   // Reset für die Suche und Anzeige
   document.getElementById('searchInfo').textContent = '';
-  document.getElementById('pdfViewer').innerHTML = '<div class="loading">Lade PDF...</div>';
+  // WICHTIG: Den PDF-Viewer leeren, damit die alte Seite verschwindet.
+  document.getElementById('pdfViewer').innerHTML = ''; 
   matchPages.clear();
   currentPage = 1;
 
   pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
     pdfDoc = pdf;
-    renderPage(currentPage);
+    // renderPage wird das PDF zeichnen und den Viewer-Inhalt ersetzen.
+    // Der Spinner muss am Ende von renderPage ausgeblendet werden.
+    updateHeaderDocumentName(); 
+    renderPage(currentPage); 
     updateNavigation();
     updateHelpers(); 
   }).catch(err => {
     alert('Fehler beim Laden des PDFs: ' + err.message);
     document.getElementById('pdfViewer').innerHTML = '<h2>Fehler beim Laden des Dokuments.</h2>';
+    // Wichtig: Spinner auch im Fehlerfall ausblenden!
+    document.getElementById('loadingSpinnerOverlay').style.display = 'none';
   });
 }
+
+
 
 
 // === 🖼️ Seite rendern ===
@@ -144,6 +173,12 @@ function renderPage(pageNum) {
 
       document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
       updateNavigation();
+
+      // ===================================================================
+      //   NEU: Lade-Spinner ausblenden, da das Rendern abgeschlossen ist
+      // ===================================================================
+      document.getElementById('loadingSpinnerOverlay').style.display = 'none';
+      // ===================================================================
 
       if (!wurdeBereitsInitialGerendert) {
         pdfGerendert = true;
@@ -1637,63 +1672,76 @@ window.onload = function() {
     let pdfsData = [];
     updateMerklisteIcon();
 
-    function populateDocList() {
-      const groupedPdfs = pdfsData.reduce((acc, pdf) => {
-        const category = pdf.category || 'Allgemein';
-        if (!acc[category]) { acc[category] = []; }
-        acc[category].push(pdf);
-        return acc;
-      }, {});
+function populateDocList() {
+  const groupedPdfs = pdfsData.reduce((acc, pdf) => {
+    const category = pdf.category || 'Allgemein';
+    if (!acc[category]) { acc[category] = []; }
+    acc[category].push(pdf);
+    return acc;
+  }, {});
 
-      listContainer.innerHTML = '';
+  listContainer.innerHTML = '';
 
-      for (const category in groupedPdfs) {
-        const groupDiv = document.createElement('div');
-        groupDiv.className = 'doc-category-group';
-        const title = document.createElement('div');
-        title.className = 'doc-category-title';
-        title.textContent = category;
-        groupDiv.appendChild(title);
+  for (const category in groupedPdfs) {
+    const groupDiv = document.createElement('div');
+    groupDiv.className = 'doc-category-group';
+    const title = document.createElement('div');
+    title.className = 'doc-category-title';
+    title.textContent = category;
+    groupDiv.appendChild(title);
 
-        groupedPdfs[category].forEach(pdf => {
-          const link = document.createElement('a');
-          link.className = 'doc-link';
-          link.textContent = pdf.name;
-          link.href = '#';
-          link.dataset.path = pdf.path;
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadAndRenderPdf(e.target.dataset.path);
-            dialog.style.display = 'none';
-          });
-          groupDiv.appendChild(link);
-        });
-        listContainer.appendChild(groupDiv);
-      }
-    }
+    groupedPdfs[category].forEach(pdf => {
+      const link = document.createElement('a');
+      link.className = 'doc-link';
+      link.textContent = pdf.name;
+      link.href = '#';
+      link.dataset.path = pdf.path;
+      
+      // WICHTIG: Den Namen für den Klick-Event zwischenspeichern
+      const pdfNameForListener = pdf.name; 
+
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        currentDocumentName = pdfNameForListener; // Namen beim Klick aktualisieren
+        loadAndRenderPdf(e.target.dataset.path);
+        dialog.style.display = 'none';
+      });
+      groupDiv.appendChild(link);
+    });
+    listContainer.appendChild(groupDiv);
+  }
+}
+
 
     if (openBtn && dialog && closeBtn) {
         openBtn.addEventListener('click', () => { dialog.style.display = 'flex'; });
         closeBtn.addEventListener('click', () => { dialog.style.display = 'none'; });
     }
 
-    async function initializeDocumentHandling() {
-      try {
-        const response = await fetch('pdf/pdfs.json');
-        pdfsData = await response.json();
-        const defaultPdf = pdfsData.find(pdf => pdf.isDefault);
-        const initialPdfPath = defaultPdf ? defaultPdf.path : (pdfsData.length > 0 ? pdfsData[0].path : '');
-        if (initialPdfPath) {
-          loadAndRenderPdf(initialPdfPath);
-        } else {
-          document.getElementById('pdfViewer').innerHTML = '<h2>Keine Dokumente konfiguriert.</h2>';
-        }
-        populateDocList();
-      } catch (error) {
-        console.error("Fehler beim Laden oder Verarbeiten von pdfs.json:", error);
-        alert("Die Konfigurationsdatei für die Dokumente konnte nicht geladen werden.");
-      }
+async function initializeDocumentHandling() {
+  try {
+    const response = await fetch('pdf/pdfs.json');
+    pdfsData = await response.json();
+    const defaultPdf = pdfsData.find(pdf => pdf.isDefault);
+
+    // Standardpfad und -name sicher bestimmen
+    const initialPdfPath = defaultPdf ? defaultPdf.path : (pdfsData.length > 0 ? pdfsData[0].path : '');
+    const initialPdfName = defaultPdf ? defaultPdf.name : (pdfsData.length > 0 ? pdfsData[0].name : 'Kein Dokument geladen');
+
+    if (initialPdfPath) {
+      currentDocumentName = initialPdfName; // Namen in globaler Variable speichern
+      loadAndRenderPdf(initialPdfPath);
+    } else {
+      document.getElementById('pdfViewer').innerHTML = '<h2>Keine Dokumente konfiguriert.</h2>';
+      updateHeaderDocumentName(); // Header auch im Fehlerfall aktualisieren
     }
+    populateDocList();
+  } catch (error) {
+    console.error("Fehler beim Laden oder Verarbeiten von pdfs.json:", error);
+    alert("Die Konfigurationsdatei für die Dokumente konnte nicht geladen werden.");
+  }
+}
+
 
     initializeDocumentHandling();
 
@@ -1772,57 +1820,54 @@ window.onload = function() {
     });
   }
 
-   // ===================================================================
-  //   NEU: HIER IST DIE PERFEKTE STELLE FÜR DIE WISCHGESTEN-INITIALISIERUNG
-  // ===================================================================
-  const pdfContainer = document.getElementById('pdfContainer');
-  if (pdfContainer) {
-    let startX = 0;
-    let startY = 0;
-    let distanzX = 0;
-    let distanzY = 0;
-    const mindestDistanz = 50; // Mindest-Wischdistanz in Pixeln
+// ===================================================================
+//   WISCHGESTEN - VERBESSERTE VERSION MIT RELATIVEM SCHWELLENWERT
+// ===================================================================
+const pdfContainer = document.getElementById('pdfContainer');
+if (pdfContainer) {
+  let startX = 0;
+  let startY = 0;
+  let distanzX = 0;
+  let distanzY = 0;
+  // HINWEIS: mindestDistanz wird jetzt dynamisch im touchend berechnet.
 
-    pdfContainer.addEventListener('touchstart', function(e) {
-      const touch = e.touches[0];
-      startX = touch.screenX;
-      startY = touch.screenY;
-    }, { passive: true });
+  pdfContainer.addEventListener('touchstart', function(e) {
+    if (e.touches.length > 1) return; // Zoom-Geste ignorieren
+    const touch = e.touches[0];
+    startX = touch.screenX;
+    startY = touch.screenY;
+    distanzX = 0;
+    distanzY = 0;
+  }, { passive: true });
 
-    pdfContainer.addEventListener('touchmove', function(e) {
-      if (e.touches.length > 0) {
-          const touch = e.touches[0];
-          distanzX = touch.screenX - startX;
-          distanzY = touch.screenY - startY;
+  pdfContainer.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 1) return; // Zoom-Geste ignorieren
+    if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        distanzX = touch.screenX - startX;
+        distanzY = touch.screenY - startY;
+    }
+  }, { passive: true });
+
+  pdfContainer.addEventListener('touchend', function(e) {
+    // BERECHNE DEN SCHWELLENWERT DYNAMISCH BEIM LOSLASSEN
+    const mindestDistanz = pdfContainer.clientWidth * 0.25; // 25% der Breite
+
+    // Nur ausführen, wenn die horizontale Bewegung dominant war
+    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+      
+      // Nach links wischen -> Nächste Seite
+      if (distanzX < 0) {
+        document.getElementById('next-page').click();
+      } 
+      // Nach rechts wischen -> Vorherige Seite
+      else {
+        document.getElementById('prev-page').click();
       }
-    }, { passive: true });
+    }
+  });
+}
 
-    pdfContainer.addEventListener('touchend', function(e) {
-      // Nur ausführen, wenn die horizontale Bewegung dominant war
-      if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-        
-        // Nach links wischen -> Nächste Seite
-        if (distanzX < 0) {
-          // Simuliert einen Klick auf den "Nächste Seite"-Button
-          document.getElementById('next-page').click();
-        } 
-        // Nach rechts wischen -> Vorherige Seite
-        else {
-          // Simuliert einen Klick auf den "Vorherige Seite"-Button
-          document.getElementById('prev-page').click();
-        }
-      }
-
-      // Variablen für die nächste Geste zurücksetzen
-      startX = 0;
-      startY = 0;
-      distanzX = 0;
-      distanzY = 0;
-    });
-  }
-  // ===================================================================
-  //   ENDE DES NEUEN WISCHGESTEN-CODES
-  // ===================================================================
 
 
 }; // Ende des window.onload Blocks

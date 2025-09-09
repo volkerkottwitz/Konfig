@@ -1,6 +1,6 @@
 /* ========== Basislayout ========== */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap' );
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap'  );
 
 body {
     font-family: 'Roboto Condensed', Arial, sans-serif;
@@ -8,65 +8,111 @@ body {
     background-color: #f8f9fa;
 }
 
-/* ========== Header mit Datum ========== */
+/* ======================================================= */
+/* FINALES HEADER-CSS (FÜR ZENTRIERTE GRUPPE, 2-ZEILIG)    */
+/* ======================================================= */
+
+/* 1. Der äußere Header-Container (#header) */
+/* Seine EINZIGE Aufgabe ist es, den inneren Container zu zentrieren. */
 #header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px 20px;
-  color: white;
+  justify-content: center; /* Zentriert den inneren Container horizontal */
+  align-items: center;     /* Zentriert den inneren Container vertikal */
+  padding: 10px 20px;
   background-color: #d2d2d4;
   border-bottom: 2px solid #ddd;
-  flex-wrap: nowrap;
-  gap: 20px;
-  max-width: 100vw;
-  margin: 0 auto;
 }
 
-.header-left {
+
+/* WIR PASSEN DAS AN IHREN HTML-CODE AN */
+/* Da Sie keinen .header-main-content-Container haben, stylen wir die Kinder direkt */
+.header-left, .header-center-title, .header-right {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  flex: 0 0 auto;
 }
+
+/* Wir fügen den Abstand direkt zum Header hinzu */
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #d2d2d4;
+  border-bottom: 2px solid #ddd;
+  gap: 30px; /* Abstand zwischen Logo, Titel und Icons */
+}
+
+
+/* --- Styling der Inhalte --- */
 
 #header .header-left img {
-    height: 70px;
-    margin: 0;
-}
-
-.header-content {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  
-  gap: 5px;
-}
-
-.header-content h1 {
-  color:white;
-  font-size: 2rem;
+  height: 60px;
   margin: 0;
+  display: block;
 }
 
-.header-date {
-  font-size: 0.85rem;
-  opacity: 0.8;
-  font-weight: 400;
+.header-center-title {
+  flex-direction: column; /* Richtet Titel und Dokumentenname untereinander aus */
+  text-align: center;
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex: 0 0 auto;
+.main-title {
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#document-display-container {
+  width: 100%;
+  max-width: 550px;
+}
+
+#current-document-name {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  color: #003366;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-top: 2px;
 }
 
 #header .buttons {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
+
+/* --- Mobile Anpassungen --- */
+@media screen and (max-width: 768px) {
+  /* Auf Mobile ziehen wir die Elemente wieder auseinander */
+/* Header-Anpassungen für Mobile */
+#header {
+  justify-content: space-between; /* Zieht die Elemente auseinander, um Platz zu schaffen */
+  gap: 10px;                      /* Reduziert den Abstand zwischen den Elementen */
+}
+
+#header .header-left img {
+  height: 45px; /* Kleineres Logo für mehr Platz */
+}
+
+.main-title {
+  font-size: 1.3rem; /* Kleinere Hauptüberschrift */
+}
+
+#current-document-name {
+  font-size: 0.75em; /* Kleinerer Dokumentenname */
+}
+}
+
+
+
+
 
 /* ========== Suchfeld & Buttons ========== */
 .search-container {
@@ -211,7 +257,6 @@ button:disabled:hover {
     border: 1px solid rgba(0, 161, 225, 0.3);
     border-radius: 2px;
     transition: all 0.2s ease;
-    /* Performance-Optimierung */
     will-change: transform;
     backface-visibility: hidden;
 }
@@ -270,8 +315,6 @@ button:disabled:hover {
     flex: 1;
     min-width: 100px;
 }
-
-
 
 /* ========== Merkliste Panel (ehemals Warenkorb) ========== */
 #merkliste {
@@ -343,15 +386,11 @@ button:disabled:hover {
     background-color: #07577f;
 }
 
-
-
 #merkliste ul li {
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 5px;
 }
-
-
 
 /* ========== Ladebildschirm ========== */
 #loadingScreen {
@@ -379,8 +418,6 @@ button:disabled:hover {
     100% { transform: scale(1); opacity: 1; }
 }
 
-
-
 #canvasWrapper {
     display: flex;
     justify-content: center;
@@ -390,13 +427,8 @@ button:disabled:hover {
     display: block;
 }
 
-/* ========== ACCESSIBILITY VERBESSERUNGEN ========== */
-.highlight-box:focus {
-    outline: 2px solid #00a1e1;
-    outline-offset: 2px;
-}
-
-button:focus {
+/* ========== ACCESSIBILITY & PERFORMANCE ========== */
+.highlight-box:focus, button:focus {
     outline: 2px solid #00a1e1;
     outline-offset: 2px;
 }
@@ -407,7 +439,6 @@ input:focus {
     border-color: #00a1e1;
 }
 
-/* ========== PERFORMANCE OPTIMIERUNGEN ========== */
 .highlight-box {
     will-change: transform;
     backface-visibility: hidden;
@@ -415,18 +446,6 @@ input:focus {
 
 #pdfViewer canvas {
     image-rendering: optimizeQuality;
-}
-
-/* Hardware-Beschleunigung für Animationen */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes pulse {
-    0%   { transform: scale(1); opacity: 1; }
-    50%  { transform: scale(1.15); opacity: 0.6; }
-    100% { transform: scale(1); opacity: 1; }
 }
 
 /* ========== DESKTOP MODAL DIALOG STYLES ========== */
@@ -547,22 +566,17 @@ input:focus {
     color: #666;
 }
 
-
-/* ======================================== */
-/*         STILE FÜR SUCHOPERATOREN         */
-/* ======================================== */
-
+/* ========== SUCHOPERATOREN ========== */
 .search-operator-group {
   display: flex;
-  border-radius: 8px; 
-  /* overflow: hidden; */ /* Entfernt oder auskommentiert */
+  border-radius: 8px;
   border: 1px solid #ccc;
   background-color: #f0f0f0;
   margin: 5px 0; 
 }
 
 .operator-btn {
-  background-color: transparent; /* Buttons sind standardmäßig durchsichtig */
+  background-color: transparent;
   color: #333;
   border: none;
   padding: 8px 16px;
@@ -572,93 +586,40 @@ input:focus {
   font-weight: 600;
   transition: all 0.2s ease-in-out;
   border-radius: 0;
-  border-right: 1px solid #ccc; /* Trennlinie */
+  border-right: 1px solid #ccc;
 }
 
 .operator-btn:last-child {
-  border-right: none; /* Der letzte Button braucht keine rechte Trennlinie */
+  border-right: none;
 }
 
 .operator-btn:hover:not(.active) {
-  background-color: #e9ecef; /* Leichter Hover-Effekt für inaktive Buttons */
+  background-color: #e9ecef;
 }
 
-/* Stil für den aktiven Button */
 .operator-btn.active {
-  background-color: #00a1e1; /* Hauptfarbe für den aktiven Zustand */
+  background-color: #00a1e1;
   color: white;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.15); /* Leichter 3D-Effekt */
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
 }
 
-/* NEUE REGEL HINZUFÜGEN */
 .tooltip-wrapper {
   display: contents;
 }
 
-
-/* ========== RESPONSIVE DIALOG-OPTIMIERUNGEN ========== */
-@media (max-width: 600px) {
-    .modal-content {
-        padding: 20px;
-        margin: 10px;
-    }
-    
-    .button-container {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .btn {
-        width: 100%;
-    }
-    
-    .quantity-input {
-        font-size: 16px; /* Verhindert Zoom auf iOS */
-        min-height: 44px;
-    }
-
-        /* ... andere mobile Stile ... */
-
-    .search-operator-group {
-      width: 100%; /* Volle Breite innerhalb des Containers */
-      max-width: 340px; /* Gleiche Breite wie die Button-Zeile */
-    }
-
-    .operator-btn {
-      flex-grow: 1; /* Sorgt dafür, dass die Buttons den Platz gleichmäßig ausfüllen */
-      font-size: 14px;
-    }
-
-    /* ... andere mobile Stile ... */
-    
-}
-
-
-
-
-/* ========== TOOLTIP STYLES (VERBESSERT) ========== */
+/* ========== TOOLTIP STYLES ========== */
 [data-tooltip] {
-    position: relative; /* Wichtig als Bezugspunkt */
+    position: relative;
 }
 
-/* Tooltips nur auf Desktop-Geräten anzeigen */
 @media (hover: hover) and (pointer: fine) {
     [data-tooltip]:hover::after {
         content: attr(data-tooltip);
         position: absolute;
-        
-        /* NEU: Positionierung unterhalb des Elements */
-        top: 100%;   /* Beginnt direkt unter dem Element */
-        margin-top: 8px; /* Fügt einen kleinen Abstand hinzu */
-
-        /* Alte Positionierung entfernen */
-        /* bottom: 100%; */
-
-        /* Zentrierung bleibt gleich */
+        top: 100%;
+        margin-top: 8px;
         left: 50%;
         transform: translateX(-50%);
-
-        /* Aussehen bleibt gleich */
         background: rgba(0, 0, 0, 0.85);
         color: white;
         padding: 6px 10px;
@@ -667,90 +628,51 @@ input:focus {
         white-space: nowrap;
         z-index: 10000;
         pointer-events: none;
-        
-        /* Animation anpassen für das Erscheinen von unten */
         opacity: 0;
         animation: tooltipFadeInFromTop 0.3s ease forwards;
     }
 }
 
-/* NEU: Angepasste Animation */
 @keyframes tooltipFadeInFromTop {
     from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-
-
-
-.header-left,
-.header-right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.header-left img {
-  height: 60px;
-  width: auto;
-}
-
-.header-left {
-    justify-content: flex-start;
-}
-
-.header-right {
-    justify-content: flex-end;
-}
-
-
-/* ======================================== */
-/*         STILE FÜR DEN BILD-BUTTON        */
-/* ======================================== */
-
-/* Grund-Styling für den klickbaren Link */
+/* ========== BILD-BUTTON ========== */
 .image-button {
-  display: block; /* Stellt sicher, dass der Link sich wie ein Block verhält */
-  line-height: 0; /* Entfernt unerwünschten Leerraum unter dem Bild */
+  display: block;
+  line-height: 0;
 }
 
-/* Styling für das Bild im Link */
 .image-button img {
-  height: 50px; /* Passen Sie die Höhe nach Bedarf an */
-  width: auto;  /* Die Breite passt sich automatisch an */
-  border-radius: 8px; /* Leicht abgerundete Ecken, falls gewünscht */
-  transition: all 0.3s ease; /* Sorgt für einen weichen Übergang beim Hover */
-  opacity: 0.9; /* Macht das Bild standardmäßig leicht transparent */
+  height: 50px;
+  width: auto;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  opacity: 0.9;
 }
 
-/* Der Hover-Effekt */
 .image-button:hover img {
-  opacity: 1; /* Volle Deckkraft beim Hover */
-  transform: scale(1.05); /* Vergrößert das Bild leicht */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Fügt einen dezenten Schatten hinzu */
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* ======================================== */
-/*         STILE FÜR HAMBURGER-MENÜ         */
-/* ======================================== */
-
-/* Hamburger-Button standardmäßig verstecken */
+/* ========== HAMBURGER-MENÜ ========== */
 #hamburger-btn {
   display: none;
-  font-size: 24px; /* Größeres Icon für leichtere Bedienung */
+  font-size: 24px;
   background: none;
   border: none;
-  color: #005A8C; /* Bessere Sichtbarkeit als Weiß auf hellem Grund */
+  color: #005A8C;
   padding: 5px 10px;
-  z-index: 10001; /* Stellt sicher, dass er über allem liegt */
+  z-index: 10001;
 }
 
-/* Mobiles Navigationsmenü */
 #mobile-nav {
   position: fixed;
   top: 0;
-  right: -100%; /* Startet außerhalb des Bildschirms */
+  right: -100%;
   width: 280px;
   max-width: 80%;
   height: 100%;
@@ -760,7 +682,7 @@ input:focus {
   transition: right 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-  padding-top: 80px; /* Platz für den Header */
+  padding-top: 80px;
 }
 
 #mobile-nav a {
@@ -777,12 +699,10 @@ input:focus {
   background-color: #e9ecef;
 }
 
-/* Wenn das Menü aktiv ist */
 #mobile-nav.active {
-  right: 0; /* Schiebt das Menü ins Bild */
+  right: 0;
 }
 
-/* Overlay für den Hintergrund, wenn das Menü offen ist */
 body.mobile-nav-open::after {
     content: '';
     position: fixed;
@@ -794,202 +714,17 @@ body.mobile-nav-open::after {
     z-index: 9999;
 }
 
-/* ================================================== */
-/*      RESPONSIVE: ALLES FÜR TABLET & HANDY          */
-/* ================================================== */
-@media screen and (max-width: 768px) {
-
-    /* ========== 1. NEUES, SAUBERES HEADER-LAYOUT ========== */
-    #header {
-        display: flex;
-        justify-content: space-between; /* Verteilt den Platz: links, mitte, rechts */
-        align-items: center;
-        padding: 10px 15px;
-        flex-wrap: nowrap; /* Verhindert den Umbruch in die nächste Zeile */
-        gap: 15px;
-    }
-
-    .header-left {
-        flex: 0 0 auto; /* Nimmt nur den nötigen Platz, wächst/schrumpft nicht */
-        order: 1; /* Stellt sicher, dass es links ist */
-    }
-
-    #header .header-left img {
-        height: 45px; /* Angepasste Größe für Mobile */
-        margin: 0;
-    }
-
-    .header-content {
-        flex: 1 1 auto; /* Darf wachsen und den freien Platz füllen */
-        text-align: center; /* Zentriert den Titel perfekt */
-        order: 2; /* Stellt sicher, dass es in der Mitte ist */
-        min-width: 0;
-        gap: 2px;
-    }
-
-    .header-content h1 {
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-
-    .header-date {
-        font-size: 0.7rem;
-    }
-
-    .header-right {
-        flex: 0 0 auto; /* Nimmt nur den nötigen Platz */
-        order: 3; /* Stellt sicher, dass es rechts ist */
-    }
-
-    /* Original-Buttons auf Mobile verstecken & Hamburger anzeigen */
-    #header .buttons.desktop-buttons {
-        display: none;
-    }
-
-    #hamburger-btn {
-        display: block;
-    }
-
-    /* ========== 2. ANDERE WICHTIGE MOBILE ANPASSUNGEN ========== */
-    .zoom-buttons {
-        display: none;
-    }
-
-    #pdfContainer {
-        height: auto;
-        max-height: none;
-        margin-top: 10px;
-        padding: 0;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    #pdfViewer canvas {
-        width: 100% !important;
-        height: auto !important;
-        max-width: 100%;
-        image-rendering: optimizeQuality;
-    }
-
-    .search-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 15px;
-    }
-
-    input[type="text"] {
-        width: 90%;
-        max-width: 320px;
-        font-size: 16px; /* Verhindert Auto-Zoom auf iOS */
-        padding: 12px 18px;
-    }
-
-    button {
-        padding: 10px 16px;
-        height: 40px;
-        font-size: 16px;
-        min-width: 44px; /* Touch-freundliche Mindestgröße */
-    }
-
-    .icon-button {
-        font-size: 18px;
-        height: 40px;
-        min-width: 44px;
-        padding: 8px 12px;
-    }
-
-    .button-row {
-        flex-wrap: nowrap;
-        gap: 10px;
-        width: 100%;
-        max-width: 340px;
-    }
-
-    .button-row button {
-        flex: 1;
-        min-width: 0;
-        font-size: 15px;
-        padding: 10px;
-    }
-
-    /* Touch-optimierte Highlight-Boxen */
-    .highlight-box {
-        min-height: 44px !important;
-        min-width: 44px !important;
-    }
-
-    .highlight-box:active {
-        transform: scale(0.95);
-        background-color: rgba(255, 230, 0, 0.8);
-    }
-
-    /* ========== 3. MOBILE MODAL-ANPASSUNGEN ========== */
-    #infoModal, .modal-overlay {
-        padding: 10px;
-        align-items: flex-start;
-        padding-top: 5vh;
-    }
-    
-    #infoModal > div, .modal-content {
-        max-width: 95% !important;
-        max-height: 80vh !important;
-        overflow-y: auto !important;
-        margin: 0 !important;
-    }
-
-    /* Merkliste als Modal auf Mobile */
-    #merkliste {
-        width: calc(100% - 20px);
-        max-width: none;
-        max-height: 75vh;
-        top: 10vh;
-        left: 10px; /* Zentriert es besser als 'right' */
-        right: 10px;
-        bottom: auto;
-        overflow: hidden;
-    }
-    
-    #merkliste > div {
-        max-height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    #merkliste h2 {
-        font-size: 1.1rem;
-    }
-    
-    #merkliste ul {
-        font-size: 0.85rem;
-        max-height: 40vh;
-        flex: 1;
-    }
-}
-
-/* In Ihrer styles-final.css */
-
-/* =================================================================== */
-/*   STIL FÜR "TREFFERSEITE ENTFERNEN"-BUTTON (RESPONSIVE V3)          */
-/* =================================================================== */
-
-/* --- 1. Grundstil (gilt für alle Größen, aber Mobile-First) --- */
-#removeHitBtn {
+/* ========== TREFFERSEITEN-BUTTONS (ADD/REMOVE) ========== */
+#removeHitBtn, #addHitBtn {
   position: absolute;
   z-index: 10;
-
-  /* Standard-Positionierung für Mobile: OBEN RECHTS */
   top: 10px;
   right: 10px;
   left: auto;
   transform: none;
-
-  /* --- NEU: Höhe für Mobile um ca. 1/4 reduziert --- */
-  padding: 4px 10px;  /* Vertikales Padding von 5px auf 4px reduziert */
-  font-size: 11px;    /* Schriftgröße von 12px auf 11px reduziert */
-  border-radius: 12px;/* Etwas weniger Rundung, passend zur geringeren Höhe */
-
-  /* Allgemeines Aussehen */
-  background-color: rgba(220, 53, 69, 0.85);
+  padding: 1px 10px;
+  font-size: 11px;
+  border-radius: 12px;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.5);
   font-weight: 600;
@@ -998,14 +733,27 @@ body.mobile-nav-open::after {
   transition: all 0.2s ease-in-out;
 }
 
+#removeHitBtn {
+  background-color: rgba(220, 53, 69, 0.85);
+}
 #removeHitBtn:hover {
   background-color: rgba(220, 53, 69, 1);
   transform: scale(1.05);
 }
 
-/* --- 2. Media Query für Desktops (Bildschirme breiter als 768px) --- */
+#addHitBtn {
+  background-color: rgba(25, 135, 84, 0.85);
+}
+#addHitBtn:hover {
+  background-color: rgba(25, 135, 84, 1);
+  transform: scale(1.05);
+}
+
+/* FÜGEN SIE DIESEN BLOCK HINZU */
+
+/* --- Desktop-Anpassungen für BEIDE Buttons --- */
 @media screen and (min-width: 769px) {
-  #removeHitBtn {
+  #removeHitBtn, #addHitBtn {
     /* Positionierung auf 3/4 der Breite */
     left: 75%;
     transform: translateX(-50%);
@@ -1017,117 +765,26 @@ body.mobile-nav-open::after {
     border-radius: 20px;
   }
 
-  #removeHitBtn:hover {
+  #removeHitBtn:hover, #addHitBtn:hover {
     /* Hover-Effekt für Desktop anpassen */
     transform: translateX(-50%) scale(1.05);
   }
 }
 
 
-/* In Ihrer styles-final.css (unter den Stilen für #removeHitBtn einfügen) */
-
-/* =================================================================== */
-/*   STIL FÜR "TREFFERSEITE HINZUFÜGEN"-BUTTON                        */
-/* =================================================================== */
-
-#addHitBtn {
-  /* Exakt die gleichen Positionierungs- und Größenregeln wie #removeHitBtn, */
-  /* damit sie denselben Platz einnehmen. */
-  position: absolute;
-  z-index: 10;
-  top: 10px;
-  right: 10px;
-  left: auto;
-  transform: none;
-  padding: 4px 10px;
-  font-size: 11px;
-  border-radius: 12px;
-
-  /* --- Anderes Farbschema für "Hinzufügen" --- */
-  background-color: rgba(25, 135, 84, 0.85); /* Ein positives Grün */
-  
-  /* Restliche Stile sind identisch */
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease-in-out;
-}
-
-#addHitBtn:hover {
-  background-color: rgba(25, 135, 84, 1);
-  transform: scale(1.05);
-}
-
-/* Desktop-Anpassungen für den neuen Button sicherstellen */
-@media screen and (min-width: 769px) {
-  #addHitBtn {
-    left: 75%;
-    transform: translateX(-50%);
-    right: auto;
-    padding: 6px 14px;
-    font-size: 13px;
-    border-radius: 20px;
-  }
-
-  #addHitBtn:hover {
-    transform: translateX(-50%) scale(1.05);
-  }
-}
-
-
-
-/* ======================================================== */
-/*      STYLING FÜR DEN NEUEN MERKLISTEN-ICON-LINK          */
-/* ======================================================== */
-
-.merkliste-icon-button {
-    /* Schriftgröße für das Emoji anpassen */
-    font-size: 36px;
-    
-    /* Standard-Link-Unterstreichung entfernen */
-    text-decoration: none;
-    
-    /* Farbe des Emojis festlegen (falls nötig) */
-    color: #333;
-    
-    /* Sicherstellen, dass der Klick-Cursor erscheint */
-    cursor: pointer;
-    
-    /* Übergang für den Hover-Effekt definieren */
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-/* Subtiler Hover-Effekt */
-.merkliste-icon-button:hover {
-    transform: scale(1.1);
-    opacity: 0.7;
-}
-
-
-/* --- Stil für den klickbaren Header --- */
-#openDocDialogBtn {
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-#openDocDialogBtn:hover {
-  color: #00a1e1; /* EWE Blau als Hover-Effekt */
-}
-
-/* --- Stil für den Dokumenten-Auswahl-Dialog --- */
+/* ========== DOKUMENTEN-AUSWAHL-DIALOG ========== */
 #docDialog {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(248, 249, 250, 0.98 ); /* Leicht durchsichtiges Weiß */
+  background-color: rgba(248, 249, 250, 0.98 );
   z-index: 10000;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  box-sizing: border-box; /* Wichtig für Padding */
+  box-sizing: border-box;
 }
 
 .doc-dialog-header {
@@ -1136,7 +793,7 @@ body.mobile-nav-open::after {
   align-items: center;
   border-bottom: 2px solid #dee2e6;
   padding-bottom: 15px;
-  flex-shrink: 0; /* Header soll nicht schrumpfen */
+  flex-shrink: 0;
 }
 
 .doc-dialog-header h2 {
@@ -1155,10 +812,9 @@ body.mobile-nav-open::after {
 #docDialogList {
   overflow-y: auto;
   padding-top: 20px;
-  flex-grow: 1; /* Liste füllt den verfügbaren Platz */
+  flex-grow: 1;
 }
 
-/* --- Stil für die Listeneinträge --- */
 .doc-category-group {
   margin-bottom: 25px;
 }
@@ -1191,8 +847,7 @@ body.mobile-nav-open::after {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-
-/* --- Stile für die neuen Header-Icon-Buttons --- */
+/* ========== HEADER ICON-BUTTONS ========== */
 .header-icon-btn {
   display: inline-flex;
   justify-content: center;
@@ -1200,59 +855,379 @@ body.mobile-nav-open::after {
   width: 44px;
   height: 44px;
   background-color: rgba(255, 255, 255, 0.1 );
-  border-radius: 50%; /* Macht die Buttons rund */
+  border-radius: 50%;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
 }
 
 .header-icon-btn i {
-  font-size: 22px; /* Größe des Icons */
-  color: #343a40; /* Dunkelgraue Farbe für die Icons */
+  font-size: 22px;
+  color: #343a40;
 }
 
 .header-icon-btn:hover {
   background-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1); /* Leichter Zoom-Effekt */
+  transform: scale(1.1);
 }
 
-
-/* ======================================== */
-/*         STIL FÜR MERKLISTEN-BADGE        */
-/* ======================================== */
-
-/* Macht den Button zum Bezugspunkt für den Badge */
+/* ========== MERKLISTEN-BADGE ========== */
 .header-icon-btn.has-items {
   position: relative;
 }
 
-/* Dies ist der eigentliche rote Zahlen-Badge */
 .header-icon-btn.has-items::after {
-  /* Zeigt den Inhalt aus dem 'data-count' Attribut an (z.B. "3") */
   content: attr(data-count); 
-  
-  /* Positionierung oben rechts am Button */
   position: absolute;
   top: 5px;
   right: 0px;
-  
-  /* Aussehen des Kreises */
-  background-color: #dc3545; /* Kräftiges Rot */
+  background-color: #dc3545;
   color: white;
   font-size: 11px;
   font-weight: bold;
-  font-family: Arial, sans-serif; /* Eine gut lesbare Schrift für Zahlen */
-  line-height: 15px; /* Zentriert die Zahl vertikal im Kreis */
+  font-family: Arial, sans-serif;
+  line-height: 15px;
   text-align: center;
-  border-radius: 50%; /* Macht es rund */
-  
-  /* Größe und Abstände */
-  min-width: 18px; /* Stellt sicher, dass auch eine "1" einen schönen Kreis hat */
+  border-radius: 50%;
+  min-width: 18px;
   height: 18px;
-  padding: 0 4px; /* Gibt mehrstelligen Zahlen etwas Luft */
-  
-  /* Ein kleiner Rand in der Header-Farbe, damit es sich abhebt */
+  padding: 0 4px;
   border: 2px solid #d2d2d4; 
-  box-sizing: border-box; /* Stellt sicher, dass Padding und Border die Größe nicht sprengen */
+  box-sizing: border-box;
 }
 
+/* ================================================== */
+/*      RESPONSIVE MEDIA QUERIES (AM ENDE GEBÜNDELT)      */
+/* ================================================== */
+@media screen and (max-width: 768px) {
 
+
+    #header .buttons.desktop-buttons {
+        display: none;
+    }
+    #hamburger-btn {
+        display: block;
+    }
+
+    /* Andere wichtige Mobile-Anpassungen */
+    .zoom-buttons {
+        display: none;
+    }
+    #pdfContainer {
+        height: auto;
+        max-height: none;
+        margin-top: 10px;
+        padding: 0;
+        -webkit-overflow-scrolling: touch;
+    }
+    #pdfViewer canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+    }
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+    input[type="text"] {
+        width: 90%;
+        max-width: 320px;
+        font-size: 16px;
+        padding: 12px 18px;
+    }
+    button {
+        padding: 10px 16px;
+        height: 40px;
+        font-size: 16px;
+        min-width: 44px;
+    }
+    .icon-button {
+        font-size: 18px;
+        height: 40px;
+        min-width: 44px;
+        padding: 8px 12px;
+    }
+    .button-row {
+        flex-wrap: nowrap;
+        gap: 10px;
+        width: 100%;
+        max-width: 340px;
+    }
+    .button-row button {
+        flex: 1;
+        min-width: 0;
+        font-size: 15px;
+        padding: 10px;
+    }
+    .highlight-box {
+        min-height: 44px !important;
+        min-width: 44px !important;
+    }
+    .highlight-box:active {
+        transform: scale(0.95);
+        background-color: rgba(255, 230, 0, 0.8);
+    }
+    #infoModal, .modal-overlay {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 5vh;
+    }
+    #infoModal > div, .modal-content {
+        max-width: 95% !important;
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        margin: 0 !important;
+    }
+
+/* ========== Merkliste Panel (ehemals Warenkorb) ========== */
+#merkliste {
+    position: fixed;
+    right: 20px;
+    top: 100px;
+    width: 340px;
+    max-width: 90%;
+    background-color: white;
+    border: 2px solid #d2d2d4;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow: hidden;
+}
+
+.merkliste-header {
+    background-color: #00a1e1;
+    color: white;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.merkliste-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.merkliste-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.merkliste-inhalt {
+    padding: 20px;
+    font-size: 15px;
+    color: #333;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.merkliste-footer {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-kaufen {
+    background-color: #00a1e1;
+    color: white;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-kaufen:hover {
+    background-color: #07577f;
+}
+
+#merkliste ul li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* ========== Ladebildschirm ========== */
+#loadingScreen {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.loading-logo {
+    width: 100px;
+    height: auto;
+    animation: pulse 1.4s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.15); opacity: 0.6; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+#canvasWrapper {
+    display: flex;
+    justify-content: center;
+}
+#canvasWrapper canvas {
+    margin: 0 auto;
+    display: block;
+}
+
+/* ========== ACCESSIBILITY & PERFORMANCE ========== */
+.highlight-box:focus, button:focus {
+    outline: 2px solid #00a1e1;
+    outline-offset: 2px;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+    border-color: #00a1e1;
+}
+
+.highlight-box {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+#pdfViewer canvas {
+    image-rendering: optimizeQuality;
+}
+
+/* ========== DESKTOP MODAL DIALOG STYLES ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fefefe;
+    padding: 25px 30px;
+    border-radius: 14px;
+    max-width: 500px;
+    width: 90%;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.article-info {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #00a1e1;
+    text-align: left;
+}
+
+.article-info p {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.article-info strong {
+    color: #333;
+}
+
+.quantity-section {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.quantity-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.quantity-input {
+    width: 80px;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: #00a1e1;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 100px;
+}
+
+.btn-primary {
+    background-color: #00a1e1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #07577f;
+}
+
+/* ========== FEHLERBEHANDLUNG ========== */
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #dc3545;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+}
