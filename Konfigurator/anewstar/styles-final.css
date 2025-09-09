@@ -780,7 +780,7 @@ body.mobile-nav-open::after {
   width: 100%;
   height: 100%;
   background-color: rgba(248, 249, 250, 0.98 );
-  z-index: 10000;
+  z-index: 10002;
   display: flex;
   flex-direction: column;
   padding: 20px;
