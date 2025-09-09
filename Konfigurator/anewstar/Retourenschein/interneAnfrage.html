@@ -271,22 +271,42 @@
 // ===== NEUER CODE-BLOCK (Native Web Crypto API) =====
 // =================================================================
 
-// Diese Funktion startet den gesamten Prozess
 // ========================================================================
-// ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
+// ===== FINALE VERSION: UNIVERSALER DATENSCHUTZ- & LADE-CODE         =====
 // ========================================================================
 
 async function loadProtectedData() {
-    const password = sessionStorage.getItem('customerDataPassword');
+    // 1. Versuche, das Passwort aus dem aktuellen sessionStorage zu lesen
+    let password = sessionStorage.getItem('customerDataPassword');
 
-    // Wenn kein Passwort -> Umleitung zum Login im HAUPTORDNER
+    // 2. NEU: Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
+    if (!password && window.location.hash.includes('password=')) {
+        console.log("Passwort im URL-Hash gefunden. Lese es aus...");
+        const urlHash = window.location.hash.substring(1); // Das '#' am Anfang entfernen
+        const params = new URLSearchParams(urlHash);
+        password = params.get('password');
+        
+        if (password) {
+            // WICHTIG: Speichere das gefundene Passwort sofort im sessionStorage
+            // dieses Tabs, damit es für die weitere Sitzung verfügbar ist.
+            sessionStorage.setItem('customerDataPassword', password);
+            
+            // Optional: Bereinige die URL, damit das Passwort nicht sichtbar bleibt
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+    }
+
+    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben,
+    // leiten wir den Benutzer zur Authentifizierung um.
     if (!password) {
+        console.log("Kein Passwort gefunden. Leite zu authentifizierung.html um.");
         // Annahme: Diese Datei liegt in einem Unterordner.
         // Falls sie im Hauptordner liegt, entfernen Sie "../"
         window.location.href = '../authentifizierung.html';
         return new Promise(() => {}); 
     }
 
+    // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
     try {
         const kundenSucheInput = document.getElementById('kundenSuche');
         if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
@@ -304,13 +324,14 @@ async function loadProtectedData() {
         return kunden;
 
     } catch (error) {
+        // Wenn die Entschlüsselung trotz vorhandenem Passwort fehlschlägt
         sessionStorage.removeItem('customerDataPassword');
-        alert("Fehler bei der Datenentschlüsselung. Sie werden zur erneuten Anmeldung weitergeleitet.");
-        // Auch hier: Pfad für Unterordner anpassen
+        alert("Fehler bei der Datenentschlüsselung. Das gespeicherte Passwort ist möglicherweise veraltet. Sie werden zur erneuten Anmeldung weitergeleitet.");
         window.location.href = '../authentifizierung.html';
         return new Promise(() => {});
     }
 }
+
 
 
 // Hilfsfunktion, die die eigentliche Entschlüsselung durchführt
