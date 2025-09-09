@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interne Angebotsanforderung</title>
+  <title>Interne Anfrage</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="interneAnfrage.css">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -272,53 +272,46 @@
 // =================================================================
 
 // Diese Funktion startet den gesamten Prozess
-async function initializeEncryptedCustomerSearch() {
-    const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
-    const kundenSucheInput = document.getElementById('kundenSuche' );
+// ========================================================================
+// ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
+// ========================================================================
 
-    // 1. Passwort abfragen (oder aus dem Session-Speicher nehmen)
-    let password = sessionStorage.getItem('customerDataPassword');
+async function loadProtectedData() {
+    const password = sessionStorage.getItem('customerDataPassword');
+
+    // Wenn kein Passwort -> Umleitung zum Login im HAUPTORDNER
     if (!password) {
-        password = prompt("Bitte geben Sie das Passwort für den Zugriff auf die Kundendaten ein:", "");
-        if (!password) {
-            kundenSucheInput.placeholder = "Zugriff verweigert.";
-            kundenSucheInput.disabled = true;
-            return;
-        }
+        // Annahme: Diese Datei liegt in einem Unterordner.
+        // Falls sie im Hauptordner liegt, entfernen Sie "../"
+        window.location.href = '../authentifizierung.html';
+        return new Promise(() => {}); 
     }
 
     try {
-        kundenSucheInput.placeholder = "Lade und entschlüssele Kundendaten...";
-        kundenSucheInput.disabled = true;
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
 
-        // 2. Verschlüsselte Datei laden
-        const response = await fetch(encryptedFilePath);
-        if (!response.ok) {
-            throw new Error('Fehler beim Laden der Kundendatei (Status: ' + response.status + ').');
-        }
+        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+        const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+        
+        if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
+        
         const encryptedArrayBuffer = await response.arrayBuffer();
-
-        // 3. Daten mit der Web Crypto API entschlüsseln
         const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
         
-        // 4. CSV-Text mit PapaParse verarbeiten
         kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
-
-        // ERFOLG!
-        sessionStorage.setItem('customerDataPassword', password);
-        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
-        kundenSucheInput.disabled = false;
-        console.log("✅ Erfolgreich geladen und entschlüsselt mit Web Crypto API.");
+        
+        return kunden;
 
     } catch (error) {
-        // FEHLERBEHANDLUNG
         sessionStorage.removeItem('customerDataPassword');
-        alert("Fehler: " + error.message + ". Wahrscheinlich ist das Passwort falsch.");
-        kundenSucheInput.placeholder = "Fehler beim Laden.";
-        kundenSucheInput.disabled = true;
-        console.error(error);
+        alert("Fehler bei der Datenentschlüsselung. Sie werden zur erneuten Anmeldung weitergeleitet.");
+        // Auch hier: Pfad für Unterordner anpassen
+        window.location.href = '../authentifizierung.html';
+        return new Promise(() => {});
     }
 }
+
 
 // Hilfsfunktion, die die eigentliche Entschlüsselung durchführt
 async function decryptData(encryptedArrayBuffer, password) {
@@ -351,10 +344,9 @@ async function decryptData(encryptedArrayBuffer, password) {
     return new TextDecoder().decode(decryptedData);
 }
 
-// Den gesamten Prozess starten, sobald die Seite geladen ist
-document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch);
 
 
+function initializeCustomerSearchListeners() {
     kundenSucheInput.addEventListener('input', function() {
         activeResultIndex = -1; // Reset bei neuer Eingabe
         const suchbegriff = this.value.toLowerCase();
@@ -402,7 +394,35 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
         }
     });
 
-    function updateActiveResult(ergebnisse) {
+
+    suchErgebnisseContainer.addEventListener('click', function(e) {
+        const ergebnisItem = e.target.closest('.ergebnis-item');
+        if (ergebnisItem && ergebnisItem.dataset.index) {
+            const index = ergebnisItem.dataset.index;
+            const kunde = kunden[index];
+            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+            inputs.name.value = kunde.Name || "";
+            inputs.firma.value = kunde.Firma || "";
+            inputs.telefon.value = kunde.Telefon || "";
+            inputs.email.value = kunde["E-Mail"] || "";
+            inputs.strasse.value = adresseTeile[0] || "";
+            inputs.ort.value = adresseTeile[1] || "";
+            inputs.plz.value = adresseTeile[2] || "";
+            inputs.land.value = adresseTeile[3] || "";
+            kundenSucheInput.value = '';
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
+    
+    document.addEventListener('click', function(e) {
+        if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
+
+    }
+
+        function updateActiveResult(ergebnisse) {
         ergebnisse.forEach(item => item.classList.remove('active'));
         if (activeResultIndex > -1) {
             const activeItem = ergebnisse[activeResultIndex];
@@ -436,30 +456,6 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
         suchErgebnisseContainer.style.display = 'block';
     }
 
-    suchErgebnisseContainer.addEventListener('click', function(e) {
-        const ergebnisItem = e.target.closest('.ergebnis-item');
-        if (ergebnisItem && ergebnisItem.dataset.index) {
-            const index = ergebnisItem.dataset.index;
-            const kunde = kunden[index];
-            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-            inputs.name.value = kunde.Name || "";
-            inputs.firma.value = kunde.Firma || "";
-            inputs.telefon.value = kunde.Telefon || "";
-            inputs.email.value = kunde["E-Mail"] || "";
-            inputs.strasse.value = adresseTeile[0] || "";
-            inputs.ort.value = adresseTeile[1] || "";
-            inputs.plz.value = adresseTeile[2] || "";
-            inputs.land.value = adresseTeile[3] || "";
-            kundenSucheInput.value = '';
-            suchErgebnisseContainer.style.display = 'none';
-        }
-    });
-    
-    document.addEventListener('click', function(e) {
-        if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
-            suchErgebnisseContainer.style.display = 'none';
-        }
-    });
 
     // Initialisierung der anderen Dropdowns
     $(document).ready(function() {
@@ -637,13 +633,6 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
       document.getElementById("heute").textContent = today.toLocaleDateString("de-DE", options);
     }
 
-    // Initialisierungen beim Laden der Seite
-    document.addEventListener("DOMContentLoaded", function() {
-      displayCurrentDate();
-      ladeMerklisteAusLocalStorage();
-      addManuelleArtikelSection();
-    });
-
     // Hilfsfunktionen für Mitarbeiter-Werte
     function getSachbearbeiterValue() {
       const dropdown = document.getElementById("sachbearbeiterDropdown");
@@ -696,7 +685,7 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
           
           // Logo (vergrößert um 5px in der Höhe)
           if (logoImg) {
-            const logoWidth = 40;
+            const logoWidth = 35;
             const logoHeight = 25; // Von 20 auf 25 erhöht (+5px)
             doc.addImage(logoImg, "PNG", margin, margin, logoWidth, logoHeight, undefined, 'FAST');
           }
@@ -725,6 +714,40 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
           doc.text(mainTitle.toUpperCase(), pageWidth - margin, margin + 30, { align: "right" });
         }
         
+// --- NEUER CODE ---
+
+// --- NEUER CODE (Version 2) ---
+
+// Funktion für Fußzeile auf jeder Seite
+function addPageFooter(pageNum, totalPages) {
+  const footerY = pageHeight - 15; // Position der Fußzeile (15mm vom unteren Rand)
+  const mainTitle = document.getElementById("mainTitleInput").value || "Interne Anfrage";
+  
+  // Kundennamen holen (Firma hat Vorrang, sonst Name)
+  const kundenName = inputs.firma.value || inputs.name.value || "";
+
+  // Trennlinie über der Fußzeile
+  doc.setDrawColor(200, 200, 200);
+  doc.line(margin, footerY - 5, pageWidth - margin, footerY - 5);
+
+  doc.setFontSize(8);
+  doc.setTextColor(100, 100, 100);
+
+  // Titel links in der Fußzeile
+  doc.text(mainTitle, margin, footerY);
+
+  // Kundenname zentriert in der Fußzeile
+  if (kundenName) {
+    doc.text(kundenName, pageWidth / 2, footerY, { align: "center" });
+  }
+
+  // Seitenzahl rechts in der Fußzeile
+  const pageString = `Seite ${pageNum} von ${totalPages}`;
+  doc.text(pageString, pageWidth - margin, footerY, { align: "right" });
+}
+
+
+
         // Funktion für neue Seite
         function addNewPage() {
           doc.addPage();
@@ -883,15 +906,22 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
         
         yPosition += 5;
         
-        // Artikel-Sektion
-        checkPageBreak(30);
-        
-        doc.setFontSize(14);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(0, 161, 225);
-        doc.text("ANGEBOTSDETAILS", margin, yPosition);
-        
-        yPosition += 15;
+// --- NEUER CODE ---
+
+// Artikel-Sektion (Dynamische Überschrift)
+const angebotsdetailsTitle = document.getElementById("mainTitleInput").value || "Angebotsdetails";
+const titleHeight = 15; // Ungefähre Höhe für die Überschrift + Abstand
+
+// Prüfen, ob die Überschrift UND der Tabellen-Header auf die Seite passen
+checkPageBreak(titleHeight + 30); // 30 ist der Platz für den Tabellen-Header
+
+doc.setFontSize(14);
+doc.setFont("helvetica", "bold");
+doc.setTextColor(0, 161, 225);
+doc.text(angebotsdetailsTitle.toUpperCase(), margin, yPosition); // <-- Dynamischer Text
+
+yPosition += 15;
+
         
         // Artikel sammeln
         const alleArtikel = [];
@@ -995,22 +1025,20 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
           doc.text("Keine Artikel angegeben.", margin, yPosition);
         }
         
-        // Header auf allen Seiten aktualisieren mit korrekter Seitenzahl
-        const totalPages = doc.internal.getNumberOfPages();
-        for (let i = 1; i <= totalPages; i++) {
-          doc.setPage(i);
-          // Header neu zeichnen mit korrekter Seitenzahl
-          if (i > 1) {
-            addPageHeader(i, totalPages);
-          } else {
-            // Erste Seite Header aktualisieren
-            if (totalPages > 1) {
-              doc.setFontSize(10);
-              doc.setTextColor(100, 100, 100);
-              doc.text(`Seite 1 von ${totalPages}`, pageWidth - margin, margin + 20, { align: "right" });
-            }
-          }
-        }
+// --- NEUER CODE ---
+
+// Header und Footer auf allen Seiten finalisieren
+const totalPages = doc.internal.getNumberOfPages();
+for (let i = 1; i <= totalPages; i++) {
+  doc.setPage(i); // Zur Seite i wechseln
+
+  // Header aktualisieren (besonders für die Seitenzahl "Seite X von Y")
+  addPageHeader(i, totalPages);
+  
+  // Neue Fußzeile hinzufügen
+  addPageFooter(i, totalPages);
+}
+
         
         // Dateiname generieren
         const firmaName = inputs.firma.value || "Unbekannt";
@@ -1047,6 +1075,45 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
         img.src = url;
       });
     }
+
+
+    // ========================================================================
+// ===== NEU: DER EINZIGE UND KORREKTE STARTPUNKT DER SEITE         =====
+// ========================================================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // 1. Unabhängige UI-Elemente sofort initialisieren
+    displayCurrentDate();
+    ladeMerklisteAusLocalStorage();
+    addManuelleArtikelSection();
+    
+    // 2. jQuery-abhängige Initialisierungen
+    $(document).ready(function() {
+        $("#sachbearbeiterDropdown").select2({ placeholder: "-- Innendienst auswählen --", allowClear: true });
+        $("#aussendienstDropdown").select2({ placeholder: "-- Außendienstmitarbeiter auswählen --", allowClear: true });
+    });
+
+    try {
+        // 3. Authentifizierung prüfen und auf Daten warten
+        await loadProtectedData();
+
+        // Wenn wir hier ankommen, ist alles gut.
+        console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+
+        // 4. UI-Elemente aktivieren, die von den Daten abhängen
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        kundenSucheInput.disabled = false;
+        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+
+        // 5. Event-Listener für die Suche aktivieren
+        initializeCustomerSearchListeners();
+
+    } catch (error) {
+        console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
+        document.body.innerHTML = "<h2>Ein kritischer Fehler ist aufgetreten. Bitte laden Sie die Seite neu.</h2>";
+    }
+});
+
   </script>
 </body>
 </html>
