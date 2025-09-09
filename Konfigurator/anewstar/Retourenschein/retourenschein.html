@@ -290,53 +290,57 @@
 // =================================================================
 
 // Diese Funktion startet den gesamten Prozess
-async function initializeEncryptedCustomerSearch() {
-    const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
-    const kundenSucheInput = document.getElementById('kundenSuche' );
+// ========================================================================
+// ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
+// ========================================================================
 
-    // 1. Passwort abfragen (oder aus dem Session-Speicher nehmen)
+async function loadProtectedData() {
+    // 1. Versuche, das Passwort aus dem aktuellen sessionStorage zu lesen
     let password = sessionStorage.getItem('customerDataPassword');
-    if (!password) {
-        password = prompt("Bitte geben Sie das Passwort für den Zugriff auf die Kundendaten ein:", "");
-        if (!password) {
-            kundenSucheInput.placeholder = "Zugriff verweigert.";
-            kundenSucheInput.disabled = true;
-            return;
+
+    // 2. NEU: Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
+    if (!password && window.location.hash.includes('password=')) {
+        const urlHash = window.location.hash.substring(1);
+        const params = new URLSearchParams(urlHash);
+        password = params.get('password');
+        if (password) {
+            sessionStorage.setItem('customerDataPassword', password);
+            history.replaceState(null, '', window.location.pathname + window.location.search);
         }
     }
 
+    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben -> umleiten
+    if (!password) {
+        // Annahme: Diese Datei liegt in einem Unterordner.
+        window.location.href = '../authentifizierung.html';
+        return new Promise(() => {}); 
+    }
+
+    // 4. Wenn wir ein Passwort haben, lade und entschlüssele die Daten.
     try {
-        kundenSucheInput.placeholder = "Lade und entschlüssele Kundendaten...";
-        kundenSucheInput.disabled = true;
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
 
-        // 2. Verschlüsselte Datei laden
-        const response = await fetch(encryptedFilePath);
-        if (!response.ok) {
-            throw new Error('Fehler beim Laden der Kundendatei (Status: ' + response.status + ').');
-        }
+        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+        const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+        
+        if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
+        
         const encryptedArrayBuffer = await response.arrayBuffer();
-
-        // 3. Daten mit der Web Crypto API entschlüsseln
         const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
         
-        // 4. CSV-Text mit PapaParse verarbeiten
         kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
-
-        // ERFOLG!
-        sessionStorage.setItem('customerDataPassword', password);
-        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
-        kundenSucheInput.disabled = false;
-        console.log("✅ Erfolgreich geladen und entschlüsselt mit Web Crypto API.");
+        
+        return kunden;
 
     } catch (error) {
-        // FEHLERBEHANDLUNG
         sessionStorage.removeItem('customerDataPassword');
-        alert("Fehler: " + error.message + ". Wahrscheinlich ist das Passwort falsch.");
-        kundenSucheInput.placeholder = "Fehler beim Laden.";
-        kundenSucheInput.disabled = true;
-        console.error(error);
+        alert("Fehler bei der Datenentschlüsselung. Sie werden zur erneuten Anmeldung weitergeleitet.");
+        window.location.href = '../authentifizierung.html';
+        return new Promise(() => {});
     }
 }
+
 
 // Hilfsfunktion, die die eigentliche Entschlüsselung durchführt
 async function decryptData(encryptedArrayBuffer, password) {
@@ -369,10 +373,7 @@ async function decryptData(encryptedArrayBuffer, password) {
     return new TextDecoder().decode(decryptedData);
 }
 
-// Den gesamten Prozess starten, sobald die Seite geladen ist
-document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch);
-
-
+function initializeCustomerSearchListeners() {
     kundenSucheInput.addEventListener('input', function() {
         activeResultIndex = -1;
         const suchbegriff = this.value.toLowerCase();
@@ -419,7 +420,36 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
         }
     });
 
-    function updateActiveResult(ergebnisse) {
+   
+    suchErgebnisseContainer.addEventListener('click', function(e) {
+        const ergebnisItem = e.target.closest('.ergebnis-item');
+        if (ergebnisItem && ergebnisItem.dataset.index) {
+            const index = ergebnisItem.dataset.index;
+            const kunde = kunden[index];
+            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+            inputs.name.value = kunde.Name || "";
+            inputs.firma.value = kunde.Firma || "";
+            inputs.telefon.value = kunde.Telefon || "";
+            inputs.email.value = kunde['E-Mail'] || "";
+            inputs.strasse.value = adresseTeile[0] || "";
+            inputs.ort.value = adresseTeile[1] || "";
+            inputs.plz.value = adresseTeile[2] || "";
+            inputs.land.value = adresseTeile[3] || "";
+            kundenSucheInput.value = '';
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
+    
+    document.addEventListener('click', function(e) {
+        if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
+
+    } 
+
+
+     function updateActiveResult(ergebnisse) {
         ergebnisse.forEach(item => item.classList.remove('active'));
         if (activeResultIndex > -1) {
             const activeItem = ergebnisse[activeResultIndex];
@@ -453,30 +483,6 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
         suchErgebnisseContainer.style.display = 'block';
     }
 
-    suchErgebnisseContainer.addEventListener('click', function(e) {
-        const ergebnisItem = e.target.closest('.ergebnis-item');
-        if (ergebnisItem && ergebnisItem.dataset.index) {
-            const index = ergebnisItem.dataset.index;
-            const kunde = kunden[index];
-            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-            inputs.name.value = kunde.Name || "";
-            inputs.firma.value = kunde.Firma || "";
-            inputs.telefon.value = kunde.Telefon || "";
-            inputs.email.value = kunde['E-Mail'] || "";
-            inputs.strasse.value = adresseTeile[0] || "";
-            inputs.ort.value = adresseTeile[1] || "";
-            inputs.plz.value = adresseTeile[2] || "";
-            inputs.land.value = adresseTeile[3] || "";
-            kundenSucheInput.value = '';
-            suchErgebnisseContainer.style.display = 'none';
-        }
-    });
-    
-    document.addEventListener('click', function(e) {
-        if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
-            suchErgebnisseContainer.style.display = 'none';
-        }
-    });
 
     // Initialisierung der anderen Dropdowns
     $(document).ready(function() {
@@ -792,14 +798,7 @@ document.addEventListener('DOMContentLoaded', initializeEncryptedCustomerSearch)
     // Heutiges Datum setzen
     document.getElementById("heute").textContent = new Date().toLocaleDateString('de-DE');
 
-    // Initialisierung
-    document.addEventListener('DOMContentLoaded', function() {
-      initializeDatePicker();
-      initManuelleArtikelEingabe(); // Manuelle Eingabe initialisieren
-      ladeMerklisteAusLocalStorage(); // Merkliste aus localStorage laden
-    });
-
-    // PDF-Generierungsfunktion (erweitert)
+// PDF-Generierungsfunktion (erweitert)
 /**
  * Erzeugt einen Retourenschein im EWE-Design als PDF.
  * Finale, polierte Version mit allen Detail-Korrekturen.
@@ -995,6 +994,44 @@ async function generateRetourenscheinPDF() {
     const filename = `Retourenschein_${inputs.name.value.replace(/ /g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(filename);
 }
+
+
+// ========================================================================
+// ===== NEU: DER EINZIGE UND KORREKTE STARTPUNKT DER SEITE         =====
+// ========================================================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // 1. Unabhängige UI-Elemente sofort initialisieren
+    initializeDatePicker();
+    initManuelleArtikelEingabe();
+    ladeMerklisteAusLocalStorage();
+    
+    // 2. jQuery-abhängige Initialisierungen
+    $(document).ready(function() {
+        $('#bearbeiterDropdown').select2({ placeholder: "-- Bearbeiter auswählen --", allowClear: true });
+        $('#anlieferungDropdown').select2({ placeholder: "-- Anlieferung auswählen --", allowClear: true });
+    });
+
+    try {
+        // 3. Authentifizierung prüfen und auf Daten warten
+        await loadProtectedData();
+
+        // Wenn wir hier ankommen, ist alles gut.
+        console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+
+        // 4. UI-Elemente aktivieren, die von den Daten abhängen
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        kundenSucheInput.disabled = false;
+        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+
+        // 5. Event-Listener für die Suche aktivieren
+        initializeCustomerSearchListeners();
+
+    } catch (error) {
+        console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
+        document.body.innerHTML = "<h2>Ein kritischer Fehler ist aufgetreten. Bitte laden Sie die Seite neu.</h2>";
+    }
+});
 
   </script>
 </body>
