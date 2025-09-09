@@ -167,12 +167,25 @@ document.getElementById("jetztKaufenBtn").addEventListener("click", () => {
 window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html', '_blank', 'noopener=no' );
       });
 
-      document.getElementById("jetztAnfragenBtn").addEventListener("click", () => {
-          if (merkliste && merkliste.length > 0) {
-          localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-        }
-        document.body.removeChild(dialog);
-window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html', '_blank', 'noopener=no' );      });
+document.getElementById("jetztAnfragenBtn").addEventListener("click", () => {
+    if (merkliste && merkliste.length > 0) {
+        localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
+    }
+    document.body.removeChild(dialog);
+
+    // 1. Passwort aus dem sessionStorage des Hauptfensters holen
+    const password = sessionStorage.getItem('customerDataPassword');
+    
+    let targetUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html';
+
+    // 2. Wenn ein Passwort vorhanden ist, hänge es als Hash an die URL an
+    if (password ) {
+        targetUrl += `#password=${encodeURIComponent(password)}`;
+    }
+
+    // 3. Öffne die neue URL
+    window.open(targetUrl, '_blank', 'noopener=no');
+});
 
        // const dialogElement = document.getElementById('merklisteDialog');
        // if (dialogElement) {
