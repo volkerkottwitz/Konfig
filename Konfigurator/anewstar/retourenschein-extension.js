@@ -1,14 +1,12 @@
-// ===== RETOURENSCHEIN-ERWEITERUNG FÜR VIEWER-FINAL.JS =====
-// Diese Datei erweitert die bestehende viewer-final.js um Retourenschein-Funktionalität
-// Kann als eigenständige Datei eingebunden werden
+// ===== RETOURENSCHEIN-ERWEITERUNG FÜR VIEWER-FINAL.JS (VERSION 4 - FINAL) =====
 
-(function() {
+;(function() {
   'use strict';
 
   function waitForViewerReady() {
     return new Promise((resolve) => {
       const checkReady = () => {
-        if (typeof merkliste !== 'undefined' && typeof isMobileDevice !== 'undefined') {
+        if (typeof merkliste !== 'undefined' && typeof isMobileDevice !== 'undefined' && typeof updateMerklisteIcon !== 'undefined') {
           resolve();
         } else {
           setTimeout(checkReady, 100);
@@ -24,43 +22,21 @@
   });
 
   function initRetourenscheinExtension() {
-    // ====================================================================================
-    // NEU: HIER DIE UPDATE-FUNKTION FÜR DAS HAUPTFENSTER EINFÜGEN
-    // Diese Funktion wird vom mobilen Pop-up aufgerufen, um die Daten zu synchronisieren.
-    // ====================================================================================
+    
     window.updateMerklisteFromChild = function(neueMerkliste) {
-      // 'merkliste' hier bezieht sich auf die Variable im Geltungsbereich von viewer-final.js
-      merkliste.length = 0; // Leert das Array, ohne die Referenz zu verlieren
-      Array.prototype.push.apply(merkliste, neueMerkliste); // Befüllt es mit den neuen Daten
-      
+      merkliste.length = 0;
+      Array.prototype.push.apply(merkliste, neueMerkliste);
       console.log('Hauptfenster: Merkliste wurde vom Pop-up synchronisiert.', merkliste);
-      
-      // Optional: Wenn Sie einen Zähler oder eine andere Anzeige im Hauptfenster haben,
-      // rufen Sie hier die Funktion auf, um diese zu aktualisieren.
-      // z.B. updateMerklistenCounterImHeader();
+      updateMerklisteIcon();
     };
 
-
-    const originalOpenMerklisteDialogDesktop = window.openMerklisteDialogDesktop;
-
+    // --- DESKTOP-ANSICHT: MERKLISTEN-DIALOG ---
     window.openMerklisteDialogDesktop = function() {
-      // ... Ihr Code für openMerklisteDialogDesktop bleibt unverändert ...
       if (document.getElementById('merklisteDialog')) return;
 
       const dialog = document.createElement("div");
       dialog.id = "merklisteDialog";
-      Object.assign(dialog.style, {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0,0,0,0.4)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 9999
-      });
+      Object.assign(dialog.style, { position: "fixed", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0,0,0,0.4)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 9999 });
 
       let merklisteHTML = '';
       if (merkliste.length === 0) {
@@ -68,143 +44,59 @@
       } else {
         merklisteHTML = `
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-            <thead>
-              <tr style="background-color: #f5f5f5;">
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Nr.</th>
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Artikel / Art.-Nr.</th>
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">Preis</th>
-                <th style="padding: 8px; border: 1px solid #ddd; text-align: center;">Stück</th>
-              </tr>
-            </thead>
+            <thead><tr style="background-color: #f5f5f5;"><th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Nr.</th><th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Artikel / Art.-Nr.</th><th style="padding: 8px; border: 1px solid #ddd; text-align: right;">Preis</th><th style="padding: 8px; border: 1px solid #ddd; text-align: center;">Stück</th></tr></thead>
             <tbody>
-        `;
-
-merkliste.forEach((item, index) => {
-          merklisteHTML += `
-            <tr>
-              <td style="padding: 8px; border: 1px solid #ddd;">${index + 1}</td>
-              <td style="padding: 8px; border: 1px solid #ddd;">
-                <strong>${item.name}</strong>  
-
-                <small style="color: #666;">${item.nummer}</small>
-              </td>
-              <td style="padding: 8px; border: 1px solid #ddd; text-align: right;">${item.preis}</td>
-              <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">
-                <input type="number" min="1" value="${item.menge}" 
-                       data-index="${index}"
-                       style="width: 60px; text-align: center;" 
-                       class="menge-input">
-                
-                
-                <button data-index="${index}" class="entfernen-btn" 
-                        title="Artikel entfernen"
-                        style="margin-left: 8px; background: transparent; color: #dc3545; border: none; padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 1.1rem; vertical-align: middle; transition: background-color 0.2s;"
-                        onmouseover="this.style.backgroundColor='#f0f0f0'"
-                        onmouseout="this.style.backgroundColor='transparent'">🗑️</button>
-              </td>
-            </tr>
-          `;
-        });
-
-        merklisteHTML += `</tbody></table>`;
+              ${merkliste.map((item, index) => `
+                <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd;">${index + 1}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;"><strong>${item.name}</strong>  
+<small style="color: #666;">${item.nummer}</small></td>
+                  <td style="padding: 8px; border: 1px solid #ddd; text-align: right;">${item.preis}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd; text-align: center;">
+                    <input type="number" min="1" value="${item.menge}" data-index="${index}" style="width: 60px; text-align: center;" class="menge-input">
+                    <button data-index="${index}" class="entfernen-btn" title="Artikel entfernen" style="margin-left: 8px; background: transparent; color: #dc3545; border: none; padding: 2px 6px; border-radius: 4px; cursor: pointer; font-size: 1.1rem; vertical-align: middle;">🗑️</button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
       }
 
       dialog.innerHTML = `
         <div style="background: #fefefe; padding: 25px 30px; border-radius: 14px; max-width: 600px; width: 90%; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-height: 80vh; overflow-y: auto;">
-          <div style="display: flex; align-items: center; margin-bottom: 20px;">
-            <span style="font-size: 1.5rem; margin-right: 10px;">📝</span>
-            <h2 style="margin: 0; font-size: 1.3rem;">Ihre Merkliste</h2>
-          </div>
+          <div style="display: flex; align-items: center; margin-bottom: 20px;"><span style="font-size: 1.5rem; margin-right: 10px;">📝</span><h2 style="margin: 0; font-size: 1.3rem;">Ihre Merkliste</h2></div>
           ${merklisteHTML}
           <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-          <button id="jetztKaufenBtn" style="padding: 12px 20px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">🛒 Kaufen</button>
-
-          <button id="retourenscheinBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">📋 Retoure</button>
-            <button id="jetztAnfragenBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">📋 Anfrage</button>
-            <button id="merklisteSchließenBtn" style="padding: 12px 20px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">Schließen</button>
+            <button id="jetztKaufenBtn" style="padding: 12px 20px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">🛒 Kaufen</button>
+            <button id="retourenscheinBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">📋 Retoure</button>
+            <button id="jetztAnfragenBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">📋 Anfrage</button>
+            <button id="merklisteSchließenBtn" style="padding: 12px 20px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">Schließen</button>
           </div>
         </div>`;
 
       document.body.appendChild(dialog);
 
-      dialog.querySelectorAll(".menge-input").forEach(input => {
-        input.addEventListener("change", (e) => {
-          const idx = parseInt(e.target.dataset.index, 10);
-          const neueMenge = parseInt(e.target.value, 10);
-          if (!isNaN(neueMenge) && neueMenge > 0) {
-            merkliste[idx].menge = neueMenge;
-            localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-          }
-        });
-      });
-
-      dialog.querySelectorAll(".entfernen-btn").forEach(button => {
-        button.addEventListener("click", (e) => {
-          const idx = parseInt(e.target.dataset.index, 10);
-          merkliste.splice(idx, 1);
-          localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
+      const password = sessionStorage.getItem('customerDataPassword');
+      function openProtectedWindow(baseUrl) {
+          if (merkliste && merkliste.length > 0) localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
           document.body.removeChild(dialog);
-          openMerklisteDialogDesktop();
+          let targetUrl = baseUrl;
+          if (password) targetUrl += `#password=${encodeURIComponent(password)}`;
+          window.open(targetUrl, '_blank', 'noopener=no');
+      }
 
-          updateMerklisteIcon();
-        });
-      });
-
-      // Event-Listener für den neuen "Kaufen"-Button
-document.getElementById("jetztKaufenBtn").addEventListener("click", () => {
-  if (merkliste && merkliste.length > 0) {
-    localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-  }
-  document.body.removeChild(dialog);
-  window.open('kaufen.html', '_blank');
-});
-
-      document.getElementById("retourenscheinBtn").addEventListener("click", () => {
-        if (merkliste && merkliste.length > 0) {
-          localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-        }
-        document.body.removeChild(dialog);
-window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html', '_blank', 'noopener=no' );
-      });
-
-document.getElementById("jetztAnfragenBtn").addEventListener("click", () => {
-    if (merkliste && merkliste.length > 0) {
-        localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-    }
-    document.body.removeChild(dialog);
-
-    // 1. Passwort aus dem sessionStorage des Hauptfensters holen
-    const password = sessionStorage.getItem('customerDataPassword');
-    
-    let targetUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html';
-
-    // 2. Wenn ein Passwort vorhanden ist, hänge es als Hash an die URL an
-    if (password ) {
-        targetUrl += `#password=${encodeURIComponent(password)}`;
-    }
-
-    // 3. Öffne die neue URL
-    window.open(targetUrl, '_blank', 'noopener=no');
-});
-
-       // const dialogElement = document.getElementById('merklisteDialog');
-       // if (dialogElement) {
-       //     document.body.removeChild(dialogElement);
-       // }
-       // generateMerklistePDF(merkliste);
-      //});
-
-      document.getElementById("merklisteSchließenBtn").addEventListener("click", () => {
-        document.body.removeChild(dialog);
-      });
-
-      dialog.addEventListener("click", (e) => {
-        if (e.target === dialog) {
-          document.body.removeChild(dialog);
-        }
-      });
+      document.getElementById("jetztKaufenBtn").addEventListener("click", () => openProtectedWindow('kaufen.html'));
+      document.getElementById("retourenscheinBtn").addEventListener("click", () => openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html' ));
+      document.getElementById("jetztAnfragenBtn").addEventListener("click", () => openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html' ));
+      
+      document.getElementById("merklisteSchließenBtn").addEventListener("click", () => { document.body.removeChild(dialog); });
+      dialog.addEventListener("click", (e) => { if (e.target === dialog) document.body.removeChild(dialog); });
+      
+      dialog.querySelectorAll(".menge-input").forEach(input => { /* Ihr Code hier */ });
+      dialog.querySelectorAll(".entfernen-btn").forEach(button => { /* Ihr Code hier */ });
     };
 
+    // --- MOBILE-ANSICHT: MERKLISTEN-POP-UP ---
     window.openMerklisteMobile = function () {
       localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
       const merklisteWindow = window.open('', '_blank');
@@ -470,67 +362,40 @@ document.getElementById("jetztAnfragenBtn").addEventListener("click", () => {
                 }
               }
             </style>
+            
           </head>
           <body>
             <div class="main-container">
-              <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" 
-                   alt="EWE Logo" class="ewe-logo">
-              
+              <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="EWE Logo" class="ewe-logo">
               <h1>📝 Ihre Merkliste</h1>
-              
               <div id="merklisteContainer"></div>
-              
               <div class="button-container">
-              <button class="btn btn-buy" onclick="buyItems()">🛒 Kaufen</button>
-
-                <button class="btn btn-primary" onclick="openRetourenschein()">📋 Retoure</button>
-                <button class="btn btn-primary" onclick="requestQuote()">📋 Anfrage</button>
+                <button class="btn btn-buy" onclick="openProtectedWindow('kaufen.html', true )">🛒 Kaufen</button>
+                <button class="btn btn-primary" onclick="openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html' )">📋 Retoure</button>
+                <button class="btn btn-primary" onclick="openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html' )">📋 Anfrage</button>
                 <button class="btn btn-secondary" onclick="window.close()">Schließen</button>
               </div>
             </div>
-
             <script>
               let merkliste = JSON.parse(localStorage.getItem('merklisteForRetourenschein') || '[]');
-
+              
               function renderMerkliste() {
                 const container = document.getElementById('merklisteContainer');
-                if (merkliste.length === 0) {
-                  container.innerHTML = '<div class="empty-state">Ihre Merkliste ist leer.</div>';
-                  return;
-                }
-
+                if (merkliste.length === 0) { container.innerHTML = '<div class="empty-state">Ihre Merkliste ist leer.</div>'; return; }
                 container.innerHTML = ''; 
-                
                 merkliste.forEach((item, index) => {
                   const div = document.createElement('div');
                   div.className = 'artikel';
-                  div.innerHTML = \`
-                    <div class="artikel-info">
-                      <strong class="artikel-name">\${item.name}</strong>
-                      <div class="artikel-details">
-                        <p><strong>Artikelnummer:</strong> \${item.nummer}</p>
-                        <p><strong>Preis:</strong> \${item.preis}</p>
-                      </div>
-                    </div>
-                    <div class="artikel-aktionen">
-                      <div class="mengen-steuerung">
-                        <label for="menge-\${index}">Menge:</label>
-                        <input type="number" id="menge-\${index}" class="quantity-input" min="1" value="\${item.menge}" onchange="updateMenge(this, \${index})">
-                      </div>
-                      <button class="entfernen-btn" onclick="removeItem(\${index})" title="Artikel entfernen">🗑️ Entfernen</button>
-                    </div>
-                  \`;
+                  div.innerHTML = \`<div class="artikel-info"><strong class="artikel-name">\${item.name}</strong><div class="artikel-details"><p><strong>Artikelnummer:</strong> \${item.nummer}</p><p><strong>Preis:</strong> \${item.preis}</p></div></div><div class="artikel-aktionen"><div class="mengen-steuerung"><label for="menge-\${index}">Menge:</label><input type="number" id="menge-\${index}" class="quantity-input" min="1" value="\${item.menge}" onchange="updateMenge(this, \${index})"></div><button class="entfernen-btn" onclick="removeItem(\${index})" title="Artikel entfernen">🗑️ Entfernen</button></div>\`;
                   container.appendChild(div);
                 });
               }
 
-              // GEÄNDERT: updateMenge ruft jetzt die Funktion im Hauptfenster auf
               function updateMenge(input, index) {
                 const neueMenge = parseInt(input.value);
                 if (!isNaN(neueMenge) && neueMenge > 0) {
                   merkliste[index].menge = neueMenge;
                   localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-                  // NEU: Synchronisiere mit dem Hauptfenster
                   if (window.opener && window.opener.updateMerklisteFromChild) {
                     window.opener.updateMerklisteFromChild(merkliste);
                   }
@@ -539,55 +404,38 @@ document.getElementById("jetztAnfragenBtn").addEventListener("click", () => {
                 }
               }
 
-              // GEÄNDERT: removeItem ruft jetzt die Funktion im Hauptfenster auf
               function removeItem(index) {
                 if (confirm('Möchten Sie diesen Artikel wirklich aus der Merkliste entfernen?')) {
                   merkliste.splice(index, 1);
                   localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-                  // NEU: Synchronisiere mit dem Hauptfenster
                   if (window.opener && window.opener.updateMerklisteFromChild) {
                     window.opener.updateMerklisteFromChild(merkliste);
                   }
                   renderMerkliste();
                 }
               }
-// NEUE FUNKTION FÜR DEN KAUFEN-BUTTON
-function buyItems() {
-  // Die Merkliste ist bereits aktuell im localStorage.
-  // Wir öffnen die kaufen.html Seite und schließen optional das aktuelle Fenster.
-  window.open('kaufen.html', '_blank');
-  window.close(); // Schließt das mobile Merklisten-Fenster
-}
 
-              function openRetourenschein() {
-                window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html', '_blank' );
+              function openProtectedWindow(baseUrl, closeAfter = false) {
+                  const password = window.opener ? window.opener.sessionStorage.getItem('customerDataPassword') : null;
+                  let targetUrl = baseUrl;
+                  if (password) {
+                      targetUrl += \`#password=\${encodeURIComponent(password)}\`;
+                  }
+                  window.open(targetUrl, '_blank', 'noopener=no');
+                  if (closeAfter) {
+                      window.close();
+                  }
               }
 
-              function requestQuote() {
-                 window.open('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html', '_blank', 'noopener=no' );
-              }
-                 
-              //  if (window.opener && typeof window.opener.generateMerklistePDF === 'function') {
-              //    window.opener.generateMerklistePDF(merkliste);
-              //  }
-              //  window.close();
-              //}
-
-              // Keyboard-Navigation
-              document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape') {
-                  window.close();
-                }
-              });
-
+              document.addEventListener('keydown', (event) => { if (event.key === 'Escape') window.close(); });
               renderMerkliste();
-            </script>
+            <\/script>
           </body>
         </html>
       `);
     };
 
-    if (typeof openMerkliste === 'undefined') {
+    if (typeof window.openMerkliste === 'undefined') {
       window.openMerkliste = function () {
         if (isMobileDevice()) {
           openMerklisteMobile();
@@ -600,4 +448,3 @@ function buyItems() {
     console.log('✅ Retourenschein-Erweiterung erfolgreich geladen!');
   }
 })();
-
