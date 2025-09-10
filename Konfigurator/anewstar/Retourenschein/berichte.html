@@ -9,7 +9,10 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
   <style>
-    /* Basis-Stile (teilweise aus externer CSS zur Sicherheit hier dupliziert ) */
+
+    /* ================================================================== */
+    /* ===== BASIS-STILE & LAYOUT ======================================= */
+    /* ================================================================== */
     .form-section-container {
       border: 1px solid #e0e0e0;
       border-radius: 8px;
@@ -37,30 +40,34 @@
       max-width: 500px;
     }
 
-    /* === KORREKTE STILE FÜR DIE SUCHFUNKTION (WIE IN interneAnfrage.html) === */
+    /* FÜGEN SIE DIESEN BLOCK ZU IHREM CSS HINZU */
+/* (Ein guter Platz ist direkt vor der .search-input-group Regel) */
 
-    /* 1. Der entscheidende Stil für die Hervorhebung */
-    .search-highlight {
-      background-color: rgba(0, 0, 0, 0.2);
-      font-weight: bold;
-      border-radius: 3px;
-      padding: 0 2px;
-    }
+/* ================================================================== */
+/* ===== KUNDENSUCHE (AUFGERÄUMT) =================================== */
+/* ================================================================== */
 
-    /* 2. Wrapper für die Positionierung der Ergebnisliste */
-    .search-wrapper {
-        position: relative;
-        width: 100%;
-        max-width: 500px;
-    }
+/* NEU: Diese Regel ist der entscheidende Fix */
+.search-wrapper {
+    position: relative;
+}
 
-    /* 3. Suchleiste selbst */
+/* Gruppe für Suchfeld und Mikrofon-Button */
+.search-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+    /* Das Suchfeld selbst (alle Regeln an einem Ort) */
     #kundenSuche {
-        width: 100%;
+        flex-grow: 1; /* Wächst, um den Platz zu füllen */
+        height: 48px;
         padding: 12px 20px;
         font-size: 16px;
         border: 1px solid #ccc;
-        border-radius: 25px;
+        border-radius: 25px !important; /* Wichtig, um externe Stile zu überschreiben */
         box-sizing: border-box;
         transition: all 0.2s ease-in-out;
     }
@@ -70,9 +77,7 @@
         box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
     }
 
-    
-
-    /* 4. Elegante, schwebende Ergebnisliste */
+    /* Die schwebende Ergebnisliste */
     #suchErgebnisse {
         position: absolute;
         top: 100%;
@@ -92,40 +97,96 @@
         cursor: pointer;
         border-bottom: 1px solid #eee;
     }
-    .ergebnis-item:last-child {
-        border-bottom: none;
-    }
-    .ergebnis-item.active, 
-    .ergebnis-item:hover {
-        background-color: #f0f8ff;
-    }
-    .ergebnis-item.no-results {
-        cursor: default;
-        color: #888;
-    }
-    .ergebnis-item.no-results:hover {
-        background-color: white;
+    .ergebnis-item:last-child { border-bottom: none; }
+    .ergebnis-item:hover { background-color: #f0f8ff; }
+    .ergebnis-item.active { background-color: #e6f7ff; }
+    .ergebnis-item.best-match { background-color: #e0ffe0; font-weight: bold; }
+    .ergebnis-item.no-results { cursor: default; color: #888; }
+    .ergebnis-item.no-results:hover { background-color: white; }
+    .search-highlight {
+      background-color: rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+      border-radius: 3px;
+      padding: 0 2px;
     }
 
-    /* === Stile für Spracheingabe === */
+    /* ================================================================== */
+    /* ===== ICON-BUTTONS & TELEFON-GRUPPE ============================== */
+    /* ================================================================== */
+
+    /* Allgemeiner Stil für Icon-Buttons (Mikrofon & Telefon) */
+    .icon-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0; /* Verhindert, dass der Button schrumpft */
+        width: 48px;
+        height: 48px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 50%; /* Runder Button */
+        font-size: 1.5rem;
+        color: #555;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+    .icon-button:hover {
+        background-color: #007bff;
+        color: white;
+        transform: scale(1.05);
+    }
+    #speech-search-button.is-listening {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    /* Gruppe für Telefonnummer und Anruf-Button */
+    .phone-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .phone-group input {
+        flex-grow: 1;
+    }
+
+    /* ================================================================== */
+    /* ===== SPRACHEINGABE-SEKTIONEN ==================================== */
+    /* ================================================================== */
     #spracheingabe-container, #aufgaben-container {
         text-align: center;
-        border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 25px auto; background-color: #fdfdfd; max-width: 900px;
     }
     #bericht-text, #aufgaben-text {
-        width: 100%; height: 200px; margin-top: 1rem; padding: 0.5rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+        width: 100%;
+        height: 200px;
+        margin-top: 1rem;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
     }
     #aufgaben-text { height: 120px; }
-    .aufnahme-button { margin-top: 1rem; padding: 0.8rem 1.5rem; font-size: 1rem; cursor: pointer; border: none; border-radius: 4px; background-color: #28a745; color: white; transition: background-color 0.3s; }
+    .aufnahme-button {
+        margin-top: 1rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+        background-color: #28a745;
+        color: white;
+        transition: background-color 0.3s;
+    }
     .aufnahme-button:hover { background-color: #218838; }
     .aufnahme-button.recording { background-color: #dc3545; }
-    .aufnahme-status { margin-top: 1rem; color: #666; min-height: 20px; }
+    .aufnahme-status {
+        margin-top: 1rem;
+        color: #666;
+        min-height: 20px;
+    }
 
-#kundenSuche {
-    width: 100% !important; /* Zwingt das Suchfeld, die volle Breite seines Containers einzunehmen */
-    box-sizing: border-box; /* Stellt sicher, dass Padding und Border die Breite nicht verändern */
 
-}
   </style>
 </head>
 <body>
@@ -148,10 +209,18 @@
   <section class="form-section-container">
     <h3>Kundendaten</h3>
     <div id="kundenDetails" class="centered-form-layout">
-      <div class="search-wrapper">
-        <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
-        <div id="suchErgebnisse" style="display: none;"></div>
-      </div>
+<!-- ERSETZEN SIE DEN ALTEN .search-wrapper HIERMIT -->
+
+<div class="search-wrapper">
+  <div class="search-input-group">
+    <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
+    <button id="speech-search-button" class="icon-button" title="Suche per Sprache">🎤</button>
+  </div>
+  <div id="suchErgebnisse" style="display: none;"></div>
+</div>
+
+ 
+</div>
       <input type="text" id="name" placeholder="Name">
       <input type="text" id="firma" placeholder="Firma">
       <input type="text" id="strasse" placeholder="Straße">
@@ -159,7 +228,10 @@
       <input type="text" id="ort" placeholder="Ort">
       <input type="text" id="land" placeholder="Land">
       <input type="text" id="email" placeholder="E-Mail">
-      <input type="text" id="telefon" placeholder="Telefon">
+      <div class="phone-group">
+  <input type="text" id="telefon" placeholder="Telefon">
+  <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
+</div>
     </div>
   </section>
 
@@ -220,9 +292,12 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+
 
   <script>
     let kunden = [];
+    let fuse; // NEUE ZEILE
 
 // ========================================================================
 // ===== NEU: ANGEPASSTER STARTPUNKT DER SEITE                      =====
@@ -233,6 +308,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     displayCurrentDate();
     initializeDropdowns();
     initializeSpeechRecognition();
+    initializeSpeechSearch();
+    initializePhoneLink();
 
     try {
         // 1. Starte den Lade- und Schutzprozess.
@@ -281,6 +358,101 @@ document.addEventListener("DOMContentLoaded", async () => {
       manualInput.style.display = dropdown.value === "manuell" ? "block" : "none";
       if (dropdown.value === "manuell") manualInput.focus(); else manualInput.value = "";
     }
+
+
+    // FÜGEN SIE DIESE NEUE FUNKTION HINZU
+
+function initializeSpeechSearch() {
+    const searchButton = document.getElementById('speech-search-button');
+    const searchInput = document.getElementById('kundenSuche');
+    if (!searchButton) return;
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+        searchButton.style.display = 'none';
+        return;
+    }
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'de-DE';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    searchButton.addEventListener('click', () => {
+        if (searchInput.disabled) {
+            alert("Bitte warten Sie, bis die Kundendaten geladen sind.");
+            return;
+        }
+        recognition.start();
+    });
+
+    recognition.onstart = () => {
+        searchButton.classList.add('is-listening');
+        searchInput.placeholder = 'Höre zu...';
+    };
+    recognition.onend = () => {
+        searchButton.classList.remove('is-listening');
+        searchInput.placeholder = '🔍 Kunde, Firma, PLZ oder Ort suchen...';
+    };
+    recognition.onerror = (event) => {
+        alert('Fehler bei der Spracherkennung: ' + event.error);
+    };
+    recognition.onresult = (event) => {
+        // Wichtig: Hier wird KEIN Punkt hinzugefügt.
+        const suchtext = event.results[0][0].transcript;
+        searchInput.value = suchtext;
+
+        // Löst die Suche aus
+        const inputEvent = new Event('input', { bubbles: true });
+        searchInput.dispatchEvent(inputEvent);
+    };
+}
+
+
+// FÜGEN SIE DIESE NEUE FUNKTION ZU IHREM SCRIPT HINZU
+
+function initializePhoneLink() {
+    const phoneInput = document.getElementById('telefon');
+    const callButton = document.getElementById('call-button');
+
+    // Diese Funktion wird aufgerufen, wenn sich der Inhalt des Telefonfeldes ändert
+    const updateCallButton = () => {
+        const phoneNumber = phoneInput.value.trim();
+        if (phoneNumber) {
+            callButton.style.display = 'flex'; // Button anzeigen
+        } else {
+            callButton.style.display = 'none'; // Button ausblenden
+        }
+    };
+
+    // Event-Listener, der bei jeder Änderung im Feld prüft, ob der Button angezeigt werden soll
+    phoneInput.addEventListener('input', updateCallButton);
+
+    // Event-Listener für den Klick auf den Anruf-Button
+    callButton.addEventListener('click', () => {
+        let phoneNumber = phoneInput.value.trim();
+        // Bereinigt die Nummer von Leerzeichen, Klammern etc. und fügt das "tel:"-Präfix hinzu
+        let telLink = 'tel:' + phoneNumber.replace(/[\s\(\)\-\/]/g, '');
+        
+        // Öffnet den Link (auf dem Handy die Telefon-App, auf dem Desktop z.B. Teams, Skype etc.)
+        window.location.href = telLink;
+    });
+
+    // Wir müssen auch dafür sorgen, dass der Button erscheint, wenn ein Kunde ausgewählt wird.
+    // Dazu erweitern wir die Funktion, die die Felder füllt.
+    // Wir machen das, indem wir das 'input'-Event manuell auslösen.
+    const originalSetzenFunktion = (kunde) => {
+        // ... (die Logik zum Setzen der Felder)
+        document.getElementById("telefon").value = kunde.Telefon || "";
+        // ...
+        
+        // Manuell das Event auslösen, damit der Anruf-Button erscheint
+        phoneInput.dispatchEvent(new Event('input')); 
+    };
+    
+    // Wir müssen die 'click'-Funktion in 'initializeCustomerSearchListeners' anpassen,
+    // damit sie diese Logik verwendet.
+}
+
 
 // ========================================================================
 // ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
@@ -334,6 +506,18 @@ async function loadProtectedData() {
         
         const parsedData = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
         kunden = parsedData;
+
+                // ========================================================
+        // NEUER BLOCK: Fuse.js wird hier initialisiert
+        // ========================================================
+        const options = {
+          keys: ['Name', 'Firma', 'Adresse'], // Felder, die durchsucht werden sollen
+          includeScore: true,       // Wichtig, um die Qualität des Treffers zu bewerten
+          threshold: 0.4,           // Wie unscharf gesucht wird (0.0 = exakt, 1.0 = alles)
+          ignoreLocation: true,     // Sucht im gesamten Text, nicht nur am Anfang
+        };
+        fuse = new Fuse(kunden, options);
+        // ============================================
         
         return kunden;
 
@@ -360,40 +544,73 @@ async function loadProtectedData() {
         return new TextDecoder().decode(decryptedData);
     }
 
-    function initializeCustomerSearchListeners() {
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
-        let activeResultIndex = -1;
+// ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
 
-        kundenSucheInput.addEventListener('input', function() {
-            activeResultIndex = -1;
-            const suchbegriff = this.value.toLowerCase();
-            if (suchbegriff.length < 2) {
-                suchErgebnisseContainer.style.display = 'none';
-                return;
-            }
-            const suchbegriffe = suchbegriff.split(' ').filter(Boolean);
-            const treffer = kunden.filter(kunde => {
+// ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
+
+// ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
+
+function initializeCustomerSearchListeners() {
+    const kundenSucheInput = document.getElementById('kundenSuche');
+    const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
+    let activeResultIndex = -1;
+
+    // Diese Funktion ist dafür verantwortlich, die Ergebnisbox zu füllen und anzuzeigen.
+    function zeigeSuchErgebnisse(treffer, suchbegriffe, fuseErgebnisse) {
+        if (!treffer || treffer.length === 0) {
+            suchErgebnisseContainer.innerHTML = '<div class="ergebnis-item no-results">Keine Treffer gefunden</div>';
+        } else {
+            suchErgebnisseContainer.innerHTML = treffer.map((kunde, index) => {
+                const originalIndex = kunden.indexOf(kunde);
                 const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
                 const ort = adresseTeile[1] || '';
                 const plz = adresseTeile[2] || '';
-                const suchString = `${kunde.Name || ''} ${kunde.Firma || ''} ${plz} ${ort}`.toLowerCase();
-                return suchbegriffe.every(term => suchString.includes(term));
-            }).slice(0, 50);
-            zeigeSuchErgebnisse(treffer, suchbegriffe);
-        });
+                let label = `${kunde.Name ? kunde.Name.trim() + ' – ' : ''}${kunde.Firma ? kunde.Firma.trim() : ''}${(plz || ort) ? ` (${plz} ${ort})` : ''}`;
+                
+                suchbegriffe.forEach(term => {
+                    if (term) { // Sicherheitsprüfung
+                        label = label.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), match => `<span class="search-highlight">${match}</span>`);
+                    }
+                });
 
-        kundenSucheInput.addEventListener('keydown', function(e) {
-            const ergebnisse = suchErgebnisseContainer.querySelectorAll('.ergebnis-item:not(.no-results)');
-            if (ergebnisse.length === 0) return;
-            switch (e.key) {
-                case 'ArrowDown': e.preventDefault(); activeResultIndex = (activeResultIndex + 1) % ergebnisse.length; updateActiveResult(ergebnisse); break;
-                case 'ArrowUp': e.preventDefault(); activeResultIndex = (activeResultIndex - 1 + ergebnisse.length) % ergebnisse.length; updateActiveResult(ergebnisse); break;
-                case 'Enter': e.preventDefault(); if (activeResultIndex > -1) ergebnisse[activeResultIndex].click(); else if (ergebnisse.length === 1) ergebnisse[0].click(); break;
-                case 'Escape': suchErgebnisseContainer.style.display = 'none'; break;
-            }
-        });
+                let itemClass = 'ergebnis-item';
+                if (index === 0 && fuseErgebnisse && fuseErgebnisse[0] && fuseErgebnisse[0].score < 0.1) {
+                    itemClass += ' best-match';
+                }
 
+                return `<div class="${itemClass}" data-index="${originalIndex}">${label}</div>`;
+            }).join('');
+        }
+        // Diese Zeile macht die Box sichtbar.
+        suchErgebnisseContainer.style.display = 'block';
+    }
+
+    // Listener für die Texteingabe (per Tippen oder Sprache)
+    kundenSucheInput.addEventListener('input', function() {
+        activeResultIndex = -1;
+        const suchbegriff = this.value;
+
+        if (suchbegriff.length < 2) { // Zurück auf 2 Zeichen für bessere Reaktionsfähigkeit
+            suchErgebnisseContainer.style.display = 'none';
+            return;
+        }
+
+        const suchTokens = suchbegriff.split(' ').filter(token => token.length > 0);
+        const erweiterteSuche = suchTokens.map(token => ({
+            $or: [ { Name: token }, { Firma: token }, { Adresse: token } ]
+        }));
+
+        const fuseErgebnisse = fuse.search({ $and: erweiterteSuche });
+        const treffer = fuseErgebnisse.map(ergebnis => ergebnis.item);
+
+        zeigeSuchErgebnisse(treffer, suchTokens, fuseErgebnisse);
+    });
+
+    // Listener für die Pfeiltasten-Navigation
+    kundenSucheInput.addEventListener('keydown', function(e) {
+        const ergebnisse = suchErgebnisseContainer.querySelectorAll('.ergebnis-item:not(.no-results)');
+        if (ergebnisse.length === 0) return;
+        
         function updateActiveResult(ergebnisse) {
             ergebnisse.forEach(item => item.classList.remove('active'));
             if (activeResultIndex > -1) {
@@ -403,49 +620,50 @@ async function loadProtectedData() {
             }
         }
 
-        function zeigeSuchErgebnisse(treffer, suchbegriffe) {
-            if (treffer.length === 0) {
-                suchErgebnisseContainer.innerHTML = '<div class="ergebnis-item no-results">Keine Treffer gefunden</div>';
-            } else {
-                suchErgebnisseContainer.innerHTML = treffer.map(kunde => {
-                    const originalIndex = kunden.indexOf(kunde);
-                    const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
-                    const ort = adresseTeile[1] || '';
-                    const plz = adresseTeile[2] || '';
-                    let label = `${kunde.Name ? kunde.Name.trim() + ' – ' : ''}${kunde.Firma ? kunde.Firma.trim() : ''}${(plz || ort) ? ` (${plz} ${ort})` : ''}`;
-                    suchbegriffe.forEach(term => {
-                        label = label.replace(new RegExp(term, 'gi'), match => `<span class="search-highlight">${match}</span>`);
-                    });
-                    return `<div class="ergebnis-item" data-index="${originalIndex}">${label}</div>`;
-                }).join('');
-            }
-            suchErgebnisseContainer.style.display = 'block';
+        switch (e.key) {
+            case 'ArrowDown': e.preventDefault(); activeResultIndex = (activeResultIndex + 1) % ergebnisse.length; updateActiveResult(ergebnisse); break;
+            case 'ArrowUp': e.preventDefault(); activeResultIndex = (activeResultIndex - 1 + ergebnisse.length) % ergebnisse.length; updateActiveResult(ergebnisse); break;
+            case 'Enter': e.preventDefault(); if (activeResultIndex > -1) ergebnisse[activeResultIndex].click(); else if (ergebnisse.length === 1) ergebnisse[0].click(); break;
+            case 'Escape': suchErgebnisseContainer.style.display = 'none'; break;
         }
+    });
 
-        suchErgebnisseContainer.addEventListener('click', function(e) {
-            const ergebnisItem = e.target.closest('.ergebnis-item');
-            if (ergebnisItem && ergebnisItem.dataset.index) {
-                const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
-                const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-                document.getElementById("name").value = kunde.Name || "";
-                document.getElementById("firma").value = kunde.Firma || "";
-                document.getElementById("telefon").value = kunde.Telefon || "";
-                document.getElementById("email").value = kunde["E-Mail"] || "";
-                document.getElementById("strasse").value = adresseTeile[0] || "";
-                document.getElementById("ort").value = adresseTeile[1] || "";
-                document.getElementById("plz").value = adresseTeile[2] || "";
-                document.getElementById("land").value = adresseTeile[3] || "";
-                kundenSucheInput.value = '';
-                suchErgebnisseContainer.style.display = 'none';
-            }
-        });
+    // Listener für das Klicken auf ein Suchergebnis
+    suchErgebnisseContainer.addEventListener('click', function(e) {
+        const ergebnisItem = e.target.closest('.ergebnis-item');
+        if (ergebnisItem && ergebnisItem.dataset.index) {
+            const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
+            
+            document.getElementById("name").value = kunde.Name || "";
+            document.getElementById("firma").value = kunde.Firma || "";
+            
+            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+            document.getElementById("strasse").value = adresseTeile[0] || "";
+            document.getElementById("ort").value = adresseTeile[1] || "";
+            document.getElementById("plz").value = adresseTeile[2] || "";
+            document.getElementById("land").value = adresseTeile[3] || "";
+            
+            document.getElementById("email").value = kunde["E-Mail"] || "";
+            
+            const telefonInput = document.getElementById("telefon");
+            telefonInput.value = kunde.Telefon || "";
+            // Löst das 'input'-Event aus, damit der Anruf-Button erscheint
+            telefonInput.dispatchEvent(new Event('input'));
 
-        document.addEventListener('click', function(e) {
-            if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
-                suchErgebnisseContainer.style.display = 'none';
-            }
-        });
-    }
+            kundenSucheInput.value = '';
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
+
+    // Listener, um die Ergebnisliste auszublenden, wenn man daneben klickt
+    document.addEventListener('click', function(e) {
+        if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
+}
+
+
 
     function setupSpeechRecognition(buttonId, textId, statusId) {
         const aufnahmeButton = document.getElementById(buttonId);
