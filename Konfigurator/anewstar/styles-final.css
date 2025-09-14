@@ -1231,3 +1231,119 @@ input:focus {
 }
 
 }
+
+
+/* ======================================================= */
+/* ===== STILE FÜR DEN NEUEN LOGIN-DIALOG              ===== */
+/* ======================================================= */
+
+/* 1. Das Overlay, das den Hintergrund abdunkelt */
+#password-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Etwas dunkler für mehr Fokus */
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 2. Die weiße "Karte" in der Mitte */
+.login-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* 3. Das Logo */
+.login-card .login-logo {
+    height: 45px; /* Etwas kleiner und dezenter */
+    margin-bottom: 25px;
+}
+
+/* 4. Überschriften und Text */
+.login-card h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.login-card p {
+    color: #6c757d; /* Ein weicheres Grau */
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* 5. Das Passwort-Eingabefeld */
+.login-card .input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.login-card input[type="password"] {
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 25px; /* Perfekt abgerundet */
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+
+.login-card input[type="password"]:focus {
+    outline: none;
+    border-color: #00a1e1;
+    box-shadow: 0 0 0 4px rgba(0, 161, 225, 0.2);
+}
+
+/* 6. Die Status-Nachricht für Fehler */
+.login-card .status-message {
+    color: #dc3545;
+    min-height: 24px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* 7. Die Buttons */
+.login-card .btn-login {
+    width: 100%;
+    background-color: #00a1e1;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.login-card .btn-login:hover {
+    background-color: #0077b6;
+}
+
+.login-card .btn-secondary {
+    width: 100%;
+    background-color: transparent;
+    color: #6c757d;
+    border: none;
+    padding: 15px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.login-card .btn-secondary:hover {
+    color: #333;
+}
