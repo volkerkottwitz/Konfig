@@ -40,6 +40,44 @@
       max-width: 500px;
     }
 
+
+    /* ================================================================== */
+/* ===== NEU: Stile für das einspaltige Formular-Layout         ===== */
+/* ================================================================== */
+
+/* 
+   Diese neue Klasse ist für Zeilen, die mehrere Felder enthalten.
+   Wir verwenden Flexbox, um die Felder darin anzuordnen.
+*/
+.form-row {
+    display: flex;
+    gap: 15px; /* Abstand zwischen den Feldern in einer Zeile */
+    width: 100%;
+    max-width: 530px; /* Passt zur Breite der anderen Felder */
+}
+
+/* 
+   Weist jedes Eingabefeld in einer .form-row an,
+   sich den verfügbaren Platz fair zu teilen.
+*/
+.form-row input {
+    flex: 1; /* Wichtigste Regel: Felder teilen sich den Platz */
+    min-width: 0; /* Verhindert, dass Felder zu groß bleiben */
+}
+
+/* 
+   Spezifische Anpassung für PLZ und Ort:
+   Das PLZ-Feld soll schmaler sein als das Ort-Feld.
+   Wir geben dem PLZ-Feld 1 Teil und dem Ort-Feld 2 Teile der Breite.
+*/
+.form-row #plz {
+    flex: 1;
+}
+.form-row #ort {
+    flex: 2;
+}
+
+
     /* FÜGEN SIE DIESEN BLOCK ZU IHREM CSS HINZU */
 /* (Ein guter Platz ist direkt vor der .search-input-group Regel) */
 
@@ -208,31 +246,43 @@
 
   <section class="form-section-container">
     <h3>Kundendaten</h3>
-    <div id="kundenDetails" class="centered-form-layout">
-<!-- ERSETZEN SIE DEN ALTEN .search-wrapper HIERMIT -->
+<!-- ======================================================= -->
+<!-- ===== NEU: Logisches, einspaltiges Adress-Layout    ===== -->
+<!-- ======================================================= -->
+<div id="kundenDetails" class="centered-form-layout">
 
-<div class="search-wrapper">
-  <div class="search-input-group">
-    <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
-    <button id="speech-search-button" class="icon-button" title="Suche per Sprache">🎤</button>
-  </div>
-  <div id="suchErgebnisse" style="display: none;"></div>
-</div>
-
- 
-</div>
-      <input type="text" id="name" placeholder="Name">
-      <input type="text" id="firma" placeholder="Firma">
-      <input type="text" id="strasse" placeholder="Straße">
-      <input type="text" id="plz" placeholder="PLZ">
-      <input type="text" id="ort" placeholder="Ort">
-      <input type="text" id="land" placeholder="Land">
-      <input type="text" id="email" placeholder="E-Mail">
-      <div class="phone-group">
-  <input type="text" id="telefon" placeholder="Telefon">
-  <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
-</div>
+    <!-- Suchleiste bleibt oben -->
+    <div class="search-wrapper">
+        <div class="search-input-group">
+            <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
+            <button id="speech-search-button" class="icon-button" title="Suche per Sprache">🎤</button>
+        </div>
+        <div id="suchErgebnisse" style="display: none;"></div>
     </div>
+
+    <!-- Neue, logische Reihenfolge der Felder -->
+    <input type="text" id="firma" placeholder="Firma">
+    <input type="text" id="name" placeholder="Ansprechpartner">
+
+    <!-- Container für PLZ und Ort, damit sie nebeneinander stehen können -->
+    <div class="form-row">
+        <input type="text" id="strasse" placeholder="Straße und Hausnummer">
+    </div>
+    <div class="form-row">
+        <input type="text" id="plz" placeholder="PLZ">
+        <input type="text" id="ort" placeholder="Ort">
+    </div>
+    
+    <input type="text" id="land" placeholder="Land">
+    <input type="text" id="email" placeholder="E-Mail">
+
+    <!-- Telefon-Gruppe bleibt unverändert -->
+    <div class="phone-group">
+        <input type="text" id="telefon" placeholder="Telefon">
+        <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
+    </div>
+</div>
+
   </section>
 
   <section class="form-section-container">
@@ -312,21 +362,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     initializePhoneLink();
 
     try {
-        // 1. Starte den Lade- und Schutzprozess.
-        // Die Funktion hält hier an, bis die Daten geladen sind (oder eine Umleitung stattfindet).
-        await loadProtectedData();
+        // 1. Starte den Lade- und Schutzprozess und warte auf das Ergebnis.
+        const isLoginSuccessful = await loadProtectedData();
 
-        // 2. Wenn der Code hier ankommt, war alles erfolgreich.
-        // Die globale Variable 'kunden' ist jetzt gefüllt.
-        console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+        // 2. Wenn der Login erfolgreich war, aktiviere die abhängigen Funktionen.
+        if (isLoginSuccessful) {
+            console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
 
-        // 3. Aktiviere jetzt die Teile der Seite, die von den Kundendaten abhängen.
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        kundenSucheInput.disabled = false;
-        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
-        
-        // Die Such-Listener können jetzt sicher initialisiert werden.
-        initializeCustomerSearchListeners();
+            // Elemente holen
+            const kundenSucheInput = document.getElementById('kundenSuche');
+            const speechButton = document.getElementById('speech-search-button');
+
+            // Suchfeld aktivieren
+            kundenSucheInput.disabled = false;
+            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+            
+            // Mikrofon-Button aktivieren
+            if (speechButton) {
+                speechButton.disabled = false;
+                speechButton.style.cursor = 'pointer';
+                speechButton.style.opacity = '1';
+            }
+            
+            // Die Such-Listener können jetzt sicher initialisiert werden.
+            initializeCustomerSearchListeners();
+        }
 
     } catch (error) {
         // Dieser Block wird nur bei wirklich unerwarteten Fehlern ausgeführt,
@@ -455,8 +515,80 @@ function initializePhoneLink() {
 
 
 // ========================================================================
-// ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
+// ===== FINALE, PASSIVE LADE-LOGIK FÜR DIESE SEITE                 =====
 // ========================================================================
+
+// ========================================================================
+// ===== ANGEPASSTE VERSION: UNIVERSALER DATENSCHUTZ- & LADE-CODE     =====
+// ========================================================================
+
+async function loadProtectedData() {
+    // 1. Versuche, das Passwort aus dem aktuellen localStorage zu lesen
+    let password = localStorage.getItem('customerDataPassword');
+
+    // 2. Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
+    if (!password && window.location.hash.includes('password=')) {
+        const urlHash = window.location.hash.substring(1);
+        const params = new URLSearchParams(urlHash);
+        password = params.get('password');
+        
+        if (password) {
+            localStorage.setItem('customerDataPassword', password);
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+    }
+
+// Hilfsfunktion, um Suchfeld UND Mikrofon zu deaktivieren
+function disableSearch(message) {
+    const kundenSucheInput = document.getElementById('kundenSuche');
+    const speechButton = document.getElementById('speech-search-button'); // Mikrofon-Button holen
+
+    if (kundenSucheInput) {
+        kundenSucheInput.disabled = true;
+        kundenSucheInput.placeholder = message;
+    }
+    if (speechButton) {
+        speechButton.disabled = true; // Button deaktivieren
+        speechButton.style.cursor = 'not-allowed'; // Mauszeiger ändern
+        speechButton.style.opacity = '0.5'; // Visuell ausgrauen
+    }
+}
+
+    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben...
+    if (!password) {
+        console.log("Kein Passwort gefunden. Kundensuche wird deaktiviert.");
+        disableSearch("Für Kundensuche bitte anmelden");
+        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
+    }
+
+    // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
+    try {
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
+
+        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+        const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+        
+        if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
+        
+        const encryptedArrayBuffer = await response.arrayBuffer();
+        const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
+        
+        kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
+        
+        const options = { keys: ['Name', 'Firma', 'Adresse'], includeScore: true, threshold: 0.4, ignoreLocation: true };
+        fuse = new Fuse(kunden, options);
+        
+        return true; // <-- WICHTIG: Signal für Erfolg zurückgeben
+
+    } catch (error) {
+        console.error("Fehler bei der Datenentschlüsselung:", error);
+        localStorage.removeItem('customerDataPassword');
+        disableSearch("Anmeldung fehlgeschlagen. Bitte neu anmelden.");
+        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
+    }
+}
+
 
 // Die exakte decryptData-Funktion, die in jeder Datei benötigt wird
 async function decryptData(encryptedArrayBuffer, password) {
@@ -470,93 +602,32 @@ async function decryptData(encryptedArrayBuffer, password) {
     return new TextDecoder().decode(decryptedData);
 }
 
-/**
- * Prüft die Authentifizierung, lädt und entschlüsselt die Kundendaten.
- * Leitet bei fehlender Authentifizierung zur Login-Seite um.
- * Gibt bei Erfolg die entschlüsselten und geparsten Kundendaten zurück.
- */
-// ========================================================================
-// ===== KORRIGIERTE VERSION FÜR DATEIEN IN EINEM UNTERORDNER         =====
-// ========================================================================
 
-async function loadProtectedData() {
-    // Holt das Passwort aus dem Speicher
-    const password = sessionStorage.getItem('customerDataPassword');
-
-    // Prüft, ob ein Passwort vorhanden ist
-    if (!password) {
-        // WENN NEIN: Leite zum Login im HAUPTORDNER um.
-        // Das ist die korrigierte Zeile mit "../"
-        window.location.href = '../authentifizierung.html';
-        return new Promise(() => {}); 
-    }
-
-    // WENN JA: Lade und entschlüssele die Daten
-    try {
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
-
-        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
-        const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
-        
-        if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
-        
-        const encryptedArrayBuffer = await response.arrayBuffer();
-        const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
-        
-        const parsedData = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
-        kunden = parsedData;
-
-                // ========================================================
-        // NEUER BLOCK: Fuse.js wird hier initialisiert
-        // ========================================================
-        const options = {
-          keys: ['Name', 'Firma', 'Adresse'], // Felder, die durchsucht werden sollen
-          includeScore: true,       // Wichtig, um die Qualität des Treffers zu bewerten
-          threshold: 0.4,           // Wie unscharf gesucht wird (0.0 = exakt, 1.0 = alles)
-          ignoreLocation: true,     // Sucht im gesamten Text, nicht nur am Anfang
-        };
-        fuse = new Fuse(kunden, options);
-        // ============================================
-        
-        return kunden;
-
-    } catch (error) {
-        // Falls bei der Entschlüsselung ein Fehler passiert
-        sessionStorage.removeItem('customerDataPassword');
-        alert("Fehler bei der Datenentschlüsselung. Sie werden zur erneuten Anmeldung weitergeleitet.");
-        // Leite auch hier korrekt zum Login im HAUPTORDNER um.
-        // Das ist die zweite korrigierte Zeile mit "../"
-        window.location.href = '../authentifizierung.html';
-        return new Promise(() => {});
-    }
-}
-
-
-    async function decryptData(encryptedArrayBuffer, password) {
-        const ITERATIONS = 480000, SALT_SIZE_BYTES = 16, NONCE_SIZE_BYTES = 12;
-        const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
-        const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
-        const data = encryptedArrayBuffer.slice(SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
-        const passwordKey = await window.crypto.subtle.importKey('raw', new TextEncoder().encode(password), { name: 'PBKDF2' }, false, ['deriveKey']);
-        const aesKey = await window.crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: ITERATIONS, hash: 'SHA-256' }, passwordKey, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
-        const decryptedData = await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, aesKey, data);
-        return new TextDecoder().decode(decryptedData);
-    }
 
 // ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
 
-// ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
-
-// ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
+// ===== FINALE, PERFORMANTE SUCHFUNKTION MIT DEBOUNCING =====
 
 function initializeCustomerSearchListeners() {
     const kundenSucheInput = document.getElementById('kundenSuche');
     const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
     let activeResultIndex = -1;
+    let debounceTimer; // Timer für das Debouncing
 
-    // Diese Funktion ist dafür verantwortlich, die Ergebnisbox zu füllen und anzuzeigen.
+    // --- HILFSFUNKTIONEN ---
+
+    function updateActiveResult(ergebnisse) {
+        // ... (Diese Funktion bleibt unverändert)
+        ergebnisse.forEach(item => item.classList.remove('active'));
+        if (activeResultIndex > -1) {
+            const activeItem = ergebnisse[activeResultIndex];
+            activeItem.classList.add('active');
+            activeItem.scrollIntoView({ block: 'nearest' });
+        }
+    }
+
     function zeigeSuchErgebnisse(treffer, suchbegriffe, fuseErgebnisse) {
+        // ... (Diese Funktion bleibt unverändert)
         if (!treffer || treffer.length === 0) {
             suchErgebnisseContainer.innerHTML = '<div class="ergebnis-item no-results">Keine Treffer gefunden</div>';
         } else {
@@ -568,7 +639,7 @@ function initializeCustomerSearchListeners() {
                 let label = `${kunde.Name ? kunde.Name.trim() + ' – ' : ''}${kunde.Firma ? kunde.Firma.trim() : ''}${(plz || ort) ? ` (${plz} ${ort})` : ''}`;
                 
                 suchbegriffe.forEach(term => {
-                    if (term) { // Sicherheitsprüfung
+                    if (term) {
                         label = label.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), match => `<span class="search-highlight">${match}</span>`);
                     }
                 });
@@ -581,45 +652,37 @@ function initializeCustomerSearchListeners() {
                 return `<div class="${itemClass}" data-index="${originalIndex}">${label}</div>`;
             }).join('');
         }
-        // Diese Zeile macht die Box sichtbar.
         suchErgebnisseContainer.style.display = 'block';
     }
 
-    // Listener für die Texteingabe (per Tippen oder Sprache)
+    // --- EVENT-LISTENER MIT DEBOUNCING ---
+
     kundenSucheInput.addEventListener('input', function() {
-        activeResultIndex = -1;
+        // Lösche den alten Timer bei jeder neuen Eingabe
+        clearTimeout(debounceTimer);
+        
         const suchbegriff = this.value;
 
-        if (suchbegriff.length < 2) { // Zurück auf 2 Zeichen für bessere Reaktionsfähigkeit
-            suchErgebnisseContainer.style.display = 'none';
-            return;
-        }
-
-        const suchTokens = suchbegriff.split(' ').filter(token => token.length > 0);
-        const erweiterteSuche = suchTokens.map(token => ({
-            $or: [ { Name: token }, { Firma: token }, { Adresse: token } ]
-        }));
-
-        const fuseErgebnisse = fuse.search({ $and: erweiterteSuche });
-        const treffer = fuseErgebnisse.map(ergebnis => ergebnis.item);
-
-        zeigeSuchErgebnisse(treffer, suchTokens, fuseErgebnisse);
+        // Starte einen neuen Timer
+        debounceTimer = setTimeout(() => {
+            activeResultIndex = -1;
+            if (suchbegriff.length < 2) {
+                suchErgebnisseContainer.style.display = 'none';
+                return;
+            }
+            const suchTokens = suchbegriff.split(' ').filter(token => token.length > 0);
+            const erweiterteSuche = suchTokens.map(token => ({ $or: [ { Name: token }, { Firma: token }, { Adresse: token } ] }));
+            const fuseErgebnisse = fuse.search({ $and: erweiterteSuche });
+            const treffer = fuseErgebnisse.map(ergebnis => ergebnis.item);
+            zeigeSuchErgebnisse(treffer, suchTokens, fuseErgebnisse);
+        }, 300); // Warte 300 Millisekunden nach der letzten Eingabe
     });
 
-    // Listener für die Pfeiltasten-Navigation
+    // Die anderen Listener bleiben unverändert
     kundenSucheInput.addEventListener('keydown', function(e) {
         const ergebnisse = suchErgebnisseContainer.querySelectorAll('.ergebnis-item:not(.no-results)');
         if (ergebnisse.length === 0) return;
         
-        function updateActiveResult(ergebnisse) {
-            ergebnisse.forEach(item => item.classList.remove('active'));
-            if (activeResultIndex > -1) {
-                const activeItem = ergebnisse[activeResultIndex];
-                activeItem.classList.add('active');
-                activeItem.scrollIntoView({ block: 'nearest' });
-            }
-        }
-
         switch (e.key) {
             case 'ArrowDown': e.preventDefault(); activeResultIndex = (activeResultIndex + 1) % ergebnisse.length; updateActiveResult(ergebnisse); break;
             case 'ArrowUp': e.preventDefault(); activeResultIndex = (activeResultIndex - 1 + ergebnisse.length) % ergebnisse.length; updateActiveResult(ergebnisse); break;
@@ -628,26 +691,22 @@ function initializeCustomerSearchListeners() {
         }
     });
 
-    // Listener für das Klicken auf ein Suchergebnis
     suchErgebnisseContainer.addEventListener('click', function(e) {
+        // ... (Dieser Block bleibt unverändert)
         const ergebnisItem = e.target.closest('.ergebnis-item');
         if (ergebnisItem && ergebnisItem.dataset.index) {
             const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
             
             document.getElementById("name").value = kunde.Name || "";
             document.getElementById("firma").value = kunde.Firma || "";
-            
             const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
             document.getElementById("strasse").value = adresseTeile[0] || "";
             document.getElementById("ort").value = adresseTeile[1] || "";
             document.getElementById("plz").value = adresseTeile[2] || "";
             document.getElementById("land").value = adresseTeile[3] || "";
-            
             document.getElementById("email").value = kunde["E-Mail"] || "";
-            
             const telefonInput = document.getElementById("telefon");
             telefonInput.value = kunde.Telefon || "";
-            // Löst das 'input'-Event aus, damit der Anruf-Button erscheint
             telefonInput.dispatchEvent(new Event('input'));
 
             kundenSucheInput.value = '';
@@ -655,8 +714,8 @@ function initializeCustomerSearchListeners() {
         }
     });
 
-    // Listener, um die Ergebnisliste auszublenden, wenn man daneben klickt
     document.addEventListener('click', function(e) {
+        // ... (Dieser Block bleibt unverändert)
         if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
             suchErgebnisseContainer.style.display = 'none';
         }

@@ -285,38 +285,43 @@
     const kundenSucheInput = document.getElementById('kundenSuche');
     const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
 
-// =================================================================
-// ===== NEUER CODE-BLOCK (Native Web Crypto API) =====
-// =================================================================
-
-// Diese Funktion startet den gesamten Prozess
 // ========================================================================
 // ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
 // ========================================================================
 
 async function loadProtectedData() {
-    // 1. Versuche, das Passwort aus dem aktuellen sessionStorage zu lesen
-    let password = sessionStorage.getItem('customerDataPassword');
+    // 1. Versuche, das Passwort aus dem localStorage zu lesen (konsistent mit anderen Seiten)
+    let password = localStorage.getItem('customerDataPassword');
 
-    // 2. NEU: Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
+    // 2. Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
     if (!password && window.location.hash.includes('password=')) {
         const urlHash = window.location.hash.substring(1);
         const params = new URLSearchParams(urlHash);
         password = params.get('password');
+        
         if (password) {
-            sessionStorage.setItem('customerDataPassword', password);
+            localStorage.setItem('customerDataPassword', password);
             history.replaceState(null, '', window.location.pathname + window.location.search);
         }
     }
 
-    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben -> umleiten
-    if (!password) {
-        // Annahme: Diese Datei liegt in einem Unterordner.
-        window.location.href = '../authentifizierung.html';
-        return new Promise(() => {}); 
+    // Hilfsfunktion, um das Suchfeld zu deaktivieren und die Nachricht anzuzeigen
+    function disableSearch(message) {
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        if (kundenSucheInput) {
+            kundenSucheInput.disabled = true;
+            kundenSucheInput.placeholder = message;
+        }
     }
 
-    // 4. Wenn wir ein Passwort haben, lade und entschlüssele die Daten.
+    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben...
+    if (!password) {
+        console.log("Kein Passwort gefunden. Kundensuche wird deaktiviert.");
+        disableSearch("Für Kundensuche bitte anmelden");
+        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
+    }
+
+    // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
     try {
         const kundenSucheInput = document.getElementById('kundenSuche');
         if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
@@ -331,13 +336,13 @@ async function loadProtectedData() {
         
         kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
         
-        return kunden;
+        return true; // <-- WICHTIG: Signal für Erfolg zurückgeben
 
     } catch (error) {
-        sessionStorage.removeItem('customerDataPassword');
-        alert("Fehler bei der Datenentschlüsselung. Sie werden zur erneuten Anmeldung weitergeleitet.");
-        window.location.href = '../authentifizierung.html';
-        return new Promise(() => {});
+        console.error("Fehler bei der Datenentschlüsselung:", error);
+        localStorage.removeItem('customerDataPassword');
+        disableSearch("Anmeldung fehlgeschlagen. Bitte neu anmelden.");
+        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
     }
 }
 
@@ -1013,19 +1018,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     try {
-        // 3. Authentifizierung prüfen und auf Daten warten
-        await loadProtectedData();
+        // 3. Authentifizierung prüfen und auf das Ergebnis warten
+        const isLoginSuccessful = await loadProtectedData();
 
-        // Wenn wir hier ankommen, ist alles gut.
-        console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+        // 4. NUR bei erfolgreicher Anmeldung die Suche aktivieren
+        if (isLoginSuccessful) {
+            console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
 
-        // 4. UI-Elemente aktivieren, die von den Daten abhängen
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        kundenSucheInput.disabled = false;
-        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+            // UI-Elemente aktivieren, die von den Daten abhängen
+            const kundenSucheInput = document.getElementById('kundenSuche');
+            kundenSucheInput.disabled = false;
+            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
 
-        // 5. Event-Listener für die Suche aktivieren
-        initializeCustomerSearchListeners();
+            // Event-Listener für die Suche aktivieren
+            initializeCustomerSearchListeners();
+        }
+        // Wenn die Anmeldung fehlschlägt, bleibt die Suche deaktiviert.
 
     } catch (error) {
         console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
@@ -1033,7 +1041,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+
   </script>
+    <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
+  <button onclick="generateRetourenscheinPDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
+    PDF erzeugen
+  </button>
 </body>
 </html>
 
