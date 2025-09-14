@@ -1655,6 +1655,172 @@ function closeMobileNav() {
 }
 
 
+// ===== KORRIGIERTE VERSION FÜR viewer-final.js =====
+
+/**
+ * Zeigt den modalen Passwort-Dialog an und übernimmt die komplette Login-Logik.
+ * Gibt 'true' bei Erfolg zurück, 'false' bei Abbruch.
+ */
+function showPasswordDialogAndLogin() {
+    return new Promise((resolve) => {
+        const overlay = document.getElementById('password-dialog-overlay');
+        const passwordInput = document.getElementById('passwordInput');
+        const submitButton = document.getElementById('submitButton');
+        const cancelButton = document.getElementById('cancelLoginBtn');
+        const status = document.getElementById('status');
+
+        // Dialog anzeigen und Zustand zurücksetzen
+        overlay.style.display = 'flex';
+        passwordInput.value = '';
+        status.textContent = '';
+        passwordInput.focus();
+
+        // Interne Funktion, die die Passwortprüfung durchführt
+        const attemptLogin = async () => {
+            const password = passwordInput.value.trim();
+            if (!password) {
+                status.textContent = 'Bitte geben Sie ein Passwort ein.';
+                passwordInput.focus();
+                return;
+            }
+
+            status.textContent = 'Prüfe Passwort...';
+            submitButton.disabled = true;
+
+            try {
+                await validatePassword(password);
+                
+                // ERFOLG!
+                localStorage.setItem('customerDataPassword', password);
+                overlay.style.display = 'none';
+                resolve(true); // <--- Kein Alert, nur das Ergebnis zurückgeben
+
+            } catch (error) {
+                // FEHLER!
+                status.textContent = 'Das Passwort ist falsch. Bitte erneut versuchen.';
+                passwordInput.focus(); // Fokus zurück ins Feld
+                passwordInput.select(); // Text markieren für einfache Überschreibung
+                submitButton.disabled = false; // Button wieder aktivieren
+            }
+        };
+
+        // Event-Listener nur einmal zuweisen
+        submitButton.onclick = attemptLogin;
+        passwordInput.onkeydown = (e) => { if (e.key === 'Enter') attemptLogin(); };
+        
+        cancelButton.onclick = () => {
+            overlay.style.display = 'none'; // Dialog schließen
+            resolve(false); // Abbruch signalisieren
+        };
+    });
+}
+
+/**
+ * Prüft ein Passwort, indem es versucht, die kundenstamm.enc zu entschlüsseln.
+ * Wirft einen Fehler, wenn das Passwort falsch ist.
+ */
+async function validatePassword(password) {
+    const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+    const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+    if (!response.ok) throw new Error('Kundendatei nicht erreichbar');
+    const encryptedArrayBuffer = await response.arrayBuffer();
+    
+    // Die decryptData-Funktion wird hier nur zur Validierung genutzt
+    const ITERATIONS = 480000, SALT_SIZE_BYTES = 16, NONCE_SIZE_BYTES = 12;
+    const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
+    const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+    const data = encryptedArrayBuffer.slice(SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+    const passwordKey = await window.crypto.subtle.importKey('raw', new TextEncoder().encode(password), { name: 'PBKDF2' }, false, ['deriveKey']);
+    const aesKey = await window.crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: ITERATIONS, hash: 'SHA-256' }, passwordKey, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
+    await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, aesKey, data);
+}
+
+/**
+ * Aktualisiert die Sichtbarkeit der Login/Logout-Buttons basierend auf dem Anmeldestatus.
+ */
+function updateAuthUI() {
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const isLoggedIn = !!localStorage.getItem('customerDataPassword');
+
+    if (isLoggedIn) {
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'block';
+    } else {
+        loginBtn.style.display = 'block';
+        logoutBtn.style.display = 'none';
+    }
+}
+
+// ===== KORRIGIERTE VERSION FÜR viewer-final.js =====
+
+/**
+ * Startet den optionalen Login-Prozess beim Laden der Seite.
+ * Zeigt Fehler jetzt direkt im Dialog an.
+ */
+/**
+ * Startet den optionalen Login-Prozess beim Laden der Seite.
+ */
+async function initializeAuth() {
+    // Event-Listener für den manuellen Login-Button
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+        const success = await showPasswordDialogAndLogin();
+        if (success) {
+            alert('Anmeldung erfolgreich!');
+            updateAuthUI();
+        }
+    });
+
+// ===== FINALE VERSION (OHNE BESTÄTIGUNG) =====
+
+// Event-Listener für den Logout-Button
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    // Die Aktionen werden jetzt sofort ausgeführt.
+    localStorage.removeItem('customerDataPassword');
+    location.reload();
+});
+
+
+    // Prüfen, ob beim allerersten Start der Login-Dialog gezeigt werden soll.
+    if (!localStorage.getItem('customerDataPassword')) {
+        const success = await showPasswordDialogAndLogin();
+        if (success) {
+            // Wenn der initiale Login erfolgreich war, UI aktualisieren
+            updateAuthUI();
+        }
+    }
+    
+    // UI in jedem Fall aktualisieren (z.B. wenn der Benutzer schon angemeldet war)
+    updateAuthUI();
+}
+
+
+// ===== NEU: FUNKTION ZUM ÖFFNEN GESCHÜTZTER SEITEN =====
+
+function openBerichte(event) {
+    // Verhindert, dass der Link "#" die Seite nach oben springen lässt.
+    if (event) {
+        event.preventDefault();
+    }
+
+    // Liest das Passwort aus dem zentralen Speicher.
+    const password = localStorage.getItem('customerDataPassword');
+    
+    let targetUrl = 'Retourenschein/berichte.html';
+
+    // Nur wenn ein Passwort vorhanden ist, wird es an die URL angehängt.
+    if (password) {
+        targetUrl += `#password=${encodeURIComponent(password)}`;
+    }
+
+    // Öffnet das neue Fenster. Die Zielseite kümmert sich um den Rest.
+    window.open(targetUrl, '_blank', 'noopener=no');
+}
+
+
+// ===== NEU: AUTHENTIFIZIERUNGS-LOGIK (ENDE) =====
+
+
 // ===================================================================
 //   ALLES AUSFÜHREN, WENN DIE SEITE UND ALLE INHALTE FERTIG GELADEN SIND
 // ===================================================================
@@ -1664,6 +1830,7 @@ window.onload = function() {
       // ===================================================================
     //   NEUE LOGIK FÜR DOKUMENTEN-AUSWAHL UND INITIALISIERUNG
     // ===================================================================
+    initializeAuth();
 
     const openBtn = document.getElementById('openDocDialogBtn');
     const closeBtn = document.getElementById('closeDocDialogBtn');

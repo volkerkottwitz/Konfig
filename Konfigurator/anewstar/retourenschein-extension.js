@@ -77,13 +77,22 @@
       document.body.appendChild(dialog);
 
       const password = sessionStorage.getItem('customerDataPassword');
-      function openProtectedWindow(baseUrl) {
-          if (merkliste && merkliste.length > 0) localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
-          document.body.removeChild(dialog);
-          let targetUrl = baseUrl;
-          if (password) targetUrl += `#password=${encodeURIComponent(password)}`;
-          window.open(targetUrl, '_blank', 'noopener=no');
-      }
+
+
+      // In retourenschein-ext.js, innerhalb von openMerklisteDialogDesktop
+function openProtectedWindow(baseUrl) {
+    if (merkliste && merkliste.length > 0) localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
+    document.body.removeChild(dialog);
+    
+    // Verwendet jetzt localStorage statt sessionStorage
+    const password = localStorage.getItem('customerDataPassword'); 
+    let targetUrl = baseUrl;
+    if (password) {
+        targetUrl += `#password=${encodeURIComponent(password)}`;
+    }
+    window.open(targetUrl, '_blank', 'noopener=no');
+}
+
 
       document.getElementById("jetztKaufenBtn").addEventListener("click", () => openProtectedWindow('kaufen.html'));
       document.getElementById("retourenscheinBtn").addEventListener("click", () => openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html' ));
@@ -416,7 +425,7 @@
               }
 
               function openProtectedWindow(baseUrl, closeAfter = false) {
-                  const password = window.opener ? window.opener.sessionStorage.getItem('customerDataPassword') : null;
+                  const password = window.opener ? window.opener.localStorage.getItem('customerDataPassword') : null;
                   let targetUrl = baseUrl;
                   if (password) {
                       targetUrl += \`#password=\${encodeURIComponent(password)}\`;
