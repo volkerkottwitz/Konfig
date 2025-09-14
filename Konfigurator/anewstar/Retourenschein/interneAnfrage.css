@@ -51,7 +51,7 @@ button {
     background-color: #00a1e1; /* Einheitliche Button-Farbe */
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 15px 20px;
     border-radius: 10px;
     font-size: 16px;
     cursor: pointer;
@@ -418,10 +418,7 @@ button:hover {
         height: 50px;
     }
 
-    button {
-        padding: 10px 16px;
-        font-size: 15px;
-    }
+
 
     /* Stellt sicher, dass die Container die volle Breite nutzen */
     .select2-container,
@@ -577,13 +574,14 @@ button:hover {
     background-color: #6c757d !important; /* Grau */
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 15px 20px; /* <-- KORRIGIERT */
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 1.1rem; /* <-- KORRIGIERT */
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-right: 10px; /* Abstand zum PDF-Button */
 }
+
 
 .back-button:hover {
     background-color: #5a6268 !important; /* Dunkleres Grau beim Hover */
@@ -597,3 +595,41 @@ button:hover {
 }
 
 
+
+
+/* ===================================================================== */
+/* ===== FINAL V3: Einheitliche Größe & Layout für Header-Buttons    ===== */
+/* ===================================================================== */
+
+/* 
+   Diese Regel setzt die Basisgröße für BEIDE Ansichten (Desktop & Mobil).
+   Sie ist spezifisch genug, um andere Regeln zu überschreiben.
+*/
+.header-right .buttons > * {
+    padding: 15px 25px; /* Einheitliche Größe für alle */
+    font-size: 1.1rem;    /* Einheitliche Schriftgröße */
+    box-sizing: border-box;
+    text-align: center;
+    /* WICHTIG: Verhindert, dass der Button-Text die Größe beeinflusst */
+    white-space: nowrap; 
+        display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 
+   Diese Regel passt NUR das Layout für die mobile Ansicht an.
+   Sie ändert nichts mehr an der Höhe oder Schriftgröße.
+*/
+@media screen and (max-width: 768px) {
+    .header-right .buttons {
+        width: 100%;
+        display: flex; 
+        gap: 10px;
+    }
+
+    .header-right .buttons > * {
+        flex: 1;
+        min-width: 0;
+    }
+}

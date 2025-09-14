@@ -267,43 +267,40 @@
     const kundenSucheInput = document.getElementById('kundenSuche');
     const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
 
-// =================================================================
-// ===== NEUER CODE-BLOCK (Native Web Crypto API) =====
-// =================================================================
-
 // ========================================================================
-// ===== FINALE VERSION: UNIVERSALER DATENSCHUTZ- & LADE-CODE         =====
+// ===== ANGEPASSTE VERSION: UNIVERSALER DATENSCHUTZ- & LADE-CODE     =====
 // ========================================================================
 
 async function loadProtectedData() {
-    // 1. Versuche, das Passwort aus dem aktuellen sessionStorage zu lesen
-    let password = sessionStorage.getItem('customerDataPassword');
+    // 1. Versuche, das Passwort aus dem aktuellen localStorage zu lesen
+    let password = localStorage.getItem('customerDataPassword');
 
-    // 2. NEU: Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
+    // 2. Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
     if (!password && window.location.hash.includes('password=')) {
-        console.log("Passwort im URL-Hash gefunden. Lese es aus...");
-        const urlHash = window.location.hash.substring(1); // Das '#' am Anfang entfernen
+        const urlHash = window.location.hash.substring(1);
         const params = new URLSearchParams(urlHash);
         password = params.get('password');
         
         if (password) {
-            // WICHTIG: Speichere das gefundene Passwort sofort im sessionStorage
-            // dieses Tabs, damit es für die weitere Sitzung verfügbar ist.
-            sessionStorage.setItem('customerDataPassword', password);
-            
-            // Optional: Bereinige die URL, damit das Passwort nicht sichtbar bleibt
+            localStorage.setItem('customerDataPassword', password);
             history.replaceState(null, '', window.location.pathname + window.location.search);
         }
     }
 
-    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben,
-    // leiten wir den Benutzer zur Authentifizierung um.
+    // Hilfsfunktion, um das Suchfeld zu deaktivieren und die Nachricht anzuzeigen
+    function disableSearch(message) {
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        if (kundenSucheInput) {
+            kundenSucheInput.disabled = true;
+            kundenSucheInput.placeholder = message;
+        }
+    }
+
+    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben...
     if (!password) {
-        console.log("Kein Passwort gefunden. Leite zu authentifizierung.html um.");
-        // Annahme: Diese Datei liegt in einem Unterordner.
-        // Falls sie im Hauptordner liegt, entfernen Sie "../"
-        window.location.href = '../authentifizierung.html';
-        return new Promise(() => {}); 
+        console.log("Kein Passwort gefunden. Kundensuche wird deaktiviert.");
+        disableSearch("Für Kundensuche bitte anmelden"); // <-- ANGEPASST: Keine Weiterleitung
+        return false; // Beendet die Funktion, die Seite läuft normal weiter.
     }
 
     // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
@@ -321,16 +318,18 @@ async function loadProtectedData() {
         
         kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
         
-        return kunden;
+        return true;
 
     } catch (error) {
-        // Wenn die Entschlüsselung trotz vorhandenem Passwort fehlschlägt
-        sessionStorage.removeItem('customerDataPassword');
-        alert("Fehler bei der Datenentschlüsselung. Das gespeicherte Passwort ist möglicherweise veraltet. Sie werden zur erneuten Anmeldung weitergeleitet.");
-        window.location.href = '../authentifizierung.html';
-        return new Promise(() => {});
+        // Wenn die Entschlüsselung fehlschlägt (z.B. falsches Passwort)
+        console.error("Fehler bei der Datenentschlüsselung:", error);
+        localStorage.removeItem('customerDataPassword'); // Altes, falsches Passwort entfernen
+        disableSearch("Anmeldung fehlgeschlagen. Bitte neu anmelden."); // <-- ANGEPASST: Keine Weiterleitung
+        return false;
+        // Kein Alert oder Redirect mehr, nur die Nachricht im Feld.
     }
 }
+
 
 
 
@@ -1116,18 +1115,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // 3. Authentifizierung prüfen und auf Daten warten
-        await loadProtectedData();
+        const isLoginSuccessful = await loadProtectedData(); // Ergebnis speichern
 
-        // Wenn wir hier ankommen, ist alles gut.
-        console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+        // 4. NUR bei erfolgreicher Anmeldung die Suche aktivieren
+        if (isLoginSuccessful) {
+            console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
 
-        // 4. UI-Elemente aktivieren, die von den Daten abhängen
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        kundenSucheInput.disabled = false;
-        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+            // Diese Zeilen werden jetzt nur noch bei Erfolg ausgeführt
+            const kundenSucheInput = document.getElementById('kundenSuche');
+            kundenSucheInput.disabled = false;
+            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
 
-        // 5. Event-Listener für die Suche aktivieren
-        initializeCustomerSearchListeners();
+            // Event-Listener für die Suche aktivieren
+            initializeCustomerSearchListeners();
+        }
 
     } catch (error) {
         console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
@@ -1136,5 +1137,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
   </script>
+    <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
+  <button onclick="generateAngebotsanfragePDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
+    PDF erzeugen
+  </button>
 </body>
 </html>
