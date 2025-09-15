@@ -1347,3 +1347,36 @@ input:focus {
 .login-card .btn-secondary:hover {
     color: #333;
 }
+
+/* =====================================================
+   CSS für den Zähler am mobilen Hamburger-Menü-Button
+   ===================================================== */
+
+/* Positioniert den Badge relativ zum Button */
+#hamburger-btn {
+  position: relative;
+}
+
+/* Erstellt den eigentlichen Zähler-Badge (den roten Kreis) */
+#hamburger-btn.has-items::after {
+  content: attr(data-count); /* Liest die Zahl aus dem data-count Attribut */
+  position: absolute;
+  top: -5px;      /* Position anpassen, falls nötig */
+  right: -8px;    /* Position anpassen, falls nötig */
+  
+  background-color: #dc3545; /* Rote Hintergrundfarbe */
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%; /* Macht es rund */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  border: 2px solid white; /* Kleiner weißer Rand für besseren Kontrast */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}

@@ -419,6 +419,8 @@
                 quantity: quantity
             }, '*');
 
+            window.opener.postMessage({ type: 'updateIcon' }, '*');
+
             showSuccess('Artikel zur Merkliste hinzugefügt!');
             
             setTimeout(() => {
@@ -443,6 +445,8 @@
                 quantity: additionalQuantity
             }, '*');
 
+            window.opener.postMessage({ type: 'updateIcon' }, '*');
+
             showSuccess('Menge erhöht!');
             
             setTimeout(() => {
@@ -459,6 +463,8 @@
                     type: 'removeFromCart',
                     articleNumber: articleData.nummer
                 }, '*');
+
+                window.opener.postMessage({ type: 'updateIcon' }, '*');
 
                 showSuccess('Artikel entfernt!');
                 
