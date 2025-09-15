@@ -66,11 +66,12 @@ const merkliste = []; // Geändert von warenkorb zu merkliste
 function updateMerklisteIcon() {
   // Die Anzahl der Artikel in der Merkliste ermitteln
   const anzahl = merkliste.length;
+  const hatArtikel = anzahl > 0; // Eine Hilfsvariable für besseren Lesefluss
 
-  // --- 1. Desktop-Icon aktualisieren ---
+  // --- 1. Desktop-Icon aktualisieren (bleibt unverändert) ---
   const merklisteBtnDesktop = document.querySelector('a[onclick*="openMerkliste"]');
   if (merklisteBtnDesktop) {
-    if (anzahl > 0) {
+    if (hatArtikel) {
       merklisteBtnDesktop.dataset.count = anzahl;
       merklisteBtnDesktop.classList.add('has-items');
     } else {
@@ -78,22 +79,34 @@ function updateMerklisteIcon() {
     }
   }
 
-  // --- 2. Mobiles Hamburger-Menü-Icon aktualisieren ---
+  // --- 2. Mobiles Hamburger-Menü-Icon aktualisieren (bleibt unverändert) ---
   const hamburgerBtn = document.getElementById('hamburger-btn');
   if (hamburgerBtn) {
-    if (anzahl > 0) {
-      // Setzt die Anzahl in ein 'data-count'-Attribut, das vom CSS gelesen wird
+    if (hatArtikel) {
       hamburgerBtn.dataset.count = anzahl;
-      // Fügt eine Klasse hinzu, um den Badge sichtbar zu machen
       hamburgerBtn.classList.add('has-items');
     } else {
-      // Entfernt die Klasse und das Attribut, wenn die Merkliste leer ist
       hamburgerBtn.classList.remove('has-items');
       delete hamburgerBtn.dataset.count;
     }
   }
-}
 
+  // ===================================================================
+  //   KORREKTUR: Link-Inhalt mit innerHTML komplett neu aufbauen
+  // ===================================================================
+  const merklisteLinkMobile = document.getElementById('mobile-nav-merkliste');
+  if (merklisteLinkMobile) {
+    // 1. Entscheiden, welcher Text angezeigt werden soll
+    const text = hatArtikel ? `Merkliste (${anzahl})` : 'Merkliste';
+
+    // 2. Den kompletten HTML-Inhalt des Links neu schreiben.
+    //    Dadurch werden alle alten Inhalte (auch Duplikate) sicher entfernt.
+    //    WICHTIG: Passen Sie die Icon-Klasse "fa-solid fa-list" an, falls sie bei Ihnen anders ist.
+    // KORREKT:
+merklisteLinkMobile.innerHTML = `<i class="bi bi-list-check"></i> ${text}`;
+
+  }
+}
 
 
 const merklisteInhalt = document.getElementById("merklisteInhalt");
@@ -1235,65 +1248,6 @@ function updateHeaderDate() {
 
 
 
-// === function addAllTooltips() {
-  // Tooltips für alle Elemente definieren.
-  // Die Selektoren sind jetzt exakt auf den bekannten HTML-Code abgestimmt.
-// ===  const tooltips = {
-    // Buttons in der Hauptleiste
-// ===    'button[onclick="searchPDF()"]': 'Suche starten',
-// ===    'button[onclick="printCurrentPage()"]': 'Aktuelle Seite drucken',
-// ===    'button[onclick="printAllMatches()"]': 'Alle Treffer drucken',
-// ===    '#prev-page': 'Vorherige Seite',
-// ===    '#next-page': 'Nächste Seite',
-// ===    'button[onclick="prevMatch()"]': 'Vorheriger Treffer',
-// ===    'button[onclick="nextMatch()"]': 'Nächster Treffer',
-// ===    'button[onclick="zoomOut()"]': 'Verkleinern',
-// ===    'button[onclick="zoomIn()"]': 'Vergrößern',
-    
-    // Such-Operatoren (jetzt mit den exakten Selektoren aus dem HTML)
-// ===    '.operator-btn[data-op=\'und\']': 'Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen',
-// ===    '.operator-btn[data-op=\'oder\']': 'Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt',
-// ===    '.operator-btn[data-op=\'ohne\']': 'Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten',
-
-    // Suchfelder (jetzt mit den exakten Selektoren aus dem HTML)
-// ===    '#searchBox': 'Ersten Suchbegriff eingeben',
-// ===    '#searchBox2': 'Zweiten Suchbegriff eingeben (optional)',
-    
-    // Header-Elemente und die drei Bilder (jetzt mit den exakten Selektoren aus dem HTML)
-// ===    'a[href="https://www.ewe-armaturen.de"]': 'Zur EWE-Armaturen Webseite',
-// ===    'a[onclick="openMegarippKonfigurator()"]': 'Konfigurator MEGARIPP', // <-- GEÄNDERT
-// ===    'a[onclick="openFlexorippKonfigurator()"]': 'Konfigurator FLEXORIPP', // <-- GEÄNDERT
-// ===    'a[onclick="openYoutubeChannel()"]': 'EWE-Youtube Kanal', // <-- GEÄNDERT
-
-
-// ===  };
-
-
-
-// ===  Object.entries(tooltips).forEach(([selector, tooltip]) => {
-// ===    const elements = document.querySelectorAll(selector);
-    
-// ===    if (elements.length > 0) {
-// ===      elements.forEach(element => {
-// ===        // Schritt 1: Das neue, sichere data-tooltip Attribut setzen
-// ===        element.setAttribute('data-tooltip', tooltip);
-        
-        // Schritt 2: Ein aria-label für Barrierefreiheit setzen
-// ===        element.setAttribute('aria-label', tooltip);
-        
-        // Schritt 3: Das alte, störende title-Attribut SICHER entfernen
-// ===        if (element.hasAttribute('title')) {
-// ===          element.removeAttribute('title');
-// ===        }
-// ===      });
-// ===    } else {
-// ===      console.warn(`Tooltip-Element wurde nicht gefunden für Selektor: ${selector}`);
-// ===    }
-// ===  });
-// ===}
-
-
-
 // === 💬 DESKTOP MODAL DIALOGE ===
 
 // ⚠️ Fehlerdialog: Keine Artikelnummer gefunden (Desktop)
@@ -1997,6 +1951,30 @@ async function initializeDocumentHandling() {
       }
     });
   }
+
+// ===================================================================
+//   NEU: Zoom beim Zurückkehren zur Seite zurücksetzen (Mobile Fix)
+// ===================================================================
+window.addEventListener('focus', function() {
+  // Prüfen, ob wir uns auf einem Mobilgerät befinden, da das Problem nur dort auftritt.
+  if (isMobileDevice()) {
+    
+    // Prüfen, ob der aktuelle Zoom-Faktor von unserem Standard (1.0) abweicht.
+    // Dies verhindert unnötiges Neu-Rendern, wenn sich nichts geändert hat.
+    if (zoomFactor !== 1.0) {
+      
+      console.log("Zoom wird auf Standard zurückgesetzt..."); // Hilfreich für die Fehlersuche
+      
+      // Setze den Zoom-Faktor auf den Standardwert zurück.
+      zoomFactor = 1.0;
+      
+      // Rendere die aktuelle Seite mit dem korrigierten Zoom neu.
+      // Der Lade-Spinner wird hier nicht benötigt, da es sehr schnell geht.
+      renderPage(currentPage);
+    }
+  }
+});
+
 
 // ===================================================================
 //   WISCHGESTEN - VERBESSERTE VERSION MIT RELATIVEM SCHWELLENWERT
