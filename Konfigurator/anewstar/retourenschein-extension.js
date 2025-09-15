@@ -101,8 +101,27 @@ function openProtectedWindow(baseUrl) {
       document.getElementById("merklisteSchließenBtn").addEventListener("click", () => { document.body.removeChild(dialog); });
       dialog.addEventListener("click", (e) => { if (e.target === dialog) document.body.removeChild(dialog); });
       
-      dialog.querySelectorAll(".menge-input").forEach(input => { /* Ihr Code hier */ });
-      dialog.querySelectorAll(".entfernen-btn").forEach(button => { /* Ihr Code hier */ });
+      dialog.querySelectorAll(".menge-input").forEach(input => {
+        input.addEventListener("change", (e) => {
+          const idx = parseInt(e.target.dataset.index, 10);
+          const neueMenge = parseInt(e.target.value, 10);
+          if (!isNaN(neueMenge) && neueMenge > 0) {
+            merkliste[idx].menge = neueMenge;
+            localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
+          }
+        });
+      });
+
+      dialog.querySelectorAll(".entfernen-btn").forEach(button => {
+        button.addEventListener("click", (e) => {
+          const idx = parseInt(e.target.dataset.index, 10);
+          merkliste.splice(idx, 1);
+          localStorage.setItem('merklisteForRetourenschein', JSON.stringify(merkliste));
+          document.body.removeChild(dialog);
+          openMerklisteDialogDesktop();
+          updateMerklisteIcon();
+        });
+      });
     };
 
     // --- MOBILE-ANSICHT: MERKLISTEN-POP-UP ---
