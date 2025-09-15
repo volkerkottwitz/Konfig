@@ -203,7 +203,7 @@
 
   <!-- Der Rest des HTML bleibt unverändert -->
   <section id="artikelListe" class="search-container">
-    <h3>Artikel für das Angebot</h3>
+    <h3>Artikel für das PDF</h3>
     <div id="artikelInhalt">
       <p>Keine Artikel in der Merkliste gefunden. Bitte verwenden Sie den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>
     </div>
@@ -224,7 +224,7 @@
         <textarea id="hintergrund" placeholder="Kontext des Kundengesprächs..."></textarea>
       </div>
       <div class="briefing-field">
-        <label for="fokus">Fokus im Angebot:</label>
+        <label for="fokus">Fokus :</label>
         <textarea id="fokus" placeholder="Was soll besonders hervorgehoben werden?..."></textarea>
       </div>
       <div class="briefing-field">
@@ -903,7 +903,7 @@ function addPageFooter(pageNum, totalPages) {
         // Briefing-Felder
         const briefingFelder = [
           ["Hintergrund:", briefingDaten.hintergrund],
-          ["Fokus im Angebot:", briefingDaten.fokus],
+          ["Fokus :", briefingDaten.fokus],
           ["Preisgestaltung:", briefingDaten.preisgestaltung]
         ];
         
@@ -1065,7 +1065,7 @@ for (let i = 1; i <= totalPages; i++) {
         const cleanFirmaName = firmaName.replace(/[^a-zA-Z0-9äöüÄÖÜß\-]/g, "-");
         const heute = new Date();
         const datumForFilename = heute.toISOString().split('T')[0];
-        const filename = `Angebotsanforderung_${cleanFirmaName}_${datumForFilename}.pdf`;
+        const filename = `PDF_${cleanFirmaName}_${datumForFilename}.pdf`;
         
         // PDF speichern
         doc.save(filename);
