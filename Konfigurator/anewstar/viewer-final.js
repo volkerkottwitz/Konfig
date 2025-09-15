@@ -60,29 +60,36 @@ const merkliste = []; // Geändert von warenkorb zu merkliste
 // ===================================================================
 //   FUNKTION ZUR AKTUALISIERUNG DES MERKLISTEN-ZAHLEN-BADGES
 // ===================================================================
+// ===================================================================
+//   NEUE, VERBESSERTE FUNKTION ZUR AKTUALISIERUNG ALLER MERKLISTEN-ICONS
+// ===================================================================
 function updateMerklisteIcon() {
-  // 1. Finde den Merkliste-Button im HTML
-  const merklisteBtn = document.querySelector('a[onclick*="openMerkliste"]');
-  
-  // 2. Prüfe, ob der Button gefunden wurde
-  if (merklisteBtn) {
-    // 3. Ermittle die Anzahl der verschiedenen Artikel in der Merkliste
-    const anzahl = merkliste.length;
+  // Die Anzahl der Artikel in der Merkliste ermitteln
+  const anzahl = merkliste.length;
 
-    // 4. Entscheide, was zu tun ist
+  // --- 1. Desktop-Icon aktualisieren ---
+  const merklisteBtnDesktop = document.querySelector('a[onclick*="openMerkliste"]');
+  if (merklisteBtnDesktop) {
     if (anzahl > 0) {
-      // WENN ARTIKEL VORHANDEN SIND:
-      // Setze die Anzahl in das 'data-count'-Attribut des Buttons.
-      // Das CSS wird diesen Wert auslesen und anzeigen.
-      merklisteBtn.dataset.count = anzahl;
-      
-      // Füge die CSS-Klasse '.has-items' hinzu.
-      // Das macht den Badge (das ::after-Element) sichtbar.
-      merklisteBtn.classList.add('has-items');
+      merklisteBtnDesktop.dataset.count = anzahl;
+      merklisteBtnDesktop.classList.add('has-items');
     } else {
-      // WENN KEINE ARTIKEL VORHANDEN SIND:
-      // Entferne die CSS-Klasse, um den Badge wieder zu verstecken.
-      merklisteBtn.classList.remove('has-items');
+      merklisteBtnDesktop.classList.remove('has-items');
+    }
+  }
+
+  // --- 2. Mobiles Hamburger-Menü-Icon aktualisieren ---
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  if (hamburgerBtn) {
+    if (anzahl > 0) {
+      // Setzt die Anzahl in ein 'data-count'-Attribut, das vom CSS gelesen wird
+      hamburgerBtn.dataset.count = anzahl;
+      // Fügt eine Klasse hinzu, um den Badge sichtbar zu machen
+      hamburgerBtn.classList.add('has-items');
+    } else {
+      // Entfernt die Klasse und das Attribut, wenn die Merkliste leer ist
+      hamburgerBtn.classList.remove('has-items');
+      delete hamburgerBtn.dataset.count;
     }
   }
 }
@@ -691,6 +698,10 @@ window.addEventListener('message', function(event) {
       break;
     case 'removeFromCart':
       removeFromMerkliste(event.data.articleNumber);
+      break;
+
+      case 'updateIcon':
+      updateMerklisteIcon();
       break;
   }
 });
