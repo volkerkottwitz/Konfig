@@ -58,16 +58,21 @@
         <i class="bi bi-collection"></i>
       </button>
 
-      <a href="#" onclick="openMerkliste( ); return false;" class="header-icon-btn" data-tooltip="Merkliste anzeigen">
-        <i class="bi bi-list-check"></i>
-      </a>
+<button type="button" id="desktop-merkliste-btn" onclick="openMerkliste()" class="header-icon-btn" data-tooltip="Merkliste anzeigen">
+  <span class="badge-anchor"> <!-- Das ist der neue Anker -->
+    <i class="bi bi-list-check"></i>
+  </span>
+</button>
 
-<a href="#" 
-   onclick="openBerichte(event)" 
-   class="header-icon-btn" 
-   data-tooltip="Bericht diktieren">
+
+
+<!-- KORREKT (ALS BUTTON) -->
+<button type="button" 
+        onclick="openBerichte(event)" 
+        class="header-icon-btn" 
+        data-tooltip="Bericht diktieren">
   <i class="bi bi-mic-fill"></i>
-</a>
+</button>
 
 
       <a href="megaripp.html" 
@@ -185,12 +190,13 @@
   <div id="progressBar"><div id="progressFill"></div></div>
 </div>
 
-  <div class="navigation-buttons">
-    <button id="prev-page" data-tooltip="Vorherige Seite">◀ PDF</button>
-    <button onclick="prevMatch()" data-tooltip="Vorheriger Treffer" disabled>⬅ 🎯</button>
-    <button onclick="nextMatch()" data-tooltip="Nächster Treffer" disabled>🎯 ➡</button>
-    <button id="next-page" data-tooltip="Nächste Seite">PDF ▶</button>
-  </div>
+<div class="navigation-buttons">
+  <button id="prev-page" data-tooltip="Vorherige Seite">◀ <span class="nav-button-text">PDF</span></button>
+  <button onclick="prevMatch()" data-tooltip="Vorheriger Treffer" disabled>⬅ 🎯</button>
+  <button onclick="nextMatch()" data-tooltip="Nächster Treffer" disabled>🎯 ➡</button>
+  <button id="next-page" data-tooltip="Nächste Seite"><span class="nav-button-text">PDF</span> ▶</button>
+</div>
+
 
   <div class="zoom-buttons">
     <button onclick="zoomOut()" data-tooltip="Verkleinern">🔍 –</button>

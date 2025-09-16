@@ -875,11 +875,25 @@ body.mobile-nav-open::after {
   position: relative;
 }
 
-.header-icon-btn.has-items::after {
+/* =================================================================== */
+/*   NEUE REGELN FÜR DEN STABILEN BADGE-ANKER                      */
+/* =================================================================== */
+
+/* 1. Definiert den unsichtbaren Anker-Container */
+.badge-anchor {
+  position: relative; /* Macht diesen Span zum neuen Bezugspunkt */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. Positioniert den Badge relativ zum Anker, nicht mehr zum Button */
+.badge-anchor::after {
+  /* Diese Regel ist fast identisch zu Ihrer alten .header-icon-btn.has-items::after */
   content: attr(data-count); 
   position: absolute;
-  top: 5px;
-  right: 0px;
+  top: -7px;  /* Position leicht anpassen, da der Bezugspunkt jetzt kleiner ist */
+  right: -7px; /* Position leicht anpassen */
   background-color: #dc3545;
   color: white;
   font-size: 11px;
@@ -893,6 +907,17 @@ body.mobile-nav-open::after {
   padding: 0 4px;
   border: 2px solid #d2d2d4; 
   box-sizing: border-box;
+  pointer-events: none;
+
+  /* Logik für die Sichtbarkeit */
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.badge-anchor.has-items::after {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* ================================================== */
@@ -979,6 +1004,25 @@ body.mobile-nav-open::after {
         overflow-y: auto !important;
         margin: 0 !important;
     }
+
+    /* ======================================================= */
+/*   ANPASSUNG FÜR SEHR SCHMALE BILDSCHIRME              */
+/* ======================================================= */
+@media screen and (max-width: 380px) {
+
+  /* Versteckt den Text "PDF" in den Navigations-Buttons */
+  .nav-button-text {
+    display: none;
+  }
+
+  /* Optional: Verringert den seitlichen Abstand der Buttons leicht,
+     um noch mehr Platz zu schaffen. */
+  .navigation-buttons button {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 
 /* ========== Merkliste Panel (ehemals Warenkorb) ========== */
 #merkliste {

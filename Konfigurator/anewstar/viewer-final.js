@@ -54,6 +54,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 // === 🔧 Variablen für Viewer-Funktionalität ===
 let pdfDoc = null, currentPage = 1, zoomFactor = 1.0;
 let currentDocumentName = '';
+let currentDocumentPath = '';
 let searchText = '', secondSearchText = '', matchPages = new Set();
 let aktuellerArtikelText = "";
 const merkliste = []; // Geändert von warenkorb zu merkliste
@@ -68,16 +69,23 @@ function updateMerklisteIcon() {
   const anzahl = merkliste.length;
   const hatArtikel = anzahl > 0; // Eine Hilfsvariable für besseren Lesefluss
 
-  // --- 1. Desktop-Icon aktualisieren (bleibt unverändert) ---
-  const merklisteBtnDesktop = document.querySelector('a[onclick*="openMerkliste"]');
-  if (merklisteBtnDesktop) {
+// --- 1. Desktop-Icon aktualisieren (FINALE VERSION) ---
+const merklisteBtnDesktop = document.getElementById('desktop-merkliste-btn');
+if (merklisteBtnDesktop) {
+  // Finde den Anker-Span INNERHALB des Buttons
+  const anchor = merklisteBtnDesktop.querySelector('.badge-anchor');
+  if (anchor) {
     if (hatArtikel) {
-      merklisteBtnDesktop.dataset.count = anzahl;
-      merklisteBtnDesktop.classList.add('has-items');
+      // Hänge die Attribute an den Anker, nicht an den Button
+      anchor.dataset.count = anzahl;
+      anchor.classList.add('has-items'); // Diese Klasse wird für die Sichtbarkeit benötigt
     } else {
-      merklisteBtnDesktop.classList.remove('has-items');
+      anchor.classList.remove('has-items');
+      delete anchor.dataset.count;
     }
   }
+}
+
 
   // --- 2. Mobiles Hamburger-Menü-Icon aktualisieren (bleibt unverändert) ---
   const hamburgerBtn = document.getElementById('hamburger-btn');
@@ -149,6 +157,8 @@ function loadAndRenderPdf(pdfPath) {
   matchPages.clear();
   currentPage = 1;
 
+  currentDocumentPath = pdfPath;
+
   pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
     pdfDoc = pdf;
     // renderPage wird das PDF zeichnen und den Viewer-Inhalt ersetzen.
@@ -176,7 +186,7 @@ function renderPage(pageNum) {
     const canvas = document.createElement('canvas');
     canvas.width = viewport.width;
     canvas.height = viewport.height;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
     page.render({ canvasContext: ctx, viewport }).promise.then(() => {
       const viewer = document.getElementById('pdfViewer');
@@ -1134,7 +1144,7 @@ function printAllMatches() {
   }
 
   // Die bewährte Sicherheitsabfrage für mobile Geräte
-  const limit = 14;
+  const limit = 15;
   if (isMobileDevice() && matchPages.size > limit) {
     alert(`Auf mobilen Geräten können maximal ${limit} Seiten auf einmal gedruckt werden, um Probleme zu vermeiden. Sie versuchen, ${matchPages.size} Seiten zu drucken. Bitte reduzieren Sie die Anzahl der Trefferseiten.`);
     return;
@@ -1973,19 +1983,36 @@ window.addEventListener('focus', function() {
       renderPage(currentPage);
     }
   }
+
+
+
 });
 
 
+
+
 // ===================================================================
-//   WISCHGESTEN - VERBESSERTE VERSION MIT RELATIVEM SCHWELLENWERT
+//   INTERAKTIONEN FÜR DEN PDF-CONTAINER (DOPPELKLICK & WISCHEN)
 // ===================================================================
 const pdfContainer = document.getElementById('pdfContainer');
 if (pdfContainer) {
+
+  // --- NEU: PDF BEI DOPPELKLICK IN NEUEM TAB ÖFFNEN (NUR DESKTOP) ---
+  pdfContainer.addEventListener('dblclick', function() {
+    // Prüfen, ob es ein Desktop-Gerät ist und ein Dokument geladen wurde.
+    if (!isMobileDevice() && currentDocumentPath && pdfDoc) {
+      // URL mit Seitenparameter zusammenbauen
+      const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
+      // URL in neuem Tab öffnen
+      window.open(urlForNewTab, '_blank');
+    }
+  });
+
+  // --- WISCHGESTEN FÜR MOBILGERÄTE ---
   let startX = 0;
   let startY = 0;
   let distanzX = 0;
   let distanzY = 0;
-  // HINWEIS: mindestDistanz wird jetzt dynamisch im touchend berechnet.
 
   pdfContainer.addEventListener('touchstart', function(e) {
     if (e.touches.length > 1) return; // Zoom-Geste ignorieren
@@ -2006,18 +2033,17 @@ if (pdfContainer) {
   }, { passive: true });
 
   pdfContainer.addEventListener('touchend', function(e) {
-    // BERECHNE DEN SCHWELLENWERT DYNAMISCH BEIM LOSLASSEN
+    // Verhindert das Umblättern, wenn der Benutzer hineingezoomt hat.
+    if (zoomFactor > 1.0) {
+      return;
+    }
+
     const mindestDistanz = pdfContainer.clientWidth * 0.25; // 25% der Breite
 
-    // Nur ausführen, wenn die horizontale Bewegung dominant war
     if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-      
-      // Nach links wischen -> Nächste Seite
       if (distanzX < 0) {
         document.getElementById('next-page').click();
-      } 
-      // Nach rechts wischen -> Vorherige Seite
-      else {
+      } else {
         document.getElementById('prev-page').click();
       }
     }
