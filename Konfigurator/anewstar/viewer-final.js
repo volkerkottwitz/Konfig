@@ -1992,39 +1992,40 @@ window.addEventListener('focus', function() {
 
 
 // ===================================================================
-//   INTERAKTIONEN FÜR DEN PDF-CONTAINER (DOPPELKLICK & WISCHEN)
+//   INTERAKTIONEN FÜR DEN PDF-CONTAINER (FINALE, ROBUSTE VERSION)
 // ===================================================================
 const pdfContainer = document.getElementById('pdfContainer');
 if (pdfContainer) {
 
-  // --- NEU: PDF BEI DOPPELKLICK IN NEUEM TAB ÖFFNEN (NUR DESKTOP) ---
+  // --- PDF BEI DOPPELKLICK IN NEUEM TAB ÖFFNEN (NUR DESKTOP) ---
   pdfContainer.addEventListener('dblclick', function() {
-    // Prüfen, ob es ein Desktop-Gerät ist und ein Dokument geladen wurde.
     if (!isMobileDevice() && currentDocumentPath && pdfDoc) {
-      // URL mit Seitenparameter zusammenbauen
       const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
-      // URL in neuem Tab öffnen
       window.open(urlForNewTab, '_blank');
     }
   });
 
-  // --- WISCHGESTEN FÜR MOBILGERÄTE ---
+  // --- TOUCH-GESTEN FÜR MOBILGERÄTE (WISCHEN & DOPPELTIPP) ---
   let startX = 0;
   let startY = 0;
   let distanzX = 0;
   let distanzY = 0;
+  let lastTap = 0;
 
+  // WICHTIG: Die Option { passive: true } wird hier entfernt,
+  // da wir im touchend-Handler preventDefault() aufrufen.
   pdfContainer.addEventListener('touchstart', function(e) {
-    if (e.touches.length > 1) return; // Zoom-Geste ignorieren
+    if (e.touches.length > 1) return;
     const touch = e.touches[0];
     startX = touch.screenX;
     startY = touch.screenY;
     distanzX = 0;
     distanzY = 0;
-  }, { passive: true });
+  }); // <-- { passive: true } entfernt
 
+  // Bei touchmove kann es bleiben, da wir hier kein preventDefault aufrufen.
   pdfContainer.addEventListener('touchmove', function(e) {
-    if (e.touches.length > 1) return; // Zoom-Geste ignorieren
+    if (e.touches.length > 1) return;
     if (e.touches.length > 0) {
         const touch = e.touches[0];
         distanzX = touch.screenX - startX;
@@ -2032,13 +2033,40 @@ if (pdfContainer) {
     }
   }, { passive: true });
 
-  pdfContainer.addEventListener('touchend', function(e) {
-    // Verhindert das Umblättern, wenn der Benutzer hineingezoomt hat.
+  // Der touchend-Listener mit dem Pop-up-Blocker-Workaround
+  pdfContainer.addEventListener('touchend', function(event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    lastTap = currentTime;
+
+    // DOPPELTIPP-ERKENNUNG
+    if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
+      
+      // 1. Standard-Zoom des Browsers verhindern.
+      //    Dies funktioniert jetzt, da wir { passive: true } bei touchstart entfernt haben.
+      event.preventDefault();
+
+      // 2. Aktion mit Pop-up-Blocker-Workaround ausführen.
+      if (currentDocumentPath && pdfDoc) {
+        const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
+        
+        const link = document.createElement('a');
+        link.href = urlForNewTab;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      
+      return; 
+    }
+
+    // --- Bestehende Wisch-Logik (bleibt unverändert) ---
     if (zoomFactor > 1.0) {
       return;
     }
 
-    const mindestDistanz = pdfContainer.clientWidth * 0.25; // 25% der Breite
+    const mindestDistanz = pdfContainer.clientWidth * 0.25;
 
     if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
       if (distanzX < 0) {
