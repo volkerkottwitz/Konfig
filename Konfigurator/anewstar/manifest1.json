@@ -2,11 +2,7 @@
   "name": "EWE-DuoViewer",
   "short_name": "DuoViewer",
   "start_url": "/Konfig/Konfigurator/anewstar/index-final.html",
-  "scope": "/Konfig/Konfigurator/anewstar/",
-  "display": "standalone",
-  "display_override": [
-    "window-controls-overlay"
-  ],
+  "display": "browser",
   "background_color": "#ffffff",
   "theme_color": "#0077c8",
   "icons": [
