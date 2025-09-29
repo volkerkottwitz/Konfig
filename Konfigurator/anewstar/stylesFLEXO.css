@@ -16,24 +16,19 @@ body {
 }
 
 /* ========== 2. HEADER-BEREICH ========== */
-/* ========== 2. HEADER-BEREICH (OPTIMIERT) ========== */
 header {
     display: flex;
-    flex-direction: column; /* NEU: Richtet alles untereinander aus */
-    align-items: center;    /* NEU: Zentriert alles horizontal */
+    align-items: center;
     justify-content: center;
-    padding: 20px;
-    background-color: #d2d2d4;
+    padding: 15px 20px;
+    background-color: #d2d2d4; /* Neutrales Grau */
     border-bottom: 2px solid #ddd;
-    gap: 10px; /* Abstand zwischen Logo, Titel und Fortschrittsanzeige */
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-/* Stellt sicher, dass die Leiste die volle Breite im Header einnimmt */
-.progress-container, .progress-text {
-    width: 100%;
-    max-width: 900px; /* Passt zur maximalen Breite des 'main'-Containers */
-    box-sizing: border-box; /* Verhindert, dass Padding die Breite beeinflusst */
-}
+
+
 
 header .logo {
     height: 50px;
@@ -47,6 +42,45 @@ header h1 {
     margin: 0;
 }
 
+/* =================================================================== */
+/*           13. HEADER-BUTTON NEBEN DEM TITEL                       */
+/* =================================================================== */
+
+/* Stile für den neuen Button im Header */
+.header-action-btn {
+    background-color: #f8f9fa; /* Helles Weiß/Grau, wie im Beispiel */
+    color: #f4f5f7; /* Dunkler Text */
+    border: 1px solid #dee2e6; /* Dezenter Rand */
+    border-radius: 12px; /* Stärker abgerundete Ecken */
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+    cursor: pointer;
+    display: inline-flex; /* Wichtig, damit er sich wie ein Wort verhält */
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    /* WICHTIG: Entfernt Standard-Button-Stile, die wir nicht wollen */
+    width: auto;
+    max-width: none;
+}
+
+/* Hover-Effekt */
+.header-action-btn:hover {
+    background-color: #e9ecef; /* Etwas dunkler beim Hover */
+    border-color: #ced4da;
+    transform: translateY(-1px); /* Leichter Schwebe-Effekt */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* Stil für das Icon im Button */
+.header-action-btn .btn-icon {
+    height: 18px; /* Passen Sie die Größe nach Bedarf an */
+    width: auto;
+}
+
+
 /* ERSETZEN SIE IHN MIT DIESEM BLOCK */
 main {
     position: relative;
@@ -59,7 +93,7 @@ main {
     
     /* --- KORREKTUR HINZUGEFÜGT --- */
     display: flex; /* Macht main zu einem Flex-Container */
-    min-height: 400px; /* Gibt dem Container eine Mindesthöhe, um "Springen" zu vermeiden */
+    transition: height 0.4s ease-in-out; /* NEU: Fügt eine sanfte Höhenänderung hinzu! */
 }
 
 

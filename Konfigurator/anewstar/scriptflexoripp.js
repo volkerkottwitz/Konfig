@@ -413,6 +413,9 @@ if (isStepForward) {
 if (nextScreenId === 'summaryScreen') {
     updateSummary();
 }
+
+    // NEU: Höhe des Containers anpassen (mit Verzögerung für die Animation)
+    setTimeout(adjustMainContainerHeight, 400);
 }
 
 function prevScreen(prevScreenId) {
@@ -459,6 +462,9 @@ function prevScreen(prevScreenId) {
             prevScreenElement.removeEventListener('transitionend', handler);
         }, { once: true });
     }
+
+        // NEU: Höhe des Containers anpassen (mit Verzögerung für die Animation)
+    setTimeout(adjustMainContainerHeight, 400);
 }
 
 
@@ -713,7 +719,19 @@ function resetConfig() {
     document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
 }
 
+function adjustMainContainerHeight() {
+    const mainContainer = document.querySelector('main');
+    const activeScreen = document.querySelector('.screen.active');
 
+    if (mainContainer && activeScreen) {
+        // Die tatsächliche Höhe des Inhalts des aktiven Screens ermitteln
+        const contentHeight = activeScreen.scrollHeight;
+
+        // Dem main-Container eine feste Höhe zuweisen, die dem Inhalt entspricht
+        // Ein kleiner Puffer sorgt für etwas Luft nach unten.
+        mainContainer.style.height = (contentHeight + 40) + 'px';
+    }
+}
 
 // Zeigt die Zusammenfassung der Auswahl an
 // ===================================================================
@@ -1228,6 +1246,9 @@ function openInfoScreen(imageElement) {
     // PDF in den iframe laden und Info-Screen anzeigen
     document.getElementById('infoScreenPdf').src = pdfPath;
     nextScreen('infoScreen'); // Nutzt unsere bestehende Animations-Logik
+
+        // NEU: Höhe des Containers anpassen (mit Verzögerung für die Animation)
+    setTimeout(adjustMainContainerHeight, 400);
 }
 
 /**
@@ -1241,6 +1262,9 @@ function closeInfoScreen() {
         // Fallback, falls etwas schiefgeht
         prevScreen('screen2');
     }
+
+        // NEU: Höhe des Containers anpassen (mit Verzögerung für die Animation)
+    setTimeout(adjustMainContainerHeight, 400);
 }
 
 
@@ -1364,6 +1388,9 @@ function jumpToScreenFromNav(event) {
     currentStep = targetStep;
     updateProgressBar(currentStep, totalSteps);
 
+        // NEU: Höhe des Containers anpassen
+    setTimeout(adjustMainContainerHeight, 400);
+
     // --- Screen-Wechsel-Logik (unverändert) ---
     const targetScreen = document.getElementById(targetScreenId);
     if (currentScreen && targetScreen) {
@@ -1410,6 +1437,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialen Zustand der Fortschrittsanzeige hier setzen (bereits vorhanden)
     updateProgressBar(currentStep, totalSteps);
+
+    // In Ihrem DOMContentLoaded-Listener
+const duoViewerBtn = document.getElementById('closeToDuoViewerBtn');
+if (duoViewerBtn) {
+    duoViewerBtn.addEventListener('click', () => {
+        window.close();
+    });
+}
+
+        // NEU: Höhe direkt beim ersten Laden der Seite anpassen
+    setTimeout(adjustMainContainerHeight, 50);
 });
 
 
