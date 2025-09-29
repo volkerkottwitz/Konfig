@@ -1361,33 +1361,40 @@ input:focus {
     font-weight: 600;
 }
 
-/* 7. Die Buttons */
-.login-card .btn-login {
+/* 7. Die Buttons (KORRIGIERT FÜR MOBILE ZENTRIERUNG) */
+.login-card .btn-login,
+.login-card .btn-secondary {
     width: 100%;
-    background-color: #00a1e1;
-    color: white;
     border: none;
     padding: 15px 20px;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+
+    /* === HIER IST DIE KORREKTUR === */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* === ENDE DER KORREKTUR === */
+}
+
+.login-card .btn-login {
+    background-color: #00a1e1;
+    color: white;
 }
 .login-card .btn-login:hover {
     background-color: #0077b6;
 }
 
 .login-card .btn-secondary {
-    width: 100%;
     background-color: transparent;
     color: #6c757d;
-    border: none;
-    padding: 15px 20px;
     margin-top: 10px;
-    cursor: pointer;
-    font-weight: 600;
 }
+
 .login-card .btn-secondary:hover {
     color: #333;
 }
