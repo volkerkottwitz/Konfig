@@ -70,6 +70,31 @@
         }
         .success { color: #28a745; }
         .error { color: #dc3545; }
+
+        /* === NEUE STILE FÜR EINE BESSERE TABELLEN-OPTIK === */
+
+/* Verhindert den Zeilenumbruch bei Preisangaben */
+#artikel-zusammenfassung .no-wrap {
+    white-space: nowrap;
+}
+
+/* Verbessert das Aussehen der Artikel-Spalte */
+#artikel-zusammenfassung .artikel-details {
+    line-height: 1.5; /* Erhöht den Zeilenabstand für bessere Lesbarkeit */
+}
+
+#artikel-zusammenfassung .artikel-nummer {
+    color: #666;
+    font-size: 0.9em; /* Macht die Artikelnummer etwas kleiner */
+    display: block; /* Stellt sicher, dass sie unter dem Namen steht */
+    margin-top: 4px; /* Fügt einen kleinen Abstand zum Namen hinzu */
+}
+
+/* Gibt der Artikel-Spalte mehr Platz */
+#artikel-zusammenfassung .artikel-spalte {
+    width: 50%; 
+}
+
     </style>
 
     <!-- SDKs für PayPal und Stripe -->
@@ -146,15 +171,18 @@ const menge = parseInt(item.menge, 10);
                 const zeilensumme = preisNumerisch * menge;
                 gesamtbetrag += zeilensumme;
 
-                tableHTML += `
-                    <tr>
-                        <td><strong>${item.name}</strong>  
-<small>${item.nummer}</small></td>
-                        <td class="text-right">${menge}</td>
-                        <td class="text-right">${preisNumerisch.toFixed(2).replace('.', ',')} €</td>
-                        <td class="text-right">${zeilensumme.toFixed(2).replace('.', ',')} €</td>
-                    </tr>
-                `;
+tableHTML += `
+    <tr>
+        <td class="artikel-details">
+            <strong>${item.name}</strong>
+            <span class="artikel-nummer">${item.nummer}</span>
+        </td>
+        <td class="text-right">${menge}</td>
+        <td class="text-right no-wrap">${preisNumerisch.toFixed(2).replace('.', ',')} €</td>
+        <td class="text-right no-wrap">${zeilensumme.toFixed(2).replace('.', ',')} €</td>
+    </tr>
+`;
+
 
                 // Daten für Stripe Checkout vorbereiten
                 stripeLineItems.push({
