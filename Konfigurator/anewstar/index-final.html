@@ -126,6 +126,7 @@
 
 
 <!-- Das mobile Navigationsmenü (außerhalb des Headers  ) -->
+<!-- Das mobile Navigationsmenü (außerhalb des Headers) -->
 <div id="mobile-nav">
   <!-- Dokumentenauswahl für Mobile -->
   <a href="#" onclick="document.getElementById('openDocDialogBtn').click(); closeMobileNav(); return false;">
@@ -137,11 +138,10 @@
     <i class="bi bi-list-check"></i> Merkliste
   </a>
 
-<a href="#" 
-   onclick="openBerichte(event); closeMobileNav();">
-  <i class="bi bi-mic-fill"></i> Bericht diktieren
-</a>
-
+  <!-- Bericht diktieren -->
+  <a href="#" onclick="openBerichte(event); closeMobileNav();">
+    <i class="bi bi-mic-fill"></i> Bericht diktieren
+  </a>
 
   <!-- Konfiguratoren -->
   <a href="megaripp.html" target="_blank" rel="opener" onclick="closeMobileNav()">
@@ -155,6 +155,15 @@
   <a href="https://www.youtube.com/watch?v=0_29ByAIswI" target="_blank" rel="noopener noreferrer" onclick="closeMobileNav( )">
     <i class="bi bi-film"></i> EWE-Youtube Kanal
   </a>
+
+  <!-- ======================================================== -->
+  <!--     NEU: PLATZHALTER FÜR DEN MOBILEN AUTH-LINK           -->
+  <!-- ======================================================== -->
+  <a href="#" id="mobileAuthLink" style="margin-top: 10px; padding-top: 20px;">
+    <!-- Inhalt wird dynamisch per JavaScript gesetzt -->
+  </a>
+  <!-- ======================================================== -->
+
 </div>
 
 

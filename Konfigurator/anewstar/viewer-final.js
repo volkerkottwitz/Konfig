@@ -1713,19 +1713,57 @@ async function validatePassword(password) {
 /**
  * Aktualisiert die Sichtbarkeit der Login/Logout-Buttons basierend auf dem Anmeldestatus.
  */
+/**
+ * Aktualisiert die Sichtbarkeit und den Inhalt der Login/Logout-Buttons 
+ * für Desktop UND Mobile.
+ */
 function updateAuthUI() {
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
+    // Elemente finden
+    const loginBtnDesktop = document.getElementById('loginBtn');
+    const logoutBtnDesktop = document.getElementById('logoutBtn');
+    const mobileAuthLink = document.getElementById('mobileAuthLink'); // Unser neuer Link
+
+    // Prüfen, ob der Nutzer angemeldet ist
     const isLoggedIn = !!localStorage.getItem('customerDataPassword');
 
+    // Sicherheitsabfrage, falls Elemente nicht gefunden werden
+    if (!loginBtnDesktop || !logoutBtnDesktop || !mobileAuthLink) {
+        console.error("Ein oder mehrere Authentifizierungs-Buttons wurden nicht im DOM gefunden.");
+        return;
+    }
+
     if (isLoggedIn) {
-        loginBtn.style.display = 'none';
-        logoutBtn.style.display = 'block';
+        // --- ZUSTAND: EINGELOGGT ---
+        // Desktop-Ansicht
+        loginBtnDesktop.style.display = 'none';
+        logoutBtnDesktop.style.display = 'block';
+
+        // Mobile-Ansicht
+        mobileAuthLink.innerHTML = '<i class="bi bi-box-arrow-right"></i> Abmelden';
+        mobileAuthLink.onclick = () => {
+            // Führt die gleiche Aktion wie der Desktop-Logout-Button aus
+            document.getElementById('logoutBtn').click(); 
+            closeMobileNav(); // Schließt das Menü
+            return false;
+        };
+
     } else {
-        loginBtn.style.display = 'block';
-        logoutBtn.style.display = 'none';
+        // --- ZUSTAND: AUSGELOGGT ---
+        // Desktop-Ansicht
+        loginBtnDesktop.style.display = 'block';
+        logoutBtnDesktop.style.display = 'none';
+
+        // Mobile-Ansicht
+        mobileAuthLink.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> Anmelden';
+        mobileAuthLink.onclick = () => {
+            // Führt die gleiche Aktion wie der Desktop-Login-Button aus
+            document.getElementById('loginBtn').click();
+            closeMobileNav(); // Schließt das Menü
+            return false;
+        };
     }
 }
+
 
 // ===== KORRIGIERTE VERSION FÜR viewer-final.js =====
 
