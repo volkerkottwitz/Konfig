@@ -58,6 +58,7 @@ let currentDocumentPath = '';
 let searchText = '', secondSearchText = '', matchPages = new Set();
 let aktuellerArtikelText = "";
 const merkliste = []; // Geändert von warenkorb zu merkliste
+let pdfsData = [];
 // ===================================================================
 //   FUNKTION ZUR AKTUALISIERUNG DES MERKLISTEN-ZAHLEN-BADGES
 // ===================================================================
@@ -200,6 +201,7 @@ function renderPage(pageNum) {
 
       clearHighlights();
       highlightMatches(page, wrapper, viewport);
+ 
 
       document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
       updateNavigation();
@@ -357,6 +359,13 @@ function getMarkierungsWerte() {
 // === 🎯 VERBESSERTE HIGHLIGHT-FUNKTION MIT RESPONSIVE MARKIERUNGEN (KORRIGIERT) ===
 function highlightMatches(page, container, viewport) {
   const canvas = container.querySelector('canvas');
+
+    // ===================================================================
+  //   NEU: BERECHNUNG DES HORIZONTALEN OFFSETS
+  // ===================================================================
+  // container ist der #canvasWrapper.
+  // Wir berechnen den Leerraum links vom Canvas innerhalb seines Wrappers.
+  const canvasLeftOffset = (container.offsetWidth - canvas.offsetWidth) / 2;
   
   const baseScaleX = canvas.offsetWidth / canvas.width;
   const baseScaleY = canvas.offsetHeight / canvas.height;
@@ -416,9 +425,9 @@ function highlightMatches(page, container, viewport) {
         let x, y, width, height;
         if (ganzeZeileMarkieren) {
           const first = lineItems[0];
-          x = 0;
+          x = canvasLeftOffset; // KORREKTUR: Nicht 0, sondern der berechnete Offset
           y = (first.tx[5] - position.height - 5) * scaleY;
-          width = canvas.offsetWidth;
+          width = canvas.offsetWidth; // <--- HIER IST DAS PROBLEM
           height = (position.height + 9) * scaleY;
         } else {
           const zoomOffset = isMobileDevice() ? 0 : (zoomFactor - 1.0) * - 580;
@@ -491,7 +500,7 @@ function highlightMatches(page, container, viewport) {
         bgColor = 'rgba(74, 235, 227, 0.2)';
       }
 
-      const x = 0;
+      const x = canvasLeftOffset; // KORREKTUR: Nicht 0, sondern der berechnete Offset
       const minY = Math.min(...lineItems.map(i => i.tx[5]));
       const maxY = Math.max(...lineItems.map(i => i.tx[5]));
       const textHeight = maxY - minY;
@@ -499,9 +508,9 @@ function highlightMatches(page, container, viewport) {
       const basePadding = 24;
       const padding = isMobileDevice() ? basePadding : basePadding * Math.max(0.5, Math.min(3.0, zoomFactor));
 
-      const y = (minY + markierungsWerte.zeilenYOffset) * scaleY-1;
+      const y = (minY + markierungsWerte.zeilenYOffset) * scaleY-3;
       const height = (textHeight + padding) * scaleY;
-      const width = canvas.offsetWidth;
+      const width = canvas.offsetWidth; // <--- HIER IST DAS PROBLEM
 
       const div = document.createElement('div');
       Object.assign(div.style, {
@@ -1831,6 +1840,61 @@ function openBerichte(event) {
 }
 
 
+// ========================================================
+//   OPTIMIERTE FUNKTION ZUM ZURÜCKSETZEN DER ANWENDUNG
+// ========================================================
+function resetApplication() {
+  // Sicherheitsabfrage: Nur auf Desktop ausführen
+  if (isMobileDevice()) {
+    return; 
+  }
+
+  console.log("Anwendung wird zurückgesetzt...");
+
+  // 1. Leere die Suchfelder
+  document.getElementById('searchBox').value = '';
+  document.getElementById('searchBox2').value = '';
+
+    // 2. Suchergebnis-Informationen zurücksetzen
+  document.getElementById('searchInfo').textContent = '';
+  document.getElementById('currentMatchInfo').textContent = '';
+  matchPages.clear();
+
+  // 3. UI-Helfer aktualisieren
+  updateHelpers();
+  
+  // 2. Leere die Merkliste
+  // 'splice(0, merkliste.length)' ist der sicherste Weg, ein const-Array zu leeren.
+  merkliste.splice(0, merkliste.length);
+  
+  // 3. Aktualisiere das Merklisten-Icon (damit der Zahlen-Badge verschwindet)
+  updateMerklisteIcon();
+
+    // ========================================================
+  //   NEU: ZOOMFAKTOR ZURÜCKSETZEN
+  // ========================================================
+  zoomFactor = 1.0;
+  
+  // 4. Finde das Standard-PDF aus den geladenen Daten
+  const defaultPdf = pdfsData.find(pdf => pdf.isDefault);
+  
+  // 5. Wenn ein Standard-PDF gefunden wurde...
+  if (defaultPdf) {
+    // ...aktualisiere den globalen Dokumentennamen...
+    currentDocumentName = defaultPdf.name;
+    
+    // ...und rufe die bestehende Ladefunktion auf.
+    // Sie kümmert sich um den Rest (Spinner, Seite 1, etc.).
+    loadAndRenderPdf(defaultPdf.path);
+  } else {
+    console.error("Kein Standard-PDF zum Zurücksetzen gefunden.");
+  }
+  
+  // 4. Setze den Fokus zurück ins erste Suchfeld für eine neue Eingabe
+  document.getElementById('searchBox').focus();
+}
+
+
 // ===== NEU: AUTHENTIFIZIERUNGS-LOGIK (ENDE) =====
 
 
@@ -1849,7 +1913,6 @@ window.onload = function() {
     const closeBtn = document.getElementById('closeDocDialogBtn');
     const dialog = document.getElementById('docDialog');
     const listContainer = document.getElementById('docDialogList');
-    let pdfsData = [];
     updateMerklisteIcon();
 
 function populateDocList() {
