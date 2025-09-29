@@ -21,13 +21,25 @@
 <!-- Fortschrittsanzeige -->
 
 <header>
+<a href="https://www.ewe-armaturen.de/" target="_blank" title="EWE Armaturen Webseite besuchen">
     <img src="images/logo.png" alt="Firmenlogo" class="logo">
-    <h1>Flexoripp-Konfigurator</h1>
-
-    <div class="progress-container">
+</a>
+   <h1 onclick="resetConfig()" style="cursor: pointer;" title="Konfiguration neu starten">Flexoripp-Konfigurator</h1>
+ 
+   <!-- ======================================================= -->
+    <!-- +++ NEUER BUTTON DIREKT NEBEN DEM TITEL +++ -->
+    <!-- ======================================================= -->
+<button id="closeToDuoViewerBtn" class="header-action-btn" title="Konfigurator schließen und zum DuoViewer zurückkehren">
+   <!-- <img src="images/back-icon.png" alt="Zurück" class="btn-icon">  Icon als Bild -->
+    <span>Zum DuoViewer</span>
+</button>
+  
+        <!-- Fortschrittsanzeige -->
+<div class="progress-container">
     <div class="progress-bar"></div>
 </div>
-<div class="progress-text">Schritt 1 von 9</div>
+<div class="progress-text">Schritt 1 von 8</div>
+    </header>
 
 </header>
 

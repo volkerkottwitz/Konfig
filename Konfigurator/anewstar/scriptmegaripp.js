@@ -49,9 +49,24 @@ const totalSteps = 8;
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", function() {
+
+    // In Ihrem DOMContentLoaded-Listener
+const duoViewerBtn = document.getElementById('closeToDuoViewerBtn');
+if (duoViewerBtn) {
+    duoViewerBtn.addEventListener('click', () => {
+        window.close();
+    });
+}
     initializeButtonGroups();
     updateProgressBar(currentStep, totalSteps);
     initializeFormValidation();
+         // NEU: Höhe direkt beim ersten Laden der Seite anpassen
+    // Wir brauchen hier eine minimale Verzögerung, damit der Browser
+    // alle Elemente korrekt gerendert hat, bevor wir messen.
+    
+    setTimeout(adjustMainContainerHeight, 50);
+
+   
 });
 
 
@@ -93,6 +108,9 @@ function nextScreen(nextScreenId, selectionText = null) {
     if (nextScreenId === 'summaryScreen') {
         updateSummary();
     }
+
+    // NEU: Höhe des Containers anpassen
+    setTimeout(adjustMainContainerHeight, 400);
 }
 
 /**
@@ -132,6 +150,10 @@ function prevScreen(prevScreenId) {
         prevScreen.classList.remove('enter-from-left');
         prevScreen.removeEventListener('transitionend', handler);
     }, { once: true });
+
+    // NEU: Höhe des Containers anpassen
+    setTimeout(adjustMainContainerHeight, 400);
+
 }
 
 /**
@@ -497,6 +519,9 @@ function jumpToScreenFromNav(event) {
 
     currentStep = targetStep;
     updateProgressBar(currentStep, totalSteps);
+
+    // NEU: Höhe des Containers anpassen
+    setTimeout(adjustMainContainerHeight, 400);
 }
 
 /**
@@ -506,6 +531,8 @@ function jumpToScreenFromNav(event) {
 function showScreen(id) {
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+    // NEU: Höhe an den Info-Screen anpassen
+    setTimeout(adjustMainContainerHeight, 50); // Kurze Verzögerung für stabiles Rendering
 }
 
 /**
@@ -518,6 +545,8 @@ function showInfo(infoId) {
     
     currentScreen.classList.remove('active');
     infoScreen.classList.add('active');
+    // NEU: Höhe an den Info-Screen anpassen
+    setTimeout(adjustMainContainerHeight, 50); // Kurze Verzögerung für stabiles Rendering
 }
 
 /**
@@ -571,6 +600,19 @@ function resetConfig() {
     updateProgressBar(currentStep, totalSteps);
 }
 
+function adjustMainContainerHeight() {
+    const mainContainer = document.querySelector('main');
+    const activeScreen = document.querySelector('.screen.active');
+
+    if (mainContainer && activeScreen) {
+        // Die tatsächliche Höhe des Inhalts des aktiven Screens ermitteln
+        const contentHeight = activeScreen.scrollHeight;
+
+        // Dem main-Container eine feste Höhe zuweisen, die dem Inhalt entspricht
+        // Wir fügen etwas Puffer hinzu (z.B. 40px), damit es nicht zu gedrängt aussieht
+        mainContainer.style.height = (contentHeight + 40) + 'px';
+    }
+}
 
 /* ==========================================================================
    Event-Listener und weitere Initialisierungsfunktionen
