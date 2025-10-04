@@ -2,20 +2,13 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Codex Humanus 1-3 durchsuchen</title>
     <link rel="manifest" href="manifest1.json">
-    <!-- iOS Home-Bildschirm -->
     <link rel="apple-touch-icon" href="images/codexhumanus.png">
-
-    <!-- Favicon -->
     <link rel="icon" href="images/codexhumanus.png" type="image/png">
-    
-    <link rel="icon" type="image/png" href="images/codexhumanus.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-   
-   
-   
+
    <style>
     /* ======================================== */
     /*         1. GRUNDEINSTELLUNGEN            */
@@ -24,11 +17,13 @@
 
     * {
         font-family: 'Roboto Condensed', Arial, sans-serif;
+        box-sizing: border-box; /* Wichtig für konsistentes Layout */
     }
-    
+
     body {
         margin: 0;
         background-color: #f8f9fa;
+        overflow: hidden; /* Verhindert Scrollen des gesamten Body */
     }
 
     /* ======================================== */
@@ -38,27 +33,27 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 15px 30px;
+        padding: 10px 20px;
         background-color: #d2d2d4;
         color: white;
         border-bottom: 2px solid #ddd;
     }
 
     #header img {
-        height: 100px;
+        height: 80px;
         margin-right: 15px;
     }
 
     #header h1 {
-        font-size: 24px;
+        font-size: 20px;
         margin-right: 15px;
     }
 
     .search-container {
         display: flex;
         justify-content: center;
-        gap: 15px;
-        padding: 20px;
+        gap: 10px;
+        padding: 15px;
         flex-wrap: wrap;
     }
 
@@ -67,14 +62,7 @@
         font-size: 16px;
         border: 1px solid #ced4da;
         border-radius: 25px;
-        width: 240px;
-        transition: all 0.3s ease-in-out;
-    }
-
-    input[type="text"]:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(88, 70, 19, 0.25);
-        border-color: #cfce85;
+        width: 200px;
     }
 
     button {
@@ -88,23 +76,13 @@
         transition: background-color 0.3s;
     }
 
-    button:hover {
-        background-color: #6F5536;
-    }
+    button:hover { background-color: #6F5536; }
+    button:disabled { background-color: #c0b8ab; cursor: not-allowed; }
 
-    button:focus {
-        outline: none;
-    }
-
-    .navigation-buttons,
-    .zoom-buttons {
+    .navigation-buttons, .zoom-buttons {
         display: flex;
         justify-content: center;
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .zoom-buttons {
+        gap: 15px;
         margin-top: 10px;
     }
 
@@ -112,12 +90,13 @@
     /*       3. INFO & LADEBALKEN               */
     /* ======================================== */
     #infoSection {
-        margin-top: 15px;
+        margin-top: 10px;
         color: #333;
-        font-size: 15px;
+        font-size: 14px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 5px;
     }
 
     #progressBar {
@@ -125,192 +104,88 @@
         height: 6px;
         background-color: #e0e0e0;
         border-radius: 2px;
-        margin-top: 10px;
         overflow: hidden;
     }
-        
+
     #progressFill {
         height: 100%;
         background-color: #8B6F47;
         width: 0%;
-        border-radius: 2px;
         transition: width 0.4s ease;
     }
 
-/* Das Overlay, das den ganzen Bildschirm abdeckt */
-#search-progress-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
-    display: none; /* Standardmäßig versteckt */
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    flex-direction: column;
-}
-
-/* Der Container für Logo, Ring und Text */
-.progress-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-/* Das Logo in der Mitte */
-
-.progress-logo {
-    width: 60px;
-    height: 60px;
-    animation: spin 1.5s linear infinite;
-    position: relative; /* Notwendig für die Verschiebung */
-    top: 45px;          /* <-- HIER IST DIE VERSCHIEBUNG UM 15px NACH UNTEN */
-}
-
-/* Der SVG-Ring, der um das Logo liegt */
-.progress-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.progress-ring__background,
-.progress-ring__circle {
-    fill: transparent;
-    stroke-width: 8; /* <-- Ring etwas dicker gemacht */
-}
-
-/* Der graue Hintergrund-Ring */
-.progress-ring__background {
-    stroke: #e0e0e0;
-}
-
-/* Der farbige Fortschritts-Ring */
-.progress-ring__circle {
-    stroke: #8B6F47;
-    stroke-linecap: round;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-    transition: stroke-dashoffset 0.2s linear;
-}
-
-
-/* Der Text unter dem Logo */
-/* NEUE REGEL */
-#progress-text {
-    margin-top: 70px; /* <-- Geändert von 20px */
-    font-size: 16px;
-    color: #333;
-}
-
-
-/* Die Keyframe-Animation für das drehende Logo */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
+    #search-progress-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        display: none; justify-content: center; align-items: center;
+        z-index: 9999; flex-direction: column;
+    }
+    .progress-container { position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+    .progress-logo { width: 60px; height: 60px; animation: spin 1.5s linear infinite; position: relative; top: 45px; }
+    .progress-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .progress-ring__background, .progress-ring__circle { fill: transparent; stroke-width: 8; }
+    .progress-ring__background { stroke: #e0e0e0; }
+    .progress-ring__circle { stroke: #8B6F47; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.2s linear; }
+    #progress-text { margin-top: 70px; font-size: 16px; color: #333; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
     /* ======================================== */
-    /*         4. PDF-ANZEIGE & ANIMATION       */
-    /*         (HIER WAR DER FEHLER)            */
+    /*         4. PDF-ANZEIGE (NEU)             */
     /* ======================================== */
 
-    /* Der scrollbare Hauptcontainer für das PDF */
     #pdfContainer {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        overflow: auto;
-        width: 100%;
-        height: auto;
-        max-height: 100vh;
-        margin-top: 20px;
-        position: relative;
-        touch-action: pan-y pinch-zoom; /* Nur vertikales Scrollen mit Touch erlauben */
+        position: absolute;
+        top: 280px; /* Höhe von Header, Suche, etc. anpassen */
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: auto; /* Ermöglicht Panning (Verschieben) im Zoom-Modus */
+        -webkit-overflow-scrolling: touch; /* Flüssigeres Scrollen auf iOS */
     }
 
-    /* Ein unsichtbarer Wrapper, der die Animation begrenzt */
-    #animationWrapper {
-        position: relative;
-        overflow: hidden; /* Verhindert, dass die zweite Seite sichtbar wird */
-        width: 100%;
-        max-width: 1200px;
-    }
-
-    /* Der Container, der die Seiten (Canvas) hält und animiert wird */
     #pdfViewer {
+        width: 100%;
+        height: 100%;
         display: flex;
-        justify-content: center; /* Zentriert die Seite im Normalzustand */
-        width: 100%;
-        transition: transform 0.4s ease-in-out;
+        align-items: center;
+        justify-content: center;
+        transform-origin: 0 0;
     }
 
-    /* --- ANZEIGEREGELN FÜR DIE PDF-SEITEN (CANVAS) --- */
-    /* Diese Regeln gelten jetzt für ALLE Geräte (Desktop & Mobil) */
-
-    /* Grundregel für den Normalzustand (1 Seite, z.B. beim Zoomen) */
-    #pdfViewer > canvas {
-        width: 100%;
-        height: auto;
-        flex-shrink: 0; /* Verhindert, dass das Canvas schrumpft */
-    }
-
-    /* Regel NUR für die Animation (wenn MEHR als 1 Seite im Viewer ist) */
-    #pdfViewer > canvas:not(:only-child) {
-        width: 50%;
+    #pdfViewer canvas {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease-out;
     }
 
     /* ======================================== */
     /*         5. MOBILE ANPASSUNGEN            */
     /* ======================================== */
-
     @media screen and (max-width: 768px) {
+        #header { padding: 5px 10px; }
+        #header img { height: 60px; }
+        #header h1 { font-size: 18px; }
+        .search-container { padding: 10px; }
+        input[type="text"] { width: 150px; }
+        .zoom-buttons { display: none; }
+
         #pdfContainer {
-            height: auto;
-            max-height: none;
-            margin-top: 10px;
-            padding: 10px;
-        }
-
-        
-
-        /* Die Zoom-Buttons auf mobilen Geräten ausblenden */
-        .zoom-buttons {
-            display: none;
+            top: 240px; /* Höhe an mobilen Header anpassen */
         }
     }
-
-    @media screen and (max-width: 480px) {
-        #pdfContainer {
-            padding: 5px;
-        }
-
-        #pdfViewer {
-            padding: 0;
-        }
-    }
-
-
-</style>
-
-
-
+   </style>
 </head>
 
 <body>
     <div id="header">
         <a id="pdfLink" href="https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf" target="_blank" rel="noopener">
-       <img src="images/codexhumanus.png" alt="EWE Logo">
+            <img src="images/codexhumanus.png" alt="Codex Logo">
         </a>
         <h1>DUOVIEWER</h1>
         <div class="buttons">
-            <button onclick="openInfo()">📝 Info</button>
+            <button onclick="openInfo( )">📝 Info</button>
         </div>
     </div>
 
@@ -319,26 +194,17 @@
         <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (optional)">
         <button onclick="searchPDF()">🔍 Suche</button>
         <button onclick="printCurrentPage()">🖨️</button>
-<!-- NEUE, RUNDE LADEANZEIGE -->
-<div id="search-progress-overlay">
-    <div class="progress-container">
-        <!-- Der SVG-Code für den runden Balken -->
-        <svg class="progress-ring" width="100" height="100"> <!-- Größe angepasst -->
-
-<circle class="progress-ring__background" r="45" cx="50" cy="50"/> <!-- Werte angepasst -->
-<circle class="progress-ring__circle" r="45" cx="50" cy="50"/>     <!-- Werte angepasst -->
-
-
-
-        </svg>
-        <!-- Das drehende Logo in der Mitte -->
-        <img src="images/codexhumanus.png" class="progress-logo" alt="Sucht...">
-        <!-- Die Textanzeige für den Fortschritt -->
-        <span id="progress-text"></span>
     </div>
-</div>
 
-    
+    <div id="search-progress-overlay">
+        <div class="progress-container">
+            <svg class="progress-ring" width="100" height="100">
+                <circle class="progress-ring__background" r="45" cx="50" cy="50"/>
+                <circle class="progress-ring__circle" r="45" cx="50" cy="50"/>
+            </svg>
+            <img src="images/codexhumanus.png" class="progress-logo" alt="Sucht...">
+            <span id="progress-text"></span>
+        </div>
     </div>
 
     <div id="infoSection">
@@ -352,240 +218,133 @@
         <button onclick="prevMatch()">⬅ 🎯</button>
         <button onclick="nextMatch()">🎯 ➡</button>
         <button id="next-page">PDF ▶</button>
-        
     </div>
-<div id="page-navigation" style="display: flex; justify-content: center; gap: 10px; padding: 10px;">
-  
-  <span id="page-info"></span>
-  
-</div>
+
+    <div id="page-navigation" style="display: flex; justify-content: center; gap: 10px; padding: 10px;">
+        <span id="page-info"></span>
+    </div>
+
     <div class="zoom-buttons">
-        
         <button onclick="zoomOut()">🔍 -</button>
         <button onclick="zoomIn()">🔍 +</button>
-        
     </div>
 
     <div id="pdfContainer">
-        <div id="animationWrapper"> <!-- NEUER WRAPPER -->
         <div id="pdfViewer"></div>
+    </div>
+
+    <div id="infoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
+        <div style="background:white; padding:25px 30px; border-radius:10px; max-width:400px; text-align:center; font-family: Arial, sans-serif;">
+            <h2>Information</h2>
+            <p>Diese Anwendung wurde für meine Frau <strong>und alle Freundinnen von meiner Frau</strong> entwickelt.</p>
+            <p>Ich hoffe dieses Programm <strong>hilft ein wenig.</strong>.</p>
+            <button onclick="closeInfo()" style="margin-top:15px; padding:8px 16px; border:none; background-color:#927851; color:white; border-radius:5px;">Schließen</button>
         </div>
     </div>
 
 <script>
-
-
 // ===================================================================
-//   1. HILFSFUNKTIONEN & GLOBALE VARIABLEN
+//   1. GLOBALE VARIABLEN & KONFIGURATION
 // ===================================================================
-
-/**
- * Prüft, ob es sich um ein typisches Mobilgerät handelt (Touch-fähig UND schmaler Bildschirm).
- * @returns {boolean} True, wenn es ein Mobilgerät ist.
- */
-function isMobileDevice() {
-    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-    const isNarrow = window.innerWidth < 768;
-    return isTouch && isNarrow;
-}
-
-// Konfiguration für die PDF.js-Bibliothek
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
-
-// ===================================================================
-//   1. HILFSFUNKTIONEN & GLOBALE VARIABLEN (FINALE KORREKTUR)
-// ===================================================================
-
-// ... (isMobileDevice Funktion) ...
-
-// Globale Variablen für den Zustand der Anwendung
+const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf";
 let pdfDoc = null;
 let currentPage = 1;
 let isAnimating = false;
-let matchPages = new Set();
+let matchPages = new Set( );
 let searchText = "";
 let secondSearchText = "";
-const url = "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstarisborn/CodexHumanus/images/Codex_Humanus_Band_1-3.pdf";
 
-// KORREKTE LOGIK: Getrennte Variablen für Qualität und Zoom
-const scale = 2.0;      // Feste Basis-Skalierung für hohe Render-Qualität
-let zoomFactor = 1.5;   // Interaktiver Zoom-Faktor, startet neutral bei 1.0 (keine Veränderung )
+let zoomScale = 1.0;
+let isZoomed = false;
+let isPanning = false;
+let panStart = { x: 0, y: 0 };
+
+const pdfContainer = document.getElementById('pdfContainer');
+const pdfViewer = document.getElementById('pdfViewer');
 
 // ===================================================================
-//   2. INITIALISIERUNG (PDF LADEN )
+//   2. INITIALISIERUNG
 // ===================================================================
-
 pdfjsLib.getDocument(url).promise.then(pdf => {
     pdfDoc = pdf;
-    renderPage(currentPage); // Die erste Seite beim Start laden
+    renderPage(currentPage);
     updateUiAfterNavigation();
-   
 }).catch(err => {
     console.error("Fehler beim Laden des PDFs:", err);
     alert("Fehler beim Laden des PDFs.");
 });
 
-
 // ===================================================================
 //   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage)
 // ===================================================================
-
-/**
- * Rendert eine PDF-Seite. Unterscheidet zwischen einer einfachen Anzeige (z.B. Zoom)
- * und einer animierten Anzeige (Seitenwechsel).
- * @param {number} num - Die Seitenzahl, die angezeigt werden soll.
- * @param {string} direction - 'next', 'prev' oder 'none'. Bestimmt, ob animiert wird.
- */
-// ===================================================================
-//   3. HAUPTFUNKTION: SEITENANZEIGE (renderPage) - FINALE, SAUBERE VERSION
-// ===================================================================
-
-function renderPage(num, direction = 'none') {
-    if (isAnimating || !pdfDoc) return;
-
-    const pdfViewer = document.getElementById('pdfViewer');
-    const oldCanvas = pdfViewer.querySelector('canvas');
-    const totalScale = scale * zoomFactor;
-
-    // --- Fall A: Einfache Anzeige (Start, Zoom) ---
-    if (direction === 'none' || !oldCanvas) {
-        isAnimating = true;
-        pdfDoc.getPage(num).then(page => {
-            pdfViewer.style.width = '100%';
-            pdfViewer.style.justifyContent = 'center';
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-            const viewport = page.getViewport({ scale: totalScale });
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-            if (isMobileDevice()) {
-                canvas.style.width = '100%';
-                canvas.style.height = 'auto';
-            } else {
-                canvas.style.width = `${viewport.width}px`;
-                canvas.style.height = `${viewport.height}px`;
-            }
-            pdfViewer.innerHTML = '';
-            pdfViewer.appendChild(canvas);
-            const renderContext = { canvasContext: ctx, viewport: viewport };
-            page.render(renderContext).promise.then(() => {
-                if (matchPages.has(num)) highlightMatches(page, canvas, viewport);
-                isAnimating = false;
-            });
-            document.getElementById("pdfContainer").scrollTop = 0;
-        });
-        return;
-    }
-
-    // --- Fall B: Animierter Seitenwechsel ---
+function renderPage(num) {
+    if (!pdfDoc) return;
     isAnimating = true;
 
-    // FINALE KORREKTUR: Entfernt den Inline-Style vom alten Canvas.
-    if (oldCanvas) {
-        oldCanvas.style.width = ''; 
-    }
-
-    pdfViewer.style.justifyContent = 'flex-start';
-
     pdfDoc.getPage(num).then(page => {
-        const viewport = page.getViewport({ scale: totalScale });
-        const newCanvas = document.createElement("canvas");
-        newCanvas.height = viewport.height;
-        newCanvas.width = viewport.width;
-        newCanvas.style.backgroundColor = 'white';
+        const baseScale = window.devicePixelRatio || 1;
+        const viewport = page.getViewport({ scale: baseScale });
 
-        pdfViewer.style.transition = 'none';
-        pdfViewer.style.width = '200%';
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
 
-        if (direction === 'next') {
-            pdfViewer.appendChild(newCanvas);
-            pdfViewer.style.transform = 'translateX(0)';
-        } else {
-            pdfViewer.insertBefore(newCanvas, oldCanvas);
-            pdfViewer.style.transform = 'translateX(-50%)';
-        }
+        pdfViewer.innerHTML = '';
+        pdfViewer.appendChild(canvas);
 
-        requestAnimationFrame(() => {
-            pdfViewer.style.transition = 'transform 0.4s ease-in-out';
-            if (direction === 'next') {
-                pdfViewer.style.transform = 'translateX(-50%)';
-            } else {
-                pdfViewer.style.transform = 'translateX(0)';
-            }
-        });
-
-        const renderContext = { canvasContext: newCanvas.getContext('2d'), viewport: viewport };
+        const renderContext = { canvasContext: ctx, viewport: viewport };
         page.render(renderContext).promise.then(() => {
-            if (matchPages.has(num)) highlightMatches(page, newCanvas, viewport);
-            newCanvas.style.backgroundColor = 'transparent';
-        });
-
-        pdfViewer.addEventListener('transitionend', function cleanup() {
-            pdfViewer.style.transition = 'none';
-            if (direction === 'next') {
-                if (oldCanvas) oldCanvas.remove();
-            } else {
-                if (pdfViewer.children.length > 1) pdfViewer.children[1].remove();
+            if (matchPages.has(num)) {
+                highlightMatches(page, canvas, page.getViewport({ scale: baseScale }));
             }
-            pdfViewer.style.transform = 'translateX(0)';
-            pdfViewer.style.width = '';
-            pdfViewer.style.justifyContent = 'center';
-            document.getElementById("pdfContainer").scrollTop = 0;
             isAnimating = false;
-        }, { once: true });
+            resetZoomAndPan();
+        });
     });
 }
 
-
-
 // ===================================================================
-//   4. ZUSATZFUNKTION (Mausrad-Zoom)
+//   4. NAVIGATION & INTERAKTIONEN
 // ===================================================================
-// HINWEIS: Diese Funktion hat eine eigene `scale`-Variable verwendet, die zu Konflikten führte.
-// Sie ist jetzt auskommentiert, da die Zoom-Buttons `zoomFactor` verwenden.
-// Wenn Sie diese Funktion nutzen wollen, muss sie ebenfalls `zoomFactor` ändern.
+function goToPage(num) {
+    if (isAnimating || num < 1 || (pdfDoc && num > pdfDoc.numPages)) return;
+    currentPage = num;
+    renderPage(currentPage);
+    updateUiAfterNavigation();
+}
 
-/*
-document.getElementById("pdfViewer").addEventListener("wheel", function(event) {
-    if (event.ctrlKey) {
-        event.preventDefault();
-        // Diese Funktion müsste `zoomFactor` anstelle von `scale` ändern.
-        // zoomFactor += event.deltaY * -0.01;
-        // zoomFactor = Math.min(Math.max(0.5, zoomFactor), 3.0);
-        renderPage(currentPage);
-    }
-});
-*/
+document.getElementById("prev-page").addEventListener("click", () => goToPage(currentPage - 1));
+document.getElementById("next-page").addEventListener("click", () => goToPage(currentPage + 1));
 
+function prevMatch() {
+    if (matchPages.size === 0) return;
+    const pages = [...matchPages];
+    const currentIndex = pages.indexOf(currentPage);
+    if (currentIndex > 0) goToPage(pages[currentIndex - 1]);
+}
 
+function nextMatch() {
+    if (matchPages.size === 0) return;
+    const pages = [...matchPages];
+    const currentIndex = pages.indexOf(currentPage);
+    if (currentIndex < pages.length - 1) goToPage(pages[currentIndex + 1]);
+}
 
 // ===================================================================
 //   5. SUCHE & HERVORHEBUNG
 // ===================================================================
-
-/**
- * Normalisiert verschiedene Arten von Anführungszeichen zu Standardzeichen,
- * um die Suchkonsistenz zu verbessern.
- * @param {string} text - Der zu normalisierende Text.
- * @returns {string} Der normalisierte Text.
- */
 function normalizeQuotes(text) {
     return text
-        .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"') // Diverse doppelte Anführungszeichen
-        .replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'"); // Diverse einfache Anführungszeichen
+        .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"')
+        .replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'");
 }
 
-/**
- * Die Hauptfunktion zum Durchsuchen des gesamten PDF-Dokuments.
- * Verwendet die globalen Variablen `searchText` und `secondSearchText`.
- */
-/**
- * Die Hauptfunktion zum Durchsuchen des gesamten PDF-Dokuments.
- * Zeigt währenddessen eine runde Ladeanzeige mit Fortschritt an.
- */
 async function searchPDF() {
-    // --- 1. Vorbereitung & Ladeanzeige starten ---
     const overlay = document.getElementById('search-progress-overlay');
     const circle = document.querySelector('.progress-ring__circle');
     const progressText = document.getElementById('progress-text');
@@ -606,36 +365,27 @@ async function searchPDF() {
         return alert("Bitte mindestens den ersten Suchbegriff eingeben.");
     }
 
-    // --- 2. Seiten sequenziell durchsuchen, um den Fortschritt zu aktualisieren ---
     const numPages = pdfDoc.numPages;
     for (let pageNum = 1; pageNum <= numPages; pageNum++) {
         const page = await pdfDoc.getPage(pageNum);
         const textContent = await page.getTextContent();
-        
         const pageText = textContent.items.map(item => item.str).join(" ").toLowerCase();
         const normalizedPageText = normalizeQuotes(pageText);
 
         const hasFirst = normalizedPageText.includes(searchText.toLowerCase());
         const hasSecond = secondSearchText ? normalizedPageText.includes(secondSearchText.toLowerCase()) : true;
+        if (hasFirst && hasSecond) matchPages.add(pageNum);
 
-        if (hasFirst && hasSecond) {
-            matchPages.add(pageNum);
-        }
-
-        // --- Fortschrittsanzeige aktualisieren ---
         const progress = pageNum / numPages;
         const offset = circumference - progress * circumference;
         circle.style.strokeDashoffset = offset;
         progressText.textContent = `Durchsuche Seite ${pageNum} von ${numPages}... (${Math.round(progress * 100)}%)`;
     }
 
-    // --- 3. Auswertung & Ladeanzeige beenden ---
     overlay.style.display = 'none';
 
     if (matchPages.size > 0) {
-        currentPage = [...matchPages][0];
-        renderPage(currentPage);
-        updateUiAfterNavigation(); // Stellt sicher, dass auch die Treffer-UI aktualisiert wird
+        goToPage([...matchPages][0]);
         document.getElementById("searchInfo").textContent = `🔍 ${matchPages.size} Seite(n) mit Treffern gefunden.`;
     } else {
         document.getElementById("searchInfo").textContent = "❌ Keine Treffer gefunden.";
@@ -644,55 +394,145 @@ async function searchPDF() {
     }
 }
 
-
-/**
- * Hebt die Suchbegriffe auf einem gerenderten Canvas hervor.
- * Diese Funktion ist verbessert, um einzelne Wörter statt ganzer Zeilen zu markieren.
- * @param {PDFPageProxy} page - Das PDF.js-Seitenobjekt.
- * @param {HTMLCanvasElement} canvas - Das Canvas, auf dem gezeichnet wird.
- * @param {PDFPageViewport} viewport - Der Viewport, der für das Rendern verwendet wurde.
- */
 function highlightMatches(page, canvas, viewport) {
     const searchTextLower = searchText.toLowerCase();
     const secondSearchTextLower = secondSearchText ? secondSearchText.toLowerCase() : null;
-    const highlightColor = "rgba(255, 255, 0, 0.4)"; // Einheitliches, halbtransparentes Gelb
+    const highlightColor = "rgba(255, 255, 0, 0.4)";
 
     page.getTextContent().then(textContent => {
         const ctx = canvas.getContext("2d");
         ctx.fillStyle = highlightColor;
 
-        for (const item of textContent.items) {
-            const itemTextLower = item.str.toLowerCase();
-            let isMatch = false;
+        const textLayer = new pdfjsLib.TextLayerBuilder({
+            textLayerDiv: document.createElement('div'),
+            pageIndex: page.pageIndex,
+            viewport: viewport
+        });
+        textLayer.setTextContent(textContent);
+        textLayer.render();
 
-            // Prüfen, ob die Suchbegriffe im Text-Item vorkommen
-            const firstMatch = itemTextLower.includes(searchTextLower);
-            if (secondSearchTextLower) {
-                // Bei zwei Suchbegriffen müssen beide auf der Seite sein (wurde in searchPDF geprüft),
-                // hier heben wir jedes Vorkommen von beiden hervor.
-                isMatch = firstMatch || itemTextLower.includes(secondSearchTextLower);
-            } else {
-                isMatch = firstMatch;
-            }
+        textContent.items.forEach((item, i) => {
+            const itemTextLower = normalizeQuotes(item.str.toLowerCase());
+            const firstMatch = searchTextLower && itemTextLower.includes(searchTextLower);
+            const secondMatch = secondSearchTextLower && itemTextLower.includes(secondSearchTextLower);
 
-            if (isMatch) {
-                // Transformation anwenden, um die exakte Position auf dem Canvas zu bekommen
-                const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
-                const x = tx[4];
-                const y = tx[5];
-                
-                // Ein Rechteck über dem Text-Item zeichnen
-                // Ein kleiner Puffer wird hinzugefügt, damit die Markierung nicht direkt am Text klebt.
-                ctx.fillRect(x - 1, y - item.height + 2, item.width + 2, item.height);
+            if (firstMatch || secondMatch) {
+                const itemDiv = textLayer.textLayerDiv.children[i];
+                if (itemDiv) {
+                    const left = parseFloat(itemDiv.style.left);
+                    const top = parseFloat(itemDiv.style.top);
+                    const width = parseFloat(itemDiv.style.width);
+                    const height = parseFloat(itemDiv.style.height);
+                    ctx.fillRect(left, top, width, height);
+                }
             }
-        }
+        });
     });
 }
 
+// ===================================================================
+//   6. GESTENSTEUERUNG (ZOOM, PAN, SWIPE)
+// ===================================================================
+let initialDistance = 0;
+let swipeStartX = 0;
+let swipeDistX = 0;
+let isSwiping = false;
 
-/**
- * Aktualisiert die Info-Anzeige "Seite X von Y" für die Suchergebnisse.
- */
+pdfContainer.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+        e.preventDefault();
+        isSwiping = false;
+        initialDistance = getDistance(e.touches);
+    } else if (e.touches.length === 1) {
+        if (isZoomed) {
+            e.preventDefault();
+            isPanning = true;
+            panStart.x = e.touches[0].clientX + pdfContainer.scrollLeft;
+            panStart.y = e.touches[0].clientY + pdfContainer.scrollTop;
+        } else {
+            isSwiping = true;
+            swipeStartX = e.touches[0].clientX;
+            swipeDistX = 0;
+            pdfViewer.style.transition = 'none';
+        }
+    }
+}, { passive: false });
+
+pdfContainer.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2) {
+        e.preventDefault();
+        const currentDistance = getDistance(e.touches);
+        const newScale = zoomScale * (currentDistance / initialDistance);
+        setZoom(newScale, { x: e.touches[0].clientX, y: e.touches[0].clientY });
+        initialDistance = currentDistance;
+    } else if (isPanning) {
+        e.preventDefault();
+        pdfContainer.scrollLeft = panStart.x - e.touches[0].clientX;
+        pdfContainer.scrollTop = panStart.y - e.touches[0].clientY;
+    } else if (isSwiping) {
+        swipeDistX = e.touches[0].clientX - swipeStartX;
+        if ((currentPage === 1 && swipeDistX > 0) || (currentPage === pdfDoc.numPages && swipeDistX < 0)) {
+            swipeDistX /= 3;
+        }
+        pdfViewer.style.transform = `translateX(${swipeDistX}px)`;
+    }
+}, { passive: false });
+
+pdfContainer.addEventListener('touchend', (e) => {
+    isPanning = false;
+    if (e.touches.length < 2) initialDistance = 0;
+
+    if (isSwiping) {
+        isSwiping = false;
+        const threshold = pdfContainer.clientWidth / 4;
+        pdfViewer.style.transition = 'transform 0.3s ease-out';
+        if (swipeDistX < -threshold && currentPage < pdfDoc.numPages) {
+            goToPage(currentPage + 1);
+        } else if (swipeDistX > threshold && currentPage > 1) {
+            goToPage(currentPage - 1);
+        } else {
+            pdfViewer.style.transform = 'translateX(0)';
+        }
+    }
+});
+
+function getDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+function setZoom(newScale) {
+    zoomScale = Math.max(1, Math.min(newScale, 5));
+    isZoomed = zoomScale > 1;
+    pdfViewer.style.transform = `scale(${zoomScale})`;
+}
+
+function resetZoomAndPan() {
+    zoomScale = 1.0;
+    isZoomed = false;
+    pdfViewer.style.transform = 'scale(1) translateX(0)';
+    pdfContainer.scrollLeft = 0;
+    pdfContainer.scrollTop = 0;
+}
+
+function zoomIn() { setZoom(zoomScale + 0.25); }
+function zoomOut() { setZoom(zoomScale - 0.25); }
+
+// ===================================================================
+//   7. UI- & HILFSFUNKTIONEN
+// ===================================================================
+function updateUiAfterNavigation() {
+    document.getElementById("prev-page").disabled = (currentPage <= 1);
+    document.getElementById("next-page").disabled = (pdfDoc && currentPage >= pdfDoc.numPages);
+    document.getElementById("page-info").textContent = `Seite ${currentPage} von ${pdfDoc ? pdfDoc.numPages : '...'}`;
+    updatePdfLink();
+    if (matchPages.size > 0) {
+        updateCurrentMatchInfo();
+        updateProgressBar();
+    }
+}
+
 function updateCurrentMatchInfo() {
     if (matchPages.size === 0) {
         document.getElementById("currentMatchInfo").textContent = "";
@@ -703,9 +543,6 @@ function updateCurrentMatchInfo() {
     document.getElementById("currentMatchInfo").textContent = `📄 Treffer ${index + 1} von ${pages.length}`;
 }
 
-/**
- * Aktualisiert den Fortschrittsbalken basierend auf der aktuellen Position in den Suchergebnissen.
- */
 function updateProgressBar() {
     if (matchPages.size === 0) {
         document.getElementById("progressFill").style.width = "0%";
@@ -717,368 +554,6 @@ function updateProgressBar() {
     document.getElementById("progressFill").style.width = `${percent}%`;
 }
 
-
-// ===================================================================
-//   6. EVENT LISTENER (z.B. für Enter-Taste)
-// ===================================================================
-
-document.getElementById("searchBox").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Verhindert, dass die Seite neu geladen wird
-        searchPDF();
-    }
-});
-
-document.getElementById("searchBox2").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        searchPDF();
-    }
-});
-
-
-// ===================================================================
-//   7. NAVIGATION & INTERAKTIONEN (KORRIGIERTE VERSION)
-// ===================================================================
-
-/**
- * Blättert zum VORHERIGEN SUCHTREFFER.
- */
-function prevMatch() {
-    if (matchPages.size === 0) return; // Funktion ohne Suchtreffer beenden
-    const pages = [...matchPages];
-    const currentIndex = pages.indexOf(currentPage);
-    if (currentIndex > 0) {
-        currentPage = pages[currentIndex - 1];
-        renderPage(currentPage, 'prev');
-        updateUiAfterNavigation();
-    }
-}
-
-/**
- * Blättert zum NÄCHSTEN SUCHTREFFER.
- */
-function nextMatch() {
-    if (matchPages.size === 0) return; // Funktion ohne Suchtreffer beenden
-    const pages = [...matchPages];
-    const currentIndex = pages.indexOf(currentPage);
-    if (currentIndex < pages.length - 1) {
-        currentPage = pages[currentIndex + 1];
-        renderPage(currentPage, 'next');
-        updateUiAfterNavigation();
-    }
-}
-
-/**
- * Vergrößert die Ansicht der Seite.
- */
-function zoomIn() {
-    zoomFactor += 0.25;
-    renderPage(currentPage);
-    resetScrollPosition();
-}
-
-/**
- * Verkleinert die Ansicht der Seite.
- */
-function zoomOut() {
-    if (zoomFactor > 0.5) {
-        zoomFactor -= 0.25;
-        renderPage(currentPage);
-        resetScrollPosition();
-    }
-}
-
-/**
- * Setzt die Scroll-Position des PDF-Containers zurück nach oben.
- */
-function resetScrollPosition() {
-    document.getElementById("pdfContainer").scrollTop = 0;
-}
-
-/**
- * Aktualisiert alle UI-Elemente, die von der Seitenzahl abhängen.
- */
-function updateUiAfterNavigation() {
-    // Buttons für normales Blättern (de)aktivieren
-    document.getElementById("prev-page").disabled = (currentPage <= 1);
-    document.getElementById("next-page").disabled = (currentPage >= pdfDoc.numPages);
-    
-    // Link zum direkten Öffnen des PDFs auf der aktuellen Seite aktualisieren
-    updatePdfLink();
-
-    // UI für Suchergebnisse aktualisieren, falls vorhanden
-    if (matchPages.size > 0) {
-        updateCurrentMatchInfo();
-        updateProgressBar();
-    }
-}
-
-
-// ===================================================================
-//   8. EVENT LISTENER FÜR BUTTONS (KORRIGIERTE VERSION)
-// ===================================================================
-
-// Listener für das normale Blättern (PDF-Buttons)
-document.getElementById("prev-page").addEventListener("click", () => {
-    if (currentPage > 1) {
-        currentPage--;
-        renderPage(currentPage, 'prev');
-        updateUiAfterNavigation();
-    }
-});
-
-document.getElementById("next-page").addEventListener("click", () => {
-    if (currentPage < pdfDoc.numPages) {
-        currentPage++;
-        renderPage(currentPage, 'next');
-        updateUiAfterNavigation();
-    }
-});
-
-// Die `onclick`-Attribute im HTML rufen direkt die Funktionen
-// prevMatch(), nextMatch(), zoomIn() und zoomOut() auf.
-// Daher brauchen wir für diese keine expliziten Event-Listener hier.
-
-
-// ===================================================================
-//   9. DRUCKFUNKTION
-// ===================================================================
-
-/**
- * Erstellt eine hochauflösende Ansicht der aktuellen Seite und öffnet sie
- * in einem neuen, druckfreundlichen Tab.
- */
-function printCurrentPage() {
-    if (!pdfDoc) return;
-
-    pdfDoc.getPage(currentPage).then(page => {
-        const printScale = 2.0; // Feste, hohe Skalierung für gute Druckqualität
-        const viewport = page.getViewport({ scale: printScale });
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        const renderContext = { canvasContext: ctx, viewport: viewport };
-
-        page.render(renderContext).promise.then(() => {
-            const dataUrl = canvas.toDataURL(); // Das gerenderte Bild in eine URL umwandeln
-
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <!DOCTYPE html>
-                <html lang="de">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>Druckansicht - Seite ${currentPage}</title>
-                    <style>
-                        body { margin: 0; text-align: center; background-color: #f8f9fa; }
-                        .print-header { padding: 15px; background-color: #d2d2d4; border-bottom: 1px solid #ccc; display: flex; justify-content: center; align-items: center; gap: 15px; }
-                        .print-header button { padding: 8px 15px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer; }
-                        img { max-width: 100%; height: auto; margin-top: 20px; }
-                        @media print {
-                            .print-header { display: none; }
-                            img { margin-top: 0; }
-                            @page { margin: 0; size: auto; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="print-header">
-                        <img src="images/codexhumanus.png" alt="Logo" style="height: 40px;">
-                        <button onclick="window.print()">🖨️ Jetzt drucken</button>
-                        <button onclick="window.close()">❌ Schließen</button>
-                    </div>
-                    <img src="${dataUrl}" alt="PDF Seite ${currentPage}">
-                </body>
-                </html>
-            `);
-            printWindow.document.close();
-        });
-    });
-}
-
-
-// ===================================================================
-//   10. WISCHGESTEN (SWIPE) - STUFE 3: NAHTLOSES ZIEHEN & SNAPPEN
-// ===================================================================
-const swipeContainer = document.getElementById('pdfContainer');
-if (swipeContainer) {
-    let startX = 0;
-    let currentX = 0;
-    let distanzX = 0;
-    let isSwiping = false;
-    let oldCanvas = null;
-    let newCanvas = null;
-
-    const viewer = document.getElementById('pdfViewer');
-
-    swipeContainer.addEventListener('touchstart', (e) => {
-        if (isAnimating || e.touches.length > 1) return;
-
-        isSwiping = true;
-        startX = e.touches[0].clientX;
-        distanzX = 0;
-
-        // Das aktuell sichtbare Canvas für die Interaktion merken
-        oldCanvas = viewer.querySelector('canvas');
-        if (!oldCanvas) return;
-
-        // Alle Animationen ausschalten für direktes Folgen
-        viewer.style.transition = 'none';
-        oldCanvas.style.transition = 'none';
-
-    }, { passive: true });
-
-    swipeContainer.addEventListener('touchmove', (e) => {
-        if (!isSwiping || !oldCanvas) return;
-
-        currentX = e.touches[0].clientX;
-        distanzX = currentX - startX;
-
-        // Widerstand am Anfang und Ende des Dokuments
-        if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
-            distanzX /= 3;
-        }
-
-        // Das Canvas direkt mit dem Finger bewegen
-        oldCanvas.style.transform = `translateX(${distanzX}px)`;
-    }, { passive: true });
-
-    swipeContainer.addEventListener('touchend', (e) => {
-        if (!isSwiping || !oldCanvas) return;
-        isSwiping = false;
-
-        const threshold = viewer.clientWidth / 3; // Schwellenwert: 1/4 der Breite
-
-        // --- Entscheidung beim Loslassen ---
-
-        // 1. WEIT GENUG NACH LINKS GEWISCHT (-> NÄCHSTE SEITE)
-        if (distanzX < -threshold && currentPage < pdfDoc.numPages) {
-            isAnimating = true;
-            currentPage++;
-            
-            // Neue Seite im Hintergrund erstellen
-            pdfDoc.getPage(currentPage).then(page => {
-                const totalScale = scale * zoomFactor; 
-                const viewport = page.getViewport({ scale: totalScale });
-                newCanvas = document.createElement('canvas');
-                newCanvas.width = viewport.width;
-                newCanvas.height = viewport.height;
-                if (isMobileDevice()) {
-                    newCanvas.style.width = '100%';
-                    newCanvas.style.height = 'auto';
-                } else {
-                    newCanvas.style.width = `${viewport.width}px`;
-                    newCanvas.style.height = `${viewport.height}px`;
-                }
-                
-                // Neue Seite rechts außerhalb des sichtbaren Bereichs platzieren
-                newCanvas.style.position = 'absolute';
-                newCanvas.style.top = '0';
-                newCanvas.style.left = '100%';
-                viewer.appendChild(newCanvas);
-
-// NEUER, KORRIGIERTER TEIL
-// Animation für beide Seiten aktivieren
-oldCanvas.style.transition = 'transform 0.3s ease-out';
-newCanvas.style.transition = 'transform 0.3s ease-out';
-
-// Die Animation im nächsten Frame starten, um sicherzustellen, dass die Transition aktiv ist
-requestAnimationFrame(() => {
-    oldCanvas.style.transform = 'translateX(-100%)';
-    newCanvas.style.transform = 'translateX(-100%)';
-});
-
-
-                // Nach der Animation aufräumen
-                newCanvas.addEventListener('transitionend', () => {
-                    viewer.innerHTML = ''; // Alles leeren
-                    viewer.appendChild(newCanvas); // Nur die neue Seite behalten
-                    newCanvas.style.position = 'static';
-                    newCanvas.style.transform = 'none';
-                    isAnimating = false;
-                    updateUiAfterNavigation();
-                }, { once: true });
-
-                // Die neue Seite rendern, während sie animiert wird
-                const renderContext = { canvasContext: newCanvas.getContext('2d'), viewport: viewport };
-                page.render(renderContext);
-            });
-        }
-// NEUER, VOLLSTÄNDIGER BLOCK FÜR "ZURÜCK"
-else if (distanzX > threshold && currentPage > 1) {
-    isAnimating = true;
-    currentPage--;
-    
-    // Neue Seite (die vorherige) im Hintergrund erstellen
-    pdfDoc.getPage(currentPage).then(page => {
-        const totalScale = scale * zoomFactor;
-        const viewport = page.getViewport({ scale: totalScale });
-        newCanvas = document.createElement('canvas');
-        newCanvas.width = viewport.width;
-        newCanvas.height = viewport.height;
-        if (isMobileDevice()) {
-            newCanvas.style.width = '100%';
-            newCanvas.style.height = 'auto';
-        } else {
-            newCanvas.style.width = `${viewport.width}px`;
-            newCanvas.style.height = `${viewport.height}px`;
-        }
-        
-        // Neue Seite LINKS außerhalb des sichtbaren Bereichs platzieren
-        newCanvas.style.position = 'absolute';
-        newCanvas.style.top = '0';
-        newCanvas.style.left = '-100%'; // <-- Der Hauptunterschied
-        viewer.appendChild(newCanvas);
-
-        // Animation für beide Seiten aktivieren
-        oldCanvas.style.transition = 'transform 0.3s ease-out';
-        newCanvas.style.transition = 'transform 0.3s ease-out';
-
-        // Animation im nächsten Frame starten
-        requestAnimationFrame(() => {
-            // Beide Seiten nach RECHTS aus dem Bild schieben
-            oldCanvas.style.transform = 'translateX(100%)'; // <-- Unterschied
-            newCanvas.style.transform = 'translateX(100%)'; // <-- Unterschied
-        });
-
-        // Nach der Animation aufräumen
-        newCanvas.addEventListener('transitionend', () => {
-            viewer.innerHTML = '';
-            viewer.appendChild(newCanvas);
-            newCanvas.style.position = 'static';
-            newCanvas.style.transform = 'none';
-            isAnimating = false;
-            updateUiAfterNavigation();
-        }, { once: true });
-
-        // Die neue Seite rendern, während sie animiert wird
-        const renderContext = { canvasContext: newCanvas.getContext('2d'), viewport: viewport };
-        page.render(renderContext);
-    });
-}
-
-        // 3. NICHT WEIT GENUG GEWISCHT -> ZURÜCKFEDERN
-        else {
-            oldCanvas.style.transition = 'transform 0.3s ease-out';
-            oldCanvas.style.transform = 'translateX(0)';
-        }
-    });
-}
-
-
-
-// ===================================================================
-//   11. UI-HILFSFUNKTIONEN (Link & Info-Modal)
-// ===================================================================
-
-/**
- * Aktualisiert den Link des Logos, sodass er immer auf die aktuell
- * angezeigte Seite im Original-PDF verweist.
- */
 function updatePdfLink() {
     const link = document.getElementById('pdfLink');
     if (link) {
@@ -1087,53 +562,45 @@ function updatePdfLink() {
     }
 }
 
-// ===================================================================
-//   11. INFO-MODAL STEUERUNG (WIEDERHERGESTELLT)
-// ===================================================================
-
-/**
- * Öffnet das Informations-Modal.
- * Diese Funktion wird vom "📝 Info"-Button im HTML aufgerufen.
- */
-function openInfo() {
-    document.getElementById('infoModal').style.display = 'flex';
+function printCurrentPage( ) {
+    if (!pdfDoc) return;
+    pdfDoc.getPage(currentPage).then(page => {
+        const printScale = 2.0;
+        const viewport = page.getViewport({ scale: printScale });
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const renderContext = { canvasContext: ctx, viewport: viewport };
+        page.render(renderContext).promise.then(() => {
+            const dataUrl = canvas.toDataURL();
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Druckansicht - Seite ${currentPage}</title>
+                <style>
+                    body { margin: 0; text-align: center; background-color: #f8f9fa; }
+                    .print-header { padding: 15px; background-color: #d2d2d4; border-bottom: 1px solid #ccc; display: flex; justify-content: center; align-items: center; gap: 15px; }
+                    .print-header button { padding: 8px 15px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer; }
+                    img { max-width: 100%; height: auto; margin-top: 20px; }
+                    @media print { .print-header { display: none; } img { margin-top: 0; } @page { margin: 0; size: auto; } }
+                </style></head><body>
+                <div class="print-header">
+                    <img src="images/codexhumanus.png" alt="Logo" style="height: 40px;">
+                    <button onclick="window.print()">🖨️ Jetzt drucken</button>
+                    <button onclick="window.close()">❌ Schließen</button>
+                </div>
+                <img src="${dataUrl}" alt="PDF Seite ${currentPage}"></body></html>`);
+            printWindow.document.close();
+        });
+    });
 }
 
-/**
- * Schließt das Informations-Modal.
- * Diese Funktion wird vom "Schließen"-Button im Modal selbst aufgerufen.
- */
-function closeInfo() {
-    document.getElementById('infoModal').style.display = 'none';
-}
+document.getElementById("searchBox").addEventListener("keydown", e => { if (e.key === "Enter") searchPDF(); });
+document.getElementById("searchBox2").addEventListener("keydown", e => { if (e.key === "Enter") searchPDF(); });
 
-
+function openInfo() { document.getElementById('infoModal').style.display = 'flex'; }
+function closeInfo() { document.getElementById('infoModal').style.display = 'none'; }
 </script>
-<!-- =================================================================== -->
-<!--         INFO-MODAL FENSTER (WIEDERHERGESTELLT)                    -->
-<!-- =================================================================== -->
-<div id="infoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-     background-color: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:9999;">
-  
-  <div style="background:white; padding:25px 30px; border-radius:10px; max-width:400px; text-align:center; font-family: Arial, sans-serif;">
-    <h2>Information</h2>
-    <p>Diese Anwendung wurde für meine Frau  
-  
-<strong>und alle Freundinnen von meiner Frau</strong>  
-</p>
-    <p>entwickelt.  
-  
-  
-Ich hoffe dieses Programm <strong>hilft ein wenig.</strong>.</p>
-    <p>  
-
-      
-    </p>
-    <button onclick="closeInfo()" style="margin-top:15px; padding:8px 16px; border:none; background-color:#927851; color:white; border-radius:5px;">Schließen</button>
-  </div>
-
-</div>
 
 </body>
-
 </html>
