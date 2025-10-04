@@ -2093,12 +2093,13 @@ window.addEventListener('focus', function() {
 
 
 // ===================================================================
-//   INTERAKTIONEN FÜR DEN PDF-CONTAINER (FINALE, ROBUSTE VERSION)
+//   INTERAKTIONEN FÜR DEN PDF-CONTAINER (MINIMALISTISCH ERWEITERT)
 // ===================================================================
 const pdfContainer = document.getElementById('pdfContainer');
 if (pdfContainer) {
 
   // --- PDF BEI DOPPELKLICK IN NEUEM TAB ÖFFNEN (NUR DESKTOP) ---
+  // (Dieser Teil bleibt unverändert)
   pdfContainer.addEventListener('dblclick', function() {
     if (!isMobileDevice() && currentDocumentPath && pdfDoc) {
       const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
@@ -2112,22 +2113,13 @@ if (pdfContainer) {
   let distanzX = 0;
   let distanzY = 0;
   let lastTap = 0;
+  
+  // NEU: Wir brauchen eine Referenz zum Element, das wir bewegen wollen.
+  const pdfViewer = document.getElementById('pdfViewer');
 
-  // --- NEUE VARIABLEN (aus unserem Code) ---
-let isSwiping = false; // Verfolgt, ob gerade aktiv gewischt wird
-const pdfViewer = document.getElementById('pdfViewer'); // Direkter Zugriff auf den Viewer
-
-// ===================================================================
-//   TOUCH-EVENTS MIT KOMBINIERTER LOGIK (NEUE VERSION)
-// ===================================================================
-
-// --- touchstart: Startet entweder den Swipe oder merkt sich die Position ---
-pdfContainer.addEventListener('touchstart', function(e) {
-    // Nur bei einem Finger reagieren
-    if (e.touches.length > 1 || zoomFactor > 1.0) {
-        isSwiping = false; // Bei Zoom oder mehreren Fingern ist Swipen deaktiviert
-        return;
-    }
+  // --- touchstart: Fast wie bisher, aber wir deaktivieren die Animation ---
+  pdfContainer.addEventListener('touchstart', function(e) {
+    if (e.touches.length > 1 || zoomFactor > 1.0) return; // Zoom-Sperre bleibt!
     
     const touch = e.touches[0];
     startX = touch.screenX;
@@ -2135,85 +2127,80 @@ pdfContainer.addEventListener('touchstart', function(e) {
     distanzX = 0;
     distanzY = 0;
 
-    // Wisch-Modus starten und Animation für direktes Feedback deaktivieren
-    isSwiping = true;
-    pdfViewer.style.transition = 'none';
+    // NEU: Animation ausschalten, damit die Seite dem Finger sofort folgt.
+    if (pdfViewer) {
+        pdfViewer.style.transition = 'none';
+    }
+  }); // { passive: true } entfernt, wegen Doppeltipp
 
-}, { passive: true });
-
-
-// --- touchmove: Bewegt die Seite visuell mit dem Finger mit ---
-pdfContainer.addEventListener('touchmove', function(e) {
-    // Nur reagieren, wenn wir im Wisch-Modus sind
-    if (!isSwiping || e.touches.length > 1) return;
-
+  // --- touchmove: HIER ENTSTEHT DAS BLÄTTER-FEELING ---
+  pdfContainer.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 1 || zoomFactor > 1.0) return;
+    
     const touch = e.touches[0];
     distanzX = touch.screenX - startX;
     distanzY = touch.screenY - startY;
 
-    // Nur auf horizontale Wischgesten reagieren
-    if (Math.abs(distanzX) > Math.abs(distanzY)) {
-        // Widerstand am Anfang und Ende des Dokuments
+    // NEU: Die Seite visuell mit dem Finger verschieben.
+    // Wir prüfen, ob die Bewegung hauptsächlich horizontal ist.
+    if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
+        // Widerstand am Anfang/Ende für ein besseres Gefühl
         if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
-            distanzX /= 3; // Bewegung wird "schwerer"
+            distanzX /= 3;
         }
-        // Die Seite visuell verschieben
         pdfViewer.style.transform = `translateX(${distanzX}px)`;
     }
-}, { passive: true });
+  }, { passive: true });
 
-
-// --- touchend: Entscheidet, ob geblättert, zurückgeschnappt oder getippt wurde ---
-pdfContainer.addEventListener('touchend', function(event) {
+  // --- touchend: Entscheidet über Blättern, Zurückfedern oder Doppeltipp ---
+  pdfContainer.addEventListener('touchend', function(event) {
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTap;
     lastTap = currentTime;
 
-    // 1. PRÜFUNG: WAR ES EIN DOPPELTIPP? (Ihre Logik)
-    // Ein Tipp ist eine sehr kurze Berührung ohne viel Bewegung.
+    // DOPPELTIPP-ERKENNUNG (bleibt unverändert)
     if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
-        event.preventDefault(); // Verhindert Browser-Zoom
-
-        // Führe die Aktion zum Öffnen in neuem Tab aus
-        if (currentDocumentPath && pdfDoc) {
-            const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
-            const link = document.createElement('a');
-            link.href = urlForNewTab;
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-        isSwiping = false; // Wichtig: Swipe-Modus beenden
-        return; // Aktion beendet, nichts weiter tun.
+      event.preventDefault();
+      if (currentDocumentPath && pdfDoc) {
+        const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
+        const link = document.createElement('a');
+        link.href = urlForNewTab;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      return; 
     }
 
-    // 2. PRÜFUNG: WENN ES KEIN TIPP WAR, WAR ES EIN SWIPE?
-    if (isSwiping) {
-        isSwiping = false; // Wisch-Modus beenden
+    // --- NEUE WISCH-LOGIK MIT SNAPPING ---
+    if (zoomFactor > 1.0) {
+      return; // Zoom-Sperre bleibt!
+    }
 
-        // Schwellenwert für die Entscheidung (z.B. 25% der Bildschirmbreite)
-        const threshold = pdfContainer.clientWidth * 0.25;
+    const mindestDistanz = pdfContainer.clientWidth * 0.25;
 
-        // Animation für das "Snapping" wieder aktivieren
+    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+
+            // HIER IST DIE LÖSUNG: Setze den Viewer SOFORT zurück.
+      const pdfViewer = document.getElementById('pdfViewer');
+      pdfViewer.style.transform = 'translateX(0)';
+      // Weit genug gewischt -> Blättern (wie bisher)
+      if (distanzX < 0) {
+        document.getElementById('next-page').click();
+      } else {
+        document.getElementById('prev-page').click();
+      }
+      // WICHTIG: Da Ihre `goToPage` Funktion funktioniert, wird sie die `transform`-Eigenschaft
+      // beim Neuladen der Seite korrekt zurücksetzen. Wir müssen hier nichts weiter tun.
+    } else if (distanzX !== 0) {
+      // NEU: Nicht weit genug gewischt -> Zurückfedern (Snapping)
+      if (pdfViewer) {
         pdfViewer.style.transition = 'transform 0.3s ease-out';
-
-        // Entscheidung basierend auf der Wisch-Distanz
-        if (distanzX < -threshold && currentPage < pdfDoc.numPages) {
-            // Weit genug nach links gewischt -> NÄCHSTE SEITE
-            // Wir simulieren den Klick, um Ihre bestehende Logik zu nutzen
-            document.getElementById('next-page').click();
-            // Hinweis: Die visuelle Transformation wird durch das Neuladen der Seite zurückgesetzt.
-        } else if (distanzX > threshold && currentPage > 1) {
-            // Weit genug nach rechts gewischt -> VORHERIGE SEITE
-            document.getElementById('prev-page').click();
-        } else {
-            // Nicht weit genug gewischt -> ZURÜCKFEDERN
-            pdfViewer.style.transform = 'translateX(0)';
-        }
+        pdfViewer.style.transform = 'translateX(0)';
+      }
     }
-});
-
+  });
 }
 
 
