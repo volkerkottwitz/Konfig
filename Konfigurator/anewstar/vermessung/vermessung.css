@@ -169,18 +169,26 @@ section.screen h2 {
    ===================================================================== */
 
 /* Diese Regeln gelten nur für Bildschirme, die 768px breit oder schmaler sind (also die meisten Handys) */
+/* =====================================================================
+   NEU: ANPASSUNGEN FÜR MOBILGERÄTE
+   ===================================================================== */
+
+/* Diese Regeln gelten nur für Bildschirme, die 768px breit oder schmaler sind (also die meisten Handys) */
 @media screen and (max-width: 768px) {
     
-    /* Halbiert die Höhe des Video-Containers */
-    #videoContainer {
+    /* Halbiert die Höhe des Video- UND des Foto-Containers */
+    #videoContainer,
+    #photoContainer { /* << HIER WIRD #photoContainer HINZUGEFÜGT */
         max-height: 50vh; /* Maximale Höhe ist 50% der Bildschirmhöhe */
         overflow: hidden; /* Versteckt alles, was überläuft */
     }
 
-    /* Stellt sicher, dass das Video die neue Höhe ausfüllt */
-    #videoElement {
+    /* Stellt sicher, dass das Video UND das Canvas die neue Höhe ausfüllen */
+    #videoElement,
+    #photoCanvas { /* << HIER WIRD #photoCanvas HINZUGEFÜGT */
         width: 100%;
         height: 100%;
         object-fit: cover; /* Füllt den Container, schneidet ggf. Ränder ab */
     }
+
 }
