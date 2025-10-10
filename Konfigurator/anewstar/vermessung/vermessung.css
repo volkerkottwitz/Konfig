@@ -192,3 +192,48 @@ section.screen h2 {
     }
 
 }
+
+/* ===================================================================== */
+/* NEU: Stile für die finale Bildanzeige (Responsiv)                     */
+/* ===================================================================== */
+
+#finalImagesContainer {
+    display: flex;
+    flex-direction: column; /* MOBIL ZUERST: Bilder untereinander anordnen */
+    align-items: center;   /* Zentriert die Bilder auf der mobilen Ansicht */
+    gap: 20px;             /* Abstand zwischen den Bildern */
+}
+
+.image-wrapper {
+    width: 100%;           /* Auf Mobilgeräten nimmt jedes Bild die volle Breite ein */
+    max-width: 500px;      /* Verhindert, dass es auf sehr breiten Bildschirmen zu groß wird */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-wrapper p {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+#finalImagesContainer canvas {
+    width: 100%; /* Das Canvas füllt den Wrapper aus */
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Regel für größere Bildschirme (z.B. ab 768px Breite) */
+@media (min-width: 768px) {
+    #finalImagesContainer {
+        flex-direction: row; /* DESKTOP: Bilder nebeneinander anordnen */
+        justify-content: space-around; /* Platz verteilen */
+        align-items: flex-start; /* Oben ausrichten */
+    }
+
+    .image-wrapper {
+        width: 48%; /* Auf Desktops nimmt jedes Bild knapp die Hälfte der Breite ein */
+    }
+}

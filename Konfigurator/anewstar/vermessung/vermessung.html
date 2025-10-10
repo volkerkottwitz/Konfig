@@ -18,21 +18,52 @@
             <div id="videoContainer" style="position: relative; width: 100%; max-width: 800px; margin: auto;">
                 <video id="videoElement" playsinline autoplay muted style="width: 100%; height: auto; border-radius: 8px;"></video>
             </div>
-<!-- ===================================================================== -->
-<!-- NEU: Container für die Kamera-Steuerung hinzufügen -->
-<!-- ===================================================================== -->
-<div id="cameraControls" style="display: none; flex-direction: column; gap: 10px; margin-top: 15px; padding: 10px; background-color: #f0f0f0; border-radius: 8px;">
-    <!-- Die Regler werden hier per JavaScript eingefügt -->
-</div>
+            
+            <!-- ===================================================================== -->
+            <!-- NEU: Container für die Kamera-Steuerung hinzufügen -->
+            <!-- ===================================================================== -->
+            <div id="cameraControls" style="display: none; flex-direction: column; gap: 10px; margin-top: 15px; padding: 10px; background-color: #f0f0f0; border-radius: 8px;">
+                <!-- Die Regler werden hier per JavaScript eingefügt -->
+            </div>
+
             <!-- Foto-Container (für Analyse) -->
             <div id="photoContainer" style="position: relative; width: 100%; max-width: 800px; margin: auto; display: none;">
                 <canvas id="photoCanvas" style="width: 100%; height: auto; border-radius: 8px;"></canvas>
             </div>
 
+            <!-- Button-Container (wird nach der Aufnahme angezeigt) -->
+            <div id="actionButtons" class="button-group">
+                <button id="measureButton">Foto aufnehmen & Analysieren</button>
+                <!-- Dieser Button wird nach der Aufnahme unter dem Bild angezeigt -->
+                <button id="resetButton" class="back-btn" style="display: none;">Neue Messung</button>
+            </div>
+
             <!-- Ergebnis-Container -->
             <div id="quickResults" style="margin-top: 20px; font-size: 1.2rem; min-height: 50px;"></div>
 
-            <!-- Interaktions-Container -->
+                        <!-- ===================================================================== -->
+            <!-- NEU: Container für die optionale Höhenmessung -->
+            <!-- ===================================================================== -->
+            <div id="heightMeasurementControls" class="button-group" style="display: none;">
+                <button id="measureHeightButton">Höhe messen</button>
+            </div>
+
+            <!-- ===================================================================== -->
+            <!-- NEU: Container für die Anzeige beider finalen Bilder -->
+            <!-- ===================================================================== -->
+            <div id="finalImagesContainer" style="display: none; gap: 10px; margin-top: 20px;">
+                <div class="image-wrapper">
+                    <p>1. Durchmesser-Messung</p>
+                    <canvas id="finalImage1"></canvas>
+                </div>
+                <div class="image-wrapper">
+                    <p>2. Höhen-Messung</p>
+                    <canvas id="finalImage2"></canvas>
+                </div>
+            </div>
+
+
+            <!-- Interaktions-Container (jetzt unter dem "Neue Messung"-Button) -->
             <div id="interactionContainer" class="button-group" style="display: none; margin-top: 15px;">
                 <div class="input-container" style="max-width: 450px; width: 90%; margin: auto;">
                     <label for="distanceInput">Gemessene Distanz in cm:</label>
@@ -41,11 +72,6 @@
                 <button id="calculateButton">Messergebnis berechnen</button>
             </div>
 
-            <!-- Button-Container -->
-            <div id="actionButtons" class="button-group">
-                <button id="measureButton">Foto aufnehmen & Analysieren</button>
-                <button id="resetButton" class="back-btn" style="display: none;">Neue Messung</button>
-            </div>
         </section>
     </main>
 
