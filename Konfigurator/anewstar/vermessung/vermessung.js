@@ -141,9 +141,9 @@ function getMousePos(canvas, evt) {
 
 photoCanvas.addEventListener('mousedown', (e) => {
     const pos = getMousePos(photoCanvas, e);
-    if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < 15) {
+    if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < 40) {
         calibrationLine.dragging = 'start';
-    } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < 15) {
+    } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < 40) {
         calibrationLine.dragging = 'end';
     }
 });
