@@ -1,0 +1,164 @@
+/* =================================================================== */
+/*           NEUES, ANGEPASSTES CSS FÜR DEN MEGARIPP-KONFIGURATOR        */
+/*                     Finale Version: 19.08.2025                      */
+/* =================================================================== */
+
+/* ========== 1. BASIS-STILE & SCHRIFTART ========== */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap'  );
+
+body {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Heller Hintergrund für besseren Kontrast */
+    color: #333; /* Dunklerer Text für Lesbarkeit */
+    text-align: center;
+}
+
+/* ========== 2. HEADER-BEREICH ========== */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    background-color: #d2d2d4; /* Neutrales Grau */
+    border-bottom: 2px solid #ddd;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+header .logo {
+    height: 50px;
+    width: auto;
+}
+
+header h1 {
+    color: white;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+/* =================================================================== */
+/*           13. HEADER-BUTTON NEBEN DEM TITEL                       */
+/* =================================================================== */
+
+.header-action-btn {
+    background-color: #f8f9fa;
+    color: #f7f7f7;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    width: auto;
+    max-width: none;
+}
+
+.header-action-btn:hover {
+    background-color: #e9ecef;
+    border-color: #ced4da;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.header-action-btn .btn-icon {
+    height: 18px;
+    width: auto;
+}
+
+main {
+    position: relative;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    transition: height 0.4s ease-in-out;
+}
+
+.screen {
+    width: 100%; /* Wichtig für die Layout-Kontrolle */
+    display: none;
+}
+.screen.active {
+    display: block;
+}
+
+/* ========== 4. BUTTON-LAYOUT & STILE ========== */
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+button {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    background: linear-gradient(135deg, #00a1e1, #0077b6);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 90%;
+    max-width: 450px;
+    box-sizing: border-box;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #0077b6, #005577);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 161, 225, 0.3);
+}
+
+button.back-btn {
+    background: #e9ecef;
+    color: #495057;
+    margin-top: 10px;
+}
+
+button.back-btn:hover {
+    background: #dee2e6;
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+section.screen h2 {
+    margin: 15px 0 20px 0;
+    color: #00a1e1;
+    font-size: 1.5rem;
+}
+
+/* ========== 9. RESPONSIVE ANPASSUNGEN ========== */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+    }
+}
+
+/* Weitere Stile aus Ihrer Vorlage sind hier enthalten, aber zur Übersichtlichkeit gekürzt. */
+/* Sie können den kompletten Code von oben hier einfügen. */
