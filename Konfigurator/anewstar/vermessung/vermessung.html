@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objekt-Vermessung (Foto-Analyse)</title>
+    <title>Objekt-Vermessung</title>
     <link rel="stylesheet" href="vermessung.css">
 </head>
 <body>
@@ -12,28 +12,39 @@
     </header>
     <main>
         <section id="cameraScreen" class="screen active">
-            <h2 id="statusText">Kamera wird gestartet...</h2>
-            
-            <!-- Video-Element (wird nach dem Foto ausgeblendet) -->
+            <h2 id="statusText">Initialisiere Anwendung...</h2>
+
+            <!-- Video-Container (für Live-Bild) -->
             <div id="videoContainer" style="position: relative; width: 100%; max-width: 800px; margin: auto;">
                 <video id="videoElement" playsinline autoplay muted style="width: 100%; height: auto; border-radius: 8px;"></video>
             </div>
 
-            <!-- Canvas für das "Foto" (wird nach dem Foto eingeblendet) -->
-            <canvas id="photoCanvas" style="display: none; width: 100%; height: auto; border-radius: 8px;"></canvas>
-
-            <!-- Container für die Buttons -->
-            <div id="buttonContainer" class="button-group" style="margin-top: 20px;">
-                <button id="measureButton">Messen</button>
-                <button id="resetButton" class="back-btn" style="display: none;">Neue Messung</button>
+            <!-- Foto-Container (für Analyse) -->
+            <div id="photoContainer" style="position: relative; width: 100%; max-width: 800px; margin: auto; display: none;">
+                <canvas id="photoCanvas" style="width: 100%; height: auto; border-radius: 8px;"></canvas>
             </div>
 
-            <!-- Container für die Ergebnisse -->
+            <!-- Ergebnis-Container -->
             <div id="quickResults" style="margin-top: 20px; font-size: 1.2rem; min-height: 50px;"></div>
+
+            <!-- Interaktions-Container -->
+            <div id="interactionContainer" class="button-group" style="display: none; margin-top: 15px;">
+                <div class="input-container" style="max-width: 450px; width: 90%; margin: auto;">
+                    <label for="distanceInput">Gemessene Distanz in cm:</label>
+                    <input type="number" id="distanceInput" placeholder="z.B. 5 für 5 cm">
+                </div>
+                <button id="calculateButton">Messergebnis berechnen</button>
+            </div>
+
+            <!-- Button-Container -->
+            <div id="actionButtons" class="button-group">
+                <button id="measureButton">Foto aufnehmen & Analysieren</button>
+                <button id="resetButton" class="back-btn" style="display: none;">Neue Messung</button>
+            </div>
         </section>
     </main>
 
-    <script src="https://docs.opencv.org/4.5.4/opencv.js"></script>
+    <script src="https://docs.opencv.org/4.8.0/opencv.js"></script>
     <script src="vermessung.js"></script>
 </body>
 </html>
