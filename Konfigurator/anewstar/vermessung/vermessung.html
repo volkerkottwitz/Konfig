@@ -18,7 +18,12 @@
             <div id="videoContainer" style="position: relative; width: 100%; max-width: 800px; margin: auto;">
                 <video id="videoElement" playsinline autoplay muted style="width: 100%; height: auto; border-radius: 8px;"></video>
             </div>
-
+<!-- ===================================================================== -->
+<!-- NEU: Container für die Kamera-Steuerung hinzufügen -->
+<!-- ===================================================================== -->
+<div id="cameraControls" style="display: none; flex-direction: column; gap: 10px; margin-top: 15px; padding: 10px; background-color: #f0f0f0; border-radius: 8px;">
+    <!-- Die Regler werden hier per JavaScript eingefügt -->
+</div>
             <!-- Foto-Container (für Analyse) -->
             <div id="photoContainer" style="position: relative; width: 100%; max-width: 800px; margin: auto; display: none;">
                 <canvas id="photoCanvas" style="width: 100%; height: auto; border-radius: 8px;"></canvas>

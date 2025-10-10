@@ -162,3 +162,25 @@ section.screen h2 {
 
 /* Weitere Stile aus Ihrer Vorlage sind hier enthalten, aber zur Übersichtlichkeit gekürzt. */
 /* Sie können den kompletten Code von oben hier einfügen. */
+
+
+/* =====================================================================
+   NEU: ANPASSUNGEN FÜR MOBILGERÄTE
+   ===================================================================== */
+
+/* Diese Regeln gelten nur für Bildschirme, die 768px breit oder schmaler sind (also die meisten Handys) */
+@media screen and (max-width: 768px) {
+    
+    /* Halbiert die Höhe des Video-Containers */
+    #videoContainer {
+        max-height: 50vh; /* Maximale Höhe ist 50% der Bildschirmhöhe */
+        overflow: hidden; /* Versteckt alles, was überläuft */
+    }
+
+    /* Stellt sicher, dass das Video die neue Höhe ausfüllt */
+    #videoElement {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Füllt den Container, schneidet ggf. Ränder ab */
+    }
+}
