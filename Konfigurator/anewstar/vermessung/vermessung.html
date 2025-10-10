@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objekt-Vermessung (Foto-Analyse)</title>
+    <link rel="stylesheet" href="vermessung.css">
+</head>
+<body>
+    <header>
+        <h1>Objekt-Vermessung</h1>
+    </header>
+    <main>
+        <section id="cameraScreen" class="screen active">
+            <h2 id="statusText">Kamera wird gestartet...</h2>
+            
+            <!-- Video-Element (wird nach dem Foto ausgeblendet) -->
+            <div id="videoContainer" style="position: relative; width: 100%; max-width: 800px; margin: auto;">
+                <video id="videoElement" playsinline autoplay muted style="width: 100%; height: auto; border-radius: 8px;"></video>
+            </div>
+
+            <!-- Canvas für das "Foto" (wird nach dem Foto eingeblendet) -->
+            <canvas id="photoCanvas" style="display: none; width: 100%; height: auto; border-radius: 8px;"></canvas>
+
+            <!-- Container für die Buttons -->
+            <div id="buttonContainer" class="button-group" style="margin-top: 20px;">
+                <button id="measureButton">Messen</button>
+                <button id="resetButton" class="back-btn" style="display: none;">Neue Messung</button>
+            </div>
+
+            <!-- Container für die Ergebnisse -->
+            <div id="quickResults" style="margin-top: 20px; font-size: 1.2rem; min-height: 50px;"></div>
+        </section>
+    </main>
+
+    <script src="https://docs.opencv.org/4.5.4/opencv.js"></script>
+    <script src="vermessung.js"></script>
+</body>
+</html>
