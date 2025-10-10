@@ -139,11 +139,20 @@ function getMousePos(canvas, evt) {
     };
 }
 
+// =====================================================================
+// ERSETZEN SIE ALLE photoCanvas EVENT LISTENER MIT DIESEM EINEN BLOCK
+// =====================================================================
+
+// --- Maus-Events ---
 photoCanvas.addEventListener('mousedown', (e) => {
     const pos = getMousePos(photoCanvas, e);
-    if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < 40) {
+    
+    // HIER WIRD SPÄTER DIE LOGIK FÜR DIE KREISE EINGEFÜGT
+    // Aktuell prüfen wir nur die Kalibrierungslinie
+
+    if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < 40) { // Greifbereich 40
         calibrationLine.dragging = 'start';
-    } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < 40) {
+    } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < 40) { // Greifbereich 40
         calibrationLine.dragging = 'end';
     }
 });
@@ -158,121 +167,37 @@ photoCanvas.addEventListener('mousemove', (e) => {
 photoCanvas.addEventListener('mouseup', () => {
     calibrationLine.dragging = null;
 });
+
 photoCanvas.addEventListener('mouseleave', () => {
     calibrationLine.dragging = null;
 });
 
-
-// =====================================================================
-// ERWEITERN SIE DIESEN BLOCK AM ENDE VON ABSCHNITT 4
-// =====================================================================
-
-// --- Bestehende Maus-Events (bleiben unverändert) ---
-photoCanvas.addEventListener('mousedown', (e) => {
-    const pos = getMousePos(photoCanvas, e);
-    
-    // Prüfe zuerst, ob ein Kreis-Anfasser bewegt wird
-    for (let i = 0; i < capturedCircles.length; i++) {
-        const circle = capturedCircles[i];
-        if (Math.hypot(pos.x - (circle.x + circle.radius), pos.y - circle.y) < 12) {
-            draggingCircle = { index: i, type: 'radius' };
-            return;
-        }
-        if (Math.hypot(pos.x - circle.x, pos.y - circle.y) < 12) {
-            draggingCircle = { index: i, type: 'position' };
-            return;
-        }
-    }
-
-    if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < 15) {
-        calibrationLine.dragging = 'start';
-    } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < 15) {
-        calibrationLine.dragging = 'end';
-    }
-});
-
-photoCanvas.addEventListener('mousemove', (e) => {
-    const pos = getMousePos(photoCanvas, e);
-
-    if (draggingCircle.index !== -1) {
-        const circle = capturedCircles[draggingCircle.index];
-        if (draggingCircle.type === 'position') {
-            circle.x = pos.x;
-            circle.y = pos.y;
-        } else if (draggingCircle.type === 'radius') {
-            circle.radius = Math.hypot(pos.x - circle.x, pos.y - circle.y);
-        }
-        drawAnalysis();
-        return;
-    }
-
-    if (calibrationLine.dragging) {
-        calibrationLine[calibrationLine.dragging] = pos;
-        drawAnalysis();
-    }
-});
-
-photoCanvas.addEventListener('mouseup', () => {
-    calibrationLine.dragging = null;
-    draggingCircle = { index: -1, type: null };
-});
-photoCanvas.addEventListener('mouseleave', () => {
-    calibrationLine.dragging = null;
-    draggingCircle = { index: -1, type: null };
-});
-
-
-// --- NEU: Touch-Events für mobile Geräte hinzufügen ---
+// --- Touch-Events ---
 photoCanvas.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // WICHTIG: Verhindert das Browser-Menü ("Bild speichern")
-    const touch = e.touches[0];
-    const pos = getMousePos(photoCanvas, touch);
-
-    for (let i = 0; i < capturedCircles.length; i++) {
-        const circle = capturedCircles[i];
-        if (Math.hypot(pos.x - (circle.x + circle.radius), pos.y - circle.y) < 20) { // Größerer Greifbereich für Touch
-            draggingCircle = { index: i, type: 'radius' };
-            return;
-        }
-        if (Math.hypot(pos.x - circle.x, pos.y - circle.y) < 20) {
-            draggingCircle = { index: i, type: 'position' };
-            return;
-        }
-    }
-
-    if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < 25) { // Größerer Greifbereich
-        calibrationLine.dragging = 'start';
-    } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < 25) {
-        calibrationLine.dragging = 'end';
-    }
-}, { passive: false }); // Notwendig, damit preventDefault funktioniert
-
-photoCanvas.addEventListener('touchmove', (e) => {
     e.preventDefault();
     const touch = e.touches[0];
     const pos = getMousePos(photoCanvas, touch);
 
-    if (draggingCircle.index !== -1) {
-        const circle = capturedCircles[draggingCircle.index];
-        if (draggingCircle.type === 'position') {
-            circle.x = pos.x;
-            circle.y = pos.y;
-        } else if (draggingCircle.type === 'radius') {
-            circle.radius = Math.hypot(pos.x - circle.x, pos.y - circle.y);
-        }
-        drawAnalysis();
-        return;
-    }
+    // HIER WIRD SPÄTER DIE LOGIK FÜR DIE KREISE EINGEFÜGT
 
-    if (calibrationLine.dragging) {
-        calibrationLine[calibrationLine.dragging] = pos;
-        drawAnalysis();
+    if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < 100) { // Greifbereich 50
+        calibrationLine.dragging = 'start';
+    } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < 100) { // Greifbereich 50
+        calibrationLine.dragging = 'end';
     }
+}, { passive: false });
+
+photoCanvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    if (!calibrationLine.dragging) return;
+    const touch = e.touches[0];
+    const pos = getMousePos(photoCanvas, touch);
+    calibrationLine[calibrationLine.dragging] = pos;
+    drawAnalysis();
 }, { passive: false });
 
 photoCanvas.addEventListener('touchend', () => {
     calibrationLine.dragging = null;
-    draggingCircle = { index: -1, type: null };
 });
 
 
