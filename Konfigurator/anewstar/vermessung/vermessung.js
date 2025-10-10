@@ -3,6 +3,14 @@
 // =====================================================================
 
 // --- 1. GRUNDEINSTELLUNGEN & VARIABLEN ---
+
+// =====================================================================
+// In Abschnitt 1: GRUNDEINSTELLUNGEN & VARIABLEN
+// =====================================================================
+
+
+
+
 const statusText = document.getElementById('statusText' );
 const videoElement = document.getElementById('videoElement');
 const videoContainer = document.getElementById('videoContainer');
@@ -22,7 +30,12 @@ let calibrationLine = {
     start: { x: 100, y: 100 },
     end: { x: 400, y: 100 },
     dragging: null // 'start', 'end', or null
+    
 };
+
+// --- NEU: Responsive Größe für die Anfasser-Punkte ---
+const isMobile = window.innerWidth <= 768;
+const handleRadius = isMobile ? 30 : 12; // Große Punkte für Handy, kleinere für Desktop
 
 // --- 2. INITIALISIERUNG ---
 function onOpenCvReady() {
@@ -101,10 +114,13 @@ function takePhotoAndAnalyze() {
 }
 
 // --- 4. ZEICHEN- & INTERAKTIONSFUNKTIONEN ---
+// =====================================================================
+// ERSETZEN SIE NUR DIESE EINE FUNKTION
+// =====================================================================
 function drawAnalysis() {
     photoCtx.drawImage(videoElement, 0, 0, photoCanvas.width, photoCanvas.height);
     
-    // Zeichne gefundene Kreise
+    // Zeichne gefundene Kreise (unverändert)
     photoCtx.lineWidth = 4;
     photoCtx.strokeStyle = '#00e1a1';
     capturedCircles.forEach(circle => {
@@ -113,7 +129,7 @@ function drawAnalysis() {
         photoCtx.stroke();
     });
 
-    // Zeichne Kalibrierungslinie
+    // Zeichne Kalibrierungslinie (unverändert)
     photoCtx.lineWidth = 3;
     photoCtx.strokeStyle = 'red';
     photoCtx.beginPath();
@@ -121,15 +137,16 @@ function drawAnalysis() {
     photoCtx.lineTo(calibrationLine.end.x, calibrationLine.end.y);
     photoCtx.stroke();
 
-    // Zeichne Anfasser-Punkte
+    // Zeichne Anfasser-Punkte mit der responsiven Größe
     photoCtx.fillStyle = 'red';
     photoCtx.beginPath();
-    photoCtx.arc(calibrationLine.start.x, calibrationLine.start.y, 10, 0, 2 * Math.PI);
+    photoCtx.arc(calibrationLine.start.x, calibrationLine.start.y, handleRadius, 0, 2 * Math.PI); // Verwendet jetzt die Variable
     photoCtx.fill();
     photoCtx.beginPath();
-    photoCtx.arc(calibrationLine.end.x, calibrationLine.end.y, 10, 0, 2 * Math.PI);
+    photoCtx.arc(calibrationLine.end.x, calibrationLine.end.y, handleRadius, 0, 2 * Math.PI); // Verwendet jetzt die Variable
     photoCtx.fill();
 }
+
 
 function getMousePos(canvas, evt) {
     const rect = canvas.getBoundingClientRect();
