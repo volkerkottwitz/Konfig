@@ -57,6 +57,9 @@ function onOpenCvReady() {
 // =====================================================================
 // ERSETZEN: startCamera mit dynamischer Kamera-Steuerung
 // =====================================================================
+// =====================================================================
+// ERSETZEN: startCamera mit Zoom, Fokus UND Tap-to-Focus
+// =====================================================================
 async function startCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
@@ -70,43 +73,49 @@ async function startCamera() {
         videoElement.onloadedmetadata = () => {
             statusText.textContent = 'Richten Sie die Kamera auf Dichtung und Lineal.';
 
-            // --- NEUE LOGIK ZUR KAMERA-STEUERUNG ---
             const videoTrack = stream.getVideoTracks()[0];
             const capabilities = videoTrack.getCapabilities();
             const controlsContainer = document.getElementById('cameraControls');
-            controlsContainer.innerHTML = ''; // Alte Regler entfernen
+            controlsContainer.innerHTML = '';
 
             let controlsAdded = false;
 
-            // 1. ZOOM-Regler erstellen, falls unterstützt
+            // 1. ZOOM-Regler
             if (capabilities.zoom) {
                 controlsAdded = true;
-                const zoomControl = createSliderControl(
-                    'Zoom', 
-                    capabilities.zoom.min, 
-                    capabilities.zoom.max, 
-                    capabilities.zoom.step,
-                    videoTrack.getSettings().zoom || capabilities.zoom.min,
-                    (value) => videoTrack.applyConstraints({ advanced: [{ zoom: value }] })
-                );
+                const zoomControl = createSliderControl('Zoom', capabilities.zoom.min, capabilities.zoom.max, capabilities.zoom.step, videoTrack.getSettings().zoom || capabilities.zoom.min, (value) => videoTrack.applyConstraints({ advanced: [{ zoom: value }] }));
                 controlsContainer.appendChild(zoomControl);
             }
 
-            // 2. FOKUS-Regler erstellen, falls unterstützt
+            // 2. FOKUS-Regler (falls manuell unterstützt)
             if (capabilities.focusMode && capabilities.focusMode.includes('manual')) {
                 controlsAdded = true;
-                const focusControl = createSliderControl(
-                    'Fokus', 
-                    capabilities.focusDistance.min, 
-                    capabilities.focusDistance.max, 
-                    capabilities.focusDistance.step,
-                    videoTrack.getSettings().focusDistance || capabilities.focusDistance.min,
-                    (value) => videoTrack.applyConstraints({ advanced: [{ focusMode: 'manual', focusDistance: value }] })
-                );
+                const focusControl = createSliderControl('Fokus', capabilities.focusDistance.min, capabilities.focusDistance.max, capabilities.focusDistance.step, videoTrack.getSettings().focusDistance || capabilities.focusDistance.min, (value) => videoTrack.applyConstraints({ advanced: [{ focusMode: 'manual', focusDistance: value }] }));
                 controlsContainer.appendChild(focusControl);
+            } 
+            // 3. TAP-TO-FOCUS (falls 'continuous' und 'pointsOfInterest' unterstützt werden)
+            else if (capabilities.focusMode && capabilities.focusMode.includes('continuous') && capabilities.pointsOfInterest) {
+                videoElement.addEventListener('click', (event) => {
+                    const rect = videoElement.getBoundingClientRect();
+                    // Klick-Position auf 0-1 normalisieren
+                    const x = (event.clientX - rect.left) / rect.width;
+                    const y = (event.clientY - rect.top) / rect.height;
+
+                    // Constraints anwenden
+                    videoTrack.applyConstraints({
+                        advanced: [{
+                            pointsOfInterest: [{ x, y }],
+                            focusMode: 'continuous'
+                        }]
+                    }).catch(e => console.error("Tap-to-focus fehlgeschlagen:", e));
+                    
+                    // Visuelles Feedback für den Klick
+                    showFocusIndicator(x * rect.width, y * rect.height);
+                });
+                // Hinweis für den Nutzer hinzufügen
+                statusText.textContent += ' (Tippen zum Fokussieren)';
             }
 
-            // Nur den Container anzeigen, wenn auch Regler hinzugefügt wurden
             if (controlsAdded) {
                 controlsContainer.style.display = 'flex';
             }
@@ -116,6 +125,7 @@ async function startCamera() {
         console.error(error);
     }
 }
+
 
 
 // =====================================================================
@@ -152,6 +162,8 @@ function createSliderControl(label, min, max, step, current, onChange) {
 // --- 3. HAUPTFUNKTIONEN & ANALYSE ---
 function takePhotoAndAnalyze() {
     if (!cvReady || videoElement.paused || videoElement.ended) return;
+
+    document.getElementById('cameraControls').style.display = 'none';
 
     videoContainer.style.display = 'none';
     photoContainer.style.display = 'block';
@@ -425,6 +437,13 @@ function resetApp() {
     capturedCircles = [];
     capturedRectangle = null;
     firstMeasurementData = { imageData: null, outerDiameter: 0, innerDiameter: 0, ringWidth: 0 };
+
+        // NEUE LOGIK: Kamera-Steuerung wieder anzeigen, aber nur wenn sie Inhalt hat
+    const controlsContainer = document.getElementById('cameraControls');
+    if (controlsContainer.innerHTML !== '') {
+        controlsContainer.style.display = 'flex';
+    }
+
     videoElement.play();
 }
 
@@ -438,6 +457,13 @@ function setupHeightMeasurement() {
     quickResults.innerHTML = '';
     measureButton.style.display = 'block';
     resetButton.style.display = 'none';
+
+        // NEUE LOGIK: Kamera-Steuerung wieder anzeigen, aber nur wenn sie Inhalt hat
+    const controlsContainer = document.getElementById('cameraControls');
+    if (controlsContainer.innerHTML !== '') {
+        controlsContainer.style.display = 'flex';
+    }
+
     videoElement.play();
 }
 
