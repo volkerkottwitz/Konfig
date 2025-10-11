@@ -235,6 +235,9 @@ function analyzeForCircles() {
 
     
 
+// =====================================================================
+// KORREKTUR: Die beste Version von analyzeForRectangle (entfernt Schatten)
+// =====================================================================
 function analyzeForRectangle() {
     statusText.textContent = 'Rechteck wird gesucht...';
     capturedRectangle = null;
@@ -250,6 +253,7 @@ function analyzeForRectangle() {
         cv.cvtColor(roiSrc, gray, cv.COLOR_RGBA2GRAY);
         cv.adaptiveThreshold(gray, thresholded, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 11, 2);
 
+        // Dies ist die optimierte Logik, um den Schatten zu entfernen
         let M = cv.Mat.ones(5, 5, cv.CV_8U);
         let iterations = 3;
         cv.erode(thresholded, thresholded, M, new cv.Point(-1, -1), iterations);
@@ -282,25 +286,31 @@ function analyzeForRectangle() {
             statusText.textContent = 'Rechteck gefunden! Bitte korrigieren und kalibrieren.';
             interactionContainer.style.display = 'flex';
             resetButton.style.display = 'block';
-
-} else {
-    // --- NEUER FEHLERFALL ---
-    statusText.textContent = 'Kein passendes Rechteck gefunden. Bitte versuchen Sie es erneut.';
-    setTimeout(() => {
-        returnToCamera();
-    }, 2000);
-}
-
+        } else {
+            // Fallback, falls nichts gefunden wird
+            capturedRectangle = { x: 100, y: 100, width: 200, height: 50 };
+            statusText.textContent = 'Kein Rechteck gefunden. Bitte manuell aufziehen und kalibrieren.';
+            interactionContainer.style.display = 'flex';
+            resetButton.style.display = 'block';
+            drawAnalysis();
+        }
     } catch (error) {
         console.error("Fehler während der OpenCV-Rechteckanalyse:", error);
         statusText.textContent = 'Analyse fehlgeschlagen.';
+        setTimeout(() => { returnToCamera(); }, 2000);
     }
 }
 
+
 // --- 4. ZEICHEN- & INTERAKTIONSFUNKTIONEN ---
+// =====================================================================
+// KORREKTUR: drawAnalysis (ohne doppelte Funktionsdefinition)
+// =====================================================================
 function drawAnalysis() {
+    // 1. Hintergrundbild zeichnen
     photoCtx.drawImage(videoElement, 0, 0, photoCanvas.width, photoCanvas.height);
     
+    // 2. Gefundene Kreise zeichnen (nur im Durchmesser-Modus)
     if (measurementMode === 'diameter' && capturedCircles.length > 0) {
         photoCtx.lineWidth = 4;
         photoCtx.strokeStyle = '#00e1a1';
@@ -311,6 +321,7 @@ function drawAnalysis() {
         });
     }
 
+    // 3. Interaktives Rechteck und seine Anfasser zeichnen (nur im Höhen-Modus)
     if (measurementMode === 'height' && capturedRectangle) {
         photoCtx.strokeStyle = '#00e1a1';
         photoCtx.lineWidth = 3;
@@ -330,6 +341,7 @@ function drawAnalysis() {
         }
     }
 
+    // 4. Kalibrierungslinie und ihre Anfasser zeichnen (immer)
     photoCtx.lineWidth = 3;
     photoCtx.strokeStyle = 'red';
     photoCtx.beginPath();
@@ -344,63 +356,36 @@ function drawAnalysis() {
     photoCtx.beginPath();
     photoCtx.arc(calibrationLine.end.x, calibrationLine.end.y, handleRadius, 0, 2 * Math.PI);
     photoCtx.fill();
-    // =====================================================================
-// HINZUFÜGEN: Code zum Zeichnen der Lupe am Ende von drawAnalysis
-// =====================================================================
-function drawAnalysis() {
-    // ... (der gesamte bisherige Code der Funktion zum Zeichnen von Bild, Kreisen, Rechteck, Linien) ...
 
-    // NEUER CODE FÜR DIE LUPE:
+    // 5. Lupe zeichnen (nur wenn aktiv)
     if (showMagnifier && calibrationLine.dragging) {
-        // Position des aktuell gezogenen Punktes bestimmen
         const draggedPoint = calibrationLine[calibrationLine.dragging];
-
-        // Parameter für die Lupe definieren
-        const magnifierSize = 120; // Größe der Lupe in Pixeln (etwas größer für bessere Sicht)
-        const zoomFactor = 3.0;    // Wie stark wird vergrößert?
-        const sourceSize = magnifierSize / zoomFactor; // Größe des Bildausschnitts, der vergrößert wird
-
-        // Position der Lupe (schwebt über dem gezogenen Punkt)
+        const magnifierSize = 120;
+        const zoomFactor = 3.0;
+        const sourceSize = magnifierSize / zoomFactor;
         const magnifierX = draggedPoint.x - (magnifierSize / 2);
-        const magnifierY = draggedPoint.y - magnifierSize - 30; // 30px Abstand über dem Punkt
+        const magnifierY = draggedPoint.y - magnifierSize - 30;
 
-        // --- Lupe zeichnen ---
-        photoCtx.save(); // Aktuellen Zeichenzustand (Stile, etc.) speichern
-
-        // 1. Runden Clip-Bereich für die Lupe erstellen
+        photoCtx.save();
         photoCtx.beginPath();
         photoCtx.arc(magnifierX + magnifierSize / 2, magnifierY + magnifierSize / 2, magnifierSize / 2, 0, 2 * Math.PI);
-        photoCtx.lineWidth = 5; // Dickerer Rand für bessere Sichtbarkeit
+        photoCtx.lineWidth = 5;
         photoCtx.strokeStyle = 'red';
         photoCtx.stroke();
-        photoCtx.clip(); // Wichtig: Alles, was jetzt gezeichnet wird, erscheint nur innerhalb dieses Kreises
-
-        // 2. Vergrößerten Bildausschnitt in die Lupe zeichnen
-        photoCtx.drawImage(
-            photoCanvas, // Das Quell-Canvas, von dem wir den Ausschnitt nehmen
-            draggedPoint.x - sourceSize / 2, draggedPoint.y - sourceSize / 2, // Quell-Position (unter dem Punkt)
-            sourceSize, sourceSize,                                           // Quell-Größe
-            magnifierX, magnifierY,                                           // Ziel-Position (die Lupe selbst)
-            magnifierSize, magnifierSize                                      // Ziel-Größe (vergrößerte Darstellung)
-        );
-
-        // 3. Fadenkreuz in der Mitte der Lupe zeichnen
+        photoCtx.clip();
+        photoCtx.drawImage(photoCanvas, draggedPoint.x - sourceSize / 2, draggedPoint.y - sourceSize / 2, sourceSize, sourceSize, magnifierX, magnifierY, magnifierSize, magnifierSize);
         photoCtx.beginPath();
-        photoCtx.strokeStyle = 'rgba(0, 255, 225, 0.8)'; // Cyan, leicht transparent
+        photoCtx.strokeStyle = 'rgba(0, 255, 225, 0.8)';
         photoCtx.lineWidth = 2;
-        // Horizontale Linie
         photoCtx.moveTo(magnifierX, magnifierY + magnifierSize / 2);
         photoCtx.lineTo(magnifierX + magnifierSize, magnifierY + magnifierSize / 2);
-        // Vertikale Linie
         photoCtx.moveTo(magnifierX + magnifierSize / 2, magnifierY);
         photoCtx.lineTo(magnifierX + magnifierSize / 2, magnifierY + magnifierSize);
         photoCtx.stroke();
-
-        photoCtx.restore(); // Ursprünglichen Zeichenzustand (ohne Clip-Bereich) wiederherstellen
+        photoCtx.restore();
     }
 }
 
-}
 
 function getMousePos(canvas, evt) {
     const rect = canvas.getBoundingClientRect();
