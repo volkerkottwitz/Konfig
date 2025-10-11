@@ -306,6 +306,10 @@ function analyzeForRectangle() {
 // =====================================================================
 // KORREKTUR: drawAnalysis (ohne doppelte Funktionsdefinition)
 // =====================================================================
+// =====================================================================
+// KORREKTUR: Die finale, saubere Version von drawAnalysis
+// Diese Version behebt den Syntaxfehler und zeichnet NUR das Fadenkreuz.
+// =====================================================================
 function drawAnalysis() {
     // 1. Hintergrundbild zeichnen
     photoCtx.drawImage(videoElement, 0, 0, photoCanvas.width, photoCanvas.height);
@@ -357,32 +361,24 @@ function drawAnalysis() {
     photoCtx.arc(calibrationLine.end.x, calibrationLine.end.y, handleRadius, 0, 2 * Math.PI);
     photoCtx.fill();
 
-    // 5. Lupe zeichnen (nur wenn aktiv)
+    // 5. Fadenkreuz zeichnen (nur wenn aktiv)
     if (showMagnifier && calibrationLine.dragging) {
         const draggedPoint = calibrationLine[calibrationLine.dragging];
-        const magnifierSize = 120;
-        const zoomFactor = 3.0;
-        const sourceSize = magnifierSize / zoomFactor;
-        const magnifierX = draggedPoint.x - (magnifierSize / 2);
-        const magnifierY = draggedPoint.y - magnifierSize - 30;
-
-        photoCtx.save();
+        const crosshairSize = 40; // Die Länge der Linien vom Mittelpunkt aus
+        
         photoCtx.beginPath();
-        photoCtx.arc(magnifierX + magnifierSize / 2, magnifierY + magnifierSize / 2, magnifierSize / 2, 0, 2 * Math.PI);
-        photoCtx.lineWidth = 5;
-        photoCtx.strokeStyle = 'red';
-        photoCtx.stroke();
-        photoCtx.clip();
-        photoCtx.drawImage(photoCanvas, draggedPoint.x - sourceSize / 2, draggedPoint.y - sourceSize / 2, sourceSize, sourceSize, magnifierX, magnifierY, magnifierSize, magnifierSize);
-        photoCtx.beginPath();
-        photoCtx.strokeStyle = 'rgba(0, 255, 225, 0.8)';
+        photoCtx.strokeStyle = 'rgba(255, 0, 0, 0.7)'; // Rot, halb-transparent
         photoCtx.lineWidth = 2;
-        photoCtx.moveTo(magnifierX, magnifierY + magnifierSize / 2);
-        photoCtx.lineTo(magnifierX + magnifierSize, magnifierY + magnifierSize / 2);
-        photoCtx.moveTo(magnifierX + magnifierSize / 2, magnifierY);
-        photoCtx.lineTo(magnifierX + magnifierSize / 2, magnifierY + magnifierSize);
+
+        // Horizontale Linie
+        photoCtx.moveTo(draggedPoint.x - crosshairSize, draggedPoint.y);
+        photoCtx.lineTo(draggedPoint.x + crosshairSize, draggedPoint.y);
+
+        // Vertikale Linie
+        photoCtx.moveTo(draggedPoint.x, draggedPoint.y - crosshairSize);
+        photoCtx.lineTo(draggedPoint.x, draggedPoint.y + crosshairSize);
+        
         photoCtx.stroke();
-        photoCtx.restore();
     }
 }
 
