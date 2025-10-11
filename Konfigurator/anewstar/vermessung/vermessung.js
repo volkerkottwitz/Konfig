@@ -17,6 +17,7 @@ const calculateButton = document.getElementById('calculateButton');
 const distanceInput = document.getElementById('distanceInput');
 const measureHeightButton = document.getElementById('measureHeightButton');
 
+let showMagnifier = false;
 let cvReady = false;
 let capturedCircles = [];
 let calibrationLine = {
@@ -212,14 +213,27 @@ function analyzeForCircles() {
             resetButton.style.display = 'block';
             drawAnalysis();
         } else {
+            // --- NEUER FEHLERFALL ---
             statusText.textContent = 'Keine Dichtung gefunden. Bitte versuchen Sie es erneut.';
-            resetButton.style.display = 'block';
+            // Wir zeigen nicht mehr den Reset-Button, sondern kehren zur Kamera zurück,
+            // aber mit einer kleinen Verzögerung, damit der Nutzer die Nachricht lesen kann.
+            setTimeout(() => {
+                returnToCamera();
+            }, 1500); // 2 Sekunden warten, dann zurück zur Kamera
         }
-    } catch (error) {
+
+    } catch (error) { // Die catch-Klammer für den try-Block
         console.error("Fehler während der OpenCV-Kreisanalyse:", error);
         statusText.textContent = 'Analyse fehlgeschlagen.';
-    }
-}
+        // Auch hier sollten wir zur Kamera zurückkehren!
+        setTimeout(() => {
+            returnToCamera();
+        }, 1500);
+    } // <<--- DIESE SCHLIESSENDE KLAMMER FÜR DEN try/catch-BLOCK HAT GEFEHLT
+} // <<--- UND DIESE SCHLIESSENDE KLAMMER FÜR DIE GANZE FUNKTION HAT GEFEHLT
+
+
+    
 
 function analyzeForRectangle() {
     statusText.textContent = 'Rechteck wird gesucht...';
@@ -268,13 +282,15 @@ function analyzeForRectangle() {
             statusText.textContent = 'Rechteck gefunden! Bitte korrigieren und kalibrieren.';
             interactionContainer.style.display = 'flex';
             resetButton.style.display = 'block';
-        } else {
-            capturedRectangle = { x: 100, y: 100, width: 200, height: 50 };
-            statusText.textContent = 'Kein Rechteck gefunden. Bitte manuell aufziehen und kalibrieren.';
-            interactionContainer.style.display = 'flex';
-            resetButton.style.display = 'block';
-            drawAnalysis();
-        }
+
+} else {
+    // --- NEUER FEHLERFALL ---
+    statusText.textContent = 'Kein passendes Rechteck gefunden. Bitte versuchen Sie es erneut.';
+    setTimeout(() => {
+        returnToCamera();
+    }, 2000);
+}
+
     } catch (error) {
         console.error("Fehler während der OpenCV-Rechteckanalyse:", error);
         statusText.textContent = 'Analyse fehlgeschlagen.';
@@ -328,6 +344,62 @@ function drawAnalysis() {
     photoCtx.beginPath();
     photoCtx.arc(calibrationLine.end.x, calibrationLine.end.y, handleRadius, 0, 2 * Math.PI);
     photoCtx.fill();
+    // =====================================================================
+// HINZUFÜGEN: Code zum Zeichnen der Lupe am Ende von drawAnalysis
+// =====================================================================
+function drawAnalysis() {
+    // ... (der gesamte bisherige Code der Funktion zum Zeichnen von Bild, Kreisen, Rechteck, Linien) ...
+
+    // NEUER CODE FÜR DIE LUPE:
+    if (showMagnifier && calibrationLine.dragging) {
+        // Position des aktuell gezogenen Punktes bestimmen
+        const draggedPoint = calibrationLine[calibrationLine.dragging];
+
+        // Parameter für die Lupe definieren
+        const magnifierSize = 120; // Größe der Lupe in Pixeln (etwas größer für bessere Sicht)
+        const zoomFactor = 3.0;    // Wie stark wird vergrößert?
+        const sourceSize = magnifierSize / zoomFactor; // Größe des Bildausschnitts, der vergrößert wird
+
+        // Position der Lupe (schwebt über dem gezogenen Punkt)
+        const magnifierX = draggedPoint.x - (magnifierSize / 2);
+        const magnifierY = draggedPoint.y - magnifierSize - 30; // 30px Abstand über dem Punkt
+
+        // --- Lupe zeichnen ---
+        photoCtx.save(); // Aktuellen Zeichenzustand (Stile, etc.) speichern
+
+        // 1. Runden Clip-Bereich für die Lupe erstellen
+        photoCtx.beginPath();
+        photoCtx.arc(magnifierX + magnifierSize / 2, magnifierY + magnifierSize / 2, magnifierSize / 2, 0, 2 * Math.PI);
+        photoCtx.lineWidth = 5; // Dickerer Rand für bessere Sichtbarkeit
+        photoCtx.strokeStyle = 'red';
+        photoCtx.stroke();
+        photoCtx.clip(); // Wichtig: Alles, was jetzt gezeichnet wird, erscheint nur innerhalb dieses Kreises
+
+        // 2. Vergrößerten Bildausschnitt in die Lupe zeichnen
+        photoCtx.drawImage(
+            photoCanvas, // Das Quell-Canvas, von dem wir den Ausschnitt nehmen
+            draggedPoint.x - sourceSize / 2, draggedPoint.y - sourceSize / 2, // Quell-Position (unter dem Punkt)
+            sourceSize, sourceSize,                                           // Quell-Größe
+            magnifierX, magnifierY,                                           // Ziel-Position (die Lupe selbst)
+            magnifierSize, magnifierSize                                      // Ziel-Größe (vergrößerte Darstellung)
+        );
+
+        // 3. Fadenkreuz in der Mitte der Lupe zeichnen
+        photoCtx.beginPath();
+        photoCtx.strokeStyle = 'rgba(0, 255, 225, 0.8)'; // Cyan, leicht transparent
+        photoCtx.lineWidth = 2;
+        // Horizontale Linie
+        photoCtx.moveTo(magnifierX, magnifierY + magnifierSize / 2);
+        photoCtx.lineTo(magnifierX + magnifierSize, magnifierY + magnifierSize / 2);
+        // Vertikale Linie
+        photoCtx.moveTo(magnifierX + magnifierSize / 2, magnifierY);
+        photoCtx.lineTo(magnifierX + magnifierSize / 2, magnifierY + magnifierSize);
+        photoCtx.stroke();
+
+        photoCtx.restore(); // Ursprünglichen Zeichenzustand (ohne Clip-Bereich) wiederherstellen
+    }
+}
+
 }
 
 function getMousePos(canvas, evt) {
@@ -422,6 +494,30 @@ resultHTML += `<p style="opacity: 0.8;">Breite (aus 2. Messung): ~${controlOuter
     }
 }
 
+
+// =====================================================================
+// NEU: Funktion, um zur Live-Kamera zurückzukehren
+// =====================================================================
+function returnToCamera() {
+    photoContainer.style.display = 'none';
+    videoContainer.style.display = 'block';
+    
+    // Kamera-Steuerung wieder anzeigen, falls vorhanden
+    const controlsContainer = document.getElementById('cameraControls');
+    if (controlsContainer.innerHTML !== '') {
+        controlsContainer.style.display = 'flex';
+    }
+    
+    videoElement.play();
+    statusText.textContent = 'Richten Sie die Kamera neu aus und versuchen Sie es erneut.';
+    
+    // Wichtig: Buttons für einen neuen Versuch bereit machen
+    measureButton.style.display = 'block';
+    resetButton.style.display = 'none'; // "Neue Messung" hier ausblenden
+    interactionContainer.style.display = 'none';
+}
+
+
 function resetApp() {
     videoContainer.style.display = 'block';
     photoContainer.style.display = 'none';
@@ -501,8 +597,10 @@ photoCanvas.addEventListener('mousedown', (e) => {
     }
     if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < grabRadius) {
         calibrationLine.dragging = 'start';
+        showMagnifier = true; // LUPE AN
     } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < grabRadius) {
         calibrationLine.dragging = 'end';
+        showMagnifier = true; // LUPE AN
     }
 });
 
@@ -542,10 +640,16 @@ photoCanvas.addEventListener('mousemove', (e) => {
     drawAnalysis();
 });
 
+// Ersetzen Sie Ihren kompletten 'mouseup'-Listener hiermit:
 photoCanvas.addEventListener('mouseup', () => {
+    if (showMagnifier) {
+        drawAnalysis(); // Ein letztes Mal ohne Lupe zeichnen
+    }
     calibrationLine.dragging = null;
     rectangleDragging.handle = null;
+    showMagnifier = false; // LUPE AUS
 });
+
 
 photoCanvas.addEventListener('mouseleave', () => {
     calibrationLine.dragging = null;
@@ -582,8 +686,10 @@ photoCanvas.addEventListener('touchstart', (e) => {
     }
     if (Math.hypot(pos.x - calibrationLine.start.x, pos.y - calibrationLine.start.y) < grabRadius) {
         calibrationLine.dragging = 'start';
+        showMagnifier = true; // LUPE AN
     } else if (Math.hypot(pos.x - calibrationLine.end.x, pos.y - calibrationLine.end.y) < grabRadius) {
         calibrationLine.dragging = 'end';
+        showMagnifier = true; // LUPE AN
     }
 }, { passive: false });
 
@@ -625,9 +731,14 @@ photoCanvas.addEventListener('touchmove', (e) => {
     drawAnalysis();
 }, { passive: false });
 
+// Ersetzen Sie Ihren kompletten 'touchend'-Listener hiermit:
 photoCanvas.addEventListener('touchend', () => {
+    if (showMagnifier) {
+        drawAnalysis(); // Ein letztes Mal ohne Lupe zeichnen
+    }
     calibrationLine.dragging = null;
     rectangleDragging.handle = null;
+    showMagnifier = false; // LUPE AUS
 });
 
 // Start der OpenCV-Initialisierung
