@@ -915,28 +915,38 @@ if (swipeContainer) {
 
     const viewer = document.getElementById('pdfViewer');
 
-    swipeContainer.addEventListener('touchstart', (e) => {
-        // NEU: Überprüfen, ob der Inhalt gezoomt ist.
-        // Wenn das Canvas breiter ist als sein Container, hat der Nutzer per Pinch-to-Zoom gezoomt.
-        const canvasElement = viewer.querySelector('canvas');
-        if (canvasElement && canvasElement.clientWidth > swipeContainer.clientWidth) {
-            isSwiping = false; // Wichtig: Swiping-Modus explizit deaktivieren
-            return; // Die Funktion hier beenden, um Panning durch den Browser zu erlauben.
-        }
+swipeContainer.addEventListener('touchstart', (e) => {
+    // KORREKTUR: Verwende visualViewport, um den Browser-Zoom zuverlässig zu erkennen.
+    // visualViewport ist speziell für diesen Zweck gedacht und gibt den aktuellen Zoom-Level an.
+    // Ein Wert größer als 1.0 bedeutet, dass der Benutzer hineingezoomt hat.
+    const isZoomed = window.visualViewport.scale > 1.0;
 
-        if (isAnimating || e.touches.length > 1) return;
+    // WENN GEZOOMT IST:
+    if (isZoomed) {
+        isSwiping = false; // Wichtig: Den benutzerdefinierten Swiping-Modus deaktivieren.
+        return;            // Die Funktion hier sofort beenden. Der Browser übernimmt nun das
+                           // Standardverhalten, also das Verschieben (Panning) des gezoomten Inhalts.
+    }
 
-        isSwiping = true;
-        startX = e.touches[0].clientX;
-        distanzX = 0;
+    // WENN NICHT GEZOOMT IST (der folgende Code wird nur im Normalzustand ausgeführt):
+    // Verhindere eine neue Geste, während eine Animation läuft oder mehrere Finger auf dem Schirm sind.
+    if (isAnimating || e.touches.length > 1) return;
 
-        oldCanvas = viewer.querySelector('canvas');
-        if (!oldCanvas) return;
+    // Initialisiere den Wischvorgang für das Umblättern.
+    isSwiping = true;
+    startX = e.touches[0].clientX;
+    distanzX = 0;
 
-        viewer.style.transition = 'none';
-        oldCanvas.style.transition = 'none';
+    // Das aktuell sichtbare Canvas für die Interaktion merken.
+    oldCanvas = viewer.querySelector('canvas');
+    if (!oldCanvas) return;
 
-    }, { passive: true });
+    // Alle CSS-Animationen ausschalten, damit die Seite direkt der Fingerbewegung folgt.
+    viewer.style.transition = 'none';
+    oldCanvas.style.transition = 'none';
+
+}, { passive: true });
+
 
     swipeContainer.addEventListener('touchmove', (e) => {
         // Die Logik hier bleibt unverändert, wird aber nur ausgeführt, wenn isSwiping = true ist.
