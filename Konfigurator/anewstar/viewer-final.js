@@ -180,6 +180,7 @@ function loadAndRenderPdf(pdfPath) {
 
 
 // === 🖼️ Seite rendern ===
+// === 🖼️ SEITE RENDERN - MIT SANFTEM ZURÜCKFALLEN (IHRE VISION) ===
 function renderPage(pageNum) {
   pdfDoc.getPage(pageNum).then(page => {
     const viewport = page.getViewport({ scale: 2.0 * zoomFactor });
@@ -191,27 +192,36 @@ function renderPage(pageNum) {
 
     page.render({ canvasContext: ctx, viewport }).promise.then(() => {
       const viewer = document.getElementById('pdfViewer');
+      
+      // --- NEUE LOGIK: SANFTES ERSCHEINEN ---
+      
+      // 1. Position und Zustand des Viewers zurücksetzen, während er noch unsichtbar ist.
+      viewer.style.transition = 'none'; 
+      viewer.style.transform = 'translateX(0)';
+      
+      // 2. Alten Inhalt löschen und neuen einfügen.
       viewer.innerHTML = '';
-
       const wrapper = document.createElement('div');
       wrapper.style.position = 'relative';
       wrapper.id = 'canvasWrapper';
       wrapper.appendChild(canvas);
       viewer.appendChild(wrapper);
 
+      // 3. Highlights und UI-Infos aktualisieren.
       clearHighlights();
       highlightMatches(page, wrapper, viewport);
- 
-
       document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
       updateNavigation();
+      updateHelpers();
 
-      // ===================================================================
-      //   NEU: Lade-Spinner ausblenden, da das Rendern abgeschlossen ist
-      // ===================================================================
+      // 4. Die Magie: Den jetzt fertigen, neuen Viewer sanft einblenden.
+      setTimeout(() => {
+          viewer.style.transition = 'opacity 0.3s ease-in';
+          viewer.style.opacity = '1';
+      }, 50); // Eine winzige Verzögerung, damit der Browser die Änderung registriert.
+
+      // Lade-Spinner und Initialisierungs-Logik
       document.getElementById('loadingSpinnerOverlay').style.display = 'none';
-      // ===================================================================
-
       if (!wurdeBereitsInitialGerendert) {
         pdfGerendert = true;
         ladebildschirmPruefen();
@@ -2153,12 +2163,15 @@ if (pdfContainer) {
   }, { passive: true });
 
   // --- touchend: Entscheidet über Blättern, Zurückfedern oder Doppeltipp ---
-  pdfContainer.addEventListener('touchend', function(event) {
+ // ===================================================================
+//   TOUCHEND - NACH IHRER VISION (CROSS-FADE-ÜBERGANG)
+// ===================================================================
+pdfContainer.addEventListener('touchend', function(event) {
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTap;
     lastTap = currentTime;
 
-    // DOPPELTIPP-ERKENNUNG (bleibt unverändert)
+    // DOPPELTIPP-ERKENNUNG
     if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
       event.preventDefault();
       if (currentDocumentPath && pdfDoc) {
@@ -2173,34 +2186,38 @@ if (pdfContainer) {
       return; 
     }
 
-    // --- NEUE WISCH-LOGIK MIT SNAPPING ---
-    if (zoomFactor > 1.0) {
-      return; // Zoom-Sperre bleibt!
-    }
+    if (zoomFactor > 1.0) return;
 
     const mindestDistanz = pdfContainer.clientWidth * 0.25;
+    const pdfViewer = document.getElementById('pdfViewer');
 
     if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+        
+        // --- NEUE LOGIK: SANFT AUSBLENDEN ---
+        if (pdfViewer) {
+            // Die gezogene Seite wird langsam durchsichtig
+            pdfViewer.style.transition = 'opacity 0.3s ease-out';
+            pdfViewer.style.opacity = '0';
+        }
 
-            // HIER IST DIE LÖSUNG: Setze den Viewer SOFORT zurück.
-      const pdfViewer = document.getElementById('pdfViewer');
-      pdfViewer.style.transform = 'translateX(0)';
-      // Weit genug gewischt -> Blättern (wie bisher)
-      if (distanzX < 0) {
-        document.getElementById('next-page').click();
-      } else {
-        document.getElementById('prev-page').click();
-      }
-      // WICHTIG: Da Ihre `goToPage` Funktion funktioniert, wird sie die `transform`-Eigenschaft
-      // beim Neuladen der Seite korrekt zurücksetzen. Wir müssen hier nichts weiter tun.
+        // Nach einer winzigen Verzögerung, damit die Animation startet, wird geblättert.
+        setTimeout(() => {
+            if (distanzX < 0) {
+                document.getElementById('next-page').click();
+            } else {
+                document.getElementById('prev-page').click();
+            }
+        }, 50); // 50ms reichen aus
+
     } else if (distanzX !== 0) {
-      // NEU: Nicht weit genug gewischt -> Zurückfedern (Snapping)
-      if (pdfViewer) {
-        pdfViewer.style.transition = 'transform 0.3s ease-out';
-        pdfViewer.style.transform = 'translateX(0)';
-      }
+        // Nicht weit genug gewischt -> Zurückfedern (bleibt wie gehabt)
+        if (pdfViewer) {
+            pdfViewer.style.transition = 'transform 0.3s ease-out';
+            pdfViewer.style.transform = 'translateX(0)';
+        }
     }
-  });
+});
+
 }
 
 
