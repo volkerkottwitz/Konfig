@@ -232,9 +232,17 @@
         max-height: 100vh;
         margin-top: 20px;
         position: relative;
-        touch-action: pan-y pinch-zoom; /* Nur vertikales Scrollen mit Touch erlauben */
     }
 
+    /* Erlaubt nur vertikales Scrollen (Standard für das Blättern) */
+.allow-pan-y {
+    touch-action: pan-y pinch-zoom;
+}
+
+/* Erlaubt freies Scrollen in alle Richtungen (wird bei Zoom aktiviert) */
+.allow-pan-auto {
+    touch-action: pan-x pan-y pinch-zoom;
+}
     /* Ein unsichtbarer Wrapper, der die Animation begrenzt */
     #animationWrapper {
         position: relative;
@@ -902,7 +910,7 @@ function printCurrentPage() {
 
 
 // ===================================================================
-//   10. WISCHGESTEN (SWIPE) - STUFE 3: NAHTLOSES ZIEHEN & SNAPPEN (MODIFIZIERT)
+//   10. WISCHGESTEN (SWIPE) - FINALE, ROBUSTE VERSION
 // ===================================================================
 const swipeContainer = document.getElementById('pdfContainer');
 if (swipeContainer) {
@@ -911,45 +919,56 @@ if (swipeContainer) {
     let distanzX = 0;
     let isSwiping = false;
     let oldCanvas = null;
-    let newCanvas = null;
-
     const viewer = document.getElementById('pdfViewer');
 
-swipeContainer.addEventListener('touchstart', (e) => {
-    // KORREKTUR: Verwende visualViewport, um den Browser-Zoom zuverlässig zu erkennen.
-    // visualViewport ist speziell für diesen Zweck gedacht und gibt den aktuellen Zoom-Level an.
-    // Ein Wert größer als 1.0 bedeutet, dass der Benutzer hineingezoomt hat.
-    const isZoomed = window.visualViewport.scale > 1.0;
+    // Funktion, die den Modus basierend auf dem Zoom-Level umschaltet
+    function updateTouchAction() {
+        const zoomThreshold = 1.5; // Die Schwelle, ab der das Blättern deaktiviert wird
+        const isZoomedSignificantly = window.visualViewport.scale >= zoomThreshold;
 
-    // WENN GEZOOMT IST:
-    if (isZoomed) {
-        isSwiping = false; // Wichtig: Den benutzerdefinierten Swiping-Modus deaktivieren.
-        return;            // Die Funktion hier sofort beenden. Der Browser übernimmt nun das
-                           // Standardverhalten, also das Verschieben (Panning) des gezoomten Inhalts.
+        if (isZoomedSignificantly) {
+            // Wenn stark gezoomt: Freies Panning in alle Richtungen erlauben
+            swipeContainer.classList.remove('allow-pan-y');
+            swipeContainer.classList.add('allow-pan-auto');
+        } else {
+            // Wenn nicht oder nur leicht gezoomt: Nur vertikales Panning erlauben (fürs Blättern)
+            swipeContainer.classList.remove('allow-pan-auto');
+            swipeContainer.classList.add('allow-pan-y');
+        }
     }
 
-    // WENN NICHT GEZOOMT IST (der folgende Code wird nur im Normalzustand ausgeführt):
-    // Verhindere eine neue Geste, während eine Animation läuft oder mehrere Finger auf dem Schirm sind.
-    if (isAnimating || e.touches.length > 1) return;
+    // Initial den korrekten Modus setzen
+    updateTouchAction();
+    // Und bei jeder Zoom-Änderung den Modus neu prüfen
+    window.visualViewport.addEventListener('resize', updateTouchAction);
 
-    // Initialisiere den Wischvorgang für das Umblättern.
-    isSwiping = true;
-    startX = e.touches[0].clientX;
-    distanzX = 0;
 
-    // Das aktuell sichtbare Canvas für die Interaktion merken.
-    oldCanvas = viewer.querySelector('canvas');
-    if (!oldCanvas) return;
+    swipeContainer.addEventListener('touchstart', (e) => {
+        const zoomThreshold = 1.5;
+        const isZoomedSignificantly = window.visualViewport.scale >= zoomThreshold;
 
-    // Alle CSS-Animationen ausschalten, damit die Seite direkt der Fingerbewegung folgt.
-    viewer.style.transition = 'none';
-    oldCanvas.style.transition = 'none';
+        // WENN STARK GEZOOMT: Blättern deaktivieren und Browser das Panning machen lassen
+        if (isZoomedSignificantly) {
+            isSwiping = false;
+            return;
+        }
 
-}, { passive: true });
+        // WENN NICHT STARK GEZOOMT: Blättern wie gewohnt initialisieren
+        if (isAnimating || e.touches.length > 1) return;
 
+        isSwiping = true;
+        startX = e.touches[0].clientX;
+        distanzX = 0;
+
+        oldCanvas = viewer.querySelector('canvas');
+        if (!oldCanvas) return;
+
+        viewer.style.transition = 'none';
+        oldCanvas.style.transition = 'none';
+
+    }, { passive: true });
 
     swipeContainer.addEventListener('touchmove', (e) => {
-        // Die Logik hier bleibt unverändert, wird aber nur ausgeführt, wenn isSwiping = true ist.
         if (!isSwiping || !oldCanvas) return;
 
         currentX = e.touches[0].clientX;
@@ -963,7 +982,6 @@ swipeContainer.addEventListener('touchstart', (e) => {
     }, { passive: true });
 
     swipeContainer.addEventListener('touchend', (e) => {
-        // NEU: Wenn `isSwiping` von Anfang an `false` war (weil gezoomt), wird diese Logik übersprungen.
         if (!isSwiping || !oldCanvas) return;
         isSwiping = false;
 
