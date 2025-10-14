@@ -902,7 +902,7 @@ function printCurrentPage() {
 
 
 // ===================================================================
-//   10. WISCHGESTEN (SWIPE) - STUFE 3: NAHTLOSES ZIEHEN & SNAPPEN
+//   10. WISCHGESTEN (SWIPE) - STUFE 3: NAHTLOSES ZIEHEN & SNAPPEN (MODIFIZIERT)
 // ===================================================================
 const swipeContainer = document.getElementById('pdfContainer');
 if (swipeContainer) {
@@ -916,42 +916,48 @@ if (swipeContainer) {
     const viewer = document.getElementById('pdfViewer');
 
     swipeContainer.addEventListener('touchstart', (e) => {
+        // NEU: Überprüfen, ob der Inhalt gezoomt ist.
+        // Wenn das Canvas breiter ist als sein Container, hat der Nutzer per Pinch-to-Zoom gezoomt.
+        const canvasElement = viewer.querySelector('canvas');
+        if (canvasElement && canvasElement.clientWidth > swipeContainer.clientWidth) {
+            isSwiping = false; // Wichtig: Swiping-Modus explizit deaktivieren
+            return; // Die Funktion hier beenden, um Panning durch den Browser zu erlauben.
+        }
+
         if (isAnimating || e.touches.length > 1) return;
 
         isSwiping = true;
         startX = e.touches[0].clientX;
         distanzX = 0;
 
-        // Das aktuell sichtbare Canvas für die Interaktion merken
         oldCanvas = viewer.querySelector('canvas');
         if (!oldCanvas) return;
 
-        // Alle Animationen ausschalten für direktes Folgen
         viewer.style.transition = 'none';
         oldCanvas.style.transition = 'none';
 
     }, { passive: true });
 
     swipeContainer.addEventListener('touchmove', (e) => {
+        // Die Logik hier bleibt unverändert, wird aber nur ausgeführt, wenn isSwiping = true ist.
         if (!isSwiping || !oldCanvas) return;
 
         currentX = e.touches[0].clientX;
         distanzX = currentX - startX;
 
-        // Widerstand am Anfang und Ende des Dokuments
         if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
             distanzX /= 3;
         }
 
-        // Das Canvas direkt mit dem Finger bewegen
         oldCanvas.style.transform = `translateX(${distanzX}px)`;
     }, { passive: true });
 
     swipeContainer.addEventListener('touchend', (e) => {
+        // NEU: Wenn `isSwiping` von Anfang an `false` war (weil gezoomt), wird diese Logik übersprungen.
         if (!isSwiping || !oldCanvas) return;
         isSwiping = false;
 
-        const threshold = viewer.clientWidth / 3; // Schwellenwert: 1/4 der Breite
+        const threshold = viewer.clientWidth / 3;
 
         // --- Entscheidung beim Loslassen ---
 
