@@ -876,9 +876,6 @@ function addPageFooter(pageNum, totalPages) {
         doc.setFont("helvetica", "normal");
         doc.setTextColor(0, 0, 0); // Schwarz
         
-                if (kundennummerValue) {
-            kundenInfos.push(["Kundennummer:", kundennummerValue]);
-        }
 
         const kundenInfos = [
         
@@ -889,6 +886,9 @@ function addPageFooter(pageNum, totalPages) {
           ["E-Mail:", kundenDaten.email],
           ["Telefon:", kundenDaten.telefon]
         ];
+                if (kundennummerValue) {
+            kundenInfos.push(["Kundennummer:", kundennummerValue]);
+        }
 
         
         kundenInfos.forEach(([label, value]) => {
