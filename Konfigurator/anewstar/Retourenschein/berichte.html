@@ -281,6 +281,8 @@
         <input type="text" id="telefon" placeholder="Telefon">
         <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
     </div>
+
+    <input type="hidden" id="kundennummer">
 </div>
 
   </section>
@@ -691,28 +693,33 @@ function initializeCustomerSearchListeners() {
         }
     });
 
-    suchErgebnisseContainer.addEventListener('click', function(e) {
-        // ... (Dieser Block bleibt unverändert)
-        const ergebnisItem = e.target.closest('.ergebnis-item');
-        if (ergebnisItem && ergebnisItem.dataset.index) {
-            const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
-            
-            document.getElementById("name").value = kunde.Name || "";
-            document.getElementById("firma").value = kunde.Firma || "";
-            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-            document.getElementById("strasse").value = adresseTeile[0] || "";
-            document.getElementById("ort").value = adresseTeile[1] || "";
-            document.getElementById("plz").value = adresseTeile[2] || "";
-            document.getElementById("land").value = adresseTeile[3] || "";
-            document.getElementById("email").value = kunde["E-Mail"] || "";
-            const telefonInput = document.getElementById("telefon");
-            telefonInput.value = kunde.Telefon || "";
-            telefonInput.dispatchEvent(new Event('input'));
+suchErgebnisseContainer.addEventListener('click', function(e) {
+    const ergebnisItem = e.target.closest('.ergebnis-item');
+    if (ergebnisItem && ergebnisItem.dataset.index) {
+        const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
+        
+        // Bestehende Felder befüllen (unverändert)
+        document.getElementById("name").value = kunde.Name || "";
+        document.getElementById("firma").value = kunde.Firma || "";
+        const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+        document.getElementById("strasse").value = adresseTeile[0] || "";
+        document.getElementById("ort").value = adresseTeile[1] || "";
+        document.getElementById("plz").value = adresseTeile[2] || "";
+        document.getElementById("land").value = adresseTeile[3] || "";
+        document.getElementById("email").value = kunde["E-Mail"] || "";
+        const telefonInput = document.getElementById("telefon");
+        telefonInput.value = kunde.Telefon || "";
+        telefonInput.dispatchEvent(new Event('input'));
 
-            kundenSucheInput.value = '';
-            suchErgebnisseContainer.style.display = 'none';
-        }
-    });
+        // ===== NEU: Kundennummer in das unsichtbare Feld eintragen =====
+        document.getElementById("kundennummer").value = kunde.Kundennummer || "";
+
+        // Rest der Funktion (unverändert)
+        kundenSucheInput.value = '';
+        suchErgebnisseContainer.style.display = 'none';
+    }
+});
+
 
     document.addEventListener('click', function(e) {
         // ... (Dieser Block bleibt unverändert)
@@ -792,125 +799,143 @@ function initializeCustomerSearchListeners() {
     // ===== PDF-GENERIERUNGSFUNKTION (MIT KORREKTUREN) =====
     // =================================================================
 
-    async function generateBerichtPDF() {
-        try {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+async function generateBerichtPDF() {
+    try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        const logoImg = await loadImageAsBase64("https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png"  ).catch(() => null);
+        
+        const margin = 20;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        let yPosition = margin;
+
+        function addPageHeader() {
+            if (logoImg) doc.addImage(logoImg, "PNG", margin, margin, 40, 30, undefined, 'FAST');
             
-            const logoImg = await loadImageAsBase64("https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" ).catch(() => null);
-            
-            const margin = 20;
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
-            let yPosition = margin;
-
-            function addPageHeader() {
-                // KORREKTUR 1: Logo-Dimensionen angepasst (Breite 40, Höhe 15)
-                if (logoImg) doc.addImage(logoImg, "PNG", margin, margin, 40, 30, undefined, 'FAST');
-                
-                const heute = new Date();
-                const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
-                doc.setFontSize(10);
-                doc.setTextColor(100);
-                doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
-                const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
-                doc.text(`Berichts-Nr: ${berichtsNummer}`, pageWidth - margin, margin + 20, { align: "right" });
-            }
-
-            function checkPageBreak(neededSpace) {
-                if (yPosition + neededSpace > pageHeight - margin) {
-                    doc.addPage();
-                    yPosition = margin;
-                    addPageHeader();
-                    yPosition += 30; // Platz für Header auf neuer Seite
-                }
-            }
-
-            addPageHeader();
-            yPosition += 40; // Etwas weniger Platz nach dem Header
-
-            const mainTitle = document.getElementById("mainTitleInput").value || "Bericht";
-            doc.setFontSize(20);
-            doc.setTextColor(0);
-            doc.setFont("helvetica", "bold");
-            doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
-            yPosition += 20;
-
-            function drawSection(title, data) {
-                checkPageBreak(20 + data.length * 6);
-                doc.setFontSize(14);
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(0, 161, 225);
-                doc.text(title, margin, yPosition);
-                yPosition += 10;
-                doc.setFontSize(10);
-                doc.setFont("helvetica", "normal");
-                doc.setTextColor(0);
-                data.forEach(item => {
-                    const splitItem = doc.splitTextToSize(item, pageWidth - 2 * margin - 35); // Textumbruch für lange Werte
-                    doc.text(splitItem, margin, yPosition);
-                    yPosition += splitItem.length * 5;
-                });
-                yPosition += 5; // Etwas weniger Abstand nach der Sektion
-            }
-
-            // KORREKTUR 2: Reihenfolge geändert (Kunde zuerst)
-            drawSection("KUNDE", [
-                `${document.getElementById("firma").value || 'N/A'}`,
-                `${document.getElementById("name").value || 'N/A'}`,
-                `${document.getElementById("strasse").value || 'N/A'}`,
-                `${document.getElementById("ort").value} ${document.getElementById("plz").value}`,
-                `${document.getElementById("email").value || 'N/A'}`,
-                `${document.getElementById("telefon").value || 'N/A'}`
-            ]);
-
-            drawSection("BEARBEITUNG", [
-                `Innendienst: ${getSachbearbeiterValue() || 'N/A'}`,
-                `Ausgestellt von: ${getAussendienstmitarbeiterValue() || 'N/A'}`
-            ]);
-
-            const berichtInhalt = document.getElementById('bericht-text').value;
-            if (berichtInhalt.trim()) {
-                checkPageBreak(30);
-                doc.setFontSize(14);
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(0, 161, 225);
-                doc.text("BERICHTSINHALT", margin, yPosition);
-                yPosition += 10;
-                doc.setFontSize(11);
-                doc.setFont("helvetica", "normal");
-                doc.setTextColor(0);
-                const splitBericht = doc.splitTextToSize(berichtInhalt, pageWidth - 2 * margin);
-                checkPageBreak(splitBericht.length * 5);
-                doc.text(splitBericht, margin, yPosition);
-                yPosition += splitBericht.length * 5 + 10;
-            }
-
-            const aufgabenInhalt = document.getElementById('aufgaben-text').value;
-            if (aufgabenInhalt.trim()) {
-                checkPageBreak(30);
-                doc.setFontSize(14);
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(0, 161, 225);
-                doc.text("ZU ERLEDIGENDE AUFGABEN", margin, yPosition);
-                yPosition += 10;
-                doc.setFontSize(11);
-                doc.setFont("helvetica", "normal");
-                doc.setTextColor(0);
-                const splitAufgaben = doc.splitTextToSize(aufgabenInhalt, pageWidth - 2 * margin);
-                checkPageBreak(splitAufgaben.length * 5);
-                doc.text(splitAufgaben, margin, yPosition);
-            }
-
-            const firmaName = (document.getElementById("firma").value || "Bericht").replace(/[^a-zA-Z0-9]/g, "-");
-            const datumForFilename = new Date().toISOString().split('T')[0];
-            doc.save(`${firmaName}_${datumForFilename}.pdf`);
-
-        } catch (error) {
-            console.error("Fehler bei der PDF-Erstellung:", error);
-            alert("Fehler bei der PDF-Erstellung. Bitte Konsole prüfen: " + error.message);
+            const heute = new Date();
+            const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
+            const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
+            doc.text(`Berichts-Nr: ${berichtsNummer}`, pageWidth - margin, margin + 20, { align: "right" });
         }
+
+        function checkPageBreak(neededSpace) {
+            if (yPosition + neededSpace > pageHeight - margin) {
+                doc.addPage();
+                yPosition = margin;
+                addPageHeader();
+                yPosition += 30;
+            }
+        }
+
+        addPageHeader();
+        yPosition += 40;
+
+        const mainTitle = document.getElementById("mainTitleInput").value || "Bericht";
+        doc.setFontSize(20);
+        doc.setTextColor(0);
+        doc.setFont("helvetica", "bold");
+        doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
+        yPosition += 20;
+
+        function drawSection(title, data) {
+            checkPageBreak(20 + data.length * 6);
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 161, 225);
+            doc.text(title, margin, yPosition);
+            yPosition += 10;
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0);
+            data.forEach(item => {
+                const splitItem = doc.splitTextToSize(item, pageWidth - 2 * margin); // Breite für den Textumbruch angepasst
+                doc.text(splitItem, margin, yPosition);
+                yPosition += splitItem.length * 5 + 1; // Zeilenabstand angepasst
+            });
+            yPosition += 5;
+        }
+
+        // ===== HIER IST DIE FINALE ÄNDERUNG INTEGRIERT =====
+        
+        // 1. Kundennummer aus dem unsichtbaren Feld lesen
+        const kundennummerValue = document.getElementById("kundennummer").value;
+
+        // 2. Array für die Kundendaten vorbereiten
+        const kundenDatenArray = [
+            `Firma: ${document.getElementById("firma").value || 'N/A'}`,
+            `Ansprechpartner: ${document.getElementById("name").value || 'N/A'}`
+        ];
+
+        // 3. Kundennummer nur hinzufügen, wenn sie vorhanden ist
+        if (kundennummerValue) {
+            kundenDatenArray.push(`Kundennummer: ${kundennummerValue}`);
+        }
+
+        // 4. Restliche Kundendaten hinzufügen
+        kundenDatenArray.push(
+            `Adresse: ${document.getElementById("strasse").value || 'N/A'}, ${document.getElementById("plz").value} ${document.getElementById("ort").value}`,
+            `E-Mail: ${document.getElementById("email").value || 'N/A'}`,
+            `Telefon: ${document.getElementById("telefon").value || 'N/A'}`
+        );
+
+        // 5. Die "KUNDE"-Sektion mit dem vollständigen Array zeichnen
+        drawSection("KUNDE", kundenDatenArray);
+
+        // =======================================================
+
+        drawSection("BEARBEITUNG", [
+            `Innendienst: ${getSachbearbeiterValue() || 'N/A'}`,
+            `Ausgestellt von: ${getAussendienstmitarbeiterValue() || 'N/A'}`
+        ]);
+
+        const berichtInhalt = document.getElementById('bericht-text').value;
+        if (berichtInhalt.trim()) {
+            checkPageBreak(30);
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 161, 225);
+            doc.text("BERICHTSINHALT", margin, yPosition);
+            yPosition += 10;
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0);
+            const splitBericht = doc.splitTextToSize(berichtInhalt, pageWidth - 2 * margin);
+            checkPageBreak(splitBericht.length * 6); // Angepasster Platzbedarf
+            doc.text(splitBericht, margin, yPosition);
+            yPosition += splitBericht.length * 6 + 10;
+        }
+
+        const aufgabenInhalt = document.getElementById('aufgaben-text').value;
+        if (aufgabenInhalt.trim()) {
+            checkPageBreak(30);
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 161, 225);
+            doc.text("ZU ERLEDIGENDE AUFGABEN", margin, yPosition);
+            yPosition += 10;
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0);
+            const splitAufgaben = doc.splitTextToSize(aufgabenInhalt, pageWidth - 2 * margin);
+            checkPageBreak(splitAufgaben.length * 6); // Angepasster Platzbedarf
+            doc.text(splitAufgaben, margin, yPosition);
+        }
+
+        const firmaName = (document.getElementById("firma").value || "Bericht").replace(/[^a-zA-Z0-9]/g, "-");
+        const datumForFilename = new Date().toISOString().split('T')[0];
+        doc.save(`${firmaName}_${datumForFilename}.pdf`);
+
+    } catch (error) {
+        console.error("Fehler bei der PDF-Erstellung:", error);
+        alert("Fehler bei der PDF-Erstellung. Bitte Konsole prüfen: " + error.message);
     }
+}
+
   </script>
 
   <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
