@@ -161,6 +161,7 @@
       <input type="text" id="land" placeholder="Land">
       <input type="text" id="email" placeholder="E-Mail">
       <input type="text" id="telefon" placeholder="Telefon">
+      <input type="hidden" id="kundennummer">
     </div>
   </section>
 
@@ -415,24 +416,32 @@ function initializeCustomerSearchListeners() {
     });
 
 
-    suchErgebnisseContainer.addEventListener('click', function(e) {
-        const ergebnisItem = e.target.closest('.ergebnis-item');
-        if (ergebnisItem && ergebnisItem.dataset.index) {
-            const index = ergebnisItem.dataset.index;
-            const kunde = kunden[index];
-            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-            inputs.name.value = kunde.Name || "";
-            inputs.firma.value = kunde.Firma || "";
-            inputs.telefon.value = kunde.Telefon || "";
-            inputs.email.value = kunde["E-Mail"] || "";
-            inputs.strasse.value = adresseTeile[0] || "";
-            inputs.ort.value = adresseTeile[1] || "";
-            inputs.plz.value = adresseTeile[2] || "";
-            inputs.land.value = adresseTeile[3] || "";
-            kundenSucheInput.value = '';
-            suchErgebnisseContainer.style.display = 'none';
-        }
-    });
+suchErgebnisseContainer.addEventListener('click', function(e) {
+    const ergebnisItem = e.target.closest('.ergebnis-item');
+    if (ergebnisItem && ergebnisItem.dataset.index) {
+        const index = ergebnisItem.dataset.index;
+        const kunde = kunden[index];
+        const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+        
+        // Bestehende Felder befüllen (unverändert)
+        inputs.name.value = kunde.Name || "";
+        inputs.firma.value = kunde.Firma || "";
+        inputs.telefon.value = kunde.Telefon || "";
+        inputs.email.value = kunde["E-Mail"] || "";
+        inputs.strasse.value = adresseTeile[0] || "";
+        inputs.ort.value = adresseTeile[1] || "";
+        inputs.plz.value = adresseTeile[2] || "";
+        inputs.land.value = adresseTeile[3] || "";
+
+        // ===== NEU: Kundennummer in das unsichtbare Feld eintragen =====
+        document.getElementById("kundennummer").value = kunde.Kundennummer || ""; 
+
+        // Rest der Funktion (unverändert)
+        kundenSucheInput.value = '';
+        suchErgebnisseContainer.style.display = 'none';
+    }
+});
+
     
     document.addEventListener('click', function(e) {
         if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
@@ -865,12 +874,17 @@ function addPageFooter(pageNum, totalPages) {
         doc.setTextColor(0, 0, 0); // Schwarz
         
         const kundenInfos = [
+        
+         
           ["Firma:", kundenDaten.firma],
           ["Ansprechpartner:", kundenDaten.name],
           ["Adresse:", adresse || "Nicht angegeben"],
           ["E-Mail:", kundenDaten.email],
           ["Telefon:", kundenDaten.telefon]
         ];
+                if (kundennummerValue) {
+            kundenInfos.push(["Kundennummer:", kundennummerValue]);
+        }
         
         kundenInfos.forEach(([label, value]) => {
           checkPageBreak(8);
