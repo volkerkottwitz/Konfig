@@ -56,14 +56,6 @@
     max-width: 530px; /* Passt zur Breite der anderen Felder */
 }
 
-/* 
-   Weist jedes Eingabefeld in einer .form-row an,
-   sich den verfügbaren Platz fair zu teilen.
-*/
-.form-row input {
-    flex: 1; /* Wichtigste Regel: Felder teilen sich den Platz */
-    min-width: 0; /* Verhindert, dass Felder zu groß bleiben */
-}
 
 /* 
    Spezifische Anpassung für PLZ und Ort:
@@ -178,15 +170,26 @@
         color: white;
     }
 
-    /* Gruppe für Telefonnummer und Anruf-Button */
-    .phone-group {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .phone-group input {
-        flex-grow: 1;
-    }
+/* Innerhalb des <style>-Blocks */
+
+/* Gruppe für Telefonnummer und Anruf-Button */
+.phone-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Die folgende Regel ist die eigentliche Korrektur.
+       Sie sorgt dafür, dass die Gruppe die gleiche Maximalbreite
+       hat wie die anderen Felder. */
+    max-width: 530px; /* Passt zur Breite der anderen Felder */
+}
+
+/* Diese Regel sorgt dafür, dass das Input-Feld den Platz füllt */
+.phone-group input {
+    flex-grow: 1;
+}
+
+
+
 
     /* ================================================================== */
     /* ===== SPRACHEINGABE-SEKTIONEN ==================================== */
@@ -277,12 +280,17 @@
     <input type="text" id="email" placeholder="E-Mail">
 
     <!-- Telefon-Gruppe bleibt unverändert -->
-    <div class="phone-group">
-        <input type="text" id="telefon" placeholder="Telefon">
-        <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
-    </div>
+<div class="phone-group">
+    <input type="text" id="telefon" placeholder="Telefon">
+    <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
+</div>
 
-    <input type="hidden" id="kundennummer">
+
+    <input type="text" id="kundennummer" placeholder="Kundennummer (optional)">
+
+
+
+
 </div>
 
   </section>
