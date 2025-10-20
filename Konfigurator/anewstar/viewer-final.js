@@ -2,12 +2,6 @@ let csvGeladen = false;
 let pdfGerendert = false;
 let wurdeBereitsInitialGerendert = false;
 
-// === 🔧 Variablen für Viewer-Funktionalität ===
-// ... (deine bestehenden Variablen)
-
-// NEU: Variablen für die globale Suche und Lazy Loading
-let globalPdfCache = [];
-let isLazyLoading = false; // Verhindert, dass der Lader mehrfach startet
 
 function ladebildschirmPruefen() {
   if (csvGeladen && pdfGerendert) {
@@ -141,105 +135,52 @@ function updateHeaderDocumentName() {
 }
 
 
-// ÄNDERUNG: Die Funktion wird 'async', um auf die Text-Extraktion zu warten
-// ERSETZEN: 'loadAndRenderPdf' wird um einen optionalen Parameter 'zielSeite' erweitert
-async function loadAndRenderPdf(pdfPath, zielSeite = 1) { // Standardmäßig Seite 1
-  document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
-  
-  // WICHTIG: Die alten Such-Infos erst hier zurücksetzen, nicht global
-  if (zielSeite === 1) {
-      document.getElementById('searchInfo').textContent = '';
-      matchPages.clear();
-  }
+// PDF-URL
+// === const url = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2025.pdf'; ===
 
+// === 📥 PDF laden & initial anzeigen ===
+// ===pdfjsLib.getDocument(url).promise.then(pdf => {
+// ===  pdfDoc = pdf;
+// ===  renderPage(currentPage);
+// ===  updateNavigation();
+// === }).catch(err => alert('Fehler beim Laden: ' + err.message));
+
+// Alter Code:
+// Neuer Code:
+function loadAndRenderPdf(pdfPath) {
+  // 1. Lade-Spinner anzeigen
+  document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
+
+  // Reset für die Suche und Anzeige
+  document.getElementById('searchInfo').textContent = '';
+  // WICHTIG: Den PDF-Viewer leeren, damit die alte Seite verschwindet.
   document.getElementById('pdfViewer').innerHTML = ''; 
-  currentPage = zielSeite; // Die Zielseite wird zur aktuellen Seite
+  matchPages.clear();
+  currentPage = 1;
+
   currentDocumentPath = pdfPath;
 
-  try {
-    const pdf = await pdfjsLib.getDocument(pdfPath).promise;
+  pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
     pdfDoc = pdf;
-
-    const cacheEntry = globalPdfCache.find(p => p.path === pdfPath);
-    if (cacheEntry && !cacheEntry.geladen) {
-      console.log(`Extrahiere Text für: ${cacheEntry.name}`);
-      const seitenTexte = [];
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const textContent = await page.getTextContent();
-        seitenTexte.push(textContent.items.map(item => item.str).join(' '));
-      }
-      cacheEntry.seitenTexte = seitenTexte;
-      cacheEntry.geladen = true;
-      console.log(`Text für ${cacheEntry.name} erfolgreich gecacht.`);
-    }
-    
+    // renderPage wird das PDF zeichnen und den Viewer-Inhalt ersetzen.
+    // Der Spinner muss am Ende von renderPage ausgeblendet werden.
     updateHeaderDocumentName(); 
-    // WICHTIG: Rendert jetzt direkt die korrekte Zielseite statt immer Seite 1
     renderPage(currentPage); 
     updateNavigation();
-    updateHelpers();
-
-  } catch (err) {
+    updateHelpers(); 
+  }).catch(err => {
     alert('Fehler beim Laden des PDFs: ' + err.message);
     document.getElementById('pdfViewer').innerHTML = '<h2>Fehler beim Laden des Dokuments.</h2>';
+    // Wichtig: Spinner auch im Fehlerfall ausblenden!
     document.getElementById('loadingSpinnerOverlay').style.display = 'none';
-  }
-}
-
-
-function startLazyLoading() {
-  if (isLazyLoading) return; // Sicherstellen, dass es nur einmal läuft
-  isLazyLoading = true;
-  
-  const statusElement = document.getElementById('lazy-load-status');
-  statusElement.style.display = 'inline'; // Statusanzeige sichtbar machen
-
-  // Die Funktion, die das nächste ungeladene PDF findet und lädt
-  const loadNext = async () => {
-    const ungeladenesPdf = globalPdfCache.find(p => !p.geladen);
-    const geladeneAnzahl = globalPdfCache.filter(p => p.geladen).length;
-
-    // Status aktualisieren
-    statusElement.textContent = `(Initialisiere Suche: ${geladeneAnzahl}/${globalPdfCache.length})`;
-
-    if (ungeladenesPdf) {
-      try {
-        // Lade das PDF-Dokument (ohne es zu rendern)
-        const pdf = await pdfjsLib.getDocument(ungeladenesPdf.path).promise;
-        const seitenTexte = [];
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const textContent = await page.getTextContent();
-          seitenTexte.push(textContent.items.map(item => item.str).join(' '));
-        }
-        ungeladenesPdf.seitenTexte = seitenTexte;
-        ungeladenesPdf.geladen = true;
-        console.log(`Hintergrund-Cache für ${ungeladenesPdf.name} erstellt.`);
-      } catch (error) {
-        console.error(`Fehler beim Hintergrundladen von ${ungeladenesPdf.name}:`, error);
-        // Markiere es als geladen, um Endlosschleifen bei defekten PDFs zu vermeiden
-        ungeladenesPdf.geladen = true; 
-      }
-      
-      // Kurze Pause und dann das nächste laden
-      setTimeout(loadNext, 100); 
-    } else {
-      // Alle PDFs sind geladen
-      console.log("Alle Dokumente wurden im Hintergrund gecacht.");
-      statusElement.textContent = 'Suche bereit.';
-      setTimeout(() => { statusElement.style.display = 'none'; }, 2000); // Anzeige ausblenden
-      isLazyLoading = false;
-    }
-  };
-
-  loadNext();
+  });
 }
 
 
 
 
-// === 🖼️ SEITE RENDERN (Wiederhergestellte, funktionierende Version) ===
+// === 🖼️ Seite rendern ===
+// === 🖼️ SEITE RENDERN - MIT SANFTEM ZURÜCKFALLEN (IHRE VISION) ===
 function renderPage(pageNum) {
   pdfDoc.getPage(pageNum).then(page => {
     const viewport = page.getViewport({ scale: 2.0 * zoomFactor });
@@ -252,9 +193,13 @@ function renderPage(pageNum) {
     page.render({ canvasContext: ctx, viewport }).promise.then(() => {
       const viewer = document.getElementById('pdfViewer');
       
+      // --- NEUE LOGIK: SANFTES ERSCHEINEN ---
+      
+      // 1. Position und Zustand des Viewers zurücksetzen, während er noch unsichtbar ist.
       viewer.style.transition = 'none'; 
       viewer.style.transform = 'translateX(0)';
       
+      // 2. Alten Inhalt löschen und neuen einfügen.
       viewer.innerHTML = '';
       const wrapper = document.createElement('div');
       wrapper.style.position = 'relative';
@@ -262,18 +207,20 @@ function renderPage(pageNum) {
       wrapper.appendChild(canvas);
       viewer.appendChild(wrapper);
 
-      // WICHTIG: Die UI-Helfer werden wieder hier aufgerufen
+      // 3. Highlights und UI-Infos aktualisieren.
       clearHighlights();
       highlightMatches(page, wrapper, viewport);
       document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
       updateNavigation();
-      updateHelpers(); // <--- DER ENTSCHEIDENDE AUFRUF IST WIEDER HIER
+      updateHelpers();
 
+      // 4. Die Magie: Den jetzt fertigen, neuen Viewer sanft einblenden.
       setTimeout(() => {
           viewer.style.transition = 'opacity 0.3s ease-in';
           viewer.style.opacity = '1';
-      }, 50);
+      }, 50); // Eine winzige Verzögerung, damit der Browser die Änderung registriert.
 
+      // Lade-Spinner und Initialisierungs-Logik
       document.getElementById('loadingSpinnerOverlay').style.display = 'none';
       if (!wurdeBereitsInitialGerendert) {
         pdfGerendert = true;
@@ -284,347 +231,98 @@ function renderPage(pageNum) {
   });
 }
 
-
-
 // === 🧹 Treffer-Hervorhebungen entfernen ===
 function clearHighlights() {
   document.querySelectorAll('.highlight-box').forEach(el => el.remove());
 }
 
-// ===================================================================
-//   AKTION 3: Suchlogik in LOKAL und GLOBAL aufteilen
-// ===================================================================
-
-// NEU: Funktion nur für die LOKALE Suche
-function startLocalSearch() {
-  // 1. Eingabeprüfung (zentralisiert)
-  const term1 = document.getElementById('searchBox').value;
-  const term2 = document.getElementById('searchBox2').value;
-  if (!term1 && !term2) {
-    const searchInfo = document.getElementById('searchInfo');
-    searchInfo.textContent = '⚠️ Bitte geben Sie zuerst einen Suchbegriff ein.';
-    searchInfo.style.color = '#dc3545';
-    setTimeout(() => {
-      searchInfo.textContent = '';
-      searchInfo.style.color = '';
-    }, 3000);
-    return;
-  }
-
-  // 2. Kontext für das aktuelle Dokument herstellen. Diese Funktion macht alles für uns!
-  activateSearchContext();
-
-  // 3. Wenn Treffer gefunden wurden, springe zum ersten.
-  if (matchPages.size > 0) {
-    const ersteTrefferSeite = [...matchPages].sort((a, b) => a - b)[0];
-    if (currentPage !== ersteTrefferSeite) {
-      currentPage = ersteTrefferSeite;
-      renderPage(currentPage);
-    }
-  } else {
-    // Falls keine Treffer im lokalen Dokument, kurze Info geben
-    const searchInfo = document.getElementById('searchInfo');
-    searchInfo.textContent = '🔍 Keine Treffer in diesem Dokument gefunden.';
-    searchInfo.style.color = '';
-    setTimeout(() => {
-      // Info nur zurücksetzen, wenn keine andere Suche läuft
-      if (searchInfo.textContent === '🔍 Keine Treffer in diesem Dokument gefunden.') {
-        searchInfo.textContent = '';
-      }
-    }, 3000);
-  }
-}
-
-
-// UMGEBAUT: Die alte searchPDF wird zur reinen startGlobalSearch
-function startGlobalSearch() {
-  // 1. Eingabeprüfung (zentralisiert)
-  const searchText1 = document.getElementById('searchBox').value;
-  const searchText2 = document.getElementById('searchBox2').value;
-  if (!searchText1 && !searchText2) {
-    const searchInfo = document.getElementById('searchInfo');
-    searchInfo.textContent = '⚠️ Bitte geben Sie zuerst einen Suchbegriff ein.';
-    searchInfo.style.color = '#dc3545';
-    setTimeout(() => {
-      searchInfo.textContent = '';
-      searchInfo.style.color = '';
-    }, 3000);
-    return;
-  }
-
-  // Ab hier ist es die bekannte Logik der globalen Suche
+// === 🔍 Volltextsuche durchführen ===
+// === 🔍 Volltextsuche durchführen (ANGEPASSTE VERSION) ===
+function searchPDF() {
   document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
-  const normalizedSearchText1 = normalize(searchText1);
-  const normalizedSearchText2 = normalize(searchText2);
+  searchText = normalize(document.getElementById('searchBox').value);
+  secondSearchText = normalize(document.getElementById('searchBox2').value);
+
+  // NEU: Aktiven Suchoperator auslesen
   const activeOperatorBtn = document.querySelector('.operator-btn.active');
-  const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und';
+  const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und'; // 'und' als sicherer Standard
 
-  const allResults = [];
-  let term1Count = 0;
-  let term2Count = 0;
-  const geladeneDokumente = globalPdfCache.filter(p => p.geladen);
-
-  for (const doc of geladeneDokumente) {
-    for (let i = 0; i < doc.seitenTexte.length; i++) {
-      const pageText = doc.seitenTexte[i];
-      const normalizedPageText = normalize(pageText);
-      const escapedTerm1 = normalizedSearchText1.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-      const matches1 = (normalizedPageText.match(new RegExp(escapedTerm1, 'g')) || []).length;
-      let matches2 = 0;
-      if (normalizedSearchText2) {
-          const escapedTerm2 = normalizedSearchText2.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-          matches2 = (normalizedPageText.match(new RegExp(escapedTerm2, 'g')) || []).length;
-      }
-      const hasText1 = matches1 > 0;
-      const hasText2 = matches2 > 0;
-      let isMatch = false;
-      if (!normalizedSearchText2) { isMatch = hasText1; }
-      else {
-        switch (searchOperator) {
-          case 'und': isMatch = hasText1 && hasText2; break;
-          case 'oder': isMatch = hasText1 || hasText2; break;
-          case 'ohne': isMatch = hasText1 && !hasText2; break;
-        }
-      }
-      if (isMatch) {
-        term1Count += matches1;
-        if (normalizedSearchText2) { term2Count += matches2; }
-        allResults.push({
-          docName: doc.name,
-          docPath: doc.path,
-          pageNumber: i + 1,
-          context: getContextSnippet(pageText, searchText1, searchText2)
-        });
-      }
-    }
-  }
-
-  displayGlobalResults(allResults, { 
-      term1: searchText1, 
-      term2: searchText2, 
-      count1: term1Count, 
-      count2: term2Count 
-  });
-  
-  document.getElementById('loadingSpinnerOverlay').style.display = 'none';
-}
-
-
-// Hilfsfunktion, um einen Textausschnitt zu generieren
-function getContextSnippet(pageText, term1, term2, length = 150) {
-  const normPageText = normalize(pageText);
-  let index = normPageText.indexOf(term1);
-  if (index === -1 && term2) {
-    index = normPageText.indexOf(term2);
-  }
-  if (index === -1) {
-    return pageText.substring(0, length) + '...';
-  }
-
-  const start = Math.max(0, index - Math.floor(length / 3));
-  let snippet = pageText.substring(start, start + length);
-
-  // Begriffe hervorheben
-  const regex1 = new RegExp(term1.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi');
-  snippet = snippet.replace(regex1, '<strong>$&</strong>');
-  if (term2) {
-    const regex2 = new RegExp(term2.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi');
-    snippet = snippet.replace(regex2, '<strong>$&</strong>');
-  }
-
-  return (start > 0 ? '...' : '') + snippet + '...';
-}
-
-// ===================================================================
-//   FINALE AKTION: displayGlobalResults mit kontext-sensitiver Anzeige
-// ===================================================================
-function displayGlobalResults(results, searchData) {
-  const overlay = document.getElementById('global-search-overlay');
-  const titleEl = document.getElementById('global-search-title');
-  const container = document.getElementById('global-search-results-container');
-  
-  container.innerHTML = ''; // Alte Ergebnisse löschen
-
-  // Titel-Logik
-  const operatorText = document.querySelector('.operator-btn.active')?.textContent || 'UND';
-  let titleText = `${results.length} Trefferseiten für "${searchData.term1}"`;
-  if (searchData.term2) {
-    titleText += ` ${operatorText} "${searchData.term2}"`;
-  }
-  titleEl.textContent = titleText;
-
-  // Statistik-Block
-  const statsDiv = document.createElement('div');
-  statsDiv.style.cssText = "padding: 5px 0 15px 0; border-bottom: 1px solid #dee2e6; margin-bottom: 15px; font-size: 0.9em; color: #555;";
-  let statsHTML = `<em>Statistik: "${searchData.term1}" (${searchData.count1}x)`;
-  if (searchData.term2) {
-    statsHTML += `, "${searchData.term2}" (${searchData.count2}x)`;
-  }
-  statsHTML += `</em>`;
-  statsDiv.innerHTML = statsHTML;
-  container.appendChild(statsDiv);
-  
-  if (results.length === 0) {
-    container.innerHTML += '<p style="text-align: center; margin-top: 20px;">Keine Ergebnisse gefunden.</p>';
-  } else {
-    // Ergebnisse nach Dokument gruppieren
-    const groupedResults = results.reduce((acc, result) => {
-      if (!acc[result.docName]) {
-        acc[result.docName] = [];
-      }
-      acc[result.docName].push(result);
-      return acc;
-    }, {});
-
-    // HIER IST DIE NEUE LOGIK
-    const anzahlDokumente = Object.keys(groupedResults).length;
-
-    for (const docName in groupedResults) {
-      const groupDiv = document.createElement('div');
-      groupDiv.className = 'result-document-group';
-      
-      const docTitle = document.createElement('div');
-      docTitle.className = 'doc-category-title accordion-trigger';
-      docTitle.innerHTML = `<span class="accordion-arrow">►</span> ${docName} (${groupedResults[docName].length} Treffer)`;
-      
-      const detailsContainer = document.createElement('div');
-      detailsContainer.className = 'accordion-details';
-
-      // Wenn es nur ein Dokument gibt, dieses sofort ausklappen
-      if (anzahlDokumente === 1) {
-        detailsContainer.style.display = 'block';
-        docTitle.classList.add('active'); // Sorgt dafür, dass der Pfeil gedreht wird
-      } else {
-        detailsContainer.style.display = 'none';
-      }
-
-      groupDiv.appendChild(docTitle);
-
-      for (const item of groupedResults[docName]) {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'result-item';
-        itemDiv.innerHTML = `
-          <span class="page-number">Seite ${item.pageNumber}</span>
-          <div class="context-snippet">${item.context}</div>
-        `;
-        itemDiv.onclick = () => {
-          overlay.style.display = 'none';
-          currentDocumentName = item.docName;
-          searchText = normalize(document.getElementById('searchBox').value);
-          secondSearchText = normalize(document.getElementById('searchBox2').value);
-          loadAndRenderPdf(item.docPath, item.pageNumber);
-        };
-        detailsContainer.appendChild(itemDiv);
-      }
-      groupDiv.appendChild(detailsContainer);
-      container.appendChild(groupDiv);
-    }
-  }
-  
-  overlay.style.display = 'flex';
-}
-
-
-
-// ===================================================================
-//   AKTION 3: activateSearchContext zur finalen Version ausbauen
-// ===================================================================
-function activateSearchContext() {
-  // Die aktuellen Suchbegriffe aus den Feldern holen
-  const term1 = document.getElementById('searchBox').value;
-  const term2 = document.getElementById('searchBox2').value;
-  searchText = normalize(term1);
-  secondSearchText = normalize(term2);
-  
+// NEUER Block mit Nutzermeldung
+if (!searchText && !secondSearchText) {
   const searchInfo = document.getElementById('searchInfo');
+  
+  // Nachricht anzeigen
+  searchInfo.textContent = '⚠️ Bitte geben Sie zuerst einen Suchbegriff ein.';
+  searchInfo.style.color = '#dc3545'; // Eine auffällige Farbe (Rot)
 
-  // Wenn keine Suche aktiv ist, alles zurücksetzen
-  if (!searchText && !secondSearchText) {
-    searchInfo.innerHTML = '';
-    matchPages.clear();
-    updateHelpers();
-    updateNavigation();
-    return;
-  }
+  // Lade-Spinner ausblenden
+  document.getElementById('loadingSpinnerOverlay').style.display = 'none';
+  
+  // Nachricht nach 3 Sekunden wieder zurücksetzen
+  setTimeout(() => {
+    searchInfo.textContent = ''; // Text leeren
+    searchInfo.style.color = ''; // Farbe zurücksetzen
+  }, 3000);
 
-  const cacheEntry = globalPdfCache.find(p => p.path === currentDocumentPath);
-  if (!cacheEntry || !cacheEntry.geladen) return;
+  return; // Suche abbrechen
+}
 
   matchPages.clear();
-  const activeOperatorBtn = document.querySelector('.operator-btn.active');
-  const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und';
+  let totalMatches = 0;
 
-  // Lokale Zähler für das aktuelle Dokument
-  let localTerm1Count = 0;
-  let localTerm2Count = 0;
+  const tasks = [];
+  for (let p = 1; p <= pdfDoc.numPages; p++) {
+    tasks.push(pdfDoc.getPage(p).then(page =>
+      page.getTextContent().then(tc => {
+        const pageText = normalize(tc.items.map(i => i.str).join(' '));
+        
+        const hasFirstTerm = pageText.includes(searchText);
+        const hasSecondTerm = secondSearchText && pageText.includes(secondSearchText);
 
-  for (let i = 0; i < cacheEntry.seitenTexte.length; i++) {
-    const pageText = cacheEntry.seitenTexte[i];
-    const normalizedPageText = normalize(pageText);
-    
-    const escapedTerm1 = searchText.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const matches1 = (normalizedPageText.match(new RegExp(escapedTerm1, 'g')) || []).length;
-    
-    let matches2 = 0;
-    if (secondSearchText) {
-        const escapedTerm2 = secondSearchText.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        matches2 = (normalizedPageText.match(new RegExp(escapedTerm2, 'g')) || []).length;
-    }
+        let isMatch = false;
 
-    const hasText1 = matches1 > 0;
-    const hasText2 = matches2 > 0;
+        // NEUE LOGIK basierend auf dem ausgewählten Operator
+        if (!secondSearchText) {
+            // Wenn nur das erste Feld ausgefüllt ist, wird immer nur danach gesucht.
+            isMatch = hasFirstTerm;
+        } else {
+            switch (searchOperator) {
+                case 'und':
+                    isMatch = hasFirstTerm && hasSecondTerm;
+                    break;
+                case 'oder':
+                    isMatch = hasFirstTerm || hasSecondTerm;
+                    break;
+                case 'ohne':
+                    isMatch = hasFirstTerm && !hasSecondTerm;
+                    break;
+            }
+        }
 
-    let isMatch = false;
-    if (!secondSearchText) { isMatch = hasText1; }
-    else {
-      switch (searchOperator) {
-        case 'und': isMatch = hasText1 && hasText2; break;
-        case 'oder': isMatch = hasText1 || hasText2; break;
-        case 'ohne': isMatch = hasText1 && !hasText2; break;
-      }
-    }
-
-    if (isMatch) {
-      matchPages.add(i + 1);
-      localTerm1Count += matches1;
-      localTerm2Count += matches2;
-    }
+        if (isMatch) {
+          matchPages.add(p);
+          // Die Zählung der Treffer bleibt zur Vereinfachung so,
+          // da die Seitenzahl die wichtigere Information ist.
+          totalMatches += countMatches(pageText, searchText, secondSearchText);
+        }
+      })
+    ));
   }
 
-  // Statuszeile mit Statistik und Klick-Funktion aufbauen
-  if (matchPages.size > 0) {
-    let statsText = `(${term1}: ${localTerm1Count}x`;
-    if (term2) {
-      statsText += `, ${term2}: ${localTerm2Count}x`;
+  Promise.all(tasks).then(() => {
+    if (matchPages.size > 0) {
+        document.getElementById('searchInfo').textContent = `🔍 ${matchPages.size} Seite(n) gefunden.`;
+        currentPage = [...matchPages].sort((a, b) => a - b)[0];
+        renderPage(currentPage);
+    } else {
+        document.getElementById('searchInfo').textContent = '🔍 Keine Treffer für Ihre Suche gefunden.';
     }
-    statsText += `)`;
-    
-    searchInfo.innerHTML = `🔍 <span id="local-search-trigger" style="cursor: pointer; text-decoration: underline;" title="Klicken für eine Übersicht aller Treffer in diesem Dokument">${matchPages.size} Seite(n) in diesem Dokument gefunden.</span> ${statsText}`;
-    
-    // Event-Listener für das lokale Overlay hinzufügen
-    document.getElementById('local-search-trigger').onclick = () => {
-      const localResults = [];
-      // Durch die sortierten Trefferseiten iterieren
-      for (const pageNum of [...matchPages].sort((a,b) => a - b)) {
-        const pageText = cacheEntry.seitenTexte[pageNum - 1];
-        localResults.push({
-          docName: cacheEntry.name,
-          docPath: cacheEntry.path,
-          pageNumber: pageNum,
-          context: getContextSnippet(pageText, term1, term2)
-        });
-      }
-      // Die globale Anzeigefunktion mit den lokalen Daten aufrufen
-      displayGlobalResults(localResults, { term1: term1, term2: term2, count1: localTerm1Count, count2: localTerm2Count });
-    };
-
-  } else {
-    searchInfo.innerHTML = '';
-  }
-
-
+    document.getElementById('loadingSpinnerOverlay').style.display = 'none';
+    updateNavigation();
+    updateCurrentMatchInfo();
+    updateHelpers();
+  });
 }
-
 
 // === 🔡 Hilfsfunktionen ===
 function normalize(text) {
@@ -1197,23 +895,7 @@ function addCurrentHit() {
   updateHelpers();
 }
 
-  // --- Listener für Add/Remove Hit Buttons ---
-  const removeHitBtn = document.getElementById('removeHitBtn');
-  if (removeHitBtn) {
-    removeHitBtn.addEventListener('click', function(event) { // Funktion empfängt jetzt 'event'
-      event.stopPropagation(); // <-- DAS IST DIE ENTSCHEIDENDE ZEILE
-      removeCurrentHit();      // Ruft die ursprüngliche Funktion auf
-    });
-  }
 
-  // Der Listener für addHitBtn kann genauso bleiben, aber es schadet nicht, ihn auch anzupassen:
-  const addHitBtn = document.getElementById('addHitBtn');
-  if (addHitBtn) {
-    addHitBtn.addEventListener('click', function(event) { // Sicher ist sicher
-      event.stopPropagation(); // Verhindert auch hier unerwünschtes Bubbling
-      addCurrentHit();
-    });
-  }
 
 // In Ihrer viewer-final.js
 
@@ -1243,6 +925,7 @@ function updateHelpers() {
     addHitBtn.style.display = 'block';
   }
 }
+
 
 
 // In Ihrer viewer-final.js
@@ -1557,6 +1240,14 @@ function printAllMatches() {
 }
 
 
+// === ⌨️ KEYBOARD-EVENTS ===
+document.getElementById("searchBox").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") searchPDF();
+});
+
+document.getElementById("searchBox2").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") searchPDF();
+});
 
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
@@ -2214,12 +1905,27 @@ function resetApplication() {
 }
 
 
+// ===== NEU: AUTHENTIFIZIERUNGS-LOGIK (ENDE) =====
+
+
 // ===================================================================
-//   DIESE FUNKTIONEN MÜSSEN AUSSERHALB VON window.onload STEHEN
+//   ALLES AUSFÜHREN, WENN DIE SEITE UND ALLE INHALTE FERTIG GELADEN SIND
 // ===================================================================
 
+window.onload = function() {
+
+      // ===================================================================
+    //   NEUE LOGIK FÜR DOKUMENTEN-AUSWAHL UND INITIALISIERUNG
+    // ===================================================================
+    initializeAuth();
+
+    const openBtn = document.getElementById('openDocDialogBtn');
+    const closeBtn = document.getElementById('closeDocDialogBtn');
+    const dialog = document.getElementById('docDialog');
+    const listContainer = document.getElementById('docDialogList');
+    updateMerklisteIcon();
+
 function populateDocList() {
-  const listContainer = document.getElementById('docDialogList');
   const groupedPdfs = pdfsData.reduce((acc, pdf) => {
     const category = pdf.category || 'Allgemein';
     if (!acc[category]) { acc[category] = []; }
@@ -2244,13 +1950,14 @@ function populateDocList() {
       link.href = '#';
       link.dataset.path = pdf.path;
       
+      // WICHTIG: Den Namen für den Klick-Event zwischenspeichern
       const pdfNameForListener = pdf.name; 
 
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        currentDocumentName = pdfNameForListener;
+        currentDocumentName = pdfNameForListener; // Namen beim Klick aktualisieren
         loadAndRenderPdf(e.target.dataset.path);
-        document.getElementById('docDialog').style.display = 'none';
+        dialog.style.display = 'none';
       });
       groupDiv.appendChild(link);
     });
@@ -2258,35 +1965,30 @@ function populateDocList() {
   }
 }
 
+
+    if (openBtn && dialog && closeBtn) {
+        openBtn.addEventListener('click', () => { dialog.style.display = 'flex'; });
+        closeBtn.addEventListener('click', () => { dialog.style.display = 'none'; });
+    }
+
 async function initializeDocumentHandling() {
   try {
-    const response = await fetch('pdf/pdfs.json?v=' + new Date().getTime());
+    const response = await fetch('pdf/pdfs.json');
     pdfsData = await response.json();
-
-    globalPdfCache = pdfsData.map(pdf => ({
-      name: pdf.name,
-      path: pdf.path,
-      category: pdf.category,
-      seitenTexte: [],
-      geladen: false
-    }));
-
-    populateDocList();
-
     const defaultPdf = pdfsData.find(pdf => pdf.isDefault);
+
+    // Standardpfad und -name sicher bestimmen
     const initialPdfPath = defaultPdf ? defaultPdf.path : (pdfsData.length > 0 ? pdfsData[0].path : '');
     const initialPdfName = defaultPdf ? defaultPdf.name : (pdfsData.length > 0 ? pdfsData[0].name : 'Kein Dokument geladen');
 
     if (initialPdfPath) {
-      currentDocumentName = initialPdfName;
-      await loadAndRenderPdf(initialPdfPath); 
+      currentDocumentName = initialPdfName; // Namen in globaler Variable speichern
+      loadAndRenderPdf(initialPdfPath);
     } else {
       document.getElementById('pdfViewer').innerHTML = '<h2>Keine Dokumente konfiguriert.</h2>';
-      updateHeaderDocumentName();
+      updateHeaderDocumentName(); // Header auch im Fehlerfall aktualisieren
     }
-
-    startLazyLoading();
-
+    populateDocList();
   } catch (error) {
     console.error("Fehler beim Laden oder Verarbeiten von pdfs.json:", error);
     alert("Die Konfigurationsdatei für die Dokumente konnte nicht geladen werden.");
@@ -2294,187 +1996,232 @@ async function initializeDocumentHandling() {
 }
 
 
+    initializeDocumentHandling();
+
+    // ===================================================================
+    //   ENDE DER NEUEN LOGIK
+    // ===================================================================
 
 
-// ===================================================================
-//   HAUPTFUNKTION, die nach dem Laden der Seite ausgeführt wird
-// ===================================================================
-async function main() {
-
-  // ===================================================================
-  //   INITIALISIERUNGS-LOGIK
-  // ===================================================================
-  initializeAuth();
-  // WICHTIG: Wir warten jetzt korrekt, bis alles geladen ist.
-  await initializeDocumentHandling(); 
-
-  // --- Fokus, Datum, etc. ---
+  // --- 1. Fokus auf das erste Suchfeld setzen ---
   const searchBox = document.getElementById("searchBox");
+  
   if (searchBox) {
     searchBox.focus();
   }
+
+  // --- 2. Datum im Header aktualisieren ---
   updateHeaderDate();
-
-  // ===================================================================
-  //   ZENTRALE EVENT-LISTENER (Jetzt wird alles korrekt registriert)
-  // ===================================================================
-
-  // --- Listener für den Dokumenten-Dialog ---
-  const openBtn = document.getElementById('openDocDialogBtn');
-  const closeBtn = document.getElementById('closeDocDialogBtn');
-  const dialog = document.getElementById('docDialog');
-  if (openBtn && dialog && closeBtn) {
-      openBtn.addEventListener('click', () => { dialog.style.display = 'flex'; });
-      closeBtn.addEventListener('click', () => { dialog.style.display = 'none'; });
-  }
-
-  // --- Listener für das Schließen des globalen Such-Overlays ---
-  const closeOverlayBtn = document.getElementById('close-search-overlay-btn');
-  if (closeOverlayBtn) {
-    closeOverlayBtn.addEventListener('click', () => {
-      document.getElementById('global-search-overlay').style.display = 'none';
-    });
-  }
-
-  // --- Listener für die Akkordeon-Funktion im Such-Overlay ---
-  const resultsContainer = document.getElementById('global-search-results-container');
-  if (resultsContainer) {
-    resultsContainer.addEventListener('click', function(e) {
-      const trigger = e.target.closest('.accordion-trigger');
-      if (!trigger) return;
-      const details = trigger.nextElementSibling;
-      if (!details) return;
-      trigger.classList.toggle('active');
-      details.style.display = details.style.display === 'none' ? 'block' : 'none';
-    });
-  }
-
-   // --- Listener für die 4 Haupt-Buttons ---
-  document.getElementById('local-search-btn').addEventListener('click', startLocalSearch);
-  document.getElementById('global-search-btn').addEventListener('click', startGlobalSearch);
-  document.getElementById('print-current-btn').addEventListener('click', printCurrentPage);
-  document.getElementById('print-matches-btn').addEventListener('click', printAllMatches);
-
-
-  // --- Listener für die Enter-Taste in den Suchfeldern ---
-  document.getElementById("searchBox").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") startLocalSearch();
-  });
-  document.getElementById("searchBox2").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") startLocalSearch();
-  });
   
+  // --- 3. Alle Tooltips initialisieren (JETZT mit einer winzigen Verzögerung) ---
+  // Dies stellt sicher, dass auch dynamisch nachgeladene Elemente (wie die Suchleiste)
+  // sicher im DOM vorhanden sind, bevor das Skript läuft.
+ // ---  setTimeout(function() {
+ // ---    addAllTooltips();
+ // ---  }, 0); // Die 0ms Verzögerung reicht aus, um die Ausführung ans Ende der Event-Queue zu schieben.
 
-  // --- Listener für das Hamburger-Menü ---
+  // --- NEU: Funktionalität für "Trefferseite entfernen"-Button ---
+  const removeHitBtn = document.getElementById('removeHitBtn');
+  if (removeHitBtn) {
+    removeHitBtn.addEventListener('click', removeCurrentHit);
+  }
+
+    // HIER DEN NEUEN LISTENER HINZUFÜGEN
+  const addHitBtn = document.getElementById('addHitBtn');
+  if (addHitBtn) {
+    addHitBtn.addEventListener('click', addCurrentHit);
+  }
+
+  // --- 4. Funktionalität für das Hamburger-Menü (Mobile) ---
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const mobileNav = document.getElementById('mobile-nav');
   const body = document.body;
+
   if (hamburgerBtn && mobileNav) {
+    // Menü öffnen/schließen beim Klick auf den Button
     hamburgerBtn.addEventListener('click', function(event) {
-      event.stopPropagation();
+      event.stopPropagation(); // Verhindert, dass der Klick sofort wieder schließt
       toggleMobileNav();
     });
+
+    // Menü schließen, wenn man daneben klickt
     body.addEventListener('click', function(event) {
-      if (mobileNav.classList.contains('active') && !mobileNav.contains(event.target) && event.target !== hamburgerBtn) {
-        closeMobileNav();
-      }
+        if (mobileNav.classList.contains('active')) {
+            // Prüfen, ob der Klick außerhalb des Menüs war
+            if (!mobileNav.contains(event.target) && event.target !== hamburgerBtn) {
+                closeMobileNav();
+            }
+        }
     });
   }
 
-  // --- Listener für die Such-Operatoren ---
+  // --- 5. Funktionalität für die Suchoperator-Buttons (UND, ODER, OHNE) ---
   const operatorGroup = document.getElementById('search-operator-group');
   if (operatorGroup) {
     operatorGroup.addEventListener('click', function(e) {
+      // Nur reagieren, wenn ein Button mit der Klasse 'operator-btn' geklickt wurde
       if (e.target.classList.contains('operator-btn')) {
-        operatorGroup.querySelectorAll('.operator-btn').forEach(btn => btn.classList.remove('active'));
+        
+        // Alle Buttons in der Gruppe deaktivieren
+        operatorGroup.querySelectorAll('.operator-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Nur den geklickten Button aktivieren
         e.target.classList.add('active');
       }
     });
   }
 
-  // --- Listener für Zoom-Reset auf Mobile ---
-  window.addEventListener('focus', function() {
-    if (isMobileDevice() && zoomFactor !== 1.0) {
-      console.log("Zoom wird auf Standard zurückgesetzt...");
+// ===================================================================
+//   NEU: Zoom beim Zurückkehren zur Seite zurücksetzen (Mobile Fix)
+// ===================================================================
+window.addEventListener('focus', function() {
+  // Prüfen, ob wir uns auf einem Mobilgerät befinden, da das Problem nur dort auftritt.
+  if (isMobileDevice()) {
+    
+    // Prüfen, ob der aktuelle Zoom-Faktor von unserem Standard (1.0) abweicht.
+    // Dies verhindert unnötiges Neu-Rendern, wenn sich nichts geändert hat.
+    if (zoomFactor !== 1.0) {
+      
+      console.log("Zoom wird auf Standard zurückgesetzt..."); // Hilfreich für die Fehlersuche
+      
+      // Setze den Zoom-Faktor auf den Standardwert zurück.
       zoomFactor = 1.0;
+      
+      // Rendere die aktuelle Seite mit dem korrigierten Zoom neu.
+      // Der Lade-Spinner wird hier nicht benötigt, da es sehr schnell geht.
       renderPage(currentPage);
+    }
+  }
+
+
+
+});
+
+
+
+
+// ===================================================================
+//   INTERAKTIONEN FÜR DEN PDF-CONTAINER (MINIMALISTISCH ERWEITERT)
+// ===================================================================
+const pdfContainer = document.getElementById('pdfContainer');
+if (pdfContainer) {
+
+  // --- PDF BEI DOPPELKLICK IN NEUEM TAB ÖFFNEN (NUR DESKTOP) ---
+  // (Dieser Teil bleibt unverändert)
+  pdfContainer.addEventListener('dblclick', function() {
+    if (!isMobileDevice() && currentDocumentPath && pdfDoc) {
+      const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
+      window.open(urlForNewTab, '_blank');
     }
   });
 
-  // --- Listener für Touch-Gesten auf dem PDF-Container ---
-  const pdfContainer = document.getElementById('pdfContainer');
-  if (pdfContainer) {
-    // Dein kompletter Code für dblclick, touchstart, touchmove, touchend
-    // ... (ich füge ihn hier zur Sicherheit vollständig ein)
-    pdfContainer.addEventListener('dblclick', function() {
-      if (!isMobileDevice() && currentDocumentPath && pdfDoc) {
-        const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
-        window.open(urlForNewTab, '_blank');
-      }
-    });
-    let startX = 0, startY = 0, distanzX = 0, distanzY = 0, lastTap = 0;
-    const pdfViewer = document.getElementById('pdfViewer');
-    pdfContainer.addEventListener('touchstart', function(e) {
-      if (e.touches.length > 1 || zoomFactor > 1.0) return;
-      const touch = e.touches[0];
-      startX = touch.screenX; startY = touch.screenY;
-      distanzX = 0; distanzY = 0;
-      if (pdfViewer) { pdfViewer.style.transition = 'none'; }
-    });
-    pdfContainer.addEventListener('touchmove', function(e) {
-      if (e.touches.length > 1 || zoomFactor > 1.0) return;
-      const touch = e.touches[0];
-      distanzX = touch.screenX - startX;
-      distanzY = touch.screenY - startY;
-      if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
+  // --- TOUCH-GESTEN FÜR MOBILGERÄTE (WISCHEN & DOPPELTIPP) ---
+  let startX = 0;
+  let startY = 0;
+  let distanzX = 0;
+  let distanzY = 0;
+  let lastTap = 0;
+  
+  // NEU: Wir brauchen eine Referenz zum Element, das wir bewegen wollen.
+  const pdfViewer = document.getElementById('pdfViewer');
+
+  // --- touchstart: Fast wie bisher, aber wir deaktivieren die Animation ---
+  pdfContainer.addEventListener('touchstart', function(e) {
+    if (e.touches.length > 1 || zoomFactor > 1.0) return; // Zoom-Sperre bleibt!
+    
+    const touch = e.touches[0];
+    startX = touch.screenX;
+    startY = touch.screenY;
+    distanzX = 0;
+    distanzY = 0;
+
+    // NEU: Animation ausschalten, damit die Seite dem Finger sofort folgt.
+    if (pdfViewer) {
+        pdfViewer.style.transition = 'none';
+    }
+  }); // { passive: true } entfernt, wegen Doppeltipp
+
+  // --- touchmove: HIER ENTSTEHT DAS BLÄTTER-FEELING ---
+  pdfContainer.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 1 || zoomFactor > 1.0) return;
+    
+    const touch = e.touches[0];
+    distanzX = touch.screenX - startX;
+    distanzY = touch.screenY - startY;
+
+    // NEU: Die Seite visuell mit dem Finger verschieben.
+    // Wir prüfen, ob die Bewegung hauptsächlich horizontal ist.
+    if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
+        // Widerstand am Anfang/Ende für ein besseres Gefühl
         if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
-          distanzX /= 3;
+            distanzX /= 3;
         }
         pdfViewer.style.transform = `translateX(${distanzX}px)`;
+    }
+  }, { passive: true });
+
+  // --- touchend: Entscheidet über Blättern, Zurückfedern oder Doppeltipp ---
+ // ===================================================================
+//   TOUCHEND - NACH IHRER VISION (CROSS-FADE-ÜBERGANG)
+// ===================================================================
+pdfContainer.addEventListener('touchend', function(event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    lastTap = currentTime;
+
+    // DOPPELTIPP-ERKENNUNG
+    if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
+      event.preventDefault();
+      if (currentDocumentPath && pdfDoc) {
+        const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
+        const link = document.createElement('a');
+        link.href = urlForNewTab;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
-    }, { passive: true });
-    pdfContainer.addEventListener('touchend', function(event) {
-      const currentTime = new Date().getTime();
-      const tapLength = currentTime - lastTap;
-      lastTap = currentTime;
-      if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
-        event.preventDefault();
-        if (currentDocumentPath && pdfDoc) {
-          const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
-          const link = document.createElement('a');
-          link.href = urlForNewTab; link.target = '_blank';
-          document.body.appendChild(link); link.click(); document.body.removeChild(link);
-        }
-        return;
-      }
-      if (zoomFactor > 1.0) return;
-      const mindestDistanz = pdfContainer.clientWidth * 0.25;
-      if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+      return; 
+    }
+
+    if (zoomFactor > 1.0) return;
+
+    const mindestDistanz = pdfContainer.clientWidth * 0.25;
+    const pdfViewer = document.getElementById('pdfViewer');
+
+    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+        
+        // --- NEUE LOGIK: SANFT AUSBLENDEN ---
         if (pdfViewer) {
-          pdfViewer.style.transition = 'opacity 0.3s ease-out';
-          pdfViewer.style.opacity = '0';
+            // Die gezogene Seite wird langsam durchsichtig
+            pdfViewer.style.transition = 'opacity 0.3s ease-out';
+            pdfViewer.style.opacity = '0';
         }
+
+        // Nach einer winzigen Verzögerung, damit die Animation startet, wird geblättert.
         setTimeout(() => {
-          if (distanzX < 0) { document.getElementById('next-page').click(); } 
-          else { document.getElementById('prev-page').click(); }
-        }, 50);
-      } else if (distanzX !== 0) {
+            if (distanzX < 0) {
+                document.getElementById('next-page').click();
+            } else {
+                document.getElementById('prev-page').click();
+            }
+        }, 50); // 50ms reichen aus
+
+    } else if (distanzX !== 0) {
+        // Nicht weit genug gewischt -> Zurückfedern (bleibt wie gehabt)
         if (pdfViewer) {
-          pdfViewer.style.transition = 'transform 0.3s ease-out';
-          pdfViewer.style.transform = 'translateX(0)';
+            pdfViewer.style.transition = 'transform 0.3s ease-out';
+            pdfViewer.style.transform = 'translateX(0)';
         }
-      }
-    });
-  }
+    }
+});
+
 }
 
-// ===================================================================
-//   DER MODERNE ERSATZ FÜR window.onload
-// ===================================================================
-// Dieser Listener wartet, bis das gesamte HTML-Dokument fertig geladen ist,
-// und ruft dann unsere async Hauptfunktion 'main' auf.
-document.addEventListener('DOMContentLoaded', main);
 
+}; // Ende des window.onload Blocks
 
 
 function openMegarippKonfigurator() {
