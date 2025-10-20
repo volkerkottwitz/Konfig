@@ -1484,7 +1484,9 @@ function closeInfo() {
   document.getElementById('infoModal').style.display = 'none';
 }
 
-// === 🖨️ DRUCK-FUNKTIONEN ===
+// ===================================================================
+//   FINALE, ENDGÜLTIGE 'printCurrentPage' (MIT KORREKTER SKALIERUNG)
+// ===================================================================
 function printCurrentPage() {
   const viewer = document.getElementById('pdfViewer');
   const canvas = viewer.querySelector('canvas');
@@ -1496,47 +1498,55 @@ function printCurrentPage() {
 
   if (!win) return alert('Pop-up-Blocker verhindert das Drucken.');
 
-  // --- NEU: HTML mit CSS-Druckregeln ---
   win.document.write(`
     <html>
       <head>
         <title>Druckansicht - ${document.title}</title>
         <style>
-          /* CSS-Regeln, die nur für den Druck gelten */
+          /* Stile, die immer gelten (sowohl Vorschau als auch Druck) */
+          body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+          }
+          .print-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          img {
+            /* === HIER IST DIE MAGIE DER SKALIERUNG === */
+            /* Das Bild darf maximal so breit und so hoch wie sein Container sein. */
+            max-width: 100%;
+            max-height: 100%;
+            /* Behält das Seitenverhältnis bei, während es in den Container eingepasst wird. */
+            object-fit: contain;
+          }
+
+          /* Spezifische Regeln nur für den Druck-Kontext */
           @media print {
             @page {
               size: A4; /* Definiert das Papierformat */
               margin: 15mm; /* Ein angemessener Rand */
             }
-            body {
-              margin: 0;
-              padding: 0;
-            }
-            .print-page {
-              width: 100%;
-              height: 100%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              overflow: hidden;
-            }
-            img {
-              max-width: 100%;
-              max-height: 100%;
-              object-fit: contain; /* Das ist die Magie: Skaliert das Bild passend */
-            }
           }
-          /* Stile für die Bildschirmanzeige (optional, aber gut für die Vorschau) */
-          body { margin: 0; padding: 0; }
-          .print-page { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
-          img { max-width: 100%; max-height: 100%; object-fit: contain; }
         </style>
       </head>
-      <body style="margin:0;padding:0">
-        <!-- Das Bild wird in einen Container mit der Klasse "print-page" gepackt -->
-        <div class="print-page">
-            <img src="${dataUrl}" onload="window.print(); setTimeout(window.close, 100);">
+      <body>
+        <div class="print-container">
+            <img src="${dataUrl}">
         </div>
+        <script>
+          window.onload = function() {
+            setTimeout(function() {
+              window.print();
+              setTimeout(window.close, 100);
+            }, 0);
+          };
+        <\/script>
       </body>
     </html>
   `);
