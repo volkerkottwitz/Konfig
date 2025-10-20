@@ -1,0 +1,406 @@
+EWE-Einbaugarnituren
+Benutzerinformation #7200048 – Ausgabe 01/2020
+
+
+2  |  Benutzerinformation EWE Einbaugarnituren
+Inhaltsverzeichnis
+Allgemeine Hinweise 4
+Einbaugarnitur, starre Ausführung 6Teleskop-Einbaugarnitur, stufenlos verstellbar 11KIT-Teleskop-Einbaugarnitur 17
+
+Benutzerinformation EWE Einbaugarnituren  |  3
+
+
+4  |  Benutzerinformation EWE EinbaugarniturenAllgemeine Hinweise
+ Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+ Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter-netseite: www.ewe-armaturen.de.
+ Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+ Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+ Nur eingewiesenes und qualifiziertes Personal darf die Armaturen montieren, bedienen oder warten. 
+ Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge-schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+ Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor-schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+ Es dürfen ausschließlich Geräte die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+ Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+ Sollten weitere Geräte verwendet werden, sind deren Bedienungsanleitungen unbedingt zu beachten. 
+ Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+ Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+ Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Installa-tion, Betrieb und Wartung der Produkte können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+
+Benutzerinformation EWE Einbaugarnituren  |  5 Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die 
+sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+ Es gelten unsere Allgemeinen Verkaufsbedingungen.
+Verpackung
+ Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Montage der Armatur.
+Entsorgung
+  Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent-sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wiederverwertbare Verpackungsmaterialien dem Recycling zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwereVerletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE Einbaugarnituren1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+ Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+ DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+ DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“ 
+ DIN EN 806 „Technische Regeln für Trinkwasser-Installation“
+ DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN  EN 806
+ DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+1.3 Verwendungsbereich
+ geeignet für Anbohrarmaturen mit oberer und seitlicher AnbohrungEWE-Einbaugarnitur, starre Ausführung,  
+mit Sandscheibe und Niro-Kerbstift,  - obere Anbohrung Artikelnummer: 6150XXX- seitliche Anbohrung Artikelnummer: 6151XXX
+
+
+Benutzerinformation EWE Einbaugarnituren  |  71.4 Werkstoff/Abmessungen/Leistung
+Werkstoffe
+ Schlüsselstange von 16 mm Durchmesser, aus Stahl,lackiert
+ Zentrierdeckel, blau, aus Kunststoff
+ Hülsrohr aus Kunststoff mit EWE-Glocke
+ Schoner aus GTS 35, lackiert
+ EWE-Spezial-Kerbstift, aus Niro
+ EWE-Verschlussscheibe, blau, aus Kunststoff
+Abmessungen
+obere Anbohrung
+Rohrdeckung tatsächliche Bauhöhe1,00 m 0,76 m
+1,25 m 0,91 m
+1,50 m 1,16 m
+seitliche AnbohrungRohrdeckung tatsächliche Bauhöhe1,00 m 0,80 m
+1,25 m 1,05 m
+1,50 m 1,32 m
+ für Rohrdeckung bis 1,50 m (kürzbar), mit Vierkant-Schlüsselstange 14/14
+1.5 Lagerung
+Die sind Produkte bis zur Verwendung vor Verschmutzung geschützt zu lagern. Vor und nach 
+dem Einsatz ist das  Pr
+odukt auf Beschädigung oder Verunreinigung zu prüfen.
+1.6 Funktionsbeschreibung
+Klassische Einbaugarnitur zur Betätigung von unterirdisch eingebauten Armaturen.Die Spindel der Anbohrarmatur wird mit Hilfe einer Einbaugarnitur bis zum Straßenniveau verlängert. 
+2. Einbauhinw eise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+ Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu  
+ prüfen. Ein beschädigt
+es Produkt darf nicht eingesetzt werden. Die Kernbohrung ist    
+ zu säubern und die Ker
+nbohrungsoberfläche zu schließen und anzufeuchten.
+2.2  Hinweise zum Einbauort
+ Die Wahl der erforderlichen Rohrdeckung ist entsprechend der örtlichen Gegeben-  
+ heiten zu tr
+effen. 
+
+8  |  Benutzerinformation EWE Einbaugarnituren2.3 Montage
+1.
+ Benötigte Einbaugarniturengesamtlänge mit Einbausitua-
+tion abgleichen und Nennweite prüfen.
+2.
+ Spindelstift aus Kuppelmuffe entfernen und lagern.
+3.
+ Passende Schmutzscheibe auf Armatur aufstecken.
+4.
+ Schlüsselstange mit Kuppelmuffe so auf Armaturenspindel stecken, dass Muffen und Spindelbohrung fluchten, dann mittels Spindelstift verbinden.
+
+
+Benutzerinformation EWE Einbaugarnituren  |  95.
+ Hülsrohrglocke auf Schmutzscheibe führen, Nocken fluch-
+ten lassen und einrasten.
+6.
+  Einbaugarnitur axial zur Armaturenspindel ausrichten und mit geeignetem Füllmaterial (vorzugsweise verdichtungs-fähigem Sand) verdichten.
+7.
+ Bei Montage der Straßenkappe auf genügend Spiel des Betätigungsvierkantes achten.
+
+
+10  |  Benutzerinformation EWE Einbaugarnituren3. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der gesamten Anlage 
+erfolgen.
+3.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.  
+4. Wartung und Instandhaltung
+Die Wartung erfolgt in Form der Funktionskontrolle.  
+
+Benutzerinformation EWE Einbaugarnituren  |  111. Angaben über das Erzeugnis
+1.1 Geltungsbereich 
+Diese Benutzerinformation gilt für
+EWE-Teleskop-Einbaugarnitur, stufenlos verstellbar
+Ausführung  
+feuerverzinkter Stahl Artikelnummer 61515XXAusführung Edelstahl Artikelnummer 615157Xmit Schnellspannmuffe 
+Artikelnummer 615359X
+1.2 Mitgeltende Unterlagen
+ Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+ DVGW- und berufsgenossenschaftliches Regelwerk 
+Insbesondere:
+ DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“ 
+ DIN EN 806 „Technische Regeln für Trinkwasser-Installation“
+ DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 806
+ DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+1.3 Verwendungsbereich
+ geeignet für Anbohrarmaturen mit oberer und seitlicher Anbohrung
+
+
+12  |  Benutzerinformation EWE Einbaugarnituren1.4 Werkstoff/Abmessungen/Leistung
+Werkstoff:
+ Zweiteiliges Gestänge aus Vierkantstahl und Vierkantrohr, Betätigungsvierkant kaltge-
+schmiedet, gesamte Oberfläche einschließlich Schnittkanten feuerverzinkt
+ Spiralfedersystem, mit Niro-Spiralfeder und zwei verschleißarmen Polyamidhülsen
+ Vierkantschoner aus Temperguss, feuerverzinkt
+ PE-Hülsrohr mit Zentrierkappe, mit blauer, schmutzdichter und wasserabweisender Elasto-merdichtung
+ EWE-Spezial-Kerbstift, aus Niro
+ PE-Abstreifring am Hülsrohr
+ PE-Glocke mit Spezial-Verschlussscheibe, blau, aus Kunststoff
+Abmessungen:
+ Ausführung feuerverzinkter Stahl Rohrdeckung m bis m 0,60 - 1,00 Multi-Teleskop 0,60 - 1,00 Multi-Teleskop mit Markierungskappe 0,75 - 1,00 0,90 - 1,30 1,00 - 1,50 1,20 - 1,80 1,30 - 2,00 1,40 - 2,30 1,70 - 2,70 
+ Ausführung Edelstahl Rohrdeckung m bis m 0,75 - 1,00 1,00 - 1,50 1,20 - 1,80 1,40 - 2,30
+ Ausführung Schweiz Rohrdeckung m bis m 0,60 - 1,00 Multi-Teleskop 0,75 - 1,00 1,00 - 1,50 1,20 - 1,80 1,30 - 2,00 1,40 - 2,30 
+
+Benutzerinformation EWE Einbaugarnituren  |  13 Ausführung mit Schnellspannmuffe 
+Rohrdeckung von m bis m 0,75 - 1,00 1,00 - 1,50 1,20 - 1,80 1,30 - 2,00 1,40 - 2,30
+1.5 Lagerung
+Die Produkte sind bis zur Verwendung vor Verschmutzung geschützt zu lagern. Vor und nach dem Einsatz ist das
+ Pr
+odukt auf Beschädigung oder Verunreinigung zu prüfen. 
+1.6 Funktionsbeschreibung
+Stufenlos verstellbare Einbaugarnitur zur Betätigung von unterirdisch eingebauten Armatu-ren. Die Spindel der Anbohrarmatur wird stufenlos verstellbar mit Hilfe einer Einbaugarnitur bis zum Straßenniveau verlängert. 
+2. Einbauhinw eise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+ Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu  
+prüfen. Ein beschädigt
+es Produkt darf nicht eingesetzt werden. 
+ Die Kernbohrung ist zu säuber
+n und die Kernbohrungsoberfläche zu schließen und  
+ anzuf
+euchten.
+2.2  Hinweise zum Einbauort 
+ Die Wahl der erforderlichen Rohrdeckung ist entsprechend der örtlichen Gegeben  
+ heiten zu tr
+effen. 
+2.3 Montage
+1.
+ Benötigte Teleskopgesamtlänge mit Einbausituation  
+abgleichen und Nennw
+eite prüfen.
+
+14  |  Benutzerinformation EWE Einbaugarnituren
+2.
+ Spindelstift aus Kuppelmuffe entfernen und lagern
+4.1.
+Montageschritt für Kuppelmuffe:
+ Stiftstecker mit Spindelstift aus Kuppelmuffe entfernen. 
+Schlüsselstange mit Kuppelmuffe so auf Armaturenspin-del stecken, dass Muffen und Spindelbohrung fluchten. Schlüsselstange und Armaturenspindel mittels Spindelstift verbinden.
+ 
+4.2.
+Montageschritt für Schnellspannmuffemuffe:
+ Schlüsselstange beidhändig mit Schnellspannmuffe so auf Armaturenspindel stecken, dass Stifte des Federmecha-nismusses mit Spindelbohrung fluchten, einrasten und zugfesten Sitz prüfen.3.1.
+ Passende Schmutzscheibe auf Armatur aufstecken.
+3.2.
+ Mittels Rechtsdrehung fixieren.
+
+
+Benutzerinformation EWE Einbaugarnituren  |  15
+5.
+ Hülsrohrglocke auf Schmutzscheibe führen, Nocken fluch-
+ten lassen und einrasten.
+6.1.
+ Teleskop manuell auf notwendige Länge ausziehen und Markierungsfahne einstellen.
+6.2.
+Ggf. Beschriftungsstecker montieren.
+7.
+  Teleskop axial zur Armaturenspindel ausrichten und mit geeignetem Füllmaterial (vorzugsweise 
+ 
+ 
+ver
+dichtungsfähigem Sand) verdichten.
+8.
+ Bei Montage der Straßenkappe auf genügend Spiel des Betätigungsvierkantes achten.
+
+16  |  Benutzerinformation EWE Einbaugarnituren3. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der gesamten Anlage 
+erfolgen.
+3.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen. 
+4. Wartung und Instandhaltung
+Die Wartung erfolgt in Form der Funktionskontrolle. 
+
+Benutzerinformation EWE Einbaugarnituren  |  171. Angaben über das Erzeugnis
+1.1 Geltungsbereich 
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+ Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+ DVGW- und berufsgenossenschaftliches Regelwerk 
+Insbesondere:
+ DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“ 
+ DIN EN 806 „Technische Regeln für Trinkwasser-Installation“
+ DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN  EN 806
+ DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+1.3 Verwendungsbereich
+ geeignet für Anbohrarmaturen mit oberer und seitlicher AnbohrungEWE-KIT-Teleskop-Einbaugarnitur
+- ohne Kupplungssatz Artikelnummer: 615134X- mit Kupplungssatz Artikelnummer: 615334X
+
+
+18  |  Benutzerinformation EWE Einbaugarnituren1.4 Werkstoff/Abmessungen/Leistung
+Werkstoff:
+ Hülsrohr aus Kunststoff
+ feuerverzinkte Stahl- oder Edelstahl-Schlüsselstange
+ komplette Einheit von Schlüsselstange, Hülsrohr, Verschlussscheibe und Kerbstift
+Abmessungen:
+ Rohrdeckung m bis m 
+0,60 - 1,00 Multi-Teleskop 0,90 - 1,30 1,00 - 1,50 1,20 - 1,80 
+1.5 Lagerung
+ Die Produkte sind bis zur Verwendung vor Verschmutzung geschützt zu lagern. Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu prüfen. 
+1.6 Funktionsbeschreibung
+Stufenlos verstellbare Einbaugarnitur zur Betätigung von unterirdisch eingebauten Arma-turen. Die Spindel der Anbohrarmatur wird mit Hilfe einer Einbaugarnitur bis zum Straßen-niveau verlängert.
+2. Einbauhinw eise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+ Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu 
+prüf
+en. Ein beschädigtes Produkt darf nicht eingesetzt werden. 
+ Die Kernbohrung ist zu säuber
+n und die Kernbohrungsoberfläche zu schließen und  
+ anzuf
+euchten.
+2.2 Hinweise zum Einbauort
+ Die Wahl der erforderlichen Rohrdeckung ist entsprechend der örtlichen Gegeben-  
+ heiten zu tr
+effen. Eine stufenlose Verstellbarkeit ist möglich.
+
+Benutzerinformation EWE Einbaugarnituren  |  192.3 Montage
+2.3.1  Ausführ
+ung ohne Kupplungssatz
+1.
+ Benötigte Teleskopgesamtlänge mit Einbausituation ab-
+gleichen und Nennweite prüfen.
+3.1.
+ Passende Schmutzscheibe auf Armatur aufstecken.
+4.1.
+Montageschritt für Kuppelmuffe:
+ Stiftstecker mit Spindelstift aus Kuppelmuffe entfernen. Schlüsselstange mit Kuppelmuffe so auf Armaturenspin-del stecken, dass Muffen und Spindelbohrung fluchten. Schlüsselstange und Armaturenspindel mittels Spindelstift verbinden.
+  2.
+ Spindelstift aus Kuppelmuffe entfernen und lagern 
+3.2.
+ Mittels Rechtsdrehung fixieren.
+
+
+20  |  Benutzerinformation EWE Einbaugarnituren
+4.2.
+Montageschritt für Schnellspannmuffe
+ Schlüsselstange beidhändig mit Schnellspannmuffe so auf 
+Armaturenspindel stecken, dass Stifte des Federmecha-nismusses mit Spindelbohrung fluchten, einrasten und zugfesten Sitz prüfen.
+5.
+ Hülsrohrglocke auf Schmutzscheibe führen, Nocken fluch-ten lassen und einrasten.
+6.1.
+ Teleskop manuell auf notwendige Länge ausziehen und Markierungsfahne einstellen.
+ 
+7.
+  Teleskop axial zur Armaturenspindel ausrichten   
+und mit geeignet
+em Füllmaterial (vorzugsweise  
+ 
+ver
+dichtungsfähigem Sand) verdichten.6.2.
+ Ggf. Beschriftungsstecker montieren.
+
+Benutzerinformation EWE Einbaugarnituren  |  21
+8.
+ Bei Montage der Straßenkappe auf genügend Spiel des 
+Betätigungsvierkantes achten.
+2.3.2  Ausführung mit Kupplungssatz
+1.
+ Benötigte Teleskopgesamtlänge mit Einbausituation  abgleichen und Nennweite prüfen.
+ 
+2.
+ Spindelstift aus Kuppelmuffe entfernen und lagern.
+
+22  |  Benutzerinformation EWE Einbaugarnituren
+3.1.
+ Passende Schmutzscheibe auf Armatur aufstecken.
+5.
+ Riegelmechanismus der Glocke am Hülsrohr durch Drehen 
+öffnen und Glocke abnehmen. Schlüsselstange ca. 10 cm aus Hülsrohr ziehen.3.2.
+ Mittels Rechtsdrehung fixieren.
+4.1.
+ Steckverbindung der Kuppelmuffe mithilfe der Demon-tagezange lösen. Hierzu die Demontagezange mit den Nocken am oberen Ende der Kuppelmuffe einrasten und leichten Druck auslösen.
+4.1.
+ Kuppelmuffe nach unten abziehen.
+6.
+ Kuppelmuffe bzw. Schnellspannmuffe so auf Schlüssel-stangenende aufstecken, dass Druckstücke in Bohrungen der Muffe einrasten und zugfesten Sitz prüfen. 
+ 
+
+Benutzerinformation EWE Einbaugarnituren  |  236.1.
+Montageschritt für Kuppelmuffe  
+ Stiftstecker mit Spindelstift aus Kuppelmuffe entfernen. 
+Schlüsselstange mit Kuppelmuffe so auf Armaturenspin-del stecken, dass Muffen und Spindelbohrung fluchten. Schlüsselstange und Armaturenspindel mittels Spindelstift verbinden.
+6.2.
+Montageschritt für Schnellspannmuffe
+ Schlüsselstange beidhändig mit Schnellspannmuffe so auf Armaturenspindel stecken, dass Stifte des Federmecha-nismusses mit Spindelbohrung fluchten, einrasten und zugfesten Sitz prüfen.
+7.
+ Kupplungsrohr mit Glocke voran über Kupplungsstange fädeln. Hülsrohrglocke auf Schmutzscheibe führen, No-cken fluchten lassen und einrasten. Ggf. weitere Kupp-lungssätze über Druckstücke bzw. Riegelmechanismus an bereits montierten Kupplungssatz wie beschrieben montieren.
+8.1.
+ Teleskopgestänge so auf Kupplungsstange aufstecken, dass Druckstücke einrasten und zugfesten Sitz prüfen.
+8.2.
+ Teleskophülsrohr an Kupplungsrohr führen und verriegeln.
+
+
+24  |  Benutzerinformation EWE Einbaugarnituren
+9.1.
+ Teleskop manuell auf notwendige Länge ausziehenund 
+Markierungsfahne einstellen.
+9.2.
+ Ggf. Beschriftungsstecker montieren.
+10.
+  Teleskop axial zur Armaturenspindel ausrichten und mit geeignetem Füllmaterial (vorzugsweise 
+ 
+ 
+ver
+dichtungsfähigem Sand) verdichten.
+11.
+ Bei Montage der Straßenkappe auf genügend Spiel des Betätigungsvierkantes achten.
+
+Benutzerinformation EWE Einbaugarnituren  |  253. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der gesamten Anlage 
+erfolgen. 
+3.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen. 
+4. Wartung und Instandhaltung
+Die Wartung erfolgt in Form der Funktionskontrolle. 
+5. Zubehör für Kit-Teleskop-Einbaugarnitur
+Aufsatz 300 mm 
+Artikelnummer: 6151350
+Aufsatz 500 mm 
+Artikelnummer: 6151351Verlängerung 360 mmArtikelnummer: 6151355
+Verlängerung 730 mm
+Artikelnummer: 6151356
+Verlängerung 1100 mm
+Artikelnummer: 6151357Demontagestange für KIT-System
+Artikelnummer: 6121490
+
+26  |  Benutzerinformation EWE Einbaugarnituren6. Weiteres Zubehör
+Schlüsselstangen-
+Verlängerung für Ventil-EinbaugarniturenArtikelnummer: 61551XXSchlüsselstangen-Verlängerung für 
+Schieber-Einbaugarnituren
+Artikelnummer: 61556XXVerschluss-Scheibe für +GF+/ EWE-DruckanbohrventilArtikelnummer: 5151090Verschluss-Scheibe für EWE-GartenventilArtikelnummer: 5151095
+Verrriegelungs-Scheibe für Ventil-AnbohrarmaturArtikelnummer: 5151091
+Verschluss-Scheibe für Friatec Druckanbohrventil
+Artikelnummer: 5151093/94Markierungskappe blauArtikelnummer: 5151597Markierungskappe gelbArtikelnummer: 5151599
+Markierungsstecker „1/4-Umdrehung“ für EWE-Kera- und Kugel-hahn-AnbohrarmaturenArtikelnummer: 6150892Markierungsscheibe „Abwasser“Artikelnummer: 6150890NirokerbstiftArtikelnummer: 6150999
+
+
+Benutzerinformation EWE Einbaugarnituren  |  27
+
+28  |  Benutzerinformation EWE EinbaugarniturenWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7200048 – Ausgabe 01/2020
+

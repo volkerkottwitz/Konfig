@@ -1,0 +1,557 @@
+EWE-Blasensetz-Armaturen
+Benutzerinformation
+#7100010- Ausgabe 06/2024
+
+2  |  Benutzerinformation EWE-Blasensetz-Armaturen
+Inhaltsverzeichnis
+Allgemeine Hinweise   4
+EWE-Blasensetzschellen für Guss- und Stahlrohr  7 
+ 
+EWE-Blasensetz-Aufschweißmuffen  11 
+für Guss- und Stahlrohr
+EWE-Blasensetzbrücken für PVC-Rohr  15
+EWE-Blasensetzschelle für PE-Rohr,  19
+Schweiß-System ELGEF Plus
+EWE-Blasensetzbrücke in Sonderausführung  23
+für PE-Rohr (Version +GF+) 
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  3
+
+
+4  |  Benutzerinformation EWE-Blasensetz-ArmaturenAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf den Schacht, die Armaturen und Ventile montieren, bedienen oder warten. 
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Es dürfen ausschließlich Geräte die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+	Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	Bei der Montage der hier aufgeführten Blasensetz-Armaturen sind alle Vorschriften sowohl der Armaturen-Hersteller, als auch der Rohr-Hersteller zu beachten und einzuhalten.
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Sollten weitere Geräte verwendet werden, wie z.B Anbohr- und Blasensetzgeräte, sind deren Bedienungsanleitungen unbedingt zu beachten. 
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten,  
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  5die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung 
+und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+	 Die mechanisch verbundenen Blasensetzbrücken in Verbindung mit einem 
+Spezial-Bohrlochstopfen und -Kappe (Artikelnummer: 390312X) wurden für 
+oberflächengeschädigte PE-Rohre entwickelt, auf denen eine Schweißung nicht sicher ausgeführt werden kann. Der Einsatz der genannten Bauteile auf den angegriffenen PE-Rohren erfolgt auf Grundlage von Prüfung und Werksfreigabe durch den Anwender oder Netzbetreiber. Da uns eine vollständige Bewertung dieser Sonderverwendung in Verbindung mit den jeweils örtlichen Begebenheiten nicht möglich ist, erfolgt der Einsatz dieser Armaturen auf Verantwortung des Anwenders.
+Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver -
+packung soll die einzelnen Bauteile  bis zur Mon tage vor Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Ver -
+wendung der Produkte.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wiederverwertbare Verpackungsmaterialien dem Recycling zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, gering -
+fügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE-Blasensetz-ArmaturenVerwendung von Abkürzungen:
+DVGW:  Deutscher Verein des Gas- und Wasserfaches 
+DIN: Deutsches Institut für Normung
+MOP: Maximal zul. Betriebsdruck (Maximum Operating Pressure) PN: NenndruckDN: NenndruchmesserIG: InnengewindeAG: AußengewindeEWS Epoxy-Wirbel-Sinter
+SW:  Schlüsselweite
+NBR: Nitrile Butadiene RubberDGUV: Deutsche Gesetzliche UnfallversicherungPVC:  Polyvinylchlorid
+PE: Polyethylen
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  71. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DIN 30677-2 - „Äußerer Korrosionsschutz von erdverlegten Armaturen“
+	DVGW GW 15 - „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW GW 350 - „Schweißverbindungen an Rohrleitungen aus Stahl in der Gas- und Was-serversorgung“
+	DVGW GW 309 - „Elektrische Überbrückung bei Rohrtrennungen“
+	DVGW G 459 - „Gas-Hausanschlüsse“
+	DVGW G 465-2 - „Arbeiten an Gasleitungen“
+	DVGW G 469 - „Druckprüfverfahren Gastransport/Gasverteilung“
+	BG-Vorschriften, -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+1.3 Verwendungsbereich/Medium
+	Gase nach DVGW-Arbeitsblatt G 260/I (jedoch nicht für Flüssiggas in der Flüssigphase)Blasensetzschellen-
+Anschlussstück mit O-Ring-DichtungKunststoffkappe Artikelnummer 6105316, 6105317EWE-Blasensetzschellen für Guss- und StahlrohrArtikelnummer 61077XX und 61078XX bestehend aus: 
+Blasensetzschellen- Halteband mit Halb -
+kugelscheiben und Muttern
+Bohrlochstopfen aus Stahl 
+mit Innenvierkant 19 mm  Artikelnummer 6105015, 6105016
+
+
+8  |  Benutzerinformation EWE-Blasensetz-Armaturen1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	PN 4 (5)
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	Guss- und Stahlrohre für die Gasversorgung
+Abmessungen
+	DN 80 - DN 500
+1.5.2 Anschluss ausgangsseitig:
+Abmessungen
+	DN 80 - DN 200: IG G 2“ x AG G2 1/2“ , für Bohrlochstopfen G 2“ und Kunststoffkappe  
+G 2 1/2“
+	DN 250 - DN 500: IG G 2 1/2“ x AG G 3“ , für Bohrlochstopfen G 2 1/2“ und Kunststoffkappe G 3“
+Anbohrdurchmesser
+	DN   80 - DN 200: max. 56,5 mm
+	DN 250 - DN 500: max. 71,5 mm
+1.5.3 Anschluss- und Haltestück
+Abmessungen
+	Breite Anschlussstück DN 80 - DN 200: 102 mm 
+	Breite Anschlussstück DN 250 - DN 500: 128 mm
+	Breite Haltestück DN 80 - DN 500: 90 mm
+Werkstoff
+	Anschlussstück aus EN-GJS-400-15, EWS-beschichtet
+	Abdichtung mit O-Ring, Dichtungskammer optimal dem Rohrscheitel angepasst
+	Haltestück mit Knotenblech, mit gerollten Gewindebolzen M 16, mit Unterleg-Halbku-gel-Scheiben und Muttern SW 24, komplett aus A4-Edelstahl
+	Gewindeschutzkappen aus Kunststoff, umfassende Gummibandage
+	Muttern gleitbeschichtet
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  91.5.4 Dichtungen
+Werkstoff
+	NBR
+1.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und 
+trocken lagern.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen. 
+1.7 Funktionsbeschreibung
+EWE-Blasensetz-Armaturen sind für Blasensetzgeräte und -Schleusen (i.d.R. ein Kugelhahn) verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und der Schleuse des Blasensetz- bzw. Anbohrgerätes.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+  Vor dem Einsatz sind die Armaturen auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Blasensetzschelle  
+für Guss- und Stahlrohr
+Es ist darauf zu achten, dass der Einbau der Blasensetzschelle ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt. 
+Die Blasensetzschelle darf nur auf unter Betriebsdruck stehende Leitungen montiert werden.
+1. Die Gewinde der Blasensetzschelle sind durch loses Einschrauben des Bohrlochstopfens, der Muttern sowie der Kunststoffkappe zu prüfen.
+2. Zum sicheren Abdichten ist vor dem Aufsetzen der Blasensetzschelle auf das Rohr sicher -
+zustellen, dass der Kontaktbereich zwischen Rohr und Blasensetzschelle frei von Ver -
+schmutzung, Riefen und Kratzern oder anderen Beschädigungen ist.
+
+10  |  Benutzerinformation EWE-Blasensetz-Armaturen3. Vor der Montage der Blasensetzschelle ist die äußere Schutzkappe sowie der Stopfen zu 
+entfernen. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück ver -
+schrauben.
+4. Bei Blasensetzschellen (2 Muttern) sind die Muttern wechselnd, gleichmäßig anzuziehen. Max. Anzugsmoment der Muttern beträgt 50 Nm.
+5. Dichtheitsprüfung der montierten Blasensetzschelle nach DVGW-Regelwerk durchführen. 
+4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten Anlage erfolgen. 
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2 Anbohren und Blasensetzen
+Für das Anbohren, Blasen- und Stopfensetzen sind die jeweils gültigen Sicherheits- und Mon-tagebestimmungen und die Herstellerangabe des Setzgerätes anzuwenden.
+4.3 Verschließen der Blasensetzschelle
+1. Das Verschließen der Blasensetzschelle erfolgt mit Hilfe des Bohrlochstopfens.
+2. Hierzu wird über die Schleuse des Blasensetzgerätes der Stopfen mit O-Ring-Abdich-tungin den Dichtsitz der Blasensetzschelle eingeschraubt. Die O-Ringe sind vor Verunreini-gung und Beschädigung zu schützen.
+3. Nach dem Entfernen der Schleuse wird die EWE-Kunststoff-Schutzkappe von Hand, ohne zusätzliches Werkzeug, aufgeschraubt und handfest angezogen. Die O-Ringe sind vor Ver -
+unreinigung und Beschädigung zu schützen.
+4. Dichtheitsprüfung der verschlossenen Blasensetzschelle nach DVGW-Regelwerk durch-führen.
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  111. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+Blasensetz-
+AufschweißmuffeKunststoffkappe Artikelnummer 6105316, 6105317EWE-Blasensetz-Aufschweißmuffen für Guss- und StahlrohrArtikelnummer 41014XX und 41016XX bestehend aus: 
+Bohrlochstopfen aus Stahl mit Innenvierkant 19 mm  Artikelnummer 6105015, 6105016
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DVGW GW 15 - „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW GW 350 - „Schweißverbindungen an Rohrleitungen aus Stahl in der Gas- und Was-serversorgung“
+	DVGW GW 309 - „Elektrische Überbrückung bei Rohrtrennungen“
+	DVGW G 459 - „Gas-Hausanschlüsse“
+	DVGW G 465-2 - „Arbeiten an Gasleitungen“
+	DVGW G 469 - „Druckprüfverfahren Gastransport/Gasverteilung“
+	BG-Vorschriften, -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+1.3 Verwendungsbereich/Medium
+	Gase nach DVGW-Arbeitsblatt G 260/I (jedoch nicht für Flüssiggas in der Flüssigphase) 
+1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	PN 4 (5)
+
+
+12  |  Benutzerinformation EWE-Blasensetz-Armaturen1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	Guss- und Stahlrohre für die Gasversorgung
+Abmessungen
+	DN 80 - DN 500
+1.5.2 Anschluss ausgangsseitig:
+Abmessungen
+	DN 80 - DN 200: IG G 2“ x AG G2 1/2“ , für Bohrlochstopfen G 2“ und Kunststoffkappe  
+G 2 1/2“
+	DN 250 - DN 500: IG G 2 1/2“ x AG G 3“ , für Bohrlochstopfen G 2 1/2“ und Kunststoffkappe G 3“
+Anbohrdurchmesser
+	DN 80 - DN 200: max. 56,5 mm
+	DN 250 - DN 500: max. 71,5 mm
+1.5.3 Anschlussstück
+Werkstoff
+	Aufschweißmuffe aus schweißgeeignetem Stahl
+1.5.4 Dichtungen
+Werkstoff
+	NBR
+1.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und trocken lagern.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen. 
+1.7 Funktionsbeschreibung
+EWE-Blasensetz-Armaturen sind für Blasensetzgeräte und -Schleusen (i.d.R. ein Kugelhahn) verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und der Schleuse des Blasensetz- bzw. Anbohrgerätes.
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  132. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+  Vor dem Einsatz sind die Armaturen auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Blasensetz-Aufschweiß- 
+muffen für Guss- und Stahlrohr
+Es ist darauf zu achten, dass der Einbau der Blasensetz-Aufschweißmuffen ohne 
+Spannungseinwirkungen auf das Versorgungsrohr erfolgt.
+1. Die Gewinde der Blasensetz-Aufschweißmuffe sind durch loses Einschrauben des Bohr -
+lochstopfens sowie der Kunststoffkappe zu prüfen.
+2. Vor der Montage der Blasensetz-Aufschweißmuffe ist die äußere Schutzkappe sowie der 
+Stopfen zu entfernen. Blasensetz-Auschweißmuffen auf das Versorgungsrohr aufsetzen und verschweißen. Der Schweißbereich der Blasensetz-Aufschweißmuffe ist ggf. dem Radius der Rohrleitung anzupassen.
+3. Dichtheitsprüfung der montierten Blasensetz-Aufschweißmuffe nach DVGW-Regelwerk durchführen. 
+4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten Anlage erfolgen. 
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2 Anbohren und Blasensetzen
+Für das Anbohren, Blasen- und Stopfensetzen sind die jeweils gültigen Sicherheits- und Mon-tagebestimmungen und die Herstellerangabe des Setzgerätes anzuwenden.
+
+14  |  Benutzerinformation EWE-Blasensetz-Armaturen4.3 Verschließen der Blasensetz-Aufschweißmuffe
+1. Das Verschließen der Blasensetz-Aufschweißmuffe erfolgt mit Hilfe des Bohrlochstopfens.
+2. Hierzu wird über die Schleuse des Blasensetzgerätes der Stopfen mit O-Ring-Abdichtung 
+in den Dichtsitz der Blasensetz-Aufschweißmuffe eingeschraubt. Die O-Ringe sind vor Ver -
+unreinigung und Beschädigung zu schützen.
+3. Nach dem Entfernen der Schleuse wird die EWE-Kunststoff-Schutzkappe von Hand, ohne zusätzliches Werkzeug, aufgeschraubt und handfest angezogen. Die O-Ringe sind vor Ver -
+unreinigung und Beschädigung zu schützen. Alternativ ist ein Verschweißen des Stopfens möglich.
+4. Dichtheitsprüfung und Nachumhüllung der verschlossenen Blasensetz-Aufschweißmuffe nach DVGW-Regelwerk durchführen.
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  151. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+Blasensetzbrücke 
+mit Dichtungen und SchraubenKunststoffkappe Artikelnummer 6105216EWE-Blasensetzbrücken für PVC-RohrArtikelnummer 61070XX bestehend aus: 
+Bohrlochstopfen aus Stahl mit Innenvierkant 19 mm  Artikelnummer 6105005
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DIN 30677-2 - „Äußerer Korrosionsschutz von erdverlegten Armaturen“
+	DVGW G 459 - „Gas-Hausanschlüsse“
+	DVGW G 465-2 - „Arbeiten an Gasleitungen“
+	DVGW G 466-3 - „Gasrohrnetze aus PVC“
+	DVGW G 469 - „Druckprüfverfahren Gastransport/Gasverteilung“
+	BG-Vorschriften, -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+1.3 Verwendungsbereich/Medium
+	Gase nach DVGW-Arbeitsblatt G 260/I (jedoch nicht für Flüssiggas in der Flüssigphase)
+1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	PN 1
+
+
+16  |  Benutzerinformation EWE-Blasensetz-Armaturen1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	PVC-Rohre für die Gasversorgung
+Abmessungen
+	DN 80 - DN 200
+1.5.2 Anschluss ausgangsseitig:
+Abmessungen
+	IG G 2“ x AG G 2 1/2“ , für Bohrlochstopfen G 2“ und Kunststoffkappe G 2 1/2“
+Anbohrdurchmesser
+	gem. G 466-3 oder Hersteller-/Netzbetreiberfreigabe 
+	DN 80 = max. 30 mm, größer nur durch Netzbetreiberfreigabe   
+	DN 100-200 = max. 56,5 mm (Herstellerfreigabe)
+1.5.3 Anschluss- und Haltestück
+Werkstoff
+	aus EN-GJS-400-15, EWS-beschichtet, mit Gummieinlage und Dichtung, Schrauben aus 
+A2-Edelstahl
+Abmessungen
+	Breite 120 mm
+1.5.4 Dichtungen
+Werkstoff
+	NBR
+1.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und trocken lagern.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen.
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  171.7 Funktionsbeschreibung
+EWE-Blasensetz-Armaturen sind für Blasensetzgeräte und -Schleusen (i.d.R. ein Kugelhahn) 
+verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und der Schleuse des Blasensetz- bzw. Anbohrgerätes.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung 
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Blasensetzbrücke  
+für PVC-Rohr
+Es ist darauf zu achten, dass der Einbau der Blasensetzbrücke ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt.
+Die Blasensetzbrücke darf nur auf unter Betriebsdruck stehende Leitungen montiert werden.
+1. Die Gewinde der Blasensetzbrücke sind durch loses Einschrauben des Bohrlochstopfens, der Schrauben sowie der Kunststoffkappe zu prüfen.
+2. Zum sicheren Abdichten ist vor dem Aufsetzen der Blasensetzbrücke auf das Rohr sicher -
+zustellen, dass der Kontaktbereich zwischen Rohr und Blasensetzbrücke frei von Ver -
+schmutzung, Riefen und Kratzern oder anderen Beschädigungen ist.
+3. Vor der Montage der Blasensetzsbrücke ist die äußere Schutzkappe sowie der Stopfen zu entfernen. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück ver -
+schrauben.
+4. Bei Blasensetzbrücken sind die Schrauben gleichmäßig über Kreuz bis zum Anschlag (An-schluss- und Haltestück auf Block) anzuziehen.
+5. Dichtheitsprüfung der montierten Blasensetzbrücke nach DVGW-Regelwerk durchführen.
+
+18  |  Benutzerinformation EWE-Blasensetz-Armaturen4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten 
+Anlage erfolgen.
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2 Anbohren und Blasensetzen
+Für das Anbohren, Blasen- und Stopfensetzen sind die jeweils gültigen Sicherheits- und Mon-tagebestimmungen und die Herstellerangabe des Setzgerätes anzuwenden.
+4.3 Verschließen der Blasensetzbrücke
+1. Das Verschließen der Blasensetzbrücke erfolgt mit Hilfe des Bohrlochstopfens.
+2. Hierzu wird über die Schleuse des Blasensetzgerätes der Stopfen mit O-Ring-Abdichtung in den Dichtsitz der Blasensetzbrücke eingeschraubt. Die O-Ringe sind vor Verunreinigung und Beschädigung zu schützen.
+3. Nach dem Entfernen der Schleuse wird die EWE-Kunststoff-Schutzkappe von Hand, ohne zusätzliches Werkzeug, aufgeschraubt und handfest angezogen. Die O-Ringe sind vor Ver -
+unreinigung und Beschädigung zu schützen.
+4. Dichtheitsprüfung der verschlossenen Blasensetzbrücke nach DVGW-Regelwerk durch-führen.
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  191. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+Blasensetzschelle
+mit PE-Adapter d 63 mmKunststoffkappe Artikelnummer 6105316EWE-Blasensetzschelle für PE-Rohr, Schweiß-System ELGEF PlusArtikelnummer 61074XX bestehend aus: 
+Bohrlochstopfen aus Stahl mit Innenvierkant 19 mm  Artikelnummer 6105015
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DVGW GW 330 - „Schweißen von Rohren und Rohrleitungsteilen aus Polyethylen“
+	DVGW G 459 - „Gas-Hausanschlüsse“
+	DVGW G 465-2 - „Arbeiten an Gasleitungen“
+	DVGW G 469 - „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW G 472 - „Gasleitungen aus Polyethylenrohren“
+	BG-Vorschriften, -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+1.3 Verwendungsbereich/Medium
+	Gase nach DVGW-Arbeitsblatt G 260/I  (jedoch nicht für Flüssiggas in der Flüssigphase)
+1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	PE 100 SDR 11 - PN 10
+	PE 100 SDR 17 - PN 4 (5)
+	PE 80 SDR 11 - PN 4 (5)
+	PE 80 SDR 17 - PN 1
+
+
+20  |  Benutzerinformation EWE-Blasensetz-Armaturen1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	PE-Rohre für die Gasversorgung
+Abmessungen
+	PE 80-/ PE 100-Rohr, SDR 11/17, d 75 - d 225 mm
+1.5.2 Anschluss ausgangsseitig:
+Abmessungen
+	IG G 2“ x AG G 2 1/2“ ,  für Bohrlochstopfen G 2“ und Kunststoffkappe G 2 1/2“
+Anbohrdurchmesser
+	d 75 = 39 mm, größer nur durch Netzbetreiberfreigabe
+	d 90-225 = 45 mm
+1.5.3 Anschluss- und Haltestück
+Werkstoff
+	Anschluss- und Haltestück Schweißsystem +GF+ ELGEF Plus, mit Messing-Übergangsstück 
+mit PE-Überzug
+1.5.4 Dichtungen
+Werkstoff
+	NBR
+1.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und trocken lagern.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen.
+1.7 Funktionsbeschreibung
+EWE-Blasensetz-Armaturen sind für Blasensetzgeräte und -Schleusen (i.d.R. ein Kugelhahn) verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und der Schleuse des Blasensetz- bzw. Anbohrgerätes.
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  212. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung 
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Blasensetzschelle 
+für PE-Rohr
+Es ist darauf zu achten, dass der Einbau der Blasensetzschelle ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt.
+Die Blasensetzschelle darf nur auf unter Betriebsdruck stehende Leitungen montiert werden.
+1. Die Gewinde der Blasensetzschelle sind durch loses Einschrauben des Bohrlochstopfens, 
+der Schrauben sowie der Kunststoffkappe zu prüfen.
+2. Zum sicheren Abdichten ist vor dem Aufsetzen der Blasensetzschelle auf das Rohr sicher -
+zustellen, dass der Kontaktbereich zwischen Rohr und Blasensetzschelle frei von Ver -
+schmutzung, Riefen und Kratzern oder anderen Beschädigungen ist.
+3. Schweißnahtvorbereitung gem. Hersteller- und Regelwerksvorgaben.
+4. Vor der Montage der Blasensetzschelle ist die äußere Schutzkappe sowie der Stopfen zu entfernen. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück ver -
+schrauben.
+5. Der Adapter d 63 mm ist in den Abgangsstutzen des Anschlussstückes einzustecken und über die Schrauben zu fixieren. 
+6. Schweißung gem. Hersteller- und Regelwerksvorgaben.
+7. Dichtheitsprüfung der montierten Blasensetzschelle nach DVGW-Regelwerk durchführen. 
+
+22  |  Benutzerinformation EWE-Blasensetz-Armaturen4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten 
+Anlage erfolgen.
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2 Anbohren und Blasensetzen
+Für das Anbohren, Blasen- und Stopfensetzen sind die jeweils gültigen Sicherheits- und Mon-tagebestimmungen und die Herstellerangabe des Setzgerätes anzuwenden.
+4.3 Verschließen der Blasensetzschelle
+1. Das Verschließen der Blasensetzschelle erfolgt mit Hilfe des Bohrlochstopfens.
+2. Hierzu wird über die Schleuse des Blasensetzgerätes der Stopfen mit O-Ring-Abdichtung in den Dichtsitz der Blasensetzschelle eingeschraubt. Die O-Ringe sind vor Verunreinigung und Beschädigung zu schützen.
+3. Nach dem Entfernen der Schleuse wird die EWE-Kunststoff-Schutzkappe von Hand, ohne zusätzliches Werkzeug, aufgeschraubt und handfest angezogen. Die O-Ringe sind vor Ver -
+unreinigung und Beschädigung zu schützen.
+4. Dichtheitsprüfung der verschlossenen Blasensetzschelle nach DVGW-Regelwerk durch-führen.
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  231. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für 
+Kunststoff -
+kappe
+Artikelnummer 6105216Fettbeutel mit Silikonfett EWE-Blasensetzbrücke in Sonderausführung für PE-Rohr (Version +GF+)Artikelnummer 390312X bestehend aus: 
+Blasensetzbrücke mit Dichtungen und Schrauben
+Spezial-Bohrloch -
+stopfen aus Messing mit Innenvierkant 19 mm für Stopfen-setzstange von Hütz & Baumgarten Artikelnummer 3902226
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DIN 30677-2 - „Äußerer Korrosionsschutz von erdverlegten Armaturen“
+	DVGW GW 330 - „Schweißen von Rohren und Rohrleitungsteilen aus Polyethylen“
+	DVGW G 459 - „Gas-Hausanschlüsse“
+	DVGW G 465-2 - „Arbeiten an Gasleitungen“
+	DVGW G 469 - „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW G 472 - „Gasleitungen aus Polyethylenrohren“
+	BG-Vorschriften, -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+
+
+24  |  Benutzerinformation EWE-Blasensetz-Armaturen1.3 Verwendungsbereich/Medium
+	Gase nach DVGW-Arbeitsblatt G 260/I (jedoch nicht für Flüssiggas in der Flüssigphase)
+1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	PE 80 SDR 11 - PN 4 (5)
+	PE 80 SDR 17 - PN 1
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Versorgungsrohr:
+Werkstoff
+	 PE-Rohre für die Gasversorgung - Einsatz nur in Verbindung mit einer Werksfreigabe  
+des Netzbetreibers, s.a. Haftungsausschluss auf Seite 4.
+Abmessungen
+	PE 80-/ PE 100-Rohr, SDR 11/17, d 90 - d 225 mm, nur in Verbindung mit dem beiliegendem  
+Spezial-Bohrlochstopfen G 2“ und Kunststoffkappe G 2 1/2“
+1.5.2 Anschluss ausgangsseitig:
+Abmessungen
+	IG G 2“ x AG G 2 1/2“ , für Spezial-Bohrlochstopfen G 2“ und Kunststoffkappe G 2 1/2“
+Anbohrdurchmesser
+	56,5 mm
+1.5.3 Anschluss- und Haltestück:
+Abmessungen
+	Breite 120 mm
+Werkstoff
+	aus EN-GJS-400-15, EWS-beschichtet, mit Gummieinlage und Dichtung, Schrauben aus 
+A2-Edelstahl
+1.5.4 Dichtungen:
+Werkstoff
+	NBR
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  251.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und 
+trocken lagern.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen.
+1.7 Funktionsbeschreibung
+EWE-Blasensetz-Armaturen sind für Blasensetzgeräte und -Schleusen (i.d.R. ein Kugelhahn) verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und der Schleuse des Blasensetz- bzw. Anbohrgerätes.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung 
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Blasensetzbrücke  
+für PE-Rohr
+Es ist darauf zu achten, dass der Einbau der Blasensetzbrücke ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt.
+Die Blasensetzbrücke darf nur auf unter Betriebsdruck stehende Leitungen montiert werden.Das beigepackte Silikonfett ist gleichmäßig auf die Dichtung des Anschlussstückes aufzu-tragen. Zusätzlich ist das Außengewinde des Spezial-Bohrlochstopfens mit Silikonfett zu versehen, um die Reibung des Gewindes zu reduzieren.
+1.
+	Die Blasensetzbrücke wird mit einem Spezial-Bohrlochstopfen G 2“ und Kunst -
+stoffkappe G 2 1/2“ geliefert.
+	Die Gewinde der Blasensetzbrücke sind durch loses Einschrauben des Bohr -
+lochstopfens, der Schrauben sowie der Kunststoffkappe zu prüfen.
+
+26  |  Benutzerinformation EWE-Blasensetz-Armaturen2.
+	Grundsätzlich ist die Rohroberfläche im Montagebe -
+reich anzuzeichnen (Baulänge der Blasensetzschelle + 
+10 mm zu jeder Seite) und mit einem Rotationsschäl-gerat einmalig spanabhebend zu bearbeiten. Weißer Belag sowie Riefen und Kratzer sind vollständig zu entfernen.
+4.
+	Vor der Montage der Brücke ist die äußere Schutzkappe sowie der Stopfen zu entfernen. 
+	Unmittelbar vor dem Aufsetzen des Anschlussstückes (Oberschale) auf das Versorgungsrohr, ist die Formdich-tung mit 
+dem beiliegendem Silikonfett zu beschichten.
+5.
+	Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück verschrauben. Die Schrauben sind gleichmäßig über Kreuz bis zum Anschlag (Anschluss- und Haltestück auf Block) anzuziehen.
+6.
+	Dichtheitsprüfung der montierten Blasensetzbrücke nach DVGW-Regelwerk durchführen.3.
+	Zum sicheren Abdichten muss der Montagebereich der Blasensetzschelle frei von Verschmutzungen und Beschädigungen (z.B., Riefen, Kratzer, weißer Belag, etc.) sein. 
+	Montagebereich auf der Rohroberfläche mit PE-Reini-ger reinigen.
+
+
+Benutzerinformation EWE-Blasensetz-Armaturen|  274. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten 
+Anlage erfolgen.
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2 Anbohren und Blasensetzen
+Für das Anbohren, Blasen- und Stopfensetzen sind die jeweils gültigen Sicherheits- und Mon-tagebestimmungen und die Herstellerangabe des Setzgerätes anzuwenden.
+4.3 Verschließen der Blasensetzbrücke
+1.
+	Das Verschließen der Blasensetzbrücke erfolgt mit Hilfe des Spezial-Bohrlochstopfens G 2“ aus Messing,  Art.: 3902226. 
+	Hierzu wird über die Schleuse des Blasensetzgerätes der Stopfen mit O-Ring-Abdichtung in den Dichtsitz der Bla-sensetzbrücke eingeschraubt. Das Außengewinde des Spezial-Bohrlochstopfens ist mit Silikonfett zu versehen. 
+2.
+	Der O-Ring ist vor Verunreinigung und Beschädigung zu schützen. 
+	Nach dem Entfernen der Schleuse Dichtheitsprüfung der verschlossenen Blasensetzbrücke nach DVGW-Re -
+gelwerk durchführen.
+3.
+	Danach die EWE-Kunststoff-Schutzkappe G 2 1/2“ , Artikelnummer 6105216, von Hand, ohne zusätzliches Werkzeug, aufschrauben und handfest anziehen.
+
+
+28  |  Benutzerinformation EWE-Blasensetz-ArmaturenWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100010 - Ausgabe 06/2024
+

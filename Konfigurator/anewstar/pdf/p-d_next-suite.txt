@@ -1,0 +1,271 @@
+ARMA TURENL ÖSUNGEN
+NEXT Suite
+für NEXT Armaturen
+
+
+2  |  NEXT Suite für NEXT Armaturen
+Inhaltsverzeichnis
+NEXT Suite  4
+NEXT HyMo 6
+NEXT Sendemodul Verbrauch 7
+NEXT Sendemodul Temperatur 8
+NEXT Zubehör für Sendemodule 9
+Weitere NEXT Lösungen 10
+
+ NEXT Suite für NEXT Armaturen |  3
+Seit über 75 Jahren hygienisch, zuverlässig, hochwertig  und nun 
+auch smart – dafür steht EWE-Armaturen.
+Auch in der Wasserversorgung spielen die Digitalisierung 
+und intelligente Funktionen eine immer größere Rolle. Mit 
+unseren NEXT Armaturenlösungen beschreiten wir diesen 
+Weg.  Überwachung, Kontrolle und Verwaltung von Zuständen 
+und Verbrauchsdaten entfernter oder schwer zugänglicher 
+Armaturen? Ab sofort kein Problem mit den intelligenten 
+NEXT Armaturenlösungen von EWE. Von der Lokalisierung 
+der Armaturen oder der Überwachung von Zählerständen, 
+über Informationen zu Temperatur- und Druck-Zuständen, 
+oder Wassertrübung, bis hin zu Erinnerungsfunktionen – die 
+verbauten Sensoren/Schnittstellen in unseren NEXT Armaturen 
+ermöglichen die effi   ziente Fernüberwachung- und verwaltung 
+einfach, sicher und ökonomisch.Auf ins nächste Zeitalter
+NEXT Armaturen
+
+4  |  NEXT Suite für NEXT ArmaturenNEXT Suite
+Die Basis
+Browserbasiertes Webportal ewe-suite.de, keine lokale Installation notwendig
+Verwaltung der Sensoren
+Anlegen
+Inbetriebnahme
+Parametrierung der Geräte
+Löschen
+Einrichtung der Zugriff  sberechtigungen
+Kartografi  sche Darstellung der Armaturen und Geräte in der OpenStreetMap
+Grafi  sche Darstellung der Sensorwerte im Echtzeitdiagramm
+Konfi  gurierbare Grenzwerte für Alarmierungen per E-Mail (andere Alarmierungswege auf Anfrage)
+Individuelle Zuweisung der zu alarmierenden Personen
+Datenübertragung über eine  LPWAN (Low Power Wide Area Network) mit den gängigen Funkstandards 
+LoRaWAN, NB-IoT oder LTE-M
+Sichere, verschlüsselte  Daten auf Servern in D / EU
+Immer aktuell durch automatische Updates, Versionsupdates
+SupportEinfache, transparente und effi   ziente Verwaltung und Überwachung von mit Sensoren ausgestatteten 
+Armaturen in der NEXT Suite.
+
+
+ NEXT Suite für NEXT Armaturen |  5NEXT Suite
+Die Pakete
+NEXT Suite 50
+Verwaltung von bis zu 50 NEXT-Geräten in der NEXT Suite inklusive
+Mindestlaufzeit 12 Monate
+Artikelnummer: 7200100
+NEXT Suite 200
+Verwaltung von bis zu 200 NEXT-Geräten in der NEXT Suite inklusive
+Mindestlaufzeit 12 Monate
+Artikelnummer: 7200101
+NEXT Suite 500
+Verwaltung von bis zu 500 NEXT-Geräten in der NEXT Suite inklusive
+Mindestlaufzeit 12 Monate
+Artikelnummer: 7200102
+monatlich
+169 €
+monatlich
+649 €
+monatlich
+1599 €NEXT Suite 10
+Verwaltung von bis zu 10 NEXT-Geräten in der NEXT Suite inklusive
+Mindestlaufzeit 12 Monate
+monatlich
+39 €
+Alle Preise verstehen sich netto, zuzüglich der gesetzlichen Umsatzsteuer und sind nicht rabattierfähig!
+
+6  |  NEXT Suite für NEXT ArmaturenNEXT HyMo
+Hydrantenmonitoring
+	Blindverschraubung mit Sensoren für Unterflurhydranten DN 80, zum 
+Einbau in der Straßenkappe 
+	Überwacht Unterflurhydranten gegen unbefugte bzw.  missbräuchliche 
+Nutzung oder Manipulation – zum Schutz des Trinkwassernetzes 
+	Übermittlung der Daten an die NEXT Suite über ein LPWAN  
+	Eine leistungsstarke Batterie ermöglicht eine jahrelange Einsatzdauer
+	NEXT HyMo alarmiert bei 
+	Öffnen der Straßenkappe 
+	Druckanstieg im Hydranten
+	Demontage des HyMos
+In der NEXT Suite:
+	Verwaltung und Überwachung der angelegten HyMos
+	Kartografische Übersicht über die angelegten HyMos
+Mieten
+	Bereitstellung des HyMo für mindestens 12 Monate 
+	Zzgl. Zugang zur NEXT Suite
+	Wartung und Pflege durch den Mieter
+Ausführung Artikelnummer Miete in €
+NEXT HyMo, DN 80, LoRaWAN 7200301 7,50/Monat
+NEXT HyMo, DN 80, NB-IoT 7200302 7,50/Monat
+Kaufen
+	Einmalige Anschaffung
+	Zzgl. Zugang zur NEXT Suite
+	Wartung und Pflege durch den Käufer
+Ausführung Artikelnummer Kauf in €
+NEXT HyMo, DN 80, LoRaWAN 1175803 299,00
+NEXT HyMo, DN 80, NB-IoT 1175804 299,00
+Zubehör Montagewerkzeug 3388280 gem. aktuelle 
+EWE Preisliste
+Alle Preise gelten nur in Verbindung mit der NEXT Suite! 
+Sie verstehen sich netto, zuzüglich der gesetzlichen Umsatzsteuer und sind nicht rabattierfähig!
+
+
+ NEXT Suite für NEXT Armaturen |  7NEXT Sendemodul Verbrauch
+Fernablesung ohne Driveby
+	NEXT Sendemodul Verbrauch zur regelmäßigen Datenübertragung von 
+wireless M-Bus (868 MHz) Zählern (z.B. Wasserzähler) über LoRaWAN, 
+NB-IoT, LTE-M
+	Zur Überwachung des Trinkwassernetzes, z. B. Zonenüberwachung
+	Fernablesung erfolgt ortsunabhängig über die browserbasierte  
+NEXT Suite ohne Driveby
+	NEXT Sendemodul Verbrauch alarmiert bei 
+	Über- oder Unterschreitung der eingestellten Grenzwerte  
+	Übermittlung der Daten an die NEXT Suite über ein LPWAN  
+	Eine leistungsstarke Batterie ermöglicht eine jahrelange Einsatzdauer 
+(abhängig von der Übertragungshäufigkeit)  
+	Für Innen- und Außenmontage geeignet
+In der NEXT Suite:
+	Verwaltung (z. B. Parametrierung, Alarmierungseinstellungen) und 
+Überwachung des angelegten Sendemoduls Verbrauch
+	Kartografische Übersicht über die angelegten Sendemodule Verbrauch 
+	Visualisierung der Werte
+Mieten
+	Bereitstellung des NEXT Sendemoduls Verbrauch für mindestens ein Jahr  
+	Zzgl. Zugang zur NEXT Suite 
+	Wartung und Pflege durch den Mieter
+Ausführung Artikelnummer Miete in €
+NEXT Sendemodul Verbrauch,  
+wM-Bus, LoRaWAN/NB-IoT/LTE-M7200305 7,50/Monat
+Kaufen
+	Einmalige Anschaffung 
+	Zzgl. Zugang zur NEXT Suite 
+	Wartung und Pflege durch den Käufer
+Ausführung Artikelnummer Kauf in €
+NEXT Sendemodul Verbrauch,  
+wM-Bus, LoRaWAN/NB-IoT/LTE-M3906100 299,00
+Alle Preise gelten nur in Verbindung mit der NEXT Suite! 
+Sie verstehen sich netto, zuzüglich der gesetzlichen Umsatzsteuer und sind nicht rabattierfähig!
+
+8  |  NEXT Suite für NEXT Armaturen
+NEXT Sendemodul Temperatur
+Temperaturkontrolle
+	Sendemodul zur ortsunabhängigen Übertragung der Daten des 
+angeschlossenen Temperaturfühlers an die NEXT Suite über ein LPWAN  
+	Das NEXT Sendemodul Temperatur alarmiert bei Über- oder 
+Unterschreitung der eingestellten Grenzwerte
+	30 mm langer Edelstahl-Temperaturfühler mit G ¼" Gewindeanschluss 
+zur Installation an Trinkwasserarmaturen, z. B. NEXT WZ-
+Eingangskugelhahn 1“ oder NEXT Kera-Anbohrarmatur 
+	Eine leistungsstarke Batterie ermöglicht eine jahrelange Einsatzdauer 
+(abhängig von der Übertragungshäufigkeit)  
+	Für Innen- und Außenmontage  geeignet
+	Die Temperaturaufzeichnung dient als Liefernachweis für 
+Wasserversorgungsunternehmen, zur Einhaltung der vorgegebenen 
+Trinkwassertemperaturen  
+In der NEXT Suite:
+	Verwaltung (z. B. Parametrierung, Alarmierungseinstellungen) und 
+Überwachung des angelegten Sendemoduls Temperatur
+	Kartografische Übersicht über das angelegte Sendemodul Temperatur 
+	Visualisierung der Werte
+Weitere Informationen zum Sendemodul Temperatur folgen in 
+Kürze!Wasserversorgungsunternehmen stehen in der Pflicht die Anforderungen des Regelwerks DIN 1988-200 [1] ; 
+VDI/DVGW-Richtlinie 6023 Blatt 1. zu erfüllen. Dabei stellen erhöhte Wassertemperaturen im Trinkwassernetz 
+bei der Trinkwasserhygiene / Kaltwasserhygiene eine Herausforderung dar, wodurch ein Legionellenrisiko im 
+Trinkwasser besteht.
+
+ NEXT Suite für NEXT Armaturen |  9NEXT Kugelhahn für Sendemodul Temperatur
+Mit einem Temperatur-Sensor-Anschluss G 1/4" ausgestatteter 
+Eingangskugelhahn G 1"
+	Für EWE-Wasserzähleranlagen Q34
+	Messstelle vor der Übergabestelle zur HausinstallationNEXT Zubehör
+für Sendemodule
+NEXT Kera-Einbauset für Sensoren und Sendemodul
+	Für Kera-Anbohrarmaturen
+	Mit T-Stück mit Sensoraufnahme im Schutzrohr
+	Mit abgedichtetem Schutzrohr mit Sendemodulaufnahme
+	Mit Teleskop-Einbaugarnitur
+	Die Messstelle befindet sich direkt am Abzweig zum Hausanschluss
+	Mögliche Überwachung z.B. von Druck, Trübung, Temperatur etc.
+	Einfacher Austausch des Sensors und der Batterie von der 
+Straßenoberfläche möglich
+
+
+10  |  NEXT Suite für NEXT ArmaturenWeitere NEXT Lösungen
+NEXT Standrohr und NEXT Standrohrverwaltung
+NEXT Standrohr – das intelligente Rohr
+	smartes Standrohr mit Schnittstelle zur NEXT Standrohrverwaltung
+	ausgestattet mit iPERL-Wasserzähler mit wM-Bus-Kommunikationsmodul
+	mit Sendemodul mit LoRaWAN, NB-IoT, LTE-M, standardmäßig eingestellt 
+auf LTE-M-Übertragung
+	die Kommunikation des Sendemoduls erfolgt über ein LPWAN
+	inkl. SIM-Karte mit Datenvolumen für ca. 10 Jahre (bei NB-IoT und LTE-M)
+	mit integrierter leistungsstarker Batterie und Solarpad
+	Smart Meter – vorwiegend aus Kunststoff – sowie Funkmodul sind in 
+einem robusten Käfig verbaut und schwimmend gelagert
+	das Schutzgehäuse aus Edelstahl nimmt alle einwirkenden Kräfte auf und 
+schützt den Wasserzähler und das Funkmodul vor möglichen Schäden 
+und äußeren Beanspruchungen
+	der Zähleraustausch ist ohne Demontage des Käfigs möglich
+NEXT Standrohrverwaltung
+Einfache, transparente und effiziente Verwaltung und Überwachung 
+von Standrohren und weiteren Entnahmearmaturen .
+	Effiziente, ortsunabhängige Überwachung, Kontrolle und Verwaltung 
+von Zuständen und Verbrauchsdaten von Standrohren und weiteren 
+Entnahmearmaturen 
+	Verwaltung von Bestandsstandrohren sowie NEXT Standrohren
+	sichere, verschlüsselte  Daten auf Servern in D / EU
+	immer aktuell durch automatische Updates
+	Support
+Ausführliche Informationen entnehmen Sie bitte dem Prospekt  
+ „NEXT Standrohrverwaltung für Standrohre“!
+
+
+ NEXT Suite für NEXT Armaturen |  11EWE – bewährt bis ins Detail.  
+Weil wir ein Team sind.
+Wir stehen mit Leidenschaft für und hinter unseren 
+Produkten. Dass das nicht nur eine Floskel ist, beweisen 
+wir als Team bestehend aus Geschäfts führung und 
+Mitarbeitern. Qualität, aber auch Kontinuität, sind 
+die Basis für eine vertrauens volle Zusammenarbeit. 
+Das Engagement und die Kompetenz eines jeden 
+Einzelnen lässt uns selbst bewusst in die Zukunft 
+schauen. Zuverlässigkeit und Ehrlichkeit unseren 
+Kunden gegenüber sind Basis für unseren Erfolg. Das 
+hat uns zu einem führenden Anbieter von hochwertigen 
+Armaturen für die Wasser- und Gasversorgung und die 
+Ab wasserentsorgung gemacht. Darauf sind wir stolz. 
+Produktionsstandort Deutschland
+Wir produzieren die Erdabsperr- und Gartenarmaturen 
+in unserem Werk in Braunschweig. Von der 
+Konstruktion und Entwicklung, über die Fertigung und 
+Qualitätssicherung, bis hin zum Vertrieb und Service, 
+diese Prozesse laufen über ein und denselben Standort. 
+Dadurch können wir allen Anforderungen wie Sicherheit, 
+Vorschriften, Zulassungen und Qualitätskontrollen 
+gerecht werden und dies aus einer Hand und vor Ort.
+Qualität ohne Kompromisse
+Für unsere Armaturen sind die DVGW-Zertifizierungen 
+sowie die Einhaltung inter  nationaler Richtlinien 
+grundlegend. Alle Produkte unterliegen einer aus-
+giebigen Prüfung und Qualitäts kontrolle, bevor sie 
+auf den Markt kommen. Dabei bilden erstklassig 
+ausgebildete Mitarbeiter, moderne Produktions stätten, 
+sowie Sicherheits- und Umweltauflagen die Basis für 
+unsere Qualitätsstandards. Wir verwenden langlebige 
+und solide Materialien, wie zum Beispiel entzinkungs-
+beständiges Messing und Edelstahl. Damit gewährleisten 
+wir die Qualität und Nachhaltigkeit unserer Produkte. 
+Apropos Umwelt: Wir benutzen innovative, umwelt -
+freundliche Werkstoffe wie bleifreies Silicium-Messing.
+
+
+12  |  NEXT Suite für NEXT Armaturenwww.ewe-armaturen.deWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 19
+38104 Braunschweig
+Telefon +49 531 37005-0
+Fax +49 531 37005-55
+info@ewe-armaturen.de
+Ausgabe 01/2024Braunschweig
+

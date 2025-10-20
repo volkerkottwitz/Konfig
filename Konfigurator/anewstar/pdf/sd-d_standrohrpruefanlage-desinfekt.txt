@@ -1,0 +1,535 @@
+Seite:1/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+54.0*ABSCHNITT1:BezeichnungdesStoffsbeziehungsweisedesGemischsund
+desUnternehmens
+-1.1Produktidentifikator
+-Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+-1.2RelevanteidentifizierteVerwendungendesStoffsoderGemischsundVerwendungen,
+vondenenabgeratenwird
+KeineweiterenrelevantenInformationenverfügbar.
+-VerwendungdesStoffes/desGemischesDesinfektionsmittel
+-1.3EinzelheitenzumLieferanten,derdasSicherheitsdatenblattbereitstellt
+-Hersteller/Lieferant:
+WilhelmEweGmbH&Co.KG
+VolkmaroderStr.19
+38104Braunschweig
+Tel:+49(0)531-37005-0
+Fax:+49(0)531-37005-35
+eMail:info@ewe-armaturen.de
+www.ewe-armaturen.de
+-AuskunftgebenderBereich:AbteilungProduktsicherheit
+-1.4Notrufnummer:
+BeratungsstellebeiVergiftungen,Mainz
+Tel.06131/19240
+*ABSCHNITT2:MöglicheGefahren
+-2.1EinstufungdesStoffsoderGemischs
+-EinstufunggemäßVerordnung(EG)Nr.1272/2008
+EyeIrrit.2H319VerursachtschwereAugenreizung.
+-2.2Kennzeichnungselemente
+-KennzeichnunggemäßVerordnung(EG)Nr.1272/2008
+DasProduktistgemäßCLP-Verordnungeingestuftundgekennzeichnet.
+-Gefahrenpiktogramme
+GHS07
+-SignalwortAchtung
+-Gefahrenhinweise
+H319VerursachtschwereAugenreizung.
+-Sicherheitshinweise
+P305+P351+P338BEIKONTAKTMITDENAUGEN:EinigeMinutenlangbehutsammitWasser
+spülen.EventuellvorhandeneKontaktlinsennachMöglichkeitentfernen.Weiter
+spülen.
+P337+P313 BeianhaltenderAugenreizung:ÄrztlichenRateinholen/ärztlicheHilfe
+hinzuziehen.
+-2.3SonstigeGefahren
+-ErgebnissederPBT-undvPvB-Beurteilung
+-PBT:Nichtanwendbar.
+(FortsetzungaufSeite2)
+D
+
+Seite:2/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite1)
+54.0-vPvB:Nichtanwendbar.
+*ABSCHNITT3:Zusammensetzung/AngabenzuBestandteilen
+-3.2Gemische
+-Beschreibung:
+GemischausnachfolgendangeführtenStoffenmitungefährlichenBeimengungen(Lösungin
+Wasser).
+GemischausnachfolgendangeführtenStoffenmitungefährlichenBeimengungen.
+-GefährlicheInhaltsstoffe:
+CAS:7722-84-1
+EINECS:231-765-0
+Reg.nr.:01-2119485845-22Wasserstoffperoxid
+Ox.Liq.1,H271;SkinCorr.1A,H314;AcuteTox.4,H302;
+AcuteTox.4,H332;STOTSE3,H335;AquaticChronic3,
+H412
+SpezifischeKonzentrationsgrenzen:
+Ox.Liq.1;H271:C≥70%
+Ox.Liq.2;H272:50%≤C<70%
+SkinCorr.1A;H314:C≥70%
+SkinCorr.1B;H314:50%≤C<70%
+SkinIrrit.2;H315:35%≤C<50%
+EyeDam.1;H318:C≥8%
+EyeIrrit.2;H319:5%≤C<8%
+STOTSE3;C≥35%
+AquaticChronic3;H412:C≥63%≥5-<8%
+-Verordnung(EG)Nr.648/2004überDetergenzien/KennzeichnungderInhaltsstoffe
+BleichmittelaufSauerstoffbasis ≥5-<15%
+-zusätzl.Hinweise:
+DerWortlautderangeführtenGefahrenhinweiseistdemAbschnitt16zuentnehmen.
+-Zusammensetzung/InformationüberdieBestandteile:
+BiozideWirkstoffe:7,9gWasserstoffperoxidpro100gProdukt.
+Silber(CAS7440-22-4)<0,1%
+*ABSCHNITT4:Erste-Hilfe-Maßnahmen
+-4.1BeschreibungderErste-Hilfe-Maßnahmen
+-AllgemeineHinweise:
+SelbstschutzdesErsthelfers(Körper-,Augen-undAtemschutz).
+Warmhalten,ruhiglagernundzudecken.
+BeiBewußtlosigkeitLagerungundTransportinstabilerSeitenlage.
+BeianhaltendenBeschwerdenArzthinzuziehen.
+-nachEinatmen:Frischluftzufuhr,beiBeschwerdenArztaufsuchen.
+-nachHautkontakt:
+SofortmitWasserundSeifeabwaschenundgutnachspülen.Arztkonsultieren,wennReizung
+anhält.
+SofortmitWasserabwaschen.
+VerschmutzteKleidungsofortausziehen.BenetzteStellenmitvielWasserundSeifewaschen.Arzt
+hinzuziehen,wennReizunganhält.
+(FortsetzungaufSeite3)
+D
+
+Seite:3/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite2)
+54.0-nachAugenkontakt:
+AugenbeigeöffnetemLidspaltsofortmehrereMinutenunterfließendemWasserspülenundArzt
+konsultieren.
+AugenmehrereMinutenbeigeöffnetemLidspaltunterfließendemWasserspülen.Arzt
+konsultieren.
+-nachVerschlucken:MundausspülenundreichlichWassernachtrinken.
+-4.2WichtigsteakuteundverzögertauftretendeSymptomeundWirkungen
+KeineweiterenrelevantenInformationenverfügbar.
+-4.3HinweiseaufärztlicheSoforthilfeoderSpezialbehandlung
+KeineweiterenrelevantenInformationenverfügbar.
+*ABSCHNITT5:MaßnahmenzurBrandbekämpfung
+-5.1Löschmittel
+-GeeigneteLöschmittel:
+Produktistnichtbrennbar.
+FeuerlöschmaßnahmenaufUmgebungabstimmen.
+BrandbekämpfungaufUmgebungsbrandabstimmen.
+-5.2BesonderevomStoffoderGemischausgehendeGefahren
+Produktistnichtbrennbar.BeiUmgebungsbrändenZersetzungsgefahrmitFreisetzungvon
+Sauerstoff.FreisetzungvonSauerstoffwirktbrandfördernd.GefahrderÜberdruckbildungund
+BerstgefahrbeiZersetzunginabgeschlossenenBehälternundRohrleitungen.
+-5.3HinweisefürdieBrandbekämpfung
+-BesondereSchutzausrüstung:
+SieheunterPunkt8.
+UmgebungsluftunabhängigesAtemschutzgerättragen.
+VollschutzanzugmitumgebungsluftunabhängigemAtemschutzgerättragen.
+-WeitereAngabenGefährdeteBehälterinderUmgebungmitWassersprühstrahlkühlen.
+*ABSCHNITT6:MaßnahmenbeiunbeabsichtigterFreisetzung
+-6.1PersonenbezogeneVorsichtsmaßnahmen,SchutzausrüstungenundinNotfällen
+anzuwendendeVerfahren
+SchutzausrüstunganlegenundungeschütztePersonenfernhalten.
+-6.2Umweltschutzmaßnahmen:
+NichtindieKanalisation/Oberflächenwasser/Grundwassergelangenlassen.
+BeiFreisetzunggrößererMengenzuständigeBehördeninformieren.
+-6.3MethodenundMaterialfürRückhaltungundReinigung:
+MitvielWasserverdünnen.
+MitinertenflüssigkeitsbindendemMaterial(Sand,Kieselgur,Säurebinder,Universalbinder)
+aufnehmen.Keinesfallsbrennbare/oxidierbareStoffeverwenden!
+MitflüssigkeitsbindendemMaterial(Sand,Kieselgur,Säurebinder,Universalbinder,Sägemehl)
+aufnehmen.
+FürausreichendeLüftungsorgen.
+KontaminiertesMaterialalsAbfallnachPunkt13entsorgen.
+-6.4VerweisaufandereAbschnitte
+InformationenzursicherenHandhabungsieheAbschnitt7.
+InformationenzurpersönlichenSchutzausrüstungsieheAbschnitt8.
+(FortsetzungaufSeite4)
+D
+
+Seite:4/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite3)
+54.0InformationenzurEntsorgungsieheAbschnitt13.
+*ABSCHNITT7:HandhabungundLagerung
+-7.1SchutzmaßnahmenzursicherenHandhabung
+RestmengennichtindieAufbewahrungsgefäßezurückgeben.
+Behälterdichtgeschlossenhalten.
+FürguteBelüftung/AbsaugungamLager-undArbeitsplatzsorgen.
+LängerenoderwiederholtenKontaktmitderHautvermeiden.
+Aerosolbildungvermeiden.
+-HinweisezumBrand-undExplosionsschutz:Zündquellenfernhalten-nichtrauchen.
+-7.2BedingungenzursicherenLagerungunterBerücksichtigungvonUnverträglichkeiten
+-Lagerung:IngutverschlossenenGebindenkühlundtrockenlagern.
+-AnforderunganLagerräumeundBehälter:
+GesetzeundVorschriftenzurLagerungundVerwendungwassergefährdenderStoffebeachten.
+ImLiefergebindeoderinPE-Behälternaufbewahren.
+NurBehälterverwenden,diespeziellfürdenStoff/dasProduktzugelassensind.
+-Zusammenlagerungshinweise:GetrenntvonbrennbarenStoffenlagern.
+-WeitereAngabenzudenLagerbedingungen:Behälterdichtgeschlossenhalten.
+-KlassifizierungnachBetriebssicherheitsverordnung(BetrSichV):-
+-7.3SpezifischeEndanwendungenKeineweiterenrelevantenInformationenverfügbar.
+*ABSCHNITT8:BegrenzungundÜberwachungderExposition/Persönliche
+Schutzausrüstungen
+-8.1ZuüberwachendeParameter
+-ZusätzlicheHinweisezurGestaltungtechnischerAnlagen:
+KeineweiterenAngaben,sieheAbschnitt7.
+-Bestandteilemitarbeitsplatzbezogenen,zuüberwachendenGrenzwerten:
+7722-84-1Wasserstoffperoxid
+MAK(Deutschland)Langzeitwert:0,71mg/m³,0,5ml/m³
+-DNEL-Werte
+7722-84-1Wasserstoffperoxid
+InhalativDNEL(Arbeiter) 3mg/m³(Akut,lokaleWirkungen)
+1,4mg/m³(Langzeit,lokaleWirkungen)
+DNEL(Bevölkerung)1,93mg/m³(Akut,lokaleWirkungen)
+0,21mg/m³(Langzeit,lokaleWirkungen)
+-PNEC-Werte
+7722-84-1Wasserstoffperoxid
+PNECWasser0,0126mg/l(Süßwasser)
+0,0126mg/l(Meerwasser)
+PNECWasser0,0138mg/l(zeitweiligeFreisetzung)
+PNECSediment0,047mg/kgdw(Süßwasser)
+0,047mg/kgdw(Meerwasser)
+(FortsetzungaufSeite5)
+D
+
+Seite:5/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite4)
+54.0PNECBoden 0,0023mg/kgdw(Boden)
+PNECSTP 4,66mg/l(Abwasserbehandlungsanlage)
+-ZusätzlicheHinweise:AlsGrundlagedientendiebeiderErstellunggültigenListen.
+-8.2BegrenzungundÜberwachungderExposition
+-PersönlicheSchutzausrüstung:
+-AllgemeineSchutz-undHygienemaßnahmen:
+VonGetränken,Nahrungs-undFuttermittelnfernhalten.
+Beschmutzte,getränkteKleidungsofortausziehen.
+VordenPausenundbeiArbeitsendeHändewaschen.
+BerührungmitdenAugenvermeiden.
+BerührungmitdenAugenundderHautvermeiden.
+Dämpfe,SprühnebelundAerosolenichteinatmen.
+-Atemschutz:
+BeiAuftretenvonSprühnebelnistAtemschutzerforderlich.
+BeikurzzeitigerodergeringerBelastungAtemfiltergerät;beiintensiverbzw.längererExposition
+umluftunabhängigesAtemschutzgerätverwenden.
+AtemschutzbeiFreisetzungvonDämpfen/Aerosolen.
+-EmpfohlenesFiltergerätfürkurzzeitigenEinsatz:SpezialgasfilterNO-P3,Farbeblau-weiß
+-Handschutz:
+ChemikalienbeständigeSchutzhandschuhe(EN374)
+DasHandschuhmaterialmussundurchlässigundbeständiggegendasProdukt/denStoff/die
+Zubereitungsein.
+AufgrundfehlenderTestskannkeineEmpfehlungzumHandschuhmaterialfürdasProdukt/die
+Zubereitung/dasChemikaliengemischabgegebenwerden.
+AuswahldesHandschuhmaterialsunterBeachtungderDurchbruchzeiten,Permeationsratenund
+derDegradation.
+-Handschuhmaterial
+DieAuswahleinesgeeignetenHandschuhsistnichtnurvomMaterial,sondernauchvonweiteren
+QualitätsmerkmalenabhängigundvonHerstellerzuHerstellerunterschiedlich.
+DadasProdukteineZubereitungausmehrerenStoffendarstellt,istdieBeständigkeitvon
+HandschuhmaterialennichtvorausberechenbarundmußdeshalbvordemEinsatzüberprüft
+werden.
+-DurchdringungszeitdesHandschuhmaterials
+DiegenaueDurchbruchzeitistbeimSchutzhandschuhherstellerzuerfahrenundeinzuhalten.
+-FürdenDauerkontaktsindHandschuheausfolgendenMaterialiengeeignet:
+Naturkautschuk(Latex)
+Chloroprenkautschuk
+HandschuheausPVC.
+Achtung!dietäglicheGebrauchsdauereinesChemikalienschutzhandschuhskannwegender
+besonderenBedingungenamArbeitsplatz(mechanischeBelastung,Temperatur)deutlichkürzer
+alsdienachEN374ermitteltePermeationszeitsein.
+-Augenschutz:DichtschließendeSchutzbrille
+-Körperschutz:
+Standard-Arbeitsschutzkleidung.ChemikalienbeständigeSicherheitsschuheoder-stiefel.Wenn
+Hautkontaktauftretenkann,fürdieseLösungundurchlässigeSchutzkleidungtragen.
+D
+(FortsetzungaufSeite6)
+
+Seite:6/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite5)
+54.0*ABSCHNITT9:PhysikalischeundchemischeEigenschaften
+-9.1AngabenzudengrundlegendenphysikalischenundchemischenEigenschaften
+-AllgemeineAngaben
+-Aussehen:
+Form: flüssig
+Farbe: nichtbestimmt.
+-Geruch: charakteristisch
+-Geruchsschwelle: Nichtbestimmt.
+-pH-Wert: Nichtbestimmt
+-Schmelzpunkt/Gefrierpunkt: Nichtbestimmt
+-SiedebeginnundSiedebereich: >80°C
+Zersetzung
+-Flammpunkt: Nichtanwendbar;Produktistnichtbrennbaroder
+explosionsgefährlich.
+-Entzündbarkeit(fest,gasförmig): Nichtanwendbar.
+-Zersetzungstemperatur: Nichtbestimmt.
+-Selbstentzündungstemperatur: DasProduktistnichtselbstentzündlich.
+-ExplosiveEigenschaften: DasProduktistnichtexplosionsgefährlich.
+-Explosionsgrenzen:
+untere: Nichtbestimmt.
+obere: Nichtbestimmt.
+-Dampfdruckbei20°C: 23hPa
+-Dichtebei20°C: 1,032g/cm³
+-RelativeDichte Nichtbestimmt.
+-Dampfdichte Nichtbestimmt.
+-Verdampfungsgeschwindigkeit Nichtbestimmt.
+-Löslichkeitin/Mischbarkeitmit
+Wasser: vollständigmischbar
+-Verteilungskoeffizient:n-Octanol/Wasser:Nichtbestimmt.
+-Viskosität:
+dynamisch: Nichtbestimmt.
+kinematisch: Nichtbestimmt.
+-Lösemittelgehalt:
+Wasser: 92,0%
+Festkörpergehalt: 0,0%
+-9.2SonstigeAngaben KeineweiterenrelevantenInformationenverfügbar.
+*ABSCHNITT10:StabilitätundReaktivität
+-10.1ReaktivitätKeineweiterenrelevantenInformationenverfügbar.
+(FortsetzungaufSeite7)
+D
+
+Seite:7/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite6)
+54.0-10.2ChemischeStabilität
+-ThermischeZersetzung/zuvermeidendeBedingungen:
+KeineZersetzungbeibestimmungsgemäßerLagerungundHandhabung.
+Zuvermeiden:Wärme,Sonneneinstrahlung.
+-10.3MöglichkeitgefährlicherReaktionen
+ReaktionenmitVerunreinigungen.
+ReaktionenmitbrennbarenStoffen.
+ReaktionenmitReduktionsmitteln.
+ReaktionenmitorganischenStoffen.
+Berstgefahr.
+-10.4ZuvermeidendeBedingungenKeineweiterenrelevantenInformationenverfügbar.
+-10.5UnverträglicheMaterialien:
+VerunreinigungenallerArt.
+Metallionen,Metallsalze,Metalle,Alkalien,Reduktionsmittel,brennbareStoffe,Lösungsmittel.
+ReaktionenmitstarkenOxidationsmitteln
+-10.6GefährlicheZersetzungsprodukte:Sauerstoff(wirktbrandfördernd).
+*ABSCHNITT11:ToxikologischeAngaben
+-11.1AngabenzutoxikologischenWirkungen
+-AkuteToxizitätAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-EinstufungsrelevanteLD/LC50-Werte:
+7722-84-1Wasserstoffperoxid
+Oral LD501.190-1.270mg/kg(Ratte)
+1.232mg/kg(Ratte)(H₂O₂35%)
+DermalLD50>2.000mg/kg(Kaninchen)(H₂O₂70%)
+-PrimäreReizwirkung:
+-Ätz-/ReizwirkungaufdieHaut
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-SchwereAugenschädigung/-reizung
+VerursachtschwereAugenreizung.
+-SensibilisierungderAtemwege/Haut
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-ZusätzlichetoxikologischeHinweise:reizend
+-CMR-Wirkungen(krebserzeugende,erbgutveränderndeundfortpflanzungsgefährdende
+Wirkung)
+-Keimzell-MutagenitätAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-KarzinogenitätAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-ReproduktionstoxizitätAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-SpezifischeZielorgan-ToxizitätbeieinmaligerExposition
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-SpezifischeZielorgan-ToxizitätbeiwiederholterExposition
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-AspirationsgefahrAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+D
+(FortsetzungaufSeite8)
+
+Seite:8/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite7)
+54.0*ABSCHNITT12:UmweltbezogeneAngaben
+-12.1Toxizität
+-AquatischeToxizität:
+7722-84-1Wasserstoffperoxid
+LC50/96h16,4mg/l(Pimephalespromelas(fettköpfigeElritze))
+LC50/24h31mg/l(Regenbogenforelle(Oncorhynchusmykiss))
+EC50/48h2,4mg/l(Daphniapulex)
+EC50/24h7,7mg/l(GroßerWasserfloh(Daphniamagna))
+IC50/72h2,5mg/l(Süßwasseralge(chlorellavulgaris))
+NOEC 0,63mg/l(GroßerWasserfloh(Daphniamagna))(21d)
+NOEC/72h0,1mg/l(Süßwasseralge(chlorellavulgaris))
+0,63mg/l(Skeletonemacostatum)
+EC10/16h11mg/l(Pseudomonasputida)
+-12.2PersistenzundAbbaubarkeitKeineweiterenrelevantenInformationenverfügbar.
+-12.3BioakkumulationspotenzialKeineweiterenrelevantenInformationenverfügbar.
+-12.4MobilitätimBodenKeineweiterenrelevantenInformationenverfügbar.
+-WeitereökologischeHinweise:
+-AllgemeineHinweise:
+Nichtunverdünntbzw.ingrößerenMengenindasGrundwasser,inGewässeroderindie
+Kanalisationgelangenlassen.
+Wassergefährdungsklasse1schwachwassergefährdend
+-12.5ErgebnissederPBT-undvPvB-Beurteilung
+-PBT:Nichtanwendbar.
+-vPvB:Nichtanwendbar.
+-12.6AndereschädlicheWirkungenKeineweiterenrelevantenInformationenverfügbar.
+ABSCHNITT13:HinweisezurEntsorgung
+-13.1VerfahrenderAbfallbehandlung
+DernachstehendeHinweisbeziehtsichaufdasProdukt,dassobelassenwurdeundnichtauf
+weiterverarbeiteteProdukte.BeiderMischungmitanderenProduktenkönnenandere
+Entsorgungswegeerforderlichsein;imZweifelsfalldenLieferantendesProduktesoderdielokale
+BehördezuRateziehen.
+-Empfehlung:
+DarfnichtzusammenmitHausmüllentsorgtwerden.NichtindieKanalisationgelangenlassen.
+-Abfallschlüsselnummer:
+DieAbfallschlüsselnummernsindseitdem1.1.1999nichtnurProdukt-sondernimwesentlichen
+anwendungsbezogen.DiefürdieAnwendunggültigeAbfallschlüsselnummerkanndem
+EuropäischenAbfallkatalogentnommenwerden.
+-UngereinigteVerpackungen:EntsorgunggemäßdenbehördlichenVorschriften.
+-Empfehlung:
+BehältervollständigentleerenundgereinigteinerRekonditionierungoderWiederaufbereitung
+zuführen.EntsorgungderBehälternurunterAbsprachemitdenörtlichenBehörden.
+Leihverpackung:NachoptimalerEntleerungsofortdichtverschlossenundohneReinigung
+demLieferantenzurückgeben.EsistSorgezutragen,daßkeineFremdstoffeindieVerpackung
+gelangen!
+(FortsetzungaufSeite9)
+D
+
+Seite:9/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite8)
+54.0SonstigeBehälter:vollständigentleerenundgereinigteinerRekonditionierungoder
+Wiederaufbereitungzuführen.
+-EmpfohlenesReinigungsmittel:Wasser,gegebenenfallsmitZusatzvonReinigungsmitteln.
+ABSCHNITT14:AngabenzumTransport
+-14.1UN-Nummer
+-ADR/RID,IMDG,IATA entfällt
+-14.2OrdnungsgemäßeUN-Versandbezeichnung
+-ADR/RID,IMDG,IATA entfällt
+-14.3Transportgefahrenklassen
+-ADR/RID,IMDG,IATA
+-Klasse entfällt
+-14.4Verpackungsgruppe
+-ADR/RID,IMDG,IATA entfällt
+-14.5Umweltgefahren: Nichtanwendbar.
+-Marinepollutant: Nein
+-14.6BesondereVorsichtsmaßnahmenfür
+denVerwender Nichtanwendbar.
+-14.7MassengutbeförderunggemäßAnhangII
+desMARPOL-Übereinkommensundgemäß
+IBC-Code Nichtanwendbar.
+-Transport/weitereAngaben: KeinGefahrgutnachobigenVerordnungen
+-UN"ModelRegulation": entfällt
+*ABSCHNITT15:Rechtsvorschriften
+-15.1VorschriftenzuSicherheit,Gesundheits-undUmweltschutz/spezifische
+RechtsvorschriftenfürdenStoffoderdasGemisch
+-KennzeichnunggemäßVerordnung(EG)Nr.1272/2008
+DasProduktistgemäßCLP-Verordnungeingestuftundgekennzeichnet.
+-Gefahrenpiktogramme
+GHS07
+-SignalwortAchtung
+-Gefahrenhinweise
+H319VerursachtschwereAugenreizung.
+-Sicherheitshinweise
+P305+P351+P338BEIKONTAKTMITDENAUGEN:EinigeMinutenlangbehutsammitWasser
+spülen.EventuellvorhandeneKontaktlinsennachMöglichkeitentfernen.Weiter
+spülen.
+(FortsetzungaufSeite10)
+D
+
+Seite:10/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite9)
+54.0P337+P313 BeianhaltenderAugenreizung:ÄrztlichenRateinholen/ärztlicheHilfe
+hinzuziehen.
+-Richtlinie2012/18/EU
+-VERORDNUNG(EG)Nr.1907/2006ANHANGXVIIBeschränkungsbedingungen:3
+-Richtlinie2011/65/EUzurBeschränkungderVerwendungbestimmtergefährlicherStoffein
+Elektro-undElektronikgeräten–AnhangII
+KeinerderInhaltsstoffeistenthalten.
+-VERORDNUNG(EU)2019/1148
+-Verordnung(EG)Nr.273/2004betreffendDrogenausgangsstoffe
+KeinerderInhaltsstoffeistenthalten.
+-Verordnung(EG)Nr.111/2005zurFestlegungvonVorschriftenfürdieÜberwachungdes
+HandelsmitDrogenaustauschstoffenzwischenderGemeinschaftundDrittländern
+KeinerderInhaltsstoffeistenthalten.
+-NationaleVorschriften:
+-HinweisezurBeschäftigungsbeschränkung:
+BeschäftigungsbeschränkungenfürKinderundJugendlichenachRichtlinie94/33/EGundden
+entsprechendennationalenVorschriftenbeachten.
+-Wassergefährdungsklasse:WGK1(Selbsteinstufung):schwachwassergefährdend.
+-SonstigeVorschriften,BeschränkungenundVerbotsverordnungen
+-BesondersbesorgniserregendeStoffe(SVHC)gemäßREACH,Artikel57
+KeinerderInhaltsstoffeistenthalten.
+-VOCV(CH)0,00%
+-15.2Stoffsicherheitsbeurteilung:EineStoffsicherheitsbeurteilungwurdenichtdurchgeführt.
+*ABSCHNITT16:SonstigeAngaben
+DieAngabenstützensichaufdenheutigenStandunsererKenntnisse,siestellenjedochkeine
+ZusicherungvonProdukteigenschaftendarundbegründenkeinvertraglichesRechtsverhältnis.
+-UFIMarktplatzierungen:
+-RelevanteSätze
+VollständigerWortlautderinAbschnitt3mitKürzelangegebenenGefahrenhinweise(H-Sätze).
+DieseSätzebeziehensichnuraufdieInhaltsstoffe.DieKennzeichnungdesProduktsistin
+Abschnitt2angeführt.
+H271KannBrandoderExplosionverursachen;starkesOxidationsmittel.
+H302GesundheitsschädlichbeiVerschlucken.
+H314VerursachtschwereVerätzungenderHautundschwereAugenschäden.
+H332GesundheitsschädlichbeiEinatmen.
+H335KanndieAtemwegereizen.
+H412SchädlichfürWasserorganismen,mitlangfristigerWirkung.
+-DatenblattausstellenderBereich:SieheAbschnitt1.3:AuskunftgebenderBereich
+-AbkürzungenundAkronyme:
+RPE:RespiratoryProtectiveEquipment
+RCR:RiskCharacterisationRatio(RCR=PEC/PNEC)
+ADR:Accordrelatifautransportinternationaldesmarchandisesdangereusesparroute(EuropeanAgreementConcerning
+theInternationalCarriageofDangerousGoodsbyRoad)
+IMDG:InternationalMaritimeCodeforDangerousGoods
+(FortsetzungaufSeite11)
+D
+
+Seite:11/11
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:19.01.2022 überarbeitetam:19.01.2022 VersionNr.104
+Handelsname:EWE-DesinfektfürStandrohr-Prüfanlage
+(FortsetzungvonSeite10)
+54.0IATA:InternationalAirTransportAssociation
+GHS:GloballyHarmonizedSystemofClassificationandLabellingofChemicals
+CLP:Classification,LabellingandPackaging(Regulation(EC)No.1272/2008)
+EINECS:EuropeanInventoryofExistingCommercialChemicalSubstances
+ELINCS:EuropeanListofNotifiedChemicalSubstances
+CAS:ChemicalAbstractsService(divisionoftheAmericanChemicalSociety)
+DNEL:DerivedNo-EffectLevel(REACH)
+PNEC:PredictedNo-EffectConcentration(REACH)
+LC50:Lethalconcentration,50percent
+LD50:Lethaldose,50percent
+SVHC:SubstancesofVeryHighConcern
+vPvB:veryPersistentandveryBioaccumulative
+Ox.Liq.1:OxidierendeFlüssigkeiten–Kategorie1
+AcuteTox.4:AkuteToxizität–Kategorie4
+SkinCorr.1A:Hautreizende/-ätzendeWirkung–Kategorie1A
+EyeIrrit.2:SchwereAugenschädigung/Augenreizung–Kategorie2
+STOTSE3:SpezifischeZielorgan-Toxizität(einmaligeExposition)–Kategorie3
+AquaticChronic3:Gewässergefährdend-langfristiggewässergefährdend–Kategorie3
+-*DatengegenüberderVorversiongeändert
+D
+

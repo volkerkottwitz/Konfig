@@ -1,0 +1,8 @@
+Anwendungshilfe: 
+Welche Hilfsabsperrung für welche Armatur?
+Armatur
+Kugel-Ventil-Anbohrarmatur und Kugel-AnbohrarmaturHilfsabsperrungintegrierte Kugel
+ArmaturVentil-AnbohrarmaturHilfsabsperrungSpülarmatur, Bestellnummer 113011X
+ArmaturKugelhahn-Anbohrarmatur, Kolbenschieber-Anbohrarmatur und Kera-AnbohrarmaturHilfsabsperrungHilfsabsperrung = Betriebsabsperrung
+
+

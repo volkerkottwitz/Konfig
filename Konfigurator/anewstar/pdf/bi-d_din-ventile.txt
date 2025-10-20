@@ -1,0 +1,196 @@
+DIN-Absperrarmaturen 
+Benutzerinformation
+#7100018 - Ausgabe 06/2025
+
+2  |  Benutzerinformation DIN-Absperrarmaturen
+Inhaltsverzeichnis
+Allgemeine Hinweise  4  
+ Angaben über das Erzeugnis 6
+Einbauhinweise (Installation/Montage) 8Betrieb und Verwendung 8Wartung und Instandhaltung 9Ersatz-Oberteile 10Zubehör – Griff 11
+
+Benutzerinformation DIN-Absperrarmaturen  |  3
+
+
+4  |  Benutzerinformation DIN-AbsperrarmaturenAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Ventile montieren, bedienen oder warten. 
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Sollten weitere Geräte verwendet werden, sind deren Bedienungsanleitungen unbedingt zu beachten. 
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+
+Benutzerinformation DIN-Absperrarmaturen  |  5Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver -
+packung soll die einzelnen Bauteile  bis zur Mon tage vor Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Ver -
+wendung der Produkte.
+Entsorgung
+	Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Verwendung von Abkürzungen:
+Art.:    A rtikelnummer
+KTW:    Kunststoffe im Trinkwasser 
+DIN:    Deutsches Institut für Normung 
+DVGW:    Deutscher Verein des 
+ Gas- und Wasserfaches
+PE: PolyethylenPN:  Nenndruck
+KSR:   Kombiniert es 
+ Schrägsitz-Rückschlagventil
+WZA:   Wasserzähler-Anlage
+RV:  RückflussverhindererErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation DIN-Absperrarmaturen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens sind 
+anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	KTW- und Elastomerleitlinien des Umweltbundesamtes
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	DIN EN 805, „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“
+	DIN EN 806, „Technische Regeln für Trinkwasser-Installation“
+	DIN EN 1717, „Schutz des Trinkwassers vor Verunreinigungen in Trinkwasser-Installationen und allgemeine Anforderungen an Sicherungseinrichtungen zur Verhütung von Trinkwasser durch Rückfließen“
+	DIN 1988, „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 806
+	DIN 18012, „Anschlusseinrichtungen für Gebäude“ 
+	DVGW-Arbeitsblatt W 270, „Vermehrung von Mikroorganismen auf Werkstoffen für den Trink -
+wasserbereich“
+	DVGW-Arbeitsblatt W 400, „Technische Regeln Wasserverteilungsanlagen“
+	DVGW-Arbeitsblatt W 570, „Armaturen für die Trinkwasser-Installation“
+1.3 Verwendungsbereich/Medium
+	kaltes Trinkwasser nach DIN 2000DIN-Kugel-Absperrarmaturen als 
+Hauptabsperreinrichtung  Artikelnummer 337391XDIN-Schrägsitzventile, mit oder ohne RV nach DIN EN 1213  Artikelnummer33728XX
+
+
+Benutzerinformation DIN-Absperrarmaturen  |  71.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	PN 10 nach Regelwerk für Trinkwasser-Installationen und Gebäudearmaturen  
+Alle EWE DIN-Ventile können bis zu einem Bauteile-Betriebsdruck von PN 16 eingesetzt wer -
+den.  
+1.5 Werkstoff/Abmessungen/Leistung
+Werkstoff
+	aus Pressmessing, entsprechend der Liste „Trinkwasserhygienisch geeignete metallene 
+Werkstoffe“ des Umweltbundesamtes
+	Elastomere und Kunststoffe entsprechend der KTW-Leitlinie des Umweltbundesamtes und des DVGW-Arbeitsblattes W270
+Abmessungen
+DIN-Kugel-Absperrarmatur DIN-Schrägsitzventil oder DIN-KSR-Ventil mit oder ohne Entleerung
+Baulänge mm Eingang Rp Ausgang Rp Eingang Rp Ausgang Rp
+75   ¾" ¾"
+90 1“ 1“ 1" 1"
+110 1 ¼“ 1 ¼“ 1 ¼" 1 ¼"
+120 1 ½“ 1 ½“ 1 ½" 1 ½"
+150 2" 2"
+1.5.1 Dichtungen
+Werkstoff:
+	EPDM
+
+8  |  Benutzerinformation DIN-AbsperrarmaturenLeistung:
+	Schallschutzklasse I
+Allgemeine bauaufsichtliche Schallschutz-Prüfung:
+die Prüfzeugnisse finden Sie auf www.baufachinformation.de.  
+ 
+	ÜA-Kennzeichnung für Bauprodukte in Kontakt mit Trinkwasser - Österreich 
+ 
+1.6 Transport und Lagerung
+Die Armatur bis zur Verwendung in der werkseitigen Verpackung transportieren und lagern.
+1.7 Funktionsbeschreibung
+DIN Ventile nach DIN EN 1213 dienen zur Absperrung von Trinkwasserinstallationsleitungen .
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+Vor dem Einsatz sind die Armaturen auf Beschädigung oder Verunreinigung zu prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+2.2 Hinweise zum Einbauort
+DIN-Ventile sind im Inneren von Gebäuden, zu montieren. 
+2.3 Montage
+Bei der Montage der Absperrarmaturen ist unbedingt auf die Durchflussrichtung, gekenn-zeichnet durch beiderseits am Gehäuse angebrachte Pfeile, zu achten. Um die Montageforderung, leichte Auswechselbarkeit der Absperrarmatur ohne Verände -
+rung der Leitungsanlage, zu erfüllen, sind handelsübliche Verschraubungen zu verwenden. Die Absperrarmaturen sind ein- und ausgangsseitig mit einem Gewinde mit EWE-O-Ring-Sys-tem versehen. Zur einfacheren und sicheren Montage können daher die entsprechend, mit diesem O-Ring-System versehenen drehbaren Winkel, PE-Verschraubungen bzw. PE-Schweiß-stutzen zur Anwendung kommen. 
+Schrägsitzventil Schrägsitzventil mit  RV
+ Kugelhahn
+Stadt Wien | Prüf-, Inspektions- und Zertifizierungsstelle 
+
+
+Benutzerinformation DIN-Absperrarmaturen  |  93. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Absperrarmaturen erfolgen.
+Absperrarmaturen nur in voll geöffneter bzw. geschlossener Stellung betreiben. 
+Die Armatur ist für Drosselung des Volumenstroms nicht geeignet. 
+4. Wartung und Instandhaltung
+Die (Kugel-) Absperrarmaturen in den Wasserzähleranlagen sind im Regelwerk als Wartungs-
+armaturen definiert, demnach sind sie im Wartungsfall bei geschlossenen Entnahmeeinrich -
+tungen langsam (beim Schließen oder Öffnen) zu betätigen. 
+Ist hinter dem KSR-Ventil ein Druckminderer angeordnet, so kann es erforderlich sein, 
+die nachgeschaltete Leitung durch Öffnen einer nachgeschalteten Armatur oder des 
+Entleerungsventils am KSR-Ventil zu ent  spannen. So w erden zu hoher Kraftaufwand beim 
+Schließen des KSR-Ventils oder auch Beschädigungen vermieden. 
+Das Öffnen der Armaturen muss bis zum Anschlag erfolgen, d. h. durch volle Offenstel -
+lung. Das Drosseln ist untersagt. 
+Um die Funktion bzw. die Leichtgängigkeit der Absperreinrichtungen zu gewährleisten, wird empfohlen, diese mindestens einmal jährlich zu betätigen. Die Bedienung des Entleerungs-ventils erfolgt händisch, zusätzliche Werkzeuge, wie z. B. Rohrzangen, sind zu vermeiden und können zu Schäden führen!Bei der Entleerung der Inneninstallation mit dem Entleerungsventil ist darauf zu achten, dass dieser Vorgang ohne Netzdruck durchgeführt wird. Dazu werden die Absperrarmaturen geschlossen und eine nachgeschaltete Entnahmearmatur (z.B. am Waschtisch) geöffnet, um den Wasserdruck abzulassen. Erst danach wird das Entleerungsventil geöffnet.Eine jährliche Funktionsprüfung des Rückflussverhinderers ist im Regelwerk vorgeschrieben.Die Rückflussverhinderer sind Verschleißteile. Eine Funktionskontrolle kann bei Modellen mit Prüfschraube im eingebauten Zustand erfolgen. Hierzu ist der Zulauf abzusperren und die Prüfschraube mit gebotener Vorsicht zu öffnen. Es darf nur der Restinhalt zwischen Zulauf und Gehäuse austreten. Medium aus der weiterführenden Installation muss durch den Rück -
+flussverhinderer zurückgehalten werden. Ist dies nicht der Fall, muss der RV instandgesetzt werden.
+   Vor Beginn der Instandsetzungsarbeiten ist das Rohrleitungssystem abzusperren
+und drucklos zu machen. Desweiteren ist das Rohrleitungssystem gegenunbeabsichtigte Wiederinbetriebnahme abzusichern.
+
+10  |  Benutzerinformation DIN-Absperrarmaturen4.1 Wechsel des KSR-Ventil-Oberteils
+Der Ein- und Ausbau muss wie beschrieben erfolgen:
+1. Ventil der WZA schließen und Hausinstallation ggf. entleeren, da das KSR-Ventil drucklos 
+sein muss
+2. Lösen und Demontage des Ventil-Oberteiles über die Schlüsselfläche
+3. neues KSR-Oberteil montieren
+4. Eingangsventil öffnen und Prüfung auf Dichtigkeit und Funktion
+Das Entleerungsventil kann bei Bedarf ausgetauscht werden. Bitte nehmen Sie diesbezüglichKontakt zu uns auf. 
+5. Ersatz-Oberteile
+Oberteil für Schrägsitzventil Oberteil für KSR-Ventil, 
+mit teflonisiertem Stößel
+Mediumunberührter Antrieb
+	Oberteil für Schrägsitzventil
+Gewindeanschluss G aus WZA Q3 (Qn) Si-MessingBestellnummerklassisches MessingBestellnummer
+¾" 3372331
+1" 4 (2,5, 3/7) 3372322 3372332
+1 ¼" 10 (6) 3372323 3372333
+1 ½" 3372335
+2" 16 (10, 20) 3372324
+
+Benutzerinformation DIN-Absperrarmaturen  |  11
+Hebelgriff passend für Wasserzähler-Kugel-Armatur	Oberteil für KSR-Ventil, mit teflonisiertem Stößel
+¾" 3372231
+1" 4 (2,5, 3/7) 3372222 3372232
+1¼" 10 (6) 3372223 3372233
+1 ½" 3372235
+2" 16 (10, 20) 3372224 
+6. Zubehör – Griff
+	Hebelgriff passend für Wasserzähler-Kugel-Armatur
+aus WZA Q3 (Qn) Bestellnummer
+4, 10 (2,5, 3/7) 3272611
+16 (10, 20) 3272615
+16 (10, 20) 3272617
+
+12  |  Benutzerinformation DIN-AbsperrarmaturenWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100018 - Ausgabe 05/2021
+

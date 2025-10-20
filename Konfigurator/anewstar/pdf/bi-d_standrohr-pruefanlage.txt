@@ -1,0 +1,221 @@
+EWE-Standrohr-Prüfanlage
+EWE-Armaturen-Desinfekt
+Benutzerinformation
+#7100030 - Ausgabe 02/2020
+
+
+2  |  Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt
+Inhaltsverzeichnis
+Allgemeine Hinweise  4 
+ Angaben über das Erzeugnis 6  Einbauhinweise 7  Betrieb und Verwendung 8  Betriebsmittel/Stoffe 10
+Weiteres Zubehör 12
+
+Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt |  3
+
+
+4  |  Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-DesinfektAllgemeine Hinweise
+	 Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	 Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer  Internetseite: www.ewe-armaturen.de.
+	 Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	 Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	 Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten.  
+	 Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge-schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	 Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor-schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	 Es dürfen ausschließlich Geräte die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+	 Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	 Bei der Montage der hier aufgeführten Produkte sind alle Vorschriften sowohl der Armatu-ren-Hersteller, als auch der Rohr-Hersteller zu beachten und einzuhalten.
+	 Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	 Sollten weitere Geräte verwendet werden, sind deren Bedienungsanleitungen unbedingt zu beachten. 
+	 Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	 Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+
+Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt |  5	 Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die 
+sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	 Es gelten unsere Allgemeinen Verkaufsbedingungen.
+Verpackung
+	 Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver-packung soll die einzelnen Bauteile 
+ bis zur Mon
+tage vor Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Ver-wendung der Produkte.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent-sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+EWE-Standrohr-Prüfanlage, Artikelnummer 3903050
+1.2 Mitgeltende Unterlagen
+	 Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	 DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	 DIN EN 1717 „Schutz des Trinkwassers vor Verunreinigungen in Trinkwasser-Installationen und allgemeine Anforderungen an Sicherungseinrichtungen zur Verhütung von Trinkwas-ser durch Rückfließen“
+	 DIN 2001-2 „Trinkwasserversorgung aus Kleinanlagen und nicht ortsfesten Anlagen - Teil 2“
+	 DVGW-Arbeitsblatt W408 „Anschluss von Entnahmevorrichtungen an Hydranten in Trink-wasserverteilungsanlagen“
+	 DVGW twin-Informationen 10 und 11 „Hygienischer Umgang mit Wasserzählern“
+1.3 Verwendungsbereich/Medium
+	 Die Standohr-Prüfanlage ist zur Prüfung und Behandlung von Standrohren mit Desinfek-tionsmittel vorgesehen. Zum ordnungsgemäßen Betrieb sind ein Anschluss an das Trink-wassernetz mit maximalem Betriebsdruck von 6 bar sowie ein Ablauf in die Kanalisation zur Entsorgung der Prüfflüssigkeit notwendig.
+	  Bei Standrohren mit Wasserzähler sind diese je nach Messprinzip und Bauart gesondert zu desinfizieren und zu überprüfen! Die DVGW twin-Informationen  10 und 11 zum hygienischen Umgang mit Wasserzählern sind zu beachten!
+
+Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt |  7	 Ein Stromanschluss wird nicht benötigt.
+	 Die Anlage ist ausgelegt für den Transport mit einem Hubwagen.
+	 Für kaltes Trinkwasser nach DIN 2000.
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	 Der maximale Betriebsdruck der Anlage ist 6 bar. Gegebenenfalls ist ein Druckminderer 
+vorzusehen.
+1.5 Werkstoff/Abmessungen/Leistung
+Werkstoff
+	 Edelstahl 1.4571 / Messing CW617N
+Abmessungen
+	 Breite: 795 mm / Höhe: 725 mm / Tiefe: 515 mm
+1.6 Lagerung
+	  Die Anlage ist bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und trocken zu lagern.
+	 Vor und nach dem Einsatz ist die Anlage auf Beschädigung oder Verunreinigung zu prüfen.
+1.7 Funktionsbeschreibung
+	 Funktionsprüfung und Reparatur von Standrohren
+	 Spülung und Reinigung von Standrohren
+	 Behandlung mit Desinfektionsmittel
+	 optional Systemtrenner-Überprüfung
+2. Einbauhinweise (Installation/Montage)
+2.1 Anlage
+Der Trinkwasseranschlusspunkt ist entsprechend DIN EN 1717 und bei der Verwendung von EWE-Desinfekt für Standrohr-Prüfanlage entsprechend der Flüssigkeitskategorie 3 abzu-sichern. Die Anlage ist standsicher aufzustellen. Die Anlage ist vor ihrer Inbetriebnahme auf Beschädigungen zu überprüfen. Der Rückflussverhinderer ist zu kontrollieren.
+2.2 Dosierpumpe
+Die Dosierpumpe ist werkseitig auf eine 1%ige Lösung eingestellt. In Verbindung mit EWE-Desinfekt für Standrohr-Prüfanlage ist diese Einstellung zur prophylaktischen Behandlung mit Desinfektionsmittel geeignet und muss nicht geändert werden. Bei anderen Konzentrationen verändern sich die Einwirkzeiten des Desinfektionsmittels. Es sind die jeweils gültigen Bedie -
+nungs- sowie Wartungshinweise des Herstellers zu beachten.
+
+8  |  Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt2.3 Behandlung mit Desinfektionsmittel
+Die Anlage nur verwenden mit EWE-Desinfekt für Standrohr-Prüfanlage oder einer Desinfek-
+tionslösung mit H2O2 und Silber mit einer Maximalkonzentration von 8%. Die Sicherheitsda -
+tenblätter und Benutzerinformationen des jeweiligen Desinfektionsmittels sind zu beachten.
+3. Betrieb und Verwendung
+3.1 Anschluss der Anlage
+1.
+	 Schlauch mit Filter ist auf die notwendige Länge zu kürzen und an die Dosierpumpe anzuschließen. Der Kanister ist in die vorgesehene Halterung zu stellen. 
+2.
+	 Ein Abwasserschlauch wird mit dem Auslass der Anlage verbunden. Das freie Schlauchende in einen geeigneten Ablauf führen.
+3.
+	 Die Trinkwasser-Abgabestelle wird mittels eines Trinkwasserschlauches mit dem Zulauf der Anlage verbunden (DIN EN 1717 ist zu  beachten).
+4.1.
+	 Für den Prüfbetrieb ohne Desinfektionszusatz ist darauf zu achten, dass alle Kugelhahngriffe waage-recht stehen.
+
+
+Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt |  9Die Anlage ist betriebsbereit.
+3.2 Betrieb der Anlage4.2.
+	 Für den Dosierbetrieb mit Desinfektionsmittel ist 
+darauf zu achten, dass alle Kugelhahngriffe senk-recht stehen.
+1.
+	 Vor Aufbau des Standrohres Sichtprüfung und ggf. Reinigung des Standrohres, Dichtung mit geeig-netem Mittel reinigen und mit Desinfektionsmittel behandeln (z.B. mit EWE-Armaturen-Desinfekt).
+2.
+	 Standrohr aufbauen. Alle Auslaufventile des Stand-rohres schließen. 
+3.
+	 Am Auslaufventil Schlauch anschließen. Zulauf des Trinkwasseranschlusses öffnen. Das Auslaufventil am Standrohr langsam öffnen. Der Reihe nach mit allen Auslaufventilen so verfahren. Toträume (z. B. in Wasserzählern) gesondert behandeln!
+4.
+	 Nach Zudosierung des Desinfektionsmittels kann das Desinfektionsmittel mit entsprechendem Test-streifen nachgewiesen werden. Bei Blaufärbung ist das Desinfektionsmittel im Prüfwasser bestätigt. 
+
+
+10  |  Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt3.3 Fehlersuche
+Desinfektionsmittel nicht nachweisbar (kein Betriebsgeräusch der Pumpe hörbar): 5.
+	 Zulauf des Trinkwasseranschlusses schließen. 
+	 Das Standrohr kann demontiert und eingelagert 
+werden. Nach Trocknung ist eine Nachspülung nicht notwendig. Zur Einlagerung des Standrohrs  empfehlen wir den Verschluss aller Öffnungen. 
+	 richtige Position des Stellhebels auf der Dosierpumpe
+	 richtige Stellung der Kugelhähne prüfen
+	 Füllgrad des Desinfekt-Kanisters prüfen
+	 Schlauchanschluss der Pumpe zum Kanister prüfen
+	 Filter im Kanister prüfen
+Für weiterführende Informationen bzgl. der Pumpe bitte die beiliegende Installations- und Bedienungsanleitung beachten.Richtige Position des Stellhebels auf der Dosierpumpe prüfen.
+4. Betriebsmittel/Stoffe
+4.1 EWE-Desinfekt für Standrohr-Prüfanlage
+  Stellhebel in
+„on“-Stellung
+10 kg KanisterArtikelnummer 9002014
+
+
+Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt |  114.1.1 Anwendungsgebiete
+	 EWE-Desinfekt für Standrohr-Prüfanlage ist ein hochwirksames Flächendesinfektionsmittel 
+gegen Bakterien, Viren, Biofilme und Schimmelpilze. Einwirkzeit auf benetzten Flächen von 30 min. bei einer Dosierung von 1%. Toträume (z. B. in Wasserzählern) gesondert behan-deln!
+	 Ausschließlich für die Behandlung von Standrohren oder ähnlichen Armaturen über die EWE-Standrohr- Prüfanlage mit Dosiereinrichtung.
+	    Biozide sicher verwenden. Vor Gebrauch stets Kennzeichnung und Produkt- 
+information lesen.
+4.1.2 Eigenschaften
+	 universelle Verwendung für wasserbeständige Flächen
+	 keine Geruchsbildung
+	 lange Lagerfähigkeit
+	 keine toxische Wirkung in der Anwendungskonzentration
+	 flüssig, enthält 7,99% Wasserstoffperoxid und Silber
+	 Einstufung gemäß Verordnung (EG) Nr. 1272/2008. H319 verursacht schwere Augenreizung.
+4.1.3 Ökologie
+Das EWE-Desinfekt für Standrohr-Prüfanlage zerfällt nach der Anwendung hauptsächlich in Wasser und Sauerstoff (2H2O2 -> 2H2O + O2). Bitte beachten Sie das Sicherheitsdatenblatt.
+4.1.4 Vorsichtsmaßnahmen
+Nicht in die Augen sprühen. Von Kindern fernhalten.
+4.1.5 Lagerung
+Bei 5 - 25 Grad C° frostfrei lagern und nicht großer Hitze aussetzen. Aufbewahrung nur im Originalgebinde. Beachten Sie das auf den Kanistern befindliche Haltbarkeitsdatum. 
+
+12  |  Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt4.2 Teststreifen für EWE-Desinfekt
+100 Stück/ Packung
+Artikelnummer 9002015
+4.2.1 Anwendungsgebiete
+	 Für EWE-Desinfekt für Standrohre.
+	 Zum Nachweis des Desinfektionsmittels im Prüfwasser
+4.3 EWE-Armaturen-Desinfekt
+12 x 500 ml-SprayflascheArtikelnummer 9002012
+ 5 kg Kanister mit SprayflascheArtikelnummer 9002013500 ml-SprayflascheArtikelnummer 9002011
+
+
+Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt |  134.3.1 Anwendungsgebiete
+	 EWE-Armaturen-Desinfekt ist ein hochwirksames Flächen  desinfektionsmitt el gegen 
+Bakterien, Viren, Biofilme und Schimmelpilze. Bereits nach einer Einwirkzeit von 5 Minuten 
+erfolgt die sichere Abtötung der nach DGHM geprüften Pathogene. Nicht geeignet zur Desinfektion über eine Dosiereinrichtung wie z.B. der EWE-Standrohr-Prüfanlage.
+	 Trinkwasseranlagen
+	 Armaturen, z. B. Standrohre
+	 Armaturenteile, z. B. WZ-Verschraubungen beim Zählerwechsel
+	 Leitungen
+	 Sanitäranlagen etc.
+	    Biozide sicher verwenden. Vor Gebrauch stets Kennzeichnung und Produktinfor-
+mation lesen.
+4.3.2 Eigenschaften
+	 universelle Verwendung für wasserbeständige Flächen
+	 keine Geruchsbildung
+	 lange Lagerfähigkeit
+	 keine toxische Wirkung in der Anwendungskonzentration
+	 enthält <3% Wasserstoffperoxid und Silber
+4.3.3 Anwendung aus Sprayflasche
+Den zu behandelnden Bereich aus ca. 30 cm Entfernung besprühen und 5-10 Minuten einwir-ken lassen. Nach Einwirkzeit oder Trocknung ist eine Nachspülung nicht notwendig!
+4.3.4 Ökologie
+Das EWE-Armaturen-Desinfekt zerfällt nach der Anwendung hauptsächlich in Wasser und Sauerstoff (2H2O2 -> 2H2O + O2)
+4.3.5 Vorsichtsmaßnahmen
+Nicht in die Augen sprühen. Von Kindern fernhalten.
+4.3.6 Lagerung
+Bei 5 - 25 Grad C° frostfrei lagern und nicht großer Hitze aussetzen. Beachten Sie das auf den Sprayflaschen/Kanistern befindliche Haltbarkeitsdatum. 
+
+14  |  Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt5. Zubehör
+Konsole für Standrohr-Prüfanlage
+Artikelnummer 3903051Spülschlauch 1 m / 5 m LängeArtikelnummer 1130610 / 1130611
+Reduzierung C auf GekaArtikelnummer 2020495Messing-C-Kupplung, Blind, mit KetteArtikelnummer 2771367Verschlusskappe DN 80Artikelnummer 0108951
+Fußverschraubung DN 80  mit Geka, mit MontagewerkzeugArtikelnummer 3903138
+Prüfset (3 Kugelhähne  mit Verlängerung)Artikelnummer 9500711Prüfadapter DN 40Artikelnummer 9500750Prüfadapter DN 20Artikelnummer 9500752
+
+
+Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-Desinfekt |  15
+
+16  |  Benutzerinformation EWE-Standrohr-Prüfanlage und EWE-Armaturen-DesinfektWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100030 - Ausgabe 02/2020
+

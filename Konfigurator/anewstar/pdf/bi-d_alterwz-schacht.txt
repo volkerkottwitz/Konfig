@@ -1,0 +1,1214 @@
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20151
+Aktuelle Informationen auf: www.ewe-armaturen.deVerpackung
+•	Die	einzelnen	Armaturen	sind	entspr echend	den	zu	erwartenden 	Tr ansportbedingun-
+gen	verpackt.	F
+ür	d
+ie	Verpack
+ung	wur
+den	umwel
+tfreundliche	Material
+ien	verwendet.	
+Die	Verpack
+ung	sol
+l	d
+ie	einzelnen	Bauteile	bis	zur	Montage	vor	Tr
+ansportschäden, 	
+Korr
+osion	und	ander
+en	Beschäd
+igungen	schützen.	Ent
+fernen	Sie	d
+ie	Verpack
+ung	erst	
+kurz	vor	der	Montage	der	Armatur.
+Entsor
+gung
+•	Trennen	Sie	die	vorhandenen 	Rohstoffe	nach	Entsorgungstyp 	und	Werk stoff.	Die	Ent-
+sor
+gung	der	R
+ohstoffe	muss	nach	den	jeweils	gül
+tigen	gesetzl
+ichen	Best
+immungen	
+und	ört
+lichen	Vorschriften	erfolgen.	F
+ühren	Sie	wiederverwert
+bare	Verpack
+ungsma-
+terialien	dem	R
+ecycling	zu.
+V
+erwendung von Abkürzungen:
+WZ:		
+Wasserzähler	 Qn:		
+Nenngröße	Wasserzähler	
+Art.:	
+Artikelnummer	 PN:		
+Nenndruck
+KMR:	 Kegelmembran-Rückflussverhinderer	 WZA:	Wasserzähler-Anlage…bewährt bis ins Detail!
+EWE-Wasserzähler-Schacht
+Einbau- und Bedienungsanleitung
+www.ewe-armaturen.de
+
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20152
+Aktuelle Informationen auf: www.ewe-armaturen.deAllgemeine Hinweise
+•	Bitte	lesen	Sie	diese	Benutzerinformation 	vor	Inbetriebnahme 	des	Produktes	
+aufmerksam 	dur
+ch	und	beachten	Sie	besonders	d
+ie	Hinweise	und	Warnvermerk
+e.	
+•	Die	aktuelle	Version	d ieser	Einbau-	und	Bed ienungsanleitung 	finden	Sie	auf	unser er	
+Internetseite: 	www
+.ewe-armaturen.de.
+•	Prüfen	Sie	die	Lieferung	bei	Erhalt	unverzüglich 	auf	Vol lständigkeit	und	Tr ansport-
+schäden.
+•	Bewahren	Sie	die	Benutzerinformation 	für	eventuelle	Fragen	auf.	
+•	Nur	eingewiesenes 	und	qualifiziertes 	Personal	darf	den	Schacht,	d ie	Armaturen	und	
+Vent
+ile	mont
+ieren,	bed
+ienen	oder	warten.	
+•	Für	weitere	Informationen 	stehen	Ihnen	unsere	Mitarbeiter	telefonisch	während	der	
+Geschäftszeiten 	zur	Verfügung.
+Anschrift des Herstel
+lers
+Wilhelm EWE GmbH & Co. KG
+Volkmaroder 	Str
+aße	19
+D-	38104	Br
+aunschweig
+Fon:	+49	531	37005-0
+F
+ax:	+49	531	37005-55
+E-Mail:	info@ewe-armatur
+en.de
+Allgemeine Sicherheitshinweise VORSICHT
+•	Die	Durchführung 	der	erforderlichen 	Tät igkeiten	hat	entspr echend	den	gesetzl ichen	
+Vorschriften, 	Unfal
+lverhütungsvorschriften, 	gel
+tenden	Normen	einschl
+ießlich	den	
+anerkannten 	R
+egeln	der	Technik	zu	erfolgen.	
+•	Technische	und	unauthorisierte 	Ver änderungen	am	P rodukt	sind	unzulässig.	Das	
+Pr
+odukt	darf	nur	in	best
+immungsgemäßer 	Anwendung	zum	Einsatz	k
+ommen.
+Haftungsausschluss
+•	Sowohl	das	Einhalten	dieser	Benutzerinformation 	als	auch	die	Handhabung 	bei	
+Installat
+ion,	Betrieb	und	Wartung	der	Armatur	k
+önnen	von	uns		nicht	überwacht	
+werden.	Eine	unsachgemäße 	Ausführung	der	Instal
+lation	k
+ann	zu	Sachschäden 	
+führen	und	in	F
+olge	P
+ersonen	gefähr
+den.
+•	Wir	übernehmen 	keine	Ver antwortung	und	Haftung	für	Verluste,	Schäden	oder		
+K
+osten,	die	sich	aus	fehlerhafter	Installat
+ion,	unsachgemäßem 	Betrieb	sowie	falscher	
+Verwendung 	und	Wartung	er
+geben	oder	in	ir
+gendeiner	Weise	damit	zusammenhän-
+gen.
+•	Es	gelten	unsere	Allgemeinen 	Verk aufsbedingungen.
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20153
+Aktuelle Informationen auf: www.ewe-armaturen.deVerpackung
+•	Die	einzelnen	Armaturen	sind	entspr echend	den	zu	erwartenden 	Tr ansportbedingun-
+gen	verpackt.	F
+ür	d
+ie	Verpack
+ung	wur
+den	umwel
+tfreundliche	Material
+ien	verwendet.	
+Die	Verpack
+ung	sol
+l	d
+ie	einzelnen	Bauteile	bis	zur	Montage	vor	Tr
+ansportschäden, 	
+Korr
+osion	und	ander
+en	Beschäd
+igungen	schützen.	Ent
+fernen	Sie	d
+ie	Verpack
+ung	erst	
+kurz	vor	der	Montage	der	Armatur.
+Entsor
+gung
+•	Trennen	Sie	die	vorhandenen 	Rohstoffe	nach	Entsorgungstyp 	und	Werk stoff.	Die	Ent-
+sor
+gung	der	R
+ohstoffe	muss	nach	den	jeweils	gül
+tigen	gesetzl
+ichen	Best
+immungen	
+und	ört
+lichen	Vorschriften	erfolgen.	F
+ühren	Sie	wiederverwert
+bare	Verpack
+ungsma-
+terialien	dem	R
+ecycling	zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Symbol Beschreibung
+Allgemeine	Gefahrenstelle 	(Gefahr/Warnung/Vorsicht)
+GEFAHR: 
+Gefähr
+dung	mit	einem	hohen	Risik
+ograd,	d
+ie,	wenn	
+sie	nicht	vermieden	wir
+d,	den	Tod	oder	eine	schwer
+e	
+Verletzung	zur	F
+olge	hat.
+W
+ARNUNG: 
+Gefährdung	mit	einem	mit
+tleren	Risik
+ograd,	d
+ie,	wenn	
+sie	nicht	vermieden	wir
+d,	den	Tod	oder	eine	schwer
+e	
+Verletzung	zur	F
+olge	haben	k
+ann.
+VORSICHT: 
+Gefährdung	mit	einem	niedrigen	Risik
+ograd,	d
+ie,	wenn	
+sie	nicht	vermieden	wir
+d,	geringfügige 	oder	mäßige	
+Verletzungen 	zur	F
+olge	haben	k
+ann
+ !HINWEIS: Weist
+	auf	eine	Anweisung	hin,	d
+ie	unbed
+ingt	zu	beachten	
+ist.
+ !INFORMATION: Gibt
+	nützl
+iche	Empfehlungen.
+V
+erwendung von Abkürzungen:
+WZ:		 Wasserzähler	 Qn:		 Nenndurchfluss
+WZS:	 Wasserzähler-Schacht	 PN:		
+Nenndruck	
+WZA:	 Wasserzähler-Anlage	 Art.:	 Artikelnummer	
+KMR:	 Kegelmembran-Rückflussverhinderer	 KSR:	 Kombiniertes 	Schr
+ägsitz-Rückschlagventil
+RD:	 Rohrdeckung	 PA:		
+Polyamid
+GG:	 Gusseisen 	mit	Lamel
+lengraphit	 PE:	 Polyethylen
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20154
+Aktuelle Informationen auf: www.ewe-armaturen.de1. Angaben über das Erzeugnis
+1.1 Geltungsber
+eich 
+Diese	Benutzerinformat
+ion	gil
+t	für
+•	für	EWE-Wasserzähler-Schächte 	Qn	2,5,	Qn	6,	Qn	3/7	(Ausführung 	Österr eich),		
+Qn	2,5	(Ausführung 	Schweiz)	Artik
+elnummer:	0399XXX
+•	für	EWE-Teleskop-Wasserzähler-Schächte 	Qn	2,5,	Qn	6,	Qn	3/7		
+(Ausführung 	Österr
+eich),	Qn	2,5	(Ausführung 	Schweiz)	Artik
+elnummer:	0399XXX
+1.2 Mitgeltende Unterlagen
+•	Die	Betriebsanweisung 	des	jeweiligen	Auftraggebers 	bzw .		
+ausführ
+enden	Unternehmens 	sind	anzuwenden
+•	DVGW-	und	berufsgenossenschaftliches 	Regelwerk	
+Insbesondere:
+•	DIN	EN	805,	„ Wasserversorgung 	-	Anforderungen 	an	Wasserversor gungssysteme 	
+und	der
+en	Bauteile	außerhal
+b	von	Gebäuden“	
+•	DIN	EN	806,	„ Technische 	R egeln	für	Trinkwasser -Installation“
+•	DIN	1988,	„ Technische 	R egeln	für	Trinkwasser -Installation“, 	nat ionale	Er gänzung	zur	
+DIN	EN	806
+•	DIN	EN	1717	„Schutz	des	Trinkwassers 	vor	Verunr einigungen	in	Trinkwasser -	
+Installationen 	und	al
+lgemeine	Anforderungen 	an	Sicherungseinrichtungen 	zur	
+Verhütung	von	Trinkwasserverunr
+einigungen	dur
+ch	R
+ückfließen“
+•	KTW-Leitlinien 	des	Umweltbundesamtes 	
+•	Liste	„Trinkwasserhygienisch 	geeignete	metallene	Werk stoffe“	des	Umwel tbundes-
+amtes
+•	DVGW-Arbeitsblatt 	W	270	„ Vermehrung 	von	Mikr oorganismen 	auf	Werk stoffen	für	
+den	Trinkwasserber
+eich“
+•	DVGW-Arbeitsblatt 	W	570	„Armatur en	für	d ie	Trinkwasserinstal lation“
+•	RSA	95	„Richt linien 	für	d ie	Sicherung	von	Arbeitsstellen 	an	Str aßen“
+
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20155
+Aktuelle Informationen auf: www.ewe-armaturen.de1.3 Verwendungsbereich/Medium
+•	kaltes	Trinkwasser	nach	DIN	2000
+1.4 Zulässiger Bauteile-Betriebsdruck (PF
+A)
+•	PN	10
+1.5 Werk
+stoff/Abmessungen/Leistung
+1.5.1  Schachtk
+örper
+Werkstoff:
+•		Schachtkörper 	aus	wasserdichtem 	PE
+Abmessungen:
+•	Rohrdeckung	 	 Bauhöhe*	
+1,00	m	
+	 	 1,12 	m	
+1,25	m	
+	 	 1,37 	m	
+1,50	m	
+	 	 1,62 	m	
+1,75	m	
+	 	 1,87 	m
+•	Teleskop-Ausführung: 		
+Rohr
+deckung		
+	 Bauhöhe*	
+1,20	m	-	1,70	m	
+	 1,33 	m	-	1,84	m		*Bauhöhe
+	mit	Deck
+el!
+•	größter	Außendurchmesser: 	550	mm
+Anschlüsse:
+•	beiderseits	Innengewinde	
+Qn	2,5,	Qn	3/7		
+=	G	1"	
+Qn	6		
+=	G	1	1/4"
+1.5.2  Deckel
+Werkstoff:
+•	verriegelbarer 	Deckel	aus	GG	mit	Dichtung	und	umlaufendem 	Protectorring 	aus	PA
+Abmessungen:
+•	425	mm	Außendurchmesser 	ohne	P rotectorring	
+•	447	mm	Außendurchmesser 	mit	P rotectorring
+
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20156
+Aktuelle Informationen auf: www.ewe-armaturen.deZeichnung:	Abmessungen 	Wasserzähler -Schacht
+Außen-Ø	mit	ProtectorringBauhöhe
+größter	Außen-ØRohrdeckung
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20157
+Aktuelle Informationen auf: www.ewe-armaturen.de1.5.3  Wasserzähler-Anlagen und Schläuche
+W
+erkstoffe:
+•	Edelstahl-Bügel 	aus	A2-Edelstahl	
+•	Wasserzähler-Verschraubungen 	aus	Messing	entsprechend 	der	Liste	„Trinkwasser-	
+hygienisch	geeignete	metal
+lene	Werk
+stoffe“
+•	Elastomere	und	Kunststoffe	entsprechend 	den	KTW-Leitlinien 		 	 	
+des	Umwel
+tbundesamtes 	und	des	DV
+GW-Arbeitsblattes 	W270
+•	Ventile	aus	Messing	entsprechend 	der	Liste	„Trinkwasserhygienisch 	geeignete	
+metallene	Werk
+stoffe“
+•	Schläuche	aus	Silikon	mit	Umflechtung 	aus	A2-Edelstahl
+Ausführungen:
+	
+•	Kugelhahn-Kugelhahn 	für	WZ	Qn	2,5,	Qn	6	und	3/7	
+•	Kugelhahn-KSR-Ventil 	für	WZ	Qn	2,5,	Qn	6	und	3/7	
+•	Schrägsitzventil-KSR-Ventil 	für	WZ	Qn	2,5,	Qn	6	und	3/7	
+•	Kugelhahn-KMR-Kugelhahn 	für	WZ	Qn	2,5,	Qn	6	und	3/7	
+•	Kugelhahn-Druckminderer-Kugelhahn 	für	WZ	Qn	2,5,	Qn	6	und	3/7
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20158
+Aktuelle Informationen auf: www.ewe-armaturen.deBaumaße für Wasserzähler:
+•	Qn	2,5	entspricht	190	mm,	Anschlussgewinde 	G	1"
+•	Qn	6	entspricht	260	mm,	Anschlussgewinde 	G	1	1/4"
+•	Qn	3/7	(Ausf.	Österr eich)	entspricht	175	mm,	Anschlussgewinde 	G	1	1/4"
+•	Qn	2,5	(Ausf.	Schweiz)	220	mm,	Anschlussgewinde 	G	1"
+1.6 Tr
+ansport und Lagerung
+•	Den	Wasserzähler-Schacht 	bis	zur	Verwendung 	in	der	werk seitigen	Verpack ung	
+stehend	tr
+ansportieren 	und	lagern.
+1.7 Funkt
+ionsbeschreibung
+Die	Wasserzähler
+-Schächte	sind	für	den	Einbau	im	R
+ohrgraben	vor
+gesehen.	Sie	k
+önnen	
+vielseitig	verwendet	wer
+den,	so	z.	B.	als	Hausanschluss, 	als	Bauwasser
+anschluss,	in	
+Park
+-	oder	Kleingartenanlagen, 	auf	C
+ampingplätzen 	oder	F
+riedhöfen.	Dur
+ch	seine	
+geringen	Baumaße	ist	der	Wasserzähler
+-Schacht	ohne	aufwänd
+ige	Er
+darbeiten	einfach	
+im	R
+ohrgraben	zu	instal
+lieren.	Der	Wasserzähler
+-Schacht	ist	tagwasser
+dicht,	hygienisch	
+sauber	und	ermögl
+icht	einen	fr
+ostfreien	Betrieb	der	Wasserzähler
+-Anlage	und	des	Was-
+serzählers.	Ein	Einst
+ieg	in	den	Wasserzähler
+-Schacht	ist	nicht	erfor
+derlich	und	auch	nicht	
+möglich.	Die	einschlägigen 	Unfal
+lverhütungsvorschriften 	zum	Begehen	von	Schächten	
+finden	somit	k
+eine	Anwendung.
+2. Einbauhinweise (Installat
+ion/Montage)
+2.1 Hinweise zur V
+orbereitung 
+VORSICHTVor	dem	Einsatz	sind	der	Wasserzähler -Schacht	und	d ie	Wasserzähler -Schacht-
+anlagen	auf	Beschäd
+igung	oder	Verunr
+einigung	zu	prüfen.	Ein	beschäd
+igter	
+Schacht	oder	eine	beschäd
+igte	Armatur	dürfen	nicht	eingesetzt	wer
+den.	
+Vor	Montage	des	Wasserzählers 	in	d
+ie	Wasserzähler
+anlage	ist	eine	L
+eitungs-
+spülung	dur
+chzuführen,	hierzu	sol
+lte	ein	P
+assstück	verwendet	wer
+den.		
+Die	Wasserzähler
+-Schachtanlage 	wir
+d	werk
+sseitig	mit	einem	PE-P
+assstück	mont
+iert.	Das	
+PE-Passstück 	d
+ient	led
+iglich	als	Platzhal
+ter	für	den	Wasserzähler 	und	ist	nicht	für	den	
+Dauerbetrieb 	geeignet.
+2.2  
+ Hinweise zum Einbauort
+!Der	Wasserzähler-Schacht 	sol lte	nach	Mögl ichkeit	an	einer	erhöhten	Stel le	im	
+Gelände	angeor
+dnet	wer
+den	oder	einige	cm	über	das	Geländeniveau 	hinausr
+a-
+gen.	Die	Auswahl	der	Baugr
+öße	des	Schachtes	ist	auf	d
+ie	fr
+ostfreie	Verleget
+iefe	
+der	R
+ohrleitung	abzust
+immen	und	l
+iegt	ausschl
+ießlich	in	der	Ver
+antwortung	des	
+Anwenders.
+Der	Wasserzähler
+-Schacht	hat	aufgrund	seiner	äußer
+en	F
+orm	ein	günst
+iges	Verhal
+ten	
+gegen	Auftrieb.	Vor
+aussetzung	ist	der	fachger
+echte	Einbau	mit	Kiesverfül
+lung	und	
+lagenweiser	Ver
+dichtung.	Der	Schacht
+körper	ist	wasser
+dicht	ausgeführt	und	d
+ie	Verbin-
+dung	zum	Deck
+el	ist	d
+icht	gegen	Schwal
+lwasser.		
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/20159
+Aktuelle Informationen auf: www.ewe-armaturen.deIn	Gebieten	mit	Gefahr	zeitweiliger	Überflutung	sollte	ein	Fachmann	des	Grundbaues	zu	
+Rate	gezogen	wer
+den.
+In	Anlehnung	an	d
+ie	DIN	1229	und	d
+ie	DIN	EN	124,	Klasse	A15,	Gruppe	1	ist	d
+ie	
+Befahrbarkeit 	des	Schachtes	eingeschr
+änkt.		
+Der	Einsatz	in	Verk
+ehrsflächen	ist	demzufolge	nur	zulässig,	wenn	es	sich	um	Fußgänger
+-	
+und	R
+adfahrverkehr 	handel
+t.	
+Die	Befahrbark
+eit	des	Wasserzähler
+-Schachtes	in	Verbindung	mit	der	EWE-
+Wasserzäh-
+ler-Schachtumrandung 	B125		ist	in	Anlehnung	an	d
+ie	DIN	1229	und	der	DIN	EN	124,	
+Klasse	B125,	Gruppe	2	sicher
+gestellt.	Der	Einsatz	in	Verk
+ehrsflächen	ist	demzufolge	
+zulässig,	wenn	es	sich	um	Gehwege,	F
+ußgängerzonen 	und	ver
+gleichbare	Flächen,	
+PKW
+-Parkflächen 	oder	PK
+W-Parkdecks 	handel
+t.
+!Sollen	dem	Wasserzähler-Schacht 	flachl iegende	Versor gungsleitungen
+(sogenannte 	Sommerleitungen) 	nachgeschal
+tet	wer
+den,	d
+ie	vor	Beginn	der	
+Fr
+ostperiode	ent
+leert	wer
+den	müssen,	so	empfehlen	wir	in	der	L
+eitungsführung 	
+zwischen	dem	Schachtausgang 	und	der	Entnahmestelle 	eine	speziel
+le	Armatur	anzu-
+or
+dnen,	z.	B.	ein	EWE-Gartenvent
+il	in	K
+ombination	mit	einer	Einbaugarnitur
+.	Bei	einer	
+Entnahmestelle 	im	F
+reien	bietet	ein	EWE-Gartenhydr
+ant	den	gleichen	K
+omfort.
+!Eine	Entleerung	der	nachfolgenden 	Versor gungsleitung 	im	Schacht körper	
+erfordert	aus	hygienischer 	Sicht	besonder
+e	Sor
+gfalt.	So	ist	währ
+end	einer	
+Entleerung	das	ausgetr
+etene	Wasser	unverzügl
+ich	abzupumpen 	und	danach	das	
+Entleerungsvent
+il	zu	schl
+ießen,	um	mögl
+iche	Verunr
+einigungen	im	L
+eitungsnetz	zu	
+verhindern.
+2.3 Montage
+Der	Wasserzähler
+-Schacht	wir
+d	einbaufert
+ig	gel
+iefert	und	k
+ann	in	den	vorber
+eiteten	
+Graben	eingesetzt	wer
+den.	Die	Gr
+abensohle	ist	an	der	vor
+gesehenen	Stel
+le	plangleich	
+einzuebnen	und	vorzuver
+dichten,	so	dass	der	Schacht	senkr
+echt	und	gleichmäßig	
+aufsteht.	Beim	Absetzen	ist	ber
+eits	auf	d
+ie	Fl
+ießrichtung	zu	achten.	
+Die	Richtungspfeile 	sind	auf	der	Grundplat
+te	des	Schachtes	eingepr
+ägt.		
+!Vor	dem	Herstellen	der	Anschlussverbindungen 	ist	dar auf	zu	achten,	dass	d ie	
+Rohrleitung	gespül
+t	ist	und	k
+eine	Verunr
+einigungen	in	das	S
+ystem	gelangen.
+Die	Herstel
+lung	der	Verbindungen 	zwischen	der	Anschlussmuffe 	des	Schachtes	
+und	dem	R
+ohr	erfolgt	nach	den	Richt
+linien	des	Herstel
+lers	der	Anschlussfitt
+ings.
+!Die	Sicherungsmuttern 	der	Schachtdurchführungen/Anschlussmuffen 	dürfen	auf	
+keinen	F
+all	gelöst	wer
+den.
+Nach	erfolgr
+eicher	Dicht
+heitsprüfung 	k
+ann	d
+ie	Gr
+abenverfüllung 	im	Ber
+eich	des	
+Wasserzähler
+-Schachtes	erfolgen.	
+	
+!Es	ist	unbedingt	darauf	zu	achten,	dass	lagenweise	verfül lt	und	umlaufend	
+gleichmäßig	ver
+dichtet	wir
+d.	Dur
+ch	den	umlaufenden 	P
+rotector-Ring 	k
+ann	der	
+Schacht	sicher	in	d
+ie	Oberfläche	eingebunden 	wer
+den.
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201510
+Aktuelle Informationen auf: www.ewe-armaturen.deBesonderheiten bei der Montage des Teleskop-Wasserzähler-Schachtes
+Vor	dem	Einbau	wir
+d	der	Telesk
+opeinsatz	
+herausgezogen.
+1.
+Die	Teleskopdichtung 	ist	als	Z ubehör	am	
+Handrad	festgebunden.
+2.
+Die	Teleskopdichtung 	wir d	in	den		
+Schacht
+körper	eingelegt.
+Die	Innenseite	der	Dichtung	wir
+d	mit	
+Gleitmittel	eingestrichen.
+Der	zyl
+indrische	Außenbereich 	wir
+d	mit	
+Gleitmittel	eingestrichen.
+3.
+4.
+Anschließend 	wird	der	Schachteinsatz 	
+wieder	eingesteckt	und	dur
+ch	leichte	seit-
+l
+iche	Kippbewegungen 	in	d
+ie	gewünschte	
+Posit
+ion	gebr
+acht.
+Die	maximale	R
+ohrdeckung	ist	dur
+ch	
+eine	Markierung	auf	der	Außenseite	des	
+Schachteinsatzes 	gek
+ennzeichnet.
+Bevor	d
+ie	Verfül
+lung	den	Ber
+eich	des	
+oberen	Telesk
+op-Schachteinsatzes 	err
+eicht,	
+muss	d
+ie	Einbauhöhe	k
+ontrolliert	und	
+eventuell	k
+orrigiert	wer
+den.
+5.
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201511
+Aktuelle Informationen auf: www.ewe-armaturen.deZum	Schluss	wird	die	Telesk op-Griffstange 	im	Inner en	des	Schachtes	auf	eine	geeignete	
+Höhe	eingestel
+lt	(mind.	250	mm	unterhal
+b	der	Oberk
+ante	des	P
+rotector-Ringes) 	und	
+mit	dem	mitgel
+ieferten	Spl
+int	gesichert.	Diese	Mindest
+höhe	ist	notwend
+ig,	damit	beim	
+Schließen	des	Deck
+els	auch	das	eingelegte	F
+rostschutzkissen 	seinen	erfor
+delichen	Platz	
+erhält.
+Z
+usätzliche Hinweise zum Einbau des Garten-Wasserzählerschachtes
+Der	EWE-Garten-
+Wasserzählerschacht 	ist	für	den	Einbau	in	L
+eitungen	von	geringer	Tiefe	
+vorgesehen.	Dieser	EWE-Garten-
+Wasserzählerschacht 	ist	ausschl
+ießlich	für	„Sommerlei-
+tungen“
+,	d.h.	für	L
+eitungen	d
+ie	vor	dem	F
+rost	ent
+leert	und	erst	nach	dem	F
+rost	wieder	
+befüll
+t	wer
+den!
+3. Betrieb und V
+erwendung
+Vor	der	Inbetriebnahme 	muss	eine	Inaugenscheinnahme 	des	Wasserzähler
+-Schachtes,	
+der	Wasserzähler
+-Schachtarmaturen 	und	der	gesamten	Anlage	erfolgen.
+3.1 Funkt
+ionskontrolle
+!Die	gesamte	Anlage	ist	auf	ihr e	F unktion	zu	prüfen.
+3.2  V
+erriegelung
+Der	Schacht	ist	gegen	unbefugtes	Öffnen	dur
+ch	eine	Deck
+elver-
+riegelung	gesichert.	Mit	einem	geeigneten	Werkzeug	k
+ann	der	
+Kunststoffstopfen 	im	Deck
+el	ent
+fernt	und	der	Verriegelungssechs-
+k
+ant	mit	dem	beil
+iegenden	Schlüssel	entspr
+echend	den	eingepr
+äg-
+ten	Richtungspfeilen 	betät
+igt	wer
+den.	K
+eine	sonst
+igen	Schlüssel	mit	
+langem	Hebelarm	benutzen.
+3.3  F
+rostschutz
+!Das	mitgelieferte 	Isolierkissen	wird	auf	d ie	
+Griffstange	gelegt	und	dem	Dur
+chmesser	des	
+Schachtes	angepasst.	Es	ist	unbed
+ingt	zu	
+verwenden,	weil	es	zur	Wärmeisolat
+ion	des	Schachtes	beitr
+ägt.		
+Die	F
+rostsicherheit 	ist	dur
+ch	den	ört
+lichen	Einbau,	insbesonder
+e	dur
+ch	eine	richt
+ig	
+gewählte	Einbaut
+iefe	sicherzustel
+len.	Die	Gewährleistung 	der	F
+rostfreiheit	von	
+Rohrleitung	und	Schacht	l
+iegt	deshal
+b	ausschl
+ießlich	in	der	Ver
+antwortung	der	
+planenden	und	bauausführ
+enden	Stel
+le.
+
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201512
+Aktuelle Informationen auf: www.ewe-armaturen.de4. Wartung und Instandhaltung
+4.1 Zähler
+ablesung und Zählerwechsel
+Nach	Ent
+fernen	von	Deck
+el	und	Isol
+ier-	
+kissen	erfolgt	das	Her
+ausziehen	der	
+Wasserzähler
+-Schachtanlage 	unter	
+leichtem	Dr
+ehen	mit	Hil
+fe	der	Griffstange.
+	
+!Durch	langsames	Drehen	beim	
+Anheben	bzw
+.	Absenken	wir
+d	eine	
+Zwangsbelastung 	auf	d
+ie	
+Schläuche	bzw
+.	ein	Knick
+en	der	Schläuche	
+vermieden.
+1.
+Durch	die	flexiblen	Schläuche	kann	die	
+Wasserzähler
+-Schachtanlage 	bequem	
+neben	der	Schachtöffnung 	abgelegt	und	
+abgelesen	wer
+den.	Z
+ählereinbau	bzw
+.	
+Zählerwechsel 	in	gewohnter	Weise	dur
+ch	
+Lösen	der	Überwurfmut
+tern	dur
+chführen.
+Unter	leichtem	Dr
+ehen	am	Griffr
+ad	wir
+d	
+die	Wasserzähler
+-Schachtanlage 	wieder	
+abgesenkt.
+Nicht	ver
+gessen,	das	Isol
+ierkissen	einzule-
+gen,	bevor	der	Deck
+el	geschlossen	wir
+d.
+2.
+3.
+4.
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201513
+Aktuelle Informationen auf: www.ewe-armaturen.de5. Zubehör
+5.1 Wasser
+dichter Schachtdeckel, Artikelnummer 0399929
+5.1.1  Werkstoff/Abmessungen/Leistung
+W
+erkstoff:
+•	wasserdichter, 	verriegel barer	Deck el	aus	GG	mit	Dichtung	und	umlaufendem 	
+Pr
+otectorring	aus	P
+A
+Abmessungen:
+•	425	mm	Außendurchmesser 	ohne	P rotectorring	
+•	447	mm	Außendurchmesser 	mit	P rotectorring
+5.1.2  Funkt
+ionsbeschreibung
+Um	bei	stehendem	Wasser	eine	Dicht
+igkeit	des	Schacht
+körpers	zu	err
+eichen,	wir
+d	dur
+ch	
+das	Anziehen	der	Verriegelungselemente/V
+erschlussriegel 	d
+ie	Dichtung	des	Schachtde-
+ck
+els	gegen	den	Schacht
+körper	gepr
+esst.	
+5.1.3  Einbauhinweise
+Öffnen des Deckels
+1
+.	Zwei	Verschlussstopfen 	dur
+ch	Her
+ausziehen	entnehmen.
+2
+.	Den	beil
+iegenden	Steck
+schlüssel	6	kt.	SW	13	auf	d
+ie	Spindel	steck
+en	und	dur
+ch	
+Linksdr
+ehen	(gegen	den	Uhrzeigersinn) 	bis	zum	merkl
+ichen	Anschlag	dr
+ehen.
+3.	Nach	dem	Entriegeln	beider	Riegel	den	Schachtdeck
+el	nach	oben	entnehmen.
+4
+.	Deckel	zum	Schutz	vor	Verschmutzung 	der	Verriegelungsteile 	auf	d
+ie	beschriftete	
+Seite	legen.
+Schl
+ießen des Deckels
+1.	Vor	dem	Aufsetzen	des	Deck
+els	den	Schachtr
+and	und	d
+ie	Dichtung	auf	Verschmut-
+zung	überprüfen	und	ggf.	r
+einigen.
+2.	Position	des	Isol
+ierkissens	überprüfen	und	auf	fr
+eie	Bewegl
+ichkeit	der	Riegel	achten.
+3
+.	Deckel	auf	den	Schachtr
+and	aufsetzen.	
+4.	Z
+um	Vorspannen	der	Dichtung	sowie	bei	dem	Verschr
+auben	der	Verriegelung 	mit	
+dem	gesamten	K
+örpergewicht 	auf	den	Deck
+el	tr
+eten.	
+5.	Mit	dem	Steck
+schlüssel	r
+echtsdrehend 	(im	Uhrzeigersinn) 	bis	zum	merkl
+ichen	
+Anschlag	dr
+ehen.	Dabei	ist	auf	gleichmäßiges 	Anziehen	der	Schr
+auben	zu	achten.
+6
+.	Verschlussstopfen 	in	beide	Bohrungen	einsteck
+en.
+!Keine	Schlüsselverlängerung 	verwenden!	Ordnungsgemäße 	Verriegelung 	dur ch	
+Anheben	des	Deck
+els	k
+ontrollieren.
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201514
+Aktuelle Informationen auf: www.ewe-armaturen.de5.2 Wasserzähler-Schachtumrandung B 125, Artikelnummer 0399301
+5.2.1  Werkstoff/Abmessungen/Leistung
+W
+erkstoff:
+•	aus	GG	mit	Moosgummi-Dichtung 	für	den	Schachtkörper
+Abmessungen:
+•	550	mm	Außendurchmesser 	
+•	435	mm	Innendurchmesser
+5.2.2  Funkt
+ionsbeschreibung
+Die	Wasserzähler
+-Schachtumrandung 	d
+ient	zur	Aufrüstung	al
+ler	EWE-
+Wasserzähler-
+schacht-Modelle 	Qn	2,5,	Qn	6	und	3/7	(Klasse	A	15)	auf	Klasse	B	125.	Der	ber
+eits	
+vorhandene	gusseiserne	Schachtdeck
+el	wir
+d	für	d
+ie	Erweiterung	wieder	verwendet.
+Die	Befahrbark
+eit	des	Wasserzähler
+-Schachtes	in	Verbindung	mit	der	Wasserzäh-
+ler
+-Schachtumrandung 	B125	ist	sicher	gestel
+lt	entspr
+echend	der	DIN	1229	und	der		
+DIN	EN	124,	Klasse	B125,	Gruppe	2.	Der	Einsatz	in	Verk
+ehrsflächen	ist	demzufolge	
+zulässig,	wenn	es	sich	um	Gehwege,	F
+ußgängerzonen 	und	ver
+gleichbare	Flächen,	
+PKW
+-Parkflächen 	oder	PK
+W-Parkdecks 	handel
+t.
+5.2.3  Einbauhinweise
+1.	Den	Deck
+el	(3)	vom	Schacht
+körper	(4)	ent
+fernen,	danach	den	angeschr
+aubten	
+Kunststoff-P
+rotectorring	demont
+ieren.
+2.	Aufwerfungen 	im	Ber
+eich	der	Schr
+aubenlöcher	mit	einem	scharfen	Messer	ent
+fernen	
+oder	mit	einem	Schl
+itzschraubendreher 	glät
+ten.
+3.	!Beim	Einbau	des	EWE-Wasserzähler-Schachtes 	(4)	ist	darauf	zu	achten,	dass	
+durch	Verwendung 	der	EWE-
+Wasserzähler-Schachtumrandung 	B125	(1)	d
+ie	
+Einbautiefe	des	Schachtes	um	cir
+ca	10	cm	erhöht	wir
+d.
+4.	Die	Höhe	der	Auflagefläche 	(7)	muss	der	Absatzhöhe	des	Wasserzähler
+-Schachtes	
+entsprechen. 	Es	darf	led
+iglich	ein	Bund	von	ca.	5	cm	fr
+eistehen.	Die	Fläche	muss	
+verd
+ichtet	sein.	F
+reistehenden 	Bund	(5)	des	Schacht
+körpers	r
+einigen.	
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201515
+Aktuelle Informationen auf: www.ewe-armaturen.deSchematische 	Darstellung:	EWE-Wasserzähler-Schacht 	mit	Schachtumrandung
+1	Wasserzähler-Schachtumrandung	 4 	Wasserzähler -Schacht	 7 	Auflagefläche 	für	Schachtumr andung
+2	R
+unddichtung	 5	ober
+er	Bund	des	Schachtes	
+8	Distanzsteg
+3	Schachtdeck
+el	 6	Vierkanteinleger	 9	K
+ante	der	Schachtumr
+andung
+9
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201516
+Aktuelle Informationen auf: www.ewe-armaturen.de
+Wasserzähler-Schachtumrandung 	B125	
+(1)	mit	dem	Deck
+el	(3)	des	Wasserzäh-
+ler
+-Schachtes	verriegeln.	
+Die	Deckschicht	verdichten	und	glätten.
+!Beim	Aufsetzen	der	Wasserzähler -	
+Schachtumrandung 	B125	(1)	ist	
+sicherzustellen, 	dass	d
+ie	Schacht-	
+umr
+andung	auf	der	e
+xtra	geschaffenen 	
+Auflagefläche 	(7)	aufl
+iegt	und	nicht	auf	
+dem	R
+and	des	Schacht
+körpers.	Die	
+Distanzstege 	(8)	müssen	sicht
+bar	bleiben.
+Die	Schachtumrandung 	muss	einseitig	
+angehoben	und	d
+ie	R
+unddichtung 	(2)	
+von	innen	rund
+herum	in	den	Spal
+t	gelegt	
+werden.
+Die	Wasserzähler
+-Schachtumrandung 	
+B125	(1)	in	d
+ie	Deck
+schicht	einbauen.	
+Hierbei	ist	abhängig	von	der	Deck
+schicht	
+so	zu	verfahr
+en,	wie	es	beim	Einbau	von	
+Schachtdeckeln 	übl
+ich	ist.	Eine	Entwässe-
+rung	über	d
+ie	seit
+lichen	Öffnungen	muss	
+gewährleistet 	sein.	Die	F
+uge	zwischen	
+Schachtdeckel 	und	Schachtumr
+andung	
+sowie	der
+en	Entwässerungsöffnungen 	
+müssen	auf	Verschmutzung 	bzw
+.	Steine	
+untersucht	und	ggf.	ger
+einigt	wer
+den.		
+Erst	danach	wir
+d	der	Vierkanteinleger 	
+(6),	der	Bestand
+teil	des	Schachtumr
+an-
+dung-Sets	ist,	eingelegt.	Runddichtung 	von	innen	in	den	
+Spalt	legen.1.
+2.
+3.
+4.
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201517
+Aktuelle Informationen auf: www.ewe-armaturen.de5.3 Schachtverlängerung und Schachtaufsatz
+•	Schachtverlängerung 	70	mm,	Artik elnummer:	0399309
+•	Schachtverlängerung 	100	mm,	Artik elnummer:	0399310
+•	Schachtverlängerung 	150	mm,	Artik elnummer:	0399315
+•	Schachtverlängerung 	200	mm,	Artik elnummer:	0399320
+•	Schachtverlängerung 	nach	Wunsch,	Artik elnummer:	0399308
+•	Schachtaufsatz, 	250	mm,	Artik elnummer:	0399975/0399974
+5.3.1  Werkstoff/Abmessungen/Leistung
+W
+erkstoff:
+•	PE
+Abmessungen: 
+•	Verlängerung 	des	Schachtkörpers 	je	nach	Ausführung	um	70-250	mm
+5.3.2  Funkt
+ionsbeschreibung
+Zum	Aufsetzen	auf	den	Schacht
+körper,	um	d
+ie	Höhe	„
+vor	Ort
+“	den	baul
+ichen
+Gegebenheiten 	im	Gelände	anzupassen.	Die	Abdichtung	zum	Schacht
+körper	erfolgt	auf	
+der	Baustel
+le	mit	Dichtmit
+teln	wie	z.	B.	Sil
+ikon	oder	Fixierband,	d
+ie	nicht	im	Lieferum-
+fang	ent
+halten	sind.
+5.3.3  Einbauhinweise Schachtverlängerung
+1.Kunststoff-Protectorring 	entfernen.
+Dichtfläche	von	Gr
+at,	Schmutz	und	losen	
+Teilen	befr
+eien,	um	d
+ie	einzulegende 	
+Dichtung	nicht	zu	beschäd
+igen.
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201518
+Aktuelle Informationen auf: www.ewe-armaturen.de
+2.
+3.
+4.Die	Schacht-Verlängerung 	auf	den	
+Schachtk
+örper	aufsetzen.
+Die	R
+undschnur-Dichtung 	von	innen	
+zwischen	der	Verlängerung 	und	dem	
+Schachtk
+örper	einlegen.	
+Diese	sol
+lte	cir
+ca	2-3	cm	t
+ief	eingedrückt	
+werden.	Ein	Gleitmit
+tel	k
+ann	hierbei	zur	
+leichteren	Montage	verwendet	wer
+den.
+Um	eine	zusätzl
+iche	Fixierung	zu	gewähr
+-
+leisten,	empfehlen	wir	ein	Fixierhal
+teband	
+für	Schachtaufsätze. 	Das	Band	wir
+d	
+außen	auf	d
+ie	Verbindungsstel
+le	zwischen	
+Schachtk
+örper	und	Schachtaufsatz 	
+montiert	(EWE-Art
+ikel-Nr.	0080009	bit
+te	
+separat	bestel
+len).
+Den	P
+rotector-Ring 	wieder	auf	dem		
+ober
+en	Rand	der	Verlängerung 	festschrau-
+ben.
+5.3.4  Einbauhinweise Schachtaufsatz
+Die	Aufsatzdichtung 	mit	der	Lippe	in	Rich-
+tung	Schachtinner
+es	in	den	Schachtaufsatz 	
+legen	(gemäß	Z
+eichnung).
+1.Kunststoff-Protectorring 	entfernen.
+Dichtfläche	von	Gr
+at,	Schmutz	und	losen	
+Teilen	befr
+eien,	um	d
+ie	einzulegende 	
+Dichtung	nicht	zu	beschäd
+igen.
+2.
+
+Benutzerinformation
+EWE-Wasserzähler-Schacht
+Ausgabe 06/201519
+Aktuelle Informationen auf: www.ewe-armaturen.de
+Dichtung	und	Aufnahme	des	Schacht-
+k
+örpers	mit	einem	Gleitmit
+tel	versehen.	
+Durch	das	Gleitmit
+tel	ist	eine	sauber
+e	
+Montage	des	Aufsatzes	ohne	Verrutschen	
+der	Dichtung	gewährleistet.
+Schachtaufsatz 	auf	d
+ie	Aufnahme	des	
+Schachtk
+örpers	aufsetzen	und	mit	leichter	
+Bewegung	über	d
+ie	Aufnahme	nach	unten	
+drücken.
+Um	eine	zusätzl
+iche	Fixierung	zu	gewähr
+-
+leisten,	empfehlen	wir	ein	Fixierhal
+teband	
+für	Schachtaufsätze. 	Das	Band	wir
+d	
+außen	auf	d
+ie	Verbindungsstel
+le	zwischen	
+Schachtk
+örper	und	Schachtaufsatz 	
+montiert	(EWE-Art
+ikel-Nr.	0080009	bit
+te		
+separat	bestel
+len).
+Den	P
+rotector-Ring 	wieder	auf	dem		
+ober
+en	Rand	der	Verlängerung 	festschrau-
+ben.3.
+4.
+5.
+
+Braunschweig
+ WILHELM EWE GmbH & Co. KG EWE Vertriebs-GmbH
+ Volkmaroder Straße 19 Stubenberg am See 136
+ 38104 Braunschweig 8223 Österreich
+ Tel.: +49 531 37005-0 Tel.: +43 664 4407654
+ Fax: +49 531 37005-55 Fax: +43 810 9554 157628
+ E-Mail: info@ewe-armaturen.de E-Mail: bernhard.kneissl@ewe-armaturen.at www.ewe-armaturen.de Internet: www.ewe-armaturen.at
+

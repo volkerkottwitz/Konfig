@@ -1,0 +1,143 @@
+Alle Angaben ohne Gewähr!Übersicht EWE-Haltestücke
+für EWE-Anbohrarmaturen
+für Asbest-Zement-, Zement-, Guss- und Stahlrohre
+Bestell- Anschluss- Rohr- Bau- für Hauptrohr
+nummer Stück Außen Ø länge Guss Guss Stahl Stahl AZ AZ AZ
+Halte- mm mm ZM ZM PN 10 PN 12,5 PN 16
+stück DN DN DN DN DN DN DN DN
+0108215 50/70 60-66 255 50 50
+0108216 50/70 77-87 290 60-70 65
+0108217 80 88-108 325 80 80 80 80 80 80
+0108218 100 109-133 380 100 100 100 100 100 100 1000108219 125 134-159 440 125 125 125 125 125 1250108220 150/175 160-189 490 150 150 150 150 150 150 1500108226 150/175 190-205 520 1750108221 200/225 219-259 650 200 200 200 200 200 200 200
+225
+0108222 250 260-308 780 250 250 250 250 250 250 250
+275
+0108223 300 309-368 910 300 300 300 300 300 300
+0108224 350/400 360-382 1050 350 350 350 300*
+0108233 350/400 383-405 1110 350
+0108235 350/400 406-427 1170 400 400 350 350
+0108225 350/400 428-449 1230 400 400
+0108237 350/400 450-469 1290 425 450 400 400
+0108227 450/500 475-497 1280 450 400*
+0108239 450/500 498-519 1340 500 450
+0108228 450/500 520-544 1400 500 450
+0108241 450/500 545-567 1460 500 500 450
+0108243 450/500 568-589 1520 500
+0108245 450/500 590-606 1580 500
+*  in Verbindung mit Bohrloch-Dichthülse
+
+Anbohren und Hülsensetzen
+Volumenstrom bei einem Anbohrdurchmesser von
+m 24 mm 31 mm 36 mm       
+bar WS l/min m3/h l/min m3/h l/min m3/h
+1,0 10 340,2 20,4 553,1 33,2 566,8 46,0
+1,5 15 416,7 25,0 697,5 41,9 939,6 56,42,0 20 481,5 28,9 805,1 48,3 1084,5 65,12,5 25 538,2 32,3 900,0 54,0 1213,2 72,83,0 30 589,5 35,4 986,4 59,2 1329,3 79,83,5 35 637,2 38,2 1065,2 63,9 1434,6 86,14,0 40 681,3 40,9 1138,9 68,3 1535,4 92,14,5 45 722,7 43,4 1208,3 72,5 1628,1 97,75,0 50 761,4 45,7 1273,5 76,4 1717,2 103,05,5 55 799,2 47,9 1335,2 80,1 1799,1 107,96,0 60 834,3 50,0 1350,0 83,0 1880,1 112,86,5 65 868,5 52,1 1451,7 87,1 1956,6 117,47,0 70 900,9 54,0 1506,5 90,4 2030,4 121,87,5 75 933,3 56,0 1559,7 93,6 2101,5 126,18,0 80 963,9 57,8 1611,0 96,6 2169,9 130,28,5 85 993,6 59,6 1660,5 99,6 2235,6 134,19,0 90 1022,4 61,3 1709,1 102,5 2302,2 138,19,5 95 1050,3 63,0 1755,5 105,3 2365,2 141,9
+10,0 100 1077,3 64,6 1800,9 108,1 2466,1 147,911,0 110 1130,4 67,8 1889,1 113,3 2545,2 152,712,0 120 1180,8 70,8 1972,8 118,4 2658,6 159,513,0 130 1228,5 73,7 2282,0 126,9 2767,5 166,114,0 140 1274,4 76,5 2130,7 127,8 2871,0 172,315,0 150 1319,4 79,2 2205,9 132,4 2971,8 178,316,0 160 1362,6 81,8 2277,9 136,7 3069,9 184,2
+24 mm Ø
+452 mm2
+Alle Angaben ohne Gewähr!31 mm Ø
+755 mm236 mm Ø1018 mm
+2
+
+Auslaufmengen aus Öffnungen
+verschiedener Größe
+Obige Zahlenwerte gelten  bei 5 bar Betr iebsdruck mit 100 %
+  
+  bei 4 bar Betr
+iebsdruck mit   89 %
+  
+  bei 3 bar Betr
+iebsdruck mit   77 %
+  
+  bei 2 bar Betr
+iebsdruck mit   63 %
+  
+  bei 1 bar Betr
+iebsdruck mit   45 %
+Alle Angaben ohne Gewähr!                                 Liter in der                                   Kubikmeter pro
+mm Minute Stunde Tag Monat
+0,5 0,33 20 0,48 14,4
+1,0 0,97 58 1,39 41,6
+1,5 1,82 110 2,64 79,0
+2,0 3,16 190 4,56 136,0
+2,5 5,09 305 7,30 218,0
+3,0 8,15 490 11,75 351,0
+3,5 11,30 680 16,30 490,0
+4,0 14,80 890 21,40 640,0
+4,5 18,20 1100 26,40 790,0
+5,0 22,30 1340 32,00 960,0
+5,5 26,00 1560 37,40 1120,0
+6,0 30,00 1800 43,20 1300,0
+6,5 34,00 2050 49,10 1478,0
+7,0 39,30 2360 56,80 1700,0
+
+Anwendungshilfe: 
+Welche Spüleinrichtung für welche Armatur?
+Armatur
+Kugel-Ventil-Anbohrarmatur und Kugel-AnbohrarmaturSpüleinrichtungSpülhahn, Artikelnummer 1130314
+ArmaturVentil-AnbohrarmaturSpüleinrichtungSpülarmatur, Artikelnummer 113011X
+ArmaturKugelhahn-Anbohrarmatur, Kolbenschieber-Anbohrarmatur und Kera-AnbohrarmaturSpüleinrichtungSpülstück, Bestellnummer 1130414
+
+
+Anwendungshilfe:
+Welche Hülse für welche Rohrart?
+Bohrloch-Hülse
+	 für EWE-Anbohrarmaturen 
+	 aus Kunststoﬀ
+	 für Guss- und Stahlrohre
+	 hält das Bohrloch frei
+	 vermeidet das Zuwachsen des Bohrlochs durch Inkrustation 
+	 leichte Montage unter Druck mit dem dazugehörigen Bohr-
+loch-Hülsen-Setzgerät
+Bohrloch-Dichthülse
+	 für EWE-Anbohrarmaturen 
+	 dichtet - speziell bei ZMU-Rohren direkt im Bohrloch gegen die Rohrwandung ab
+	 vermeidet das Zuwachsen des Bohrlochs durch Inkrustation 
+	 das aufwendige Entfernen der Außenumhüllung bei Mehr-schicht-Rohren und das Nachisolieren entfällt
+	 Zerstörung des Korrosionsschutzes wird vermieden
+	 leichte Montage unter Druck mit dem dazugehörigen Bohr-loch- und PE-Hülsen-Setzgerät
+PE-Hülse
+	 für EWE-Anbohrarmaturen
+	 mit dieser Hülse sind schraubbare Anbohrarmaturen, die für PVC-Rohre eingesetzt werden, auch für PE-Rohre einsetzbar
+	 Hülse schneidet sich mit ihrem konischen Gewinde in das Bohrloch des PE-Rohres 
+	 ein Weg/f_ließen des PE-Rohres von der Dichtung wird ver-mieden
+	 leichte Montage unter Druck mit dem dazugehörigen Bohr-loch- und PE-Hülsen-Setzgerät
+	 Schweißaufwand entfällt, die Montage ist witterungsunsab-hängig
+
+
+Anwendungshilfe: 
+Welche Hilfsabsperrung für welche Armatur?
+Armatur
+Kugel-Ventil-Anbohrarmatur und Kugel-AnbohrarmaturHilfsabsperrungintegrierte Kugel
+ArmaturVentil-AnbohrarmaturHilfsabsperrungSpülarmatur, Bestellnummer 113011X
+ArmaturKugelhahn-Anbohrarmatur, Kolbenschieber-Anbohrarmatur und Kera-AnbohrarmaturHilfsabsperrungHilfsabsperrung = Betriebsabsperrung
+
+
+Anwendungshilfe: 
+Welches Bohrwerkzeug für welche Rohrart?
+RohrartBohrer
+mit Wechsel-Schneid-PlatteArt.-Nr.6123223„HM“Bohrer
+Art.-Nr. 
+61218..„HSS“Bohrer
+Art.-Nr. 
+61222..„HM“Fräsermit HM-Zentrier-BohrerArt.-Nr. 6121623„HSS“Fräser
+Art.-Nr. 
+61226..„HSS“Fräser
+Art.-Nr. 
+61224..„HSS“Bohr-Schneider
+Art.-Nr.
+61228..
+Gussrohr    (    )
+ohne Umhüllung
+Gussrohr    (    )
+außen PE-UmhüllungGussrohr mit ZMU
+innen und außen
+Stahlrohr mit ZMU    (    )
+innen und außenStahlrohr    (    )
+mit InnenzementStahlrohr    (    )
+ohne UmhüllungStahlrohr    (    )
+außen PE-UmhüllungAsbest-Zement-Rohr    (    )
+PVC-Rohr
+PE-HD-Rohr
+  (    )  Mit Einschränkungen geeignet – hoher Verschleiß
+

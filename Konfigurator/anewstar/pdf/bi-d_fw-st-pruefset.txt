@@ -1,0 +1,311 @@
+Prüfset für
+Feuerwehr-Systemtrenner B-FW
+Benutzerinformation
+#7100051 - Ausgabe 03/2022
+
+2  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW
+Inhaltsverzeichnis
+Allgemeine Hinweise 4 
+Prüfset für Feuerwehr-Systemtrenner  6 Benutzerhinweise 8 Montage 8 Prüfung 8 Wartung und Instandhaltung 10Feuerwehr-Systemtrenner  B-FW Typ EWE 14
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  3
+
+
+4  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FWAllgemeine Hinweise
+	 Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	 Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter-netseite: www.ewe-armaturen.de.
+	 Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	 Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	 Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten. 
+	 Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge-schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	 Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor-schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	 Es dürfen ausschließlich Geräte, die in dieser Benutzerinformation aufgeführt sind,für diese Anwendung verwendet werden.
+	 Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	 Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	 Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	 Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	 Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	 Es gelten unsere Allgemeinen Verkaufsbedingungen.
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  5Verpackung
+	 Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver-packung soll die einzelnen Bauteile 
+ bis zur Montage v
+or Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Ver-wendung der Produkte.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent-sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann.
+HINWEIS:Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:Gibt nützliche Empfehlungen.
+Verwendung von Abkürzungen:
+Si:   Silicium
+PN:   Nenndruck
+DDM:   Differ
+enzdruckmessgerät
+SW:  Schlüsselw
+eite
+Nm:  Newtonmet
+er
+DIN:  Deutsches Institut für Nor
+mungDVGW:   Deutscher V erein des Gas- und  
+ Wasserfaches
+POM:   Poly
+oxymethylene
+PE-X:   Vernetzt
+es Polyethylen
+NBR:   Nitrile Butadiene Rubber
+EPDM:   Ethylen-P
+ropylen-Dien-Kautschuk
+
+6  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW1.2 Mitgeltende Unterlagen
+	 Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden.
+	 DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	 DIN EN 805 Wasserversorgung - „Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“
+	 DIN EN 1717 „Schutz des Trinkwassers vor Verunreinigungen in Trinkwasser-Installationen und allgemeine Anforderungen an Sicherungseinrichtungen zur Verhütung von Trinkwas-ser durch Rückfließen“
+	 DIN 14346 „Feuerwehrwesen - Mobile Systemtrenner B-FW“
+	 DVGW W405 „Bereitstellung von Löschwasser durch die öffentliche Trinkwasserversorgung“ 
+	 DVGW W408 „Anschluss von Entnahmevorrichtungen an Hydranten in Trinkwasservertei-lungsanlagen“
+	 DGUV 305-002, Anhang 1 „Wasserführende Armaturen & Zubehör“
+	 FwDV 1, Feuerwehr-Dienstvorschrift 1 „Grundtätigkeiten – Lösch- und Hilfeleistungseinsatz“1.Angaben über das Erzeugnis
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+Prüfset für Feuerwehr Systemtrenner nach DIN 14346
+Artikelnummer  9500905bestehend aus:  
+Differenzdruck-
+messgerät Genauigkeitsklasse 0,2%2 x Schläuche Eingangsarmatur mit  AblassventilAusgangsarmatur 
+Transportkoffer
+Zusätzlich wird benötigt:Kupplungsschlüssel, Anschlussleitung, Spülschlauch, 3 AA Batterien oder ein Stromkabel mit Mini-USB-Anschluss 
+Zubehör:
+Spülschlauch mit Geka-Kupplung, Geka auf C-Storz, Geka auf D-StorzErsatzteile siehe Lieferumfang
+
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  71.3 Verwendungsbereich/Medium
+	 Trinkwasser nach DIN 2000
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	 PN 10 
+1.5 Werkstoffe
+1. Eingangsarmatur :  Messing
+2. Ausgangsarma
+tur:  Messing
+3. Stor
+zkupplungen:  Aluminium
+4. Entleerungsven
+til:  Si-Messing, POM
+5. Messgerä
+t: Edelstahl 1.4301
+6. Geka: Messing
+7. Schläuche: PE-X, edelstahlummant
+elt
+8. Feuerw
+ehr-Systemtrenner BA (nicht im Lieferumfang enthalten)
+1.6 Funktionsbeschreibung
+	 Das Prüfset ist für die Prüfung von Feuerwehr-Systemtrennern B-FW nach DIN 14346 
+vorgesehen. 
+	 Es stellt den Schaltzeitpunkt des Rückflussverhinderers fest.
+	 Die Prüfungsdokumentation dient als Nachweis gegenüber dem Netzbetreiber.
+1.7 Transport und Lagerung
+	 Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und trocken lagern.
+657
+3
+4
+1
+67
+3
+2
+8
+
+8  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW2.Benutzerhinweise
+2.1 Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+3.Montage
+4.Prüfung
+4.1 Hinweis zur Prüfung
+	 Dokumentieren Sie die Prüfung im Prüfheft des Feuerwehr-Systemtrenners!1.
+	 Die Eingangs- und Ausgangsarmatur an 
+den fixierten Systemtrenner anbringen. Flussrichtung beachten!
+2.
+	 Schläuche an den Anschlussarmaturen und dem DDM anschließen. 
+	  Die Eingangsarmatur des Prüfsets mit dem 
+⊕-Anschluss des DDM 
+verbinden, die Ausgangsarmatur mit dem 
+⊖-Anschluss verbinden.
+3.
+	 Eingangsseitig den Trinkwasseranschluss herstellen, ausgangsseitig einen Spül-schlauch anschließen und den Ablauf fixieren.
+
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  91.
+	 Kugelhähne der Anschlussarmaturen 
+langsam öffnen.
+	 Der Feuerwehr-Systemtrenner entlüftet.
+2.
+	 Nach ausreichender Entlüftung, ausgangs-seitigen Kugelhahn schließen.
+3.
+	 Die Eingangsarmatur wird geschlossen, sobald der Druck stabil ist.
+4.
+	 Das Entleerungsventil langsam öffnen. Dabei das Messgerät beobachten: Es wird ein höherer Differenzdruck angezeigt und fällt langsam ab. 
+5.
+	 Entlastungsventil des Feuerwehr-Systemtrenners öffnet bei:
+•Δp > 0,14 bar → Prüfung bestanden
+•Δp < 0,14 bar → Prüfung nicht bestanden, 
+dann Kap. 5 beachten!
+4.2 Prüfungsablauf
+
+10  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW4.3 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+5.Wartung und Instandhaltung
+5.1 Wartung des Feuerwehr-Systemtrenners, Typ EWE
+1.
+ benötigtes Werkzeug:
+	 Wasserpumpenzange
+	 Schlüssel SW 7
+	 Schraubendreher
+	 Bandschlüssel
+2.
+	 Deckel mit Hilfe des Bandschlüssels 
+öffnen.
+	 Gehäuse an der Schlüsselfläche gegen-halten.
+3.
+	 Feder entfernen.
+4.
+	 Kolben entnehmen,  ggf. mit geeignetem Werkzeug rausdrücken.
+	 O-Ringe prüfen und ggf. vorsichtig mittels Schraubendreher entfernen.
+	 Dichtungsnut reinigen und neue O-Ringe montieren.
+
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  11
+5.
+	 Kolben vorsichtig im Schraubstock 
+fixieren, 4 Schrauben lösen (SW 7) und Ab-deckring entfernen.
+	 Neue Dichtungen nicht beschädigen.
+6.
+	 Formdichtung entfernen, Dichtungssitz reinigen, neue einlegen und Abdeckring mit 4 Schrauben über Kreuz anziehen.
+	 Die Anzugsmomente auf Seite 12 sind zu beachten.
+7.
+	 Dichtungen fetten (Empfehlung: UNISILIKON L 250).
+	 Kolben und Feder wieder einsetzen.
+8.
+	 Deckel mit Hilfe des Riemenschlüssels fest verschrauben und Feuerwehr-System- trenner mit dem Prüfset testen.
+5.2 Wartungshinweise für Prüfset und DDM
+	 Bei Verschmutzung ist eine Reinigung mit klarem Wasser ohne Zusatz von Reinigungsmit-teln durchzuführen.
+	 Bei beschädigten Teilen Wartung und Instandhaltung durchführen.
+	 DDM in regelmäßigen Abständen auf Genauigkeit überprüfen.
+
+12  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW5.3 Instandhaltungshinweise zum Feuerwehr-Systemtrenner B-FW
+5.3.1 Anzugsmoment
+HOMES_A2 29-NOV-2018HGFEDCBA
+1 2 3 4 5 6 7 81 2 3 4 5 6 7 8
+ACHTUNG!
+Alle 4 Schraubenvon Hand anlegenund über Kreuzmit 3Nm anziehenAnzugsmomente 90Nm
+80Nm 80Nm
+Formdichtung
+3Nm
+Dichtung Deckel Ausgangsseite
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  135.4 Ersatzteile für den Feuerwehr-Systemtrenner B-FW
+Beschreibung Artikelnummer
+1  Dichtungssatz, 3 O-Ringe und Formdichtung 9500911
+2  Kolben mit Dichtung 9500910
+3  Steinfänger 9500913
+4  Schmutz- und Fallschutzlippe 9500914
+5  Eingangskupplung "B" mit Hebelgriff 9500912
+5.5 Ersatzteile für das Prüfset für Feuerwehr-Systemtrenner
+Beschreibung Artikelnummer
+Ersatzflexschlauch für FW-Systemtrenner-Prüfset 3904182
+Ersatz-Eingangsdruck-BG für Prüfset 3904183
+Ersatz-Ausgangsdruck-BG für Prüfset 3904184
+Ersatzkoffer für Systemtrenner B-FW 3904185
+Ersatzkoffer Resideo-Systemtrenner B-FW 3904186
+
+
+14  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW6.Angaben über das Erzeugnis
+6.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+6.2 Anwendung
+Der mobile Systemtrenner B-FW Typ EWE nach DIN 14346 wird an bestehende Standrohre 
+oder Überflurhydranten zur Entnahme von Trinkwasser als Löschwasser aus dem Rohrnetz angeschlossen. Er verhindert, dass durch Rücksaugen oder Rückdrücken Löschwasser in das Trinkwasserversorgungsnetz zurückfließt, wenn der Druck in diesem Netz niedriger ist als in der angeschlossenen Löschwasserleitung.Weiterhin gelangen Druckstöße nicht ins Netz, wodurch Rohrbrüche vermieden werden.
+6.3 Zulassungen
+	 Konformitätsbestätigung durch DVGW-certFeuerwehr-Systemtrenner B-FW Typ EWE – 
+Mobiler Systemtrenner nach DIN14346
+
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  156.4 Besondere Merkmale
+	 Niedriger Druckabfall, hoher Durchfluss
+	 Haltegriff, als Kupplungsschlüssel verwendbar
+	 Geringes Gewicht
+	 Sicherer Betrieb
+	 Innenteile aus Aluminium
+	 Schutz der Rohrleitungen gegen Druckstöße
+	 Einfache Wartung
+	 Eingangsseitiger Steinfänger
+6.5 Technische Daten
+Medium
+	 Trinkwasser / Löschwasser
+Anschlüsse
+	 B-Storz
+	 Eingangsseitig drehbar
+	 Ausgangsseitig fest
+Hydraulisches Verhalten
+	 Öffnungsdruck:   0,5 bar
+	 Max. Eingangsdruck:  16 bar
+Flüssigk
+eitskategorie nach EN 1717
+	 Kategorie 4
+Gewicht
+	 Gewicht 3 kg
+Betriebstemperatur
+	 Max. Betriebstemperatur 65°C
+Spezifikationen
+	 Einbaulage waagerecht bis Neigung 30°
+	 Temperatur des Mediums Kaltwasser bis max 65°C
+
+16  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW
+6.6 Aufbau und Werkstoffe
+Komponente Werkstoff
+1  Tragegriff Aluminium
+2  Storzkupplung Aluminium
+3  Schmutz- und Fallschutz NBR
+4  Kolben (innen) Aluminium
+5  Dichtungen (innen) EPDM
+6  Kontergriff Aluminium
+7  Steinfänger Edelstahl
+8  Drehbare Storzkupplung Aluminium7 6 5 4 3 21
+8
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  176.7 Funktion 
+Systemtrenner vom Typ B-FW sind in zwei Druckzonen unterteilt:
+	 In Zone 1 ist der Druck höher als in Zone 2. 
+	 In Zone 2 ist ein Ablassventil platziert, welches spätestens dann öffnet, wenn der Differenz-
+druck zwischen Zone 1 und 2 auf 0,14 bar abgesunken ist. 
+	 Das Wasser aus Zone 2 strömt ins Freie, der Rückflussverhinderer schließt und trennt somit Zone 2 von Zone 1.
+Damit ist die Gefahr eines Rückdrückens oder Rücksaugens in das Versorgungsnetz ausge-schlossen. Die Leitung ist unterbrochen und das Trinkwassernetz gesichert.
+1
+2
+
+18  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW6.8 Technische Eigenschaften – Druckabfallverhalten
+Druckabfall innerhalb des Ventils ist abhängig vom Durchfluss und der verwendeten 
+Anschlussgröße.
+
+Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FW |  19
+
+20  |  Benutzerinformation Prüfset für Feuerwehr-Systemtrenner B-FWWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100051 - Ausgabe 03/2022
+

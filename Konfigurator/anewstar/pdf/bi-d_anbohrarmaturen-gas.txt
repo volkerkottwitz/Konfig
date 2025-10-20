@@ -1,0 +1,651 @@
+EWE-Anbohrarmaturen
+für Gas
+Benutzerinformation#7100044- Ausgabe 09/2023
+
+
+2  |  Benutzerinformation EWE-Anbohrarmaturen für Gas
+Inhaltsverzeichnis
+Allgemeine Hinweise   4
+Anbohrarmaturen für:
+Guss- und Stahlrohr  7
+PVC-Rohr  13
+PE-Rohr, Schweißsystem ELGEF Plus oder FRIALEN  17
+PE-Rohr, mit PE-Hülse  21
+Multi-Druckanbohrventile für PE-Rohr  25
+Schweißsystem ELGEF Plus
+Absperrarmaturen/  29
+Betriebs- und Hilfsabsperrungen
+Übersicht EWE-Haltestücke für Anbohrarmaturen  11
+für AGS
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  3
+
+
+4  |  Benutzerinformation EWE-Anbohrarmaturen für GasAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten.  
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der  Geschäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Es dürfen ausschließlich Geräte die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+	Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	Bei der Montage der hier aufgeführten Armaturen sind alle Vorschriften sowohl der  Armaturen-Hersteller, als auch der Rohr-Hersteller zu beachten und einzuhalten.
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Sollten weitere Geräte verwendet werden, wie z.B Anbohrgeräte, sind deren Bedienungs-anleitungen unbedingt zu beachten. 
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die 
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  5sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und 
+Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+	 Sonderarmaturen oder Armaturen, die nach Vorgaben des Auftraggebers produziert 
+werden sind nicht Bestandteil dieser Benutzerinformation! Der Einsatz der genann-
+ten Bauteile unter den jeweiligen Bedingungen erfolgt auf Grundlage von Prüfung und Werksfreigabe durch den Anwender oder Netz-/Anlagenbetreiber. Da uns eine vollständi-ge Bewertung der jeweiligen Sonderverwendung in Verbindung mit den jeweils örtlichen Begebenheiten in der Regel nicht möglich ist, erfolgt der Einsatz dieser Armaturen auf Verantwortung des Anwenders.
+Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Verwendung der Produkte.
+Entsorgung
+	Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, gering -
+fügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE-Anbohrarmaturen für GasVerwendung von Abkürzungen:
+DN:  Nenndurchmesser
+MOP:  Maximal zul. Betriebsdruck (Maximum Operating Pressure)
+Si: Silicium
+DIN:  Deutsches Institut für Normung
+DVGW:  Deutscher Verein des Gas- und Wasserfaches
+GGG:  duktiler Grauguss
+PVC:  Polyvinylchlorid
+PE: Polyethylen
+PTFE:  Polytetrafluorethylen
+ZMU:  Zementummantelung
+AZ:  Asbest
+DGUV:   Deutsche Gestzliche Unfallversicherung
+AGS:   Asbest, Guss- und Stahlrohr
+EWS:   Epoxy-Wirbel-Sinter
+NBR:   Nitrile Butadiene Rubber
+SDR:   Standard Dimension Ratio
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  71. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DIN EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+	DIN 3476-1 „Armaturen - Anforderungen und Prüfungen - Teil 1: Korrosionsschutz durch Epoxidharzbeschichtung aus Pulverlacken bzw. Flüssiglacken“
+	DIN 3476-2 „Armaturen - Anforderungen und Prüfungen - Teil 2: Korrosionsschutz durch duromere Dickbeschichtungen“
+	DVGW GW 15 „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW GW 309 „Elektrische Überbrückung bei Rohrtrennungen“
+	DVGW G 459 „Gas-Hausanschlüsse“
+	DVGW G 465-2 „Arbeiten an Gasleitungen“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	BG-Vorschriften -Regeln (insb. DGUV 100-500) und -Informationen
+	Zertifizierung ISO 9001-2008
+	ÖNORM EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+1.3 Verwendungsbereich/Medium, je nach Ventiltyp
+	Gase der 2. Gasfamilie nach DVGW-Arbeitsblatt G 260/I
+  Kennzeichnung der Armaturen beachten!
+Wasserarmaturen sind nicht gasbeständig!Anschlussstück mit O-Ring-Dichtung sowie
+Halteband mit Halbkugelscheiben und MutternEWE-Anbohrarmaturen für Guss- und Stahlrohr
+Artikelnummer 11445XX und 11444XX bestehend aus: 
+Anbohrventil, je nach Typ:
+Kugel-Ventil-
+Anbohrarmatur
+Kugel-Anbohr-
+armatur
+
+
+8  |  Benutzerinformation EWE-Anbohrarmaturen für Gas1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	5 bar – zulässigen Betriebsdruck des Versorgungsrohres beachten!
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	Guss- und Stahlrohre für die Gasversorgung
+Abmessungen
+	DN 50 - DN 500
+1.5.2 Anschluss ausgangsseitig
+Abmessungen
+	Innengewinde nach DIN EN 10226-1, mit O-Ring-Kammer für das EWE-O-Ring-System
+	Ventilgröße DN 40:  Rp 1 1/2“
+Anbohrdurchmesser
+	Ventilgröße DN 40: 31 mm
+1.5.3 Absperrarmatur/Betriebs- und Hilfsabsperrung
+Eine detaillierte Beschreibung finden Sie auf Seite 23.
+1.5.4 Anschluss- und Haltestück
+Werkstoff
+	Anschluss- und Haltestück aus EN-GJS-400-15, EWS-beschichtet, Schrauben aus  
+A2-Edelstahl
+1.5.5 Dichtungen
+Werkstoff
+	NBR
+1.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und trocken lagern
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  91.7 Funktionsbeschreibung
+	EWE-Anbohrarmaturen sind für EWE-Anbohr- und Hülsensetzgeräte sowie für Anbohrge -
+räte verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung 
+und Hausanschluss und werden unter Druck angebohrt.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+Kennzeichnung der Armatur beachten!  Wasserarmaturen sind nicht gasbeständig!
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Anbohrarmatur für PVC-Rohr
+Es ist darauf zu achten, dass der Einbau der Anbohrarmatur ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt. Die Anbohrarmatur darf nur auf unter 
+Betriebsdruck stehende Leitungen montiert werden.
+1. Zum sicheren Abdichten ist vor dem Aufsetzen der Anbohrarmatur auf das Rohr sicher -
+zustellen, das der Kontaktbereich zwischen Rohr und Anbohrarmatur frei von Verschmut -
+zung, Riefen und Kratzern oder anderen Beschädigungen ist.
+2. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück verschrauben. 
+3. Bei Anbohrbrücken sind die Schrauben gleichmäßig über Kreuz bis zum Anschlag (An-schluss- und Haltestück auf Block) anzuziehen.
+4. Dichtheitsprüfung der montierten Anbohrarmatur nach DVGW-Regelwerk durchführen. 
+4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten Anlage erfolgen. 
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+
+10  |  Benutzerinformation EWE-Anbohrarmaturen für Gas4.2 Anbohren
+Für das Anbohren sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die 
+Herstellerangabe des Anbohrgerätes anzuwenden.-> z. B. EWE-Benutzerinformation „Anbohren und Hülsensetzen mit EWE-Werkzeugen“
+4.3 Anschließen der Anbohrarmatur
+1. Zum Anschluss der anzuschließenden Hausanschlussleitung ist ein entsprechender Fitting einzusetzen.
+2. Das Innengewinde des Anbohrventils verfügt über das EWE-O-Ring-System. Entspre -
+chende Fittings können ohne weitere Dichtmittel selbstdichtend montiert werden. Die Bedienungsanleitung des Fittingherstellers ist zu beachten. Die O-Ringe und Dichtflächen sind vor Verunreinigung und Beschädigung zu schützen.
+3. Gas-Anbohrarmaturen: Gem. G 466-3 ist die Anschlussleitung mit einem ca. 0,5 m langen Federschenkel (Teil der Anschlussleitung, der unmittelbar nach der Anbohrung parallel zur Versorgungsleitung angeordnet ist) auszuführen.
+4. Dichtheitsprüfung der angebohrten Armatur nach DVGW-Regelwerk durchführen. 
+ 
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  11Übersicht EWE-Haltestücke für EWE- 
+Anbohrarmaturen für (ZMU-) Guss-, und Stahlrohre
+Bestell- Anschluss- Rohr- Bau- für Hauptrohr
+nummer Stück Außen Ø länge Guss Guss Stahl Stahl
+Halte- mm mm ZMU ZMU
+stück DN DN DN DN DN
+0108215 50/70 60-66 255 50 50
+0108216 50/70 77-87 290 60-70 65
+0108217 80 88-108 325 80 (80)* 80
+0108218 100 109-133 380 100 80/100* 100 100
+0108219 125 134-159 440 125 125 125
+0108220 150/175 160-189 490 150 150 150 150
+0108226 150/175 190-205 520 175
+0108221 200/225 219-259 650 200 200 200 200
+225
+0108222 250 260-308 780 250 250 250 250
+275
+0108223 300 309-368 910 300 300 300 300
+0108224 350/400 360-382 1050 350 350 350
+
+12  |  Benutzerinformation EWE-Anbohrarmaturen für GasÜbersicht EWE-Haltestücke für EWE- 
+Anbohrarmaturen für (ZMU-) Guss-, und Stahlrohre
+Bestell- Anschluss- Rohr- Bau- für Hauptrohr
+nummer Stück Außen Ø länge Guss Guss Stahl Stahl
+Halte- mm mm ZMU ZMU
+stück DN DN DN DN DN
+0108233 350/400 383-405 1110
+0108235 350/400 406-427 1170 400 400
+0108225 350/400 428-449 1230 400 400
+0108237 350/400 450-469 1290 425 450
+0108227 450/500 475-497 1280 450
+0108239 450/500 498-519 1340 500
+0108228 450/500 520-544 1400 500
+0108241 450/500 545-567 1460 500
+0108243 450/500 568-589 1520
+0108245 450/500 590-606 1580
+Alle EWE-Anbohrarmaturen werden in Normalausführung mit Anschluss- und Haltestück für Gussrohr geliefert!  
+Ab DN 350 muss bei einem anderen Hauptrohr als Guss das passende Haltestück (bei * auch das Anschlussstück) 
+nach dieser Tabelle ausgewählt werden. Bei DN 80 ZMU-Guss-Rohren ist der Außendurchmesser zu prüfen! Der Toleranzbereich der Rohre kann eine größere Nennweite zur Folge haben!  Alle Angaben ohne Gewähr!
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  131. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+Anschluss- und Haltestück aus GGGEWE-Anbohrarmaturen für für PVC-Rohr
+Artikelnummer 1146XXX bestehend aus: 
+Anbohrventil, je nach Typ:
+Kugel-Ventil-Anbohrarmatur
+ Kugel-Anbohr-
+armatur
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw.  
+ausführenden Unternehmens sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk 
+Insbesondere:
+	DIN EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+	DIN 3476-1 „Armaturen - Anforderungen und Prüfungen - Teil 1: Korrosionsschutz durch Epoxidharzbeschichtung aus Pulverlacken bzw. Flüssiglacken“
+	DIN 3476-2 „Armaturen - Anforderungen und Prüfungen - Teil 2: Korrosionsschutz durch duromere Dickbeschichtungen“
+	DVGW GW 15 „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW G 459 „Gas-Hausanschlüsse“
+	DVGW G 465-2 „Arbeiten an Gasleitungen“
+	DVGW G 466-3 „Gasrohrnetze aus PVC“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	BG-Vorschriften -Regeln (insb. DGUV 100-500) und -Informationen
+	Zertifizierung ISO 9001-2008
+	ÖNORM EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+1.3 Verwendungsbereich/Medium, je nach Ventiltyp
+	Gase der 2. Gasfamilie nach DVGW-Arbeitsblatt G 260/I
+  Kennzeichnung der Armaturen beachten!
+Wasserarmaturen sind nicht gasbeständig!
+
+14  |  Benutzerinformation EWE-Anbohrarmaturen für Gas1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	1 bar – zulässigen Betriebsdruck des Versorgungsrohrs beachten!
+1.5 Werkstoffe/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	PVC-Rohre für die Gasversorgung
+Abmessungen
+	DN 50 - DN 300
+1.5.2 Anschluss ausgangsseitig
+Abmessungen
+	Innengewinde nach DIN EN 10226-1, mit O-Ring-Kammer für das EWE-O-Ring-System
+	Ventilgröße DN 40: Rp 1 1/2“
+Anbohrdurchmesser
+	Im Gaseinsatz gem. G 466-3: 
+DN 50/65 = max. 22 mm DN 80 = max. 30 mm Größer nur durch Netzbetreiberfreigabe bzw. abhängig von Ventilgröße!
+	Ventilgröße DN 40: 31 mm*
+* bei Anbohrbrücken DN 50/65 generell max. 24 mm
+1.5.3 Absperrarmatur/Betriebs- und Hilfsabsperrung
+Eine detaillierte Beschreibung finden Sie auf Seite 23.
+1.5.4 Anschluss- und Haltestück
+Werkstoffe:
+	Anschluss- und Haltestück aus EN-GJS-400-15, EWS-beschichtet, Schrauben aus A2-Edel-stahl
+1.5.5 Dichtungen
+Werkstoffe:
+	NBR
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  151.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und 
+trocken lagern
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen
+1.7 Funktionsbeschreibung
+	EWE-Anbohrarmaturen sind für EWE-Anbohr- und Hülsensetzgeräte sowie für Anbohrge -
+räte verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und Hausanschluss und werden unter Druck angebohrt.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung 
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+Kennzeichnung der Armatur beachten!  Wasserarmaturen sind nicht gasbeständig!
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Anbohrarmatur für PVC-Rohr
+Es ist darauf zu achten, dass der Einbau der Anbohrarmatur ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt. Die Anbohrarmatur darf nur auf unter Betriebsdruck stehende Leitungen montiert werden.
+1. Zum sicheren Abdichten ist vor dem Aufsetzen der Anbohrarmatur auf das Rohr sicher -
+zustellen, das der Kontaktbereich zwischen Rohr und Anbohrarmatur frei von Verschmut -
+zung, Riefen und Kratzern oder anderen Beschädigungen ist.
+2. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück verschrauben. 
+3. Bei Anbohrbrücken sind die Schrauben gleichmäßig über Kreuz bis zum Anschlag (An-schluss- und Haltestück auf Block) anzuziehen.
+4. Dichtheitsprüfung der montierten Anbohrarmatur nach DVGW-Regelwerk durchführen.
+
+16  |  Benutzerinformation EWE-Anbohrarmaturen für Gas4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten 
+Anlage erfolgen.
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2 Anbohren
+Für das Anbohren sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die Herstellerangabe des Anbohrgerätes anzuwenden.-> z. B. EWE-Benutzerinformation „Anbohren und Hülsensetzen mit EWE-Werkzeugen“
+4.3 Anschließen der Anbohrarmatur
+1. Zum Anschluss der anzuschließenden Hausanschlussleitung ist ein entsprechender Fitting einzusetzen.
+2. Das Innengewinde des Anbohrventils verfügt über das EWE-O-Ring-System. Entspre -
+chende Fittings können ohne weitere Dichtmittel selbstdichtend montiert werden. Die Bedienungsanleitung des Fittingherstellers ist zu beachten. Die O-Ringe und Dichtflächen sind vor Verunreinigung und Beschädigung zu schützen.
+3. Gas-Anbohrarmaturen: Gem. G 466-3 ist die Anschlussleitung mit einem ca. 0,5 m langen Federschenkel (Teil der Anschlussleitung, der unmittelbar nach der Anbohrung parallel zur Versorgungsleitung angeordnet ist) auszuführen.
+4. Dichtheitsprüfung der angebohrten Armatur nach DVGW-Regelwerk durchführen. 
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  171. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+Anschluss- und Haltestück aus PE 100EWE-Anbohrarmaturen für PE-Rohr, Schweißsystem ELGEF Plus oder Schweißsystem FRIALEN
+Artikelnummer 1148XXX und 1150XXX bestehend aus: 
+Anbohrventil, je nach Typ:
+Kugel-Ventil-Anbohrarmatur
+ Kugel-Anbohr-
+armatur
+ELGEF Plus FRIALEN
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DIN EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+	DIN 3476-1 „Armaturen - Anforderungen und Prüfungen - Teil 1: Korrosionsschutz durch Epoxidharzbeschichtung aus Pulverlacken bzw. Flüssiglacken“
+	DIN 3476-2 „Armaturen - Anforderungen und Prüfungen - Teil 2: Korrosionsschutz durch duromere Dickbeschichtungen“
+	DVGW GW 15 „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW GW 330 „Schweißen von Rohren und Rohrleitungsteilen aus Polyethylen“
+	DVGW G 459 „Gas-Hausanschlüsse“
+	DVGW G 465-2 „Arbeiten an Gasleitungen“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW G 472 „Gasleitungen aus Polyethylenrohren“
+	BG-Vorschriften -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+	Zertifizierung ISO 9001-2008
+	ÖNORM EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+1.3 Verwendungsbereich/Medium, je nach Ventiltyp
+	Gase der 2. Gasfamilie nach DVGW-Arbeitsblatt G 260/I
+  Kennzeichnung der Armaturen beachten!
+Wasserarmaturen sind nicht gasbeständig!
+
+18  |  Benutzerinformation EWE-Anbohrarmaturen für Gas1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	10 bar – zulässigen Betriebsdruck des Versorgungsrohres beachten!
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	PE-Rohre für die Gasversorgung
+Abmessungen
+	PE 80-/ PE 100-Rohr, SDR 11/17
+	d 63 - d 315
+	Top-Loading ab: 
+FRIALEN d250 - d315 ELGEF Plus d280 - d315
+1.5.2 Anschluss ausgangsseitig
+Abmessungen
+	Innengewinde nach DIN EN 10226-1, mit O-Ring-Kammer für das EWE-O-Ring-System
+	Ventilgröße DN 40: Rp 1 1/2“
+Anbohrdurchmesser
+	Ventilgröße DN 40: 31 mm*
+* bei Anbohrschelle d63/75 generell max. 24 mm
+1.5.3 Absperrarmatur/Betriebs- und Hilfsabsperrung
+Eine detaillierte Beschreibung finden Sie auf Seite 23.
+1.5.4 Anschluss- und Haltestück
+Werkstoff
+	Anschluss- und Haltestück Schweißsystem +GF+ ELGEF Plus oder Frialen,  mit Si-Messing-Übergangsstück
+1.5.5 Dichtungen
+Werkstoff
+	NBR
+1.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und trocken lagern
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  191.7 Funktionsbeschreibung
+	EWE-Anbohrarmaturen sind für EWE-Anbohr- und Hülsensetzgeräte sowie für Anbohrge -
+räte verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung 
+und Hausanschluss und werden unter Druck angebohrt.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+Kennzeichnung der Armatur beachten!  Wasserarmaturen sind nicht gasbeständig!
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Anbohrarmatur für PE-Rohr
+Es ist darauf zu achten, dass der Einbau der Anbohrarmatur ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt. Die Anbohrarmatur darf nur auf unter 
+Betriebsdruck stehende Leitungen montiert werden.
+1. Zum sicheren Abdichten ist vor dem Aufsetzen der Anbohrarmatur auf das Rohr sicher -
+zustellen, das der Kontaktbereich zwischen Rohr und Anbohrarmatur frei von Verschmut -
+zung, Riefen und Kratzern oder anderen Beschädigungen ist.
+2. Schweißnahtvorbereitung gem. Hersteller- und Regelwerksvorgaben. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück verschrauben.  Bei einer Anbohrung mit Top-Loading-System ist besonders die Benutzerinformation des Gerätehersteller zu beachten. Die Verwendung des Top-Loading-Werkzeugs ist schulungs-pflichtig und nur mit entsprechenden Kenntnissen durchzuführen.
+3. Bei der +GF+ elgef-plus Variante ist der Adapter d 63 mm in den Abgangsstutzen des  Anschlussstückes einzustecken und über die Schrauben zu fixieren.
+4. Schweißung gem. Hersteller- und Regelwerksvorgaben.
+5. Dichtheitsprüfung der montierten Anbohrarmatur nach DVGW-Regelwerk durchführen. 
+
+20  |  Benutzerinformation EWE-Anbohrarmaturen für Gas4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten 
+Anlage erfolgen. 
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2 Anbohren und Hülsensetzen
+Für das Anbohren und Hülsensetzen sind die jeweils gültigen Sicherheits- und Montagebe -
+stimmungen und die Herstelleran  gabe des Anbohr gerätes anzuwenden.
+Die EWE-Benutzerinformation „Anbohren und Hülsensetzen mit EWE-Werkzeugen“ ist zu beachten.
+4.3 Anschließen der Anbohrarmatur
+1. Zum Anschluss der anzuschließenden Hausanschlussleitung ist ein entsprechender Fitting einzusetzen.
+2. Das Innengewinde des Anbohrventils verfügt über das EWE-O-Ring-System. Entspre -
+chende Fittings können ohne weitere Dichtmittel selbstdichtend montiert werden. Die Bedienungsanleitung des Fittingherstellers ist zu beachten. Die O-Ringe und Dichtflächen sind vor Verunreinigung und Beschädigung zu schützen.
+3. Dichtheitsprüfung der angebohrten Armatur nach DVGW-Regelwerk durchführen. 
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  211. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+Anschluss- und Haltestück 
+aus GGGEWE-Anbohrarmaturen für PE-Rohr, mit PE-Hülse
+Artikelnummer 11660XX, 11661XX und 11662XX bestehend aus: 
+Anbohrventil, je nach Typ:
+Kugel-Ventil-Anbohrarmatur
+ Kugel-Anbohr-
+armatur
+PE-Hülseaus Si-Messimg
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DIN EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+	DIN 3476-1 „Armaturen - Anforderungen und Prüfungen - Teil 1: Korrosionsschutz durch Epoxidharzbeschichtung aus Pulverlacken bzw. Flüssiglacken“
+	DIN 3476-2 „Armaturen - Anforderungen und Prüfungen - Teil 2: Korrosionsschutz durch duromere Dickbeschichtungen“
+	DVGW GW 15 „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW GW 326 „Mechanisches Verbinden von PE-Rohren“
+	DVGW G 459 „Gas-Hausanschlüsse“
+	DVGW G 465-2 „Arbeiten an Gasleitungen“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW G 472 „Gasleitungen aus Polyethylenrohren“
+	BG-Vorschriften -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+	Zertifizierung ISO 9001-2008
+	ÖNORM EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+1.3 Verwendungsbereich/Medium, je nach Ventiltyp
+	Gase der 2. Gasfamilie nach DVGW-Arbeitsblatt G 260/I
+  Kennzeichnung der Armaturen beachten!
+Wasserarmaturen sind nicht gasbeständig!
+
+22  |  Benutzerinformation EWE-Anbohrarmaturen für Gas1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	10 bar – zulässigen Betriebsdruck des Versorgungsrohres beachten!
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	PE-Rohre für die Gasversorgung
+Abmessungen
+	PE 100-Rohr SDR 11
+1.5.2 Anschluss ausgangsseitig
+Abmessungen
+	Innengewinde nach DIN EN 10226-1, mit O-Ring-Kammer für das EWE-O-Ring-System
+	Ventilgröße DN 40: Rp 1 1/2“
+Anbohrdurchmesser
+	Ventilgröße DN 40: 31 mm*
+* bei Anbohrschelle d63/75 generell max. 24 mm
+1.5.3 Absperrarmatur/Betriebs- und Hilfsabsperrung
+Eine detaillierte Beschreibung finden Sie auf Seite 23.
+1.5.4 Anschluss- und Haltestück
+Werkstoff
+	Anschluss- und Haltestück aus EN-GJS-400-15, EWS-beschichtet, Schrauben aus  
+A2-Edelstahl
+1.5.5 Dichtungen
+Werkstoff
+	NBR
+1.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und trocken lagern
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  231.7 Funktionsbeschreibung
+	EWE-Anbohrarmaturen sind für EWE-Anbohr- und Hülsensetzgeräte sowie für Anbohrge -
+räte verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung 
+und Hausanschluss und werden unter Druck angebohrt.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+Kennzeichnung der Armatur beachten!  Wasserarmaturen sind nicht gasbeständig!
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Anbohrarmatur für PE-Rohr
+Es ist darauf zu achten, dass der Einbau der Anbohrarmatur ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt. Die Anbohrarmatur darf nur auf unter 
+Betriebsdruck stehende Leitungen montiert werden.
+1. Zum sicheren Abdichten ist vor dem Aufsetzen der Anbohrarmatur auf das Rohr sicherzustellen, das der Kontaktbereich zwischen Rohr und Anbohrarmatur frei von Ver -
+schmutzung, Riefen und Kratzern oder anderen Beschädigungen ist.
+2. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück verschrauben.
+3. Bei Anbohrbrücken sind die Schrauben gleichmäßig über Kreuz bis zum Anschlag (An-schluss- und Haltestück auf Block) anzuziehen.
+4. Dichtheitsprüfung der montierten Anbohrarmatur nach DVGW-Regelwerk durchführen. 
+4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten Anlage erfolgen. 
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+
+24  |  Benutzerinformation EWE-Anbohrarmaturen für Gas4.2 Anbohren und Hülsensetzen
+Für das Anbohren sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die 
+Herstellerangabe des Anbohrgerätes anzuwenden.-> z. B. EWE-Benutzerinformation „Anbohren und Hülsensetzen mit EWE-Werkzeugen“
+4.3 Anschließen der Anbohrarmatur
+1. Zum Anschluss der anzuschließenden Hausanschlussleitung ist ein entsprechender Fitting einzusetzen.
+2. Das Innengewinde des Anbohrventils verfügt über das EWE-O-Ring-System. Entspre -
+chende Fittings können ohne weitere Dichtmittel selbstdichtend montiert werden. Die Bedienungsanleitung des Fittingherstellers ist zu beachten. Die O-Ringe und Dichtflächen sind vor Verunreinigung und Beschädigung zu schützen.
+3. Dichtheitsprüfung der angebohrten Armatur nach DVGW-Regelwerk durchführen. 
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  251. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für 
+Anschluss- und Haltestück aus PE 100EWE-Multi-Druckanbohrventile für PE-Rohr
+Artikelnummer 1123XXX bestehend aus: 
+Multi-Druckanbohrventil -  beiligend
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DIN EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+	DIN 3476-1 „Armaturen - Anforderungen und Prüfungen - Teil 1: Korrosionsschutz durch Epoxidharzbeschichtung aus Pulverlacken bzw. Flüssiglacken“
+	DIN 3476-2 „Armaturen - Anforderungen und Prüfungen - Teil 2: Korrosionsschutz durch duromere Dickbeschichtungen“
+	DVGW GW 15 „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW GW 330 „Schweißen von Rohren und Rohrleitungsteilen aus Polyethylen“
+	DVGW G 459 „Gas-Hausanschlüsse“
+	DVGW G 465-2 „Arbeiten an Gasleitungen“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW G 472 „Gasleitungen aus Polyethylenrohren“
+	BG-Vorschriften -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+	Zertifizierung ISO 9001-2008
+	ÖNORM EN 10226 „Rohrgewinde für im Gewinde dichtende Verbindungen“
+1.3 Verwendungsbereich/Medium, je nach Ventiltyp
+	Gase der 2. Gasfamilie nach DVGW-Arbeitsblatt G 260/I
+  Kennzeichnung der Armaturen beachten!
+Wasserarmaturen sind nicht gasbeständig!   
+
+26  |  Benutzerinformation EWE-Anbohrarmaturen für Gas1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	10 bar – zulässigen Betriebsdruck des Versorgungsrohrs beachten!
+1.5 Werkstoffe/Abmessungen/Leistung
+1.5.1 Versorgungsrohr
+Werkstoff
+	PE-Rohre für die Gasversorgung
+Abmessungen
+	PE 80-/ PE 100-Rohr, SDR 11/17
+	d 63 - d 315
+	Top-Loading ab: 
+FRIALEN d250 - d315 ELGEF Plus d280 - d315
+1.5.2 Anschluss ausgangsseitig
+Werkstoff
+	Anschlussstutzen aus PE 100, optional mit beiliegender PE-Schweißmuffe
+Abmessungen
+	d 32 mm
+	d 40 mm
+Anbohrdurchmesser
+	30 mm
+1.5.3 Absperrarmatur/Betriebs- und Hilfsabsperrung
+Werkstoff
+	Messingmaterial der Ventilgehäuse aus bleifreiem, entzinkungsbeständigem EWE-Silicium-Messing. Zusätzlich mit kompakter PE 100-Ummantelung
+	Betätigungsspindeln aus austenitischem Edelstahl (min. 17% Chromanteil)
+	Betriebsabsperrung mit Ventilkegel nicht drehend, konisch dichtend mit PTFE-Dichtung - mit integriertem, rotierendem Bohrschneider mit Wellenschliff aus A4-Duplex-Edelstahl
+1.5.4 Anschluss- und Haltestück
+Werkstoff
+	Anschluss- und Haltestück Schweißsystem +GF+ ELGEF Plus
+1.5.5 Anschluss- und Haltestück
+Werkstoff
+	NBR
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  271.6 Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und 
+trocken lagern
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen
+1.7 Funktionsbeschreibung
+	EWE-Multi-Druckanbohrventile sind ohne zusätzliche Anbohrgeräte verwendbar. Sie die -
+nen als Übergang zwischen der Rohrleitung und Hausanschluss und werden unter Druck angebohrt.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+Kennzeichnung der Armatur beachten!  Wasserarmaturen sind nicht gasbeständig!
+2.2 Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.
+3. Montage der Anbohrarmatur für PE-Rohr
+Es ist darauf zu achten, dass der Einbau der Anbohrarmatur ohne Spannungseinwir -
+kungen auf das Versorgungsrohr erfolgt. Die Anbohrarmatur darf nur auf unter 
+Betriebsdruck stehende Leitungen montiert werden.
+1. Zum sicheren Abdichten ist vor dem Aufsetzen der Anbohrarmatur auf das Rohr sicher -
+zustellen, das der Kontaktbereich zwischen Rohr und Anbohrarmatur frei von Verschmut -
+zung, Riefen und Kratzern oder anderen Beschädigungen ist.
+2. Schweißnahtvorbereitung gem. Hersteller- und Regelwerksvorgaben. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück verschrauben.  Bei einer Anbohrung mit Top-Loading-System ist besonders die Benutzerinformation des Gerätehersteller zu beachten. Die Verwendung des Top-Loading-Werkzeugs ist schulungs-pflichtig und nur mit entsprechenden Kenntnissen durchzuführen.
+3. Das Multi-Druckanbohrventil in den Abgangsstutzen des Anschlussstückes einstecken und über die Schrauben fixieren.
+4. Schweißung gem. Hersteller- und Regelwerksvorgaben.
+5. Dichtheitsprüfung der montierten Anbohrarmatur nach DVGW-Regelwerk durchführen.
+
+28  |  Benutzerinformation EWE-Anbohrarmaturen für Gas4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten 
+Anlage erfolgen. 
+4.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2 Anbohren und Hülsensetzen
+Anbohrung mit integriertem Bohrschneider. Anbohrungen sind grundsätzlich im offenen Rohrgraben vorzunehmen. Im Gaseinsatz ist auf gasaustrittsfreies Anbohren zu achten.Durch Schließen der Armatur bis zum merklichen Anschlag wird die Anbohrung der Versor -
+gungsleitung durchgeführt.
+4.3 Anschließen der Anbohrarmatur
+1. Zum Anschluss der anzuschließenden Hausanschlussleitung ist ein entsprechender Fitting einzusetzen.
+2. Die Bedienungsanleitung des Fittingherstellers ist zu beachten. Mögliche O-Ringe und Dichtflächen sind vor Verunreinigung und Beschädigung zu schüt -
+zen.
+3. Dichtheitsprüfung der angebohrten Armatur nach DVGW-Regelwerk durchführen. 
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  29Absperrarmaturen/ Betriebs- und  
+Hilfsabsperrungen
+Werkstoffe
+	Messingmaterial der Ventilgehäuse aus bleifreiem, entzinkungsbeständigem EWE-Sili-
+cium-Messing gem. der Liste trinkwasserhygienisch geeigneter metallener Werkstoffe des Umweltbundesamtes
+	Betätigungsspindeln aus austenitischem Edelstahl (min. 17% Chromanteil)
+Kugel-Ventil-Anbohrarmatur
+	Beidseitig um 45° drehbar
+	Betriebsabsperrung durch Oberteil mit Linksgewinde und Bajonettriegel für die Schmutzscheibe der EWE-Einbaugar -
+nitur, mit Ventilkegel nicht drehend, konisch dichtend mit PTFE-Dichtung
+	Mit Hilfsabsperrung durch integrierte Absperrkugel aus A4 Stahl
+	Größen: DN 40
+Kugel-Anbohrarmatur
+	Beidseitig um 45° drehbar
+	Ohne Betriebsabsperrung
+	Mit Hilfsabsperrung durch integrierte Absperrkugel aus A4 Stahl
+	Größen: DN 40
+
+
+30  |  Benutzerinformation EWE-Anbohrarmaturen für Gas
+
+Benutzerinformation EWE-Anbohrarmaturen für Gas|  31
+
+32  |  Benutzerinformation EWE-Anbohrarmaturen für GasWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100044- Ausgabe 02/2022
+

@@ -1,0 +1,209 @@
+#7100045 - Ausgabe 06/2020EWE-FLEXORIPP-
+Schneidwerkzeug
+Benutzerinformation
+
+
+2  |  Benutzerinformation EWE-FLEXORIPP-Schneidwerkzeug
+Inhaltsverzeichnis
+Allgemeine Hinweise 4
+Angaben über das Erzeugnis 6Einbauhinweise (Installation/Montage) 7Hinweise zum Kürzungsraster 8Kürzen des Schachtrohres 9Wartung und Instandhaltung 14
+
+EWE-FLEXORIPP-Schneidwerkzeug  |  3
+
+
+4  |  Benutzerinformation EWE-FLEXORIPP-SchneidwerkzeugAllgemeine Hinweise
+	 Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke.
+	 Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter-netseite: www.ewe-armaturen.de.
+	 Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	 Bewahren Sie die Benutzerinformation für eventuelle Fragen auf.
+	 Nur eingewiesenes und qualifiziertes Personal darf das Werkzeug montieren, bedienen oder warten.
+	 Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge-schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	 Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor-schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen.
+	 Es dürfen ausschließlich Geräte die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+	 Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	 Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	 Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+	 Übermäßige Kraftaufwendung ist bei der Kürzung nicht erforderlich und schadet dem Schneidrad.
+	 Je nach Art der durchzuführenden Arbeiten müssen Handschuhe und Schutzbrille getra-gen werden (siehe Unfallverhütungsvorschriften).
+Haftungsausschluss
+	 Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+
+EWE-FLEXORIPP-Schneidwerkzeug  |  5	 Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die 
+sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	 Es gelten unsere Allgemeinen Verkaufsbedingungen.
+Verpackung
+	 Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver-packung soll die einzelnen Bauteile 
+ bis zur Mon
+tage vor Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Monta-ge der Produkte.
+Entsorgung
+	  Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent-sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann.
+HINWEIS:Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE-FLEXORIPP-Schneidwerkzeug1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für das
+1.2 Mitgeltende Unterlagen
+	 Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	 Berufsgenossenschaftliches Regelwerk
+	 Die in der EWE-FLEXORIPP-Wasserzähler-Schacht-Benutzerinformationen genannten Hin-weise sind zu beachten.
+1.3 Verwendungsbereich
+	 Schneidwerkzeug ausschließlich nur zur Kürzung des zylindrisch, rippenförmig ausgeleg-tem Teil des FLEXORIPP-Schachtskörpers.
+1.4 Transport und Lagerung
+	 Schneidwerkzeug im mitgeliefertem Koffer lagern  und transportieren.
+	 Vor und nach dem Einsatz ist das Werkzeug auf  Beschädigung oder Verunreinigung zu prüfen.
+	 Das Schneidwerkzeug verfügt über ein Schneidrad,  welches die Schachtwandung spanlos durchtrennt.EWE-FLEXORIPP-Schneidwerkzeug
+Artikelnummer 3388252bestehend aus:1. Schneidrad mit Schutzkappe2. Führunsgrolle außen3. Führungsrolle innen4. Hebel/Schalter zur Entriegelung der Spindel5. Handrad6. Schneideinheit7. Führungselement8. Schiebeelement9. Sterngriffe
+9
+7
+6
+5
+4
+3218
+
+
+EWE-FLEXORIPP-Schneidwerkzeug  |  71.5 Funktionsbeschreibung
+Der zylindrisch, rippenförmig ausgelegte Teil des Schachtes kann mit Hilfe des FLEXORIPP-
+Schneidwerkzeuges in einem Raster von 2,5 cm gekürzt werden.
+2. Einbauhinweise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist das Werkzeug auf Beschädigung oder Verunreinigung 
+zu prüfen. Ein beschädigtes Werkzeug darf nicht eingestzt werden.
+2.2  Vorbereitung des Werkzeuges
+1.
+	 Schneidwerkzeug am Führungs- und Schiebe-element festhalten. 
+	 Die beiden Sterngriffe durch Linksdrehen lösen.
+2.
+	 Das Schiebeelement nach vorne drücken und dadurch das Werkzeug in Startposition bringen.
+3.
+	 Hebel/Schalter zur Entriegelung der Schneidein-heit betätigen.
+
+
+8  |  Benutzerinformation EWE-FLEXORIPP-Schneidwerkzeug3. Hinweise zum Kürzungsraster4.
+	 Die Schneideinheit kann sich nun mit Hilfe des 
+Handrads im Schlitten für Schneideinheit frei bewegen.
+	 Das Schneidrad bewegt sich zum Führungs- element.
+5.
+	 Kappe erst entfernen, wenn das Werkzeug zur Verwendung kommt!
+   Ab sofort besteht Verletzungsgefahr durch 
+hervorstehende Schneide!
+	 Der zylindrisch, rippenförmig ausgelegte Teil des Schachtes kann in einem Raster von 2,5 cm gekürzt werden.
+	 Dabei sind mindestens zwei Rippen (5 cm) und max. 10 Rippen (25 cm) in einem Schritt kürzbar.
+	 Es müssen mindestens 3 Rippen zur Aufnahme des Deckelrahmens und dessen Dichtung ver-bleiben.
+	 Die Frostsicherheit durch die geplante Einbau- tiefe ist zu berücksichtigen.
+	 Bei einer Kürzung von mehr als 20 cm ist die Länge der Hebeleine zu reduzieren oder gegen eine kürzere Hebeleine auszutauschen.
+	 Bei Verwendung der Abdeckhaube  darauf achten, dass der Schacht mit Haube  ca. 7 cm aus dem Gelände ragt.
+	 Bei Verwendung der Schachtabdeckung  A15/B125 dessen Bauhöhe von 7 cm ab der ersten Rippe hinzurechnen.
+
+
+EWE-FLEXORIPP-Schneidwerkzeug  |  94. Kürzen des Schachtrohres
+1.
+	 Einen möglichen montierten Deckel abnehmen.
+2.
+	 Deckelrahmen (sofern vorhanden) lösen und 
+ebenfalls entfernen.
+3.
+	 Die Deckelrahmen-Dichtung (sofern vorhanden)entnehmen.
+4.
+	 Isolierdeckel entfernen.
+	 Schachtkörper innen und außen reinigen - Rip-pen sollen frei von Verschmutzung sein.
+5.
+	 Maß zur Oberfläche nehmen.
+
+
+10  |  Benutzerinformation EWE-FLEXORIPP-Schneidwerkzeug  6.
+	 Bei Verwendung der Abdeckhaube darauf achten, dass 
+der Schacht mit Haube ca. 7 cm aus dem Gelände ragt.
+	 Bei Verwendung der Schachtabdeckung A15/B125 dessen Bauhöhe von 7 cm ab der ersten Rippe hinzurechnen.
+  7.
+	 Werkzeug auf das Schachtrohr aufsetzen, sodass die Führungsrollen innen und außen in das Rippental greifen.
+  8.
+	 Werkzeug zuziehen und mit Hilfe der beiden Sterngriffe in eine feste Position bringen.
+  9.
+	 Schneideinheit mit Schneidrad durch Drehen am Handrad an das Rippental führen.
+10.
+	 Rippen werden nun durch Ziehen oder Drücken am Schiebeelement durchtrennt.
+Hebeleine darf nicht durchtrennt werden!Hebeleine dafür versetzen.
+9.
+Außenansicht
+Innenansicht
+
+EWE-FLEXORIPP-Schneidwerkzeug  |  1111.
+	 Um der Schneide den gewünschten Vorschub 
+zu geben, muss ein manuelles Nachstellen am Handrad erfolgen.
+12.
+	 Schiebeelement solange umlaufend ziehen oder drücken, bis die Schachtwand durchtrennt ist.
+13.
+	 Um das Werkzeug wieder vom Schachtkörper zu entfernen, Sterngriffe durch Linksdrehen lockern.
+14.
+	 Schneidrad vom Rippental durch das Betätigen des Handrades wegführen.
+15.
+	 Werkzeug am Führungselement und Schiebe-element auseinanderziehen und vom Schacht-körper vorsichtig entfernen.
+
+
+12  |  Benutzerinformation EWE-FLEXORIPP-Schneidwerkzeug  16.
+	 Schutzkappe anlegen.
+  17.
+	 Schneideinheit mit Schneidrad durch Betätigen 
+des Handrads sowie durch Drücken des Hebels nach vorne in die Endposition der Schneide bringen.
+  18.
+	 Führungs- und Schiebeelement wieder  zusammendrücken.
+  19.
+	 Sterngriffe fixieren.
+20.
+	 Schachtkörper wurde gekürzt.9.
+
+
+EWE-FLEXORIPP-Schneidwerkzeug  |  1321.
+	 Schnittkante entgraten.
+22.
+	 Erstes Rippental entgraten
+	 Schachtabdeckung gem. Kapitel 5 „Schachtabde-
+ckungen“ der Benutzerinformation „FLEXORIPP-Wasserzähler-Schacht“ montieren.
+23.
+	 Deckelrahmen auf die oberste Rippe des Schachtkörpers aufstecken. Der Widerstand des Dichtrings muss dabei überwunden werden.
+	 Korrekten Sitz prüfen. Der Deckelrahmen muss auf der Rippe aufliegen.
+24.
+	 Deckel schließen.
+	 Den Deckelrahmen in die Deckschicht/ Oberfläche einbinden.
+25.
+	 Schrauben wechselseitig festziehen.
+	 Empfohlenes Drehmoment 35-45 Nm.
+
+
+14  |  Benutzerinformation EWE-FLEXORIPP-Schneidwerkzeug5. Wartung und Instandhaltung
+Beim Schneidrad handelt es sich um ein Verschleißteil. Es kommt auf die Häufigkeit der Be-
+nutzung an, wie oft das Schneidwerkzeug gewartet und ggf. ein Austausch des Schneidrads notwendig sein wird. Verschmutzungen am Schneidrad sind zu entfernen.
+Es empfiehlt sich nach jedem Einsatz eine Sicht- und ggf. Funktionskontrolle vorzu-nehmen. 
+5.1 Ersatzteile
+Ein Ersatzschneidrad liegt bei der Lieferung des Schneidwerkzeuges bei.25.
+	 Verschlussstopfen in beide Öffnungen  einstecken.
+	 Ordnungsgemäße Verriegelung durch Anheben des Deckels kontrollieren.
+
+
+EWE-FLEXORIPP-Schneidwerkzeug  |  15
+Schneidrad mit Schutzkappe
+Führungsrolle außenFührungsrolle innenHebel/Schalter zur 
+Entriegelung der Spindel  Handrad SchneideinheitSchiebeelementSterngriffe
+Führungselement
+
+16  |  Benutzerinformation EWE-FLEXORIPP-SchneidwerkzeugWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100045 - Ausgabe 06/2020
+

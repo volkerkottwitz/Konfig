@@ -1,0 +1,164 @@
+EWE-Ausblasarmatur
+Benutzerinformation
+#7100004 - Ausgabe 11/2019
+
+2  |  Benutzerinformation EWE-Ausblasarmatur
+Inhaltsverzeichnis
+Allgemeine Hinweise  4 
+ Angaben über das Erzeugnis 7  Einbauhinweise 9  Montage und Inbetriebnahme 10  Betrieb und Verwendung 10  Instandhaltung 10
+
+Benutzerinformation EWE-Ausblasarmatur |  3
+
+
+4  |  Benutzerinformation EWE-AusblasarmaturAllgemeine Hinweise
+ Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+ Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter-netseite: www.ewe-armaturen.de.
+ Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+ Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+ Nur eingewiesenes und qualifiziertes Personal darf die Armaturen montieren, bedienen oder warten. 
+ Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge-schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+ Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen  Vorschriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den an-erkannten Regeln der Technik zu erfolgen.
+  Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+ Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Installa-tion, Betrieb und Wartung der Armatur können von uns  nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+ Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder  Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Ver-wendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+ Es gelten unsere Allgemeinen Verkaufsbedingungen.
+
+Benutzerinformation EWE-Ausblasarmatur |  5Verpackung
+ Die einzelnen Armaturen sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Montage der Armatur.
+Entsorgung
+  Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent-sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und 
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE-AusblasarmaturVerwendung von Abkürzungen:
+DVGW:   Deutscher Verein des Gas- und Wasserfaches
+DIN:
+  Deutsches I
+nstitut für Normung 
+DN:  Nenndurchmesser
+AG
+:  Außengewinde
+IG:
+  Innengewinde
+MOP
+:  Maximal zul
+. Betriebsdruck (Maximum Operating Pressure) 
+NBR:  Nitr
+ile Butadiene Rubber (Acrylnitril-Butadien-Kautschuk)
+DVS:   Deutscher 
+Verband für Schweißen und verwandte Verfahren 
+BG:  Beruf
+sgenossenschaft
+VP:  Vor
+läufige Prüfgrundlage
+
+Benutzerinformation EWE-Ausblasarmatur |  71. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+EWE-Ausblasarmatur mit 
+Flansch- oder Gewindeabgang Artikelnummer 510XXXXEWE-Ausblasarmatur Typ +GF+ mit Flansch- oder Gewindeabgang Artikelnummer 510XXXX
+
+
+8  |  Benutzerinformation EWE-Ausblasarmatur1.2 Mitgeltende Unterlagen
+ Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+ DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+ DIN EN 10226 – „Rohrgewinde für im Gewinde dichtende Verbindungen“
+ DVGW GW 330 – „Schweißen von Rohren und Rohrleitungsteilen aus Polyethylen für  Gas- und Wasserleitungen“
+ DVGW G 459 – „Gas-Netzanschlüsse für Betriebsdrücke bis 5 bar“
+ DVGW G 465-2 – „Gasleitungen mit einem Betriebsdruck bis 5 bar – Instandsetzung“
+ DVGW G 469 – „Druckprüfverfahren Gastransport/Gasverteilung“
+ DVGW VP 300 – „Gas-Anbohrarmaturen aus metallenen Werkstoffen mit eingebauter  Betriebsabsperrung für Guss- und Stahlrohre“
+ DVGW VP 304 – „Gas-Anbohrarmaturen mit eingebauter Betriebsabsperrung für  Polyethylen-Rohrleitungen“
+ BG-Vorschriften, -Regeln (insb. BGR 500) und -Informationen
+ DVS-Richtlinien
+1.3 Verwendungsbereich/Medium
+ Brenngase nach DVGW-Arbeitsblatt G 260 (ausgenommen Flüssiggas in der Flüssigphase) 
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+ EWE-Ausblasarmatur mit Flansch- oder Gewindeabgang in Verbindung mit EWE-Ventil- Anbohrarmatur: MOP 5 
+ EWE-Ausblasarmatur Typ +GF+ mit Flansch- oder Gewindeabgang: MOP 10
+1.5 Werkstoff/Abmessungen/Leistung
+Werkstoff
+ Messingteile aus Pressmessing 
+ Dichtungen aus NBR
+Abmessungen
+ Ausblasarmatur mit Flansch- oder Gewindeabgang Rohrdeckung: teleskopierbar 0,60 - 1,00 m  Anschluss AG: 1 ½“ Steigrohr d: 63 mm  Gewindeabgang IG 1“ , 2“ oder Flanschabgang DN 25, DN 50  
+
+Benutzerinformation EWE-Ausblasarmatur |  9 Ausblasarmatur Typ +GF+ mit Flansch- oder Gewindeabgang  
+Passend für ELGEF Plus Anschlussschellen: 63 – 225 mm Steigrohr d: 40 mm  Gewindeabgang IG 2“ Rohrdeckung: teleskopierbar 0,60 – 1,00 m oder 0,90 – 1,30 m  Flanschabgang DN 50 Rohrdeckung: telekopierbar 0,60 – 1,00 m 
+Beispielskizze:  Ausblasarmatur Typ +GF+ mit Gewindeabgang G
+RohrdeckungISO228 - G2"
+d 63
+
+10  |  Benutzerinformation EWE-Ausblasarmatur1.6 Transport und Lagerung
+Die Armatur bis zur Verwendung in der werkseitigen Verpackung transportieren und lagern.
+1.7 Funktionsbeschreibung
+Die EWE-Ausblasarmatur dient dem kontrollierten Ableiten von Brenngasen. Der Einsatz der 
+Armatur ist für den sektionalen Wechsel der Gasart bei Gasumstellungen, dem Ableiten von Gas-Luft-Gemischen im Rohrnetz, dem Erstellen von Bypassleitungen zur Notversorgung und zur Messung der Odoriermittelkonzentration vorgesehen. 
+2. Einbauhinweise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+  Vor dem Einsatz sind die Armaturen auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+2.2  Hinweise zum Einbauort
+Zur Verwendung an Gasversorgungsleitungen.
+3. Montage und Inbetriebnahme
+Die Durchführung der hierzu erforderlichen Aufgaben und Tätigkeiten hat entsprechend den gesetzlichen Vorschriften und Unfallverhütungsvorschriften sowie den anerkannten Regeln der Technik (s.a. mitgeltende Unterlagen) zu erfolgen.Die Hinweise des Rohrherstellers sind zu beachten.  1.
+ Mon
+tieren oder Schweißen der Anbohrarmatur auf dem Hauptrohr, sind entsprechend 
+den gültigen Richtlinien für Anbohrarmaturen sowie den Angaben des Herstellers durch-zuführen 
+  2.
+ PE-Rohr mit geeig
+neten Rohrschneidewerkzeug auf die gewünschte Länge kürzen 
+  3. EWE-PE-
+Adapters G 1 1/2“ (nur für EWE-Ventil-Anbohrarmatur) montieren 
+  4. Sch
+weißvorbereitung zur Schweißung des 90° Schweißwinkels gemäß Anweisung des 
+Schweißfitting-Herstellers durchführen 
+  5. Vor dem 
+Verschweißen ist der Ausbläser mittig auf die Anbohrarmatur bzw. Einbaugarni-
+tur auszurichten (nach der Schweißung ist keine Korrektur möglich).
+  6. 90°-W
+inkel mit dem Abgangsstutzen der Armatur und dem PE-Rohr verschweißen
+  7. Dichtheitsprüfung gem. DVGW G 469 dur
+chführen
+  8. Anbohrung des Hauptr
+ohres entsprechend den gültigen Richtlinien für Anbohrarma-
+turen sowie den Angaben des Herstellers durchführen. Das Steigrohr ist während der Anbohrung geschlossen zu halten
+
+Benutzerinformation EWE-Ausblasarmatur |  11  9. Aufsetzen der Verschlussscheibe auf die Anbohrarmatur und montieren der Einbau- 
+gar
+nitur
+10. Ausziehen der Einbaugar
+nitur auf die Höhe der Steigleitung
+11. Bef
+estigen der Einbaugarnitur mit dem PE-Übergang durch Verschrauben der zwei- 
+teiligen Niro-Schelle
+4. Betrieb und Verwendung
+ Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Absperrarmaturen erfolgen.
+ Beim Ausblasvorgang ist ein geeignetes Ausblasrohr zu verwenden und die Strömungsge-schwindigkeit gem. DVGW G 465-2 zu kontrollieren!
+ 
+5. Instandhaltung und Wartung
+5.1 Wartung
+Die Wartung erfolgt in Form der Funktionskontrolle.  
+
+12  |  Benutzerinformation EWE-AusblasarmaturWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100004 - Ausgabe 11/2019
+

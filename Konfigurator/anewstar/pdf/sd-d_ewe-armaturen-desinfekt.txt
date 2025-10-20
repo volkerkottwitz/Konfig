@@ -1,0 +1,385 @@
+Seite:1/8
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:18.01.2022 überarbeitetam:21.09.2021 VersionNr.103
+54.0*ABSCHNITT1:BezeichnungdesStoffsbeziehungsweisedesGemischsund
+desUnternehmens
+-1.1Produktidentifikator
+-Handelsname:EWE-Armaturen-Desinfekt
+-CAS-Nummer:
+7732-18-5
+-EG-Nummer:
+231-791-2
+-1.2RelevanteidentifizierteVerwendungendesStoffsoderGemischsundVerwendungen,
+vondenenabgeratenwird
+KeineweiterenrelevantenInformationenverfügbar.
+-VerwendungdesStoffes/desGemischesDesinfektionsmittel
+-1.3EinzelheitenzumLieferanten,derdasSicherheitsdatenblattbereitstellt
+-Hersteller/Lieferant:
+WilhelmEweGmbH&Co.KG
+VolkmaroderStr.19
+38104Braunschweig
+Tel:+49(0)531-37005-0
+Fax:+49(0)531-37005-35
+eMail:info@ewe-armaturen.de
+www.ewe-armaturen.de
+-AuskunftgebenderBereich:AbteilungProduktsicherheit
+-1.4Notrufnummer:
+BeratungsstellebeiVergiftungen,Mainz
+Tel.06131/19240
+ABSCHNITT2:MöglicheGefahren
+-2.1EinstufungdesStoffsoderGemischs
+-EinstufunggemäßVerordnung(EG)Nr.1272/2008
+DerStoffistgemäßCLP-Verordnungnichteingestuft.
+-2.2Kennzeichnungselemente
+-KennzeichnunggemäßVerordnung(EG)Nr.1272/2008entfällt
+-Gefahrenpiktogrammeentfällt
+-Signalwortentfällt
+-Gefahrenhinweiseentfällt
+-2.3SonstigeGefahren
+-ErgebnissederPBT-undvPvB-Beurteilung
+-PBT:Nichtanwendbar.
+-vPvB:Nichtanwendbar.
+ABSCHNITT3:Zusammensetzung/AngabenzuBestandteilen
+-3.1Stoffe
+-CAS-Nr.Bezeichnung
+7732-18-5Wasser
+-Identifikationsnummer(n)
+-EG-Nummer:231-791-2
+(FortsetzungaufSeite2)
+D
+
+Seite:2/8
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:18.01.2022 überarbeitetam:21.09.2021 VersionNr.103
+Handelsname:EWE-Armaturen-Desinfekt
+(FortsetzungvonSeite1)
+54.0-Beschreibung:
+GemischausnachfolgendangeführtenStoffenmitungefährlichenBeimengungen(Lösungin
+Wasser).
+-Verordnung(EG)Nr.648/2004überDetergenzien/KennzeichnungderInhaltsstoffe
+BleichmittelaufSauerstoffbasis <5%
+-zusätzl.Hinweise:
+BiozideWirkstoffe:1,5gWasserstoffperoxidpro100gProdukt.
+Silber(CAS7440-22-4)<0,1%
+*ABSCHNITT4:Erste-Hilfe-Maßnahmen
+-4.1BeschreibungderErste-Hilfe-Maßnahmen
+-AllgemeineHinweise:
+SelbstschutzdesErsthelfers(Körper-,Augen-undAtemschutz).
+Warmhalten,ruhiglagernundzudecken.
+KeinebesonderenMaßnahmenerforderlich.
+BeiBewußtlosigkeitLagerungundTransportinstabilerSeitenlage.
+BeianhaltendenBeschwerdenArzthinzuziehen.
+-nachEinatmen:Frischluftzufuhr,beiBeschwerdenArztaufsuchen.
+-nachHautkontakt:Beschmutzte,durchtränkteKleidungwechseln.
+-nachAugenkontakt:AugenbeigeöffnetemLidspalt15MinutenmitfließendemWasserspülen.
+-nachVerschlucken:MundausspülenundreichlichWassernachtrinken.
+-4.2WichtigsteakuteundverzögertauftretendeSymptomeundWirkungen
+KeineweiterenrelevantenInformationenverfügbar.
+-4.3HinweiseaufärztlicheSoforthilfeoderSpezialbehandlung
+KeineweiterenrelevantenInformationenverfügbar.
+*ABSCHNITT5:MaßnahmenzurBrandbekämpfung
+-5.1Löschmittel
+-GeeigneteLöschmittel:
+Produktistnichtbrennbar.
+FeuerlöschmaßnahmenaufUmgebungabstimmen.
+BrandbekämpfungaufUmgebungsbrandabstimmen.
+-5.2BesonderevomStoffoderGemischausgehendeGefahren
+Produktistnichtbrennbar.BeiUmgebungsbrändenZersetzungsgefahrmitFreisetzungvon
+Sauerstoff.FreisetzungvonSauerstoffwirktbrandfördernd.GefahrderÜberdruckbildungund
+BerstgefahrbeiZersetzunginabgeschlossenenBehälternundRohrleitungen.
+-5.3HinweisefürdieBrandbekämpfung
+-BesondereSchutzausrüstung:
+SieheunterPunkt8.
+UmgebungsluftunabhängigesAtemschutzgerättragen.
+-WeitereAngabenGefährdeteBehälterinderUmgebungmitWassersprühstrahlkühlen.
+D
+(FortsetzungaufSeite3)
+
+Seite:3/8
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:18.01.2022 überarbeitetam:21.09.2021 VersionNr.103
+Handelsname:EWE-Armaturen-Desinfekt
+(FortsetzungvonSeite2)
+54.0*ABSCHNITT6:MaßnahmenbeiunbeabsichtigterFreisetzung
+-6.1PersonenbezogeneVorsichtsmaßnahmen,SchutzausrüstungenundinNotfällen
+anzuwendendeVerfahren
+Nichterforderlich.
+-6.2Umweltschutzmaßnahmen:
+NichtindieKanalisation/Oberflächenwasser/Grundwassergelangenlassen.
+-6.3MethodenundMaterialfürRückhaltungundReinigung:
+MitvielWasserverdünnen.
+MitflüssigkeitsbindendemMaterial(Sand,Kieselgur,Säurebinder,Universalbinder,Sägemehl)
+aufnehmen.
+KontaminiertesMaterialalsAbfallnachPunkt13entsorgen.
+-6.4VerweisaufandereAbschnitte
+InformationenzursicherenHandhabungsieheAbschnitt7.
+InformationenzurpersönlichenSchutzausrüstungsieheAbschnitt8.
+InformationenzurEntsorgungsieheAbschnitt13.
+*ABSCHNITT7:HandhabungundLagerung
+-7.1SchutzmaßnahmenzursicherenHandhabungBehältermitVorsichtöffnenundhandhaben.
+-HinweisezumBrand-undExplosionsschutz:
+Stoffistnichtbrennbar,kannjedochbeiHitzeeinwirkungundDurchfeuchtungaufbrennbare
+SubstanzenentzündendwirkendurchFreisetzungvonSauerstoff.ÄtzendeZersetzungsgase.
+Zündquellenfernhalten-nichtrauchen.
+-7.2BedingungenzursicherenLagerungunterBerücksichtigungvonUnverträglichkeiten
+-Lagerung:IngutverschlossenenGebindenkühlundtrockenlagern.
+-AnforderunganLagerräumeundBehälter:
+ImLiefergebindeoderinPE-Behälternaufbewahren.
+NurBehälterverwenden,diespeziellfürdenStoff/dasProduktzugelassensind.
+-Zusammenlagerungshinweise:nichterforderlich
+-WeitereAngabenzudenLagerbedingungen:Keine
+-KlassifizierungnachBetriebssicherheitsverordnung(BetrSichV):-
+-7.3SpezifischeEndanwendungenKeineweiterenrelevantenInformationenverfügbar.
+*ABSCHNITT8:BegrenzungundÜberwachungderExposition/Persönliche
+Schutzausrüstungen
+-8.1ZuüberwachendeParameter
+-ZusätzlicheHinweisezurGestaltungtechnischerAnlagen:
+KeineweiterenAngaben,sieheAbschnitt7.
+-Bestandteilemitarbeitsplatzbezogenen,zuüberwachendenGrenzwerten:
+-ZusätzlicheHinweise:AlsGrundlagedientendiebeiderErstellunggültigenListen.
+-8.2BegrenzungundÜberwachungderExposition
+-PersönlicheSchutzausrüstung:
+-AllgemeineSchutz-undHygienemaßnahmen:
+DieüblichenVorsichtsmaßnahmenbeimUmgangmitChemikaliensindzubeachten.
+Dämpfe,SprühnebelundAerosolenichteinatmen.
+(FortsetzungaufSeite4)
+D
+
+Seite:4/8
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:18.01.2022 überarbeitetam:21.09.2021 VersionNr.103
+Handelsname:EWE-Armaturen-Desinfekt
+(FortsetzungvonSeite3)
+54.0-Atemschutz:
+BeiAuftretenvonSprühnebelnistAtemschutzerforderlich.
+AtemschutzbeiFreisetzungvonDämpfen/Aerosolen.
+-EmpfohlenesFiltergerätfürkurzzeitigenEinsatz:SpezialgasfilterNO-P3,Farbeblau-weiß
+-Handschutz:
+DasHandschuhmaterialmussundurchlässigundbeständiggegendasProdukt/denStoff/die
+Zubereitungsein.
+AufgrundfehlenderTestskannkeineEmpfehlungzumHandschuhmaterialfürdasProdukt/die
+Zubereitung/dasChemikaliengemischabgegebenwerden.
+AuswahldesHandschuhmaterialsunterBeachtungderDurchbruchzeiten,Permeationsratenund
+derDegradation.
+-Handschuhmaterial
+DieAuswahleinesgeeignetenHandschuhsistnichtnurvomMaterial,sondernauchvonweiteren
+QualitätsmerkmalenabhängigundvonHerstellerzuHerstellerunterschiedlich.
+-DurchdringungszeitdesHandschuhmaterials
+DiegenaueDurchbruchzeitistbeimSchutzhandschuhherstellerzuerfahrenundeinzuhalten.
+-FürdenDauerkontaktsindHandschuheausfolgendenMaterialiengeeignet:
+Naturkautschuk(Latex)
+Chloroprenkautschuk
+HandschuheausPVC.
+Achtung!dietäglicheGebrauchsdauereinesChemikalienschutzhandschuhskannwegender
+besonderenBedingungenamArbeitsplatz(mechanischeBelastung,Temperatur)deutlichkürzer
+alsdienachEN374ermitteltePermeationszeitsein.
+-Augenschutz:BeimUmfüllenSchutzbrilleempfehlenswert.
+-Körperschutz:
+Arbeitsschutzkleidung
+Standard-Arbeitsschutzkleidung.ChemikalienbeständigeSicherheitsschuheoder-stiefel.Wenn
+Hautkontaktauftretenkann,fürdiesenStoffundurchlässigeSchutzkleidungtragen.
+*ABSCHNITT9:PhysikalischeundchemischeEigenschaften
+-9.1AngabenzudengrundlegendenphysikalischenundchemischenEigenschaften
+-AllgemeineAngaben
+-Aussehen:
+Form: flüssig
+Farbe: farblos
+-Geruch: charakteristisch
+-Geruchsschwelle: Nichtbestimmt.
+-pH-Wert: Nichtbestimmt
+-Schmelzpunkt/Gefrierpunkt: 0°C
+-SiedebeginnundSiedebereich: 100°C
+Zersetzung
+-Flammpunkt: Nichtanwendbar;Produktistnichtbrennbaroder
+explosionsgefährlich.
+-Entzündbarkeit(fest,gasförmig): Nichtanwendbar.
+-Zersetzungstemperatur: Nichtbestimmt.
+(FortsetzungaufSeite5)
+D
+
+Seite:5/8
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:18.01.2022 überarbeitetam:21.09.2021 VersionNr.103
+Handelsname:EWE-Armaturen-Desinfekt
+(FortsetzungvonSeite4)
+54.0-Selbstentzündungstemperatur: Nichtbestimmt.
+-ExplosiveEigenschaften: DasProduktistnichtexplosionsgefährlich.
+-Explosionsgrenzen:
+untere: Nichtbestimmt.
+obere: Nichtbestimmt.
+-Dampfdruckbei20°C: 23hPa
+-Dichtebei20°C: 1g/cm³
+-RelativeDichte Nichtbestimmt.
+-Dampfdichte Nichtbestimmt.
+-Verdampfungsgeschwindigkeit Nichtbestimmt.
+-Löslichkeitin/Mischbarkeitmit
+Wasser: vollständigmischbar
+-Verteilungskoeffizient:n-Octanol/Wasser:Nichtbestimmt.
+-Viskosität:
+dynamischbei20°C: 0,952mPas
+kinematisch: Nichtbestimmt.
+Wasser: 99,6%
+Festkörpergehalt: 0,0%
+-9.2SonstigeAngaben KeineweiterenrelevantenInformationenverfügbar.
+*ABSCHNITT10:StabilitätundReaktivität
+-10.1ReaktivitätKeineweiterenrelevantenInformationenverfügbar.
+-10.2ChemischeStabilität
+-ThermischeZersetzung/zuvermeidendeBedingungen:
+KeineZersetzungbeibestimmungsgemäßerLagerungundHandhabung.
+VorHitzeunddirekterSonneneinstrahlungschützen.
+-10.3MöglichkeitgefährlicherReaktionenKeinegefährlichenReaktionenbekannt.
+-10.4ZuvermeidendeBedingungenKeineweiterenrelevantenInformationenverfügbar.
+-10.5UnverträglicheMaterialien:
+Verunreinigungen,Metallionen,Metallsalze,Metalle,Alkalien,Salzsäure,Reduktionsmittel,
+brennbareStoffe,Lösungsmittel.
+ReaktionenmitstarkenOxidationsmitteln
+-10.6GefährlicheZersetzungsprodukte:Sauerstoff(wirktbrandfördernd).
+*ABSCHNITT11:ToxikologischeAngaben
+-11.1AngabenzutoxikologischenWirkungen
+-AkuteToxizitätAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-PrimäreReizwirkung:
+-Ätz-/ReizwirkungaufdieHaut
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+(FortsetzungaufSeite6)
+D
+
+Seite:6/8
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:18.01.2022 überarbeitetam:21.09.2021 VersionNr.103
+Handelsname:EWE-Armaturen-Desinfekt
+(FortsetzungvonSeite5)
+54.0-SchwereAugenschädigung/-reizung
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-SensibilisierungderAtemwege/Haut
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-ZusätzlichetoxikologischeHinweise:
+-CMR-Wirkungen(krebserzeugende,erbgutveränderndeundfortpflanzungsgefährdende
+Wirkung)
+-Keimzell-MutagenitätAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-KarzinogenitätAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-ReproduktionstoxizitätAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-SpezifischeZielorgan-ToxizitätbeieinmaligerExposition
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-SpezifischeZielorgan-ToxizitätbeiwiederholterExposition
+AufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+-AspirationsgefahrAufgrundderverfügbarenDatensinddieEinstufungskriteriennichterfüllt.
+*ABSCHNITT12:UmweltbezogeneAngaben
+-12.1Toxizität
+-AquatischeToxizität:KeineweiterenrelevantenInformationenverfügbar.
+-12.2PersistenzundAbbaubarkeitKeineweiterenrelevantenInformationenverfügbar.
+-12.3BioakkumulationspotenzialKeineweiterenrelevantenInformationenverfügbar.
+-12.4MobilitätimBodenKeineweiterenrelevantenInformationenverfügbar.
+-WeitereökologischeHinweise:
+-AllgemeineHinweise:Imallgemeinennichtwassergefährdend.
+-12.5ErgebnissederPBT-undvPvB-Beurteilung
+-PBT:Nichtanwendbar.
+-vPvB:Nichtanwendbar.
+-12.6AndereschädlicheWirkungenKeineweiterenrelevantenInformationenverfügbar.
+*ABSCHNITT13:HinweisezurEntsorgung
+-13.1VerfahrenderAbfallbehandlung
+-Empfehlung:
+GebrauchtesProduktdemRecyclingodersoweitmöglicheineranderenVerwendungzuführen.
+AnsonsteneinerzugelassenenEntsorgungübergeben.
+-Abfallschlüsselnummer:
+DieAbfallschlüsselnummernsindseitdem1.1.1999nichtnurProdukt-sondernimwesentlichen
+anwendungsbezogen.DiefürdieAnwendunggültigeAbfallschlüsselnummerkanndem
+EuropäischenAbfallkatalogentnommenwerden.
+-UngereinigteVerpackungen:EntsorgunggemäßdenbehördlichenVorschriften.
+-Empfehlung:
+BehältervollständigentleerenundgereinigteinerRekonditionierungoderWiederaufbereitung
+zuführen.EntsorgungderBehälternurunterAbsprachemitdenörtlichenBehörden.
+Leihverpackung:NachoptimalerEntleerungsofortdichtverschlossenundohneReinigung
+demLieferantenzurückgeben.EsistSorgezutragen,daßkeineFremdstoffeindieVerpackung
+gelangen!
+(FortsetzungaufSeite7)
+D
+
+Seite:7/8
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:18.01.2022 überarbeitetam:21.09.2021 VersionNr.103
+Handelsname:EWE-Armaturen-Desinfekt
+(FortsetzungvonSeite6)
+54.0SonstigeBehälter:vollständigentleerenundgereinigteinerRekonditionierungoder
+Wiederaufbereitungzuführen.
+-EmpfohlenesReinigungsmittel:Wasser,gegebenenfallsmitZusatzvonReinigungsmitteln.
+ABSCHNITT14:AngabenzumTransport
+-14.1UN-Nummer
+-ADR/RID,IMDG,IATA entfällt
+-14.2OrdnungsgemäßeUN-Versandbezeichnung
+-ADR/RID,IMDG,IATA entfällt
+-14.3Transportgefahrenklassen
+-ADR/RID,IMDG,IATA
+-Klasse entfällt
+-14.4Verpackungsgruppe
+-ADR/RID,IMDG,IATA entfällt
+-14.5Umweltgefahren: Nichtanwendbar.
+-Marinepollutant: Nein
+-14.6BesondereVorsichtsmaßnahmenfür
+denVerwender Nichtanwendbar.
+-14.7MassengutbeförderunggemäßAnhangII
+desMARPOL-Übereinkommensundgemäß
+IBC-Code Nichtanwendbar.
+-Transport/weitereAngaben: KeinGefahrgutnachobigenVerordnungen
+-UN"ModelRegulation": entfällt
+*ABSCHNITT15:Rechtsvorschriften
+-15.1VorschriftenzuSicherheit,Gesundheits-undUmweltschutz/spezifische
+RechtsvorschriftenfürdenStoffoderdasGemisch
+-KennzeichnunggemäßVerordnung(EG)Nr.1272/2008entfällt
+-Gefahrenpiktogrammeentfällt
+-Signalwortentfällt
+-Gefahrenhinweiseentfällt
+-Richtlinie2012/18/EU
+-Richtlinie2011/65/EUzurBeschränkungderVerwendungbestimmtergefährlicherStoffein
+Elektro-undElektronikgeräten–AnhangII
+KeinerderInhaltsstoffeistenthalten.
+-VERORDNUNG(EU)2019/1148
+-Verordnung(EG)Nr.273/2004betreffendDrogenausgangsstoffe
+KeinerderInhaltsstoffeistenthalten.
+(FortsetzungaufSeite8)
+D
+
+Seite:8/8
+Sicherheitsdatenblatt
+gemäß1907/2006/EG,Artikel31
+Druckdatum:18.01.2022 überarbeitetam:21.09.2021 VersionNr.103
+Handelsname:EWE-Armaturen-Desinfekt
+(FortsetzungvonSeite7)
+54.0-Verordnung(EG)Nr.111/2005zurFestlegungvonVorschriftenfürdieÜberwachungdes
+HandelsmitDrogenaustauschstoffenzwischenderGemeinschaftundDrittländern
+KeinerderInhaltsstoffeistenthalten.
+-NationaleVorschriften:
+-TechnischeAnleitungLuft:
+-VOC-Gehalt:0flüchtigeorganischeVerbindungen(gemäß31.BImschV/EG-Richtlinie2010/75).
+-Wassergefährdungsklasse:Imallgemeinennichtwassergefährdend.
+-SonstigeVorschriften,BeschränkungenundVerbotsverordnungen
+-BesondersbesorgniserregendeStoffe(SVHC)gemäßREACH,Artikel57
+KeinerderInhaltsstoffeistenthalten.
+-VOCV(CH)0,00%
+-15.2Stoffsicherheitsbeurteilung:EineStoffsicherheitsbeurteilungwurdenichtdurchgeführt.
+ABSCHNITT16:SonstigeAngaben
+DieAngabenstützensichaufdenheutigenStandunsererKenntnisse,siestellenjedochkeine
+ZusicherungvonProdukteigenschaftendarundbegründenkeinvertraglichesRechtsverhältnis.
+-DatenblattausstellenderBereich:SieheAbschnitt1.3:AuskunftgebenderBereich
+-AbkürzungenundAkronyme:
+RPE:RespiratoryProtectiveEquipment
+RCR:RiskCharacterisationRatio(RCR=PEC/PNEC)
+ADR:Accordrelatifautransportinternationaldesmarchandisesdangereusesparroute(EuropeanAgreementConcerning
+theInternationalCarriageofDangerousGoodsbyRoad)
+IMDG:InternationalMaritimeCodeforDangerousGoods
+IATA:InternationalAirTransportAssociation
+GHS:GloballyHarmonizedSystemofClassificationandLabellingofChemicals
+CLP:Classification,LabellingandPackaging(Regulation(EC)No.1272/2008)
+EINECS:EuropeanInventoryofExistingCommercialChemicalSubstances
+CAS:ChemicalAbstractsService(divisionoftheAmericanChemicalSociety)
+SVHC:SubstancesofVeryHighConcern
+vPvB:veryPersistentandveryBioaccumulative
+-*DatengegenüberderVorversiongeändert
+D
+

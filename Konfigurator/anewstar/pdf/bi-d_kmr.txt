@@ -1,0 +1,332 @@
+EWE-Kegelmembran-
+Rückflussverhinderer
+Benutzerinformation
+#7100019 - Ausgabe 01/2024
+
+
+2  |  Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer
+Inhaltsverzeichnis
+Allgemeine Hinweise 4 
+ Angaben über das Erzeugnis 6   Einbauhinweise (Installation/Montage) 13  Betrieb und Verwendung 14  Wartung und Instandhaltung 14  Druckverlustkurven 15
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  3
+
+
+4  |  Benutzerinformation EWE-Kegelmembran-RückflussverhindererAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten. 
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Es dürfen ausschließlich Geräte, die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+	Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Sollten weitere Geräte verwendet werden (wie z.B weitere direkt angeschlossene Armatu-ren), sind deren Bedienungsanleitungen unbedingt zu beachten. 
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Installa-tion, Betrieb und Wartung der Armatur können von uns  nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  5	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die 
+sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+Verpackung
+	Die einzelnen Armaturen sind entsprechend den zu erwartenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Montage der Armatur.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Verwendung von Abkürzungen:
+KMR:   Kegelmembr an-Rückflussverhinderer
+RV:  Rückflussver hinderer
+WZ:  Wasserzähler
+AG: Außengewinde
+IG:  Innengewinde
+DIN:   Deutsches Institut für NormungQ3:   Dauerdurchfluss 
+DVGW:  Deutscher Verein des Gas- und   
+    Wasserfaches
+EWS:    Epoxy-Wirbel-Sinter
+DN:   Nenndurchmesser
+PN:   NenndruckErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer1. Angaben über das Erzeugnis 
+1.1  Geltungsbereich
+Diese Benutzerinformation gilt für
+Kegelmembran-Rückflussverhinderer (KMR) 
+Standrohr-RV
+für Standrohr-WZ 
+Artikelnummer  344191XKMR für Standrohr-WZ Artikelnummer 3442015, 3442016
+KMR für Standrohr-WZ  
+Artikelnummer 3441212-3442014
+KMR mit Gewinde- Längernausgleich Artikelnummer 34418XX
+KMR für Standrohr-WZ, 
+beiderseits AG Artikelnummer 34423XX
+KMR mit Prüfschraube 
+und Entleerung  Artikelnummer 3441XXXKMR, beiderseits AG, mit  Entleerung und Ver-schraubung  Artikelnummer 3441XXX
+KMR, beiderseits IG Artikelnummer 3441XXXKMR mit IG und AG Artikelnummer 3441XXX
+KMR, beiderseits AG
+Artikelnummer 3441022Kegelmembran- Zwischenflansch-RV Artikelnummer 644511X
+Kegelmembran- Einflansch-RV Artikelnummer 64450XXKegelmembran- Flansch-RV Artikelnummer 64430XX
+KMR, beiderseits AG,  
+mit  Verschraubung  
+Artikelnummer 3441XXX
+Kegelmembran-  
+Flansch-RV Edelstahl Artikelnummer 644300XKMR DN 80, B × B, für Hy-dranten und Standrohre Artikelnummer 3903093
+1.2  Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  7Insbesondere
+	DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 806
+	DIN EN 805 „Wasserversorgung – Anforderungen an Wasserversorgungssysteme und deren 
+Bauteile außerhalb von Gebäuden“ 
+	DIN EN 806 „Technische Regeln für Trinkwasser-Installationen“
+	DIN EN 1717 „Schutz des Trinkwassers vor Verunreinigungen in Trinkwasser-Installationen und allgemeine Anforderungen an Sicherungseinrichtungen zur Verhütung von Trink- wasser durch Rückfließen“
+	DIN EN 1514-1 „Flansche und ihre Verbindungen – Maße für Dichtungen für Flansche mit PN-Bezeichnung – Teil 1: Flachdichtungen aus nichtmetallischem Werkstoff mit oder ohne Einlagen“
+	DVGW W 331 „Auswahl, Einbau und Betrieb von Hydranten“
+	DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	DVGW W 408 „Anschluss von Entnahmevorrichtungen an Hydranten in Trinkwasservertei-lungsanlagen“
+	DVGW W 408-B1 „Anschluss von Entnahmevorrichtungen an Hydranten in Trinkwasserver -
+teilungsanlagen – Beiblatt 1: Hinweise zu Standrohren mit Entnahmevorrichtung“
+1.3  Verwendungsbereich/Medium
+	Kalt-, Roh-, Lösch- und Kühlwasser
+	Typangaben für die Trinkwasseranwendungen siehe 1.5.1–1.5.4
+	EA = kontrollierbarer Rückflussverhinderer
+	EB = nicht kontrollierbarer Rückflussverhinderer
+	andere Anwendungen auf Anfrage
+1.4  Zulässiger Bauteile-Betriebsdruck (PFA)
+	PN 10 nach Regelwerk für Trinkwasser-Installationen und Gebäudearmaturen. 
+	Alle EWE KMR  können bis zu einem Bauteile-Betriebsdruck von PN 16 eingesetzt werden. 
+	 Bei Modellen in Kombination mit Schrägsitzventilen können bei Betriebsdrücken  
+> 10 bar Nutzungseinschränkungen in der Bedienung auftreten. Dazu sind die 
+Hinweise im Pkt. 4 dieser Benutzerinformation zu beachten.  
+1.5  Werkstoffe
+1.5.1  Kegelmembran-Rückflussverhinderer
+Werkstoff
+	Kegelträger aus A4-Edelstahl
+	Membran aus Silikon oder EPDM
+	alternative Membranwerkstoffe auf Anfrage
+	Gehäuse aus (Press-)Messing 
+
+8  |  Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer1.5.2  Kegelmembran-Flansch-Rückflussverhinderer
+Werkstoff
+	Kegelträger aus A4-Edelstahl
+	Membran aus Silikon oder EPDM
+	alternative Membranwerkstoffe auf Anfrage
+	Gehäuse: Kunststoffbeschichteter Stahl-Flansch 
+1.5.3  KMR DN 80 B × B, für Hy dranten und Standrohre 
+Werkstoff
+	Kegelträger aus A4-Edelstahl 
+	Membran aus EP
+	Spreizkorb aus A4-Edelstahl 
+	Gehäuse aus Messing
+	B-Storz Kupplungen aus Aluminium, farblich gekennzeichnet:  Eingang: Kupplung silber ;  
+ Ausgang: K upplung rot 
+1.6  Abmessungen / Leistung
+1.6.1  Standrohr-Rückflussverhinderer EB für Standrohr-Wasserzähler
+Modell 344191X
+Abmessungen
+	für Standrohr-WZ Q 3 10 G 1 ½"
+	für Standrohr-WZ Q 3 16 G 2"
+ 
+1.6.2  Kegelmembran-Rückflussverhinderer EA für Standrohr-Wasserzähler
+Modell 3442012 – 3442014Abmessungen
+	KMR-Einsatz DN 32/50
+	Gewindeanschluss Eingang IG G 1" bis G 2"
+	Gewindeanschluss Ausgang AG G 1" bis G 2"
+	Einsatz für Standrohr-WZ Q 3 4/10/25 
+1.6.3  Kegelmembran-Rückflussverhinderer EB für Standrohr-Wasserzähler
+Modell 3442015 - 3442016Abmessungen
+	KMR-Einsatz DN 32/65
+	Gewindeanschluss Eingang IG G 2" oder G 2 ½"
+	Gewindeanschluss Ausgang AG G 2" oder G 2 ½"
+	Einsatz für Standrohr-WZ Q 3 16
+
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  91.6.4  Kegelmembran-Rückflussverhinderer EA  
+für Standrohr-Wasserzähler, beiderseits Außengewinde
+Modelle 34423XX
+Abmessungen
+	KMR-Einsatz DN 32/50
+	Gewindeanschluss Eingang AG G 1 ¼" oder G 2"
+	Gewindeanschluss Ausgang AG G 1 ¼" oder G 2"
+	Einsatz für Standrohr-WZ Q 3 10/16/25
+1.6.5  Kegelmembran-Rückflussverhinderer EA,  
+mit Gewinde-Längenausgleich 
+Modell 34418XXAbmessungen
+Baulänge
+mmfürWZAQ3
+ (Qn)Eingang IGÜ-Mutter ×Ausgang IG
+119–126
+4 (2,5) 1" × 1"
+129–136 4 (2,5) 1" × 1"
+130–139 10 (6) 1 ¼ " × 1 ¼ "
+155–164 10 (6) 1 ¼ " × 1 ¼ "
+149–156 16 (10) 2" × 2"
+1.6.6  Kegelmembran-Rückflussverhinderer EA,  
+mit Prüfschraube und Entleerung 
+Modell 3441XXX
+Abmessungen beiderseits Innengewinde
+	Baulänge 100mm/105 mm/120 mm
+	Eingang IG G ¾" bis G 1 ½"
+	Ausgang IG G ¾" bis G 1 ½"
+Abmessungen Außen- und Innengewinde
+	Baulänge 100mm/105 mm/150 mm
+	Eingang AG G 1"/G 1 ¼"/G 2"
+	Ausgang IG G 1"/G 1 ¼"/G 2"
+
+
+10  |  Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer1.6.7  Kegelmembran-Rückflussverhinderer EA,  
+beiderseits Außengewinde, mit Verschraubung
+Modell 3441XXX
+Abmessungen
+	Baulänge 180 mm/200 mm/205 mm/ 210 mm/260 mm
+	Gewinde R ¾" bis 2"
+  
+1.6.8  Kegelmembran-Rückflussverhinderer EA,  
+beiderseits Außengewinde, mit Entleerung und Verschraubung
+Modell 3441XXXAbmessungen
+	Baulänge 180 mm/200 mm/205 mm/ 210 mm/260 mm
+	Gewinde R ¾" bis 2"
+  
+1.6.9  Kegelmembran-Rückflussverhinderer EA, beiderseits Innengewinde
+Modell 3441XXXAbmessungen
+	Baulänge 85 mm/105 mm/110 mm
+	Eingang/Ausgang IG G ½" bis G 2"   
+1.6.10 Kegelmembran-Rückflussverhinderer EA, beiderseits Außengewinde
+Modell 3441022Abmessungen
+	Baulänge 85 mm
+	Eingang/Ausgang AG G 1"
+
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  111.6.11 Kegelmembran-Rückflussverhinderer EA, 
+ mit  Innen- und Außengewinde
+Modell 3442XXX
+Abmessungen
+	Baulänge 85 mm/100 mm/110 mm/115 mm/ 130 mm
+	Eingang/Ausgang AG oder IG G 1" bis 2 ½"   
+1.6.12 Kegelmembran-Zwischenflansch-Rückflussverhinderer EB
+Modell 644511XAbmessungen
+	DN 40 bis DN 100     
+1.6.13 Kegelmembran-Einflansch-Rückflussverhinderer EB
+Modell 64450XXAbmessungen
+	DN 50 bis DN 200
+   
+1.6.14 Kegelmembran-Flansch-Rückflussverhinderer EA
+Modell 64430XXAbmessungen
+	DN 50 bis DN 150
+
+
+12  |  Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer1.6.15 Kegelmembran-Flansch-Rückflussverhinderer Edelstahl EA
+Modell 644300X 
+Abmessungen
+	DN 50 bis DN 150
+1.6.16 KMR DN 80 EA, B × B,  für Hydranten und Standrohre
+Modell 3903093Abmessungen
+	Baulänge Feuewehr-KMR: 160 mm 
+	Kegelträger DN 80
+	beiderseits B-Storz Kupplungen 
+Leistung
+	Durchfluss bei 1,5 bar > 96 m³/h
+1.7  Lagerung
+Die Produkte sind bis zur Verwendung vor Verschmutzung geschützt zu lagern. 
+1.8  Funktionsbeschreibung
+Der EWE-KMR wird mit Gewinde, Verschraubungen und in verschiedenen Flanschausfüh-rungen, wie z. B. Vollflanschbauweise und als Zwischenflanschlösung zum Einbringen in die vorhandene Rohrleitung, angeboten. In dem jeweiligen Gehäuse befindet sich ein Edel-stahl-Kegelträger mit fest verbundener Membran. Der Volumenstrom in Vorwärtsbewegung faltet die Membran nach innen, so dass das Medium an der Membran mit einem geringen Druckverlust (siehe Bild 1) entlang fließt. Sobald kein Volumenstrom vorhanden ist oder ein Rückfließen entsteht, legt sich die Membran wieder in ihre Ausgangsform an den Kegelträger an und verhindert so ein Zurückfließen des Mediums.Andererseits ist die Bauart mit Gehäuse und Storz-Kupplungen (Modell 3903093) zusätzlich mit Belüftern versehen, die bei Entstehung von Unterdruck durch von außen einströmende Luft einen Druckausgleich erzeugen. Dadurch wird die Wasserentnahme gleichmäßiger und ein Vakuum wird verhindert. Die Belüfter vor dem Rückflussverhinderer schützen auch vor Unterdruck von der Netzseite und die Entleerungsfunktion des Hydranten bleibt erhalten.
+
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  13
+
+
+14  |  Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer2. Einbauhinweise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+Der Einbau muss ggf. mit geeignetem Hebezeug erfolgen, so dass eine Beschädi-
+gung der Beschichtung ausgeschlossen werden kann. Der Einbau in das Rohrleitungssystem muss kraft- und momentfrei erfolgen.
+2.2  Hinweise zum Einbauort
+Der Einbauort muss so ausgewählt werden, dass für spätere Wartungen und Funk -
+tionskontrollen ausreichend Platz vorhanden ist.
+Der Einbau in der Nähe von Pumpen ist nicht empfehlenswert. Falls sich der Einbauort nicht anders darstellen lässt, ist eine Sanft-Anlauf und -Abschaltung der Pumpe erforderlich. Der Verschleiß der Membran erhöht sich in diesem Fall!Der EWE-KMR muss entsprechend seiner Funktion zur Fließrichtung eingebaut werden und kann in waagerechter Einbaulage oder senkrecht in Steigleitungen verwendet werden.
+2.3  Strömungsgeschwindigkeit
+Der KMR kann mit Strömungsgeschwindigkeiten von maximal 3m/s betrieben werden.
+2.4  Verbindung Storz-Kupplung 
+Die Verbindung der jeweiligen B-Storz-Kupplung erfolgt nach dem Prinzip eines Bajonett- Verschlusses. Die Klauen (Knaggen) der Kupplungen müssen in die entsprechenden Kontu- ren der Gegenkupplung (Schlauch, Überflurhydrant...) greifen. Durch Verdrehen der beiden Halbkupplungen rasten die Konturen der Kupplungen ein. 
+3. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme des KMR sowie der gesam -
+ten Anlage erfolgen. 
+3.1  Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen. 
+4. Wartung und Instandhaltung
+Membran und Belüfter sind Verschleißteile. Es kommt auf den Anwendungsfall und das Medium an, wie oft der KMR gewartet und ggf. ein Austausch der Membran oder der Belüfter notwendig sein wird. 
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  15Bei Installationen in Trinkwasseranlagen sind die Wartungsintervalle im Regelwerk vorgege -
+ben. Bei abweichenden Betriebsbedingungen kann ein erhöhter Verschleiß der Membran 
+auftreten, so dass eine Wartung des KMR häufiger durchgeführt werden muss.Eine Funktionskontrolle kann bei Modellen mit Prüfschraube im eingebauten Zustand erfolgen. Hierzu ist der Zulauf abzusperren und die Prüfschraube mit gebotener Vorsicht zu öffnen. Es darf nur der Restinhalt zwischen Zulauf und Gehäuse austreten.  Medium aus der weiterführenden Installation muss durch den EWE-KMR zurückgehalten werden.  Ist dies nicht der Fall, muss die Membran instandgesetzt werden.
+  Vor Beginn der Instandsetzungsarbeiten am EWE-KMR ist das Rohrleitungssystem 
+abzusperren und drucklos zu machen. 
+Des Weiteren ist das Rohrleitungssystem gegen unbeabsichtigte Wiederinbetriebnahme ab -
+zusichern. 
+Abhängig von der Art und Gefährlichkeit des Betriebsmediums sowie der Anlage sind 
+alle notwendigen Sicherheitsvorschriften zu beachten.
+4.1  Wechsel des Kegelträgers mit Membran
+Der KMR muss drucklos sein. Der Ein- und Ausbau muss wie beschrieben erfolgen:
+1. Je nach Bauart das Gehäuse demontieren und Gehäuseteile auseinanderschrauben.
+2. Kegelträger mit Membran herausnehmen.
+3. Neuen Kegelträger mit Membran wieder einsetzen, Dichtungen ersetzen, Gehäuse wieder zusammenfügen. 
+4. Prüfung auf Dichtigkeit und Funktion.
+4.2  Wechsel der Kegelträgermembran für KMR DN 80 B × B,  
+für Hydranten und Standrohre 
+Der KMR muss drucklos sein. Der Ein- und Ausbau muss wie beschrieben erfolgen: 
+1. Ggf. den KMR aus dem Standrohr ausbauen. 
+2. Die Membran mit Spreizkorb durch Lösen der Mutter und Kontermutter entfernen. 
+3. Neue Membran mit Spreizkorb wieder einsetzen, mit einem Drehmoment von 3 Nm an- ziehen und montieren. 
+4. Ggf. Dichtungen ersetzen und wieder im Standrohr montieren. 
+5. Prüfung auf Dichtigkeit und Funktion. 
+
+16  |  Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer4.3  Wechsel oder Reinigung der Belüfter (nur bei Art.: 3903093) 
+Der KMR muss drucklos sein. 
+Der Ein- und Ausbau muss wie beschrieben erfolgen: 
+1. Lösen der Belüfterkappe mit SW 24 
+2. Reinigung durch Spülen oder Austausch der Belüftereinheit 
+3. Montage des (Ersatz-)Belüfters, max. Drehmoment 10 Nm
+4.4  Ersatzteile
+	Ersatzmembran für Kegelträger mit Membran DN 65:  
+Artikelnummer 0035006      
+	Ersatzmembran mit Spreizkorb für KMR DN 80 B × B,  
+für Hydranten und Standrohre :  
+Artikelnummer 3904147      
+	Ersatzbelüfter für KMR DN 80 B × B, für Hydranten  und Standrohre:  Artikelnummer 3902199
+
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  175. Druckverlustkurven 
+
+
+18  |  Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer
+
+Benutzerinformation EWE-Kegelmembran-Rückflussverhinderer  |  19
+
+20  |  Benutzerinformation EWE-Kegelmembran-RückflussverhindererWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100019 - Ausgabe 01/2024
+
