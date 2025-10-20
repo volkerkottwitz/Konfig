@@ -155,7 +155,7 @@
   },
   {
     "name": "Benutzerinformation: PE-Schweisstutzen",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_pe-schweisstutzen.pdf",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_pe-schweissstutzen.pdf",
     "category": "Benutzerinformationen",
     "isDefault": false
   },
@@ -436,3 +436,4 @@
     "isDefault": false
   }
 ]
+
