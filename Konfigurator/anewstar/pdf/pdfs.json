@@ -154,7 +154,7 @@
     "isDefault": false
   },
   {
-    "name": "Benutzerinformation: PE-Schweisstutzen",
+    "name": "Benutzerinformation: PE-Schweissstutzen",
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_pe-schweissstutzen.pdf",
     "category": "Benutzerinformationen",
     "isDefault": false
@@ -412,7 +412,7 @@
     "isDefault": false
   },
   {
-    "name": "Allgemein: EWE-Produkte-2025 Neuheiten - Produkte die entfallen",
+    "name": "Allg.: EWE-Produkte-2025 Neuheiten/Produkte die entfallen",
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-produkte-2025neuheiten.pdf",
     "category": "Allgemein",
     "isDefault": false
@@ -436,4 +436,3 @@
     "isDefault": false
   }
 ]
-
