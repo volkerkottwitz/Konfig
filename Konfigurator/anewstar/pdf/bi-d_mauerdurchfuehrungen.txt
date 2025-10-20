@@ -1,0 +1,499 @@
+EWE-
+Mauerdurchführungen
+Benutzerinformation Ausgabe 01/2021
+
+
+2  |  Benutzerinformation EWE Mauerdurchführungen
+Inhaltsverzeichnis
+Allgemeine Hinweise  4 
+ 
+Einzelne Futterrohre und NBR-Rollringe  6 
+ 
+System-Mauerdurchführung, Vormontierte System-Mauerdurchführung  10
+Einbau mit Mörtel  12
+Einbau mit Expansionsharz  17
+Einbau mit Membran-Injektionssystem und Tangit M300  23
+Zubehör  28 
+
+Benutzerinformation EWE Mauerdurchführungen  |  3
+
+
+4  |  Benutzerinformation EWE MauerdurchführungenAllgemeine Hinweise
+	 Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	 Die aktuelle Version dieser Einbau- und Bedienungsanleitung /f_inden Sie auf unserer Inter-netseite: www.ewe-armaturen.de.
+	 Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	 Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	 Nur eingewiesenes und quali/f_iziertes Personal darf Durchführungen montieren, bedienen oder warten. 
+	 Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge-schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	 Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor-schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	 Es dürfen ausschließlich Geräte die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+	 Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	 Sollten weitere Geräte verwendet werden, sind deren Bedienungsanleitungen unbedingt zu beachten. 
+	 Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	 Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	 Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Installa-tion, Betrieb und Wartung der Produkte können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	 Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen. 
+
+Benutzerinformation EWE Mauerdurchführungen  |  5	 Es gelten unsere Allgemeinen Verkaufsbedingungen. 
+Verpackung
+	 Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Montage der Armatur.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoﬀe nach Entsorgungstyp und Werkstoﬀ. Die Ent-sorgung der Rohstoﬀe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Verwendung von Abkürzungen:Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwereVerletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:Gibt nützliche Empfehlungen.
+PE: Polyethylen
+NBR: Nitrile Butadiene Rubber
+W1-E: Wassereinwirkungsklasse
+DIN: Deutsches Institut für Normung
+DVGW:  Deutscher Verein des Gas- und Wasser 
+ fachesPVC:  Polyvinylchlorid
+DN: Nenndurchmesser
+SDR: Standard Dimension Ratio
+ABS: Acrylnitril-Butadien-Styrol-
+ CopolymerPA: Polyamide
+
+6  |  Benutzerinformation EWE Mauerdurchführungen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	 Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	 DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	 DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“ 
+	 DIN EN 806 „Technische Regeln für Trinkwasser-Installation“
+	 DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur  DIN EN 806
+	 DIN 18533  „Abdichtung von erdberührten Bauteilen“ - W1-E
+	 DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	 GW 390 „Bauwerksdurchdringungen und deren Abdichtung für erdverlegte Leitungen“
+1.3 Verwendungsbereich/Medium
+	 zur Aufnahme von PE-Rohren der Trinkwasserversorgung
+1.4 Zulässige Gebäude-Abdichtung
+	 Gebäudeabdichtung nach DIN 18533 W1-E
+	 Abdichtung gegen Bodenfeuchte und nicht drückendes Wasser 
+1.5 Werkstoﬀ/Abmessungen/Leistung
+1.5.1 PVC-Futterrohre
+Werkstoﬀ
+	 aus PVC
+	 rauhfasrige Ober/f_läche
+	 beiderseits aufgeweitetEinzelne Futterrohre für PE Rohre
+Artikelnummer: 5250XXXMindestens zwei NBR-RollringeArtikelnummer: 525051X
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  7Abmessungen/Gesamtlänge Futterrohre
+Durchmesser Futterrohre lichter Durchmesser Durchmesser an aufgeweiteter Stelle
+d 32 50 mm 65 mm
+d 40 58 mm 72 mm
+d 50 68 mm 85 mm
+d 63 80 mm 93 mm
+Gesamtlängen: 400 mm, 530 mm, 1000 mm, 3000* mm 
+*Dieses Futterrohr ist auf beiden Seiten nicht aufgeweitet.
+1.5.2 Elastomer-Rollringe
+Werkstoﬀ
+	 NBR
+Abmessungen
+passend für Rohrdurchmesser Abmessung
+32 mm 13 x 28 mm
+40 mm 13 x 35 mm
+50 mm 13 x 44 mm
+63 mm 13 x 59 mm
+1.6 Transport und Lagerung
+Die Produkte bis zur Verwendung vor Verschmutzung geschützt lagern. Vor und nach dem 
+Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu prüfen. Futterrohre und Rollringe sind vor direkter Sonneneinstrahlung zu schützen.
+1.7 Funktionsbeschreibung
+Die Rollring-Mauerdurchführung ist für eine wasserdichte Gebäudeabdichtung zwischen Hausanschlussleitung und Schutzrohr durch die Verwendung von zwei besonders formbe-ständigen NBR- Rollringen geeignet. 
+2. Einbauhinweise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+ Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu prüfen. Bei der Auswahl der Mauerdurchführung ist auf die Wassereinwirkungsklasse 
+der DIN 18533 zu achten. Die erforderliche Länge der Mauerdurchführung ist anhand der Wandstärke vor der Montage ermitteln. Dimensionierung der Maueröﬀnung beachten. 
+
+8  |  Benutzerinformation EWE Mauerdurchführungen2.2  Hinweise zum Einbauort
+Die Ewe-Rollring-Mauerdurchführung ist für die Leitungsabdichtung durch Gebäude-
+wände in unterkellerten Gebäuden geeignet. Abstände zu anderen Leitungen sind 
+gemäß DVGW W 400-1 zu beachten. 
+2.3 Montage
+2.3.1 Futterrohr
+	 Der Einbau der Mauerdurchführung erfolgt beim Erstellen der Außenwand und wird vor 
+Ort mit geeigneten Füllstoﬀ in die Wand mit eingebunden.
+	 Bei nachträglichem Einbau und Sanierungen ist eine entsprechend große Öﬀnung zu er-stellen und der Ringraum mit für das jeweilige Mauerwerk und den Umgebungsbedienun-gen geeigneten Füllstoﬀen zu verschließen. Die Ausführungshinweise des jeweiligen Her-stellers sind zu beachten. Für die Abdichtung zum Baukörper ist die GW 390 zu beachten.
+2.3.2 Trinkwasserleitungsrohr
+1.
+	 Trinkwasserleitungsrohr mit einem Rollring versehen und über die Gebäudeaußenseite durch das montierte Futterrohr in das Ge-bäudeinnere führen.
+	 Benötigte Rohrlänge im Gebäude beachten.
+2.
+	 Zweiten Rollring über die Gebäudeinnen-seite montieren. 
+3.
+	 Trinkwasserleitung mit Rollring durch Zurückziehen im Futterrohr positionieren.
+
+Benutzerinformation EWE Mauerdurchführungen  |  93. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der gesamten Anlage 
+erfolgen.
+4. Wartung und Instandhaltung
+Die Mauerdurchführung ist bei korrekter Montage wartungsfrei. 
+5. Zubehör
+5.1 Dichtungseinsatz für Futterrohr
+5.1.1 Werkstoﬀ/Abmessungen
+Werkstoﬀ
+	 Edelstahl/NBR
+	 gerippte Ausführung, mit Anschlag
+Abmessungen:
+	 für Futterrohr DN 80 und Mediumleitung mit  
+Außendurchmesser 32 mm, 40 mm, 50 mm
+	 für Futterrohr DN 100 und Mediumleitungmit  Außendurchmesser 32 mm, 40 mm, 50 mm, 63 mm
+5.2 Pressring für Futterrohr
+5.2.1 Werkstoﬀ/Abmessungen
+Werkstoﬀ
+	 PVC
+Abmessungen:
+	 für Futterrohr DN 80 und Mediumleitung mit  
+Außendurchmesser 32 + 40 mm oder 50 mm
+	 für Futterrohr DN 100 und Mediumleitung mit  Außendurchmesser 32 + 40 mm oder 50 + 63 mm
+
+
+10  |  Benutzerinformation EWE Mauerdurchführungen5.3 PVC-Futterrohr für Dichtungseinsatz
+5.3.1 Werkstoﬀ/Abmessungen
+Werkstoﬀ
+	 PVC
+Abmessungen:
+	 für DN 80 in den Längen 400 mm oder 530 mm 
+	 für DN 100 in den Längen 400 mm oder 530 mm
+5.4 PE-Einziehdorn5.4.1 Werkstoﬀ/Abmessungen
+Werkstoﬀ
+	 Kegel und Dorn aus Messing
+	 Ring-Mutter aus Edelstahl
+Abmessungen:
+	 für PE-Rohr SDR 11  
+DN 20, DN 25, DN 32, DN 40, DN 50, DN 63
+	 für PE-Rohr SDR 7,4  DN 20, DN 25, DN 32, DN 40, DN 50
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  111. Angaben über das Erzeugnis
+1.1 Geltungsbereich 
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	 Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	 DVGW- und berufsgenossenschaftliches Regelwerk 
+Insbesondere:
+	 DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“ 
+	 DIN EN 806  „Technische Regeln für Trinkwasser-Installation“
+	 DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur  DIN EN 806
+	 DIN 18533 „Abdichtung von erdberührten Bauteilen" - W1-E
+	 DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	 GW 390 „Bauwerksdurchdringungen und deren Abdichtung für erdverlegte Leitungen“ 
+1.3 Verwendungsbereich/Medium
+	 zur Aufnahme von PE-Rohren der Trinkwasserversorgung
+1.4 Zulässige Gebäude-Abdichtung
+	 Gebäudeabdichtung nach DIN 18533 W1-E
+	 Abdichtung gegen Bodenfeuchte und nicht drückendes Wasser  System-Mauerdurchführung passend für 
+PE-Rohr Außendurchmesser 32/40 mm und 50/63 mmbestehend aus:Mantelrohr und zwei montierten Dichtungen Artikelnummer 524001X
+System-Mauerdurchführung, vormontiert, starre Ausführung oder /f_lexible Ausführung passend für PE-Rohr Außendurchmesser 32 mm, 40 mm,  50 mm und 63 mmbestehend aus:System-Mauerdurchführung mit zweimontierten Dichtungen und beidseitigüberstehendem PE-RohrArtikelnummer 52400XX
+Zubehör gemäß Punkt 5, je nach Einbausituation 
+
+12  |  Benutzerinformation EWE Mauerdurchführungen1.5 Werkstoﬀ/Abmessungen/Leistung
+1.5.1 Dichtungen
+Werkstoﬀ
+	 NBR
+1.5.2 Mauerdurchführung
+Werkstoﬀ
+	 aus schlagzähem, blauen ABS
+	 Verschraubungen aus PA
+Abmessungen:
+System 
+MD 32/40mmSystem MD 50/63 mm
+Mediumleitung (Außen-Ø)  20 -   40   40 -    63
+Kernlochbohrung (Außen-Ø)  80 - 120 100 - 140
+Mauertiefe 290 - 460 290 - 460
+	 Gesamtlänge 530 mm
+1.5.3 Vormontierte Mauerdurchführung
+Werkstoﬀ: 
+	 Mantelrohr aus schlagzähem, blauen ABS
+	 beidseitig überstehendes PE-Rohr mit  
+Schutzeigenschaften gemäß DVGW GW 335 A2
+	 Flexschlauch aus PVC
+	 Schutzkappen aus Weich-PVC
+Abmessungen: 
+	 passend für Rohr-Außendurchmesser 32 mm,  40 mm, 50 mm und 63 mm
+	 Länge Mantelrohr 530 mm 
+	 Gesamtlänge starre Variante: 1150 mm
+	 Gesamtlänge /f_lexible Variante: 4000 mm 
+1.6 Lagerung
+Die Produkte bis zur Verwendung vor Verschmutzung geschützt lagern. Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu prüfen. Mauerdurchführun-gen sind vor direkter Sonneneinstrahlung zu schützen.
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  131.7 Funktionsbeschreibung
+Die System-Mauerdurchführung ist für eine wasserdichte Gebäudeabdichtung zwischen 
+Hausanschlussleitung und Schutzrohr geeignet. Eine Abdichtung des Mauerwerkes, sowie die Möglichkeit eines Festpunkteinbaus, ist mit verschiedenen Einbauhilfen möglich. Die System-Mauerdurchführung ist auch für einen /f_lexiblen Einbau in kellerlosen Gebäuden durch einen bis zu einem Bogen biegbaren Kunststoﬀschlauch möglich.
+2. Einbauhinweise
+2.1  Hinweise zur Vorbereitung
+Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu 
+prüfen. Bei der Auswahl der Mauerdurchführung ist auf die Wassereinwirkungsklasse 
+der DIN 18533 zu achten. Die erforderliche Länge der Mauerdurchführung anhand der Wandstärke vor der Montage ermitteln. Dimensionierung der Maueröﬀnung beachten. 
+2.2  Hinweise zum Einbauort 
+Die System-Mauerdurchführung ist für Durchführungen durch Gebäudewände in nicht unterkellerten sowie unterkellerten Gebäuden verwendbar. Dies ist möglich 
+durch Verwendung eines Flexschlauches und des /f_lexiblen Einbausets. Abstände zu anderen Leitungen sind gemäß DVGW W 400-1 zu beachten. Dimensionierung der Maueröﬀnung muss beachtet werden. Auf ausreichenden Montageraum ist zu achten. 
+Bei porösem oder brüchigem Mauermaterial können Ausbrüche entstehen. Bei Verwendung eines Expansionsharzes, muss bei klein/f_lächigen Ausbrüchen keine Nach -
+bearbeitung vorgenommen werden.
+2.3  Einbau bei Erstellung der Wand
+Bei nachträglichem Einbau und Sanierungen ist eine entsprechend große Öﬀnung zuerstellen und der Ringraum mit für das jeweilige Mauerwerk und den Umgebungsbedienun-gen geeigneten Füllstoﬀen zu verschließen. Die Ausführungshinweise des jeweiligenHerstellers sind zu beachten. Für die Abdichtung zum Baukörper ist die GW 390 zu beachten.
+
+14  |  Benutzerinformation EWE Mauerdurchführungen
+Gebäudeinnenseite Gebäudeaußenseite
+12 34
+56 78
+234
+5 678
+1 Mantelrohr
+2 Wanddichtung3 Zentrierscheibe  mit Endkappen4 Fülltrichter5 Verspannmutter6 Mediumleitungsdichtung7 Anpressmutter8 Endkappe3. Installation/Montage
+3.1 Einbau mit Mörtel
+3.1.1 Starterset für Gießmörtel mit zwei Vergusstrichtern  
+(wiederverwendbar)
+Werkstoﬀ
+	 aus Kunststoﬀ
+Abmessungen:
+	 Set 1 passend für Außendurchmesser 32 mm + 40 mm, 
+für Kernbohrungsdurchmesser 80-120 mm
+	 Set 2 passend für Außendurchmesser 50 mm + 63 mm, 
+für Kernbohrungsdurchmesser 100-140 mm
+3.1.2 Einbauset für Gießmörtel ohne Vergusstrichter
+Werkstoﬀ
+	 aus Kunststoﬀ
+Abmessungen:
+	 Set 1 passend für Außendurchmesser 32 mm + 40 mm,  für Kernbohrungsdurchmesser 80-120mm
+	 Set 2 passend für Außendurchmesser 50 mm + 63 mm,  für Kernbohrungsdurchmesser 100-140 mm
+3.1.3 Montage mit Trichtern
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  151.
+	 Zentrierexzenter der Zentrierscheiben auf Kernbohrungs-
+durchmesser einstellen und Vergusstrichter aufstecken.
+3.
+	 Verspannmutter bis auf das zweite kurze Gewinde  schrauben.
+4.
+	 Zentrierscheibe mit Wanddichtung auf Mantelrohr fädeln.
+2.
+	 Anpressmuttern und Dichtungsringe demontieren und sauber lagern.
+
+
+16  |  Benutzerinformation EWE Mauerdurchführungen5.1.
+	 Mauerdurchführung von der Gebäudeinnenseite mit dem 
+langen Gewinde voraus bis zum Anliegen der Wanddich-tung in die Kernbohrung einführen.
+5.2.
+	 Mit Trichter versehene zweite Zentrierscheibe nun ge-bäudeaußenseitig auf das Mantelrohr fädeln und mit Ver-spannmutter gegen das Mauerwerk spannen.
+6.
+	 Trichter nach oben ausrichten. Auf korrekten Sitz der Wanddichtung achten. Gebäudeinnenseitigen Trichter ggf. nach oben ausrichten. Auf korrekten Sitz der Wanddich-tung achten und eventuell nachspannen. Vergussmörtel in ausreichender Menge gemäß den Richtlinien des Herstel-lers anmischen. Dichtungsgewinde vor dem Vergießen gegen Verschmutzung schützen. 
+	 Vergussmörtel von der Gebäudeinnenseite über den Ein-fülltrichter in den Ringraum eingießen, bis kein Material mehr aus dem Fülltrichter ab/f_ließt. Mantelrohr während der Aushärtezeit vor Erschütterung schützen. 
+Aushärtezeit der Vergussmasse gemäß Herstellerhin-weis beachten. 
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  177.
+	 Trichter abnehmen und Endkappen aufsetzen. 
+8.2.
+	 Mediumleitung  durch Mantelrohr in Gebäude führen bis 
+gewünschte Nutzlänge der Mediumleitung erreicht ist (ggf. Schmiermittel einsetzen).
+9.1.
+	 Gebäudeinnenseitig  Mediumleitungsdichtung in Mantel-rohrdichtsitz bringen (ggf. Schmiermittel einsetzen). An-pressmutter dicht verspannen.
+8.1.
+	 Gebäudeaußenseitig Mediumleitungsdichtung in Mantel-rohrdichtsitz bringen. Anpressmutter mit zwei Umdrehun-gen auf Gewinde schrauben.
+
+
+18  |  Benutzerinformation EWE Mauerdurchführungen9.2.
+	 Gebäudeinnenseitig  Mediumleitungsdichtung in Mantel-
+rohrdichtsitz bringen (ggf. Schmiermittel einsetzen). An-pressmutter dicht verspannen.
+Ggf. eine vorhandene Versiegelung auf der Keller-außenseite gemäß GW390 wieder instandsetzen. 
+3.2 Einbau mit Expansionsharz
+3.2.1 Einbauset für Expansionsharz
+Werkstoﬀ
+	 aus Kunststoﬀ
+Abmessungen:
+	 Set 1 passend für Außendurchmesser 32 mm + 40 mm,  
+für Kernbohrungsdurchmesser 80-120mm
+	 Set 2 passend für Außendurchmesser 50 mm + 63 mm,  für Kernbohrungsdurchmesser 100-140 mm
+3.2.2 Montage
+Gebäudeinnenseite Gebäudeaußenseite
+1 
+23 4 
+5 6 7 
+2 3 5 6 748 8 
+1 Mantelrohr2 Wanddichtung3 Zentrierscheibe  mit Verschlussstopfen
+4 Füllschlauch5 Verspannmutter6 Mediumleitungsdichtung7 Anpressmutter8 Verschlussstopfen
+
+Benutzerinformation EWE Mauerdurchführungen  |  191.
+	 Zentrierexzenter der Zentrierscheiben auf Kernbohrungs-
+durchmesser einstellen und Füllschläuche in die Applizier-öﬀnung einstecken.
+2.
+	 Anpressmuttern und Dichtungsringe demontieren und sauber lagern.
+3.
+	 Verspannmutter bis auf das zweite kurze Gewinde schrauben.
+4.
+	 Zentrierscheibe mit Wanddichtung auf Mantelrohr fädeln.
+
+
+20  |  Benutzerinformation EWE Mauerdurchführungen5.1.
+	 Mauerdurchführung von der Gebäudeinnenseite mit dem 
+langen Gewinde voraus bis zum Anliegen der Wanddich-tung in die Kernbohrung einführen.
+5.2.
+	 Zweite Zentrierscheibe nun gebäudeaußenseitig auf das Mantelrohr fädeln und mit Verspannmutter gegen das Mauerwerk spannen.
+6.
+	 Gebäudeaußenseitige Zentrierscheibe ggf. mit der Appli-zieröﬀnung nach oben ausrichten. Auf korrekten Sitz der Wanddichtung achten. Evtl. nachspannen. 
+	 Applizierharzmenge gemäß den Richtlinien des Herstellers bestimmen.
+	 Dichtungsgewinde vor dem Applizieren gegen Verschmut-zung schützen. Applizierharz von der Gebäudeaußenseite in ausreichender Menge über die Füllschläuche in den Ringraum injizieren. Mantelrohr während der Aushärtezeit vor Erschütterung schützen.
+Aushärtezeit des Applizierharzes gemäß Herstellerhin-weis beachten.
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  217.
+	 Füllschläuche abnehmen. Verschlussstopfen einsetzen.
+8.1.
+	 Gebäudeaußenseitig Mediumleitungsdichtung in 
+Mantelrohrdichtsitz bringen. 
+	 Anpressmutter mit zwei Umdrehungen auf Gewin-de schrauben.
+8.2.
+	 Mediumleitung durch Mantelrohr in Gebäude füh-ren, bis gewünschte Nutzlänge der Mediumleitung erreicht ist (ggf. Schmiermittel einsetzen).
+9.1.
+	 Gebäudeinnenseitig Mediumleitungsdichtung in Mantelrohrdichtsitz bringen (ggf. Schmiermittel einsetzen). 
+	 Anpressmutter dicht verspannen.
+
+
+22  |  Benutzerinformation EWE Mauerdurchführungen3.3 Einbau in nicht unterkellerten Gebäuden mit Flexschlauch
+3.3.1 Flexschlauch
+Werkstoﬀ
+	 aus PVC
+Abmessungen:
+	 passend für Außendurchmesser 32 mm + 40 mm,  
+Durchmesser 50 mm, Länge 50 m oder sonstige  Länge nach Wunsch
+	 passend für Außendurchmesser 50 mm + 63 mm,  Durchmesser 75 mm, Länge 50 m oder sonstige  Länge nach Wunsch
+3.3.2  Niro-Schlauchschelle für Flexschlauch
+Werkstoﬀ
+	 Niro
+Abmessungen:
+	 passend für Flexschlauch 50 mm oder 75 mm  Durchmesser
+	 Spannweite 40 mm - 60 mm oder 70 mm - 90 mm9.2.
+	 Gebäudeaußenseitig Anpressmutter dicht verspan-nen.
+Ggf. eine vorhandene Versiegelung auf der Kelleraußenseite gemäß GW 390 wieder   
+  instandsetzen. 
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  231.
+	 Anpressmuttern und Dichtungsringe demontieren und 
+sauber lagern.
+2.
+	 Mantelrohr mit geradem Sägeschnitt teilen.
+3.3.3 Montage
+3.
+	 PVC-Flexschlauch auf gewünschte Länge ablängen und mittels Niro-Schlauchschellen auf Mantelrohrenden be-festigen.
+4.
+	 Mauerdurchführung in Position bringen und mit geeigne-ten Mitteln befestigen.
+
+
+24  |  Benutzerinformation EWE Mauerdurchführungen5.
+	 Mediumleitung in das Mantelrohr einfädeln. Mediumlei-
+tungsdichtungen in Mantelrohrdichtsitze einbringen (ggf. Schmiermittel einsetzen). Anpressmuttern aufschrauben und dicht verspannen.
+3.4 Einbau mit Membran-Injektionssystem und Tangit M3000
+3.4.1 Einbau-Set "Starre Ausführung"
+Werkstoﬀ:
+bestehend aus:
+	 Verspannmutter und Kunststoﬀzentrierscheibe mit einstellbaren Zentrierexzentern und einem geschlitz-ten Injektionsmembranschlauch mit mittels Butyl-band selbstklebenden Abdeck/f_lansch und Harz- injektionsschlauch 
+	 einschließlich DVGW VP 601 zerti/f_iziertem 2K-Expan-sionsharz in 300 ml Kartusche mit Mischerdüse 
+Abmessungen:
+	 passend für Außendurchmesser 32 mm
+	 Für Kernbohrungsdurchmesser 100-120 mm  
+3.4.2 Einbau-Set "Flexible Ausführung"
+Werkstoﬀ:bestehend aus
+	 Geschlitzten Injektionsmembranschlauch mit mittels Butylband selbstklebenden Abdeck/f_lansch sowie Harzinjektionsschlauch 
+	 Einschließlich DVGW VP 601 zerti/f_iziertem 2K-Expan-sionsharz in 300 ml Kartusche mit Mischerdüse 
+Abmessungen:
+	 passend für Außendurchmesser 40 mm
+	 für Kernbohrungsdurchmesser 100-120 mm
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  253.4.3 Verarbeitung, Transport und Lagerung
+Die Verarbeitungs- und Lagerbedingungen des Herstellers des 2K-Expansionsharzes 
+sind unbedingt einzuhalten. Die Produkte bis zur Verwendung vor Verschmutzung 
+geschützt lagern. Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunrei-nigung zu prüfen. Bei 5 - 30 Grad C° frostfrei lagern und nicht großer Hitze sowie Sonnenein-strahlung aussetzen.
+3.4.4 Montage
+Die Verarbeitungstemperatur beträgt 5 C° bis 30 C°; optimal 15 C° bis 25 C°. Montagewerkzeug (wiederverwendbare Schnellspannvorrichtung) nicht im Lieferumfang!
+1.
+Außen/f_l  ansch auf die System-Mauerdurchführung aufschieben.
+Außen/f_l  ansch sitzt auf dem langen Gewinde.Position der System-Mauerdurchführung je nach   
+ Kernbohrungslänge anpassen.
+2.
+Stärke der Bodenplatte messen.
+3.
+Gemessene Stärke der Bodenplatte + 25 mm auf die System-Mauerdurchführung anzeichnen (gemessen ab Außen/f_l  ansch).
+1   Position entsprechend Kernbohrungslänge anpassen
+2   Bodenplattenstärke X + 25 mm
+
+26  |  Benutzerinformation EWE Mauerdurchführungen4.
+	 System-Mauerdurchführung bis zur Markierung in die 
+Bodenplatte einsetzen und halten//f_ixieren.
+Das Mantelrohr muss mind. 50 mm über die Bohrung herausragen.
+5.
+	 Entspannte Schnellspannvorrichtung über das Mantelrohr und über den Harzeinfüllschlauch bis zum Bohrungsan-schlag führen.
+6.
+	 Anschließend die Schnellspannvorrichtung mit der verti-kalen Schraube feststellen.
+	 Das Mantelrohr ist nun /f_ixiert.
+1   Position entsprechend Kernbohrungslänge anpassen
+7.
+	 Harzfüllschlauch auf eine Hand breit kürzen.
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  278.
+	 Mischdüse in den Harzeinfüllschlauch bis zum Anschlag 
+stecken.
+9.
+	 Verschlussdeckel der Harzkartusche (Tangit M 3000,  300 ml) abschrauben und Kartusche in Mischdüse ein-schrauben. 
+	 Dann den Bodendeckel der Harzkartusche entfernen. 
+10.
+	 Harzkartusche in die Kartuschenpistole einlegen. Mit   gleichmäßigen Bewegungen an der Kartuschenpistole das Harz komplett aus der Kartusche in die System-Mauer-durchführung injizieren.
+Während der Aushärtung (5-7 min) das komplette-
+Harzsystem nicht von der System-Mauerdurchfüh-  
+ rung trennen!
+11.
+	 Nach der Aushärtung, Kartuschenpistole mit Mischdüse und Schnellspannvorrichtung entfernen.
+
+
+28  |  Benutzerinformation EWE Mauerdurchführungen12.
+	 Harzeinfüllschlauch mit Hilfe eines Seitenschneiders 
+wandbündig abtrennen.
+4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der gesamten Anlage 
+erfolgen.
+5. Wartung und Instandhaltung
+Die Mauerdurchführung ist bei korrekter Montage wartungsfrei. 
+6. Zubehör
+6.1 Verlängerung für System-Mauerdurchführung
+6.1.1 Werkstoﬀ/Abmessungen
+Werkstoﬀ
+	 aus schlagzähem Kunststoﬀ
+Abmessungen:
+	 passend für Außendurchmesser: 32 mm + 40 mm 
+oder 50 mm + 63 mm 
+	 Länge 480 mm
+
+
+Benutzerinformation EWE Mauerdurchführungen  |  29
+
+30  |  Benutzerinformation EWE Mauerdurchführungen
+
+Benutzerinformation EWE Mauerdurchführungen  |  31
+
+32  |  Benutzerinformation EWE MauerdurchführungenWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+Ausgabe 01/2021
+

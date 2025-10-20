@@ -1,0 +1,235 @@
+ARMATURENLÖSUNGEN
+NEXT Standrohrverwaltung
+Zur smarten Verwaltung aller Standrohre
+
+
+2  |  NEXT Standrohrverwaltung für NEXT Standrohre
+Inhaltsverzeichnis
+NEXT Standrohr und Standrohrverwaltung – Der Hintergrund  6
+ 
+NEXT S
+tandrohrverwaltung  – Alles im Blick  8
+ NEXT S
+tandrohrverwaltung  – Unser Angebot  10
+NEXT S
+tandrohrverwaltung – Die Pakete  13
+NEXT S
+tandrohr – Die Hardware  12
+NEXT S
+tandrohr – Die Varianten  14
+
+ NEXT Standrohrverwaltung für NEXT Standrohre |  3
+Seit über 75 Jahren hygienisch, zuverlässig, hochwertig  und nun 
+auch smart – dafür steht EWE-Armaturen.Auch in der Wasserversorgung spielen die Digitalisierung und intelligente Funktionen eine immer größere Rolle. Mit unseren NEXT Armaturenlösungen beschreiten wir diesen Weg.  Überwachung, Kontrolle und Verwaltung von Zuständen und Verbrauchsdaten entfernter oder schwer zugänglicher Armaturen? Ab sofort kein Problem mit den intelligenten NEXT Armaturenlösungen von EWE. Von der Lokalisierung der Armaturen oder der Überwachung von Zählerständen, über Informationen zu Temperatur- und Druck-Zuständen, oder Wassertrübung, bis hin zu Erinnerungsfunktionen – die verbauten Sensoren/Schnittstellen in unseren NEXT Armaturen ermöglichen die effiziente Fernüberwachung- und verwaltung einfach, sicher und ökonomisch.Auf ins nächste Zeitalter
+NEXT Armaturen
+
+4  |  NEXT Standrohrverwaltung für NEXT Standrohre
+
+
+ NEXT Standrohrverwaltung für NEXT Standrohre |  5NEXT Standrohr und Standrohrverwaltung
+
+
+6  |  NEXT Standrohrverwaltung für NEXT StandrohreNEXT Standrohr und Standrohrverwaltung
+Gegenwart
+Intransparente Langzeitmieter von Standrohren zur 
+mobilen Wasserversorgung.
+Standrohre werden zur mobilen Versorgung mit 
+Trinkwasser für Veranstaltungen im öffentlichen Raum, Bauwasser oder im GaLa Bau eingesetzt. Die Standrohre werden von den örtlichen Wasserversorgern an die jeweiligen Unternehmen verliehen. Vor allem Bauunternehmen und Garten- Landschaftsbauer leihen sich Standrohre in der Regel für einen längeren Zeitraum aus und nutzen diese an unterschiedlichen Stellen im Versorgungsgebiet zur mobilen Wasserversorgung.
+Keine Kenntnis über Missbrauch oder unbefugte Nutzung des Standrohrs.
+Nach Verleih eines Standrohrs hat das 
+Versorgungsunternehmen solange keinen Zugriff mehr auf das Standrohr, bis es wieder zurückgebracht wird. Der Wasserversorger weiß weder, wo sich das Standrohr befindet und somit auch nicht, ob sich der Kunde an die Vorgabe gehalten hat, noch sind Daten zum Wasserverbrauch bekannt. Der Verbrauch wird erst nachträglich, bei Rückgabe abgelesen. Der gesamte Verleih bedingt ein großes Vertrauen in den Kunden.
+Keine Kontrolle bei unberechtigter Wasserentnahme oder Diebstählen.
+Leider gehen mit dem Verleih von Standrohren oftmals 
+Beschädigungen, Diebstahl oder unberechtigte Entnahmen in fremden Netzen oder an nicht dafür vorgesehenen Hydranten einher.
+
+
+ NEXT Standrohrverwaltung für NEXT Standrohre |  7NEXT Standrohr und Standrohrverwaltung
+Zukunft
+NEXT Standrohre schaffen Transparenz.
+Um mehr Transparenz für den Eigentümer der 
+Standrohre und des Wassernetzes zu schaffen ist im NEXT Standrohr eine Schnittstelle verbaut, die nicht nur die Auslesedaten des Wasserzählers direkt in die NEXT Standrohrverwaltung überträgt, sondern auch die aktuelle Standrohrposition.Die Schnittstelle ermöglicht es die Kontrolle über den Einsatz von ausgegeben Standrohren zu behalten.
+Verwaltung, Ortung und Zählerstände ganz einfach über browserbasierte Webanwendung.
+Die Verwaltung und visuelle Lokalisierung der NEXT 
+Standrohre erfolgt über eine Web-Applikation. Über das Webportal next-srv.de kann die Position das Standrohrs lokalisiert und die Zählerstände aktuell überprüft werden. Zusätzlich zu den Daten zum Standort und Zählerstand können dem jeweiligen Standrohr z.B. Hydranten zugewiesen und Wartungsintervalle zugeordnet werden.
+Datenübertragung über LoRaWAN, NB-IoT oder L TE-M.
+Für die Datenübertragung wird ein LPWAN (Low Power 
+Wide Area Network) verwendet, um große Reichweiten bei geringem Energieverbrauch zu erzielen. Dabei werden die Standards LoRaWAN, LTE-M und NB-IoT unterstützt.
+
+
+8  |  NEXT Standrohrverwaltung für NEXT StandrohreDatenverwaltung
+	 Standrohr-Ausleihen können angelegt und Mietern 
+zugeordnet werden
+	 Verwaltung und Überwachung der vereinbarten Nutzung
+Hydrantenmatching
+	 Ausgeliehene Standrohre können Hydranten im Versorgungsgebiet zugewiesen werden
+	 Hydrantenmatching
+	 Kartografische Darstellung des Matchings
+	 Hydranten können über vorhandene GIS Daten importiert oder die OpenFireMap kann genutzt werden
+Lokalisierung
+	 Kartografische Lokalisierung der verliehenen Standrohre 
+NEXT Standrohrverwaltung
+Alles im Blick – Von der Reservierung bis zur Rückgabe
+Verbrauchsdokumentation
+	 Übermittlung der Verbrauchsdaten
+
+ NEXT Standrohrverwaltung für NEXT Standrohre |  9Ausleihen & Reservieren
+	 Überwachung der Ausleihzeiträume
+	 Reservierung von Standrohren und Hydranten
+Wartungsintervalle
+	 Hinterlegen von Wartungsintervallen, z.B.
+	 Wasserzähler-Eichzeit
+	 Systemtrenner-Wartung
+	 Standrohr-Wartung
+Überwachung
+	 Überwachungfunktionen mit Alarmierung und 
+Erinnerung, z.B.
+	 Bei niedrigem Akkustand des Sendemoduls
+	 Still-Alive-Meldung des Standrohres 
+	 Bei missbräuchlicher Nutzung  
+ (z.B. A
+nschluss an falschen Hydranten  
+ oder außerhalb des 
+Versorgungsgebietes)
+	 Bei überfälligen Rückgaben
+	 Bei Überschreitung von Wartungsterminen
+Datenexport
+	 Export der Daten in verschiedene Formate und 
+Schnittstelle zu anderen Software-Applikationen möglich, z.B. Export der Verbrauchsdaten an Abrechnungsstelle
+
+
+10  |  NEXT Standrohrverwaltung für NEXT StandrohreNEXT Standrohrverwaltung
+Unser Angebot
+Einfache, transparente und effiziente Verwaltung und Überwachung von:
+	 NEXT Standrohren
+	 Bestandsstandrohren
+	 Weiteren Entnahmearmaturen, wie z.B. Überflurhydranten-Wasserzähler
+	 Browserbasiertes Webportal ewe-srv.de, keine lokale Installation notwendig
+	 Anlegen von Ausleihvorgängen, Ausgabe- und Rückgabe-Protokollen
+	 Ablage von Dokumenten und Fotos
+	 Hydrantenzuweisung über Kartendarstellung (OpenStreetMap)
+	 Wartungsplanung der Standrohre
+	 Einschließlich der Sicherungseinrichtungen
+	 Eichzeiten der Wasserzähler 
+	 Dashboard mit: 
+	 Bestands- und Planungsübersicht für reservierte oder im Rücklauf befindliche Standrohre
+	 Alarmierungen bei Terminüberschreitungen, bevorstehender Wartung, etc.
+	 Sichere, verschlüsselte  Daten auf Servern in D / EU
+	 Immer aktuell durch automatische Updates
+	 Support
+Zusätzliche Features in Verbindung mit dem NEXT Standrohr
+	 Online Zählerstände
+	 GPS Positionen
+	 Hydrantenmatching* und Kartendarstellung
+	 Alarmierung bei unberechtigten Entnahmen
+	 Batteriestandsanzeige
+* Vorausgesetzt, die Hydranten-Koordinaten sind aus einem vorhandenen GIS System oder der OpenFireMap verfügbar.
+
+
+ NEXT Standrohrverwaltung für NEXT Standrohre |  11NEXT Standrohrverwaltung
+Die Pakete
+Einrichtungspauschale
+	 Portaleinrichtung
+	 Import von Bestandsstandrohren
+	 Import von Hydrantenpositionen
+	 Ersteinrichtung der Zugriffsberechtigungen
+	 Einrichtung der Datenexport Schnittstelle
+	 Integration Ihres Corporate Designs in die Ausgabe- und Rückgabe-Protokolle
+	 Artikelnummer: 7200200
+NEXT-SRV 30
+	 30 Standrohre bzw. Entnahmevorrichtungen inklusive
+	 Mindestlaufzeit 12 Monate
+	 Artikelnummer: 7200150
+NEXT-SRV 60
+	 60 Standrohre bzw. Entnahmevorrichtungen inklusive
+	 Mindestlaufzeit 12 Monate
+	 Artikelnummer: 7200151
+NEXT SRV 61+
+	 Ab 61+ Standrohre bzw. Entnahmevorrichtungen inklusive
+	 Mindestlaufzeit 12 Monate
+	 Artikelnummer: 7200152
+monatlich
+59 €
+monatlich
+79 €
+monatlich
+99 €
+einmalig
+499 €
+Alle Preise verstehen sich netto, zuzüglich der gesetzlichen Umsatzsteuer und sind nicht rabattierfähig!
+
+12  |  NEXT Standrohrverwaltung für NEXT Standrohre
+
+
+ NEXT Standrohrverwaltung für NEXT Standrohre |  13	 Smartes Standrohr mit Schnittstelle zur NEXT Standrohrverwaltung
+	 Ausgestattet mit iPERL-Wasserzähler mit wM-Bus
+	 Mit Sendemodul für LoRaWAN, NBIoT, LTE-M, standardmäßig eingestellt auf LTE-M-Übertragung
+	 Inkl. SIM-Karte mit Datenvolumen für ca. 10 Jahre (bei NB-IoT und LTE-M)
+	 Mit integrierter leistungsstarker Batterie und Solarpad
+	 Smart Meter – vorwiegend aus Kunststoff – sowie Sendemodul sind in einem robusten Käfig verbaut und 
+schwimmend gelagert
+	 Das Schutzgehäuse aus Edelstahl nimmt alle einwirkenden Kräfte auf und schützt den Wasserzähler und das Sendemodul vor möglichen Schäden und äußeren Beanspruchungen
+	 Der Zähleraustausch ist ohne Demontage des Käfigs möglich
+	 Durch Baukastenprinzip sind viele verschiedene Standrohr-Ausführungen möglich
+	 Alle Modelle mit drehbarem Kopf
+	 Mit Fußverschraubung aus Pressmessing, mit Messing-Gleitring und Gummi-Dichtung
+	 Mit Kegelsieb aus Edelstahl, gehalten durch einen Federring aus Edelstahl, alternativ mit Feinfilter
+	 Rohr aus Edelstahl, Griffstück aus Messing, Drehgriffe aus Messing mit schlagzähem Kunststoff-ÜberzugVerformung [mm]  
+ 
+  
+Quelle: CAE Guru – Berechnung Simulation  NEXT Standrohr
+Das intelligente Rohr
+Der Käfig wurde einem Belastungstest mit Hilfe einer 
+Computersimulation unterzogen. 
+
+
+14  |  NEXT Standrohrverwaltung für NEXT StandrohreNEXT Standrohr DN 80
+Kaufen
+1173100 1173101 1173102
+Kaufen
+	 Einmalige Anschaffung
+	 Wartung und Pflege durch den Käufer
+	 Übermittlung der Zählerdaten und GPS-Koordinaten
+	 Visuelle Darstellung in der NEXT Standrohrverwaltung
+	 Voller Umfang der Überwachungs- und Alarmfunktionen
+	 Zzgl. NEXT Standrohr Datennutzung und NEXT Standrohrverwaltung
+Ausführung Artikelnummer Kauf in €
+Q₃ 4, iPERL, 1x Auslaufventil DN 20 mit Systemtrenner BA mit Geka 1173100
++1.350,00
+NEXT Standrohr Datennutzung 7200201 13,00/Monat
+Q₃10, iPERL, 1x Auslaufventil DN 20 mit Systemtrenner BA mit Geka,  mit 1 
+x C-Abgang DN 40 mit Systemtrenner BA1173101
++2.250,00
+NEXT Standrohr Datennutzung 7200201 13,00/Monat
+Q₃16, iPERL, 1x C-Abgang DN 40 mit Systemtrenner BA 1173102+2.300,00
+NEXT Standrohr Datennutzung 7200201 13,00/Monat
+Weitere Modelle und digitale Wasserzähler anderer Hersteller auf Anfrage! 
+Alle Preise verstehen sich netto, zuzüglich der gesetzlichen Umsatzsteuer und sind nicht rabattierfähig!
+
+ NEXT Standrohrverwaltung für NEXT Standrohre |  15Mieten
+	 Bereitstellung des Standrohrs
+	 Wartung und Pflege durch den Mieter
+	 Inkl. NEXT Standrohr Datennutzung 
+	 Mietdauer mind. 12 Monate
+	 Übermittlung der Zählerdaten und GPS-Koordinaten
+	 Visuelle Darstellung in der NEXT Standrohrverwaltung
+	 Voller Umfang der Überwachungs- und Alarmfunktionen
+	 Zzgl. NEXT Standrohrverwaltung
+Ausführung Artikelnummer Miete in €
+Q₃ 4, iPERL, 1x Auslaufventil DN 20 mit Systemtrenner BA mit Geka 7200321 69,00/Monat
+NEXT Standrohr Datennutzung inklusive
+Q₃10, iPERL, 1x Auslaufventil DN 20 mit Systemtrenner BA mit Geka,   
+mit 1 x C-Abgang DN 40 mit Systemtrenner BA7200322 85,00/Monat
+NEXT Standrohr Datennutzung inklusive
+Q₃16, iPERL, 1x C-Abgang DN 40 mit Systemtrenner BA 7200323 85,00/Monat
+NEXT Standrohr Datennutzung inklusive
+Weitere Modelle und digitale Wasserzähler anderer Hersteller auf Anfrage! 
+Alle Preise verstehen sich netto, zuzüglich der gesetzlichen Umsatzsteuer und sind nicht rabattierfähig!NEXT Standrohr DN 80
+Mieten
+7200321 7200322 7200323
+
+www.ewe-armaturen.deWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon +49 531 37005-0
+Fax +49 531 37005-55info@ewe-armaturen.de
+Ausgabe 01/2024Braunschweig
+

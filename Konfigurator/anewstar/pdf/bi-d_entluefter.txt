@@ -1,0 +1,316 @@
+EWE Entlüfter-Armaturen
+Benutzerinformation
+#7100026 - Ausgabe 03/2024
+
+
+2  |  Benutzerinformation Entlüfter-Armaturen
+Inhaltsverzeichnis
+Allgemeine Hinweise 4 
+ Angaben über Entlüfter für UF-Hydranten  6  Einbauhinweise 7  Betrieb und Verwendung 8  Instandhaltung 9  Zubehör 10  Angaben über Entlüfter-Einheiten 11  Einbauhinweise 13  Betrieb und Verwendung 14
+
+Benutzerinformation Entlüfter-Armaturen |  3
+
+
+4  |  Benutzerinformation Entlüfter-ArmaturenAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten. 
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Installa-tion, Betrieb und Wartung der Armatur können von uns  nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder  Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Ver -
+wendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+
+Benutzerinformation Entlüfter-Armaturen |  5Verpackung
+	Die einzelnen Armaturen sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Montage der Armatur.
+Recycling / Wiederverwendung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wiederverwertbare Verpackungsmaterialien dem Recycling zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+Verwendung von Abkürzungen:
+DVGW:   Deutscher Verein des Gas- und Wasserfaches
+DIN:   Deutsches Institut für Normung 
+DN:   Nenndurchmesser
+PN:  Nenndruck
+IG:  Innengewinde
+Si:  Silicium
+UH:  Unterflurhydrant 
+IG:  Innengewinde
+
+6  |  Benutzerinformation Entlüfter-Armaturen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+EWE Entlüfter für  
+Unterflurhydranten DN 80 
+Artikelnummer 1175800EWE Entlüfter für  
+Unterflurhydranten DN 50  und Württ. Schachtsystem 
+Artikelnummer 1175802
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	Bewertungsgrundlage für Kunststoffe und andere organische Materialien im Kontakt mit Trinkwasser des Umweltbundesamtes 
+	Bewertungsgrundlage für metallene Werkstoffe im Kontakt mit Trinkwasser des Umwelt -
+bundesamtes 
+	Leitlinie zur hygienischen Beurteilung von Elastomeren im Kontakt mit Trinkwasser des Umweltbundesamtes
+	DIN EN 1074-1 „Armaturen für die Wasserversorgung“
+	DIN EN 1074-4 „Armaturen für die Wasserversorgung - Teil 4 Be- und Entlüftungsventile mit Schwimmkörpern“
+	DVGW W 270 „Vermehrung von Mikroorganismen auf Werkstoffen für den Trinkwasserbereich“
+	DVGW W334 „Be- und Entlüften von Trinkwasserleitungen“
+	DVGW W363 „Absperrarmaturen, Rückflussverhinderer, Be- und Entlüftungsventile und Regelarmaturen aus metallenen Werkstoffen für Trinkwasserversorgung“ 
+	DVGW W392-2 „Inspektion, Wartung und Betriebsüberwachung von Wasserverteilungsan-lagen - Teil 2 Fernwasserversorgungssysteme“ EWE Be- u. Entlüfter für Un-
+terflurhydranten DN 80, mit zusätzlicher Anfahr-Funktion Artikelnummer 1175801
+bestehend aus:
+Fußverschraubung mit Entlüfterventil, Montagewerkzeug mit Warnscheibe
+
+Benutzerinformation Entlüfter-Armaturen |  71.3 Verwendungsbereich/Medium
+	geeignet für kaltes Trinkwasser nach DIN 2000 
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	Nenndruck PN 16
+1.5 Werkstoff/Abmessungen/Leistung
+Werkstoff
+	Alle metallene und mediumberührenden Bauteile sind aus nichtrostenden Edelstahl und 
+Si-Messing entsprechend der Bewertungsgrundlage „Trinkwasserhygienisch geeignete metallene Werkstoffe“ gefertigt. 
+	Elastomere und Kunststoffe entsprechen den KTW-Leitlinien des Umweltbundesamtes & des DVGW Arbeitsblattes W 270.  
+Abmessungen
+	für Unterflurhydranten DN 80 
+	für Unterflurhydranten DN 50 und Württ. Schachtsystem
+1.6 Transport und Lagerung
+	Die Produkte sind bis zur Verwendung vor Verschmutzung geschützt zu lagern. Vor und nach dem Einsatz ist das Produkt auf Beschädigung oder Verunreinigung zu prüfen. 
+1.7 Funktionsbeschreibung
+Der EWE Entlüfter ist für eine selbsttätige Entlüftung von Trinkwasserleitungen, durch ein temporäres Aufsetzen auf Unterflurhydranten geeignet. Dadurch verhindert das integrierte Entlüftungsventil Luftansammlungen und unterstützt das vollständige Entlüften der Rohr -
+leitung. Außerdem ist mit Hilfe der Variante des EWE Be- und Entlüfters mit Anfahr-Funktion eine Begrenzung des Unterdrucks möglich.
+Zur Information:*
+	 Der EWE Entlüfter ist nicht geeignet um ein leeres Leitungsnetz zu entlüften, 
+sondern dient zum Ausblasen von Lufteinschlüssen während des Betriebs. 
+	Die Nichtbeachtung führt zu Einschränkungen in der Funktion des EWE Entlüfters. 
+	Der EWE Entlüfter besitzt keine Belüftungsfunktion. 
+*Entfällt beim EWE Be- und Entlüfter mit Anfahrfunktion
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+Ein beschädigter EWE-Entlüfter darf nicht eingesetzt werden. 
+
+8  |  Benutzerinformation Entlüfter-Armaturen2.2 Hinweise zum Einbauort
+Der EWE Entlüfter ist für die selbsttätige Entlüftung geeignet. Zur optimalen Funktion sollten 
+Hydranten mit Entlüftern an erhöhten Stellen des Rohrnetzes zur Entlüftung ausgewählt werden. Der EWE Entlüfter DN 80 verbleibt temporär zur Entlüftung in der Straßenkappe. 
+Eine Überflutung der Straßenkappe ist zu vermeiden, ein Betrieb des Entlüfters unter 
+(Grund-)Wasser ist nicht zulässig.
+Der Einsatz des EWE Entlüfters auf Unterflurhydranten DN 50 und in Württ. Schachtsystem fordert besondere Sorgfalt. Beim Einsatz des EWE Entlüfters DN 50 in der Straßenkappe, ist auf genügend Freiraum in der Straßenkappe zu achten. 
+  Im Württ. Schachtsystem sind eine Verdrehsicherung oder eine Klauenverlängerung 
+vorzusehen. Ist das nicht der Fall, besteht Verletzungsgefahr durch unbeabsichtiges Lösen des EWE Entlüfters und die Gefahr unkontrolliertem Wasseraustritts im 
+Schacht. Die Bedienung sollte daher nur von der Straßenoberfläche erfolgen. Örtliche Betriebsbedingungen, insbesondere während der Frostperiode, sind beim Einsatz des EWE-Entlüfters zu berücksichtigen!
+Beim Be- und Entlüfter mit zusätzlicher Anfahr-Funktion ist das Einziehen von 
+Oberflächengewässern möglich! Die besonderen Betriebsvoraussetzungen müssen 
+beachtet werden.
+3. Betrieb und Verwendung
+3.1 Montage und Inbetriebnahme
+Der EWE Entlüfter wird einbaufertig mit dem Montagewerkzeug geliefert. Das Montagewerk -
+zeug verbleibt nach dem Einbau in der Straßenkappe. Die anhängende Warnscheibe auf den  
+EWE Entlüfter stecken, um eine versehentliche Demontage zu vermeiden. Vor der Inbetrieb -
+nahme muss eine Inaugenscheinnahme der gesamten Anlage erfolgen. Zum Schutz vor Verunreinigungen des Entlüfters und des weiteren Leitungssystems ist die Rohrleitung vor dem Einbau zu spülen.
+1.
+	Hydrantendeckel herausheben. Klaue und Klauendeckel des Hydranten vom Schmutz be -
+freien, dann erst Klauendeckel abheben
+	Hydrant mit Hilfe eines Standrohres spülen.
+	EWE Entlüfter auf den Hydranten aufsetzen und mit Hilfe des Montagewerkzeuges und eines S+H-Schlüssels festziehen.
+
+Benutzerinformation Entlüfter-Armaturen |  93.2 Demontage 
+Die Demontage erfolgt in umgekehrter Reihenfolge. 
+  Hydrant zuerst absperren. Im Betriebszustand stehen der Hydrant und der Entlüfter 
+unter Druck. Es entsteht Verletzungsgefahr durch unkontrollierten Wasseraustritt. 
+3.3 Funktionskontrollen
+Die gesamte Anlage ist auf ihre Funktion zu prüfen. Nach erfolgter Montage ist der Unterflurhyd-
+rant langsam zu öffnen, nach der Entlüftung und dem Aufbau des Betriebsdrucks ist der  EWE Entlüfter auf Dichtheit zu überprüfen.
+4. Instandhaltung
+4.1 Wartung
+Eine jährliche Funktionsprüfung, Wartung und Reinigung von Be- und Entlüftungsventil ist im Regelwerk vorgeschrieben. Bei Undichtigkeiten kann der EWE Entlüfter aus der Fußverschraubung herausgedreht und ge -
+reinigt oder instandgesetzt werden.   3.
+	Entlüfter und Montagewerkzeug verbleiben in der Straßenkappe
+	Dafür die Warnscheibe gut sichtbar auf den Entlüfter stecken
+4.
+	Schließen der Straßenkappe2.
+	Hydrant bis zum Anschlag öffnen.
+	   Im Betriebszustand stehen der Hydrant und der Entlüfter unter    
+  Druck. 
+
+10  |  Benutzerinformation Entlüfter-Armaturen
+Übergangsstück für 
+Unterflurhydranten DN 80 
+auf Gartenstandrohr Artikelnummer 1171313Übergangsstück für Unterflurhydranten DN 50 auf Gartenstandrohr Artikelnummer 1171314
+Verschluss für 
+Unterflurhydranten DN 80
+für den Verschluss oder Sper -
+rung von UH DN 80, sowie Sicherung gegen unbefugte BenutzungArtikelnummer 1175611
+Übergangsstück für Unterflurhydranten DN 80 auf IG 3/4“ für MesssondenArtikelnummer 1175716
+Übergangsstück für 
+Unterflurhydranten DN 80 auf IG 2“ für MesssondenArtikelnummer 3903205
+Montage-Werkzeug für Über -
+gangsstück und Verschluss für UnterflurhydrantenArtikelnummer 3388280
+Standrohr-Verlängerung DN 50 auf DN 80
+Artikelnummer 3903XXXFordert besondere Sorgfalt! 
+   Verdrehsicherung ist vorzusehen, sonst besteht 
+Verletzungsgefahr durch unbeabsichtigtes Lösen und unkontrollierten Wasseraustritt im Schacht.
+5. Zubehör
+
+Benutzerinformation Entlüfter-Armaturen |  111. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+EWE Entlüfter-Einheit 
+Artikelnummer 110140X
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	Bewertungsgrundlage für Kunststoffe und andere organische Materialien im Kontakt mit Trinkwasser des Umweltbundesamtes 
+	Bewertungsgrundlage für metallene Werkstoffe im Kontakt mit Trinkwasser des Umwelt -
+bundesamtes 
+	Leitlinie zur hygienischen Beurteilung von Elastomeren im Kontakt mit Trinkwasser des Umweltbundesamtes
+	DIN EN 1074-1 „Armaturen für die Wasserversorgung“
+	DIN EN 1074-4 „Armaturen für die Wasserversorgung - Teil 4 Be- und Entlüftungsventile mit Schwimmkörpern“
+	DVGW W 270 „Vermehrung von Mikroorganismen auf Werkstoffen für den Trinkwasserbereich“
+	DVGW W334 „Be- und Entlüften von Trinkwasserleitungen“
+	DVGW W363 „Absperrarmaturen, Rückflussverhinderer, Be- und Entlüftungsventile und Regelarmaturen aus metallenen Werkstoffen für Trinkwasserversorgung“ 
+	DVGW W392-2 „Inspektion, Wartung und Betriebsüberwachung von Wasserverteilungsan-lagen - Teil 2 Fernwasserversorgungssysteme“ 
+
+
+12  |  Benutzerinformation Entlüfter-Armaturen1.3 Verwendungsbereich/Medium
+	geeignet für kaltes Trinkwasser nach DIN 2000
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	Nenndruck PN 16 
+1.5 Werkstoff/Abmessungen/Leistung
+Werkstoff
+	Alle metallene und mediumberührenden Bauteile sind aus nichtrostenden Edelstahl und 
+Si-Messing entsprechend der Bewertungsgrundlage „Trinkwasserhygienisch geeignete metallene Werkstoffe“ gefertigt. 
+	Verwendete Elastomere und Kunststoffe entsprechen den KTW-Leitlinien des Umweltbun-desamtes & des DVGW Arbeitsblattes W 270.  
+Abmessungen
+	Rohrdeckungen 1,00 m, 1,25 m, 1,50 m, 1,75 m
+	Innengewinde G 1“
+Bauteile
+1
+21. Einbaugarnitur  
+2. Absperrventil mit  Entleerung
+3. Verschlusskappe
+4. Schlaufe
+5. Schutzrohr 
+6. Schlüsselstange
+7. Entlüfter
+8. Fußverschraubung
+65
+7
+843
+
+Benutzerinformation Entlüfter-Armaturen |  131.6 Lagerung
+	Die Armatur ist bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt 
+und trocken zu lagern.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen.
+1.7 Funktionsbeschreibung
+Die EWE Entlüfter-Einheit ist für eine selbsttätige Entlüftung von Trinkwasserleitungen geeig-net. Dadurch verhindert der EWE Entlüfter Luftansammlungen und unterstützt das vollstän-dige Entleeren der Rohrleitung.Die EWE Entlüfter-Einheit mit selbsttätiger Entleerung und nachgeschaltetem Entlüftungs-ventil ist für den direkten Erdeinbau vorgesehen und ersetzt Schachtbauwerke, wenn keinHydrant vorhanden ist. Die Absperrung mit selbsttätiger Entleerung ermöglicht die Wartung, Demontage oder Außerbetriebnahme des Entlüftungsventils. Das Schutzrohr übernimmt die Funktion des Schachtes und ermöglicht eine einfache Montage und Demontage des Ent -
+lüftungsventils für Wartungszwecke. 
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweis zur Vorbereitung
+Die EWE Entlüfter-Einheit mit fester Rohrdeckung wird einbaufertig geliefert. Eine 
+beschädigte EWE Entlüfter-Einheit darf nicht eingesetzt werden.
+Zum Schutz der EWE Entlüfter-Einheit und des weiteren Leitungssystems ist die Rohrleitung vor dem Einbau zu spülen. Im Betriebszustand steht die Armatur unter Druck.
+2.2 Hinweise zum Einbauort
+Die EWE Entlüfter-Einheit ist für den Einbau an erdverlegten Rohrleitungen in frostsicherer Tiefe vorgesehen. Die Wahl der erforderlichen Rohrdeckung ist daher entsprechend den örtlichen Gegebenheiten zu treffen. Die Frostsicherheit wird von der Rohrdeckung der An-schlussleitung vorgegeben. Zur optimalen Funktion sollten Entlüfter-Einheiten an erhöhten 
+Stellen des Rohrnetzes zur Entlüftung ausgewählt werden.  Bei hohem Grundwasserstand ist die Entleerung und die Entlüftungsfunktion einge -
+schränkt und es besteht die Gefahr des Grundwassereintritts. Ein Betrieb unter dem Grund-wasserspiegel ist nicht zulässig!
+2.3 Montage
+Die Herstellung der Verbindung zwischen der Anschlussmuffe der EWE Entlüfter-Einheit und dem Rohr erfolgt nach den Richtlinien des Herstellers der Verbindung (Schweißstutzen mit EWE-O-Ring-Technik, Klemmverbinder mit EWE-O-Ring-Technik u.ä.).
+
+14  |  Benutzerinformation Entlüfter-Armaturen2.4 Frostschutz
+Die Frostsicherheit ist durch den örtlichen Einbau, insbesondere durch eine richtig gewählte 
+Einbautiefe der Anschlussleitung, sicherzustellen. Die Gewährleistung der Frostfreiheit liegt deshalb ausschließlich in der Verantwortung der planenden und bauausführenden Stelle. 
+2.5 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.  
+Nach Herstellung der Verbindung ist die Entlüfter-Einheit einer Druckprüfung zu 
+unterziehen. Nach der Druckprüfung kann die Grabenverfüllung im Bereich der Entlüfter-Ein-heit erfolgen. 
+2.6 Baugrube und Befüllung
+Die erforderlichen Arbeiten liegen in der Verantwortung des Anwenders. Die Abstände zu anderen unterirdischen Anlagen, wie Bauwerken, Rohrleitungen, Kabeln, sind gemäß DVGW-Arbeitsblatt W 400 einzuhalten.Die Anforderung der DIN 4124 sind zu beachten.Mögliche Erdbewegung infolge Senkung, Setzung oder Erddruck, z.B. hervorgerufen durch 
+Hanglagen, sind zu berücksichtigen.  
+Die Verfüllung sollte gleichmäßig, lagenweise durchgeführt werden. Im Bereich des Garten-ventils ist zur besseren Ableitung des Wassers während der Entleerung die Nutzung des EWE Sickerschlauches und ein Einsanden mit Kies (Körnung 4 bis 9) erforderlich.
+3. Betrieb und Verwendung
+Der Einbau der Armatur darf nur von qualifiziertem Fachpersonal vorgenommen werden. Die EWE Entlüfter-Einheit ist mit selbsttätiger Entleerung zur Wartung des Entlüftungsventils versehen. Die Entlüfter-Einheit ist nicht geeignet, um ein leeres Leitungsnetz zu entlüften, sondern dient zum Ausblasen von Lufteinschlüssen während des Betriebs. Die Nichtbeach-tung führt zu Einschränkungen in der Funktion der Entlüfter-Einheit.
+
+Benutzerinformation Entlüfter-Armaturen |  153.1 Funktion des Absperrventils in der Entlüfter-Einheit 
+ 
+                    
+3.2 Wartung und Instandhaltung
+Eine jährliche Funktionsprüfung, Wartung und Reinigung des EWE Entlüfters ist im Regelwerk
+vorgeschrieben. Für Wartungszwecke kann der EWE Entlüfter ersetzt werden, dafür EWE-Entlüfter durch Linksdrehen des Vierkants lösen. Über den Seilzug im Schutzrohr kann dieArmatur nach oben geführt werden. Die Absenkung der Armatur erfolgt durch Rechtsdrehennach Festziehung.
+Wartung der Entlüfter-Einheit:  
+Während der Wartung des entnommenen Entlüfters ist das Schutzrohr zu verschließen und vor Verunreinigungen zu schützen. 
+ Medium im Durchfluss
+EWE Absperrventil bis Anschlag geöffnet.
+Abgangsleitung wird nach 
+unten entleertEWE Absperrventil bis Anschlag geschlossen.Das Öffnen des Ventils erfolgt zügig durch Linksdrehen (gegen den Uhrzeigersinn), das Schließen gleichfalls durch Rechtsdrehen (im Uhrzeigersinn). 
+Wasser aus der Zuleitung kann zu Beginn 
+des Öffnungs- und gegen Ende des Schließ-vorgangs mit Leitungsdruck aus der Ent -
+leerungsöffnung austreten. Daher ist das Ventil jeweils bis zum deutlichen Anschlag zu betätigen. 
+FALSCH! Ventil nicht 
+komplett geschlossen
+Achtung: Immer bis zum An-schlag öffnen und schließen!Das unvollständige Öffnen und Schließen des Absperrventils führt zwangsläufig zu Wasserverlusten und kann zur Schädigung oder Einsandung der Armatur führen.
+1.
+	Absperrventil am Vierkant der Einbaugar -
+nitur schließen.
+	Entlüfter-Einheit entleert nun langsam.
+
+
+16  |  Benutzerinformation Entlüfter-Armaturen
+3.
+	Den darunter liegenden Vierkant entge -
+gen dem Uhrzeigersinn  bis zum Anschlag 
+drehen und Entlüfter mit Bedienstange lösen.
+4.
+	Entlüfter an der Schlaufe aus dem Schutz-rohr entnehmen.
+5.
+	Zur Reinigung Entlüfter aus der Aufnahme schrauben.
+6.
+	Dichtungen und Sieb ersetzen.
+2.
+	Kappe des Entlüfters entfernen.
+
+
+Benutzerinformation Entlüfter-Armaturen |  174. Ersatzteile
+Wartungsset für Entlüftereinheit 
+Artikelnummer 3904150bestehend aus: Entlüftungsoberteil, Dichtungen und Sieb
+Sickerschlauch für Gartenventil
+Artikelnummer 5102089
+
+18  |  Benutzerinformation Entlüfter-Armaturen
+
+Benutzerinformation Entlüfter-Armaturen |  19
+
+20  |  Benutzerinformation Entlüfter-ArmaturenWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100026 - Ausgabe 03/2024
+
+

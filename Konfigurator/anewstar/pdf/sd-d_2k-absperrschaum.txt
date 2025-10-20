@@ -1,0 +1,1161 @@
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 1 von 10
+ABSCHNITT 1: Bezeichnung des Stoffs beziehungsweise des 
+Gemischs und des Unternehmens
+1.1 Produktidentifikator
+Handelsname: EWE-2K-Absperrschaum Komponente A
+UFI: T1S2-A0CT-G001-N7XC
+1.2 Relevante identifizierte Verwendungen des Stoffs oder Gemischs und 
+Verwendungen, von denen abgeraten wird
+Allgemeine Verwendung: Polyol-Komponente zur Herstellung von Polyurethanen.
+Nur für industrielle Zwecke
+1.3 Einzelheiten zum Lieferanten, der das Sicherheitsdatenblatt bereitstellt
+Firmenbezeichnung: ZAPP-ZIMMERMANN GmbH
+Straße/Postfach: Marconistr. 7-9
+PLZ, Ort: 50769 Köln
+Deutschland
+WWW: www.z-z.de
+E-Mail: info@z-z.de
+Telefon: +49 (0)221-97 061-0
+Telefax: +49 (0)221-97 061-928
+Auskunft gebender Bereich:
+Lars Volkmer,
+Telefon: +49 (0)221-97061-160, E-Mail Lars.Volkmer@kzim.de
+1.4 Notrufnummer
+GIZ-Nord, Göttingen
+Telefon: +49 551-19240
+ABSCHNITT 2: Mögliche Gefahren
+2.1 Einstufung des Stoffs oder Gemischs
+Einstufung gemäß EG-Verordnung 1272/2008 (CLP)
+Carc. 2; H351 Kann vermutlich Krebs erzeugen.
+Repr. 2; H361f Kann vermutlich die Fruchtbarkeit beeinträchtigen.
+2.2 Kennzeichnungselemente
+Kennzeichnung (CLP)
+Signalwort: Achtung
+Gefahrenhinweise: H351 Kann vermutlich Krebs erzeugen.
+H361f Kann vermutlich die Fruchtbarkeit beeinträchtigen.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 2 von 10
+Sicherheitshinweise: P201 Vor Gebrauch besondere Anweisungen einholen.
+P280 Schutzhandschuhe/Schutzkleidung/Augenschutz tragen.
+P308+P313 BEI Exposition oder falls betroffen: Ärztlichen Rat einholen/ärztliche Hilfe 
+hinzuziehen.
+P501 Inhalt/Behälter der Problemabfallentsorgung zuführen.
+Besondere Kennzeichnung
+Hinweistext für Etiketten: Enthält Melamin
+2.3 Sonstige Gefahren
+Besondere Rutschgefahr durch auslaufendes/verschüttetes Produkt.
+Endokrinschädliche Eigenschaften, Ergebnisse der PBT- und vPvB-Beurteilung:
+Keine Daten verfügbar
+ABSCHNITT 3: Zusammensetzung/Angaben zu Bestandteilen
+3.1 Stoffe: nicht anwendbar
+3.2 Gemische
+Chemische Charakterisierung:
+Mischung auf Basis von Polyetherpolyol.
+Gefährliche Inhaltsstoffe:
+Identifikatoren Bezeichnung
+EinstufungGehalt
+EG-Nr. 203-615-4
+CAS 108-78-1Melamin (SVHC)
+Carc. 2; H351.  Repr. 2; H361f.  STOT RE 2; H373.< 10 %
+Wortlaut der H- und EUH-Gefahrenhinweise: siehe unter Abschnitt 16.
+Zusätzliche Hinweise: Enthält die folgenden besonders besorgniserregenden Stoffe (SVHC), die in der 
+Kandidatenliste gemäß REACH, Artikel 59 aufgeführt sind: Melamin (Equivalent level of 
+concern having probable serious effects to human health (Article 57(f) - human health); 
+Equivalent level of concern having probable serious effects to the environment (Article 57(f) 
+- environment))
+Enthält Aluminiumhydroxid, Pentaerythritol, Dieisentrioxid.
+Die maximalen Arbeitsplatzgrenzwerte sind, soweit erforderlich, in Abschnitt 8 
+wiedergegeben.
+ABSCHNITT 4: Erste-Hilfe-Maßnahmen
+4.1 Beschreibung der Erste-Hilfe-Maßnahmen
+Allgemeine Hinweise: Ist ärztlicher Rat erforderlich, Verpackung oder Kennzeichnungsetikett bereithalten.
+Kontaminierte Kleidung ausziehen und vor erneutem Tragen waschen.
+Bei Einatmen: Bei Atembeschwerden die betroffene Person an die frische Luft bringen und in einer 
+Position ruhigstellen, die das Atmen erleichtert. Bei andauernden Beschwerden Arzt 
+aufsuchen.
+Nach Hautkontakt: Sofort mit Wasser und Seife abwaschen, und falls verfügbar, reichlich Polyethylenglykol 
+400 auftragen. Bei Hautreaktionen Arzt aufsuchen.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 3 von 10
+Nach Augenkontakt: Sofort bei geöffnetem Lidspalt 10 bis 15 Minuten mit fließendem Wasser spülen. Eventuell 
+vorhandene Kontaktlinsen nach Möglichkeit entfernen. Weiter ausspülen. Bei auftretenden 
+oder anhaltenden Beschwerden Augenarzt aufsuchen.
+Nach Verschlucken: Sofort Mund ausspülen und reichlich Wasser nachtrinken. Niemals darf einem 
+Bewusstlosen etwas über den Mund verabreicht werden. Kein Erbrechen herbeiführen. 
+Arzt hinzuziehen.
+4.2 Wichtigste akute und verzögert auftretende Symptome und Wirkungen
+Keine Daten verfügbar
+4.3 Hinweise auf ärztliche Soforthilfe oder Spezialbehandlung
+Das Produkt reizt die Atemwege und ist potentieller Auslöser für Haut- und 
+Atemwegssensibilisierungen. Die Behandlung der akuten Reizung oder 
+Bronchialverengung ist in erster Linie symptomatisch. In Abhängigkeit vom Ausmaß der 
+Exposition und der Beschwerden kann eine längere ärztliche Betreuung notwendig sein.
+ABSCHNITT 5: Maßnahmen zur Brandbekämpfung
+5.1 Löschmittel
+Geeignete Löschmittel: Schaum, Trockenlöschpulver, Kohlendioxid
+Bei größeren Bränden: Wassersprühstrahl
+Aus Sicherheitsgründen ungeeignete Löschmittel:
+Wasservollstrahl
+5.2 Besondere vom Stoff oder Gemisch ausgehende Gefahren
+Im Brandfall können gefährliche Brandgase und Dämpfe entstehen.
+Ferner können entstehen: Stickoxide (NOx), Kohlenmonoxid und Kohlendioxid
+5.3 Hinweise für die Brandbekämpfung
+Besondere Schutzausrüstung bei der Brandbekämpfung:
+Umgebungsluftunabhängiges Atemschutzgerät und Chemikalienschutzanzug tragen.
+Zusätzliche Hinweise: Erhitzen führt zu Druckerhöhung und Berstgefahr.
+Gefährdete Behälter mit Sprühwasser kühlen und nach Möglichkeit aus der Gefahrenzone 
+ziehen. Alle unbeteiligten Personen gegen den Wind entfernen.
+Löschwasser nicht in Kanalisation, Erdreich oder Gewässer gelangen lassen.
+Brandrückstände und kontaminiertes Löschwasser müssen entsprechend den örtlichen 
+behördlichen Vorschriften entsorgt werden.
+ABSCHNITT 6: Maßnahmen bei unbeabsichtigter Freisetzung
+6.1 Personenbezogene Vorsichtsmaßnahmen, Schutzausrüstungen und in Notfällen 
+anzuwendende Verfahren
+Exposition vermeiden. Nebel/Dampf/Aerosol nicht einatmen. Substanzkontakt vermeiden.
+Wenn möglich, Undichtigkeit beseitigen. Für ausreichende Lüftung sorgen.
+Geeignete Schutzausrüstung tragen. Ungeschützte Personen fernhalten.
+Kontaminierte Kleidung ausziehen und vor erneutem Tragen waschen.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 4 von 10
+6.2 Umweltschutzmaßnahmen
+Eindringen in Erdreich, Gewässer oder Kanalisation verhindern.
+Gegebenenfalls zuständige Behörden benachrichtigen.
+6.3 Methoden und Material für Rückhaltung und Reinigung
+Mechanisch aufnehmen und in geeigneten Behältern zur Entsorgung bringen. Nachreinigen.
+Zusätzliche Hinweise: Besondere Rutschgefahr durch auslaufendes/verschüttetes Produkt.
+6.4 Verweis auf andere Abschnitte
+Siehe ergänzend Abschnitt 8 und 13.
+ABSCHNITT 7: Handhabung und Lagerung
+7.1 Schutzmaßnahmen zur sicheren Handhabung
+Hinweise zum sicheren Umgang:
+Vor Gebrauch besondere Anweisungen einholen.
+Für gute Be- und Entlüftung von Lager und Arbeitsplatz sorgen.
+Berührung mit den Augen und der Haut vermeiden. Geeignete Schutzausrüstung tragen.
+Nebel/Dampf/Aerosol nicht einatmen. Kontaminierte Kleidung ausziehen und vor 
+erneutem Tragen waschen.
+Bei Gebrauch nicht essen, trinken oder rauchen. Nach Gebrauch Hände gründlich 
+waschen.
+Hinweise zum Brand- und Explosionsschutz:
+Vor Hitze schützen.
+Bei Handhabung größerer Mengen Maßnahmen gegen elektrostatische Aufladung treffen.
+7.2 Bedingungen zur sicheren Lagerung unter Berücksichtigung von Unverträglichkeiten
+Anforderungen an Lagerräume und Behälter:
+Behälter dicht geschlossen und bei Temperaturen zwischen 5 °C bis 30 °C aufbewahren. 
+Behälter an einem kühlen, gut gelüfteten Ort aufbewahren. Behälter trocken halten. Vor 
+Luftfeuchtigkeit und Wasser schützen.
+Zusammenlagerungshinweise:
+Von Nahrungsmitteln, Getränken und Futtermitteln fernhalten.
+Lagerklasse: 10 = Brennbare Flüssigkeiten, soweit nicht LGK 3
+7.3 Spezifische Endanwendungen
+Es liegen keine Informationen vor.
+ABSCHNITT 8: Begrenzung und Überwachung der 
+Exposition/Persönliche Schutzausrüstungen
+8.1 Zu überwachende Parameter
+Arbeitsplatzgrenzwerte:
+CAS-Nr. Bezeichnung Typ Grenzwert
+21645-51-2 Aluminiumhydroxid Deutschland: DFG Langzeit 1,5 mg/m³  (alveolengängige Fraktion)
+Deutschland: DFG Langzeit 4 mg/m³  (einatembare Fraktion)
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 5 von 10
+8.2 Begrenzung und Überwachung der Exposition
+Für gute Belüftung des Arbeitsraumes und/oder Absaugeinrichtung am Arbeitsplatz sorgen.
+Persönliche Schutzausrüstung
+Begrenzung und Überwachung der Exposition am Arbeitsplatz
+Atemschutz: Bei Überschreitung der Arbeitsplatzgrenzwerte (AGW) ist ein Atemschutzgerät zu tragen.
+Kombinationsfilter A2-P2 gemäß EN 14387 benutzen.
+Die Atemschutzfilterklasse ist unbedingt der maximalen Schadstoffkonzentration (Gas/ 
+Dampf/ Aerosol/ Partikel) anzupassen, die beim Umgang mit dem Produkt entstehen kann.
+Handschutz: Schutzhandschuhe gemäß DIN EN 374.
+Die Angaben des Herstellers der Schutzhandschuhe zu Durchlässigkeiten und 
+Durchbruchzeiten sind zu beachten.
+Augenschutz: Dicht schließende Schutzbrille gemäß DIN EN ISO 16321-1:2022.
+Körperschutz: Bei der Arbeit geeignete Schutzkleidung tragen.
+Schutz- und Hygienemaßnahmen:
+Vor Gebrauch besondere Anweisungen einholen.
+Substanzkontakt vermeiden.
+Bei Gebrauch nicht essen, trinken oder rauchen. Nach Gebrauch Hände gründlich 
+waschen.
+Kontaminierte Kleidung ausziehen und vor erneutem Tragen waschen.
+Augenspülflasche oder Augendusche im Arbeitsraum bereitstellen.
+Begrenzung und Überwachung der Umweltexposition
+Siehe "6.2 Umweltschutzmaßnahmen".
+ABSCHNITT 9: Physikalische und chemische Eigenschaften
+9.1 Angaben zu den grundlegenden physikalischen und chemischen Eigenschaften
+Aggregatzustand bei 20 °C und 101,3 kPa
+flüssig
+Farbe: rotbraun
+Geruch: charakteristisch
+Geruchsschwelle: Keine Daten verfügbar
+Schmelzpunkt/Gefrierpunkt: nicht bestimmt
+Siedebeginn und Siedebereich: nicht bestimmt
+Entzündbarkeit: nicht bestimmt
+Obere/untere Entzündbarkeits- oder Explosionsgrenzen:
+UEG (Untere Explosionsgrenze):  nicht anwendbar
+OEG (Obere Explosionsgrenze):  nicht anwendbar
+Flammpunkt/Flammbereich: nicht anwendbar
+Zersetzungstemperatur: Keine Daten verfügbar
+pH-Wert: 8,5
+Viskosität, dynamisch: nicht relevant 
+Wasserlöslichkeit: praktisch unlöslich 
+Verteilungskoeffizient n-Octanol/Wasser: nicht bestimmt
+Dampfdruck: bei 25 °C: <= 0,00001 kPa
+Dichte: ca. 1,3 g/mL
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 6 von 10
+Dampfdichte: Keine Daten verfügbar
+Partikeleigenschaften: Nicht anwendbar
+9.2 Sonstige Angaben
+Explosive Eigenschaften: Keine Daten verfügbar
+Oxidierende Eigenschaften: Keine Daten verfügbar
+Selbstentzündungstemperatur: nicht anwendbar
+Schüttdichte: nicht anwendbar 
+Verdampfungsgeschwindigkeit: Keine Daten verfügbar
+ABSCHNITT 10: Stabilität und Reaktivität
+10.1 Reaktivität
+Siehe Unterabschnitt "Möglichkeit gefährlicher Reaktionen".
+10.2 Chemische Stabilität
+Stabil unter angegebenen Lagerungsbedingungen.
+10.3 Möglichkeit gefährlicher Reaktionen
+Bei bestimmungsgemäßer Handhabung und Lagerung treten keine gefährlichen 
+Reaktionen auf.
+10.4 Zu vermeidende Bedingungen
+Vor Feuchtigkeit schützen. Vor Sonneneinstrahlung schützen. Vor Frost schützen. Von 
+Hitzequellen, Funken und offenen Flammen fernhalten.
+10.5 Unverträgliche Materialien
+Keine Daten verfügbar
+10.6 Gefährliche Zersetzungsprodukte
+Keine Zersetzung bei bestimmungsgemäßer Verwendung.
+Thermische Zersetzung: Keine Daten verfügbar
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 7 von 10
+ABSCHNITT 11: Toxikologische Angaben
+11.1 Angaben zu den Gefahrenklassen im Sinne der Verordnung (EG) Nr. 1272/2008
+Toxikologische Wirkungen: Die Aussagen sind von den Eigenschaften der Einzelkomponenten abgeleitet. Für das 
+Produkt als solches liegen keine toxikologischen Daten vor.
+Akute Toxizität (oral): Fehlende Daten.
+Akute Toxizität (dermal): Fehlende Daten.
+Akute Toxizität (inhalativ): Fehlende Daten.
+Ätz-/Reizwirkung auf die Haut: Fehlende Daten.
+Schwere Augenschädigung/-reizung: Fehlende Daten.
+Sensibilisierung der Atemwege: Fehlende Daten.
+Sensibilisierung der Haut: Fehlende Daten.
+Keimzellmutagenität/Genotoxizität: Fehlende Daten.
+Karzinogenität: Carc. 2; H351 = Kann vermutlich Krebs erzeugen.
+Reproduktionstoxizität: Repr. 2; H361f = Kann vermutlich die Fruchtbarkeit beeinträchtigen.
+Wirkungen auf und über die Muttermilch: Fehlende Daten.
+Spezifische Zielorgan-Toxizität (einmalige Exposition): Fehlende Daten.
+Spezifische Zielorgan-Toxizität (wiederholte Exposition): Fehlende Daten.
+Aspirationsgefahr: Fehlende Daten.
+11.2 Angaben über sonstige Gefahren
+Endokrinschädliche Eigenschaften:
+Keine Daten verfügbar
+Sonstige Angaben: Keine Daten verfügbar
+ABSCHNITT 12: Umweltbezogene Angaben
+12.1 Toxizität
+Wassergefährdungsklasse:
+1 = schwach wassergefährdend
+12.2 Persistenz und Abbaubarkeit
+Sonstige Hinweise: Keine Daten verfügbar
+12.3 Bioakkumulationspotenzial
+Verteilungskoeffizient n-Octanol/Wasser:
+nicht bestimmt
+12.4 Mobilität im Boden
+Keine Daten verfügbar
+12.5 Ergebnisse der PBT- und vPvB-Beurteilung
+Keine Daten verfügbar
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 8 von 10
+12.6 Endokrinschädliche Eigenschaften
+Keine Daten verfügbar
+12.7 Andere schädliche Wirkungen
+Allgemeine Hinweise: Eindringen in Erdreich, Gewässer oder Kanalisation verhindern.
+ABSCHNITT 13: Hinweise zur Entsorgung
+13.1 Verfahren der Abfallbehandlung
+Produkt
+Abfallschlüsselnummer:08 04 09* = Klebstoff- und Dichtmassenabfälle, die organische Lösemittel oder andere 
+gefährliche Stoffe enthalten
+* = Die Entsorgung ist nachweispflichtig.
+Empfehlung: Entsorgung gemäß den behördlichen Vorschriften.
+Verpackung
+Abfallschlüsselnummer:15 01 02 = Verpackungen aus Kunststoff
+Empfehlung: Entsorgung gemäß den behördlichen Vorschriften.
+Kontaminierte Verpackungen sind wie der Stoff zu behandeln.
+Nicht kontaminierte und restentleerte Verpackungen können einer Wiederverwertung 
+zugeführt werden.
+ABSCHNITT 14: Angaben zum Transport
+14.1 UN-Nummer oder ID-Nummer
+ADR/RID, ADN, IMDG, IATA-DGR:
+entfällt
+14.2 Ordnungsgemäße UN-Versandbezeichnung
+ADR/RID, ADN, IMDG, IATA-DGR:
+Nicht eingeschränkt
+14.3 Transportgefahrenklassen
+ADR/RID, ADN, IMDG, IATA-DGR:
+entfällt
+14.4 Verpackungsgruppe
+ADR/RID, ADN, IMDG, IATA-DGR:
+entfällt
+14.5 Umweltgefahren
+Umweltgefährlich: Stoff/Gemisch ist nach den Kriterien der 
+UN-Modellvorschriften nicht für die Umwelt 
+gefährlich.
+Meeresschadstoff - IMDG:
+nein
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 9 von 10
+14.6 Besondere Vorsichtsmaßnahmen für den Verwender
+Kein Gefahrgut im Sinne dieser Transportvorschriften.
+14.7 Massengutbeförderung auf dem Seeweg gemäß IMO-Instrumenten
+Keine Daten verfügbar
+ABSCHNITT 15: Rechtsvorschriften
+15.1 Vorschriften zu Sicherheit, Gesundheits- und Umweltschutz/spezifische 
+Rechtsvorschriften für den Stoff oder das Gemisch
+Nationale Vorschriften - Deutschland
+Lagerklasse: 10 = Brennbare Flüssigkeiten, soweit nicht LGK 3
+Wassergefährdungsklasse:
+1 = schwach wassergefährdend
+Technische Anleitung Luft: 5.2.5
+5.2.7
+Hinweise zur Beschäftigungsbeschränkung:
+Beschäftigungsbeschränkungen für Jugendliche beachten.
+Beschäftigungsbeschränkungen für werdende und stillende Mütter beachten.
+Sonstige Vorschriften, Beschränkungen und Verordnungen:
+Keine Daten verfügbar
+Nationale Vorschriften - EG-Mitgliedstaaten
+Sonstige Vorschriften, Beschränkungen und Verordnungen:
+Verwendungsbeschränkung gemäß REACH Anhang XVII Nr.: 3, 75
+15.2 Stoffsicherheitsbeurteilung
+Für dieses Gemisch ist keine Stoffsicherheitsbeurteilung erforderlich.
+ABSCHNITT 16: Sonstige Angaben
+Wortlaut der H-Sätze unter Abschnitt 2 und 3:
+H351 = Kann vermutlich Krebs erzeugen.
+H361f = Kann vermutlich die Fruchtbarkeit beeinträchtigen.
+H373 = Kann die Organe schädigen bei längerer oder wiederholter Exposition.
+Literatur: BG RCI:
+ - Merkblatt M050 'Tätigkeiten mit Gefahrstoffen' 
+ - Merkblatt M053 'Arbeitsschutzmaßnahmen bei Tätigkeiten mit Gefahrstoffen' 
+TRGS 905 Verzeichnis krebserzeugender, erbgutverändernder oder 
+fortpflanzungsgefährdender Stoffe.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 2020/878
+EWE-2K-Absperrschaum 
+Komponente A
+ Überarbeitet am: 5.4.2024
+Version: 12.0
+Ersetzt Version: 11.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 10 von 10
+Grund der letzten Änderungen:
+Änderung in Abschnitt 2: Einstufung, Kennzeichnung
+Änderung in Abschnitt 3: Zusammensetzung/Angaben zu Bestandteilen
+Änderung in Abschnitt 15: Vorschriften
+Allgemeine Überarbeitung
+Allgemeine Überarbeitung
+Erstausgabedatum: 28.11.2014
+Datenblatt ausstellender Bereich:
+siehe Abschnitt 1: Auskunft gebender Bereich
+Abkürzungen und Akronyme:
+ADN: Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf Binnenwasserstraßen
+ADR: Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße
+AGW: Arbeitsplatzgrenzwert
+AS/NZS: Australische/neuseeländische Norm
+Carc.: Karzinogenität
+CAS: Chemical Abstracts Service
+CFR: Code of Federal Regulations
+CLP: Einstufung, Kennzeichnung und Verpackung
+DMEL: Abgeleitete Expositionshöhe mit minimaler Beeinträchtigung
+DNEL: Abgeleitete Nicht-Effekt-Konzentration
+EG: Europäische Gemeinschaft
+EN: Europäische Norm
+EQ: Freigestellte Mengen
+EU: Europäische Union
+IATA: Verband für den internationalen Lufttransport
+IATA-DGR: Verband für den internationalen Lufttransport – Gefahrgutvorschriften
+IBC-Code: Internationaler Code für den Bau und die Ausrüstung von Schiffen zur Beförderung gefährlicher Chemikalien als 
+Massengut
+IMDG-Code: Gefahrgutvorschriften für den internationalen Seetransport
+MAK: Maximale Arbeitsplatz-Konzentration
+MARPOL: Internationales Übereinkommen zur Verhütung der Meeresverschmutzung durch Schiffe
+OSHA: Arbeitsschutzadministration, Amerika
+PBT: Persistent, bioakkumulierbar und toxisch
+PNEC: Abgeschätzte Nicht-Effekt-Konzentration
+REACH: Registrierung, Bewertung, Zulassung und Beschränkung chemischer Stoffe
+Repr.: Reproduktionstoxizität
+RID: Ordnung für die internationale Eisenbahnbeförderung gefährlicher Güter
+STOT RE: Spezifische Zielorgan-Toxizität - wiederholte Exposition
+SVHC: Besonders besorgniserregender Stoff
+TRGS: Technische Regeln für Gefahrstoffe
+UEG: Untere Explosionsgrenze
+vPvB: Sehr persistent und sehr bioakkumulierbar
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 1 von 14
+ABSCHNITT 1: Bezeichnung des Stoffs beziehungsweise des 
+Gemischs und des Unternehmens
+1.1 Produktidentifikator
+Handelsname: EWE-2K-Absperrschaum
+Chemische Bezeichnung: 4,4'-Diphenylmethan-diisocyanat (Isomere/Homologe)
+CAS-Nummer: 9016-87-9
+Listennummer: 618-498-9
+UFI: 27MH-G0T9-K00X-ESYV
+1.2 Relevante identifizierte Verwendungen des Stoffs oder Gemischs und 
+Verwendungen, von denen abgeraten wird
+Allgemeine Verwendung: Di-/Poly-Isocyanat-Komponente zur Herstellung von Polyurethanen. Nur für industrielle 
+Zwecke.
+1.3 Einzelheiten zum Lieferanten, der das Sicherheitsdatenblatt bereitstellt
+Firmenbezeichnung: ZAPP-ZIMMERMANN GmbH
+Straße/Postfach: Marconistr. 7-9
+PLZ, Ort: 50769 Köln
+Deutschland
+WWW: www.z-z.de
+E-Mail: info@z-z.de
+Telefon: +49 (0)221-97 061-0
+Telefax: +49 (0)221-97 061-928
+Auskunft gebender Bereich:
+Lars Volkmer,
+Telefon: +49 (0)221-97061-160, E-Mail Lars.Volkmer@kzim.de
+1.4 Notrufnummer
+GIZ-Nord, Göttingen
+Telefon: +49 551-19240
+ABSCHNITT 2: Mögliche Gefahren
+2.1 Einstufung des Stoffs oder Gemischs
+Einstufung gemäß EG-Verordnung 1272/2008 (CLP)
+Acute Tox. 4; H332 Gesundheitsschädlich bei Einatmen.
+Skin Irrit. 2; H315 Verursacht Hautreizungen.
+Eye Irrit. 2; H319 Verursacht schwere Augenreizung.
+Resp. Sens. 1; H334 Kann bei Einatmen Allergie, asthmaartige Symptome oder Atembeschwerden 
+verursachen.
+Skin Sens. 1; H317 Kann allergische Hautreaktionen verursachen.
+Carc. 2; H351 Kann vermutlich Krebs erzeugen.
+STOT SE 3; H335 Kann die Atemwege reizen.
+STOT RE 2; H373 Kann die Organe schädigen (Atemwege) bei längerer oder wiederholter Exposition 
+(Inhalation).
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 2 von 14
+2.2 Kennzeichnungselemente
+Kennzeichnung (CLP)
+Signalwort: Gefahr
+Gefahrenhinweise: H315 Verursacht Hautreizungen.
+H317 Kann allergische Hautreaktionen verursachen.
+H319 Verursacht schwere Augenreizung.
+H332 Gesundheitsschädlich bei Einatmen.
+H334 Kann bei Einatmen Allergie, asthmaartige Symptome oder 
+Atembeschwerden verursachen.
+H335 Kann die Atemwege reizen.
+H351 Kann vermutlich Krebs erzeugen.
+H373 Kann die Organe schädigen (Atemwege) bei längerer oder wiederholter 
+Exposition (Inhalation).
+Sicherheitshinweise: P201 Vor Gebrauch besondere Anweisungen einholen.
+P260 Dampf und Aerosol nicht einatmen.
+P280 Schutzhandschuhe/Schutzkleidung/Augenschutz tragen.
+P284 Bei unzureichender Belüftung Atemschutz tragen.
+P304+P340 BEI EINATMEN: Die Person an die frische Luft bringen und für ungehinderte 
+Atmung sorgen.
+P308+P313 BEI Exposition oder falls betroffen: Ärztlichen Rat einholen/ärztliche Hilfe 
+hinzuziehen.
+P342+P311 Bei Symptomen der Atemwege: GIFTINFORMATIONSZENTRUM/Arzt anrufen.
+P403+P233 An einem gut belüfteten Ort aufbewahren. Behälter dicht verschlossen halten.
+Besondere Kennzeichnung
+EUH204 Enthält Isocyanate. Kann allergische Reaktionen hervorrufen.
+Hinweistext für Etiketten: Enthält 4,4'-Diphenylmethan-diisocyanat (Isomere/Homologe).
+Ab dem 24. August 2023 muss vor der industriellen oder gewerblichen Verwendung eine 
+angemessene Schulung erfolgen.
+2.3 Sonstige Gefahren
+Personen mit Überempfindlichkeit der Atemwege (z.B. Asthma, chronische Bronchitis) 
+dürfen aus Schutzgründen mit dem Produkt nicht umgehen.
+Dämpfe und Aerosole sind die Hauptgefahr für die Atemwege.
+Symptome an den Atemwegen können auch noch einige Stunden nach einer 
+Überexposition auftreten.
+Besondere Rutschgefahr durch auslaufendes/verschüttetes Produkt.
+Endokrinschädliche Eigenschaften, Ergebnisse der PBT- und vPvB-Beurteilung:
+Dieser Stoff erfüllt nicht die PBT-/vPvB-Kriterien der REACH-Verordnung, Anhang XIII.
+ABSCHNITT 3: Zusammensetzung/Angaben zu Bestandteilen
+3.1 Stoffe
+Chemische Charakterisierung:
+4,4'-Diphenylmethan-diisocyanat (Isomere/Homologe) ca. 100%
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 3 von 14
+CAS-Nummer: 9016-87-9
+Listennummer: 618-498-9
+Zusätzliche Hinweise: Enthält 4,4'-Methylendiphenyldiisocyanat (CAS 101-68-8).
+Die maximalen Arbeitsplatzgrenzwerte sind, soweit erforderlich, in Abschnitt 8 
+wiedergegeben.
+ABSCHNITT 4: Erste-Hilfe-Maßnahmen
+4.1 Beschreibung der Erste-Hilfe-Maßnahmen
+Allgemeine Hinweise: Ist ärztlicher Rat erforderlich, Verpackung oder Kennzeichnungsetikett bereithalten.
+Alle kontaminierten Kleidungsstücke sofort ausziehen und vor erneutem Tragen waschen.
+Bei Einatmen: Betroffenen an die frische Luft bringen; falls erforderlich, Gerätebeatmung bzw. 
+Sauerstoffzufuhr. Verletzte nicht auskühlen lassen.
+Verletzten ruhig lagern und sofort Arzt hinzuziehen.
+Bei Gefahr von Bewusstlosigkeit Lagerung und Transport in stabiler Seitenlage.
+Nach Hautkontakt: Sofort mit Wasser und Seife abwaschen, und falls verfügbar, reichlich Polyethylenglykol 
+400 auftragen. Bei Hautreaktionen Arzt aufsuchen.
+Nach Augenkontakt: Sofort bei geöffnetem Lidspalt 10 bis 15 Minuten mit fließendem Wasser spülen. Eventuell 
+vorhandene Kontaktlinsen nach Möglichkeit entfernen. Weiter ausspülen. Anschließend 
+Augenarzt aufsuchen.
+Nach Verschlucken: Sofort Mund ausspülen und reichlich Wasser nachtrinken. Niemals darf einem 
+Bewusstlosen etwas über den Mund verabreicht werden. Kein Erbrechen herbeiführen. 
+Arzt hinzuziehen.
+4.2 Wichtigste akute und verzögert auftretende Symptome und Wirkungen
+Verursacht schwere Augenreizung. Verursacht Hautreizungen. Kann allergische 
+Hautreaktionen verursachen. Kann bei Einatmen Allergie, asthmaartige Symptome oder 
+Atembeschwerden verursachen. Kann die Organe schädigen (Atemwege) bei längerer 
+oder wiederholter Exposition (Inhalation). Kann die Atemwege reizen.
+4.3 Hinweise auf ärztliche Soforthilfe oder Spezialbehandlung
+Das Produkt reizt die Atemwege und ist potentieller Auslöser für Haut- und 
+Atemwegssensibilisierungen. Die Behandlung der akuten Reizung oder 
+Bronchialverengung ist in erster Linie symptomatisch. In Abhängigkeit vom Ausmaß der 
+Exposition und der Beschwerden kann eine längere ärztliche Betreuung notwendig sein.
+ABSCHNITT 5: Maßnahmen zur Brandbekämpfung
+5.1 Löschmittel
+Geeignete Löschmittel: Schaum, Trockenlöschpulver, Kohlendioxid
+Bei größeren Bränden: auch Wassersprühstrahl
+Aus Sicherheitsgründen ungeeignete Löschmittel:
+Wasservollstrahl
+5.2 Besondere vom Stoff oder Gemisch ausgehende Gefahren
+Im Brandfall können gefährliche Brandgase und Dämpfe entstehen.
+Ferner können entstehen: Isocyanatdämpfe, Spuren von Cyanwasserstoff, nitrose Gase, 
+Kohlenmonoxid
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 4 von 14
+5.3 Hinweise für die Brandbekämpfung
+Besondere Schutzausrüstung bei der Brandbekämpfung:
+Umgebungsluftunabhängiges Atemschutzgerät und Chemikalienschutzanzug tragen.
+Zusätzliche Hinweise: Erhitzen führt zu Druckerhöhung und Berstgefahr.
+Gefährdete Behälter mit Sprühwasser kühlen und nach Möglichkeit aus der Gefahrenzone 
+ziehen. Alle unbeteiligten Personen gegen den Wind entfernen.
+Löschwasser nicht in Kanalisation, Erdreich oder Gewässer gelangen lassen.
+Brandrückstände und kontaminiertes Löschwasser müssen entsprechend den örtlichen 
+behördlichen Vorschriften entsorgt werden.
+ABSCHNITT 6: Maßnahmen bei unbeabsichtigter Freisetzung
+6.1 Personenbezogene Vorsichtsmaßnahmen, Schutzausrüstungen und in Notfällen 
+anzuwendende Verfahren
+Exposition vermeiden. Dampf und Aerosol nicht einatmen. Substanzkontakt vermeiden.
+Wenn möglich, Undichtigkeit beseitigen. Für ausreichende Lüftung sorgen.
+Geeignete Schutzausrüstung tragen. Ungeschützte Personen fernhalten.
+Alle kontaminierten Kleidungsstücke sofort ausziehen und vor erneutem Tragen waschen.
+6.2 Umweltschutzmaßnahmen
+Nicht in das Grundwasser, in Gewässer oder in die Kanalisation gelangen lassen.
+Gegebenenfalls zuständige Behörden benachrichtigen.
+6.3 Methoden und Material für Rückhaltung und Reinigung
+Mechanisch aufnehmen und in geeigneten Behältern zur Entsorgung bringen. Nachreinigen.
+Zusätzliche Hinweise: Besondere Rutschgefahr durch auslaufendes/verschüttetes Produkt.
+6.4 Verweis auf andere Abschnitte
+Siehe ergänzend Abschnitt 8 und 13.
+ABSCHNITT 7: Handhabung und Lagerung
+7.1 Schutzmaßnahmen zur sicheren Handhabung
+Hinweise zum sicheren Umgang:
+Vor Gebrauch besondere Anweisungen einholen.
+Für gute Be- und Entlüftung von Lager und Arbeitsplatz sorgen.
+Die Luftbewegung muss von den Personen weg erfolgen.
+Die Wirksamkeit der Anlagen muss in regelmäßigen Abständen überprüft werden.
+Berührung mit den Augen und der Haut vermeiden. Geeignete Schutzausrüstung tragen.
+Dampf und Aerosol nicht einatmen.
+Bei Gebrauch nicht essen, trinken oder rauchen. Nach Gebrauch Hände gründlich 
+waschen.
+Alle kontaminierten Kleidungsstücke sofort ausziehen und vor erneutem Tragen waschen.
+Augenspülflasche oder Augendusche im Arbeitsraum bereitstellen.
+Hinweise zum Brand- und Explosionsschutz:
+Vor Hitze schützen.
+Bei Handhabung größerer Mengen Maßnahmen gegen elektrostatische Aufladung treffen.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 5 von 14
+7.2 Bedingungen zur sicheren Lagerung unter Berücksichtigung von Unverträglichkeiten
+Anforderungen an Lagerräume und Behälter:
+Behälter an einem kühlen, gut gelüfteten Ort aufbewahren. Behälter trocken halten.
+Lagertemperatur: < 15 °C
+Vor Luftfeuchtigkeit und Wasser schützen.
+Das Eindringen in den Boden ist sicher zu verhindern.
+Zusammenlagerungshinweise:
+Fernhalten von: Wasser, Säuren, Laugen, Amine, Alkohole.
+Von Nahrungsmitteln, Getränken und Futtermitteln fernhalten.
+Sonstige Hinweise: Unter Druck stehende Gebinde vorsichtig öffnen und entspannen.
+Lagerklasse: 10 = Brennbare Flüssigkeiten, soweit nicht LGK 3
+7.3 Spezifische Endanwendungen
+Es liegen keine Informationen vor.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 6 von 14
+ABSCHNITT 8: Begrenzung und Überwachung der 
+Exposition/Persönliche Schutzausrüstungen
+8.1 Zu überwachende Parameter
+Arbeitsplatzgrenzwerte:
+CAS-Nr. Bezeichnung Typ Grenzwert
+9016-
+87-9EWE-2K-Absperrschaum Deutschland: TRGS 900 Kurzzeit 0,05 mg/m³  
+(als MDI berechnet), 
+(einatembare Fraktion), kann 
+über die Haut aufgenommen 
+werden
+Deutschland: TRGS 900 Langzeit 0,05 mg/m³  
+(als MDI berechnet), 
+(einatembare Fraktion), kann 
+über die Haut aufgenommen 
+werden
+Deutschland: TRGS 900 
+Spitzenbegrenzung0,1 mg/m³  
+(als MDI berechnet), 
+(einatembare Fraktion), kann 
+über die Haut aufgenommen 
+werden
+101-
+68-84,4'-
+MethylendiphenyldiisocyanatDeutschland: TRGS 900 Kurzzeit 0,05 mg/m³  
+(Aerosol und Dampf, 
+einatembare Fraktion, kann 
+über die Haut aufgenommen 
+werden)
+Deutschland: TRGS 900 Langzeit 0,05 mg/m³  
+(Aerosol und Dampf, 
+einatembare Fraktion, kann 
+über die Haut aufgenommen 
+werden)
+Deutschland: TRGS 900 
+Spitzenbegrenzung0,1 mg/m³  
+(Aerosol und Dampf, 
+einatembare Fraktion, kann 
+über die Haut aufgenommen 
+werden)
+8.2 Begrenzung und Überwachung der Exposition
+Für gute Belüftung des Arbeitsraumes und/oder Absaugeinrichtung am Arbeitsplatz sorgen.
+Persönliche Schutzausrüstung
+Begrenzung und Überwachung der Exposition am Arbeitsplatz
+Atemschutz: Bei Überschreitung der Arbeitsplatzgrenzwerte (AGW) ist ein Atemschutzgerät zu tragen.
+Kombinationsfilter A2-P2 gemäß EN 14387 benutzen.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 7 von 14
+Handschutz: Schutzhandschuhe gemäß DIN EN 374.
+Handschuhmaterial:
+Nitrilkautschuk - NBR, 0,4 mm
+Butylkautschuk - IIR, 0,7 mm
+Chloroprenkautschuk - CR,  0,5 mm
+Polyvinylchlorid - PVC, 0,7 mm
+Durchbruchzeit (maximale Tragedauer): > 480 min
+Die Angaben des Herstellers der Schutzhandschuhe zu Durchlässigkeiten und 
+Durchbruchzeiten sind zu beachten.
+Augenschutz: Dicht schließende Schutzbrille gemäß DIN EN ISO 16321-1:2022.
+Körperschutz: Bei der Arbeit geeignete Schutzkleidung tragen.
+Schutz- und Hygienemaßnahmen:
+Vor Gebrauch besondere Anweisungen einholen.
+Berührung mit den Augen und der Haut vermeiden.
+Geeignete Schutzausrüstung tragen. Dampf und Aerosol nicht einatmen.
+Bei Gebrauch nicht essen, trinken oder rauchen. Nach Gebrauch Hände gründlich 
+waschen.
+Alle kontaminierten Kleidungsstücke sofort ausziehen und vor erneutem Tragen waschen.
+Augenspülflasche oder Augendusche im Arbeitsraum bereitstellen.
+Begrenzung und Überwachung der Umweltexposition
+Siehe "6.2 Umweltschutzmaßnahmen".
+ABSCHNITT 9: Physikalische und chemische Eigenschaften
+9.1 Angaben zu den grundlegenden physikalischen und chemischen Eigenschaften
+Aggregatzustand bei 20 °C und 101,3 kPa
+flüssig
+Farbe: rotbraun
+Geruch: erdig, muffig
+Geruchsschwelle: Keine Daten verfügbar
+Schmelzpunkt/Gefrierpunkt: Keine Daten verfügbar
+Siedebeginn und Siedebereich: 330 °C  (1.013 mbar)
+Entzündbarkeit: Keine Daten verfügbar
+Obere/untere Entzündbarkeits- oder Explosionsgrenzen:
+Keine Daten verfügbar
+Flammpunkt/Flammbereich: 204 °C
+Zündtemperatur: > 600 °C
+Zersetzungstemperatur: Keine Daten verfügbar
+pH-Wert: Keine Daten verfügbar
+Viskosität, dynamisch: bei 25 °C: 600 - 700 mPa*s (DIN 53018)
+Wasserlöslichkeit: Reagiert mit Wasser 
+Verteilungskoeffizient n-Octanol/Wasser: Keine Daten verfügbar
+Dampfdruck: bei 25 °C: <= 0,01 Pa
+Dichte: bei 20 °C: 1,24 g/mL
+Dampfdichte: Keine Daten verfügbar
+Partikeleigenschaften: Nicht anwendbar
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 8 von 14
+9.2 Sonstige Angaben
+Explosive Eigenschaften: Das Produkt ist nicht explosionsgefährlich.
+Oxidierende Eigenschaften: Keine Daten verfügbar
+Selbstentzündungstemperatur: Keine Daten verfügbar
+Verdampfungsgeschwindigkeit: Keine Daten verfügbar
+ABSCHNITT 10: Stabilität und Reaktivität
+10.1 Reaktivität
+Siehe Unterabschnitt "Möglichkeit gefährlicher Reaktionen".
+10.2 Chemische Stabilität
+Stabil unter angegebenen Lagerungsbedingungen.
+10.3 Möglichkeit gefährlicher Reaktionen
+Heftige Reaktionen mit Aminen und Alkoholen.
+Reagiert mit Wasser unter Bildung von Kohlendioxid.
+Erhitzen führt zu Druckerhöhung und Berstgefahr.
+10.4 Zu vermeidende Bedingungen
+Vor Feuchtigkeit schützen. Vor Sonneneinstrahlung schützen. Vor Frost schützen. Von 
+Hitzequellen, Funken und offenen Flammen fernhalten.
+10.5 Unverträgliche Materialien
+Wasser, Säuren, Laugen, Amine, Alkohole
+10.6 Gefährliche Zersetzungsprodukte
+Keine Zersetzung bei bestimmungsgemäßer Verwendung.
+Thermische Zersetzung: Keine Daten verfügbar
+ABSCHNITT 11: Toxikologische Angaben
+11.1 Angaben zu den Gefahrenklassen im Sinne der Verordnung (EG) Nr. 1272/2008
+Akute Toxizität:LC50 Ratte, inhalativ: 0,493 mg/L/4 h
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 9 von 14
+Toxikologische Wirkungen: Akute Toxizität (oral): Aufgrund der verfügbaren Daten sind die Einstufungskriterien nicht 
+erfüllt.
+Akute Toxizität (dermal): Aufgrund der verfügbaren Daten sind die Einstufungskriterien 
+nicht erfüllt.
+Akute Toxizität (inhalativ): Acute Tox. 4; H332 = Gesundheitsschädlich bei Einatmen.
+Ätz-/Reizwirkung auf die Haut: Skin Irrit. 2; H315 = Verursacht Hautreizungen.
+Schwere Augenschädigung/-reizung: Eye Irrit. 2; H319 = Verursacht schwere Augenreizung.
+Sensibilisierung der Atemwege: Resp. Sens. 1; H334 = Kann bei Einatmen Allergie, 
+asthmaartige Symptome oder Atembeschwerden verursachen.
+Sensibilisierung der Haut: Skin Sens. 1; H317 = Kann allergische Hautreaktionen 
+verursachen.
+Keimzellmutagenität/Genotoxizität: Fehlende Daten.
+Karzinogenität: Carc. 2; H351 = Kann vermutlich Krebs erzeugen.
+Reproduktionstoxizität: Fehlende Daten.
+Wirkungen auf und über die Muttermilch: Fehlende Daten.
+Spezifische Zielorgan-Toxizität (einmalige Exposition): STOT SE 3; H335 = Kann die 
+Atemwege reizen.
+Spezifische Zielorgan-Toxizität (wiederholte Exposition): STOT RE 2; H373 = Kann die 
+Organe schädigen bei längerer oder wiederholter Exposition.
+Aspirationsgefahr: Aufgrund der verfügbaren Daten sind die Einstufungskriterien nicht erfüllt.
+11.2 Angaben über sonstige Gefahren
+Endokrinschädliche Eigenschaften:
+Keine Daten verfügbar
+Sonstige Angaben: Personen mit Überempfindlichkeit der Atemwege (z.B. Asthma, chronische Bronchitis) 
+dürfen aus Schutzgründen mit dem Produkt nicht umgehen.
+Angabe zu Diphenylmethan-diisocyanat (Isomere/Homologe):
+Eine Langzeitstudie mit Ratten über 2 Jahre mit mechanisch erzeugtem, atembaren 
+Aerosolen (aerodyn. Durchmesser 95% unter 5 µm) von polymeren MDI (PMDI) und 
+Konzentrationen von 0,2, 1,0 und 6,0 mg PMDI/m³ hatte folgende Ergebnisse:
+Die Tiergruppe mit der höchsten Konzentration zeigte eine erhöhte Zahl von 
+Lungentumoren, dauerhaften entzündlichen Veränderungen der Nase, Atemwege und 
+Lungen sowie gelblichen Ablagerungen in den Atemwegen und Lungen der Tiere.
+Die Tiere der 1,0 mg/m³-Gruppe hatten leichte Reizungen und entzündliche 
+Veränderungen an Nasen, Atemwegen und Lungen, jedoch keine Lungentumore und/oder 
+Ablagerungen.
+Die Tiere der 0,2 mg/m³-Gruppe hatten keine Reizungen: diese Gruppe wurde als 'no effect 
+level' festgestellt.
+Symptome
+Bei Einatmen:  Reizung Nase, Rachen, Lunge.
+Kopfschmerzen, Trockenheit des Rachens, Atembeschwerden, Druck auf der Brust.
+Sensibilisierung durch Einatmen möglich. Beschwerden und allergische Reaktionen 
+können bei dafür anfälligen Personen verzögert auftreten.
+Nach Verschlucken:  Kann beim Verschlucken gesundheitsschädlich sein.
+Nach Hautkontakt:  Bei längerer Berührung sind Gerb- und Reizeffekte möglich.
+Nach Augenkontakt:  
+Verursacht kurzzeitig schwache Rötung und Schwellung der Bindehaut sowie schwache, 
+reversible Cornea-Trübung.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 10 von 14
+ABSCHNITT 12: Umweltbezogene Angaben
+12.1 Toxizität
+Aquatische Toxizität: Angabe zu Diphenylmethan-diisocyanat (Isomere/Homologe):
+Bakterientoxizität:
+EC50 > 100 mg/L/3 h (OECD 209)
+Daphnientoxizität:
+EC50 Daphnia: > 1.000 mg/L/24h (OECD 202)
+Chronische Daphnientoxizität:
+NOEC Daphnia magna (Großer Wasserfloh): > 10 mg/L/21d (OECD 202)
+Fischtoxizität:
+LC50 Danio rerio (Zebrabärbling): > 1.000 mg/L/96 h (OECD 203)
+Algentoxizität:
+ErC50 Scenedesmus subspicatus > 1.640 mg/L/72h (OECD 201)
+Wassergefährdungsklasse:
+1 = schwach wassergefährdend (WGK-Katalognummer 9393)
+12.2 Persistenz und Abbaubarkeit
+Sonstige Hinweise: Setzt sich mit Wasser an der Grenzfläche unter Bildung von Kohlendioxid zu einem 
+festen, hochschmelzenden und unlöslichen Reaktionsprodukt (Polyharnstoff) um. Diese 
+Reaktion wird durch grenzflächenaktive Substanzen (z.B. Flüssigseifen) oder 
+wasserlösliche Lösemittel stark gefördert. Polyharnstoff ist nach bisher vorliegenden 
+Erfahrungen inert und nicht abbaubar.
+12.3 Bioakkumulationspotenzial
+Verteilungskoeffizient n-Octanol/Wasser:
+Keine Daten verfügbar
+12.4 Mobilität im Boden
+Keine Daten verfügbar
+12.5 Ergebnisse der PBT- und vPvB-Beurteilung
+Dieser Stoff erfüllt nicht die PBT-/vPvB-Kriterien der REACH-Verordnung, Anhang XIII.
+12.6 Endokrinschädliche Eigenschaften
+Keine Daten verfügbar
+12.7 Andere schädliche Wirkungen
+AOX-Hinweis: Das Produkt enthält kein organisch gebundenes Halogen (AOX).
+Allgemeine Hinweise: Eindringen in Erdreich, Gewässer oder Kanalisation verhindern.
+ABSCHNITT 13: Hinweise zur Entsorgung
+13.1 Verfahren der Abfallbehandlung
+Produkt
+Abfallschlüsselnummer:08 05 01* = Isocyanatabfälle
+* = Die Entsorgung ist nachweispflichtig.
+Empfehlung: Entsorgung gemäß den behördlichen Vorschriften.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 11 von 14
+Verpackung
+Abfallschlüsselnummer:15 01 02 = Verpackungen aus Kunststoff
+Empfehlung: Entsorgung gemäß den behördlichen Vorschriften.
+Kontaminierte Verpackungen sind wie der Stoff zu behandeln.
+Nicht kontaminierte und restentleerte Verpackungen können einer Wiederverwertung 
+zugeführt werden.
+ABSCHNITT 14: Angaben zum Transport
+14.1 UN-Nummer oder ID-Nummer
+ADR/RID, IMDG, IATA-DGR:
+entfällt
+ADN: ID 9004
+14.2 Ordnungsgemäße UN-Versandbezeichnung
+ADR/RID, IMDG, IATA-DGR:
+Nicht eingeschränkt
+ADN: ID 9004,  DIPHENYLMETHAN-4,4'-DIISOCYANAT
+14.3 Transportgefahrenklassen
+ADR/RID, IMDG, IATA-DGR:
+entfällt
+ADN: Klasse 9, Code: M12
+14.4 Verpackungsgruppe
+ADR/RID, ADN, IMDG, IATA-DGR:
+entfällt
+14.5 Umweltgefahren
+Umweltgefährlich: Stoff/Gemisch ist nach den Kriterien der 
+UN-Modellvorschriften nicht für die Umwelt 
+gefährlich.
+Meeresschadstoff - IMDG:
+nein
+14.6 Besondere Vorsichtsmaßnahmen für den Verwender
+Binnenschiffstransport (ADN)
+Gefahrzettel: -
+Beförderung zugelassen: T
+Ausrüstung erforderlich: PP
+Kein Gefahrgut im Sinne dieser Transportvorschriften.
+14.7 Massengutbeförderung auf dem Seeweg gemäß IMO-Instrumenten
+Keine Daten verfügbar
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 12 von 14
+ABSCHNITT 15: Rechtsvorschriften
+15.1 Vorschriften zu Sicherheit, Gesundheits- und Umweltschutz/spezifische 
+Rechtsvorschriften für den Stoff oder das Gemisch
+Nationale Vorschriften - Deutschland
+Lagerklasse: 10 = Brennbare Flüssigkeiten, soweit nicht LGK 3
+Wassergefährdungsklasse:
+1 = schwach wassergefährdend (WGK-Katalognummer 9393)
+Technische Anleitung Luft: 5.2.5
+Hinweise zur Beschäftigungsbeschränkung:
+Beschäftigungsbeschränkungen für Jugendliche beachten.
+Beschäftigungsbeschränkungen für werdende und stillende Mütter beachten.
+Sonstige Vorschriften, Beschränkungen und Verordnungen:
+Keine Daten verfügbar
+Nationale Vorschriften - EG-Mitgliedstaaten
+Verwendungsbeschränkungen:
+REACH, Anhang XVII: Nr. 74
+Kennzeichnung der Verpackung bei einem Inhalt <= 125mL
+Signalwort: Gefahr
+Gefahrenhinweise: H317 Kann allergische Hautreaktionen verursachen.
+H334 Kann bei Einatmen Allergie, asthmaartige Symptome oder 
+Atembeschwerden verursachen.
+H351 Kann vermutlich Krebs erzeugen.
+EUH204 Enthält Isocyanate. Kann allergische Reaktionen hervorrufen.
+Sicherheitshinweise: P201 Vor Gebrauch besondere Anweisungen einholen.
+P261 Einatmen von Staub/Rauch/Gas/Nebel/Dampf/Aerosol vermeiden.
+P280 Schutzhandschuhe/Schutzkleidung/Augenschutz tragen.
+P284 Bei unzureichender Belüftung Atemschutz tragen.
+P304+P340 BEI EINATMEN: Die Person an die frische Luft bringen und für ungehinderte 
+Atmung sorgen.
+P308+P313 BEI Exposition oder falls betroffen: Ärztlichen Rat einholen/ärztliche Hilfe 
+hinzuziehen.
+P342+P311 Bei Symptomen der Atemwege: GIFTINFORMATIONSZENTRUM/Arzt anrufen.
+Sonstige Vorschriften, Beschränkungen und Verordnungen:
+Verwendungsbeschränkung gemäß REACH Anhang XVII Nr.: 3, 56, 74, 75
+15.2 Stoffsicherheitsbeurteilung
+Für diesen Stoff ist keine Stoffsicherheitsbeurteilung erforderlich.
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 13 von 14
+ABSCHNITT 16: Sonstige Angaben
+Literatur: BG RCI:
+ - Merkblatt M004 Säuren und Laugen
+ - Merkblatt M044 Polyurethane 
+ - Merkblatt M050 Tätigkeiten mit Gefahrstoffen 
+ - Merkblatt M053 Arbeitsschutzmaßnahmen bei Tätigkeiten mit Gefahrstoffen 
+TRGS 406 Sensibilisierende Stoffe für Atemwege
+TRGS 430 Isocyanate - Gefährdungsbeurteilung und Schutzmaßnahmen
+TRGS 905 Verzeichnis krebserzeugender, erbgutverändernder oder 
+fortpflanzungsgefährdender Stoffe
+TRGS 907 Verzeichnis sensibilisierender Stoffe und von Tätigkeiten mit 
+sensibilisierenden Stoffen
+Grund der letzten Änderungen:
+Änderung in Abschnitt 2: Einstufung, Kennzeichnung
+Änderung in Abschnitt 3: Zusammensetzung/Angaben zu Bestandteilen
+Änderung in Abschnitt 14: Angaben zum Transport
+Änderung in Abschnitt 15: Rechtsvorschriften
+Allgemeine Überarbeitung
+Erstausgabedatum: 28.11.2014
+Datenblatt ausstellender Bereich:
+siehe Abschnitt 1: Auskunft gebender Bereich
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+
+SICHERHEITSDATENBLATT
+gemäß Verordnung (EG) Nr 1907/2006 (REACH) und Verordnung (EU) 
+2020/878
+EWE-2K-Absperrschaum
+ Überarbeitet am: 15.4.2024
+Version: 13.0
+Ersetzt Version: 12.0
+Sprache: de-DE
+Gedruckt: 12.6.2024
+Seite: 14 von 14
+Abkürzungen und Akronyme:
+Acute Tox.: Akute Toxizität
+ADN: Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf Binnenwasserstraßen
+ADR: Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße
+AGW: Arbeitsplatzgrenzwert
+AOX: Adsorbierbare organische Halogenverbindungen
+AS/NZS: Australische/neuseeländische Norm
+Carc.: Karzinogenität
+CAS: Chemical Abstracts Service
+CFR: Code of Federal Regulations
+CLP: Einstufung, Kennzeichnung und Verpackung
+DMEL: Abgeleitete Expositionshöhe mit minimaler Beeinträchtigung
+DNEL: Abgeleitete Nicht-Effekt-Konzentration
+EC50: Effektive Konzentration 50%
+EG: Europäische Gemeinschaft
+EN: Europäische Norm
+EQ: Freigestellte Mengen
+EU: Europäische Union
+Eye Irrit.: Reizwirkung auf die Augen
+IATA: Verband für den internationalen Lufttransport
+IATA-DGR: Verband für den internationalen Lufttransport – Gefahrgutvorschriften
+IBC-Code: Internationaler Code für den Bau und die Ausrüstung von Schiffen zur Beförderung gefährlicher Chemikalien als 
+Massengut
+IMDG-Code: Gefahrgutvorschriften für den internationalen Seetransport
+LC50: Median-Letalkonzentration
+MAK: Maximale Arbeitsplatz-Konzentration
+MARPOL: Internationales Übereinkommen zur Verhütung der Meeresverschmutzung durch Schiffe
+NOEC: Konzentration ohne beobachtete Wirkung
+OECD: Organisation für wirtschaftliche Zusammenarbeit und Entwicklung
+OSHA: Arbeitsschutzadministration, Amerika
+PBT: Persistent, bioakkumulierbar und toxisch
+PNEC: Abgeschätzte Nicht-Effekt-Konzentration
+REACH: Registrierung, Bewertung, Zulassung und Beschränkung chemischer Stoffe
+Resp. Sens.: Sensibilisierung der Atemwege
+RID: Ordnung für die internationale Eisenbahnbeförderung gefährlicher Güter
+Skin Irrit.: Reizwirkung auf die Haut
+Skin Sens.: Sensibilisierung der Haut
+STOT RE: Spezifische Zielorgan-Toxizität - wiederholte Exposition
+STOT SE: Spezifische Zielorgan-Toxizität - einmalige Exposition
+TRGS: Technische Regeln für Gefahrstoffe
+vPvB: Sehr persistent und sehr bioakkumulierbar
+gedruckt von ZAPP-ZIMMERMANN mit Qualisys SUMDAT
+

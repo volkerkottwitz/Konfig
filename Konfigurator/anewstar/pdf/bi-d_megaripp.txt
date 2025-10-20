@@ -1,0 +1,280 @@
+#7100005- Ausgabe 01/2023MEGARIPP 
+Benutzerinformation
+
+
+2  |  Benutzerinformation MEGARIPP 
+Inhaltsverzeichnis
+Allgemeine Hinweise 4
+Angaben über das Erzeugnis 6Einbauhinweise (Installation/Montage) 9Betrieb und Verwendung 12Wartung und Instandhaltung 13Schachtabdeckung 15
+
+Benutzerinformation MEGARIPP  |  3
+
+
+4  |  Benutzerinformation MEGARIPP Allgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten.  
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+
+Benutzerinformation MEGARIPP  |  5Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver -
+packung soll die einzelnen Bauteile  bis zur Mon tage vor Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Monta-ge der Produkte.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Verwendung von Abkürzungen:
+WZ:    W asserzähler
+WZS:  Wasserzähler-Schacht
+WZA:   W asserzähler-Anlage
+DM:   Druckminderer
+RV: Rückflussverhinderer
+KMR :  Kegelmembr an-Rückfflussverhinderer
+KSR:    Kombiniert es Schrägsitz-Rückschlag -
+ventilQ₃:   Nenng röße Wasserzähler
+PN:   Nenndruck
+GG:   Gusseisen mit Lamellengr aphit
+PE: Polyethylen
+PP: Polypropylen
+PA: Polyamid
+Si:  Silicium
+EPP:  Expandiertes PolypropylenErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann.
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation MEGARIPP 1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	DGUV Regel 113-004  „Arbeitsschutz in Schächten, Behälter, Silos und engen Räumen"
+	KTW- und Elastomerleitlinien des Umweltbundesamtes 
+	Bewertungsgrundlage für metallene Werkstoffe im Kontakt mit Trinkwasser
+	DIN/ÖNORM EN 124  „Aufsätze und Abdeckungen für Verkehrsflächen“
+	DIN/ÖNORM EN 805  „Wasserversorgung – Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“ 
+	DIN/ÖNORM EN 806  „Technische Regeln für Trinkwasser-Installation“
+	DIN/ÖNORM EN1717 „Schutz des Trinkwassers vor Verunreinigungen in Trinkwasser-Instal-lationen und allgemeine Anforderungen an Sicherungseinrichtungen zur Verhütung von Trinkwasserverunreinigungen durch Rückfließen“
+	DIN 1988  „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 806
+	DIN 4124  „Baugruben und Gräben – Böschungen, Verbau, Arbeitsraumbreiten“
+	DIN 18196  „Erd- und Grundbau – Bodenklassifikation für bautechnische Zwecke“
+	DVGW W 270  „Vermehrung von Mikroorganismen auf Werkstoffen für den Trinkwasser- bereich“MEGARIPP   
+Artikelnummer: 0392 XXX
+bestehend aus: PE-Fertigteilen mit integrierter Leiter mit zusätzlicher Einstiegshilfe, Wasserzähler-Anlagen mit PE-Stutzen
+
+
+Benutzerinformation MEGARIPP  |  7	DVGW W 400  „Technische Regeln Wasserverteilungsanlagen“
+	DVGW W 570 „Armaturen für die Trinkwasserinstallation“
+	DIBT-Zulassung des Schachtkörpers
+	RSA 95 „Richtlinien für die Sicherung von Arbeitsstellen an Straßen“
+	ÖNORM B 2538  „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und 
+deren Bauteile außerhalb von Gebäuden, Ergänzende Bestimmungen zu ÖNORM EN 805“ 
+	ÖVGW QS - W 501/1  „Armaturen in der Trinkwasserversorgung, Teil1: Oberirdisch- und erd-verlegte Armaturen“
+1.3 Verwendungsbereich/Medium
+	für kaltes Trinkwasser nach DIN 2000
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	PN 10 nach Regelwerk für Trinkwasser-Installationen und Gebäudearmaturen. 
+	Alle EWE MEGARIPP Wasserzählerschächte können bis zu einem Bauteile-Betriebsdruck von  
+PN 16 eingesetzt werden. 
+  
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Schachtkörper
+Schachtkörper bestehend aus außen gerippten PE-Fertigteilen, Schachtboden gefertigt aus 
+Schachtrohr mit einer doppelt extusions-verschweißten PE-HD-Bodenplatte, mit integrierten Steiggang aus PE-HD/GFK.
+Werkstoff
+	aus wasserdichtem PE
+Abmessungen
+Frostsicherung  
+Ø 600 mm,100 mm dick,2 Anhebeschlaufen (PP-Seil 8 mm)
+30 mm
+1533 mm (-80 mm/+50 mm)
+550 mm650 mm
+
+8  |  Benutzerinformation MEGARIPP 1.5.2 Wasserzähler-Anlagen
+Werkstoff
+	Bügel aus A2-Edelstahl 
+	Wasserzähler-Verschraubung aus bleifreiem Si-Messing entsprechend der Bewertungs-
+grundlage für metallene Werkstoffe im Kontakt mit Trinkwasser vom Umweltbundesamt
+	Kunststoffe und Elastomere entsprechend der KTW- und Elastomerleitlinien des Umwelt -
+bundesamtes und des DVGW-Arbeitsblattes W 270 
+	Ventile aus bleifreiem Si-Messing entsprechend der Bewertungsgrundlage für metallene Werkstoffe im Kontakt mit Trinkwasser vom Umweltbundesamt
+Anschlüsse und Abmessungen
+	Bei den Ausführungen und Varianten der Wasserzähler-Anlage handelt es sich um Sonder -
+kundenwünsche und sind bei jedem MEGARIPP individuell.  
+1.6 Transport und Lagerung
+Wasserzählerschacht bis zur Verwendung in der werkseitigen Verpackung stehend trans-portieren und lagern. Nicht stapeln. Die Verpackung ist vor der Montage zu entfernen und entsorgen. 
+1.7 Funktionsbeschreibung
+Der begehbare MEGARIPP  ist für den Einbau im erweiterten Rohrgraben vorgesehen. Sie können auf Grund der variablen Anzahl der WZ-Anlagen vielseitig verwendet werden, z.B. als Hausanschluss von Mehrfamilienhäusern. Der Wasserzählerschacht ist tagwasserdicht, hygienisch sauber und ermöglicht einen frost -
+freien Betrieb der WZ-Anlage und des Wasserzählers. Ein Einstieg ist möglich. Mit sicherem, durch die Berufsgenossenschaft abgenommenem Einstieg nach BGR 177, mittels besonders gut sichtbaren, korrosionsfesten und gelben Signalsprossen.892 mm
+825 mm
+ISO228-G2ISO228-G2300 mmISO228-G2
+ISO228-G2
+Beispiel: Ausführung Q3 16, 2" x 300 mm Kugelhahn – KMR-Kugelhahn
+
+Benutzerinformation MEGARIPP  |  92. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+  Vor dem Einsatz sind der Wasserzählerschacht und die Einbauten auf Beschädigung 
+oder Verunreinigung zu prüfen. Ein beschädigter Schacht oder eine beschädigte 
+Armatur dürfen nicht eingesetzt werden. Vor Montage der Wasserzähler in die WZ-Anlagen 
+ist eine Leitungsspülung durchzuführen, hierzu muss ein Passstück verwendet werden. Die WZ-Anlagen werden werksseitig mit einem Passstück montiert. Das Passstück dient ledig-lich als Platzhalter für den WZ und ist nicht für den Betrieb geeignet.  
+2.2 Hinweise zum Einbauort
+Der Wasserzählerschacht sollte nach Möglichkeit an einer erhöhten Stelle im Gelände
+angeordnet werden oder einige cm über das Geländeniveau hinausragen. Die
+Auswahl der Baugröße des Schachtes ist auf die frostfreie Verlegetiefe der Rohrleitungabzustimmen und liegt ausschließlich in der Verantwortung des Anwenders. Der Wasserzähler-Schacht hat aufgrund seiner äußeren Form ein günstiges Verhalten gegen Auftrieb. Voraussetzung ist der fachgerechte Einbau mit Kiesverfüllung und lagenweiser Verdichtung. Der zu montierende Schachtkörper ist durch das Einsetzen der Dichtelemente beim Zusammenfügen der einzelnen Modulteile wasserdicht ausgeführt. Die Verbindung zum Deckel ist dicht gegen Schwallwasser. In Gebieten mit hohem Grundwasserstand und/oder zeitweiliger Überflutung sollte einFachmann des Grundbaues zu Rate gezogen und ggf. mit der EWE-AnwendungstechnikRücksprache gehalten werden.
+Sollen dem MEGARIPP flachliegende Versorgungsleitungen (sogenannte Sommerlei -
+tungen) nachgeschaltet werden, die vor Beginn der Frostperiode entleert werden 
+müssen, so empfehlen wir in der Leitungsführung zwischen Schachtausgang und der Entnahmestelle (z.B.: im nicht unterkellerten Gebäude) eine spezielle Armatur anzuordnen, z.B.: ein EWE-Gartenventil in Kombination mit einer Einbaugarnitur. Bei einer Entnahmestelle im Freien bietet ein EWE-Gartenhydrant den gleichen Komfort. 
+Eine Entleerung der nachfolgenden Versorgungsleitung im Schachtkörper erfordert
+aus hygienischer Sicht besondere Sorgfalt. So ist während einer Entleerung das ausge -
+tretene Wasser unverzüglich abzupumpen und danach die Entleerungsöffnung zu schließen, um mögliche Verunreinigungen im Leitungsnetz zu verhindern.
+2.3 Baugrube und Verfüllung
+Der Wasserzählerschacht wird einbaufertig geliefert und kann in die vorbereitete Baugrube eingesetzt werden. Die erforderlichen Arbeiten liegen in der Verantwortung des Anwenders. Die Abstände zu anderen unterirdischen Anlagen, wie Bauwerken, Rohrleitungen, Kabeln, sind gemäß DVGW-Arbeitsblatt W 400 einzuhalten. Die Anforderungen der DIN 4124 sind zu beachten. 
+
+10  |  Benutzerinformation MEGARIPP Mögliche Erdbewegungen infolge Senkung, Setzung oder Erddruck, z.  B. her vorgerufen 
+durch Hanglagen, sind zu berücksichtigen. Für die Gründung / Bettung und die Verfüllung ist 
+nicht bindiger Boden mit einer Korngröße von max. 16  mm (Körnungsbedingungen: 5 G ew. 
+-% ≤ 0,063 mm) zu verwenden. Bewährt haben sich Sande SE, SW oder SI und Kiese GE, GW, 
+GI gem. der Bodenklassifikation F1 nach DIN 18196, die auch die Voraussetzungen für die Verdichtbarkeitsklassen und die Frostsicherheit erfüllen. Der Schacht muss schnellstmög-lich durch Auffüllen der Grube fixiert werden. Solange die Baugrube nicht vollständig bis zur Gelände-Oberkante aufgefüllt ist, ist die Sicherheit gegen Aufschwimmen durch andere geeignete Maßnahmen sicherzustellen.
+2.4 Montage
+3.
+	Vor dem Herstellen der Anschlussverbindungen Rohrleitung spülen. 
+	Richtlinien des Herstellers der Anschlussfittings beachten. 
+	Die Dichtheitsprüfung sollte vor dem Verdichten vorge -
+nommen werden, da sonst die Dichtstellen außerhalb des Schachtes nicht mehr kontrolliert werden können. 1.
+	Die Aufstandsfläche des Schachtbodens ist gemäß DIN EN 1610 "Bettung Typ1" auszuführen.
+	Hierbei ist das Auflager für den Schachtboden durch eine min. 10 cm dicke, verdichtete Sauberkeitsschicht zu bilden
+2.
+	Beim Einsetzen des Schachtbodens ist bereits auf die Fließrichtung zu achten. Die Fließrichtung ist an den An-schlussstutzen des Schachtes gekennzeichnet. 
+
+
+Benutzerinformation MEGARIPP  |  114.
+	Schachtboden reinigen 
+	Dichtlippe DN 1000 in die Kammer zwischen 1. und 2. 
+Rippe an der Oberseite gleichmäßig einlegen und auf  Beschädigung und Sitz überprüfen. 
+5.
+	Gleitmittel gleichmäßig auf das Dichtelement am Schacht -
+rohr und in der Muffe des Schachtkonus auftragen. 
+6.
+	Schachtkonus entsprechend dem Steiggang im Schacht -
+rohr ausrichten und bis zum Anschlag aufschieben (nicht verkanten) 
+7.
+	Grabenverfüllung im Bereich des WZ-Sonderschachtes durchführen 
+	Anschlussrohre (ein- und ausgangsseitig) vor dem Verdich-ten unterfüttern
+	Boden in Schütthohen von max. 30 cm einbringen und verdichten auf 97% Dpr. 
+	Einseitige Belastung beim Verfüllen und Verdichten ver -
+meiden. 
+
+
+12  |  Benutzerinformation MEGARIPP 8.
+	Wasserzähler gem. Kapitel 4 "Wartung und 
+Instandhaltung" montieren 
+9.
+	Schachtabdeckung gem. Kapitel 5 "Schacht -
+abdeckungen" montieren.
+2.5 Kürzen des Schachtes
+	Zur Bauchhöhenreduzierung kann der Schachtkonus am Einstieg um max. 80 mm gekürzt 
+werden. Der Schachtkörper kann in 125 mm Schritten an den markierten Stellen gekürzt werden. 
+	Zur Einhaltung der Steigmaße ist ein Umsetzen der gelben GFK-Stufen erforderlich. Hierzu sind die Schrauben an den Endkappen der Stufen herauszuschrauben. Die Endkappen sind abzuziehen und die Stufen auf das entsprechende Steigmaß von 250 mm umzusetzen. Danach sind die Endkappen wieder aufzusetzen und mittels Schrauben zu sichern.
+2.6 Verlängerung des Schachtes 
+	Eine Verlängerung in 125 mm Schritten ist möglich.  Der Einbau einer Schachtverlängerung erfolgt zwischen Schachtkörper und Schachtkonus und ist analog zu Punkt 4 bis 6 durchzuführen. Bei nachträglicher Verlängerung muss der Konus ggf. freigelegt werden. 
+	Verlängerungen von 125 mm bis 1000 mm erhältlich. 
+3. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme des Wasserzählerschachtes,der Wasserzählerschacht-Armaturen und der gesamten Anlage erfolgen.
+  Die Sicherheitsregeln bei Arbeiten in Behältern und engen Räumen sowie die DGUV 
+Regel 113-004 sind zu beachten.
+3.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion und Dichtigkeit zu prüfen.
+
+
+Benutzerinformation MEGARIPP  |  133.2 Frostschutz
+Die Frostsicherheit ist durch den örtlichen Einbau, insbesondere durch eine richtig gewählte 
+Einbautiefe sicherzustellen. Die Gewährleistung der Frostfreiheit von Rohrleitung und Schacht liegt deshalb ausschließlich in der Verantwortung der planenden und bauausführenden Stelle.
+4. Wartung und Instandhaltung
+Die (Kugel-) Absperrarmaturen in den Wasserzähleranlagen sind im Regelwerk als 
+Wartungsarmaturen definiert, demnach sind sie im Wartungsfall bei geschlossenen 
+Entnahmeeinrichtungen langsam (beim Schließen oder Öffnen) zu betätigen. 
+Ist hinter dem KSR-Ventil ein Druckminderer angeordnet, so kann es erforderlich sein, 
+die nachgeschaltete Leitung durch Öffnen einer nachgeschalteten Armatur oder des 
+Entleerungsventils am KSR-Ventil zu ent  spannen. So w erden zu hoher Kraftaufwand beim 
+Schließen des KSR-Ventils oder auch Beschädigungen vermieden. 
+Das Öffnen der Armaturen muss bis zum Anschlag erfolgen, d. h. durch volle Offenstel -
+lung. Das Drosseln ist untersagt. 
+Um die Funktion bzw. die Leichtgängigkeit der Absperreinrichtungen der Wasserzäh -
+ler-Anlage zu gewährleisten, wird empfohlen, diese mindestens einmal jährlich zu 
+betätigen.Eine jährliche Funktionsprüfung des Rückflussverhinderers ist im Regelwerk vorgeschrieben.Die jährliche Überprüfung von Rückflussverhinderern entfällt bei den Einsteck-Rückflussver -
+hinderern. Diese Armaturen müssen mit dem turnusmäßigen Austausch des Wasserzählers gewechselt werden, spätestens jedoch nach 10 Jahren (EN806). Die Rückflussverhinderer  sind Verschleißteile. Eine Funktionskontrolle kann bei Modellen mit Prüfschraube im einge -
+bauten Zustand erfolgen. Hierzu ist der Zulauf abzusperren und die Prüfschraube mit gebo -
+tener Vorsicht zu öffnen. Es darf nur der Restinhalt zwischen Zulauf und Gehäuse austreten. Medium aus der weiterführenden Installation muss durch den Rückflussverhinderer zurück -
+gehalten werden. Ist dies nicht der Fall, muss der RV instandgesetzt werden.
+   Vor Beginn der Instandsetzungsarbeiten ist das Rohrleitungssystem abzusperren
+und drucklos zu machen. Desweiteren ist das Rohrleitungssystem gegen unbeab -
+sichtigte Wiederinbetriebnahme abzusichern. Es besteht die Möglichkeit, sämtliche Einbauten mit einem speziellen Werkzeug zu wechseln. Vereinbaren Sie einen Termin mit Ihrem zuständigen Außendienst. 
+4.1 Zählerablesung und Zählerwechsel 
+Zum Zwecke des Ablesens des Zählerstandes oder des Zählerwechsels wird durch das Öffnen der Deckel-Abdeckung der Zugang zu dem Wasserzähler über die integrierte Einstieghilfe und die Leiter des Schachtes erreicht und der Zählereinbau/Zählerwechsel in gewohnter Weise durch das Lösen der Überwurfmuttern und Eindrehen des Längenausgleichs durchge -
+führt.  
+
+14  |  Benutzerinformation MEGARIPP    In diesem Zusammenhang die Sicherheitsregeln bei Arbeiten in Behältern und 
+engen Räumen beachten! Zählereinbau bzw. Zählerwechsel unter Berücksichtigung 
+der Einbauhinweise des WZ-Herstellers durchführen.  
+5. Schachtabdeckung
+1.
+	Aus Feinsand bzw. Splitt einen Aufleger gemäß Vorgaben 
+herstellen
+	Dichtelement DN 625 umlaufend um den Konushals im ersten Tal montieren. 
+	Dichtung und Dichtfläche des Auflagerings gleichmäßig mit Gleitmittel versehen
+2.
+	Auflagering auf das Auflager setzen. Hierbei ist eine Setzungsfuge von 20 mm bis max. 50 mm zu realisieren. Punktlasten und Hohlräume vermeiden!
+3.
+	Die Begu-Abdeckung ist auf dem Betonring mit dem Ausgleichsmörtel, z.B. Estrichmörtel, gemäß DIN 4034 zu setzen. Während der Bauphase Schacht mit Stahldeck- platte o.ä. abdecken. 
+
+Benutzerinformation MEGARIPP  |  155.1 Mit Beton-Auflagering
+1.
+	Dichtung DN 625 mit der Schrift nach oben zwischen der 
+ersten und zweiten Rippe am Konus einlegen
+	Dichtung und Dichtfläche des Auflagerings gleichmäßig mit Gleitmittel versehen
+2.
+	Abdeckung unmittelbar auf den Konus auflegen 
+	Schacht bis zur Abdeckung verfüllen und verdichten 
+5.2 Mit Abdeckung B 125
+5.3 Schließen und Öffnen der Abdeckung
+Zum Öffnen des Deckels sind die Außensechskantschrauben SW 24 mit einem Innensechs-kantschlüssel (25 mm) zu lösen. Beim Schließen des Deckels ist darauf zu achten, dass die 
+enthaltene Dichtung richtig positioniert wird, um eine Tagwasserdichtheit wieder herzustellen. 
+Schlüssel SW24 für 
+Schachtabdeckung B125 (ab 10/2013)
+Artikelnummer 0398001
+
+
+16  |  Benutzerinformation MEGARIPP Wilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100005 - Ausgabe 01/2023
+

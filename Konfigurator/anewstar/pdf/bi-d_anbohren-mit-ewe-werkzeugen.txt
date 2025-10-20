@@ -1,0 +1,762 @@
+Anbohren und Hülsensetzen mit 
+EWE-Werkzeugen
+Benutzerinformation#7100031- Ausgabe 11/2023
+
+
+2  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen
+Inhaltsverzeichnis
+Allgemeine Hinweise   4
+Welches Bohrwerkzeug für welche Rohrart?  7 
+ 
+Welche Spüleinrichtung für welche Armatur?  8
+Welche Hilfsabsperrung für welche Armatur?  9
+EWE-MINI-Anbohrgerät  10
+EWE-Anbohrgerät  19
+Welche Hülse für welche Rohrart?  27
+EWE-Bohrloch- und PE-Hülsen-Setzgerät  28
+EWE-Bohrloch-Dichthülsen-Setzgerät  36
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  3
+
+
+4  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-WerkzeugenAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke.
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf.
+	Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten.
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen.
+	Es dürfen ausschließlich Geräte, die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+	Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+	Sollten weitere Geräte verwendet werden, sind deren Bedienungsanleitungen unbedingt zu beachten. Wir weisen Sie an dieser Stelle auf das in der EU geltende Recht zur CE-Kenn-zeichnung hin: Bauseits mit einem motorischen Antrieb versehen, fällt die Kombination Anbohrgerät und Antrieb unter die so genannte „EU-Maschinenrichtlinie“ . Dies bedeutet, dass durch einen dafür geeigneten Sachverständigen eine Risikoabschätzung durchzufüh-ren ist und die Einhaltung der in der EU gültigen Regeln durch eine so genannte Konformi-tätserklärung bescheinigt werden muss. Auf dem Anbohrgerät und Antrieb ist dann ein CE-Kennzeichen anzubringen.
+	Übermäßige Kraftanwendung bei Montage und Anbohrung ist nicht erforderlich und schadet den Werkzeugen sowie den Bohrern und Fräsern.
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  5Haftungsausschluss
+	Die Einhaltung dieser Benutzerinformation und Installation, Betrieb und Wartung unserer 
+Produkte können von uns nicht überwacht werden. Eine unsachgemäße Handhabung kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten,  die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+	 Sonderwerkzeuge oder Werkzeuge, die nach Vorgaben des Auftraggebers produ -
+ziert werden, sind nicht Bestandteil dieser Benutzerinformation! Der Einsatz der  
+ genannten Bauteile unter den jeweiligen Bedingungen erfolgt auf Grundlage von Prüfung  
+ und Werksfreigabe durch den Anwender oder Netz-/ Anlagenbetreiber. Da uns eine   
+ vollständige Bewertung der jeweiligen Sonderverwendung in Verbindung mit den jeweils  
+ örtlichen Gegebenheiten in der Regel nicht möglich ist, erfolgt der Einsatz dieser Werkzeu-  
+ ge auf Verantwortung des Anwenders.
+	Bei der Verwendung eines maschinellen Antriebs ist auf dessen bestimmungsgemäße Verwendung zu achten. Die Sicherheitsbestimmungen der Maschine sind zu berücksich-tigen. Zudem sind auch die Sicherheitshinweise in der Benutzerinformation einzuhalten. Hohe und langanhaltende Drehzahlen können das Anbohrgerät unzulässig erwärmen und schaden!
+Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Montage der Armatur.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+
+6  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-WerkzeugenVerwendung von Abkürzungen:
+DN:   Nenndurchmesser
+PN:  Nenndruck
+MOP:   Maximal zulässiger Betriebsdruck (Maximum Operating Pressure)
+Si:  Silicium
+DIN:   Deutsches Institut für Normung
+DVGW:   Deutscher Verein des Gas- und Wasserfaches
+GGG:   duktiler Grauguss
+PVC:   Polyvinylchlorid
+PE:  Polyethylen
+PFA:   Zulässiger Bauteilebetriebsdruck (Pression de Fonctionnement Admissible)
+PTFE:   Polytetrafluorethylen
+PVC-U:  Weichmacherfreies Polyvinylchlorid
+ZMU:   Zementmörtel-Ummantelung
+EPDM:  Ethylen-Propylen-Dien-KautschukErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird,  
+geringfügige oder mäßige Verletzungen zur Folge haben kann.
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  7Anwendungshilfe: 
+Welches Bohrwerkzeug für welche Rohrart?
+RohrartBohrer
+mit Wechsel-Schneid-PlatteArt.-Nr.6123223„HM“Bohrer
+Art.-Nr. 
+61218..„HSS“Bohrer
+Art.-Nr. 
+61222..„HM“Fräsermit HM-Zentrier-BohrerArt.-Nr. 6121623„HSS“Fräser
+Art.-Nr. 
+61226..„HSS“Fräser
+Art.-Nr. 
+61224..„HSS“Bohr-Schneider
+Art.-Nr.
+61228..
+Gussrohr    (    )
+ohne Umhüllung
+Gussrohr    (    )
+außen PE-UmhüllungGussrohr mit ZMU
+innen und außen
+Stahlrohr mit ZMU    (    )
+innen und außenStahlrohr    (    )
+mit InnenzementStahlrohr    (    )
+ohne UmhüllungStahlrohr    (    )
+außen PE-UmhüllungAsbest-Zement-Rohr    (    )
+PVC-Rohr
+PE-HD-Rohr
+  (    )  Mit Einschränkungen geeignet – hoher Verschleiß
+
+8  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-WerkzeugenAnwendungshilfe: 
+Welche Spüleinrichtung für welche Armatur?
+Armatur
+Kugel-Ventil-Anbohrarmatur und Kugel-AnbohrarmaturSpüleinrichtungSpülhahn, Artikelnummer 1130314
+Armatur
+Ventil-AnbohrarmaturSpüleinrichtungSpülarmatur, Artikelnummer 113011X
+Armatur
+Kugelhahn-Anbohrarmatur, Kolbenschieber-Anbohrarmatur und Kera-AnbohrarmaturSpüleinrichtungSpülstück, Bestellnummer 1130414
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  9Anwendungshilfe: 
+Welche Hilfsabsperrung für welche Armatur?
+Armatur
+Kugel-Ventil-Anbohrarmatur und Kugel-AnbohrarmaturHilfsabsperrung
+integrierte Kugel
+Armatur
+Ventil-AnbohrarmaturHilfsabsperrungSpülarmatur, Bestellnummer 113011X
+Armatur
+Kugelhahn-Anbohrarmatur, Kolbenschieber-Anbohrarmatur und Kera-AnbohrarmaturHilfsabsperrungHilfsabsperrung = Betriebsabsperrung
+geschlossengeöffnet
+
+10  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für das
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	KTW- und Elastomerleitlinie des Umweltbundesamtes  
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“
+	DVGW GW 309 „Elektrische Überbrückung bei Rohrtrennungen“
+	DVGW G 459 „Gas-Netzanschlüsse für maximale Betriebsdrücke bis einschließlich 5 bar“
+	DVGW G 465-2 „Gasleitungen mit einem Betriebsdruck bis 5 bar - Instandsetzung“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW W 291 „Reinigung und Desinfektion von Wasserverteilungsanlagen“
+	DVGW W 333 „Anbohrarmaturen und Anbohrvorgang in der Wasserversorgung“
+	DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	BG-Vorschriften, -Regeln und -Informationen (insbesondere DGUV 100 -500)
+	Benutzerinformation des Anbohrarmaturenherstellers z.B.: BI EWE-Anbohrarmaturen für Wasser und BI EWE-Anbohrarmaturen für GasEWE-MINI-Anbohrgerät für PVC- und PE-Rohre,  
+mit automatischem VorschubArtikelnummer 6120714
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  111.3 Verwendungsbereich/Medium
+	für die Anbohrung von PE- und PVC-Rohren der Wasser- und Gasversorgung
+1.4 Zulässiger Bauteile-Betriebsdruck
+	für Wasserleitungen PFA 16
+	für Gasleitungen MOP 10
+1.5 Werkstoff/Abmessungen
+Werkstoffe
+	Messing entsprechend der Liste „Trinkwasserhygienisch geeignete metallene Werk- 
+stoffe“ des Umweltbundesamtes
+	Bohrstange aus A2-Edelstahl - Elastomere und Kunststoffe entsprechend der KTW- und  Elastomer-Leitlinie des Umweltbundesamtes und des DVGW-Arbeitsblattes W 270
+Abmessung
+	Anbohrdurchmesser: 24 mm, 31 mm oder max. 36 mm 
+1.6 Funktionsbeschreibung
+EWE-MINI-Anbohrgerät dient der Anbohrung
+	unter Druck mit automatischem Vorschub ohne zusätzliche Spezialwerkzeuge
+	von PE- und PVC-Rohren
+	für Wasser- und Gasleitungen
+1.7 Lagerung
+	Die Werkzeuge sind vor Verschmutzung geschützt zu lagern. Dafür ist der Transportkoffer des MINI-Anbohrgerätes zu verwenden. 
+	Nach dem Einsatz ist das Werkzeug auf Beschädigung zu prüfen und zu reinigen.
+	Ziehen Sie das Bohrwerkzeug mit der Bohrstange ganz in das Gehäuse zurück und arretie -
+ren Sie die Feststellschraube. So werden Verletzungen vermieden und das Bohrwerkzeug wird vor Beschädigungen geschützt. 
+2. Montagehinweise
+2.1 Hinweise zur Vorbereitung
+    Vor und nach dem Einsatz sind das Gerät und das Werkzeug auf Beschädigung oder 
+Verunreinigung zu prüfen. Ein beschädigtes Gerät oder Werkzeug darf nicht 
+eingesetzt werden. Für die Anbohrung ist besonders bei einer darauffolgenden Hülsenset -
+zung auf scharfes Bohrwerkzeug zu achten. Die Materialscheibe aus dem Bohrschneider bzw. Fräser sollte erst unmittelbar vor der nächsten Anbohrung ausgestoßen werden. Bis dahin schützt die Scheibe das Bohrwerkzeug vor Beschädigung! 
+
+12  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-WerkzeugenDas Ausstoßen erfolgt nach Abnahme des Bohrwerkzeugs mit einem Ausstoßgerät, auf das 
+der Bohrschneider oder Fräser geschraubt wird. Gewinde auf Beschädigung, Funktion der Knarre und Zustand der Dichtungen überprüfen.
+2.2 Montage der Anbohrarmatur
+Für den Einbauort, die Montage sowie für das Anschließen der jeweiligen Anbohrar -
+matur, sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die 
+Herstellerangabe der Benutzerinformation „EWE-Anbohrarmaturen“ anzuwenden.
+ Kennzeichnung der Armatur beachten! Wasserarmaturen sind nicht gasbeständig!
+3. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der gesamten Wekzeuge erfolgen.
+3.1 Funktionskontrolle
+Alle sind vor der Anbohrung auf ihre Funktion zu prüfen.
+3.2 Anbohren mit dem EWE-MINI-Anbohrgerät 
+Beispiel: EWE-Ventil-Anbohrarmatur
+1.
+	Feststellschraube lösen.
+2.
+	Das Vorschubteil durch Drehen bis zur oberen Markierung am Gehäuse des MINI-Anbohrgerätes in Startposition bringen.
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  133.
+	Entsprechend dem Rohrmaterial Bohr -
+schneider oder Fräser auf die Bohrstange 
+aufschrauben.
+4.
+	Anschließend die Bohrstange ganz zurück -
+ziehen und mit Hilfe der Feststellschraube fixieren.
+5.
+	MINI-Anbohrgerät in die Anbohrarmatur schrauben - Achtung: Linksgewinde!
+6.
+	Mit Anbohrgeräteschlüssel festziehen.
+
+
+14  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen9.
+	Die Feststellschraube am Anbohrgerät mit 
+dem Anbohrgeräteschlüssel festziehen.
+10.
+	Antrieb auf die Bohrstange aufsetzen und anbohren.7.
+	Wasserleitung: Spüleinrichtung einschrauben
+	Gasleitung: Wenn die Gas-Hausanschlussleitung noch nicht angeschlossen ist, Stopfen montie -
+ren (nur bei EWE-Kugel-Anbohrarmaturen und EWE-Kugelhahn-Anbohrarmaturen).
+8.
+	Hilfsabsperrung in Offenstellung
+	Fixierte Feststellschraube lösen
+	Bohrstange mit Bohrschneider bzw. Fräser langsam und ohne Druck auf den Rohr -
+scheitel setzen.
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  1511.
+	Durch Rechtsdrehen wird das Rohr durch-
+trennt, der Bohrvorschub erfolgt hierbei automatisch.
+	Der Anbohrvorgang ist zu beenden, wenn die Rohrwandung ganz durchtrennt ist.
+12.
+	Wasserleitung: Ausreichend Spülen.
+	Gasleitung: Auf gasaustrittsfreies Anbohren achten, Feststellschraube lösen.
+13.
+	Die Bohrstange bis zum Anschlag nach oben ziehen. 
+	   Verletzungsgefahr durch hoch -
+schnellende Bohrstange!  
+ Bohrstange mit der Hand führen!
+14.
+	Wasserleitung: Spülarmatur schließen (1.).
+	Gasleitung: Unter Berücksichtigung der Einbauanleitung der Anbohrarmatur die Hilfsabsperrung schließen (2.).
+1. 2.
+
+16  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen17.
+	Hilfsabsperrung öffnen.
+18.
+	Armatur mit Hilfe des EWE-Anbohrgeräte-
+Schlüssels schließen.
+	Wasserleitung: EWE-Spüleinrichtung entfernen.
+	Gasleitung: Stopfen entfernen.15.
+	Das MINI-Anbohrgerät abnehmen.
+16.
+	Das Ventiloberteil der Anbohrarmatur fest montieren.
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  174. Wartung und Instandhaltung
+Es empfiehlt sich nach jedem Einsatz eine Sicht- und Funktionskontrolle durchzufüh -
+ren. 
+Das Werkzeug ist zu reinigen und auf Beschädigungen zu prüfen. 
+Zu den regelmäßig durchzuführenden Wartungsarbeiten gehört auch eine Überprüfung der O-Ringe, der Klemmbolzen und der Klemmschraube. Das Bohrwerkzeug ist ein Verschleißteil und muss gewartet und gegebenenfalls erneuert werden. 
+5. Service
+	Überprüfung von EWE-Anbohrgeräten, -Werkzeugen und -Zubehör
+	fachgerechte Demontage und Reinigung
+	Funktions- und Dichtheitsprüfung, Ersatz schadhafter Teile
+	Unsere Mitarbeiter im Innen- und Außendienst beraten Sie gern.  Sprechen Sie uns an!
+6. Werkzeuge und Zubehör für das  
+Anbohren von Kunststoffrohren  
+(PE- oder PVC-Rohre)
+EWE-Anbohrgeräte-
+Schlüssel Artikelnummer 6120301EWE-Verlängerung für Mini-Anbohrgeräte
+Artikelnummer 6120302EWE-Spülhahn für 
+Kugel-(Ventil)-Anbohr-armatur Artikelnummer 1130314EWE-Spülstück für seit-liche Anbohrung und Kera-Anbohrarmatur Artikelnummer 1130414
+
+
+18  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-WerkzeugenEWE-Spülarmatur für 
+Ventil-Anbohrarmatur Artikelnummer 11301XXEWE-Spülschlauch 5 m
+ 
+Artikelnummer 1130611Bohrwerkzeug (HSS-Fräser oder Bohrschnei-der), je nach RohrartArtikelnummer 612241X, 61228XXEWE-Ausstoßgerät für Bohrschneider und Fräser Artikelnummer 6122800
+Messing-O-Ring-Stopfen für Gasanbohrungen 
+Artikelnummer 2400524EWE-Spanheber für 
+Gas-Anbohrungen 
+Artikelnummer 6122900EWE-Prüfarmatur 
+Artikelnummer 1130012Adapter für  
+Anbohrgerät/Antrieb Sechskant SW 12 / Innenvierkant 15 mmArtikelnummer 6121396
+EWE-Transportkoffer für MINI-Anbohrgerät,Artikelnummer 6121495
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  191. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für das
+EWE-Anbohrgerät für AZ-, (ZMU) Guss-, (ZMU) Stahl- und PE-Rohre, 
+leichtgängiger, manueller Vorschub durch gekapseltes KugellagerArtikelnummer 6120014
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	KTW- und Elastomerleitlinie des Umweltbundesamtes 
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“
+	DVGW GW 309 „Elektrische Überbrückung bei Rohrtrennungen“
+	DVGW G 459 „Gas-Netzanschlüsse für maximale Betriebsdrücke bis einschließlich 5 bar“
+	DVGW G 465-2 „Gasleitungen mit einem Betriebsdruck bis 5 bar - Instandsetzung“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW W 291 „Reinigung und Desinfektion von Wasserverteilungsanlagen“
+	DVGW W 333 „Anbohrarmaturen und Anbohrvorgang in der Wasserversorgung“
+	DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	BG-Vorschriften, -Regeln und -Informationen (insbesondere DGUV 100 -500)
+	Benutzerinformation des Anbohrarmaturenherstellers z.B.: BI EWE-Anbohrarmaturen für Wasser und BI EWE-Anbohrarmaturen für Gas
+
+
+20  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen1.3 Verwendungsbereich/Medium
+	für die Anbohrung von AZ-, (ZMU) Guss-, (ZMU) Stahl- und PE-Rohren der Wasser- und Gas-
+versorgung 
+1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	für Wasserleitungen PFA 16
+	für Gasleitungen MOP 10 
+1.5 Werkstoff/Abmessungen
+Werkstoff
+	Messing und Automatenstahl entsprechend der Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	Bohrstange aus A2-Edelstahl - Elastomere und Kunststoffe entsprechend der KTW- und Elastomer-Leitlinie des Umweltbundesamtes und des DVGW-Arbeitsblattes W 270
+Abmessung
+	Anbohrdurchmesser: 24 mm, 31 mm oder 36 mm  
+1.6 Funktionsbeschreibung
+Das EWE-Anbohrgerät dient der Anbohrung unter Druck mit manuellen Vorschub durch  gekapseltes Kugellager
+	von AZ, (ZMU) Guss-, (ZMU) Stahl- und PE-Rohre
+	für Wasser- und Gasleitungen.
+1.7 Lagerung
+	Die Werkzeuge sind vor Verschmutzung geschützt zu lagern. Der EWE-Transportkoffer für EWE-Anbohrgeräte ist zu verwenden. 
+	Nach dem Einsatz ist das Werkzeug auf Beschädigung zu prüfen und zu reinigen.
+	Bohrwerkzeug mit der Bohrstange ganz in das Gehäuse zurückziehen und Feststell-schraube arretieren. So werden Verletzungen vermieden und das Bohrwerkzeug wird vor Beschädigungen geschützt.
+2. Montagehinweise
+2.1 Hinweise zur Vorbereitung
+   Vor und nach dem Einsatz sind das Gerät und das Werkzeug auf Beschädigung oder 
+Verunreinigung zu prüfen. Ein beschädigtes Gerät oder  Werkzeug darf nicht einge -
+setzt werden. Für die Anbohrung ist besonders bei einer darauffolgenden Hülsensetzung auf scharfes Bohrwerkzeug zu achten. Die Materialscheibe aus dem Bohrschneider bzw. Fräser sollte erst unmittelbar vor der nächsten Anbohrung ausgestoßen werden. Bis dahin schützt die Scheibe das Bohrwerkzeug vor Beschädigung! 
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  21Das Ausstoßen erfolgt nach Abnahme des Bohrwerkzeugs mit einem Ausstoßgerät,
+auf das der Bohrschneider oder Fräser geschraubt wird. Überprüfen der Gewinde auf Beschä-digung, Funktion der Knarre und Zustand der Dichtungen.
+2.2 Montage der Anbohrarmatur
+Für den Einbauort, die Montage sowie für das Anschließen der jeweiligen Anbohrar -
+matur, sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die 
+Herstellerangabe der Benutzerinformation „EWE-Anbohrarmaturen“ anzuwenden.
+Kennzeichnung der Armatur beachten! Wasserarmaturen sind nicht gasbeständig!
+3. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der gesamten Werkzeuge erfolgen. 
+3.1 Funktionskontrolle
+Alle Werkzeuge sind vor der Anbohrung auf ihre Funktion zu prüfen.
+3.2 Anbohren mit dem EWE-Anbohrgerät 
+Beispiel: EWE-Kugel-Ventil-Anbohrarmatur
+1.
+	Die beiden Feststellschrauben am EWE-Anbohrgerät lösen
+	Die Vorschubtrommel durch Linksdrehen bis zum Anschlag in Startposition bringen.
+2.
+	Je nach Rohrmaterial Bohrer, Fräser oder Bohrschneider auf die Bohrstange auf-schrauben.
+	Die Bohrstange ganz zurückziehen.
+	Mit Hilfe der Feststellschrauben fixieren.
+
+
+22  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen3.
+	EWE-Anbohrgerät in die Anbohrarmatur 
+schrauben.
+	Mit dem in die Bohrung eingesteckten Schlüsselgriff des Anbohrgeräte-Schlüssels festziehen - Achtung: Linksgewinde!
+4.
+	Wasserleitung: Spüleinrichtung einschrauben
+	Gasleitung: Wenn die Gas-Hausanschlussleitung noch nicht angeschlossen ist, Stopfen montie -
+ren (nur bei EWE-Kugel-Anbohrarmaturen und EWE-Kugelhahn-Anbohrarmaturen).
+5.
+	Fixierte Feststellschraube lösen.
+	Bohrstange mit Bohrer langsam und ohne Druck auf den Rohrscheitel setzen.
+6.
+	Die zwei Feststellschrauben wechselweise mit dem Anbohrgeräte-Schlüssel anzie -
+hen.
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  237.
+	Hilfsabsperrung in Offenstellung.
+	Antrieb auf Bohrstange aufsetzen.
+	Schlüsselgriff des Anbohrgeräte-Schlüssels 
+in einer der Bohrungen der Vorschubtrom-mel stecken.
+	Anbohren.
+8.
+	Mit der einen Hand den Antrieb bedienen und mit der anderen Hand mit Hilfe des eingesteckten Anbohrgeräteschlüssels durch Rechtsdrehen langsam den ent -
+sprechenden Vorschub geben, bis die Rohrwandung ganz durchtrennt ist.
+9.
+	Wasserleitung: Ausreichend Spülen.
+	Gasleitung: Auf gasaustrittsfreies Anbohren achten.
+10.
+	Vierkantschrauben lösen 
+	Die Bohrstange bis zum Anschlag nach oben ziehen. 
+	   Verletzungsgefahr durch hoch -
+schnellende Bohrstange!  Bohrstange mit der Hand führen!
+
+
+24  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen11.
+	EWE-Spüleinrichtung schließen.
+	Unter Berücksichtigung der Einbauanlei-
+tung der Anbohrarmatur die Hilfsabsper -
+rung schließen.
+12.
+	EWE-Anbohrgerät abnehmen.
+	Ventiloberteil der Anbohrarmatur fest montieren.
+13.
+	Hilfsabsperrung öffnen.
+14.
+	Die Betriebsabsperrung der Anbohrar -
+matur mit Hilfe des EWE-Anbohrgeräte-Schlüssels schließen.
+	EWE-Spüleinrichtung oder Stopfen ent -
+fernen.
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  254. Wartung und Instandhaltung
+Es empfiehlt sich nach jedem Einsatz eine Sicht- und Funktionskontrolle durchzufüh -
+ren. 
+Das Werkzeug ist zu reinigen und auf Beschädigungen zu prüfen. 
+Zu den regelmäßig durchzuführenden Wartungsarbeiten gehört auch eine Überprüfung der O-Ringe, der Klemmbolzen und der Klemmschraube. Das Bohrwerkzeug ist ein Verschleißteil und muss gewartet und gegebenenfalls erneuert werden. 
+5. Service
+	Überprüfung von EWE-Anbohrgeräten, -Werkzeugen und -Zubehör
+	fachgerechte Demontage und Reinigung
+	Funktions- und Dichtheitsprüfung, Ersatz schadhafter Teile
+	Unsere Mitarbeiter im Innen- und Außendienst beraten Sie gern.  Sprechen Sie uns an!
+6. Werkzeuge und Zubehör für das  
+Anbohren von AZ-, (FZM-) Guss-, (FZM-) 
+Stahl-, GFK- und PE-Rohren 
+EWE-Anbohrgeräte-
+Schlüssel Artikelnummer 6120301Freilaufschlüssel  500 mm, 15 mm Vier-kant Artikelnummer 6120005EWE-Spülhahn für Kugel-(Ventil)-Anbohr-armatur Artikelnummer 1130314EWE-Spülstück für seit-liche Anbohrung und Kera-Anbohrarmatur Artikelnummer 1130414
+
+
+26  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-WerkzeugenEWE-Spülarmatur für 
+Ventil-Anbohrarmatur Artikelnummer 11301XXEWE-Spülschlauch 5 m
+ 
+Artikelnummer 1130611Bohrwerkzeug, je nach RohrartEWE-Ausstoßgerät für Bohrschneider und Fräser Artikelnummer 6122800
+Messing-O-Ring-Stopfen für Gasanbohrungen
+ 
+Artikelnummer 2400524EWE-Spanheber für Gas-Anbohrungen, 
+Artikelnummer 6122900EWE-Prüfarmatur 
+Artikelnummer 1130012Adapter für  
+Anbohrgerät/Antrieb  Sechskant SW 12 / Innenvierkant 15 mmArtikelnummer 6121396
+EWE-Transportkasten für Anbohrgerät und ZubehörArtikelnummer 6121499
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  27Anwendungshilfe:
+Welche Hülse für welche Rohrart?
+Bohrloch-Hülse
+	für EWE-Anbohrarmaturen 
+	aus Kunststoff
+	für Guss- und Stahlrohre
+	hält das Bohrloch frei
+	vermeidet das Zuwachsen des Bohrlochs durch Inkrustation 
+	leichte Montage unter Druck mit dem dazugehörigen Bohr -
+loch-Hülsen-Setzgerät
+Bohrloch-Dichthülse
+	für EWE-Anbohrarmaturen 
+	dichtet - speziell bei ZMU-Rohren direkt im Bohrloch gegen 
+die Rohrwandung ab
+	vermeidet das Zuwachsen des Bohrlochs durch Inkrustation 
+	das aufwendige Entfernen der Außenumhüllung bei Mehr -
+schicht-Rohren und das Nachisolieren entfällt
+	Zerstörung des Korrosionsschutzes wird vermieden
+	leichte Montage unter Druck mit dem dazugehörigen Bohr -
+loch- und PE-Hülsen-Setzgerät
+PE-Hülse
+	für EWE-Anbohrarmaturen
+	mit dieser Hülse sind schraubbare Anbohrarmaturen, die für PVC-Rohre eingesetzt werden, auch für PE-Rohre einsetzbar
+	Hülse schneidet sich mit ihrem konischen Gewinde in das Bohrloch des PE-Rohres 
+	ein Wegfließen des PE-Rohres von der Dichtung wird ver -
+mieden
+	leichte Montage unter Druck mit dem dazugehörigen Bohr -
+loch- und PE-Hülsen-Setzgerät
+	Schweißaufwand entfällt, die Montage ist witterungsunsab -
+hängig
+
+
+28  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für das
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	KTW- und Elastomerleitlinie des Umweltbundesamtes 
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“
+	DVGW GW 309 „Elektrische Überbrückung bei Rohrtrennungen“
+	DVGW G 459 „Gas-Netzanschlüsse für maximale Betriebsdrücke bis einschließlich 5 bar“
+	DVGW G 465-2 „Gasleitungen mit einem Betriebsdruck bis 5 bar - Instandsetzung“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW W 291 „Reinigung und Desinfektion von Wasserverteilungsanlagen“
+	DVGW W 333 „Anbohrarmaturen und Anbohrvorgang in der Wasserversorgung“
+	DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	BG-Vorschriften, -Regeln und -Informationen (insbesondere DGUV 100–500)
+	Benutzerinformation des Anbohrarmaturenherstellers z.B.: BI EWE-Anbohrarmaturen für Wasser und BI EWE-Anbohrarmaturen für GasEWE-Bohrloch- und PE-Hülsen-Setzgerät, für Bohrloch-Hülsen, für 
+Guss- und Stahlrohre sowie PE-Hülsen für PE-RohreArtikelnummer 6126414
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  291.3 Verwendungsbereich/Medium
+	Bohrloch-Hülsen für Wasserleitungen aus Guss und Stahl
+	PE-Hülsen für Wasser- und Gasleitungen aus PE
+1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	für Wasserleitungen PFA 16
+	für Gasleitungen MOP 10
+1.5 Werkstoff
+Werkstoff
+	Messing entsprechend der Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ 
+des Umweltbundesamtes
+	Bohrstange aus A2-Edelstahl - Elastomere und Kunststoffe entsprechend der KTW- und Elastomer-Leitlinie des Umweltbundesamtes und des DVGW-Arbeitsblattes W 270
+1.6 Funktionsbeschreibung
+	Das EWE-Bohrloch-Hülsen- und PE-Hülsen-Setzgerät dient dem Setzen von Bohrloch-Hül-sen für Wasserleitungen aus Guss und Stahl und dem Setzen von PE-Hülsen für Wasser- und Gasleitungen aus PE. 
+	Die Anbohrung erfolgt unter Druck ohne zusätzliche Spezialwerkzeuge.
+1.7 Lagerung
+	Das Bohrloch- und PE-Hülsen-Setzgerät ist bis zur Verwendung vor Verschmutzung ge -
+schützt zu lagern. 
+	Nach jedem Einsatz sollte das Gerät gereinigt werden.
+2. Montagehinweise
+2.1 Hinweise zur Vorbereitung 
+  Das korrekte Hülsensetzen setzt ein spanfreies Anbohren mit scharfen Werkzeug 
+voraus. Vor und nach dem Einsatz ist das Bohrloch- und PE-Hülsen-Setzgerät  auf 
+Beschädigung oder Verunreinigung zu prüfen. Ein beschädigtes Werkzeug darf nicht eingesetzt werden.
+2.2 Montage des Hülsen-Setzgerätes
+Für den Einbauort, die Montage sowie für das Anschließen der jeweiligen Anbohrar -
+matur, sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die 
+Herstellerangabe der Benutzerinformation „EWE-Anbohrarmaturen“ anzuwenden.
+Kennzeichnung der Armatur beachten! Wasserarmaturen sind nicht gasbeständig!
+
+30  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen3. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme aller Werkzeuge erfolgen.  
+Die Einbau- und Bedienungsanleitung der verwendeten Anbohrarmatur ist immer zubeachten!
+3.1 Funktionskontrolle
+Alle Werkzeuge sind auf ihre Funktion zu prüfen.
+3.2 Hülsensetzen mit dem EWE-Bohrloch-Hülsen und PE-Hülsen-Setzgerät
+1.
+	EWE-Bohrloch-Hülse auf den Adapter des EWE-Hülsen-Setzgeräts stecken.
+2.
+	Die richtige Platzierung der Bohrloch-Hülse überprüfen.
+3.
+	Spindel mit der Bohrloch-Hülse bis zum Anschlag zurückziehen.
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  314.
+	Spindel mit der Feststellschraube fixieren.
+5.
+	EWE-Bohrloch-Hülsen-Setzgerät auf die 
+Anbohrarmatur aufschrauben und mit dem EWE-Anbohrgeräte-Schlüssel  anziehen - Achtung Linksgewinde!
+6.
+	Sitz des Gerätes und der Dichtungen  beachten.
+7.
+	Spülhahn schließen.
+	Hilfsabsperrung öffnen.
+
+
+32  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen11.
+	Arretierung der Spindel mit der Feststell-
+schraube lösen.
+	Ggf. Spindel des Bohrloch-Hülsen-Setzge -
+räts durch leichte Hin- und Herbewegung lösen.
+	   Verletzungsgefahr durch hoch -
+schnellende Spindel!8.
+	Die Fixierung der Spindel mit der Feststell-schraube lösen.
+9.
+	Spindel gegen den Druck bis zum merk -
+lichen Anschlag drücken.
+	Spindel mit der Feststellschraube wieder fixieren.
+10.
+	Die Hülse bis zum Anschlag in die Anboh-rung einschrauben.
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  3312.
+	Die Spindel mit der Feststellschraube 
+fixieren.
+13.
+	Die Hilfsabsperrung schließen.
+14.
+	EWE-Bohrloch-Hülsen-Setzgerät mit dem EWE-Anbohrgeräte-Schlüssel lösen und abbauen.
+15.
+	Ventiloberteil der Anbohrarmatur fest montieren.
+
+
+34  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen16.
+	Hilfsabsperrung öffnen.
+17.
+	Betriebsabsperrung der Anbohrarmatur 
+schließen.
+18.
+	EWE-Spülarmatur/Spülhahn demontieren
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  354. Wartung und Instandhaltung
+Zu den regelmäßig durchzuführenden Wartungsarbeiten gehört auch eine Überprüfung der 
+O-Ringe, der Klemmbolzen und der Klemmschraube. Verschmutzungen sind zu entfernen.
+Es empfiehlt sich nach jedem Einsatz eine Sicht- und Funktionskontrolle vorzuneh -
+men.
+5. Service
+	Überprüfung von EWE-Werkzeugen, EWE-Anbohrgeräten und Zubehör
+	fachgerechte Demontage und Reinigung
+	Funktions- und Dichtheitsprüfung, Ersatz schadhafter Teile
+	Unsere Mitarbeiter im Innen- und Außendienst beraten Sie gern.  Sprechen Sie uns an!
+6. Werkzeuge und Zubehör für das Hülsen-
+setzen von Bohrloch- und PE-Hülsen
+EWE-Bohrloch-Hülse EWE-PE-Hülse
+EWE-Adapter für 
+Bohrloch-Hülse 2“ mit Gravur „BH 2“ , Durch-messer 32mmEWE-Adapter für Bohr-loch-Hülse mit Gravur „Bohrloch-Hülse“ , Durchmesser 28mm
+EWE-Adapter für PE-Hülse mit Gravur „PE-Hülse“ , Durchmesser 26mm
+
+
+36  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für das
+EWE-Bohrloch-Dichthülsen-Setzgerät, für Bohrloch-Dichthülsen, 
+für AZ-, ZMU-Guss- und  ZMU-Stahl-RohreArtikelnummer 6126314
+1.2 Mitgeltende Unterlagen
+	Betriebsanweisungen des Auftraggebers bzw. des auführenden Unternehmens
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	KTW- und Elastomerleitlinie des Umweltbundesamtes 
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren 
+Bauteile außerhalb von Gebäuden“
+	DVGW W 291 „Reinigung und Desinfektion von Wasserverteilungsanlagen“
+	DVGW W 333 „Anbohrarmaturen und Anbohrvorgang in der Wasserversorgung“
+	DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	BG-Vorschriften, -Regeln und -Informationen (insbesondere DGUV 100–500)
+	TRGS 519 „Asbestarbeiten“
+1.3 Verwendungsbereich/Medium
+	für AZ-, ZMU-Guss- und ZMU-Stahl-Rohre der Wasserversorgung
+1.4 Zulässiger Bauteile-Betriebsdruck
+	für Wasserleitungen PFA 16
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  371.5 Werkstoff/Abmessungen/Leistung
+Werkstoff
+	metallene Werkstoffe entsprechend der Liste „Trinkwasserhygienisch geeignete metallene 
+Werkstoffe“ des Umweltbundesamtes 
+	Dichtungen aus NBR - Elastomere und Kunststoffe entsprechend der KTW- und Elastomer-Leitlinie des Umweltbundesamtes und des DVGW-Arbeitsblattes W 270
+1.5.1 Anschluss ausgangsseitig:
+Abmessungen
+	IG G 2“ x AG G 2 1/2“ ,  für Bohrlochstopfen G 2“ und Kunststoffkappe G 2 1/2“
+Anbohrdurchmesser
+	d 75 = 39 mm, größer nur durch Netzbetreiberfreigabe
+	d 90-225 = 45 mm
+1.6 Funktionsbeschreibung
+	Das EWE-Bohrloch-Dichthülsen-Setzgerät dient dem Setzen von Bohrloch-Dichthülsen für Wasserleitungen aus AZ, ZM-Guss, ZM-Stahl und GFK. Die Anbohrung erfolgt unter Druck, ohne zusätzliche Spezialwerkzeuge. 
+1.7 Lagerung
+	Das Bohrloch-Dichthülsen-Setzgerät ist bis zur Verwendung vor Verschmutzung geschützt zu lagern. Verwenden Sie hierfür den EWE-Transportkoffer für das EWE-Bohrloch-Dicht -
+hülsen- Setzgerät. Vor und nach dem Einsatz ist das Werkzeug auf Beschädigung oder Verunreinigung zu prüfen.
+2. Montagehinweise
+2.1 Hinweise zur Vorbereitung 
+  Das korrekte Hülsensetzen setzt ein spanfreies Anbohren mit scharfen Werkzeug 
+voraus. Vor und nach dem Einsatz ist das Bohrloch-Dichthülsen-Setzgerät auf 
+Beschädigung oder Verunreinigung zu prüfen. Ein beschädigtes Werkzeug darf nicht eingesetzt werden.
+2.2 Montage der Anbohrarmatur
+Für den Einbauort, die Montage sowie für das Anschließen der jeweiligen Anbohrar -
+matur, sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die 
+Herstellerangabe der Benutzerinformation „EWE-Anbohrarmaturen“ anzuwenden.
+
+38  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen3. Betrieb und Verwendung
+Die Einbau- und Bedienungsanleitung der verwendeten Anbohrarmatur ist immer zu
+beachten!
+3.1 Funktionskontrolle
+Alle Werkzeuge sind auf ihre Funktion zu prüfen.
+3.2 Dichthülsensetzen mit dem EWE-Bohrloch-Dichthülsen-Setzgerät
+1.
+	EWE-Bohrloch-Dichthülse auf die Innen- und Außenspindel des EWE-Bohrloch-Dichthülsen-Setzgeräts setzen.
+2.
+	Richtige Platzierung der Bohrloch-Dicht -
+hülse überprüfen. 
+	Beide Mitnehmer der Innen- und Außen-spindel müssen in den Nuten der Messing- und Edelstahl-Hülse einrasten.
+3.
+	Spindeln mit der aufgesetzten Bohrloch-Dichthülse bis zum Anschlag zurück- ziehen.
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  394.
+	EWE-Bohrloch-Dichthülsen-Setzgerät auf 
+die Anbohrarmatur aufschrauben.  Achtung Linksgewinde!
+5.
+	EWE-Bohrloch-Dichthülsen-Setzgerät mit dem EWE-Anbohrgeräte-Schlüssel anziehen.
+	Sitz des Gerätes und der Dichtungen be -
+achten!
+6.
+	Spülarmatur/Spülhahn schließen.
+	Hilfsabsperrung öffnen.
+7.
+	Umschaltventil öffnen.
+	Spindel fährt automatisch nach unten,  ggf. mit der Hand unterstützen.
+
+
+40  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen8.
+	EWE-Bohrloch-Dichthülse über die Glocke 
+des EWE-Bohrloch-Dichthülsen-Setzgerä-tes rechtsdrehend bis zum Anschlag in die Anbohrarmatur einschrauben (ca. 14/15 Umdrehungen).
+9.
+	Glockenkopf des EWE-Bohrloch-Dicht- hülsen-Setzgerätes herunter drücken und halten.
+10.
+	Den EWE-Anbohrgeräte-Schlüssel auf den Vierkant der Innenspindel aufsetzen.
+	Durch das Drehen (rechtsdrehend) bis zum Anschlag wird die Bohrloch-Dicht -
+hülse im Bohrloch verspannt (ca. 1–3 Umdrehungen).
+11.
+	Glockenkopf loslassen. 
+	Umschaltventil des Bohrloch-Dichthülsen-Setzgerätes über die Steuerung öffnen. 
+	 Achtung: Spindel fährt nach 
+oben!
+
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  4112.
+	 Achtung: Wasser tritt aus der 
+Entlastungsbohrung am Gerät 
+aus! 
+	Wenn die Spindel nicht allein nach oben fährt, das Gestänge durch leichte Bewe -
+gungen aus den Nuten der Hülse lösen.
+13.
+	Hilfsabsperrung der Anbohrarmatur schließen.
+	Aufgebauten Druck durch Öffnen der Spülarmatur abbauen.
+14.
+	EWE-Bohrloch-Dichthülsen-Setzgerät mit dem EWE-Anbohrgeräte-Schlüssel lösen und abbauen.
+15.
+	Ventiloberteil der Anbohrarmatur fest montieren.
+
+
+42  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen16.
+	Spülarmatur schließen. 
+	Hilfsabsperrung der Anbohrarmatur 
+öffnen.
+17.
+	Betriebsabsperrung der Anbohrarmatur schließen.
+18.
+	Spülarmatur/Spülhahn aus dem Abgang der Anbohrarmatur heraus drehen.
+4. Wartung und Instandhaltung
+Zu den regelmäßig durchzuführenden Wartungsarbeiten gehört auch eine Überprüfung der O-Ringe, der Klemmbolzen und der Klemmschraube. Verschmutzungen sind zu entfernen.
+Es empfiehlt sich nach jedem Einsatz eine Sicht- und Funktionskontrolle vorzuneh -
+men.
+
+Benutzerinformation Anbohren und Hülsensetzen mit EWE-Werkzeugen  |  435. Service
+	Überprüfung von EWE-Werkzeugen, EWE-Anbohrgeräten und Zubehör
+	fachgerechte Demontage und Reinigung
+	Funktions- und Dichtheitsprüfung, Ersatz schadhafter Teile
+	Unsere Mitarbeiter im Innen- und Außendienst beraten Sie gern.  
+Sprechen Sie uns an!
+6. Werkzeuge und Zubehör für das Hülsen-
+setzen von Bohrloch-Dichthülsen
+EWE-Bohrloch-Dicht-
+hülseEWE-Anbohrgeräte-Schlüssel
+Artikelnummer 6120301EWE-Transportkiste für 
+Bohrloch-Dichthülsen-SetzgerätArtikelnummer 6121490
+
+
+44  |  Benutzerinformation Anbohren und Hülsensetzen mit EWE-WerkzeugenWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100031- Ausgabe 11/2023
+

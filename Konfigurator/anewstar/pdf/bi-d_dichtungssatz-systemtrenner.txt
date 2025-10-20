@@ -1,0 +1,69 @@
+EWE-Dichtungssatz für 
+Systemtrenner DN 20/DN 40
+Benutzerinformation
+#7100036 - Ausgabe 03/2024
+
+2  |  Benutzerinformation Dichtungssatz Systemtrenner DN 20/DN 401. Angaben über das Erzeugnis 
+1.1  Geltungsbereich, Abmessungen
+Diese Benutzerinformation gilt für
+	den EWE-Dichtungssatz für Systemtrenner DN 20 (9500722, 9500760), Artikelnummer: 9500710
+	den EWE-Dichtungssatz für Systemtrenner DN 40 (9500723),  Artikelnummer: 9500725
+Die Dichtungen aus Elastomerstoffen die mit dem Medium in Kontakt treten, erfüllen die 
+KTW-Leitlinien des Umweltbundesamtes und des DVGW-Arbeitsblattes W 270. 
+1.2 Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19, D- 38104 BraunschweigFon: +49 531 37005-0, Fax: +49 531 37005-55E-Mail: info@ewe-armaturen.de
+2. Einsatzbereich der Dichtungen DN 20
+1. O-Ring 23 x 2 mm 
+2. Nutring, bei Montage mit Silikon-Fett versehen
+3. O-Ring 35 x 2 mm 
+4. Flachdichtung
+5. O-Ring 26 x 3 mm oder 28 x 3 mm
+6. O-Ring 35 x 3 mm
+7. ohne Abb. Silikon-Fett
+1234
+5
+bis 06/2014
+126
+ab 06/2014
+3. Einsatzbereich der Dichtungen DN 40
+1. O-Ring 46 x 2 mm
+2. Nutring, bei Montage mit Silikon-Fett versehen
+3. O-Ring 66,34 x 2,62 mm ohne Abb. Silikon-Fett
+
+Benutzerinformation Dichtungssatz Systemtrenner DN 20/DN 40  |  3
+123Montagehinweis:
+Benutzung / Montage des EWE-
+Dichtungssatzes für Systemtrenner 
+nur durch geschultes Personal. EWE-Dichtungssatz enthält Dichtun-gen für alte und neue Ausführung.
+4. Reinigung der Systemtrennerkartusche
+1. Ablassventil der ausgebauten Systemtrennerkartusche überprüfen:
+	Ventil zusammendrücken, um Leichtgängigkeit zu testen.
+	Bei erhöhter Reibung (Schmutzeintrag) Kartusche ersetzen.
+2. Wechselbare O-Ringe sind auszutauschen. 
+3. Überprüfung der nicht wechselbaren O-Rings am unteren Ende des Kartuscheneinsatzes:
+	O-Ring auf Verschmutzung prüfen.
+	Schmutz unter kaltem Wasser abspülen oder mit Pinsel/Bürste entfernen.
+	Keine spitzen oder harten Gegenstände verwenden, um Beschädigung zu vermeiden.
+4. Überprüfung des Eingangs-Rückflussverhinderers:
+	Federgelagerten Teller des Verhinderers anheben.
+	Dichtscheibe begutachten.
+	Schmutz unter kaltem Wasser abspülen oder mit Pinsel/Bürste entfernen.
+	Keine scharfen oder spitzen Gegenstände verwenden.
+5. Abspülen der Kartusche unter fließendem kalten Wasser.
+6. Überprüfung des Lippendichtrings im Gehäuse der Armatur:
+7. Dichtring auf Verschmutzung prüfen.
+8. Schmutz unter kaltem Wasser abspülen oder mit Pinsel/Bürste entfernen.
+9. Keine spitzen oder harten Gegenstände verwenden, um Beschädigung zu vermeiden.
+Als Schmierstoff dürfen nur geeignete elastomer- und kunststoffverträgliche Schmier -
+stoffe verwendet werden. Nur diesen Schmierstoff verwenden, andere Schmierstoffe  
+sind nicht zulässig! BECHEM Berulub Sihaf 2 ist ein elastomer- und kunststoffverträglicher Schmierstoff, der auf die hohen Anforderungen der hier eingesetzten Technologie abgestimmt ist. Bisher wurde Silikon-Fett in 
+Einwegspritze gefüllt und 
+beigelegt. Zukünftig wird diese durch Fettbeutel ersetzt.
+
+4  |  Benutzerinformation Dichtungssatz Systemtrenner DN 20/DN 40Wilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100019 - Ausgabe 04/2024
+

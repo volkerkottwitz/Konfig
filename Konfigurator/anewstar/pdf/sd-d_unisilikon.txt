@@ -1,0 +1,1039 @@
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+1 / 16 
+ 
+ 
+ 
+ 
+ABSCHNITT 1: Bezeichnung des Stoffs beziehungsweise des Gemischs und des Un-
+ternehmens  
+1.1 Produktidentifikator  
+Produktname  : UNISILKON L 250 L  
+ 
+Artikel -Nr.  : 022102  
+1.2 Relevante identifizierte Verwendungen des Stoffs oder Gemischs und Verwendungen, von 
+denen abgeraten wird  
+Verwendung des Stoffs/des 
+Gemisches  
+ : Schmierfett  
+ 
+Empfohlene Einschränkun-
+gen der Anwendung  
+ : Nur für gewerbliche Anwender.  
+ 
+1.3 Einzelheiten zum Lieferanten, der das Sicherheitsdatenblatt bereitstellt  
+Firma  
+ : Klüber Lubrication München  
+Geisenhausenerstr. 7  
+81379 München  
+Deutschland  
+Tel: +49 (0) 89 7876 0  
+Fax: +49 (0) 89 7876 333  
+info@klueber.com  
+ 
+ 
+E-Mailadresse der für SDB 
+verantwortlichen Person  : mcm@klueber.com  
+Material Compliance Management  
+ 
+Nationaler Ko ntakt  : Klüber Lubrication Deutschland  
+Geisenhausenerstraße 7  
+81379 München  
+Deutschland  
+Tel.: +49 89 7876 0  
+Fax:  +49 89 7876 565  
+customer.service.de@klueber.com  
+www.klueber.com  
+ 
+   
+1.4 Notrufnummer  
+Notrufnummer  : +49 89 7876 700 (24 hrs ) 
+ 
+ 
+ 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+2 / 16 
+ 
+ 
+ 
+ 
+ABSCHNITT 2: Mögliche Gefahren  
+2.1 Einstufung des Stoffs oder Gemischs  
+Einstufung  (VERORDNUNG (EG) Nr. 1272/2008 ) 
+Keine gefährliche Substanz oder Mischung.  
+2.2 Kennzeichnungselemente  
+Kennzeichnung  (VERORDNUNG (EG) Nr. 1272/2008 ) 
+Keine gefä hrliche Substanz oder Mischung.  
+ 
+2.3 Sonstige Gefahren  
+Dieser Stoff/diese Mischung enthält keine Komponenten in Konzentrationen von 0,1  % oder hö-
+her, die entweder als persistent, bioakkumulierbar und toxisch (PBT) oder sehr persistent und 
+sehr bioakkumulierba r (vPvB) eingestuft sind.  
+ 
+Ansaugen von Luft, geringe Leitungsquerschnitte, hohe Drücke und raschen Druckanstieg ver-
+meiden. Anlage vor Inbetriebnahme sorgfältig entlüften. Das Produkt gehört in die Kategorie Sili-
+konölfette mit PTFE. Fü r diese Produktkategorie kann es in Förderanlagen mit hohem Druckauf-
+bau und geringem Leitungsquerschnitt zu explosionsartigen Zersetzungsreaktionen kommen.  
+ 
+ABSCHNITT 3: Zusammensetzung/Angaben zu Bestandteilen  
+3.2 Gemische  
+Chemische Charakterisie-
+rung 
+ : Silikonöl  
+PTFE  
+ 
+Inhaltsstoffe  
+Chemische Bezeich-
+nung  CAS-Nr. 
+EG-Nr. 
+ 
+INDEX -Nr. 
+Registrierungsnum-
+mer Einstufung  Konzentrations-
+grenzwe rte 
+M-Faktor  
+Anmerkungen  Konzentration  
+(% w/w ) 
+Substanzen mit einem Arbeitsplatzexpositionsgrenzwert  :  
+Ethylene, tetrafluoro -, 
+polymer  9002 -84-0 
+618-337-2 
+ 
+ Nicht klassifiziert  
+  
+ 
+ 
+ >= 30 - < 50 
+Die Erklärung der Abkürzungen finden Sie unter Abschnitt 16.  
+ 
+ 
+ABSCHNITT 4: Erste -Hilfe -Maßnahmen  
+4.1 Beschreibung der Erste -Hilfe -Maßnahmen  
+Nach Einatmen  :  Opfer an die frische Luft bringen. Bei Anhalten der Anzei-
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+3 / 16 
+ 
+ 
+ 
+ 
+ chen/Symptome, ärztliche Betreuung hinzuziehen.  
+Betroffenen warm und ruhig lagern.  
+Bei unregelmäßiger Atmung oder Atemstillstand künstliche 
+Beatmung einleiten.  
+ 
+Nach Hautkontakt  
+ :  Verunreinigte K leidung ausziehen. Bei Auftreten einer Rei-
+zung , ärztliche Betreuung aufsuchen.  
+Mit Wasser und Seife abwaschen.  
+ 
+Nach Augenkontakt  
+ :  Sofort mindestens 10 Minuten mit viel Wasser abspülen, auch 
+unter den Augenlidern.  
+Bei anhaltender Augenreizung einen F acharzt aufsuchen.  
+ 
+Nach Verschlucken  
+ :  Betroffenen an die frische Luft bringen.  
+Erbrechen nicht ohne ärztliche Anweisung herbeiführen.  
+ 
+4.2 Wichtigste akute und verzögert auftretende Symptome und Wirkungen  
+Symptome  : Keine Information verfügbar.  
+ 
+Risiken  : Keine bekannt.  
+ 
+4.3 Hinweise auf ärztliche Soforthilfe oder Spezialbehandlung  
+Behandlung  
+ : Keine Information verfügbar.  
+ 
+ABSCHNITT 5: Maßnahmen zur Brandbekämpfung  
+5.1 Löschmittel  
+Geeignete Löschmittel  
+ :  Wassersprühnebel, alkoholbestä ndigen Schaum, Trocken-
+löschmittel oder Kohlendioxid verwenden.  
+ 
+Ungeeignete Löschmittel  
+ :  Wasservollstrahl  
+ 
+5.2 Besondere vom Stoff oder Gemisch ausgehende Gefahren  
+Besondere Gefahren bei der 
+Brandbekämpfung  
+ :  Im Brandfall kann Folgendes freiges etzt werden:  
+Kohlenstoffoxide  
+halogenierte Verbindungen  
+Metalloxide  
+Stickoxide (NOx)  
+ 
+5.3 Hinweise für die Brandbekämpfung  
+Besondere Schutzausrüs-
+tung für die Brandbekämp-
+fung 
+ :  Im Brandfall umgebungsluftunabhängiges Atemschutzgerät 
+tragen.  Persö nliche Schutzausrüstung verwenden.  Das Ein-
+atmen von Zersetzungsprodukten kann Gesundheitsschäden 
+verursachen.   
+ 
+Weitere Information  
+ :  Übliche Maßnahmen bei Bränden mit Chemikalien.  
+ 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+4 / 16 
+ 
+ 
+ 
+ 
+ 
+ABSCHNITT 6: Maßnahmen bei unbeabsichtigter Freisetzung  
+6.1 Personenbezogene Vorsichtsmaßnahmen, Schutzausrüstungen und in Notfällen anzuwen-
+dende Verfahren  
+Personenbezogene Vor-
+sichtsmaßnahmen  
+ :  Personen in Sicherheit bringen.  
+Bei Überschreitung der arbeitsplatzbezogenen Grenzwerte 
+und/oder bei Freisetzung (S taub) ist der angegebene Atem-
+schutz zu verwenden.  
+Dampf/ Aerosol nicht einatmen.  
+Siehe Schutzmaßnahmen unter Punkt 7 und 8.  
+ 
+6.2 Umweltschutzmaßnahmen  
+Umweltschutzmaßnahmen  
+ :  Das Eindringen des Materials in die Kanalisation oder in Was-
+serläufe möglich st verhindern.  
+Wenn größere Mengen verschütteten Materials nicht einge-
+dämmt werden können, sollen die lokalen Behörden benach-
+richtigt werden.  
+ 
+6.3 Methoden und Material für Rückhaltung und Reinigung  
+Reinigungsverfahren  
+ :  Schnell aufkehren oder aufsaugen.  
+Zur Entsorgung in geeignete und verschlossene Behälter ge-
+ben. 
+ 
+6.4 Verweis auf andere Abschnitte  
+Persönliche Schutzausrüstung siehe unter Abschnitt 8.  
+ 
+ABSCHNITT 7: Handhabung und Lagerung  
+7.1 Schutzmaßnahmen zur sichere n Handhabung  
+Hinweise zum sicheren Um-
+gang  
+ : Persönliche Schutzausrüstung siehe unter Abschnitt 8.  
+Im Anwendungsbereich nicht essen, trinken oder rauchen.  
+Hände und Gesicht vor Pausen und sofort nach Handhabung 
+des Produktes waschen.  
+ 
+Hygienemaßnahmen  
+ :  Nach Gebrauch Gesicht, Hände und alle exponierten Haut-
+stellen gründlich waschen.   
+ 
+7.2 Bedingungen zur sicheren Lagerung unter Berücksichtigung von Unverträglichkeiten  
+Anforderungen an Lager-
+räume und Behälter  
+ :  Im Originalbehälter lagern.  Behälter verschlossen halten, 
+wenn dieser nicht in Gebrauch ist.  Kühl und trocken, an einem 
+gut belüfteten Ort aufbewahren.  Geöffnete Behälter sorgfältig 
+verschließen und aufrecht lagern um jegliches Auslaufen zu 
+verhindern.  In Übereinstimmung mit den besonderen nationa-
+len gesetzlichen Vorschriften lagern.  In korrekt beschrifteten 
+Behältern aufbewahren.   
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+5 / 16 
+ 
+ 
+ 
+ 
+ 
+Lagerklasse (TRGS 510)  
+ :  11, Brennbare Feststoffe   
+ 
+7.3 Spezifische Endanwendungen  
+Bestimmte Verwendung(en)  
+ :  Spezifische Anweisungen sind nicht erforderlich.  
+ 
+ 
+ABSCHNITT 8: Begrenzung und Überwachung der Exposition/Persönliche Schutzaus-
+rüstungen  
+8.1 Zu überwachende Parameter  
+Arbeitsplatzgrenzwerte  
+Inhaltsstoffe  CAS-Nr. Werttyp  (Art der 
+Exposition ) Zu überwachende Para-
+meter  Grundlage  
+Ethylene, tetraflu-
+oro-, polymer  9002 -84-0 AGW  (Einatem-
+bare Fraktion ) 10 mg/m3  DE TRGS 
+900 
+(2014 -04-02) 
+Spitzenbegren-
+zung: Überschrei-
+tungsfaktor (Kate-
+gorie)  2;(II) 
+  AGW  (Alveolen-
+gängige Fraktion ) 1,25 mg/m3  DE TRGS 
+900 
+(2014 -04-02) 
+Spitzenbegren-
+zung: Überschrei-
+tungsfaktor (Kate-
+gorie)  2;(II) 
+Abgeleitete Expositionshöhe ohne Beeinträchtigung  (DNEL ) gemäß Verordnung (EG) Nr. 
+1907/2006 : 
+Stoffname  Anwendungs-
+bereich  Expositionswe-
+ge Mögliche Gesund-
+heitsschäden  Wert  
+Amides, C16 -18 
+(even numbered), 
+N,N'-ethylenebis  Arbeitnehmer  Einatmung  Langzeit - systemi-
+sche Effekte  2,94 mg/m3  
+ Arbeitnehmer  Hautkontakt  Langzeit - systemi-
+sche Effekte  3,33 mg/kg 
+Körperge-
+wicht/Tag  
+Abgeschä tzte Nicht -Effekt -Konzentration  (PNEC ) gemäß Verordnung (EG) Nr. 1907/2006 : 
+Stoffname  Umweltkompartiment  Wert  
+Amides, C16 -18 (even num-
+bered), N,N' -ethylenebis  Süßwasser    10 mg/kg Tro-
+ckengewicht 
+(TW)  
+ Meerwasser  1 mg/kg Tro-
+ckengewicht 
+(TW)  
+ Abwasserkläranlage  100 mg/l  
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+6 / 16 
+ 
+ 
+ 
+ 
+ Boden  10 mg/kg Tro-
+ckengewicht 
+(TW)  
+8.2 Begrenzung und Überwachung der Exposition  
+Technische Schutzmaßnahmen  
+kein(e,er)  
+Persönliche Schutzausrüstung  
+Augenschutz  :  Dicht schließende Schutzbrille  
+ 
+Handschutz
+Material  : Nitrilkautschuk  
+Durchbruchzeit  : > 10 min  
+Schutzindex  : Klasse 1  
+ 
+ 
+Anmerkungen  
+ : Bei längerem oder wiederholtem Kontakt Handschuhe benut-
+zen. Die Durchdringungszeit ist unter anderem abhängig von 
+Material, Dichte und Ausführung des Ha ndschuhs und muss 
+daher im Einzelfall ermittelt werden.   
+Die ausgewählten Schutzhandschuhe müssen die Spezifika-
+tionen der EG -Richtlinie 2016/425 und die davon abgeleitete 
+Norm EN 374 erfüllen.   
+ 
+Atemschutz  :  Nicht erforderlich; außer bei Aerosolbildung.  
+ 
+Filtertyp  :  Filtertyp P  
+ 
+Schutzmaßnahmen  :  Die Art der Schutzausrüstung muss je nach Konzentration 
+und Menge des gefährlichen Stoffes am Arbeitsplatz ausge-
+wählt werden.  
+Körperschutz gemäß dessen Typ, gemäß Konzentration und 
+Menge der gefä hrlichen Stoffe und gemäß jeweiligem Ar-
+beitsplatz auswählen.  
+ 
+ 
+ABSCHNITT 9: Physikalische und chemische Eigenschaften  
+9.1 Angaben zu den grundlegenden physikalischen und chemischen Eigenschaften  
+Aussehen  
+ : Paste  
+ 
+Farbe  
+ :  weiß  
+ 
+Geruch  
+ :  charakteristisch  
+ 
+Geruchsschwelle  
+ :  Keine Daten verfügbar   
+ 
+ 
+ 
+pH-Wert  : Keine Daten verfügbar   
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+7 / 16 
+ 
+ 
+ 
+ 
+  
+Schmelz-
+punkt/Schmelzbereich  
+ : Keine Daten verfügbar   
+ 
+Siedepunkt/Siedebereich  
+ : Keine Daten verfügbar   
+ 
+Flammpunkt  
+ : Nicht anwendbar  
+ 
+Verdampfungsgeschwindig-
+keit 
+ :  Keine Daten verfügbar   
+ 
+Entzü ndbarkeit (fest, gasför-
+mig) 
+ : Brennbare Feststoffe  
+ 
+Obere Explosionsgrenze  / 
+Obere Entzündbarkeitsgrenze  
+ : Keine Daten verfügbar   
+ 
+Untere Explosionsgrenze  / 
+Untere Entzündbarkeitsgren-
+ze 
+ : Keine Daten verfügbar   
+ 
+Dampfdruck  
+ : < 0,001 hPa  (20 °C) 
+ 
+Relative Dampfdichte  
+ : Keine Daten verfügbar   
+ 
+Dichte  
+ : 1,27 g/cm3  
+ (20 °C ) 
+ 
+Schüttdichte  
+ : Keine Daten verfügbar   
+ 
+Löslichkeit(en)  
+Wasserlöslichkeit  
+ : unlöslich   
+Löslichkeit in anderen Lö-
+sungsmitteln  
+ : Keine Daten verfügbar  
+ 
+Verteilungskoeffizient: n -
+Octanol/Wasser  
+ : Keine Daten verfügbar   
+ 
+Selbstentzündungstemperatur  
+ : Keine Daten verfügbar   
+ 
+Zersetzungstemperatur  
+ :  Keine Daten verfügbar   
+ 
+Viskosität  
+Viskosität, dynamisch  
+ : Keine Daten verfügbar   
+ 
+Viskosität, kinematisch  
+ : Keine Daten verfügbar   
+ 
+Explosive Eigenschaften  
+ : Nicht explosiv  
+ 
+Oxidierende Eigenschaften  
+ : Keine Daten verfügbar   
+ 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+8 / 16 
+ 
+ 
+ 
+ 
+9.2 Sonstige Angaben  
+Sublimationspunkt  
+ : Keine Daten verfügbar   
+ 
+Selbstentzündung  : Keine Daten verfügbar   
+ 
+ 
+ABSCHNITT 10: Stabilität und Reaktivität  
+10.1 Reaktivität  
+Keine besonders zu erwähnenden Gefahren.  
+10.2 Chemische Stabilität  
+Stabil unter normalen Bedingungen.  
+10.3 Möglichkeit gefährlicher Reaktionen  
+Gefährliche Reaktionen  
+ :  Keine gefährlichen Reaktionen bekannt bei bestimmungsge-
+mäßem Umgang.  
+ 
+10.4 Zu vermeidende Bedingungen  
+Zu vermeidende Bedingungen  
+ : Keine besonde rs zu erwähnenden Bedingungen.  
+ 
+10.5 Unverträgliche Materialien  
+Zu vermeidende Stoffe  
+ :  Keine besonders zu erwähnenden Stoffe.  
+ 
+10.6 Gefährliche Zersetzungsprodukte  
+Gefährliche Zersetzungspro-
+dukte  
+ : >150 °C Möglichkeit der Abspaltung geringer Mengen For-
+maldehyd.  
+>280 °C Gefahr der Ent stehung toxischer fluorhaltiger Pyroly-
+seprodukte.  
+ 
+ 
+ABSCHNITT 11: Toxikologische Angaben  
+11.1 Angaben zu toxikologischen Wirkungen  
+Akute Toxizität  
+Produkt : 
+Akute orale Toxizität  
+ :  Anmerkungen : Keine Informationen verfügbar.  
+ 
+Akute inhalative Toxizität  
+ :  Anmerkungen : Keine Informationen verfügbar.  
+ 
+Akute dermale Toxizität  
+ :  Anmerkungen : Keine Informationen verfügbar.  
+ 
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+9 / 16 
+ 
+ 
+ 
+ 
+Akute orale Toxizität  
+ :  LD50  (Ratte ): > 5.000 mg/kg   
+Methode : OECD Prüfrichtlinie 401  
+ 
+Ätz-/Reizwirkung auf die Haut  
+Produkt : 
+Anmerkungen  : Keine Informationen verfügbar.  
+ 
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+Spezies  : Kaninchen  
+Bewertung  : Keine Hautreizung  
+Ergebnis  : Keine Hautreizung  
+ 
+Schwere Augenschädigung/ -reizung  
+Produkt : 
+Anmerkungen  : Keine Informationen verfügbar.  
+ 
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+Spezies  : Kaninchen  
+Bewertung  : Keine Augenreizung  
+Ergebnis  : Keine Augenreizung  
+ 
+Sensibilisierung der Atemwege/Haut  
+Produkt : 
+Anmerkungen  : Keine Informationen verfügbar.  
+ 
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+Bewertung  : Verursacht keine Sensibilisierung bei Labortieren.  
+Ergebnis  : Verursacht keine Sensibilisierung bei Labortieren.  
+ 
+Keimzell -Mutagenität  
+Produkt : 
+Gentoxizität in vitro  
+ : Anmerkungen : Keine Daten verfügbar  
+ 
+Gentoxizität in vivo  
+ :  Anmerkungen : Keine Daten verfügbar  
+ 
+Karzinogenität  
+Produkt : 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+10 / 16 
+ 
+ 
+ 
+ 
+Anmerkungen  : Keine Daten verfügbar  
+ 
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+Karzinogenität  - Bewertung  
+ :  Nicht als krebserzeugendes Produkt für den Menschen ein-
+stufbar.  
+ 
+Reproduktionstoxizität  
+Produkt : 
+Wirkung auf die Fruchtbarkeit  
+ :  Anmerkungen : Keine Daten verfügbar  
+ 
+Effekte auf die Fötusentwick-
+lung 
+ : Anmerkungen : Keine Daten verfügbar  
+ 
+Spezifische Zielorgan -Toxizität bei einmaliger Exposition  
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+Bewertung  : Der Stoff oder das Gemisch ist nicht als zielorgantoxisch, 
+einmalige Exposition, eingestuft.  
+ 
+Spezifische Zielorgan -Toxizität bei wiederholter Exposition  
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+Bewertung  : Der Stoff oder das Gemisch ist nicht als zielorgantoxisch, 
+wiederholte Exposition, eingestuft.  
+ 
+Toxizität bei wiederholter Verabreichung  
+Produkt : 
+Anmerkungen  : Keine Informationen verfügbar.  
+ 
+Aspirationstoxizität  
+Produkt : 
+Keine Informationen verfügbar.  
+ 
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+Keine Einstufung in Bezug auf Aspirationstoxizität  
+ 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+11 / 16 
+ 
+ 
+ 
+ 
+Weitere Information  
+Produkt : 
+Anmerkungen  : Die gegebenen Informationen beruhen auf Daten, die von den 
+Bestandteilen und der Toxizität ähnlicher Produkte stammen.  
+ 
+ 
+ABSCHNITT 12: Umweltbezogene Angaben  
+12.1 Toxizität  
+Produkt : 
+Toxizität gegenüber Fischen  
+ :  Anmerkungen : Keine Daten verfügbar  
+ 
+Toxizität gegenüber 
+Daphnien und anderen wir-
+bellosen Wassertieren  
+ :  Anmerkungen : Keine Daten verfügbar  
+ 
+Toxizität gegenü ber Al-
+gen/Wasserpflanzen  
+ :  Anmerkungen : Keine Daten verfügbar  
+ 
+Toxizität bei Mikroorganis-
+men 
+ :   
+Anmerkungen : Keine Daten verfügbar  
+ 
+12.2 Persistenz und Abbaubarkeit  
+Produkt : 
+Biologische Abbaubarkeit  
+ :  Anmerkungen : Keine Daten verfügbar  
+ 
+Physikalisch -chemische Be-
+seitigung  
+ :  Anmerkungen : Keine Daten verfügbar  
+ 
+12.3 Bioakkumulationspotenzial  
+Produkt : 
+Bioakkumulation  
+ :  Anmerkungen : Diese Mischung enthält keine Substanzen, die 
+persistent, bioakkumulierbar und toxisch sind (PBT).  
+Diese Mischung enthält keine Substanzen, die sehr persistent 
+und sehr bioakkumulierbar sind (vPvB).  
+ 
+12.4 Mobilität im Boden  
+Produkt : 
+Mobilität  
+ :  Anmerkungen : Keine Daten verfügbar  
+ 
+Verteilung zwischen den 
+Umweltkompartimenten  
+ : Anmerkungen : Keine Daten verfügbar  
+ 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+12 / 16 
+ 
+ 
+ 
+ 
+12.5 Ergebnisse der PBT - und vPvB -Beurteilung  
+Produkt : 
+Bewertung  
+ : Dieser Stoff/diese Mischung enthä lt keine Komponenten in 
+Konzentrationen von 0,1  % oder höher, die entweder als per-
+sistent, bioakkumulierbar und toxisch (PBT) oder sehr persis-
+tent und sehr bioakkumulierbar (vPvB) eingestuft sind. . 
+ 
+Inhaltsstoffe : 
+Ethylene, tetrafluoro -, polymer : 
+Bewertung  
+ : Nicht eingestufter vPvB -Stoff. Ni cht eingestufter PBT -Stoff. 
+ 
+12.6 Andere schädliche Wirkungen  
+Produkt : 
+Sonstige ökologische Hin-
+weise  
+ :  Angaben zur Ökologie liegen nicht vor.  
+ 
+ 
+ABSCHNITT 13: Hinweise zur Entsorgung  
+13.1 Verfahren der Abfallbehandlung  
+Produkt  :  Das Eindringen des Produkts in die Kanalisation, in Wasser-
+läufe oder in den Erdboden soll verhindert werden.  
+ 
+   Die Abfallschlüsselnummer soll vom Verbraucher, aufgrund 
+des Verwendungszwecks des Produkts, festgelegt werden.  
+ 
+Verunreinigte Verpackungen  :  Nicht ordnungsgemäß entleerte Gebinde sind wie das unge-
+brauchte Produkt zu entsorgen.  
+Abfall oder verbrauchte Behälter gemäss örtlichen Vorschrif-
+ten entsorgen.  
+ 
+   Die folgenden Abfallschlüsselnummern sind nur als Empfeh-
+lung gedacht:  
+ 
+Abfallschlüssel -Nr. :  gebrauchtes Produkt, nicht gebrauchtes Produkt  
+12 01 12 *, gebrauchte Wachse und Fette  
+ 
+   ungereinigte Verpackung  
+15 01 10 , Verpackungen, die Rückstände gefährlicher Stoffe 
+enthalten oder durch gefährliche Stoffe verunreinigt sind  
+ 
+ 
+ABSCHNITT 14: Angaben zum Transport  
+14.1 UN-Nummer  
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+13 / 16 
+ 
+ 
+ 
+ 
+ADR  : Nicht als Gefahrgut eingestuft  
+IMDG  : Nicht als Gefahrgut eingestuft  
+IATA  : Nicht als Gefahrgut eingestuft  
+14.2 Ordnungsgemäße  UN-Versandbezeichnung  
+ADR  : Nicht als Gefahrgut eingestuft  
+IMDG  : Nicht als Gefahrgut eingestuft  
+IATA  : Nicht als Gefahrgut eingestuft  
+14.3 Transportgefahrenklassen  
+ADR  : Nicht als Gefahrgut eingestuft  
+IMDG  : Nicht als Gefahrgut eingestuft  
+IATA  : Nicht als Gefahrgut eingestuft  
+14.4 Verpackungsgruppe  
+ADR  : Nicht als Gefahrgut eingestuft  
+IMDG  : Nicht als Gefahrgut eingestuft  
+IATA  (Fracht ) : Nicht als Gefahrgut eingestuft  
+IATA  (Passagier ) : Nicht als Gefahrgut eingestuft  
+14.5 Umweltgefahren  
+ADR  : Nicht als Gefahrgut eingestuft  
+IMDG  : Nicht als Gefahrgut eingestuft  
+IATA  (Passagier ) : Nicht als Gefahrgut eingestuft  
+IATA  (Fracht ) : Nicht als Gefahrgut eingestuft  
+14.6 Besondere Vorsichtsmaßnahmen für den Verwender  
+Nicht anwendbar  
+14.7 Massengutbeförderung gemäß Anhang II des MARPOL -Übereinkommens und gemäß IBC -
+Code  
+Anmerkungen  :  Auf Produkt im Lieferzustand nicht zutreffend.  
+ 
+ABSCHNITT 15: Rechtsvorschriften  
+15.1 Vorschriften zu Sicherheit, Gesundheits - und Umweltschutz/spezifische Rechtsvorschrif-
+ten für den Stoff oder das Gemisch  
+REACH - Liste der für eine Zulassung in Frage kom-
+menden besonders besorgniserregenden Stoffe (Artikel 
+59). 
+ : Dieses Produkt ent hält keine beson-
+ders besorgniserregenden Stoffe 
+(REACH -Verordnung (EG) Nr. 
+1907/2006, Artikel 57).  
+REACH - Verzeichnis der zulassungspflichtigen Stoffe 
+(Anhang XIV)  
+ : Nicht anwendbar  
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+14 / 16 
+ 
+ 
+ 
+ 
+Verordnung (EG) Nr. 1005/2009 ü ber Stoffe, die zum 
+Abbau der Ozonschicht führen  
+ : Nicht anwendbar  
+Verordnung (EU) 2019/1021 ü ber persistente organische 
+Schadstoffe (Neufassung)  
+ : Nicht anwendbar  
+Verordnung (EG) Nr. 649/2012 des Europä ischen Par-
+laments und des Rates über die Aus - und Einfuhr ge-
+fährlicher Chemikalien  
+ : Nicht anwendbar  
+REACH - Beschränkungen der Herstellung, des Inver-
+kehrbringens und der Verwendung bestimmter gefährli-
+cher Stoffe, Zubereitungen und Erzeugnisse (Anhang 
+XVII)  
+ : Nicht anwendbar  
+Seveso III: Richtlinie 2012/18/EU des Europäischen Parla ments und des Rates zur Beherrschung 
+der Gefahren schwerer Unfälle mit gefährlichen Stoffen.
+  Nicht anwendbar  
+ 
+Wassergefährdungsklasse  : WGK 1  schwach wassergefährdend  
+Einstufung nach AwSV, Anlage 1 (5.2)  
+ 
+TA Luft  :  Gesamtstaub : 
+Sonstige : 46,44 %  
+ 
+   Staubförmige anorganische Stoffe : 
+Nicht anwendbar  
+   Dampf - oder gasförmige anorganische Stoffe : 
+Nicht anwendbar  
+   Organische Stoffe : 
+Anteil  Klasse  2: 0,03 %  
+Sonstige : 53,53 %  
+ 
+   Krebserzeugende Stoffe : 
+Nicht anwendbar  
+   Erbgutverändernd : 
+Nicht anwendbar  
+   Reproduktionstoxisch : 
+Nicht anwendbar  
+ 
+Flüchtige organische Verbin-
+dungen  
+ : Richtlinie 2010/75/EU des Europäischen Parlaments und des 
+Rates vom 24. November 2010 über Industrieemissionen 
+(integrierte Vermeidung und Verminderung der Umweltver-
+schmutzung)  
+Gehalt flüchtiger organischer Verbindungen (V OC): 0,06 %  
+ 
+15.2 Stoffsicherheitsbeurteilung  
+Keine Informationen verfügbar.  
+ 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+15 / 16 
+ 
+ 
+ 
+ 
+ABSCHNITT 16: Sonstige Angaben  
+Volltext anderer Abkü rzungen  
+ 
+DE TRGS 900  : TRGS 900 - Arbeitsplatzgrenzwerte  
+DE TRGS 900  / AGW  : Arbeitsplatzgrenzwert  
+ 
+ADN - Europäisches Übereinkommens ü ber die internationale Beförderung gefährlicher Güter auf 
+Binnenwasserstrassen; ADR - Europäisches Übereinkommens über die internationale Beförde-
+rung gefährlicher Güter auf der Straße; AICS - Australisches Verzeichnis chemischer Substan-
+zen; ASTM - Amerikan ische Gesellschaft für Werkstoffprüfung; bw - Körpergewicht; CLP - Ver-
+ordnung über die Einstufung, Kennzeichnung und Verpackung von Stoffen, Verordnung (EG) Nr 
+1272/2008; CMR - Karzinogener, mutagener oder reproduktiver Giftstoff; DIN - Norm des Deut-
+schen Instituts für Normung; DSL - Liste heimischer Substanzen (Kanada); ECHA - Europäische 
+Chemikalienbehörde; EC -Number - Nummer der Europäischen Gemeinschaft; ECx - Konzentra-
+tion verbunden mit x % Reaktion; ELx - Beladungsrate verbunden mit x % Reaktion; EmS - Not-
+fallplan; ENCS - Vorhandene und neue chemische Substanzen (Japan); ErCx - Konzentration 
+verbunden mit x % Wachstumsgeschwindigkeit; GHS - Global harmonisiertes System; GLP - Gu-
+te Laborpraxis; IARC - Internationale Krebsforschungsagentur; IATA - Intern ationale Luftver-
+kehrs -Vereinigung; IBC - Internationaler Code für den Bau und die Ausrüstung von Schiffen zur 
+Beförderung gefährlicher Chemikalien als Massengut; IC50 - Halbmaximale Hemmstoffkonzent-
+ration; ICAO - Internationale Zivilluftfahrt -Organisation;  IECSC - Verzeichnis der in China vorhan-
+denen chemischen Substanzen; IMDG - Code – Internationaler Code für die Beförderung gefähr-
+licher Güter mit Seeschiffen; IMO - Internationale Seeschifffahrtsorganisation; ISHL - Gesetz - 
+über Sicherheit und Gesundheits schutz am Arbeitsplatz (Japan); ISO - Internationale Organisati-
+on für Normung; KECI - Verzeichnis der in Korea vorhandenen Chemikalien; LC50 - Lethale Kon-
+zentration für 50 % einer Versuchspopulation; LD50 - Lethale Dosis für 50 % einer Versuchspo-
+pulation ( mittlere lethale Dosis); MARPOL - Internationales Übereinkommen zur Verhütung der 
+Meeresverschmutzung durch Schiffe; n.o.s. - nicht anderweitig genannt; NO(A)EC - Konzentrati-
+on, bei der keine (schädliche) Wirkung erkennbar ist; NO(A)EL - Dosis, bei der kei ne (schädliche) 
+Wirkung erkennbar ist; NOELR - Keine erkennbare Effektladung; NZIoC - Neuseeländisches 
+Chemikalienverzeichnis; OECD - Organisation für wirtschaftliche Zusammenarbeit und Entwick-
+lung; OPPTS - Büro für chemische Sicherheit und Verschmutzungsv erhütung (OSCPP); PBT - 
+Persistente, bioakkumulierbare und toxische Substanzen; PICCS - Verzeichnis der auf den Phi-
+lippinen vorhandenen Chemikalien und chemischen Substanzen; (Q)SAR - (Quantitative) Struk-
+tur-Wirkungsbeziehung; REACH - Verordnung (EG) Nr. 1 907/2006 des Europäischen Parlia-
+ments und des Rats bezüglich der Registrierung, Bewertung, Genehmigung und Restriktion von 
+Chemikalien; RID - Regelung zur internationalen Beförderung gefährlicher Güter im Schienenver-
+kehr; SADT - Selbstbeschleunigende Zerse tzungstemperatur; SDS - Sicherheitsdatenblatt; SVHC 
+- besonders besorgniserregender Stoff; TCSI - Verzeichnis der in Taiwan vorhandenen chemi-
+schen Substanzen; TRGS - Technischen Regeln für Gefahrstoffe; TSCA - Gesetz zur Kontrolle 
+giftiger Stoffe (Vereinig te Staaten); UN - Vereinte Nationen; vPvB - Sehr persistent und sehr bio-
+akkumulierbar  
+Weitere Information  
+ 
+Dieses Sicherheitsdatenblatt gilt nur für original verpackte und bezeichnete Ware. Die enthalte-
+nen Informationen dürfen ohne unsere ausdrückliche schriftliche Genehmigung nicht vervielfältigt 
+oder verändert werden. Jegliche Weiterleitung dieses Dokuments i st nur in dem gesetzlich gefor-
+derten Ausmaß gestattet. Eine darüberhinausgehende, insbesondere öffentliche, Verbreitung un-
+serer Sicherheitsdatenblätter (z.B. als Download im Internet) ist ohne unsere ausdrückliche 
+
+SICHERHEITSDATENBLATT  
+gemäß Verordnung (EG) Nr. 1907/2006  - DE   
+UNISILKON L 250 L  
+Version   
+3.1 Überarbeitet am :  
+08.07.2020  Datum der letzten Ausgabe : 17.04.2019  
+Datum der ersten Ausgabe : 09.10.2014  Druckdatum : 
+09.07.2020  
+ 
+ 
+16 / 16 
+ 
+ 
+ 
+ 
+schriftliche Genehmigung nicht gestattet.  Wir stellen unseren Kunden entsprechend den gesetzli-
+chen Regelungen geänderte Sicherheitsdatenblätter zur Verfügung. Es liegt in der Verantwortung 
+des Kunden, Sicherheitsdatenblätter und eventuelle Änderungen daran gemäß den gesetzlichen 
+Vorgaben an seine eigenen Kunden, Mitarbeiter und sonstige Verwender des Produktes weiter-
+zugeben. Für die Aktualität der Sicherheitsdatenblätter, die Verwender von Dritten erhalten, 
+übernehmen wir keine Gewähr.  Alle Informationen und Anweisungen in diesem Sicherheitsda-
+tenbl att wurden nach bestem Wissen erstellt und basieren auf dem Stand der Technik am Tage 
+der Herausgabe. Die gemachten Angaben sollen das Produkt im Hinblick auf die erforderlichen 
+Sicherheitsmaßnahmen beschreiben; sie stellen keine Zusicherung von Eigenschaf ten oder Ga-
+rantie der Eignung des Produktes für den Einzelfall dar und begründen kein vertragliches Rechts-
+verhältnis.  Das Vorhandensein eines Sicherheitsdatenblatts für einen bestimmten Rechtsraum 
+bedeutet nicht zwangsläufig, dass die Einfuhr oder die Verw endung innerhalb dieses Rechtsrau-
+mes gesetzlich zulässig ist. Bei Fragen wenden Sie sich bitte an Ihren zuständigen Vertriebskon-
+takt oder den autorisierten Handelspartner.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+

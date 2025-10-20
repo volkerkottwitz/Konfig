@@ -1,0 +1,28 @@
+Anwendungshilfe: 
+Welches Bohrwerkzeug für welche Rohrart?
+RohrartBohrer
+mit Wechsel-Schneid-PlatteArt.-Nr.6123223„HM“Bohrer
+Art.-Nr. 
+61218..„HSS“Bohrer
+Art.-Nr. 
+61222..„HM“Fräsermit HM-Zentrier-BohrerArt.-Nr. 6121623„HSS“Fräser
+Art.-Nr. 
+61226..„HSS“Fräser
+Art.-Nr. 
+61224..„HSS“Bohr-Schneider
+Art.-Nr.
+61228..
+Gussrohr    (    )
+ohne Umhüllung
+Gussrohr    (    )
+außen PE-UmhüllungGussrohr mit ZMU
+innen und außen
+Stahlrohr mit ZMU    (    )
+innen und außenStahlrohr    (    )
+mit InnenzementStahlrohr    (    )
+ohne UmhüllungStahlrohr    (    )
+außen PE-UmhüllungAsbest-Zement-Rohr    (    )
+PVC-Rohr
+PE-HD-Rohr
+  (    )  Mit Einschränkungen geeignet – hoher Verschleiß
+

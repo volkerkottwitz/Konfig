@@ -1,0 +1,684 @@
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  1
+EWE FLEXORIPP-
+Wasserzählerschacht
+Benutzerinformation#7100041-Ausgabe 03/2025
+
+
+2  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht
+Inhaltsverzeichnis
+Allgemeine Hinweise  4
+Angaben über das Erzeugnis  6
+Einbauhinweise (Installation/Montage)  13Kürzung des Schachtrohres 17Verlängerung mit TELERIPP 19Verlängerung mit FIXRIPP 23Betrieb und Verwendung  27Wartung und Instandhaltung  27Schachtabdeckungen  30
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  3
+
+
+4  |  Benutzerinformation EWE FLEXORIPP WasserzählerschachtAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke.
+	 Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer  
+Internetseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf.
+	 Nur eingewiesenes und qualifiziertes Personal darf den Schacht, die Armaturen und  
+Ventile montieren, bedienen oder warten.
+	 Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der  
+Geschäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen  Vorschriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den an-erkannten Regeln der Technik zu erfolgen.
+	 Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt 
+darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	 Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal -
+lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	 Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die 
+sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	 Es gelten unsere Allgemeinen Verkaufsbedingungen.
+Verpackung
+	 Die einzelnen Armaturen sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die 
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  5Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion 
+und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Montage der Armatur.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wiederverwertbare Verpackungsmaterialien dem Recycling zu.
+Verwendung von Abkürzungen:
+WZ:    W asserzähler 
+WZS:    W asserzähler-Schacht 
+WZA:    W asserzähler-Anlage 
+KMR:  Kegelmembran-Rückflussverhinderer
+RV: Rückflussverhinderer
+DM:  Druckminderer
+KSR:   Kombiniertes Schrägsitz-  
+Rückschlagventil
+RD:  Rohrdeckung 
+GG:   Gusseisen mit Lamellengr aphitQ₃:  Dauerdurchfluss
+Si:  Silicium
+PN:   Nenndruck
+PA: Polyamid
+EPP:  Expandiert es Polypropylen
+DIN:  Deutsches Institut für Normung 
+DVGW: Deutscher Verein des Gas- und  
+   Wasserfaches 
+KTW:  Kunststoffe im Trinkwasser 
+DIBt:   Deutsches Institut für BautechnikErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens sind 
+anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	KTW- und Elastomerleitlinien des Umweltbundesamtes 
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	DIN/ÖNORM EN 124 „Aufsätze und Abdeckungen für Verkehrsflächen“
+	DIN/ÖNORM EN 805 „Wasserversorgung – Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“ 
+	DIN/ÖNORM EN 806 „Technische Regeln für Trinkwasser-Installation“
+	DIN/ÖNORM EN1717 „Schutz des Trinkwassers vor Verunreinigungen in Trinkwasser-Installatio -
+nen und allgemeine Anforderungen an Sicherungseinrichtungen zur Verhütung von Trinkwas-serverunreinigungen durch Rückfließen“
+EWE FLEXORIPP Wasserzählerschächte   
+Artikelnummer: 0396XXX, bestehend aus: Schachtkörper, 
+Wasserzähler-Anlage mit flexiblen Schläuchen und Hebe -
+vorrichtung, Schachtdurchführungen und Isolierdeckel.
+Schachtabdeckungen sind separat zu bestellen.
+EWE-FLEXORIPP-Schachtabdeckungen (nicht im Lieferumfang des Schachtes enthalten!):
+FLEXORIPP    
+AbdeckhaubeFLEXORIPP
+Schachtabdeckung A15FLEXORIPPSchachtabdeckung B125
+Ausführliche Informationen siehe Punkt 5 !
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  7	DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 
+806
+	DIN 4124  „Baugruben und Gräben – Böschungen, Verbau, Arbeitsraumbreiten“
+	DIN 18196  „Erd- und Grundbau – Bodenklassifikation für bautechnische Zwecke“
+	DVGW-Arbeitsblatt W 270 „Vermehrung von Mikroorganismen auf Werkstoffen für den Trinkwasserbereich“
+	DVGW-Arbeitsblatt W 400 „Technische Regeln Wasserverteilungsanlagen“
+	DVGW-Arbeitsblatt W 543 „Druckfeste flexible Schlauchleitungen“
+	DVGW-Arbeitsblatt W 570 „Armaturen für die Trinkwasserinstallation“
+	RSA 95 „Richtlinien für die Sicherung von Arbeitsstellen an Straßen“
+	ÖNORM B 2538 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden, Ergänzende Bestimmungen zu ÖNORM EN 805“ 
+	ÖVGW QS - W 204 „Druckfeste flexible Anschlussschläuche“
+	ÖVGW QS - W 501/1 „Armaturen in der Trinkwasserversorgung, Teil1: Oberirdisch- und erd-verlegte Armaturen“
+	Allgemeine bauaufsichtliche Zulassung / Allgemeine Bauartgenehmigung des Deutschen Institut für Bautechnik (weißer Schachtkörper)
+1.3 Verwendungsbereich/Medium
+	kaltes Trinkwasser nach DIN 2000
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	PN 10 nach Regelwerk für Trinkwasser-Installationen und Gebäudearmaturen. 
+	Alle EWE Schächte können bis zu einem Bauteile-Betriebsdruck von PN 16 eingesetzt werden. 
+
+8  |  Benutzerinformation EWE FLEXORIPP WasserzählerschachtZeichnung:  
+Abmessungen FLEXORIPP Wasserzählerschacht mit einem Eingang und einem Ausgang
+Außen-Ø mit  
+montierter 
+Schachtabdeckung  
+A15/B125
+Außen-Ø ohne 
+Schachtabdckung
+Innen-Ø
+Rohrdeckung
+Bauhöhe mit Rahmen
+Bauhöhe ohne Rahmen
+größtes Eckenmaß1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Schachtkörper mit einem Ausgang 
+Werkstoff
+	 Schachtkörper aus wasserdichtem  
+schwarzem PE
+Abmessungen
+	Rohrdeckung im 2,5 cm Raster kürzbar
+	Außen-Ø mit montierter Schacht- 
+abdeckung: 548 mm
+	Außen-Ø ohne Schachtabdeckung:  510 mm
+	Schachtöffnung/Innen-Ø: 472 mm
+	größtes Eckenmaß: 650 mm
+Anschlüsse
+	beiderseits Innengewinde
+	je nach Ausführung G 1" oder G 1 ¼"Rohr-
+deckungBauhöheohne Schacht-abdeckungBauhöhe  
+mit  
+Schacht-abdeckungGewicht (KH/KH Q3 4)
+0,75 m 0,80 m 0,87 m 25,6 kg
+1,00 m 1,05 m 1,12 m 29,7 kg
+1,25 m 1,30 m 1,37 m 33,6 kg
+1,50 m 1,55 m 1,62 m 38,4 kg
+1,75 m 1,80 m 1,87 m 42,5 kg
+2,00 m 2,05 m 2,12 m 46,4 kg
+
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  91.5.2 Schachtkörper mit zwei Ausgängen
+Für den parallelen Betrieb von zwei Wasserzählern, z. B. Doppehaus
+Werkstoff
+	 Schachtkörper aus wasserdichtem  
+schwarzem PE
+Abmessungen
+	Rohrdeckung im 2,5 cm Raster kürzbar
+	Außen-Ø mit montierter Schacht- wabdeckung: 548 mm
+	Außen-Ø ohne Schachtabdeckung:  510 mm
+	Schachtöffnung/Innen-Ø: 472 mm
+	größtes Eckenmaß: 650 mm
+Anschlüsse
+	Eingang: G 1 ¼“
+	Ausgang: 2 x G 1“Rohr-
+deckung* Baulänge 2 = RD1 - 90mmBauhöheohne Schacht-abdeckungBauhöhe  
+mit Schacht-abdeckungGewicht (KH/KH Q3 4)
+0,75 m 0,80 m 0,87 m 25,6 kg
+1,00 m 1,05 m 1,12 m 29,7 kg
+1,25 m 1,30 m 1,37 m 33,6 kg
+1,50 m 1,55 m 1,62 m 38,4 kg
+1,75 m 1,80 m 1,87 m 42,5 kg
+2,00 m 2,05 m 2,12 m 46,4 kg
+Zeichnung:  
+Abmessungen FLEXORIPP Wasserzählerschacht mit einem Eingang und zwei Ausgängen
+Außen-Ø mit  
+montierter 
+Schachtabdeckung  
+A15/B125
+Außen-Ø ohne 
+Schachtabdckung
+Innen-Ø
+Rohrdeckung
+Bauhöhe mit Rahmen
+Bauhöhe ohne Rahmen
+größtes Eckenmaß
+Außen-Ø mit  
+montierter 
+Schachtabdeckung  
+A15/B125
+Außen-Ø ohne Schachtabdckung
+Innen-Ø
+Rohrdeckung
+Bauhöhe mit Rahmen
+Bauhöhe ohne Rahmen
+größtes EckenmaßEingang: Ausgänge:
+
+
+10  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht1.5.3 Schachtkörper, DIBt zugelassen 
+Werkstoff
+	Schachtkörper aus wasserdichtem, weißen PE
+Abmessungen
+	Rohrdeckung 1,25 m im 2,5 cm Raster kürzbar 
+	Außen-Ø mit montierter Schachtabdeckung: 548 mm
+	Außen-Ø ohne Schachtabdeckung: 510 mm
+	Schachtöffnung/Innen-Ø: 464 mm
+	größtes Eckenmaß:  650 mm 
+Anschlüsse
+	beiderseits Innengewinde G 1“ 
+	je nach Ausführung G 1“ oder G 1 ¼“
+1.5.4 Isolierdeckel  
+Werkstoff
+	 nicht begehbarer Isolierdeckel aus EPP
+Abmessungen
+	485 mm Außendurchmesser
+
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  111.5.5 Wasserzähleranlagen und Schläuche 
+Werkstoff
+	Bügel aus A2-Edelstahl
+	mediumberührende Teile der Wasserzähler-Verschraubungen aus bleifreiem Si-Messing 
+entsprechend der Liste  „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des  Umweltbundesamtes
+	 Kunststoffe und Elastomere entsprechend der KTW-und Elastomerleitlinien des  
+Umweltbundesamtes und des DVGW-Arbeitsblattes W 270
+	 Ventile aus bleifreiem Si-Messing entsprechend der Liste „Trinkwasserhygienisch  
+geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	 Schläuche aus Silikon mit Umflechtung aus A2-Edelstahl und Gewebeüberzug aus  
+thermoplastischem Kunststoff, alternativ aus A4-Edelstahl-Wellrohr mit Umflechtung aus A4-Edelstahl und Gewebeüberzug
+	Druckminderer aus Edelstahl
+Ausführungen:
+Kugelhahn-
+KugelhahnKugelhahn-DM- Kugelhahn
+Kugelhahn- KSR-VentilKughahn-DM- KSR-Ventil
+Kugelhahn- KMR-Kugelhahn
+Schrägsitzventil-
+SchrägsitzventilSchrägsitzventil- DM-Schrägsitzventil
+Schrägsitzventil-KSR-VentilSchrägsitzventil-DM-KSR-Ventil
+Schrägsitzventil- KMR-Schrägsitzventilmit einem Ausgang mit zwei Ausgängen
+mit einem Ausgang mit zwei Ausgängen
+mit einem Ausgang mit zwei Ausgängen
+mit einem Ausgang mit zwei Ausgängen
+
+
+12  |  Benutzerinformation EWE FLEXORIPP WasserzählerschachtLeistung
+	ÜA-Kennzeichnung für Bauprodukte in Kontakt mit Trinkwasser - Österreich WZ-Abmessung Gewinde G × Baulänge mm MID Q₃ [m3/h] EWG Q n [m3/h]
+¾" × 165* 2,5 1,5
+1" × 190 2,5 oder 4 2,5
+1 ¼" × 175 4 oder 10 3/7
+1 ¼" × 260 6,3 oder 10 6
+2x1“ x 190** 2,5 oder 4 2,5
+ 
+  * Adapter-Set (Artikelnummer 3903075) nötig!** Paralleler Betrieb!Varianten der Wasserzähleranlagen – Baumaße der Wasserzähler:
+Stadt Wien | Prüf-, Inspektions- und Zertifizierungsstelle 
+1.6 Transport und Lagerung
+ Der FLEXORIPP Wasserzählerschacht ist bis zur Verwendung in der werkseitigen Verpackung 
+stehend zu transportieren und zu lagern. FLEXORIPP Wasserzählerschächte nicht stapeln. 
+Eine Belastung des Isolierdeckels vermeiden.  Verpackung erst unmittelbar vor der Montage entfernen und entsorgen.
+1.7 Funktionsbeschreibung
+Die FLEXORIPP Wasserzählerschächte sind für den Einbau im Rohrgraben vorgesehen. Sie können vielseitig verwendet werden, z. B. als Hausanschluss, als Bauwasseranschluss, in Park- oder Kleingartenanlagen, auf Campingplätzen oder Friedhöfen. Durch seine geringen Bau- maße ist der Wasserzählerschacht ohne aufwändige Erdarbeiten einfach im Rohrgraben zu installieren. Der Wasserzähler-Schacht ist tagwasserdicht, hygienisch sauber und ermöglicht einen frostfreien Betrieb der Wasserzähler-Anlage und des Wasserzählers. Eine Gebrauchs-tauglichkeit für kaltes Klima ist gegeben. Ein Einstieg in den Wasserzählerschacht ist nicht erforderlich und auch nicht möglich. Die einschlägigen Unfallverhütungsvorschriften zum Begehen von Schächten finden somit keine Anwendung.
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  132. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+Der Einbau kann bei Temperaturen unter 0°C ausgeführt werden. 
+Vor dem Einsatz sind der Wasserzählerschacht und die Wasserzähler-
+Schachtanlage auf Beschädigung oder Verunreinigung zu prüfen.
+Ein beschädigter Schacht oder eine beschädigte Armatur dürfen nicht eingesetzt werden.Vor Montage des Wasserzählers in die Wasserzähleranlage ist eine Leitungsspülung durchzu-führen, hierzu muss ein Passstück verwendet werden. 
+Die Wasserzähler-Schachtanlage wird werksseitig mit einem PE-Passstück montiert. 
+Das PE-Passstück  dient lediglich als Platzhalter für den Wasserzähler und ist nicht für den Betrieb geeignet.
+2.2 Hinweise zum Einbauort
+Der Wasserzählerschacht sollte nach Möglichkeit an einer erhöhten Stelle im Gelände 
+eingebaut werden oder einige Zentimeter über das Geländeniveau hinausragen. Die 
+Auswahl der Baugröße des Schachtes ist auf die frostfreie Verlegetiefe der Rohrleitung abzustimmen und liegt ausschließlich in der Verantwortung des Anwenders. Der Wasserzäh-lerschacht hat aufgrund seiner äußeren Form ein günstiges Verhalten gegen Auftrieb. Voraussetzung ist der fachgerechte Einbau mit Kiesverfüllung und lagenweiser Verdichtung. Der Schachtkörper ist wasserdicht ausgeführt und die Verbindung zum Deckel ist tagwasser -
+dicht. In Gebieten mit hohem Grundwasserstand und/oder zeitweiliger Überflutung sollte ein Fachmann des Grundbaues zu Rate gezogen und ggf. mit der EWE-Anwendungstechnik Rücksprache gehalten werden.  
+Sollen dem Wasserzählerschacht flachliegende Versorgungsleitungen (sogenannte 
+Sommerleitungen) nachgeschaltet werden, die vor Beginn der Frostperiode entleert 
+werden müssen, so ist in der Leitungsführung zwischen dem Schachtausgang und der Entnahmestelle eine spezielle Armatur anzuordnen, z. B. ein EWE-Gartenventil in Kombina-tion mit einer Einbaugarnitur. Bei einer Entnahmestelle im Freien bietet ein EWE-Gartenhyd-rant den gleichen Komfort. 
+Eine Entleerung der nachfolgenden Versorgungsleitung im Schachtkörper erfordert 
+aus hygienischer Sicht besondere Sorgfalt. So ist während einer Entleerung das 
+ausgetretene Wasser unverzüglich abzupumpen und danach die Entleerungsöffnung zu schließen, um mögliche Verunreinigungen im Leitungsnetz zu verhindern.
+
+14  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht2.3 Baugrube und Verfüllung
+Der Wasserzählerschacht wird einbaufertig geliefert und kann in den vorbereiteten Graben 
+eingesetzt werden. Die erforderlichen Arbeiten liegen in der Verantwortung des Anwenders. Die Abstände zu anderen unterirdischen Anlagen, wie Bauwerken, Rohrleitungen, Kabeln, sind gemäß DVGW-Arbeitsblatt W 400 einzuhalten. Bei der Ausführung Wasserzählerschacht mit zwei Wasserzähleranlagen und zwei Ausgängen sind gegebenenfalls Schutzrohre zu ver -
+wenden. Die Verfüllung und Verdichtung müssen in diesem Bereich mit besonderer Vorsicht erfolgen. Die Anforderungen der DIN 4124 sind zu beachten. Mögliche Erdbewegungen in-
+folge Senkung, Setzung oder Erddruck, z.  B. her vorgerufen durch Hanglagen, sind zu berück -
+sichtigen. Für die Gründung / Bettung und die Verfüllung ist nicht bindiger Boden mit einer 
+Korngröße von max. 16  mm (Körnungsbedingungen: 5 G ew. -% ≤ 0,063 mm) zu verwenden. 
+Bewährt haben sich Sande SE, SW oder SI und Kiese GE, GW, GI gem. der Bodenklassifikation F1 nach DIN 18196, die auch die Voraussetzungen für die Verdichtbarkeitsklassen und die Frostsicherheit erfüllen. Der Schacht muss schnellstmöglich durch Auffüllen der Grube fixiert werden. Solange die Baugrube nicht vollständig bis zur Gelände-Oberkante aufgefüllt ist, ist die Sicherheit gegen Aufschwimmen durch andere geeignete Maßnahmen sicherzustellen.
+2.4 Montage
+1.
+	Grabensohle an vorgesehener Stelle  plangleich einebnen und verdichten.
+	Schacht senkrecht und gleichmäßig  aufstellen.
+	Aufstandsfläche des Schachtes als  Gründung gemäß der Belastungsklasse A15 oder B125 ausführen.
+2.
+	Richtungspfeil - Beim Ausrichten ist bereits auf die Fließrichtung zu achten.
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  15
+3. 
+Vor dem Herstellen der Anschluss- 
+verbindungen Rohrleitung spülen.
+	Verbindungen zwischen den Anschluss-muffen des Schachtes und der Rohrleitung herstellen.
+	Richtlinien des Herstellers der Anschluss-fittings beachten.
+	 Die Dichtheitsprüfung sollte vor  
+dem Verfüllen vorgenommen  
+werden, da sonst die Dichtstellen 
+außerhalb des Schachtes nicht mehr kontrolliert werden können.
+3a 
+Besondere Montagehinweise für Wasser -
+zählerschacht mit zwei Wasserzähler-anlagen und zwei Ausgängen:
+	Ausgangsseitige Anschlussleitungen erst kurz vor den Anschlussmuffen zusam-menführen, gegebenenfalls Schutzrohre verwenden.
+	Zuerst die Verbindung zur unteren An-schlussmuffe herstellen (die Zählerplätze, wie auch die ausgangsseitige Anschluss-muffe, sind nummeriert).  Auf Zuordnung achten!
+	Fitting - Verwendung bis max. Größe d 63.
+	 Die neue Rohrdeckung ist zu 
+berücksichtigen!
+4.
+	Grabenverfüllung im Bereich des Wasserzählerschachtes durchführen.
+	Anschlussrohre (ein- und ausgangsseitig)vor dem Verdichten unterfüttern.
+	Boden in Schütthöhen von max. 30  cm 
+einbringen und verdichten auf 97  % Dpr.
+	Einseitige Belastung beim Verfüllen und Verdichten vermeiden.
+
+
+16  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht5.
+	Wasserzähler gem. Kapitel 4 „Wartung und 
+Instandhaltung“ montieren.
+6.
+	Schachtabdeckung gem. Kapitel 5 „Schachtabdeckungen“ montieren.
+Der Schacht darf nicht ohne Schachtabdeckung gem. Kapitel 5 betrieben werden. Der Isolierdeckel ist nicht begehbar. Für den Zeitraum der Montage ist die Einbau-stelle und die Schachtöffnung gegen unbeabsichtigtes Betreten zu sichern.
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  172.5 Kürzen des Schachtrohres
+Der zylindrische, rippenförmig ausgelegte Teil des Schachtes kann in einem Raster
+von 2,5 cm gekürzt werden. Es müssen mindestens 3 Rippen zur Aufnahme desDeckelrahmens und dessen Dichtung verbleiben. Die Frostsicherheit durch die geplanteEinbautiefe ist zu berücksichtigen.
+1.
+	Einen möglichen montierten Deckel  abnehmen.
+2.
+	Deckelrahmen (sofern vorhanden) mit Hilfe einer Hebelbewegung lösen und ebenfalls entfernen.
+3.
+	Die Deckelrahmen-Dichtung (sofern  vorhanden) entnehmen.
+4.
+	Isolierdeckel entfernen.
+
+18  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht5.
+	Maß zur späteren Fertig-Oberfläche 
+nehmen.
+6.
+	Bei Verwendung der Abdeckhaube darauf achten, dass der Schacht mit Haube  
+ca. 8  cm aus dem Gelände r agt.
+	Bei Verwendung der Schachtabdeckung A15/B125 dessen Bauhöhe von 7 cm ab der obersten Rippe hinzurechnen.
+7.
+	Das Schachtrohr kann mittels geeignetem 
+Werkzeug (z.  B. E WE-FLEXORIPP-Schneid -
+werkzeug) in einem Raster von 2,5  cm in 
+dem Rippental gekürzt werden.
+	 Es müssen min. drei Rippen 
+erhalten bleiben.
+8.
+	Schnittkante entgraten.
+	Erstes Rippental entgraten.
+	Schachtabdeckung gem. Kapitel 5 „Schachtabdeckungen“ montieren.Bei einer Kürzung von mehr als 20 cm ist die Länge der Hebeleine zu  
+reduzieren oder diese auszutauschen.
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  192.6 Verlängerung des Schachtkörpers mit Hilfe des 
+ TELERIPP-Aufsatzes 
+2.6.1 Werkstoff/Abmessungen/Leistung  
+Werkstoff
+	TELERIPP-Aufsatz aus wasserdichtem PE 
+	TELERIPP-Dichtung aus NBR
+Abmessung
+	700 mm Außendurchmesser des TELERIPP-Aufsatzes 
+2.6.2 Beschreibung
+Mit dem TELERIPP-Aufsatz ist eine nachträgliche, dichte Verlängerung des Schachtkörpers in 
+einer beliebig gewünschten Höhe von 70 mm bis 250 mm möglich.
+2.6.3 Hinweise zur Vorbereitung
+Vor dem Einsatz des TELERIPP-Aufsatzes ist zu prüfen, ob der zu verlängernde FLEXORIPP Schachtkörper rund und unbeschädigt ist. Insbesondere die ersten 3 Rippen und Rippentäler müssen frei von Beschädigungen sein. Ggf. sind beschädigte Rippen zu entfernen, indem der FLEXORIPP gekürzt wird. Die sich daraus ergebene Höhenänderung ist bei der Verlängerung zu berücksichtigen. Der TELERIPP ist vor der Montage auf Beschädigungen zu prüfen. Ein beschädigter TELERIPP darf nicht montiert werden. Im Zweifelsfall stehen Ihnen unsere Mit -
+arbeiter im Innen- und Außendienst gern zur Verfügung. Sprechen Sie uns an!
+2.6.4 Einbauhinweis für TELERIPP-Aufsatz
+1.
+	Einen möglichen montierten Deckel  abnehmen.
+Artikelnummer 0396008  
+bestehend aus: 
+TELERIPP-Aufsatz, Rahmendichtung, Dichtung TELERIPP ,  Gleitmittel für Kunststoffrohre mit Gummidichtung 150 g
+
+20  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht
+2.
+	Deckelrahmen (sofern vorhanden) mit 
+Hilfe einer Hebelbewegung lösen und ebenfalls entfernen.
+3.
+	Die Deckelrahmen-Dichtung (sofern  vorhanden) entnehmen.
+4.
+	Isolierdeckel entfernen.
+5.
+	Maß zur späteren Fertig-Oberfläche nehmen.
+	Hebeleine vom Isolierdeckel lösen.
+6.
+	Auflagefläche mittels tragfähigem Kies und ggf. Split oder Magerbeton herstellen
+
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  217.
+	Prüfung der Höhe durch Aufsetzen des 
+TELERIPP-Aufsatzes ohne Dichtung. 
+	Bei Verwendung der Abdeckhaube da-rauf achten, dass der Schacht mit TELE-RIPP-Aufsatz und Haube ca. 8 cm aus dem Gelände ragt. 
+	Bei Verwendung der Schachtabdeckung A15/B125 dessen Bauhöhe von 7 cm ab der obersten Rippe des TELERIPP-Aufsat -
+zes hinzurechnen. 
+	Der Schacht sollte nicht tiefster Punkt in der Fläche sein! 
+8.
+	Oberste Rippentäler reinigen, ggf. Grat entfernen.
+9.
+	TELERIPP-Dichtring auf die zweite Rippe montieren.
+10.
+	Reichlich beiliegendes Gleitmittel auf Dichtung und in die Muffe des Innenteils auftragen. 
+
+
+22  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht11.
+	TELERIPP-Aufsatz lose auflegen.
+14.
+	Oberstes Rippental reinigen, ggf. Grat 
+entfernen.
+15.
+	Deckel-Rahmendichtung in das Rippental des TELERIPP-Aufsatzes einsetzen
+	dünne Lippe nach unten, außen an die Rippe anliegend
+	Position und Lage der Dichtung beachten!
+	Schachtabdeckung gem. Kapitel 5 „Schacht -
+abdeckungen“ montieren.
+	Restliche Verfüllung vornehmen12.
+	TELERIPP-Aufsatz mit Kraft über die Dich-tung schieben. 
+	Korrekten Sitz auf der Auflagefläche prüfen.
+13.
+	Hebeleine am Isolierdeckel befestigen.
+	Isolierdeckel einsetzen.
+
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  232.7 Verlängerung des Schachtkörpers mit Hilfe des FIXRIPP-Aufsatzes 
+2.7.1 Werkstoff/Abmessungen/Leistung  
+Werkstoff
+	FIXRIPP-Aufsatz aus wasserdichtem PE 
+	FIXRIPP-Dichtung aus NBR
+Abmessung
+	555 mm Außendurchmesser und eine Höhe von 328 mm  
+2.7.2 Beschreibung
+Mit dem FIXRIPP-Aufsatz ist eine nachträgliche, starre Verlängerung des Schachtkörpers in 
+einer festen Höhe von 250 mm möglich.
+2.7.3 Hinweise zur Vorbereitung
+Vor dem Einsatz des FIXRIPP-Aufsatzes ist zu prüfen, ob der zu verlängernde FLEXORIPP Schachtkörper rund und unbeschädigt ist. Insbesondere die ersten 3 Rippen und Rippentäler müssen frei von Beschädigungen sein. Ggf. sind beschädigte Rippen zu entfernen, indem der FLEXORIPP gekürzt wird. Die sich daraus ergebene Höhenänderung ist bei der Verlängerung zu berücksichtigen. Der FIXRIPP ist vor der Montage auf Beschädigungen zu prüfen. Ein be -
+schädigter FIXRIPP darf nicht montiert werden. Im Zweifelsfall stehen Ihnen unsere Mitarbei-ter im Innen- und Außendienst gern zur Verfügung. Sprechen Sie uns an!Artikelnummer 0396007 
+bestehend aus: FIXRIPP-Aufsatz, 3 Dichtungen,  Gleitmittel für Kunststoffrohre 150 g
+
+24  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht
+2.7.4 Montage des FIXRIPP-Aufsatzes
+1.
+	Einen möglichen montierten Deckel  
+abnehmen.
+2.
+	Deckelrahmen (sofern vorhanden) mit Hilfe einer Hebelbewegung lösen und ebenfalls entfernen.
+3.
+	Die Deckelrahmen-Dichtung (sofern vor -
+handen) entfernen. 
+4.
+	Oberste Rippentäler des FLEXORIPP Schachtkörpers reinigen, ggf. Grat ent -
+fernen. 
+5.
+	FIXRIPP-Dichtungen in die beiden oberen Rippentäler einlegen.
+	dünne Lippe nach unten, außen an die Rippe anliegend
+	Position und Lage der Dichtung beachten!
+
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  256.
+	Beiliegendes Gleitmittel auf die Dichtun-
+gen auftragen und gleichmäßig,  z. B. mit einem Pinsel, auf diesen verteilen.
+9.
+	FIXRIPP-Aufsatz auf den Schachtkörper bis zum Anschlag aufstecken. 
+7.
+	Muffe des FIXRIPP Aufsatzes ebenfalls mit etwas Gleitmittel versehen.
+	 Die werkseitig eingebrachte 
+Butyldichtung dabei aussparen.
+	Trennfolie der Butyldichtung abziehen.
+10.
+	 FIXRIPP kann mit geeignetem Werkzeug 
+gekürzt werden (siehe Kapitel 2.5). Mindestens 75 mm Verlängerung oder  
+3 Rippen müssen erhalten bleiben! Der Schacht sollte nicht tiefster Punkt in der Fläche sein!  
+8.
+	Isolierdeckel entfernen. 
+	Hebeleine vom Isolierdeckel lösen und so platzieren, dass sie nicht reinfällt. 
+
+
+26  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht11.
+	Hebeleine am Isolierdeckel befestigen. 
+	Isolierdeckel einsetzen. 
+14.
+	Schachtabdeckung gem. Kapitel 5 mon-
+tieren. 
+13.
+	Den Bereich mit Kies oder Magerbeton auffüllen um ein unbeabsichtiges Lösen zu vermeiden (siehe Kapitel 2.3 Baugrube und Verfüllung)12.
+	3. FIXRIPP-Dichtung in das erste Rippental einlegen. 
+	dünne Lippe nach unten, außen an die Rippe anliegend
+	Position und Lage der Dichtung beachten!
+
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  273. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme des Wasserzählerschachtes,  
+der Wasserzählerschacht-Armaturen und der gesamten Anlage erfolgen.
+3.1 Funktions- und Dichtigkeitskontrolle
+Die gesamte Anlage ist auf ihre Funktion und Dichtigkeit zu prüfen.
+3.2 Schachtsicherung
+Der Schacht darf nicht ohne Schachtabdeckung gemäß Kapitel 5 betrieben werden. Der Isolierdeckel ist nicht begehbar. Für den Zeitraum der Montage und Bedienung des Schach-
+tes ist die Einbaustelle und die Schachtöffnung gegen unbeabsichtigtes Betreten zu sichern. Schachtabdeckungen A15/B125 sind mit beiliegenden Schrauben zu 
+verriegeln.
+3.3 Frostschutz
+Der an der Hebeleine befestigte Isolierdeckel ist unbedingt zu verwenden. Die 
+Frostsicherheit ist durch den örtlichen Einbau, insbesondere durch eine richtig 
+gewählte Einbautiefe sicherzustellen. Die Gewährleistung der Frostfreiheit von Rohrleitung und Schacht liegt deshalb ausschließlich in der Verantwortung der planenden und bauaus-führenden Stelle.
+4. Wartung und Instandhaltung
+Die (Kugel-) Absperrarmaturen in den Wasserzähleranlagen sind im Regelwerk als Wartungsarmaturen definiert, demnach sind sie im Wartungsfall bei geschlossenen 
+Entnahmeeinrichtungen langsam (beim Schließen oder Öffnen) zu betätigen. 
+Ist hinter dem KSR-Ventil ein Druckminderer angeordnet, so kann es erforderlich sein, 
+die nachgeschaltete Leitung durch Öffnen einer nachgeschalteten Armatur oder des 
+Entleerungsventils am KSR-Ventil zu ent  spannen. So w erden zu hoher Kraftaufwand beim 
+Schließen des KSR-Ventils oder auch Beschädigungen vermieden. 
+Das Öffnen der Armaturen muss bis zum Anschlag erfolgen, d. h. durch volle Offenstel -
+lung. Das Drosseln ist untersagt. 
+Um die Funktion bzw. die Leichtgängigkeit der Absperreinrichtungen der Wasserzähleran-lage zu gewährleisten, wird empfohlen, diese im mindestens einmal jährlich zu betätigen. Eine jährliche Funktionsprüfung des Rückflussverhinderers ist im Regelwerk vorgeschrie -
+ben. Die jährliche Überprüfung von Rückflussverhinderern entfällt bei den Einsteck-Rück -
+flussverhinderern, Typ EB. Diese Armaturen müssen mit dem turnusmäßigen Austausch des Wasserzählers gewechselt werden, spätestens jedoch nach 10 Jahren (EN806). Gemäß DVGW-Arbeitsblatt W 406 sind Einsteck-Rückflussverhinderer als alleinige Absicherung an der Übergabestelle der öffentlichen Wasserversorgung zur Hausinstallation nicht ausreichend. 
+
+28  |  Benutzerinformation EWE FLEXORIPP WasserzählerschachtEin kontrollierbarer Rückflussverhinderer Typ EA ist demnach (zusätzlich) vorzusehen. Die 
+Rückflussverhinderer sind Verschleißteile. Eine Funktionskontrolle kann bei Modellen mit Prüfschraube im eingebauten Zustand erfolgen. Hierzu ist der Zulauf abzusperren und die Prüfschraube mit gebotener Vorsicht zu öffnen. Es darf nur der Restinhalt zwischen Zulauf und Gehäuse austreten. Medium aus der weiter -
+führenden Installation muss durch den Rückflussverhinderer zurückgehalten werden. Ist dies nicht der Fall, muss der RV instandgesetzt werden.
+Vor Beginn der Instandsetzungsarbeiten ist das Rohrleitungssystem abzusperrenund drucklos zu machen. Desweiteren ist das Rohrleitungssystem gegen unbeab -
+sichtigte Wiederinbetriebnahme abzusichern. 
+Es besteht die Möglichkeit, sämtliche Einbauten mit einem speziellen Werkzeug zu wechseln. Vereinbaren Sie einen Termin mit Ihrem zuständigen Außendienst.
+1.
+	Deckel und Isolierdeckel entfernen.
+	Wasserzähler-Schachtanlage mit Hilfe der Hebeleine herausziehen.
+2.
+	Wasserzähler-Schachtanlage neben der Schachtöffnung abstellen.
+4.1 Zählerablesung und Zählerwechsel
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  293.
+	Alternativ kann die Schachtanlage mit 
+dem Sockel am Schachtrand fixiert werden.
+	Ventile beidseitig schließen.
+	Zählereinbau bzw. Zählerwechsel unter Berücksichtigung der Einbauhinweise des Wasserzähler-Herstellers durchführen.
+	Überwurfmuttern lösen.
+	Der in der Schachtanlage mit leichter Vor -
+spannung gelagerte WZ kann nun mit ge -
+ringem Kraftaufwand aus dieser Lagerung (Halterung) entnommen werden.
+3a
+Besondere Montagehinweise für Wasser -
+zählerschacht mit zwei Wasserzähler-anlagen und zwei Ausgängen:
+	Die Zählerplätze, wie auch die ausgangs-seitigen Anschlussmuffen, sind numme -
+riert. Auf Zuordnung achten!
+4.
+	Die Wasserzähler-Schachtanlage langsam an der Hebeleine absenken.
+5.
+	Isolierdeckel schließen.
+	Schachtabdeckung montieren.
+
+
+30  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht
+5. Schachtabdeckungen
+FLEXORIPP Abdeckhaube  
+max. 200 kg
+Artikelnummer: 0396000 
+FLEXORIPP  Schachtabdeckung A15, EN124Artikelnummer: 0396001,  bestehend aus:  Deckelrahmen mit Deckeldichtung, Deckel und Verriegelungsschrauben
+FLEXORIPP  Schachtabdeckung B125, EN124Artikelnummer: 0396002 bestehend aus: Deckelrahmen mit Deckeldichtung, Deckel undVerriegelungsschrauben
+FLEXORIPP Schachtabdeckung A15, Stehbolzen EN124, tagwasserdicht n. RAL-GZ692 2.8, mit StehbolzenArtikelnummer: 0396004
+FLEXORIPP Schachtabdeckung B125, StehbolzenEN124, tagwasserdicht n. RAL-GZ692 2.8, mit StehbolzenArtikelnummer: 0396005
+
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  31	Die Abdeckhaube muss ca. 8 cm über dem 
+Geländeniveau installiert werden.
+	Ein Anheben der Abdeckhaube ist nur über den Deckelrand möglich.
+	Niederschlag oder auftretendes Ober -
+flächenwasser muss durch die erhöhte Einbausituation abgeleitet werden.
+Werkstoff/Abmessungen
+Werkstoff:
+	Abdeckhaube aus GG
+	Schachtabdeckungen A15/B125 mit Deckelrahmen aus GG mit eingelegten Deckel-Dicht -
+ring aus NBR. Schrauben aus Edelstahl.
+Abmessungen:
+	535 mm Außendurchmesser der Abdeckhaube
+	548 mm Außendurchmesser des Deckelrahmens für die A15/B125 Abdeckung
+Gewicht:
+	Abdeckhaube: 18 kg
+	Schachtabdeckung A 15, Deckel 18 kg und Rahmen 23 kg
+	Schachtabdeckung B 125, Deckel 25 kg und Rahmen 23 kg
+Beschreibung
+Je nach gewählter Schachtabdeckung ist die Belastung des Schachtes entsprechendeingeschränkt. Die Abdeckhaube ist nur für lastfreie Einbausituationen geeignet(Vorgarten, Kleingarten).Die Schachtumrandung A15 ist geeignet und zertifiziert für Verkehrsflächen fürFußgänger und Radfahrverkehr, gem. DIN EN 124 Klasse A15, Gruppe 1.Die Schachtumrandung B125 ist geeignet und zertifiziert für Verkehrsflächen fürFußgänger oder in Fußgängerzonen und vergleichbare Flächen, PKW-Parkflächen oderPKW-Parkdecks, gem. Klasse B125, Gruppe 2.
+5.1 Einbauhinweis für Abdeckhaube
+
+32  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht1.
+	Oberstes Rippental reinigen, ggf. Grat entfernen.5.2 Einbauhinweis für Schachtabdeckungen A15/B125 
+ bei FLEXORIPP
+Die Schachtabdeckungen können in die Oberfläche bündig eingebunden werden, wobei 
+Senken zu vermeiden sind.
+Die oberste Rippe dient zur Auflage des Deckelrahmens und darf nicht beschädigt sein! 
+Das oberste Rippental ist eine Dichtfläche und darf nicht beschädigt oder verunreinigt sein!
+2.
+	Dichtring im obersten Rippental einlegen.
+	 Positionierung und Lage der Dichtung 
+beachten (Dichtlippe nach unten).
+3.
+	Dichtring und Innenseite des Deckelrahmens mit handelsüblichem Fett (z. B. für Kunststoffrohr-montage) reichlich einfetten.
+4.
+	Deckelrahmen auf oberste Rippe des Schachtkörpers aufstecken. Widerstand des Dichtrings muss dabei überwunden werden.
+	Korrekten Sitz prüfen. Der Deckelrahmen muss auf der Rippe aufliegen.
+5.
+	Deckel gem. Pkt. 5.2.1 schließen.
+	Den Deckelrahmen in die Deckschicht/Oberfläche einbinden, dabei Ablaufbohrungen am Deckel und Deckelrahmen freihalten.
+
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  33Zusätzliche Montage der Butyldichtung im Deckelrahmen 
+bei FLEXORIPP mit DIBt-Zulassung
+Die folgenden Arbeitsschritte müssen beim Einbau der Schachtabdeckung A15/B125 
+auf einen FLEXORIPP mit DIBt-Zulassung zusätzlich zu den Schritten 3 und 4 (Punkt 
+5.2) ausgeführt werden!
+1.
+	Zur Montage der Butyldichtung Deckelrahmen verkehrtherum ablegen.
+	Deckelrahmen muss innen sauber und fettfrei sein.
+	Dichtung auf Absatz legen und mit der Trennfolie andrücken.
+2.
+	Lose Enden miteinander verkneten.
+	Trennfolie abziehen.
+3.
+	Dichtring und Innenseite des Deckelrahmens mit handelsüblichem Fett (z. B. für Kunststoffrohr-montage) reichlich einfetten.
+	 Die Butyldichtung im Deckelrahmen muss 
+dabei fettfrei bleiben!
+4.
+	Den Deckelrahmen wieder umdrehen und auf den Schachtkörper aufsetzen.
+5.
+	Den Deckelrahmen fest andrücken, so dass die Butyldichtung gerade noch sichtbar ist.
+
+
+34  |  Benutzerinformation EWE FLEXORIPP Wasserzählerschacht5.2.1 Bedienung der Schachtabdeckung A15/B125
+Öffnen des Deckels
+1.
+	Verschlussstopfen entnehmen.
+2.
+	6-Kant-Schrauben SW  15 oder Mutt er 
+herausdrehen.
+3.
+	Den Schachtdeckel über die Mulden mit 
+geeignetem Hebewerkzeug entnehmen.
+	Schrauben zum Schutz der Gewindelöcher wieder leicht einschrauben.
+
+Benutzerinformation EWE FLEXORIPP Wasserzählerschacht  |  35Schließen des Deckels
+1.
+	Isolierdeckel einlegen.
+2.
+	Dichtung im Deckelrahmen reinigen, auf 
+Beschädigungen und Position überprüfen
+	Schrauben wieder herausschrauben
+	Gewindelöcher der Schrauben oder Ge -
+winde der Stehbolzen auf Verschmutzung prüfen und ggf. reinigen.
+	Ablaufbohrungen säubern.
+3.
+	Deckel in den Deckelrahmen mit Hilfe der Positionsnasen einlegen.
+	 Bei Verwendung von Stehbolzen  
+diese nicht beschädigen !
+4.
+	Schrauben/Muttern wechselseitig  festziehen.
+	Empfohlenes Drehmoment 35–45 Nm.
+5.
+	Verschlussstopfen in beide Öffnungen einstecken. 
+	Ordnungsgemäße Verriegelung durch  
+Anheben des Deckels kontrollieren.
+
+
+36  |  Benutzerinformation EWE FLEXORIPP WasserzählerschachtWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100041-Ausgabe 03/2025
+

@@ -1,0 +1,267 @@
+#7100049 - Ausgabe 10/2022EWE-FLEX-Schachtset
+Benutzerinformation
+
+
+2  |  Benutzerinformation EWE FLEX-Schachtset
+Inhaltsverzeichnis
+Allgemeine Hinweise 4
+Angaben über das Erzeugnis 6Einbauhinweise (Installation/Montage) 9Betrieb und Verwendung 14Wartung und Instandhaltung 14Service und Reparatur 15
+
+Benutzerinformation EWE FLEX-Schachtset  |  3
+
+
+4  |  Benutzerinformation EWE FLEX-SchachtsetAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten.  
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+
+Benutzerinformation EWE FLEX-Schachtset  |  5Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver -
+packung soll die einzelnen Bauteile  bis zur Mon tage vor Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Monta-ge der Produkte.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Verwendung von Abkürzungen:
+WZ:    W asserzähler
+PN:   Nenndruck 
+Q₃:   Nenng röße Wasserzähler 
+RV: Rückflussverhinderer
+KMR :  Kegelmembr an-Rückfflussverhinderer
+KSR:    Kombiniert es Schrägsitz-Rückschlag -
+ventilDIN:     Deutsches Institut für Normung
+KTW:    Kunststoffe im Trinkwasser
+PE:  Polyethylen
+Si:   Silicium
+DM:    Druckminderer
+WZA:   Wasserzähler-AnlageErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann.
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE FLEX-Schachtset1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	KTW- und Elastomerleitlinien des Umweltbundesamtes
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	DIN/ÖNORM EN 805, „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“
+	DIN/ÖNORM EN 806, „Technische Regeln für Trinkwasser-Installation“  
+	DIN/ÖNORM EN 1717, „Schutz des Trinkwassers vor Verunreinigungen in Trinkwasser-Instal-lationen und allgemeine Anforderungen an Sicherungseinrichtungen zur Verhütung von Trinkwasserverunreinigungen durch Rückfließen"
+	DIN 1988, „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 806 
+	DVGW-Arbeitsblatt W 270 „Vermehrung von Mikroorganismen auf Werkstoffen für den Trinkwasserbereich“
+	DVGW-Arbeitsblatt W 400 „Technische Regeln Wasserverteilungsanlagen“
+	DVGW-Arbeitsblatt W 543 „Druckfeste flexible Schlauchleitungen“
+	DVGW-Arbeitsblatt W 570 „Armaturen für die Trinkwasserinstallation“EWE-FLEX-Schachtset für Wasserzähler 190mm/260mm/175mm und Zubehör 
+WZ-Schacht-Anlage  
+mit HebegriffArtikelnummer 33100XX
+zwei Schläuche  mit 
+O-Ring-SetArtikelnummer 039505XAnschluss-adapterArtikelnummer039896Xoptionales Schlauch-Schacht-Passstück  Artikelnummer03950XX
+
+
+Benutzerinformation EWE FLEX-Schachtset  |  7	DGUV Regel 113-004 „Behälter, Silos und enge Räume -  Teil 1: Arbeiten in Behältern, Silos 
+und engen Räumen“
+	AUVA-Sicherheitsinformation M327 „Einsteigen in enge Räume und Behälter“
+	ÖNORM B 2538 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden, Ergänzende Bestimmungen zu ÖNORM EN 805“
+	ÖVGW QS - W 204 „Druckfeste flexible Anschlussschläuche“
+	ÖVGW QS - W 501/1 „Armaturen in der Trinkwasserversorgung, Teil1: Oberirdisch- und erd-verlegte Armaturen“
+1.3 Verwendungsbereich/Medium
+	für kaltes Trinkwasser nach DIN 2000
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	PN 10 nach Regelwerk für Trinkwasser-Installationen und Gebäudearmaturen. 
+	Alle EWE FLEX-Schachtsets können bis zu einem Bauteile-Betriebsdruck von PN 16 eingesetzt werden. 
+	 Bei Modellen mit Schrägsitzventilen können bei Betriebsdrücken < 10 bar Nut -
+zungseinschränkungen in der Bedienung auftreten. Dazu sind die Hinweise im Pkt. 4 
+dieser Benutzerinformation zu beachten.   
+1.5 Werkstoff/Abmessungen/Leistung
+Werkstoff
+	Bügel aus A2-Edelstahl
+	Kunststoffe und Elastomere entsprechend der KTW- und Elastomerleitlinien des Umwelt -
+bundesamtes und des DVGW-Arbeitsblattes W 270
+	Wasserzähler-Verschraubung aus bleifreiem Si-Messing entsprechend der Liste „Trinkwas-serhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	Schläuche aus Silikon mit Umflechtung aus A2-Edelstahl und Gewebeüberzug aus thermo -
+plastischem Kunststoff
+	Druckminderer aus Edelstahl
+	Messing-Bauteile aus bleifreiem Si-Messing entsprechend der Liste "Trinkwasserhygienisch geeignete metallene Werkstoffe" des Umweltbundesamtes 
+	Sockelhalter aus A2-Edelstahl
+Varianten der Wasserzähler-Anlagen – Baumaße der Wasserzähler:
+WZ-Abmessung Gewinde G  × Baulänge mm MID Q₃ [m3/h]
+1" × 190 2,5 oder 4
+1 ¼"  × 175 4 oder 10
+1 ¼" × 260 6,3 oder 10
+
+8  |  Benutzerinformation EWE FLEX-SchachtsetAusführungen
+	Schrägsitzventil-Schrägsitzventil
+	Schrägsitzventil-DM-Schrägsitzventil
+	Schrägsitzventil-KSR-Ventil
+	Schrägsitzventil-DM-KSR-Ventil
+	Kugelhahn-Kugelhahn
+	Kugelhahn-DM-Kugelhahn
+	Kugelhahn-KSR-Ventil
+	Kugelhahn-DM-KSR-Ventil
+	Kugelhahn-KMR-Kugelhahn
+	Schrägsitzventil-KMR-Schrägsitzventil
+1.6 Transport und Lagerung
+Die Armatur bis zur Verwendung in der werkseitigen Verpackung stehend transportieren und 
+lagern.
+1.7 Funktionsbeschreibung
+Zur Umrüstung von Wasserzähler-Anlagen in vorhandenen WZ-Schächten aus Beton, Ziegel-werk oder ähnlich, ab einem Durchmesser von 500 mm. Ein Einstieg in den Schacht ist nach einer Umrüstung für die üblichen Tätigkeiten, Zählerwechsel oder Zählerablesung, nicht mehr notwendig.Das EWE-FLEX-Schachtset stellt eine spannungsfreie Montage oder Demontage des Wasser -
+zählers sicher.Beispiele: 
+Schrägsitzventil-
+SchrägsitzventilSchrägsitzventil-
+DM-SchrägsitzventilKugelhahn-KSR-VentilKugelhahn-KMR-Kugelhahn
+
+Benutzerinformation EWE FLEX-Schachtset  |  92. Einbauhinweise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden.
+Vor Montage des Wasserzählers in die Wasserzähler-Anlage ist eine Leitungsspülung durch-
+zuführen, hierzu ist ein Passstück zu verwenden. Das EWE-FLEX-Schachtset wird werksseitig mit einem PE-Passstück montiert. 
+Das PE-Passstück dient lediglich als Platzhalter für den Wasserzähler und ist nicht für 
+den Betrieb geeignet.
+2.2  Hinweise zum Einbauort
+Die Einbaustelle muss auf Eignung und Zugänglichkeit überprüft werden. Überflutete, 
+baufällige, hygienisch bedenkliche und nicht ordnungsgemäße Schächte sind nicht 
+geeignet.
+2.3  Hinweise zum Einbau
+Das Schlauchpassstück ist um 360° drehbar, um eine spannungsfreie Lage der Schläuche zu gewährleisten. Es wird ein ebener Untergrund zum Abstellen des EWE-FLEX-Schachtsets benötigt.
+3. Montage
+  Die Unfallverhütungsvorschriften DGUV Regel 113-004 sind bei Montagetätigkeiten 
+im Schacht  zu beachten. 
+Das EWE-System verfügt über vielfältige Anschlussmöglichkeiten an bestehenden Trinkwas-seranschlussleitungen. 
+Grundsätzlich gibt es 2 Möglichkeiten
+	3.1 Austausch des vorhandenen Wasserzählers gegen ein Schlauch-Passstück oder
+	3.2 Anschluss des EWE-FLEX-Schachtsets direkt an die vorhandenen Trinkwasserleitungen
+
+10  |  Benutzerinformation EWE FLEX-Schachtset3.1 Austausch des vorhandenen Wasserzählers gegen ein Schlauch-
+Passstück 
+4.
+	Stutzen mit gefetteten O-Ringen in das Ventil 
+montieren.
+1.
+	Vorhandene Armaturen absperren,  Wasserzähler aus der existierenden WZ-Anlage demontieren und an dessen Stelle das Schlauch-Passstück mit neuen Dichtungen montieren.
+2.
+	Schutzkappe kurz vor dem Anschließen vom Schlauch entfernen.
+	O-Ringe auf den Schlauchstutzen mon-tieren.
+	Beigefügtes Fett gleichmäßig auf die  O-Ringe verteilen.
+3.
+	 Schutzkappe von der Anlage entfernen.
+
+
+Benutzerinformation EWE FLEX-Schachtset  |  115.
+	Überwurfmutter festziehen. Stutzen bleibt 
+drehbar.
+6.
+	EWE-FLEX-Schachtset auf Schachtboden abstellen. Flussrichtung beachten!
+	Die Schutzkappen entfernen und an das in der alten WZA montierte Schlauch-Pass-stück anschließen.
+	Die Schläuche bleiben in den Anschlüssen des Paßstücks drehbar!
+	Vorhandenen Wasserzähler montieren, Flussrichtung beachten!
+7.
+	Hebeleine am Hebegriff an dem vor- gesehenen Ring befestigen und mit dem Befestigungsset die Hebeleine am Schachtkonus befestigen.
+
+
+12  |  Benutzerinformation EWE FLEX-Schachtset3.2 Anschluss des EWE-FLEX-Schachtsets direkt an die vorhandenen 
+Trinkwasserleitungen
+1.
+	Vor Beginn der Instandsetzungsarbeiten 
+ist das Rohrleitungssystem abzusperren und drucklos zu machen. Desweiteren ist das Rohrleitungssystem gegen unbeab -
+sichtigte Wiederinbetriebnahme abzu-sichern.
+	Je nach Rohrleitungswerkstoff und Verbin-dungsart geeigneten Anschlussadapter an vorhandene Anschlussleitung montieren.
+3.
+	 Schutzkappe von der Anlage entfernen.
+2.
+	Schutzkappe kurz vor dem Anschließen vom Schlauch entfernen.
+	O-Ringe auf den Schlauchstutzen mon-tieren.
+	Beigefügtes Fett gleichmäßig auf die  O-Ringe verteilen.
+
+
+Benutzerinformation EWE FLEX-Schachtset  |  134.
+	Stutzen mit gefetteten O-Ringen in das Ventil 
+montieren.
+5.
+	Überwurfmutter festziehen. Stutzen bleibt drehbar.
+6.
+	EWE-FLEX-Schachtset auf Schachtboden abstellen. Flussrichtung beachten! 
+	Die Schutzkappen entfernen und an die Anschlussadapter montieren.
+7.
+	Hebeleine am Hebegriff an dem vor- gesehenen Ring befestigen und mit dem Befestigungsset die Hebeleine am Schachtkonus befestigen.
+
+
+14  |  Benutzerinformation EWE FLEX-Schachtset4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen sowie der gesamten 
+Anlage erfolgen. 
+4.1  Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+5. Wartung und Instandhaltung
+Die (Kugel-) Absperrarmaturen in den EWE-FLEX-Schachtsets sind im Regelwerk als War -
+tungsarmaturen definiert, demnach sind sie im Wartungsfall bei geschlossenen Entnah-meeinrichtungen langsam (beim Schließen oder Öffnen) zu betätigen. Das Öffnen der Armaturen muss bis zum Anschlag erfolgen, d. h. durch volle Offenstellung. Das Drosseln ist untersagt. 
+Um die Funktion bzw. die Leichtgängigkeit der Absperreinrichtungen der Schachtsets 
+zu gewährleisten, wird empfohlen, diese mindestens einmal jährlich zu betätigen.
+Eine jährliche Funktionsprüfung des Rückflussverhinderers ist im Regelwerk vorgeschrieben. Die jährliche Überprüfung von Rückflussverhinderern entfällt bei den Einsteck-Rückflussver -
+hinderern. Diese Armaturen müssen mit dem turnusmäßigen Austausch des Wasserzählers gewechselt werden, spätestens jedoch nach 10 Jahren (EN806). Die Rückflussverhinderer sind Verschleißteile. Eine Funktionskontrolle kann bei Modellen mit Prüfschraube im eingebauten Zustand erfolgen. Hierzu ist der Zulauf abzusperren und die Prüfschraube mit gebotener Vor -
+sicht zu öffnen. Es darf nur der Restinhalt zwischen Zulauf und Gehäuse austreten. Medium aus der weiterführenden Installation muss durch den Rückflussverhinderer zurückgehalten werden. Ist dies nicht der Fall, muss der RV instandgesetzt werden. 
+  Vor Beginn der Instandsetzungsarbeiten ist das Rohrleitungssystem abzusperren und 
+drucklos zu machen. Desweiteren ist das Rohrleitungssystem gegen unbeabsichtigte 
+Wiederinbetriebnahme abzusichern. 
+
+Benutzerinformation EWE FLEX-Schachtset  |  155.1 Wechsel des Kegelträgers mit Membran bei  
+Wasserzähler-Anlagen mit KMR
+Der Ein- und Ausbau muss wie beschrieben erfolgen:
+	Absperrventile der WZA schließen, da der KMR drucklos sein muss
+	Lösen der Überwurfmuttern vom WZ und Längenausgleich in den KMR zurückschrauben
+	KMR aus der WZA demontieren 
+	neuen KMR  montieren
+alternativ:
+	Gehäuseteile auseinanderschrauben
+	Kegelträger mit Membran herausnehmen
+	neuen Kegelträger mit Membran wieder einsetzen, Dichtungen ersetzen, Gehäuse wieder 
+zusammenfügen und in WZA montieren
+	Ventile öffnen und Prüfung auf Dichtigkeit und Funktion
+5.2 Wechsel des KSR-Ventil-Oberteils
+Der Ein- und Ausbau muss wie beschrieben erfolgen:
+	Eingangsventil der WZA schließen und Hausinstallation ggf. entleeren, da das KSR-Ventil drucklos sein muss
+	Lösen und Demontage des Ventil-Oberteiles über die Schlüsselfläche
+	neues KSR-Oberteil montieren
+	Eingangsventil öffnen und Prüfung auf Dichtigkeit und Funktion
+Das Entleerungsventil kann bei Bedarf ausgetauscht werden. Bitte nehmen Sie diesbezüglich Kontakt zu uns auf.
+6. Service und Reparatur
+Sie können den EWE-After Sales Service und Instandhaltung in allen Fragen zu Inspektion, Wartung und Instandhaltung vertrauensvoll kontaktieren.
+Kontakt:
+Telefon +49 531 37005-81Fax +49 531 37005-55E-Mail: service@ewe-armaturen.de
+
+16  |  Benutzerinformation EWE FLEX-SchachtsetWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100049 - Ausgabe 10/2022
+

@@ -1,0 +1,358 @@
+Wasserzähleranlagen
+Benutzerinformation
+#7200060- Ausgabe 03/2025
+
+2  |  Benutzerinformation EWE-Wasserzähleranlagen
+Inhaltsverzeichnis
+Allgemeine Hinweise  4  
+ Angaben über das Erzeugnis 6
+Einbauhinweise 12Betrieb und Verwendung 14Wartung und Instandhaltung 15Zubehör 17Zusätzliche Hinweise 17
+
+Benutzerinformation EWE-Wasserzähleranlagen |  3
+
+
+4  |  Benutzerinformation EWE-WasserzähleranlagenAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme 
+des Produktes aufmerksam durch und beachten Sie beson-ders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Internetseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollstän-digkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Arma-turen und Ventile montieren oder warten. Die Trinkwasseran-lage darf nur durch eingewiesene Personen bedient werden.
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Geschäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entspre -
+chend den gesetzlichen Vorschriften, Unfallverhütungsvor -
+schriften, geltenden Normen einschließlich den anerkannten Regeln der Technik zu erfolgen. 
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemä-ßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Installation, Betrieb und Wartung der Arma-tur können von uns  nicht überwacht werden. Eine unsach-gemäße Ausführung der Installation kann zu Sachschäden führen und infolge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Ver -
+luste, Schäden oder Kosten, die sich aus fehlerhafter Installa-tion, unsachgemäßem Betrieb sowie falscher  
+
+Benutzerinformation EWE-Wasserzähleranlagen |  5Verwendung und Wartung ergeben oder in irgendeiner Weise 
+damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+Verpackung
+	Die einzelnen Armaturen sind entsprechend den zu erwar -
+tenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Montage der Armatur.
+Entsorgung
+	Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Entsorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wiederverwertbare Verpa-ckungsmaterialien dem Recycling zu.
+Erklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzun-gen zur Folge haben kann.
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE-WasserzähleranlagenVerwendung von Abkürzungen
+KTW:    Kunststoffe im Trinkwasser 
+DIN:    Deutsches Institut für Normung 
+DVGW:   Deutscher Verein des Gas- und Wasserfaches
+KMR:  Kegelmembran-Rückflussvehinderer
+KSR:  Kombiniert es Schrägsitz-Rückschlagventil
+WZA:  Wasserzähler-Anlage
+RV:  Rückflussver hinderer
+Si:   Silicium
+EPDM:  Ethylen-Propylen-Dien-(Monomer)-Kautschuk
+CE: Zentelen
+EKB:  Epoxid-Kunststoff-Beschichtung
+PN:  Nenndruck
+Q3:  Dauerdurchfluss
+1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+alle EWE-Wasserzähleranlagen des aktuellen Kataloges
+	Q3 2,5 - Q3 16 (Q3 25)
+	für waagerechten und/oder senkrechten Zählereinbau
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. 
+ausführenden Unternehmens sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	KTW- und Elastomerleitlinien des Umweltbundesamtes 
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	DIN/ÖNORM EN 805, „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“ 
+	DIN/ÖNORM EN 806, „Technische Regeln für Trinkwasser-Ins-tallation“
+
+Benutzerinformation EWE-Wasserzähleranlagen |  7	DIN/ÖNORM EN 1717, „Schutz des Trinkwassers vor Verun-
+reinigungen in Trinkwasser-Installationen und allgemeine Anforderungen an Sicherungseinrichtungen zur Verhütung von Trinkwasser durch Rückfließen“
+	DIN 1988, „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 806
+	DIN 18012, „Anschlusseinrichtungen für Gebäude“  (Hausanschlussraum) 
+	DVGW-Arbeitsblatt W 270, „Vermehrung von Mikroorganis-men auf Werkstoffen für den Trinkwasserbereich“
+	DVGW-Arbeitsblatt W 400,  „Technische Regeln Wasservertei-lungsanlagen“
+	DVGW-Arbeitsblatt W 570, „Armaturen für die Trinkwasser-In-stallation“
+	ÖNORM B 2531 „Anforderungen an Trinkwasserinstallationen“ (Verbrauchsanlagen)
+	ÖNORM B 2538 „Wasserversorgung - Anforderungen an Was-serversorgungssysteme und deren Bauteile außerhalb von Gebäuden, Ergänzende Bestimmungen zu ÖNORM EN 805“ 
+	ÖVGW PW 501/2 „Armaturen in der Trinkwasserversorgung, Teil 2: Gebäudearmaturen“
+	ÖVGW QS - W 501/1 „Armaturen in der Trinkwasserversor -
+gung, Teil1: Oberirdisch- und erdverlegte Armaturen“
+1.3 Verwendungsbereich/Medium
+	kaltes Trinkwasser nach DIN 2000
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	PN 10 nach Regelwerk für Trinkwasser-Installationen und Ge -
+bäudearmaturen. 
+	Alle EWE WZ-Anlagen können bis zu einem Bauteile-Betriebs-druck von PN 16 eingesetzt werden. 
+
+8  |  Benutzerinformation EWE-WasserzähleranlagenWasserzähler-Anschlussbügel, ohne Armatur
+WZA mit Kugelabsperrarmatur, ohne RV
+WZA mit Schrägsitzventil, ohne RV1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Wasserzähler-Armaturen
+Werkstoff
+	 aus Pressmessing oder bleifreiem Si-Messing, entsprechend 
+der Liste „Trinkwasserhygienisch geeignete metallene Werk -
+stoffe“ des Umweltbundesamtes
+	Elastomere und Kunststoffe entsprechend der KTW-und 
+Elastomer-Leitlinie des Umweltbundesamtes und des DVGW-Arbeitsblattes W270
+Ausführungen
+WZA mit Kugel-Absperrarmaturen, ohne RV
+WZA mit Kugel-Absperrarmatur und KSR-Ventil
+WZA mit Schrägsitzventilen, ohne RV
+WZA mit Schrägsitzventil und KSR-Ventil
+
+Benutzerinformation EWE-Wasserzähleranlagen |  9Leistung
+	Schallschutzklasse I
+Allgemeine bauaufsichtliche 
+Schallschutz-Prüfung:  die Prüfzeugnisse finden Sie auf www.baufachinformation.de.
+	ÜA-Kennzeichnung für Bauprodukte in Kontakt mit  Trinkwasser - Österreich
+Schrägsitzventil Schrägsitzventil 
+mit Rückflussver-hindererKegelmemran-Rückflussver-hinderer
+Kugelabsperr-  
+armatur
+Stadt Wien | Prüf-, Inspektions- und Zertifizierungsstelle
+WZA mit Schrägsitzventilen und KMR
+WZA mit Kugel-Absperrarmaturen und KMR
+
+10  |  Benutzerinformation EWE-Wasserzähleranlagen1.5.2 Wasserzähler-Bügel
+Werkstoff:
+	 Stahl-Bügel: feuerverzinkt mit zusätzlicher 
+blauer EKB-Beschichtung, mit Schrauben, 
+Unterlegscheiben und Hutmuttern verzinkt
+	Guss-Bügel: mit zusätzlicher blauer EKB-Be -
+schichtung, mit Schrauben, Unterlegschei-ben und Hutmuttern verzinkt
+	Edelstahl-Bügel sowie Schrauben und Hut -
+muttern aus A2-Edelstahl
+1.5.3 Wasserzähler-Verschraubungen
+Werkstoff:
+	 aus Messing oder bleifreiem Si-Messing, 
+entsprechend der Liste „Trinkwasserhygie -
+nisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	Elastomere und Kunststoffe entsprechend der KTW-und Elastomer-Leitlinie des Um-weltbundesamtes und des DVGW-Arbeits-blattes W270
+1.5.4 Befestigungen und Dichtungen
+Werkstoff:
+	 Befestigungen: 
+	zu Stahl- und Guss-Bügel: Schrauben und Unterlegscheiben verzinkt sowie Nylon-Dübel
+	zu Edelstahl-Bügel: Schrauben und Unter -
+legscheiben aus Edelstahl sowie Nylon-Dübel  
+	Dichtungen: 
+	aus EPDM oder aus C-4400 für max.  200°C (nur für Wasserzähler mit 3/4“- Anschlussgewinde)
+	Elastomere und Kunststoffe entsprechend der KTW-Leitlinie des Umweltbundesamtes und des DVGW-Arbeitsblattes W270  
+
+
+Benutzerinformation EWE-Wasserzähleranlagen |  11
+1.5.5 Verfügbare Abmessungen
+WZ-Abmessung
+Gewinde G (d3) × 
+Baulänge mm (l2)MIDQ
+3
+[m³/h]EWGQn[m³/h]Ventil-AnschlüsseWand- abstand
+Eing. Rp 
+(d1)Ausg. Rp 
+(d2)ca. mm(t)
+¾"   ×    80 2,5 1,5 ½" ½" 60 - 70
+¾"  ×    80 2,5 1,5 ¾" ¾" 60 - 70
+¾"  ×  165 2,5 1,5 ½" ½" 60 - 70
+¾"  ×  165 2,5 1,5 ¾" ¾" 60 - 70
+¾"  ×  110/130 2,5 1,5 ½" ½" 60 - 70
+¾"  ×  110/130 2,5 1,5 ¾" ¾" 60 - 70
+1"  ×  190 2,5 oder 4 2,5 1" 1" 95 - 145*
+1"  ×  190 2,5 oder 4 2,5 1 ¼" 1" 95 - 145*
+1"  ×  190 2,5 oder 4 2,5 1 ¼" 1 ¼" 95 - 145*
+1"  ×  105 2,5 oder 4 2,5 1" 1" 95 - 145*
+1"  ×  105 2,5 oder 4 2,5 1 ¼" 1 ¼" 95 - 145*
+1 ¼"  ×  175 4 oder 10 3/7 1" 1" 95 - 145
+1 ¼"  × 175 4 oder 10 3/7 1 ¼" 1" 95 - 145
+1 ¼"  × 175 4 oder 10 3/7 1 ¼" 1 ¼" 95 - 145
+1 ¼"  × 260 6,3 oder 10 6 1 ¼" 1 ¼" 105 - 150
+1 ¼"  × 260 6,3 oder 10 6 1 ½" 1 ½" 105 - 150
+1 ¼"  × 150 6,3 oder 10 6 1 ¼" 1 ¼" 105 - 150
+1 ¼"  × 150 6,3 oder 10 6 1 ½" 1 ½" 105 - 150
+2" × 300 16 10 2" 2" 125 - 165
+2" × 200 16 10 (20) 2" 2" 125 - 165
+2 ½"  × 270 25 15 2" 2" 125 - 165
+2 ½"  × 300 25 15 2" 2" 125 - 165
+Sonderbügel können abweichen!
+* In Kombination mit einem Stellbügel Wandabstand ca.  
+107 - 160 mm 
+
+12  |  Benutzerinformation EWE-WasserzähleranlagenBeispielskizze
+d1d3l2
+d2
+td3
+1.6 Transport und Lagerung
+Die Armatur bis zur Verwendung in der werkseitigen Ver- 
+packung transportieren und lagern.
+1.7 Funktionsbeschreibung
+Die Wasserzähleranlagen stellen eine spannungsfreie Montage oder Demontage des Wasserzählers sicher. Die Wasserzähler- Anlagen können je nach Ausführung für den Einbau von Wasser -
+zählern Q3 2,5 (Qn 1,5) bis Q3 16 (Qn 10/Qn 20 Österreich), sowie 
+den waagerechten oder senkrechten Einbau verwendet werden.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung 
+  Vor dem Einsatz sind die Armaturen auf Beschädigung 
+oder Verunreinigung zu prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden. 
+Vor Montage des Wasserzählers in die Wasserzähler-Anlage ist eine Leitungsspülung durchzuführen, hierzu ist ein Passstück zu verwenden.
+2.2 Hinweise zum Einbauort
+Die Wasserzähler(-Anlagen) sind in der Regel im Inneren 
+des Gebäudes nahe der straßenwärts gelegenen 
+Hauswand, z. B. an einer Innenwand, an einem frostsicheren Ort so anzubringen, dass sie zugänglich sind, leicht abgelesen, ausgewechselt und geprüft werden können. Hier ist die Zugäng-lichkeit der Hauptabsperreinrichtung bzw. der Wasserzähler- Anlage vom Betreiber sicherzustellen. 
+
+Benutzerinformation EWE-Wasserzähleranlagen |  132.3 Montage
+2.3.1 Montage der Wasserzähler-Anlage
+Die Wasserzähler-Anlage ist spannungsfrei einzubauen,  
+d. h. auf diese darf keine Kraft- bzw. Momenteinwirkung 
+stattfinden.  
+Die Befestigung und das Justieren des Bügels in waagerechter bzw. senkrechter Position erfolgt über die T-nutenförmigen Schlitze mit beiliegendem Befestigungsmaterial. Bitte beachten Sie die Besonderheit bei Wasserzähler-Bügeln gemäß Punkt 6. Der gewünschte Wandabstand kann durch die stufenlos verstellbaren Laschen eingestellt werden.Die vormontierten Armaturen werden ein- bzw. ausgangsseitig durch Einhängen in die Lasche und das Anziehen der Konter -
+mutter zentriert befestigt. Die Verbindung der Armaturenkom-ponenten mit zuführenden und abführenden Rohrleitungsteilen kann nun durchgeführt werden. Bei  Wasserzähleranlagen Ausführung Q
+34 mit KMR ist der KMR 
+separat in einem abgetrennten Bereich des Kartons verpackt. Bitte prüfen Sie vorab alle Teile auf Beschädigungen, insbeson-dere O-Ring und Gewinde. Durch den innenliegenden O-Ring sind keine weiteren Dichtmittel nötig. Verschrauben Sie den KMR mit dem Innengewinde mit 
+O-Ring auf das Ausgangsventil 
+oder die Ausgangsverschraubung mit mindestens 10 Nm.
+Zur Vermeidung von unerwünschter Baumaßänderung 
+durch Zug-/Druckspannungen während der Rohr-
+leitungsanbin  dung wird die M ontage mit eingebautem 
+Wasserzähler oder mit Pass  stück empfohlen. 
+2.4 Montage des Wasserzählers und Bedienung 
+ des Gewinde-Längenausgleichs
+Die Einbauhinweise des Wasserzähler-Herstellers sind zu 
+berücksichtigen.
+	Nach Montage der EWE-Wasserzähler-Anlage WZ-Dichtung auf den eingangsseitigen WZ-Stutzen klemmen und den Was-serzähler mit der Überwurfmutter festschrauben.
+	Überwurfmutter an der Ausgangsseite auf den Achtkant zurückschieben.
+	Die WZ-Dichtung auf den nun sichtbaren Längenausgleichs-Stutzen klemmen.
+
+14  |  Benutzerinformation EWE-Wasserzähleranlagen	 Durch Drehen der Überwurfmutter den Längenaus -
+gleichs-Stutzen mit Dichtung nur leicht gegen den Was-
+serzähler schrauben, bitte jetzt noch keine Dichtwirkung erwarten! 
+	 Die max. Verstellbarkeit im Längenausgleich ist erreicht, wenn 
+das Stutzengewinde sichtbar aus der Eingangsmuffe ragt.
+	Überwurfmutter mit dem Wasserzähler fest verschrauben, nur hierdurch erfolgt die Dichtwirkung Längenausgleich-Wasser -
+zähler.
+2.4.1 Plombierung
+Die Plombierung kann über die Plombierbohrung der ein-gangsseitigen Überwurfmutter oder durch eine Plombierschelle erfolgen.
+3. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Wasserzähleranlage sowie der gesamten Anlage erfolgen.
+Die Absperrarmaturen nur in voll geöffneter bzw. 
+geschlossener Stellung betreiben.
+3.1 Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion und Dichtheit zu 
+prüfen.Eingangsseite
+Überwurfmutter     WZ-Stutzen
+Ausgangsseite
+EingangsmuffeÜberwurfmutter
+Stutzengewinde
+Achtkant
+
+
+Benutzerinformation EWE-Wasserzähleranlagen |  154. Wartung und Instandhaltung
+Die (Kugel-) Absperrarmaturen in den Wasserzähleranla -
+gen sind im Regelwerk als Wartungsarmaturen definiert, 
+demnach sind sie im Wartungsfall bei geschlossenen Entnahme -
+einrichtungen langsam (beim Schließen oder Öffnen) zu betätigen. 
+Ist hinter dem KSR-Ventil ein Druckminderer angeordnet, 
+so kann es erforderlich sein, die nachgeschaltete Leitung 
+durch Öffnen einer nachgeschalteten Armatur oder des 
+Entleerungsventils am KSR-Ventil zu ent  spannen. So w erden zu 
+hoher Kraftaufwand beim Schließen des KSR-Ventils oder auch 
+Beschädigungen vermieden. 
+Das Öffnen der Armaturen muss bis zum Anschlag 
+erfolgen, d. h. durch volle Offenstellung. Das Drosseln ist 
+untersagt. 
+Um die Funktion bzw. die Leichtgängigkeit der Absperr -
+einrichtungen der Wasserzähleranlage zu gewährleisten, 
+wird empfohlen, diese mindestens einmal jährlich zu betätigen. Die Bedienung des Entleerungsventils erfolgt händisch, zusätzliche Werkzeuge, wie z. B. Rohrzangen, sind zu vermeiden und können zu Schäden führen!Eine jährliche Funktionsprüfung des Rückflussverhinderers ist im 
+Regelwerk vorgeschrieben. Die jährliche Überprüfung von Rück -
+flussverhinderern entfällt bei den Einsteck-Rückflussverhinde -
+rern, Typ EB. Diese Armaturen müssen mit dem turnusmäßigen Austausch des Wasserzählers gewechselt werden, spätestens jedoch nach 10 Jahren (EN806). Gemäß DVGW-Arbeitsblatt W 406 sind Einsteck-Rückflussverhinderer als alleinige Absiche -
+rung an der Übergabestelle der öffentlichen Wasserversorgung zur Hausinstallation nicht ausreichend. Ein kontrollierbarer Rück -
+flussverhinderer Typ EA ist demnach (zusätzlich) vorzusehen. Die Rückflussverhinderer sind Verschleißteile. Eine Funktions-kontrolle kann bei Modellen mit Prüfschraube im eingebauten Zustand erfolgen. Hierzu ist der Zulauf abzusperren und die Prüfschraube mit gebotener Vorsicht zu öffnen. Es darf nur der Restinhalt zwischen Zulauf und Gehäuse austreten. Medium aus der weiterführenden Installation muss durch den Rückflussver -
+hinderer zurückgehalten werden. Ist dies nicht der Fall, muss der RV instandgesetzt werden.
+
+16  |  Benutzerinformation EWE-Wasserzähleranlagen  Vor Beginn der Instandsetzungsarbeiten ist das 
+Rohrleitungssystem abzusperren und drucklos zu 
+machen. Desweiteren ist das Rohrleitungssystem gegen 
+unbeabsichtigte Wiederinbetriebnahme abzusichern.
+4.1 Wechsel des Kegelträgers mit Membran bei 
+Wasserzähleranlagen mit KMR
+Der Ein- und Ausbau muss wie beschrieben erfolgen:
+	Absperrventile der WZA schließen, da der KMR drucklos sein 
+muss
+	Lösen der Überwurfmuttern vom WZ und Längenausgleich in den KMR zurückschrauben
+	KMR aus der WZA demontieren 
+	neuen KMR  montieren
+alternativ:
+	Gehäuseteile auseinanderschrauben
+	Kegelträger mit Membran herausnehmen
+	neuen Kegelträger mit Membran wieder einsetzen, Dichtun-gen ersetzen, Gehäuse wieder zusammenfügen und in WZA montieren
+	Ventile öffnen und Prüfung auf Dichtigkeit und Funktion
+4.2 Wechsel des KSR-Ventil-Oberteils
+Der Ein- und Ausbau muss wie beschrieben erfolgen:
+	Eingangsventil der WZA schließen und Hausinstallation ggf. entleeren, da das KSR-Ventil drucklos sein muss
+	Lösen und Demontage des Ventil-Oberteiles über die Schlüs-selfläche
+	neues KSR-Oberteil montieren
+	Eingangsventil öffnen und Prüfung auf Dichtigkeit und Funk -
+tion
+Das Entleerungsventil kann bei Bedarf ausgetauscht werden. Bitte nehmen Sie diesbezüglich Kontakt zu uns auf.
+
+Benutzerinformation EWE-Wasserzähleranlagen |  175. Zubehör
+Auf die EWE-Wasserzähleranlagen abgestimmtes Zubehör, wie 
+Plombierwerkzeuge, Dichtungs-, Befestigungsmaterial, Plombier -
+schellen usw., ist der aktuellen EWE-Katalog-Preisliste oder der EWE-Webseite zu entnehmen.
+6. Zusätzliche Hinweise 
+6.1 Hinweis für Wasserzähler-Bügel Q3 2,5 (Qn1,5)
+Der Wasserzähler-Bügel für Wasserzähler 3/4“ x 110/130 mm ist werkseitig auf die Zähler-Baulänge 110 mm vormontiert. Bei Be -
+darf kann die Zähler-Baulänge 130 mm eingestellt werden.
+196 mm
+für Wasserzähler 130 mm Baulänge
+176 mm
+für Wasserzähler 110 mm Baulänge
+
+18  |  Benutzerinformation EWE-Wasserzähleranlagen1.
+	Hierzu sind die Hutmuttern vom 
+Bügel zu lösen.
+2.
+	Die Tragarme sind um 180° zu drehen.
+3.
+	Die Hutmuttern sind nun wieder festzuschrauben.
+4.
+	Nun kann der Bügel für 130 mm  
+Zähler-Baulänge verwendet werden.
+
+
+Benutzerinformation EWE-Wasserzähleranlagen |  191.
+	Die Hutmutter (SW 13) mit ge -
+eignetem Schlüssel lösen und 
+abnehmen.
+2.
+	Den Tragarm abheben und um 180° vedreht auf den Wasser- zähler-Bügel aufsetzen. Dabei die gleiche Bohrung und Schrauben im Bügel verwenden.
+3.
+	Die Hutmutter wieder festzie -
+hen. 
+	Die gleiche Prozedur mit dem anderen Tragarm wiederholen.
+4.
+	Beide Tragarme sind umgebaut für die Aufnahme eines Steig-rohr-Wasserzählers. 
+	Eingangs- und Ausgangs- Armaturen einhängen.6.2 Hinweis für Stellbügel Q3 4 (Qn 2,5)
+Der Stellbügel für Wasserzähler 1“ x 190/105 mm ist werkseitig auf die Zähler-Baulänge 190 mm vormontiert. Bei Bedarf kann die Zähler-Baulänge 105 mm eingestellt werden.
+
+
+20  |  Benutzerinformation EWE-WasserzähleranlagenWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7200060- Ausgabe 03/2025
+

@@ -1,0 +1,230 @@
+EWE-PE-Schweißstutzen und 
+EWE-PE-Verschraubung
+Benutzerinformation
+
+
+2  |  Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung
+Inhaltsverzeichnis
+Allgemeine Hinweise  4  
+ Angaben über PE-Schweißstutzen 6
+Einbauhinweise 8 Montage 8Korrosionsschutz 8Angaben über PE-Verschraubung 9Einbauhinweise 10Montage 11Korrosionsschutz 11
+
+Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung  |  3
+
+
+4  |  Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-VerschraubungAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Fittings montieren, bedienen oder warten. 
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Bitte beachten Sie die Sicherheitsdatenblätter der Produkte.
+	Bei der Montage der hier aufgeführten Armaturen sind alle Vorschriften sowohl der Arma-turen-Hersteller, als auch der Rohr-Hersteller zu beachten und einzuhalten.
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Sollten weitere Geräte verwendet werden, sind deren Bedienungsanleitungen unbedingt zu beachten. 
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Installa-tion, Betrieb und Wartung der Armaturen und Fittings können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und 
+
+Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung  |  5Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver -
+packung soll die einzelnen Bauteile  bis zur Mon tage vor Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Ver -
+wendung der Produkte.
+Entsorgung
+	Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+Verwendung von Abkürzungen:
+KTW:    Kunststoffe im Trinkwasser 
+DIN:    Deutsches Institut für Normung 
+PE: Polyethylen
+SDR:   Standard Dimension Ratio
+DVS:   Deutscher Verband f. Schweißen und  
+   verwandte Verfahren e. V.
+Si:   SiliciumDVGW:    Deutscher Verein des Gas- und 
+Wasserfaches
+MOP:   Maximal zul. Betriebsdruck (Maxi -
+mum Operating Pressure)
+DR: Dezincification ResistantErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens sind 
+anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	KTW- und Elastomerleitlinien des Umweltbundesamtes
+	DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“
+	DIN EN 806 „Technische Regeln für Trinkwasser-Installation“
+	DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 806
+	DIN 8074 „Rohre aus Polyethylen (PE) - PE 80, PE 100“
+	DIN 8075 „Rohre aus Polyethylen (PE) - PE 80, PE 100“
+	DIN 30672 „Organische Umhüllungen für den Korrosionsschutz von in Böden und Wässern ver -
+legten Rohrleitungen für Dauerbetriebstemperaturen bis  50 °C ohne kathodischen Korrosionsschutz - Bänder und schrumpfende Materialien“ 
+	DVGW-Arbeitsblatt W 270 „Vermehrung von Mikroorganismen auf Werkstoffen für den Trink -
+wasserbereich“
+	DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	DVGW GW 15 „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW GW 330 „Schweißen von Rohren und Rohrleitungsteilen aus Polyethylen“
+	DVGW GW 335-A2 „Kunststoff-Rohrleitungssysteme in der Gas- und Wasserverteilung - An-forderungen und Prüfungen - Teil A2: Rohre aus PE 80 und PE 100“EWE-Schweißstutzen, für Wasser 
+ Artikelnummer 2220108 - 22201112220208 - 22202112220308 - 22203112220408 - 2220411die EWE-Schweißstutzen, für Gas Artikelnummer2220104 - 22201072220204 - 22202072220322 - 22203252220404 - 2220407
+
+
+Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung  |  7	DVGW GW 335-B4 (P) „Kunststoff-Rohrleitungssysteme in der Gas- und Wasserverteilung - 
+Teil B4: Metallene Formstücke mit mechanischen oder Steckmuffenverbindungen für die Wasserverteilung“
+	DVGW G 459 „Gas-Hausanschlüsse“
+	DVGW G 465-2 „Arbeiten an Gasleitungen“
+	DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	DVGW G 5600-1 (P) „Werkstoffübergangsverbinder aus Metall für Gasrohrleitungen aus Polyethylen“
+	BG-Vorschriften, -Regeln (insb. DGUV 100-500) und -Informationen
+	DVS-Richtlinien
+1.3 Verwendungsbereich/Medium
+	Für Trinkwasser nach DIN 2000 oder Gase nach DVGW-Arbeitsblatt G 260/I (jedoch nicht für Flüssiggas in der Flüssigphase)
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	Schweißstutzen für Wasser : 16 bar 
+	Schweißstutzen für Gas: MOP 10
+Zulässigen Betriebsdruck des Versorgungsrohres beachten!
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Gehäuse
+Werkstoff:
+	aus bleifreiem, entzinkungsbeständigem Si-Messing, entsprechend der Liste „Trinkwasser -
+hygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+Anschlüsse:
+	metallseitiger Anschluss: Außengewinde nach DIN ISO 228-1, G 1“- G 2“ für Wasser und  
+G 1“- 2“ für Gas, mit O-Ring für das EWE-O-Ring-System
+	kunststoffseitiger Anschluss: PE-Rohrstutzen aus PE100 SDR 11, d 32-63, Mindestlänge  
+150 mm
+1.5.2 Dichtungen
+Werkstoff:
+	Schweißstutzen für Wasser : EPDM
+	Schweißstutzen für Gas: NBR
+1.6 Lagerung
+	Den Schweißstutzen bis zur Verwendung in der werkseitigen Verpackung witterungsge -
+schützt und trocken lagern.
+
+8  |  Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung1.7 Funktionsbeschreibung
+Der EWE-Schweißstutzen ist ein werkseitig montierter, unlösbarer Werkstoffübergangsver -
+binder zum Verbinden von Rohren aus Polyethylen (PE 100) mit metallenen Armaturen oder 
+Fittings, die über ein Innengewinde nach DIN ISO 228-1, mit O-Ring-Kammer für das EWE-O-Ring-System verfügen.
+2. Einbauhinweise
+2.1  Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist der Schweißstutzen auf Beschädigung oder Verunrein-
+gung zu prüfen. Ein beschädigter Schweißstutzen darf nicht eingesetzt werden.
+2.2  Hinweise zum Einbauort
+EWE-Schweißstutzen sind für den erdverlegten Rohrleitungsbau vorgesehen, ein 
+ausreichender Montageraum ist zu berücksichtigen.
+3. Montage
+Es ist darauf zu achten, dass der Einbau des Schweißstutzens ohne Spannungseinwir -
+kungen erfolgt. Die Abdichtung zu einem entsprechend ausgelegtem Innengewinde 
+erfolgt über einen radialdichtenden O-Ring am Außengewinde des EWE-Schweißstutzens. Ein zusätzliches Dichtmittel (Hanfen) ist nicht vorgesehen und auch nicht zulässig.
+1. EWE-Schweißstutzen bis zum Anschlag einschrauben. Der O-Ring ist vor Verunreinigung und Beschädigung zu schützen.
+2. Zum sicheren Verschweißen ist vor der Montage des Schweißfittings sicherzustellen, dass der Kontaktbereich frei von Verschmutzung, Riefen und Kratzern oder anderen Beschädi-gungen ist.
+3. Schweißnahtvorbereitung gem. Hersteller- und Regelwerksvorgaben.
+4. Dichtheitsprüfung nach DVGW-Regelwerk durchführen.
+4. Korrosionsschutz
+Das EWE-Schweißstutzen-Gehäuseteil ist aus entzinkungsbeständigem Si-Messing (DR) und somit bereits erhöht korrosionsbeständig.Je nach Bodenklasse kann dennoch ein zusätzlicher Außenkorrosionsschutz erforderlich sein.Es besteht die Möglichkeit eines bauseitig aufzubringenden Außenkorrosionsschutzes in Form eines wärmeschrumpfenden Materials oder Umhüllung nach DIN 30672 (z.B. Schrumpf-schlauch).Die Hersteller- und Regelwerksvorgaben sind einzuhalten! 
+
+Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung  |  91. Angaben über das Erzeugnis
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für 
+PE-Verschraubung aus Pressmessing, für Wasser
+Artnummer 2210XXX
+1.2  Mitgeltende Unterlagen
+	Die Betriebsanweisungen des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden.
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere:
+	Liste „Trinkwasserhygienisch geeignete metallene Werkstoffe“ des Umweltbundesamtes
+	KTW- und Elastomerleitlinien des Umweltbundesamtes
+	DIN EN 805 „Wasserversorgung - Anforderungen an Wasserversorgungssysteme und deren Bauteile außerhalb von Gebäuden“
+	DIN EN 806 „Technische Regeln für Trinkwasser-Installation“
+	DIN 1988 „Technische Regeln für Trinkwasser-Installation“ , nationale Ergänzung zur DIN EN 806
+	DIN 8074 „Rohre aus Polyethylen (PE) - PE 80, PE 100“
+	DIN 8075 „Rohre aus Polyethylen (PE) - PE 80, PE 100“
+	DIN 8076 „Druckrohrleitung aus thermoplastischen Kunststoffen - Klemmverbinder aus Me -
+tallen und Kunststoffen für Rohre aus Polyethylen (PE)“
+	DIN 30672 „Organische Umhüllungen für den Korrosionsschutz von in Böden und Wässern verlegten Rohrleitungen für Dauerbetriebstemperaturen bis 50 °C ohne kathodischen Korro -
+sionsschutz - Bänder und schrumpfende Materialien“
+	DVGW-Arbeitsblatt W 270 „Vermehrung von Mikroorganismen auf Werkstoffen für den Trink -
+wasserbereich“
+	DVGW W 400 „Technische Regeln Wasserverteilungsanlagen“
+	DVGW GW 15 „Nachumhüllen von Rohrleitungen, Formstücken und Armaturen“
+	DVGW GW 335-A2 „Kunststoff-Rohrleitungssysteme in der Gas- und Wasserverteilung -  Anforderungen und Prüfungen - Teil A2: Rohre aus PE 80 und PE 100“
+	DVGW GW 335-B4 (P) „Kunststoff-Rohrleitungssysteme in der Gas- und Wasserverteilung - Teil B4: Metallene Formstücke mit mechanischen oder Steckmuffenverbindungen für die Wasserverteilung“
+
+
+10  |  Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung1.3 Verwendungsbereich/Medium
+	Für Trinkwasser nach DIN 2000 
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	16 bar 
+Zulässigen Betriebsdruck des Versorgungsrohres beachten!
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Gehäuse:
+Werkstoff:
+	aus bleifreiem, entzinkungsbeständigem Si-Messing, entsprechend der Liste „Trinkwasser -
+hygienisch geeignete metallene Werkstoffe“
+Anschlüsse:
+	metallseitiger Anschluss: Außengewinde nach DIN ISO 228-1, G 1“- G 2“ für Wasser mit 
+O-Ring für das EWE-O-Ring-System
+	kunststoffseitiger Anschluss: für PE-HD-Rohr SDR 11 d 32 – 63 mm 
+1.5.2 Dichtungen:
+Werkstoff:
+	 EPDM
+1.6 Lagerung
+	Die PE-Verschraubung bis zur Verwendung in der werkseitigen Verpackung mit Schutzkap -
+pe witterungsgeschützt und trocken lagern.
+1.7 Funktionsbeschreibung
+Die PE-Verschraubung ist ein Werkstoffübergangsverbinder zum Verbinden von Rohren aus Polyethylen (PE 80, PE 100) mit metallenen Armaturen oder Fittings, die über einInnengewinde nach DIN ISO 228-1, mit O-Ring-Kammer für das EWE-O-Ring-System verfü-gen.
+2. Einbauhinweise
+2.1 Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die PE-Verschraubung auf Beschädigung oder Verunrei-
+nigung zu prüfen. Eine beschädigte PE-Verschraubung darf nicht eingesetzt werden.
+
+Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-Verschraubung  |  112.2 Hinweise zum Einbauort
+PE-Verschraubungen sind für den erdverlegten Rohrleitungsbau vorgesehen, ein 
+ausreichender Montageraum ist zu berücksichtigen.
+3. Montage
+Es ist darauf zu achten, dass der Einbau der PE-Verschraubung ohne Spannungsein -
+wirkungen erfolgt. Die Abdichtung zu einem entsprechend ausgelegtem Innenge -
+winde erfolgt über einen radialdichtenden O-Ring am Außengewinde der PE-Verschraubung. 
+Ein zusätzliches Dichtmittel (Hanfen) ist nicht vorgesehen und auch nicht zulässig.
+1. Vorbereitende Maßnahmen wie die Reinigung und die Entfernung des Grates am PE-Rohr durchführen. Das Rohr muss frei von Verschmutzung, Riefen und Kratzern oder anderen Beschädigungen sein. 
+2. Überwurfmutter der Verschraubung sowie die Kunststoff-Spannhülse auf das PE-Rohr stecken und Einstecktiefe markieren.
+3. Stützhülse bis zum Anschlag in das PE-Rohr mit geeignetem Werkzeug einschlagen. 
+4. PE-Verschraubung mit geeignetem Werkzeug fest montieren. 
+4. Korrosionsschutz
+Die PE-Verschraubung ist aus entzinkungsbeständigem Si-Messing (DR) und somit bereits erhöht korrosionsbeständig. Je nach Bodenklasse kann dennoch ein zusätzlicher Außen- korrosionsschutz erforderlich sein.Es besteht die Möglichkeit eines bauseitig aufzubringenden Außenkorrosionsschutzes in Form eines wärmeschrumpfenden Materials oder Umhüllung nach DIN 30672 (z.B. Schrumpf-schlauch). Die Hersteller- und Regelwerksvorgaben sind einzuhalten!
+
+12  |  Benutzerinformation EWE-PE-Schweißstutzen und EWE-PE-VerschraubungWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100101 - Ausgabe 04/2019
+

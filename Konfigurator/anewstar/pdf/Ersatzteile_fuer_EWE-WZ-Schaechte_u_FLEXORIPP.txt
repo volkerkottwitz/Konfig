@@ -1,0 +1,292 @@
+Wilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 19
+38104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55
+info@ewe-armaturen.de
+www.ewe-armaturen.deErsatzteile für 
+EWE-Wasserzählerschächte 
+und FLEXORIPP
+
+
+2 31.07.25 Ersatzteile für WasserzählerschächteAnwendungsbereich
+Ersatzteilliste für: 
+• EWE-Wasserzählerschächte; Baujahre 1995 – 2019
+• FLEXORIPP-Wasserzählerschächte; Baujahre ab 2016 
+• Rohrdeckungen 1,00 m, 1,25 m, 1,75 m, 2,00 m und Teleskop-Ausführung 1,20 m – 1,70 m
+Ermittlung Schacht-Ausführung anhand des Deckels: 
+Schachtdeckel EWE-Wasserzählerschacht Schachtabdeckung EWE-FLEXORIPP
+Ersatzteile für EWE-Wasserzählerschächte   3
+Ersatzteile für FLEXORIPP-Wasserzählerschächte   10
+
+Ersatzteile für Wasserzählerschächte 31.07.25 3
+Übersicht Wasserzählerschacht
+Schachtdeckel
+Schachtaufsatz
+Isolierverschluss
+Abdichtung
+Griffstück
+Niro-Silikonschlauch
+WZ-Bügel
+WZ-Anlage
+
+4 31.07.25 Ersatzteile für WasserzählerschächteDetails zu EWE-Wasserzählerschacht und -anlage
+Ermittlung des Produktionsjahres (bis 1999)
+Schachtkörper blau Sprengringtechnik WZ-Bügel
+Schachtkörper ist blau bis 1999☐
+Schachtbogen 2006☐
+Ermittlung des Produktionsjahres (1999 – 2019)
+Schachtkörper schwarz Informationen unter dem Bügel Kugelgelenk Drehgelenk
+Schachtkörper ist schwarz ab 1999☐
+keine Information unter dem WZ-Bügel bis 2013☐
+Information unter dem WZ-Bügel ab 2013☐
+Schlauchanschluss mit Überwurfmutter SW 30 bis 2010☐
+Schlauchanschluss mit Überwurfmutter SW38 bis 2010☐
+Drehgelenk ab 2010☐
+Hinweis:
+Bei Schächten mit Kugelgelenk muss die komplette Wasserzähleranlage – bestehend aus WZ-Bügel, Eingangsbaugruppe und 
+Ausgangsbaugruppe – gewechselt werden.
+Ab Baujahr 2010 können einzelne Baugruppen getauscht werden.
+
+Ersatzteile für Wasserzählerschächte 31.07.25 5Details zu EWE-Wasserzählerschacht und -anlage
+Rohrdeckung / Nenngröße Wasserzähler / Baugruppen
+Wasserzähler Qn 2,5 Wasserzähler Q₃ 4
+ ◾Die Rohrdeckung ist etwa 12,5 cm geringer als das Innenmaß vom Schachtrand bis zum Schachtboden
+Rohrdeckung 1,00 m ☐
+Rohrdeckung 1,25 m ☐
+Rohrdeckung 1,50 m ☐
+Rohrdeckung 1,75 m ☐
+Teleskop-Schacht 1,20 – 1,70 m ☐
+Eingangsbaugruppe
+Kugelhahn ☐
+Schrägsitzventil ☐
+Ausgangsbaugruppe
+Kugelhahn ☐
+KMR - Kugelhahn ☐
+Druckminderer - Kugelhahn ☐
+KMR - Schrägsitzventil ☐
+KSR-Ventil ☐
+NennweiteNenngröße Wasserzähler
+Gewinde G × Baulänge [mm] MID Q₃ EWG Qn
+DN 20 1" × 190 2,5 oder 4 2,5☐
+DN 25 1¼" × 260 (bis 2006 WZ-Anlage senkrecht) 6,3 oder 10 6☐
+DN 25 1¼" × 175 4 oder 10 3/7☐
+
+6 31.07.25 Ersatzteile für WasserzählerschächteWZ-Bügel für Wasserzählerschacht-Anlagen
+0395019
+ ◾aus Edelstahl
+Artikel WZ-Abmessung Gesamtlänge Artikelnummer
+WZ-Halterung DN 20 1" × 190 mm 254 mm 0395019
+WZ-Halterung DN 25 1¼" × 175 mm 254 mm 0395019
+WZ-Halterung DN 20 1" × 220 mm 284 mm 0395036
+Ersatzbaugruppen für Wasserzählerschacht Q₃ 2,5/4/10 (nicht FLEXORIPP)
+3904158 3904160 3904159 3904163
+ ◾für Schlauchanschluss-Überwurfmutter 1" mit Stutzen
+Artikel Artikelnummer
+für WZ DN 20, Q₃ 2,5/4, 1" × 190 mm und 1" × 220 mm , passend zu Bügel 0395019/0395036
+Eingangsbaugruppe mit Kugelhahn 3904158
+Eingangsbaugruppe mit Schrägsitzventil 3904160
+Ausgangsbaugruppe mit Kugelhahn 3904159
+Ausgangsbaugruppe mit KMR – Kugelhahn 3904161
+Ausgangsbaugruppe mit Druckminderer – Kugelhahn 3904162
+Ausgangsbaugruppe mit KMR – Schrägsitzventil 3904163
+Ausgangsbaugruppe mit KSR 3904164
+für WZ DN 25, Q₃ 4/10, 1¼" × 175 mm , passend zu Bügel 0395019
+Eingangsbaugruppe mit Kugelhahn 3904165
+Eingangsbaugruppe mit Schrägsitzventil 3904166
+Ausgangsbaugruppe mit Kugelhahn 3904167
+Ausgangsbaugruppe mit Druckminderer – Kugelhahn 3904169
+Ausgangsbaugruppe mit KSR 3904168
+Hinweis:
+Bei einem Austausch der Wasserzähleranlage in Schächten bis Baujahr 2010 (Ausführung mit Kugelgelenk) werden 2 passende Adapter 
+benötigt, siehe nächste Seite unten.
+
+Ersatzteile für Wasserzählerschächte 31.07.25 7Ersatzanlagen für Wasserzählerschacht Q₃ 10 (nicht FLEXORIPP)
+3904060 3904090
+Artikel Artikelnummer
+für WZ DN 25, Q₃ 10, 1¼" × 260 mm
+Kugelhahn – Kugelhahn 3904060
+Kugelhahn – Druckminderer – Kugelhahn 3904118
+Kugelhahn – KSR 3904096
+Kugelhahn – KMR – Kugelhahn 3904110
+Schrägsitzventil – KSR 3904090
+Schrägsitzventil – KMR – Schrägsitzventil 3904105
+Hinweis:
+Bei Wasserzählern Q₃ 10 werden die Anlagen komplett getauscht.
+Bei einem Austausch der Wasserzähleranlage in Schächten bis Baujahr 2010 (Ausführung mit Kugelgelenk) werden 2 passende Adapter  
+benötigt, siehe unten.
+Adapter als Ersatz für Anlagen mit Kugelgelenk
+3904047
+Q₃ Artikelnummer
+2,5 oder 4 mit Überwurfmutter SW30 3904063
+2,5, 4 oder 10 mit Überwurfmutter SW38 3904047
+Hinweis:
+Diese Adapter werden beim Austausch der Wasserzähleranlage benötigt (paarweise).
+
+8 31.07.25 Ersatzteile für WasserzählerschächteReparatur-Griffstück
+3904129
+ ◾für alle WZ-Schächte (nicht FLEXORIPP)
+ ◾mit Distanzstück
+Rohrdeckung Artikelnummer
+1 m 3904129
+1,25 m – 2, 00 m und Teleskop-Wasserzählerschacht 3904134
+Niro-Silikonschlauch
+0395055
+ ◾es werden zwei Schläuche pro Schacht benötigt
+ ◾DN 25
+ ◾drehbar
+ ◾Stutzen aus bleifreiem Si-Messing
+Rohrdeckung Länge Artikelnummer
+1,00 m – 1,50 m 1750 mm 0395053
+1,75 m + Tele-WZS 2250 mm 0395055
+
+Ersatzteile für Wasserzählerschächte 31.07.25 9Zubehör für Wasserzählerschächte (nicht FLEXORIPP)
+0399301 0399929 0399310 0399975 0080009 0399809 0399985 3902313
+Artikel Artikelnummer
+Wasserzählerschacht-Umrandung B125 für WZ-Schacht 0399301
+Wasserzählerschacht-Deckel wasserdicht 0399929
+Wasserzählerschacht-Deckel Standardausführung 0399829
+Verlängerung 70 mm, inkl. O-Ring-Dichtung 0399309
+Verlängerung 100 mm, inkl. O-Ring-Dichtung 0399310
+Verlängerung 150 mm, inkl. O-Ring-Dichtung 0399315
+Verlängerung 200 mm, inkl. O-Ring-Dichtung 0399320
+Verlängerung nach Wunsch von 70 mm – 200 mm, inkl. O-Ring-Dichtung 0399308
+Wasserzählerschacht-Aufsatz 250 mm 0399975
+Dichtung für Wasserzählerschacht-Aufsatz 250 mm 0399974
+Fixierband für Verlängerung und Schachtaufsatz 10 m Rolle 0080009
+Wasserzählerschacht-Schlüssel ab Modell 2007 (Sechskant) SW 13 0399809
+Isolierverschluss 0399985
+Wartungskonsole WZ-Schacht 3902313
+
+10 31.07.25 Ersatzteile für Wasserzählerschächte
+Übersicht FLEXORIPP
+Rahmendichtung
+Isolierdeckel
+Schachtabdeckung 
+mit Umrandung
+Hebeleine
+Hebegestänge
+Wasserzähleranlage 
+mit Kugelhähnen
+FLEX-Schlauchleitung
+WZ-Halterung  
+und Sockel
+Beispiel Ausführung Kugelhahn – Kugelhahn
+
+Ersatzteile für Wasserzählerschächte 31.07.25 11Details zu FLEXORIPP-Schacht und Anlage
+Ermittlung der FLEXORIPP-Ausführung:
+Rohrdeckung / Nenngröße Wasserzähler / Baugruppen
+Wasserzähler Qn 2,5 Wasserzähler Qn 6
+ ◾Die Rohrdeckung ist etwa 10 cm geringer als das Innenmaß vom Schachtrand bis zum Schachtboden.
+Rohrdeckung 0,75 m ☐
+Rohrdeckung 1,00 m ☐
+Rohrdeckung 1,25 m ☐
+Rohrdeckung 1,50 m ☐
+Rohrdeckung 1,75 m ☐
+Rohrdeckung 2,00 m ☐
+Eingangsbaugruppe
+Kugelhahn ☐
+Schrägsitzventil ☐
+Ausgangsbaugruppe
+Kugelhahn ☐
+KSR-Ventil ☐
+Druckminderer – Kugelhahn ☐
+KMR – Kugelhahn ☐
+KMR – Schrägsitzventil ☐
+Nenngröße Wasserzähler 
+Gewinde G × Baulänge [mm] MID Q₃ EWG Qn
+DN 20, 1" × 190 2,5 oder 4 2,5 ☐
+DN 25, 1¼" × 260 6,3 oder 10 6 ☐
+DN 25, 1¼" × 175 4 oder 10 3/7 ☐
+DN 20, 1" × 220 2,5 oder 4 2,5 ☐
+
+12 31.07.25 Ersatzteile für WasserzählerschächteDeckel für FLEXORIPP-Schächte
+0395005 0396000 0396001 0436451
+3903274 0108942 0396009 6120823 0396008
+Artikel Artikelnummer
+FLEXORIPP Isolierdeckel 0395005
+Abdeckhaube, für lastfreie Einbausituation (max. 200 kg) 0396000
+Schachtabdeckung A 15, Deckel und Rahmen 0396001
+Schachtabdeckung A 15 einzeln, ohne Rahmen 0395007
+Schachtabdeckung B 125, Deckel und Rahmen 0396002
+Schachtabdeckung B 125 einzeln, ohne Rahmen 0395008
+Rahmen für Schachtabdeckung A 15 / B 125, einzeln 0395006
+Ersatzdichtung-Set für FLEXORIPP-Schachtabdeckung, inkl. Sekundenkleber (bis 09/2020) 0395062
+Ersatzprofildichtung für FLEXORIPP-Schachtabdeckung (ab 10/2020) 0395064
+Schrauben für Schachtabdeckung SW 15 0436451
+Stehbolzen-Umrüstset für FLEXORIPP 3903274
+Stopfen für Schachtabdeckung FLEXORIPP 0108942
+Kombischlüssel SW 15 für FLEXORIPP-Deckel 0396009
+Steckschlüssel-Einsatz Sechskant SW 12, für Stehbolzen-Umrüstset 6120823
+TELERIPP Teleskop-Schachtaufsatz, komplett 0396008
+TELERIPP Dichtung 0395063
+
+Ersatzteile für Wasserzählerschächte 31.07.25 13WZ-Bügel und Sockel für FLEXORIPP-Schachtanlagen
+0395019 0395016
+Artikel für WZ-Abmessung Gesamtlänge Artikelnummer
+WZ-Halterung DN 20 1" × 190 mm | 1¼" × 175 mm 294 mm 0395019
+WZ-Halterung DN 20 1" × 220 mm 284 mm 0395036
+WZ-Halterung DN 25 1¼" × 260 mm 340 mm 0395020
+Sockel für Schachtanlage 0395016
+
+14 31.07.25 Ersatzteile für WasserzählerschächteBaugruppen für FLEXORIPP-Schacht
+0395506 0395508 0395510 0395514
+für WZ DN 20 – Q₃ 2,5/4 – 1" × 190 mm und 1" × 220 mm – passend zum Bügel 0395019/ 0395036 Artikelnummer
+Eingangsbaugruppe mit Kugelhahn 0395520
+Eingangsbaugruppe mit Schrägsitzventil 0395522
+Ausgangsbaugruppe mit Kugelhahn 0395506
+Ausgangsbaugruppe mit KMR – Kugelhahn 0395508
+Ausgangsbaugruppe mit Druckminderer – Kugelhahn 0395514
+Ausgangsbaugruppe mit Duckminderer – Schrägsitzventil 0395512
+Ausgangsbaugruppe mit Druckminderer – KSR 0395510
+Ausgangsbaugruppe mit KSR 0395500
+Ausgangsbaugruppe mit Schrägsitz 0395502
+Ausgangsbaugruppe mit KMR – Schrägsitz 0395504
+für WZ DN 25 – Q₃ 4/10 – 1¼" × 175 mm – passend zum Bügel 0395019 Artikelnummer
+Eingangsbaugruppe mit Kugelhahn 0395521
+Eingangsbaugruppe mit Schrägsitzventil 0395523
+Ausgangsbaugruppe mit Kugelhahn 0395507
+Ausgangsbaugruppe mit Druckminderer – Kugelhahn 0395515
+Ausgangsbaugruppe mit Druckminderer – KSR 0395511
+Ausgangsbaugruppe mit KMR – Kugelhahn 0395509
+Ausgangsbaugruppe mit Druckminderer – Schrägsitz 0395513
+Ausgangsbaugruppe mit KSR 0395501
+Ausgangsbaugruppe mit Schrägsitz 0395503
+Ausgangsbaugruppe mit KMR – Schrägsitz 0395505
+für WZ DN 25 – Q₃ 10 – 1¼" × 260 mm – passend zum Bügel 0395020 Artikelnummer
+Eingangsbaugruppe mit Kugelhahn 0395524
+Eingangsbaugruppe mit Schrägsitzventil 0395525
+Ausgangsbaugruppe mit Kugelhahn 0395533
+Ausgangsbaugruppe mit Druckminderer – Kugelhahn 0395535
+Ausgangsbaugruppe mit Druckminderer – KSR 0395536
+Ausgangsbaugruppe mit KMR – Kugelhahn 0395534
+Ausgangsbaugruppe mit Druckminderer – Schrägsitz 0395537
+Ausgangsbaugruppe mit KSR 0395530
+Ausgangsbaugruppe mit Schrägsitzventil 0395531
+Ausgangsbaugruppe mit KMR – Schrägsitzventil 0395532
+Hinweis: Nicht geeignet für den (alten) EWE-Wasserzählerschacht
+
+Ersatzteile für Wasserzählerschächte 31.07.25 15Zubehör für FLEXORIPP-Schachtanlagen
+0395017 0395021 0395053
+Artikel für Artikelnummer
+Reparatur-Hebegestänge FLEXORIPP 3904180
+Hebeleine schwarz RD 0,75 – 1,00 m 0395021
+Hebeleine schwarz-weiß RD 0,75 – 1,25 m 0395022
+Hebeleine schwarz-blau RD 1,00 – 1,50 m 0395023
+Hebeleine schwarz-rot RD 1,25 – 1,75 m 0395024
+Hebeleine blau RD 1,50 – 2,00 m 0395025
+FLEX-Schlauchleitung mit Kappe RD 0,75 m 0395052
+FLEX-Schlauchleitung mit Kappe RD 1,00 m 0395053
+FLEX-Schlauchleitung mit Kappe RD 1,25 m 0395054
+FLEX-Schlauchleitung mit Kappe RD 1,50 m 0395055
+FLEX-Schlauchleitung mit Kappe RD 1,75 m 0395056
+
+Wilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 19
+38104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55
+info@ewe-armaturen.de
+www.ewe-armaturen.de
+Ausgabe 7/2025
+

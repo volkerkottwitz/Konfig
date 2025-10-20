@@ -1,0 +1,359 @@
+#7100008- Ausgabe 01/2023EWE Anbohrarmaturen für 
+Abwasser
+Benutzerinformation
+
+
+2  |  Benutzerinformation EWE Abwasser-Anbohrarmaturen
+Inhaltsverzeichnis
+Allgemeine Hinweise 4
+Abwasser-Anbohrarmaturen für:AZ-, Guss- und Stahlrohr  6PVC-Rohr   12PE-Rohr, Schweißsystem ELGEF Plus oder FRIALEN  16
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  3
+
+
+4  |  Benutzerinformation EWE Abwasser-AnbohrarmaturenAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Personal darf die Armaturen und Ventile montieren, bedienen oder warten.  
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen. 
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Technische und unauthorisierte Veränderungen am Produkt sind unzulässig. Das Produkt darf nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+	Es sind die Hinweise der EWE Benutzerinformation Anbohrarmaturen Wasser zu beachten.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Instal-lation, Betrieb und Wartung der Armatur können von uns nicht überwacht werden. Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und Haftung für Verluste, Schäden oder Kosten, die sich aus fehlerhafter Installation, unsachgemäßem Betrieb sowie falscher Verwendung und Wartung ergeben oder in irgendeiner Weise damit zusammenhängen.
+	Es gelten unsere Allgemeinen Verkaufsbedingungen.
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  5Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen 
+verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Ver -
+packung soll die einzelnen Bauteile  bis zur Mon tage vor Transportschäden, Korrosion und 
+anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Monta-ge der Produkte.
+Recycling / Wiederverwendung
+	 Trennen Sie die vorhandenen Rohstoffe nach Wiederverwendungstyp und Werkstoff. Die 
+Wiederverwendung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestim-mungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungs-materialien dem Recycling zu.
+Verwendung von Abkürzungen:
+PVC:    P olyvinylchlorid
+AZ: Asbest-Zement 
+DN:   Nenndurchmesser
+PE: Polyethylen
+DWA:  Deutscher Verein für Wasserwirtschaft, Abwasser und Abfall e.V. PTFE: Polytetrafluorethylen EWS:
+   Epo xy-Wirbel-Sinter
+SW:    S chlüsselweite
+NBR:   Nitrile Butadiene Rubber
+SDR:  Standard Dimension Ratio
+d: Rohraußendurchmesser
+Rp: Innengewinde  
+PFA:  Perflouralkoxy-PolymereErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann.
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+6  |  Benutzerinformation EWE Abwasser-Anbohrarmaturen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DWA-Regelwerk und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	Regelwerke der Deutschen Vereinigung für Wasserwirtschaft, Abwasser und Abfall e.V.
+	TRBA 220  „Sicherheit und Gesundheit bei Tätigkeiten mit biologischen Arbeitsstoffen in abwassertechnischen Anlagen “
+	TRGS 519 „Asbestarbeiten“
+1.3 Verwendungsbereich/Medium
+	häusliches Abwasser  EWE Abwasser-Anbohrarmaturen für AZ-, Guss- und Stahl-Rohr 
+Artikelnummer: 15046XXbestehend aus: Kugelhahn und Anschlussstück mit O-Ring und Halteband mit Halbkugelscheibe und Muttern
+Lieferung erfolgt mit Markierungsscheibe "Abwasser" und Bodenplatte. 
+
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  71.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	16 bar - zulässigen Betriebsdruck des Entsorgungsrohr beachten! 
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Entsorgungsrohr
+Werkstoff
+	AZ-, Guss- und Stahlrohre für die Abwasserentsorgung
+Abmessungen
+	DN 50 - DN 500
+1.5.2 Anschluss eingangsseitig 
+Abmessungen
+	PE-Anschlussstutzen d 50 mm für PE-Muffen-Schweißung 
+	Langer PE-Anschlussstutzen d 50 mm für PE-Überschieb-Kupplungen 
+	PVC-Innengewinde Rp 1 1/2" , passend für EWE-O-Ring-System 
+Anbohrdurchmesser
+	36 mm 
+1.5.3 Absperrarmatur/Betriebs- und Hilfsabsperrung 
+Werkstoff/Abmessungen Kugelhahn
+	Betriebs- und Hilfsabsperrung durch Absperrkugel aus A4 Stahl mit PTFE-Dichtung 
+	Bajonettriegel für die Schmutzscheibe der EWE-Einbaugarnitur
+	Größe: DN 40
+1.5.4 Anschluss- und Haltestück  
+Werkstoff
+	Anschlussstück aus EN-GJS-400-15, EWS-beschichtet
+	Haltestück mit Knotenblech, mit Gewindebolzen M 16, mit Unterleg-Halbkugel-Scheiben 
+und gleitbeschichteten Muttern SW 24, komplett aus A4-Edelstahl und mit Gummi- bandage 
+Abmessungen
+	Breite: Anschlussstück DN 50 - DN 500: 90 mm
+	Breite: Haltestück DN 50 - DN 500: 90 mm
+
+8  |  Benutzerinformation EWE Abwasser-Anbohrarmaturen1.5.5 Dichtungen  
+Werkstoff
+	NBR 
+1.6 Transport und Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und 
+trocken lagern und zu transportieren.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen 
+1.7 Funktionsbeschreibung
+EWE Anbohrarmaturen sind für EWE Anbohrgeräte sowie für Anbohrgeräte verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und Hausanschluss und werden unter Druck angebohrt. 
+2. Einbauhinweise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden. 
+2.2  Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein. 
+3. Montage
+Es ist darauf zu achten, dass der Einbau der Anbohrarmatur ohne Spannungseinwirkungen auf das Versorgungsrohr erfolgt. Die Anbohrarmatur darf nur auf unter Betriebsdruck stehen-de Leitungen montiert werden. 
+1. Zum sicheren Abdichten ist vor dem Aufsetzen der Anbohrarmatur auf das Rohr sicher -
+zustellen, das der Kontaktbereich zwischen Rohr und Anbohrarmatur frei von Verschmut -
+zung, Riefen und Kratzern oder anderen Beschädigungen ist.
+2. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück verschrauben.
+3. Bei Anbohrschellen (2 Muttern) sind die Muttern wechselnd, gleichmäßig anzuziehen. Max. Anzugsmoment der Muttern beträgt 50 Nm.
+4. Dichtheitsprüfung der montierten Anbohrarmatur nach DWA-Regelwerk durchführen. 
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  94. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen und der gesamten 
+Anlage erfolgen.
+4.1  Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2  Anbohren
+Für das Anbohren sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die Herstellerangaben des Anbohrgerätes anzuwenden. Die EWE Benutzerinformation Anbohren von Abwasserleitungen ist zu beachten.
+4.3  Anschließen der Anbohrarmatur
+1. Zum Anschluss der anzuschließenden Hausanschlussleitung ist ein entsprechender Fitting einzusetzen.
+2. Das Innengewinde des Anbohrventils verfügt über das EWE O-Ring-Sysem. Entspre -
+chende Fittings können ohne weitere Dichtmittel selbstdichtend montiert werden. Die Bedienungsanleitung des Fittingherstellers ist zu beachten. Die O-Ringe und Dichtflächen sind vor Verunreinigung und Beschädigung zu schützen.
+3. Dichtheitsprüfung der angebohrten Armatur nach DWA-Regelwerk durchführen.
+
+10  |  Benutzerinformation EWE Abwasser-Anbohrarmaturen4.4 Übersicht EWE Haltestücke für EWE Anbohrarmaturen für  
+Asbest-, (ZMU-), Guss- und Stahlrohre
+Bestell- Anschluss- Rohr- Bau- für Hauptrohr
+nummer Stück Außen Ø länge Guss Guss Stahl Stahl AZ AZ AZ
+Halte- mm mm ZMU ZMU PN 10 PN 12,5 PN 16
+stück DN DN DN DN DN DN DN DN
+0108215 50/70 60-66 255 50 50
+0108216 50/70 77-87 290 60-70 65
+0108217 80 88-108 325 80 (80)* 80 80 80 80
+0108218 100 109-133 380 100 80/100* 100 100 100 100 100
+0108219 125 134-159 440 125 125 125 125 125 125
+0108220 150/175 160-189 490 150 150 150 150 150 150 150
+0108226 150/175 190-205 520 175
+0108221 200/225 219-259 650 200 200 200 200 200 200 200
+225
+0108222 250 260-308 780 250 250 250 250 250 250 250
+275
+0108223 300 309-368 910 300 300 300 300 300 300
+0108224 350/400 360-382 1050 350 350 350 300*
+0108233 350/400 383-405 1110 350
+0108235 350/400 406-427 1170 400 400 350 350
+0108225 350/400 428-449 1230 400 400
+0108237 350/400 450-469 1290 425 450 400 400
+0108227 450/500 475-497 1280 450 400*
+0108239 450/500 498-519 1340 500 450
+0108228 450/500 520-544 1400 500 450
+0108241 450/500 545-567 1460 500 500 450
+0108243 450/500 568-589 1520 500
+0108245 450/500 590-606 1580 500
+Alle EWE Anbohrarmaturen werden in Normalausführung mit Anschluss- und Haltestück für Gussrohr geliefert!  
+Ab DN 350 muss bei einem anderen Hauptrohr als Guss das passende Haltestück (bei * auch das Anschlussstück) 
+nach dieser Tabelle ausgewählt werden. Bei DN 80 - ZMU-Guss-Rohren ist der Außendurchmesser zu prüfen! Der Toleranzbereich der Rohre kann eine größere Nennweite zur Folge haben!Alle Angaben ohne Gewähr!
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  11
+
+12  |  Benutzerinformation EWE Abwasser-Anbohrarmaturen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+EWE Abwasser-Anbohrarmaturen für PVC-Rohr 
+Artikelnummer: 154XXXXbestehend aus: Kugelhahn und Anschluss- und Haltestück aus PVC 
+Lieferung erfolgt mit Markierungsscheibe "Abwasser" und Bodenplatte. 
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DWA-Regelwerk und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	Regelwerke der Deutschen Vereinigung für Wasserwirtschaft, Abwasser und Abfall e.V.
+	TRBA 220  „Sicherheit und Gesundheit bei Tätigkeiten mit biologischen Arbeitsstoffen in abwassertechnischen Anlagen “
+1.3 Verwendungsbereich/Medium
+	häusliches Abwasser
+1.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	10 bar - zulässigen Betriebsdruck des Entsorgungsrohr beachten!   
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  131.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Entsorgungsrohr
+Werkstoff
+	PVC-Rohre für die Abwasserentsorgung 
+Abmessungen
+	DN 50 - DN 150
+1.5.2 Anschluss eingangsseitig 
+Abmessungen
+	PE-Anschlussstutzen d 50 mm für PE-Muffen-Schweißung 
+	Langer PE-Anschlussstutzen d 50 mm für PE-Überschieb-Kupplungen 
+	PVC-Innengewinde Rp 1 1/2" , passend für EWE-O-Ring-System 
+Anbohrdurchmesser
+	36 mm 
+1.5.3 Absperrarmatur/Betriebs- und Hilfsabsperrung 
+Werkstoff/Abmessungen Kugelhahn
+	Betriebs- und Hilfsabsperrung durch Absperrkugel aus A4 Stahl mit PTFE-Dichtung 
+	Bajonettriegel für die Schmutzscheibe der EWE-Einbaugarnitur
+	Größe: DN 40 
+1.5.4 Anschluss- und Haltestück  
+Werkstoff
+	Anschluss- und Haltestück aus PVC-U, Schrauben aus A2-Edelstahl 
+Abmessungen
+	Breite:  
+DN 50 - DN 100: 105 mm, DN 125: 114 mm , DN 150: 120 mm
+1.5.5 Dichtungen  
+Werkstoff
+	NBR 
+
+14  |  Benutzerinformation EWE Abwasser-Anbohrarmaturen1.6 Transport und Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und 
+trocken lagern und zu transportieren.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen. 
+1.7 Funktionsbeschreibung
+EWE Anbohrarmaturen sind für EWE Anbohrgeräte sowie für Anbohrgeräte verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und Hausanschluss und werden unter Druck angebohrt. 
+2. Einbauhinweise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden. 
+2.2  Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein.  
+3. Montage
+Es ist darauf zu achten, dass der Einbau der Anbohrarmatur ohne Spannungseinwirkungen auf das Versorgungsrohr erfolgt. Die Anbohrarmatur darf nur unter Betriebsdruck stehende Leitungen montiert werden. 
+1. Zum sicheren Abdichten ist vor dem Aufsetzen der Anbohrarmatur auf das Rohr sicher -
+zustellen, das der Kontaktbereich zwischen Rohr und Anbohrarmatur frei von Verschmut -
+zung, Riefen und Kratzern oder anderen Beschädigungen ist. 
+2. Anschlussstück auf das Entsorgungsrohr aufsetzen und das Haltestück verschrauben. 
+3. Bei Anbohrbrücken sind die Schrauben gleichmäßig über Kreuz bis zum Anschlag (An-schluss- und Haltestück auf Block) anzuziehen. 
+4. Dichtheitsprüfung der montierten Anbohrarmatur nach DWA-Regelwerk durchführen.  
+4. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen und der gesamten Anlage erfolgen.
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  154.1  Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2  Anbohren
+Für das Anbohren sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die 
+Herstellerangaben des Anbohrgerätes anzuwenden. Die EWE Benutzerinformation Anbohren von Abwasserleitungen ist zu beachten.
+4.3  Anschließen der Anbohrarmatur
+1. Zum Anschluss der anzuschließenden Hausanschlussleitung ist ein entsprechender Fitting einzusetzen.
+2. Das Innengewinde des Anbohrventils verfügt über das EWE O-Ring-Sysem. Entspre -
+chende Fittings können ohne weitere Dichtmittel selbstdichtend montiert werden. Die Bedienungsanleitung des Fittingherstellers ist zu beachten. Die O-Ringe und Dichtflächen sind vor Verunreinigung und Beschädigung zu schützen.
+3. Dichtheitsprüfung der angebohrten Armatur nach DVGW-Regelwerk durchführen.
+
+16  |  Benutzerinformation EWE Abwasser-Anbohrarmaturen1. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+EWE Abwasser-Anbohrarmaturen für PE-Rohr, Schweißsystem ELGEF Plus oder Schweißsystem FRIALEN  
+Artikelnummer: 154XXXXbestehend aus: Kugelhahn und Anschluss- und Haltestück aus PE 100 
+Lieferung erfolgt mit Markierungsscheibe "Abwasser" und Bodenplatte. 
+ELGEF Plus
+ FRIALEN
+1.2 Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DWA-Regelwerk und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	Regelwerke der Deutschen Vereinigung für Wasserwirtschaft, Abwasser und Abfall e.V.
+	TRBA 220  „Sicherheit und Gesundheit bei Tätigkeiten mit biologischen Arbeitsstoffen in abwassertechnischen Anlagen “
+	DVS 2207-1„Schweißen von thermoplastischen Kunststoffen – Heizelementschweißen von Rohren, Rohrleitungsteilen und Tafeln aus PE“
+1.3 Verwendungsbereich/Medium
+	häusliches Abwasser 
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  171.4 Zulässiger Bauteile-Betriebsdruck (PFA)
+	16 bar - zulässigen Betriebsdruck des Entsorgungsrohr beachten! 
+1.5 Werkstoff/Abmessungen/Leistung
+1.5.1 Entsorgungsrohr
+Werkstoff
+	 PE-Rohre für die Abwasserentsorgung
+Abmessungen
+	PE 80-/ PE 100-Rohr, SDR 11/17 
+	d 63 - d 225
+1.5.2 Anschluss eingangsseitig 
+Abmessungen
+	PE-Anschlussstutzen d 50 mm für PE-Muffen-Schweißung 
+	Langer PE-Anschlussstutzen d 50 mm für PE-Überschieb-Kupplungen 
+	PVC-Innengewinde Rp 1 1/2" , passend für EWE-O-Ring-System 
+Anbohrdurchmesser
+	36 oder 38 mm 
+	Absperrarmatur/Betriebs- und Hilfsabsperrung 
+Werkstoff/Abmessungen Kugelhahn
+	Betriebs- und Hilfsabsperrung durch Absperrkugel aus A4 Stahl mit PTFE-Dichtung 
+	Bajonettriegel für die Schmutzscheibe der EWE Einbaugarnitur
+	Größe: DN 40 
+1.5.3 Anschluss- und Haltestück  
+Werkstoff
+	Anschluss- und Haltestück Schweißsystem +GF+ ELGEF Plus oder FRIALEN 
+ 
+1.5.4 Dichtungen  
+Werkstoff
+	NBR  
+
+18  |  Benutzerinformation EWE Abwasser-Anbohrarmaturen1.6 Transport und Lagerung
+	Die Armatur bis zur Verwendung in der werkseitigen Verpackung witterungsgeschützt und 
+trocken lagern und zu transportieren.
+	Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu prüfen.
+1.7 Funktionsbeschreibung
+EWE Anbohrarmaturen sind für EWE Anbohrgeräte sowie für Anbohrgeräte verschiedener Hersteller geeignet. Sie dienen als Übergang zwischen der Rohrleitung und Hausanschluss und werden unter Druck angebohrt. 
+2. Einbauhinweise (Installation/Montage)
+2.1  Hinweise zur Vorbereitung
+  Vor und nach dem Einsatz ist die Armatur auf Beschädigung oder Verunreinigung zu 
+prüfen. Eine beschädigte Armatur darf nicht eingesetzt werden. 
+2.2  Hinweise zum Einbauort
+Die Lage der Anbohrstelle muss mindestens 5 x DN, mindestens jedoch 0,5 m, von 
+Rohrverbindungen oder anderen Armaturen entfernt sein. 
+3. Montage
+Es ist darauf zu achten, dass der Einbau der Anbohrarmatur ohne Spannungseinwirkungen auf das Versorgungsrohr erfolgt. Die Anbohrarmatur darf nur auf unter Betriebsdruck stehen-de Armaturen montiert werden. 
+1. Zum sicheren Abdichten ist vor dem Aufsetzen der Anbohrarmatur auf das Rohr sicher -
+zustellen, das der Kontaktbereich zwischen Rohr und Anbohrarmatur frei von Verschmut -
+zung, Riefen und Kratzern oder anderen Beschädigungen ist. 
+2. Schweißnahtvorbereitung gem. Hersteller- und Regelwerksvorgaben. Anschlussstück auf das Versorgungsrohr aufsetzen und das Haltestück verschrauben. 
+3. Bei der +GF+ELGEF-Plus Variante ist der Adapter d 63 mm in die Muffe des Anschluss- stückes einzustecken und über die Schrauben zu fixieren. 
+4. Schweißung gem. Hersteller- und Regelwerksvorgaben
+5. Dichtheitsprüfung der montierten Anbohrarmatur nach DWA-Regelwerk durchführen.    
+
+Benutzerinformation EWE Abwasser-Anbohrarmaturen  |  194. Betrieb und Verwendung
+Vor der Inbetriebnahme muss eine Inaugenscheinnahme der Armaturen und der gesamten 
+Anlage erfolgen.
+4.1  Funktionskontrolle
+Die gesamte Anlage ist auf ihre Funktion zu prüfen.
+4.2  Anbohren
+Für das Anbohren sind die jeweils gültigen Sicherheits- und Montagebestimmungen und die Herstellerangaben des Anbohrgerätes anzuwenden. Die EWE Benutzerinformation Anbohren von Abwasserleitungen ist zu beachten.
+4.3  Anschließen der Anbohrarmatur
+1. Zum Anschluss der anzuschließenden Hausanschlussleitung ist ein entsprechender Fitting einzusetzen.
+2. Das Innengewinde des Anbohrventils verfügt über das EWE O-Ring-Sysem. Entspre -
+chende Fittings können ohne weitere Dichtmittel selbstdichtend montiert werden. Die Bedienungsanleitung des Fittingherstellers ist zu beachten. Die O-Ringe und Dichtflächen sind vor Verunreinigung und Beschädigung zu schützen.
+3. Dichtheitsprüfung der angebohrten Armatur nach DWA-Regelwerk durchführen.
+
+20  |  Benutzerinformation EWE Abwasser-AnbohrarmaturenWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100008- Ausgabe 01/2023
+

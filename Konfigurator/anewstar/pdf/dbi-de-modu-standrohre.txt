@@ -1,0 +1,571 @@
+ 1
+MODU-Standrohre
+Benutzerinformation
+
+
+ 2Allgemeine Hinweise 3
+Anschrift des Herstellers 3
+Allgemeine Sicherheitshinweise       4
+Haftungsausschluss 4
+Verpackung 5
+Entsorgung 5
+Verwendung von Abkürzungen 6
+Geltungsbereich 7
+Mitgeltende Unterlagen 9
+Verwendungsbereich/Medium 10
+Zulässiger Bauteile-Betriebsdruck (PFA) 10
+Werkstoff/Abmessungen 11
+Einbauhinweise (Installation/Montage) 14
+Betrieb und Verwendung 16
+Instandhaltung 25Inhaltsverzeichnis
+
+ 3Zum Inhaltsverzeichnis
+Allgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation 
+vor Inbetriebnahme des Produktes auf-
+merksam durch und beachten Sie beson-
+ders die Hinweise und Warnvermerke. 
+	Die aktuelle Version dieser Einbau- und Be -
+dienungsanleitung finden Sie auf unserer 
+Internetseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unver -
+züglich auf Vollständigkeit und Transport -
+schäden.
+	Bewahren Sie die Benutzerinformation für 
+eventuelle Fragen auf. 
+	Nur eingewiesenes und qualifiziertes Per -
+sonal darf die Armaturen montieren, bedie -
+nen oder warten. 
+	Für weitere Informationen stehen Ihnen 
+unsere Mitarbeiter telefonisch während der 
+Geschäftszeiten zur Verfügung.
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 19 · 38104 Braunschweig
+Telefon 0531 37005-0 · Fax 0531 37005-55 
+info@ewe-armaturen.de
+
+ 4Zum Inhaltsverzeichnis
+Allgemeine Sicherheitshinweise      
+	Die Durchführung der erforderlichen 
+Tätigkeiten hat entsprechend den gesetz-
+lichen Vorschriften, Unfallverhütungsvor -
+schriften, geltenden Normen einschließlich 
+den anerkannten Regeln der Technik zu 
+erfolgen.
+	 Technische und unauthorisierte Verände -
+rungen am Produkt sind unzulässig. Das 
+Produkt darf nur in bestimmungsgemäßer 
+Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinfor -
+mation als  auch die Handhabung bei  
+Installation, Betrieb und Wartung der Arma-
+tur können von uns nicht überwacht wer -
+den. Eine unsachgemäße Ausführung der 
+Installation kann zu Sachschäden führen 
+und in Folge Personen gefährden.
+	Wir übernehmen keine Verantwortung und 
+Haftung für Verluste, Schäden oder  
+Kosten, die sich aus fehlerhafter Installaton, 
+unsachgemäßem Betrieb sowie falscher 
+Verwendung und Wartung ergeben oder in 
+
+ 5Zum Inhaltsverzeichnis
+irgendeiner Weise damit zusammen- 
+hängen.
+	Es gelten unsere Allgemeinen Verkaufs- 
+bedingungen.
+Verpackung
+	Die einzelnen Armaturen sind entspre -
+chend den zu erwartenden Transportbe -
+dingungen verpackt. Für die Verpackung 
+wurden umweltfreundliche Materialien 
+verwendet. Die Verpackung soll die einzel-
+nen Bauteile bis zur Montage vor Trans-
+portschäden, Korrosion und anderen Be -
+schädigungen schützen. Entfernen Sie die 
+Verpackung erst kurz vor der Montage der 
+Armatur.
+Entsorgung
+	 Trennen Sie die vorhandenen Rohstoffe 
+nach Entsorgungstyp und Werkstoff. Die 
+Entsorgung der Rohstoffe muss nach den 
+jeweils gültigen gesetzlichen Bestimmun-
+gen und örtlichen Vorschriften erfolgen. 
+Führen Sie wiederverwertbare Verpackungs -
+materialien dem Recycling zu.
+
+ 6Zum Inhaltsverzeichnis
+Erklärung der verwendeten Symbole, 
+Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/ 
+Warnung/Vorsicht)
+GEFAHR:
+Gefährdung mit einem hohen Risikograd, 
+die, wenn sie nicht vermieden wird, 
+den Tod oder eine schwereVerletzung zur 
+Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risiko -
+grad, die, wenn sie nicht vermieden wird, 
+den Tod oder eine schwere Verletzung zur 
+Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risiko -
+grad, die, wenn sie nicht vermieden wird, 
+geringfügige oder mäßige Verletzungen 
+zur Folge haben kann
+HINWEIS:
+Weist auf eine Anweisung hin, die unbe -
+dingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+Verwendung von Abkürzungen:
+DVGW:   Deutscher Verein des Gas- und 
+  Wasserfaches
+DIN:   Deutsches Institut für Normung
+
+ 7Zum Inhaltsverzeichnis
+KTW:   Kunststoffe im Trinkwasser
+PE: Polyethylen
+Si:  Silicium
+WZ:  Wasserzähler
+RV: Rückflussverhinderer
+UH:  Unterflurhydrant
+DN:  Nenndurchmesser
+PN:  Nenndruck
+AV:  Auslaufventile
+IG:  Innengewinde
+Q3:  Dauerdurchfluss
+Geltungsbereich
+Diese Benutzerinformation gilt für alle
+EWE-MODU-Standrohre des aktuellen 
+Kataloges
+	für Unterflurhydranten DN 80, DN 50,  
+DN 100 und Württ. Schachtsystem DN 50
+
+ 8Zum Inhaltsverzeichnis
+MODU-Standrohr-Unterteil 
+für UH DN 80
+Artikelnummer: 117800XMODU-Standrohrkopf 
+Artikelnummer: 
+11781XXMODU-Spülkopf 
+Artikelnummer: 
+117820X
+
+
+ 9Zum Inhaltsverzeichnis
+Mitgeltende Unterlagen
+	Die Betriebsanweisung des jeweiligen Auf-
+traggebers bzw. ausführenden Unterneh-
+mens sind anzuwenden
+	DVGW- und berufsgenossenschaftliches 
+Regelwerk
+Insbesondere
+	KTW- & Elastomerleitlinien des Umweltbun-
+desamtes
+	Liste „Trinkwasserhygienisch geeignete 
+metallene Werkstoffe für den Trinkwasser -
+bereich“ des Umweltbundesamtes
+	DIN EN 1717 „Schutz des Trinkwassers vor 
+Verunreinigungen in Trinkwasser-Installa-
+tionen und allgemeine Anforderungen an 
+Sicherungseinrichtungen zur Verhütung 
+von Trinkwasserverunreinigungen durch 
+Rückfließen“
+	DIN EN 12729 „Sicherungseinrichtungen 
+zum Schutz des Trinkwassers gegen Ver -
+schmutzung durch Rückfließen – System-
+trenner mit kontrollierbarer druckreduzier -
+ter Zone“
+	DIN 806-5 „Technische Regeln für Trinkwas-
+ser-Installationen – Betrieb und Wartung“
+
+ 10Zum Inhaltsverzeichnis
+	DIN 2001-2 „Trinkwasserversorgung aus 
+Kleinanlagen und nicht ortsfesten Anlagen“
+	DVGW W 270 „Vermehrung von Mikroorga-
+nismen auf Werkstoffen für den Trinkwas-
+serbereich – Prüfung und Bewertung“
+	DVGW W 400 „Technische Regeln Wasser -
+verteilungsanlagen“
+	DVGW W 408 „Anschluss von Entnahmevor -
+richtungen an Hydranten in Trinkwasser -
+verteilungsanlagen“
+	DVGW W 408-B1 „Anschluss von Entnah-
+mevorrichtungen an Hydranten in Trink -
+wasserverteilungsanlagen – Beiblatt 1: 
+Ergänzungen zu Standrohren mit Entnah-
+mevorrichtung“
+Verwendungsbereich/Medium
+	geeignet für kaltes Trinkwasser nach  
+DIN 2000
+Zulässiger Bauteile-Betriebsdruck 
+(PFA)
+	Nenndruck PN 16
+
+ 11Zum Inhaltsverzeichnis
+Werkstoff/Abmessungen
+1. MODU-Standrohr-Unterteil
+Werkstoff
+	Messingbauteile aus Messing gem. der Liste 
+„Trinkwasserhygienisch geeigneter metalle -
+ner Werkstoffe“ des Umweltbundesamtes 
+	Steigrohr aus A4-Edelstahl
+	Messinggriffe mit Überzug aus Kunststoff
+	Elastomere und Kunststoffe entsprechend 
+der KTW- & Elastomer-Leitlinie des Umwelt -
+bundesamtes und des DVGW-Arbeitsblat -
+tes W 270
+Abmessungen
+	Fußverschraubung je nach Modell DN 80, 
+DN 50/100
+2. MODU-Standrohr-Kopf
+Werkstoff
+	Messingbauteile aus Messing gem. der Liste 
+„Trinkwasserhygienisch geeigneter metalle -
+ner Werkstoffe“ des Umweltbundesamtes 
+	Elastomere und Kunststoffe entsprechend 
+der KTW- & Elastomer-Leitlinie des Umwelt -
+
+ 12Zum Inhaltsverzeichnis
+bundesamtes und des DVGW-Arbeitsblat -
+tes W 270
+	Sicherheits-Kupplung aus nichtrostendem 
+Stahl
+Abmessungen
+	wahlweise mit Wasserzähler Q3 4, Q3 10,  
+Q3 16 oder ohne Wasserzähler
+	mit drehbarem Kopf
+	Sicherungseinrichtung: Rückflussverhinde -
+rer EA/EB oder Systemtrenner BA 
+	je nach Ausführung Auslaufventile DN 20 
+mit Geka oder DN 40 mit C-Abgang
+3. Standrohr-Spülkopf
+Werkstoff:
+	Messingbauteile aus Messing gem. der Liste 
+„Trinkwasserhygienisch geeigneter metalle -
+ner Werkstoffe“ des Umweltbundesamtes 
+	Elastomere und Kunststoffe entsprechend 
+der KTW- & Elastomer-Leitlinie des Umwelt -
+bundesamtes und des DVGW-Arbeitsblat -
+tes W 270
+	Sicherheits-Kupplung aus nichtrostendem 
+Stahl
+
+ 13Zum Inhaltsverzeichnis
+Abmessungen:
+	wahlweise mit Spülkissen, C-Storz oder B-
+Storz, mit und ohne Probeentnahmeventil
+4. Transport und Lagerung
+	Während des Transports und der Lagerung 
+ist durch geeignete Maßnahmen sicherzu-
+stellen, dass keine Verunreinigungen in die 
+Anlagenteile eindringen können. Gegebe -
+nenfalls sind Schutzkappen zu verwenden.
+	Die Anlagenteile sind vollständig entleert 
+an einem witterungsgeschützten, frost -
+freien und trockenen Ort zu lagern und vor 
+äußeren Verunreinigungen zu schützen.
+5. Funktionsbeschreibung
+MODU-Standrohr-Unterteile dienen in Kom-
+bination mit dem MODU-Spülkopf zur 
+Hydrantenspülung sowie in Kombination mit 
+MODU-Versorgungskopf zur mobilen Trink -
+wasserent nahme, aus Unterflurhydranten, mit 
+integrierter Sicherungseinrichtung zur Netz-
+absicherung. Kein Standrohr-Wechsel mehr 
+erforderlich.
+
+ 14Zum Inhaltsverzeichnis
+Einbauhinweise (Installation/Montage)
+1. Hinweise zur Vorbereitung
+Vor und nach dem Einsatz ist das Produkt 
+auf Beschädigung oder Verunreinigung zu 
+prüfen. Ein beschädigtes Produkt darf nicht 
+eingesetzt werden. Vor jedem Einsatz ist zu 
+prüfen, ob der Dichtungsring am Standrohr -
+fuß vorhanden und einwandfrei ist und das 
+Standrohr-Auslaufventil funktioniert. Vor 
+jedem Einsatz ist das Standrohr ausreichend 
+mit Desinfektionsmittel zu behandeln. Dafür 
+ist die Benutzerinformation „EWE-Standrohr-
+Prüfanlage und EWE-Armaturen-Desinfekt“ 
+zu beachten. Bei Standrohren mit Wasserzäh-
+ler sind diese je nach Messprinzip und Bauart 
+gesondert zu desinfizieren und zu überprü-
+fen! Die DVGW twin-Informationen 10 und 11 
+zum hygienischen Umgang mit Wasserzäh-
+lern sind zu beachten!
+2. Hinweise zum Einsatzort
+	Zum Anschluss an Unterflurhydranten  
+DN 80 optional auch für Unterflurhydranten 
+DN 50, DN 100 und Württ. Schachtsystem 
+DN 50. 
+
+ 15Zum Inhaltsverzeichnis
+	Verkehrssicherung gemäß RSA (z.B. Leit -
+kegel, Absperrschranke im Gehwegbereich) 
+durchführen. 
+	Unmittelbare Umgebung des Hydranten 
+von Material, Baustoffen, Geräten und Fahr -
+zeugen frei halten. Vorgaben des Wasser -
+versorgers beachten.
+3. Montage des MODU-Standrohr-Unterteils
+1. Äußerer Kappenbereich und nächste 
+Umgebung (ca. 1m x 1m) von Straßen-
+schmutz säubern.
+2. Wenn nötig, Deckelhebevorrichtung ver -
+wenden. Wenn erforderlich, festsitzen-
+den Deckel durch leichte Schläge auf den 
+Deckelrand lockern.
+3. Deckel am Aushebsteg herausheben und 
+seitlich schwenken.
+4. Klaue und Klauendeckel des Hydranten 
+vom Schmutz befreien, dann erst Klauen-
+deckel abheben. 
+5. Dichtungsfläche der Klaue und Stand-
+rohrfuß reinigen. 
+
+ 16Zum Inhaltsverzeichnis
+6. MODU-Unterteil mit nach unten ge -
+schraubter Klauenmutter in die Klaue 
+einführen und so lange nach rechts  
+drehen, bis ein fester Sitz erreicht ist.
+Betrieb und Verwendung
+	Vor der Inbetriebnahme muss eine Inaugen-
+scheinnahme der gesamten Anlage erfol-
+gen. 
+	Die Bedienung des EWE-Standrohres 
+erfolgt gemäß W 408, sowie den Vorgaben 
+des Wasserversorgers.
+1. Verwendung MODU-Spülkopf am  
+MODU-Standrohr-Unterteil mit  
+Kugelhahn
+1.
+	Kugelhahn des 
+MODU-Unterteils 
+in Offenstellung 
+bringen.
+
+ 17Zum Inhaltsverzeichnis
+2.
+	MODU-Spülkopf auf 
+das MODU-Unterteil 
+setzen.
+3.
+	Verriegelung der  
+Sicherheits-Kupplung 
+betätigen.
+4.
+	 Hydrant mit einem 
+gegebenenfalls ver -
+längerten Hydran-
+tenschlüssel lang-
+sam vollständig bis 
+zum Anschlag öff-
+nen, dabei Hydrant 
+und Standrohr durch 
+das ausströmende 
+Wasser spülen bzw.  
+reinigen.
+
+ 18Zum Inhaltsverzeichnis
+5.
+	Für die Demontage 
+des Spülkopfes  
+Kugelhahn am  
+MODU-Unterteil 
+schließen.
+	Bei Modellen ohne 
+Kugelhahn ist der 
+Hydrant abzusperren.
+2. Verwendung des EWE-Spülkissens  
+am MODU-Standrohr-Unterteil mit 
+Kugelhahn
+Spülkissen mit Schnellkupplung, in Tasche
+Artikelnummer: 1178202
+
+
+ 19Zum Inhaltsverzeichnis
+2.1 Werkstoff/Abmessungen/Anschlüsse
+Werkstoff
+	Spülkissen aus PVC
+	Messingbauteile aus Messing gem. der Liste 
+„Trinkwasserhygienisch geeigneter metalle -
+ner Werkstoffe“ des Umweltbundesamtes. 
+	Sicherheits-Kupplung aus nichtrostendem 
+Stahl
+Abmessungen
+	bis zur Schlauch-Zuleitung 3.000 mm
+Anschlüsse
+	Sicherheits-Kupplung
+2.2 Transport und Lagerung
+Nach der Benutzung ist das Spülkissen zu rei-
+nigen, zu trocknen und ausschließlich in der 
+Tasche zu lagern und zu transportieren. 
+Achtung: Spülkissen nur trocken in Tasche 
+verstauen!
+2.3 Funktionsbeschreibung
+Zur sicheren Ableitung des Spülwassers und 
+Reduzierung des Leitungsdrucks.
+
+ 20Zum Inhaltsverzeichnis
+2.4 Verwendungshinweise 
+1.
+	Spülkissenanschluss 
+am MODU-Unterteil /
+MODU-Spülkopf an-
+schließen.  
+2.
+	Spülkissen ausrollen. 
+	Das Netzgitter nach 
+oben ausrichten und 
+in der vorgesehene 
+Fläche ablegen. 
+	Schlauch-Zuleitung 
+knickfrei und gerade 
+ausrichten.
+3.
+	Reißverschluss 
+schließen. 
+4.
+	Absperreinrichtung 
+am MODU-Unterteil 
+öffnen.
+	Hydrant öffnen.
+
+ 21Zum Inhaltsverzeichnis
+5.
+	Hydrant nach Vor -
+gabe des Netzbetrei-
+bers spülen.
+6.
+	Nach Spülvorgang 
+Hydrant oder Ab -
+sperrarmatur am 
+MODU-Unterteil 
+schließen.
+7.
+	Reißverschluss öff-
+nen und Spülkissen 
+entleeren. 
+	Gegebenenfalls 
+Fremdkörper aus-
+spülen.
+8.
+	Spülkissenanschluss 
+vom MODU-Unter -
+teil demontieren. 
+
+ 22Zum Inhaltsverzeichnis
+  9.
+	Spülkissen mittig 
+zusammenlegen und 
+zusammenrollen. 
+10.
+	Restwasser aus-
+laufen lassen und 
+trocknen lassen.
+3. Verwendung MODU-Versorgungskopf 
+am Standrohr-Unterteil mit Kugelhahn
+1.
+	MODU-Versorgungs-
+kopf auf das MODU-
+Unterteil setzen.
+2.
+	Verriegelung der  
+Sicherheits-Kupp -
+lung betätigen.
+
+ 23Zum Inhaltsverzeichnis
+3.
+	Auslaufventile lang-
+sam vollständig 
+bis zum Anschlag 
+öffnen.
+4.
+	Wasserzulauf am 
+Kugelhahn öffnen.
+5.
+	Kappen auf Hebel 
+der Schnellupplung 
+stecken.
+a b
+a  Standrohr-
+sicherung für Unterteil 
+mit Kugelhahn6.
+	Sicherungskabel fest 
+verspannen. 
+b  Standrohrsicherung 
+für Unterteil ohne Ar -
+matur, Kabel unterhalb 
+der Griffe führen und 
+verspannen
+
+ 24Zum Inhaltsverzeichnis
+7.
+	Gewünschte Trink -
+wasserentnahme 
+mit Hilfe des MODU-
+Versorgungskopfes 
+nur durch entspre -
+chendes Öffnen der 
+Standrohrventile 
+regeln. Dabei muss 
+die Hydrantenab -
+sperrung immer voll 
+geöffnet bleiben.
+8.
+	Zum Ende der 
+Arbeitszeit ist die Hy -
+drantenabsperrung 
+bei laufender Ent -
+nahme zu schließen.
+9.
+	Die Demontage des 
+MODU-Versorgungs-
+kopfes erfolgt in 
+umgekehrter Rei-
+henfolge.
+
+ 25Zum Inhaltsverzeichnis
+4. Frostschutz
+Die Nutzung von Standrohren während der 
+Frostperiode erfordert besondere Sorgfalt. 
+Systemtrenner sind vor Frost zu schützen 
+und vollständig zu entleeren.
+Gegebenenfalls sind weitere Frostschutz-
+maßnahmen einzuleiten.
+5. Funktionskontrollen
+Die gesamte Anlage ist auf ihre Funktion 
+und Dichtigkeit zu prüfen. Die Hinweise 
+zur Funktionskontrolle aus der Benutzerinfor -
+mation für Systemtrenner sind zu beachten.
+Instandhaltung
+1. Wartung
+	Die Wartung der am Standrohr befindlichen 
+Sicherungseinrichtungen sind nach Regel-
+werk DIN 806-5 durchzuführen. Die EWE-
+Standrohr-Prüfanlage ist hierfür geeignet. 
+	Die Benutzerinformation „EWE-Standrohr-
+Prüfanlage“ sowie die Benutzerinformation 
+für Systemtrenner sind zu beachten. 
+
+ 26Zum Inhaltsverzeichnis
+2. Instandsetzung und Service
+Die Hinweise zur Instandsetzung aus der 
+Benutzerinformation für System  trenner sind 
+zu beachten. Sie können den EWE-After 
+Sales Service in allen Fragen zur Ins pektion, 
+Wartung und Instandhaltung vertrauensvoll 
+kontaktieren.  
+Zubehör und Ersatzteile finden Sie in unserem  
+aktuellen Katalog oder kontaktieren Sie dazu 
+bitte unseren Service.
+ Kontakt: 
+ Telefon +49 531 37005-81
+ Fax +49 531 37005-55
+ E-Mail: service@ewe-armaturen.de
+

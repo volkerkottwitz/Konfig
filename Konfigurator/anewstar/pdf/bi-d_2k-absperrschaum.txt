@@ -1,0 +1,393 @@
+EWE-2K-Absperrschaum
+Benutzerinformation#7100040- Ausgabe 06/2021
+
+
+2  |  Benutzerinformation EWE 2K-Absperrschaum
+Inhaltsverzeichnis
+Allgemeine Hinweise  4
+Angaben über das Erzeugnis 7Einbauhinweise (Installation/Montage) 10Wartung und Instandhaltung 21Zubehör und Service 22
+
+Benutzerinformation EWE 2K-Absperrschaum |  3
+
+
+4  |  Benutzerinformation EWE 2K-AbsperrschaumAllgemeine Hinweise
+	Bitte lesen Sie diese Benutzerinformation vor Inbetriebnahme des Produktes aufmerksam 
+durch und beachten Sie besonders die Hinweise und Warnvermerke.
+	Die aktuelle Version dieser Einbau- und Bedienungsanleitung finden Sie auf unserer Inter -
+netseite: www.ewe-armaturen.de.
+	Prüfen Sie die Lieferung bei Erhalt unverzüglich auf Vollständigkeit und Transportschäden.
+	Bewahren Sie die Benutzerinformation für eventuelle Fragen auf.
+	Die Verwendung des 2K-Absperrschaums und die Anwendung der entsprechenden Werk -
+zeuge ist schulungspflichtig und nur durch Gas-Fachkräfte durchzuführen.
+	Das Montagepersonal muss für alle Arbeiten ausgebildet und im Umgang mit den Geräten durch die Firma EWE-Armaturen unterwiesen sein. Hierzu wird durch die Firma EWE-Arma-turen ein Schulungsnachweis ausgestellt.
+	Zur Einweisung in die Produkte durch unsere Mitarbeiter vor Ort, vereinbaren Sie bitte einen persönlichen Termin.
+	Für weitere Informationen stehen Ihnen unsere Mitarbeiter telefonisch während der Ge -
+schäftszeiten zur Verfügung. 
+Anschrift des Herstellers
+Wilhelm Ewe GmbH & Co. KGVolkmaroder Straße 19 · 38104 BraunschweigTelefon 0531 37005-0 · Fax 0531 37005-55 info@ewe-armaturen.de
+Allgemeine Sicherheitshinweise 
+	Die Durchführung der erforderlichen Tätigkeiten hat entsprechend den gesetzlichen Vor -
+schriften, Unfallverhütungsvorschriften, geltenden Normen einschließlich den anerkann-ten Regeln der Technik zu erfolgen.
+	Es dürfen ausschließlich Geräte, die in dieser Benutzerinformation aufgeführt sind, für diese Anwendung verwendet werden.
+	Bitte beachten Sie die Sicherheitsdatenblätter der Produkte und Zubehörteile.
+	Je nach Art der durchzuführenden Arbeiten muss eine entsprechende Schutzausrüstung getragen werden (siehe Unfallverhütungsvorschriften).
+	Bei der Verwendung der Druckluft-Kartuschenpresse ist insbesondere erforderlich:  Schutzbrille, Gehörschutz.
+	Technische und unauthorisierte Veränderungen an EWE-Produkten sind unzulässig. Die Produkte dürfen nur in bestimmungsgemäßer Anwendung zum Einsatz kommen.
+Haftungsausschluss
+	Sowohl das Einhalten dieser Benutzerinformation als auch die Handhabung bei Installa-tion, Betrieb und Wartung der Produkte können von uns nicht überwacht werden.  
+
+Benutzerinformation EWE 2K-Absperrschaum |  5Eine unsachgemäße Ausführung der Installation kann zu Sachschäden führen und in Folge 
+Personen gefährden.
+	Wir machen Sie darauf aufmerksam, dass die Geräte aufeinander abgestimmt sind und nur original EWE-Teile zum Einsatz kommen dürfen. Diese aufeinander abgestimmten Artikel gewährleisten, bei vorgabengerechter Anwendung, einen störungsfreien Einsatz. Bei Ein-satz anderer, nicht originaler EWE-Teile lehnen wir jegliche Gewährleistungs-, Reklamati-ons- oder Regressansprüche ab.
+Verpackung
+	Die einzelnen Produkte sind entsprechend den zu erwartenden Transportbedingungen verpackt. Für die Verpackung wurden umweltfreundliche Materialien verwendet. Die Verpackung soll die einzelnen Bauteile bis zur Montage vor Transportschäden, Korrosion und anderen Beschädigungen schützen. Entfernen Sie die Verpackung erst kurz vor der Verwendung der Produkte.
+Entsorgung
+	Trennen Sie die vorhandenen Rohstoffe nach Entsorgungstyp und Werkstoff. Die Ent -
+sorgung der Rohstoffe muss nach den jeweils gültigen gesetzlichen Bestimmungen und örtlichen Vorschriften erfolgen. Führen Sie wieder verwertbare Verpackungsmaterialien dem Recycling zu.
+	Keine Rücknahmeverpflichtung, bei altem Material oder für die Verpackungen, etc. 
+	Der Anwender ist für die korrekte Entsorgung verantwortlich.  Unsere Herstellerangaben, auch die im SDB, dienen als Empfehlungen.    
+	Bei auspressbaren Kartuschen, mit oder ohne Mischer, empfiehlt sich das Auspressen für die normale Entsorgung als nicht Gefahrstoff. 
+	Wichtig: ein eventuell aufgesetzter Mischer sollte vor der Entsorgung abgenommen wer -
+den, damit das restliche Isocyanat in der Kartusche durch die Luftfeuchtigkeit ausreagieren kann.
+	Deutlich überlagerte Kartuschen können möglicherweise nicht mehr ausgepresst werden. 
+Von einem eigen  mächtigen, gew altsamen Öffnen der Kartusche wird dringend abgeraten. 
+Es ist eine fachgerechte Entsorgung als Gefahrstoff vorzunehmen.
+Entsorgung 2K-Absperrschaumkartuschen:
+	Bei der Entsorgung von entleerten und nichtentleerten Kartuschen beachten Sie das Sicherheitsdatenblatt. Die Kartuschen sind immer über das Mischerrohr auszupressen. Der ausreagierte Schaum kann über den „hausmüllähnlichen Gewerbeabfall“ entsorgt werden. Das Mischerrohr von den leeren Kartuschen entfernen (Reste können ausreagieren) und beides dem Recycling Recycling (Kunststoffe) zuführen.
+
+6  |  Benutzerinformation EWE 2K-AbsperrschaumVerwendung von Abkürzungen:
+	PSA:   Persönliche Schutzausrüstung
+	2K:  Zwei Komponenten
+	DGUV :  Deutsche gesetzliche Unfallversicherung
+	DN:  Nenndurchmesser 
+	DVGW:  Deutscher Verein des Gas- und Wasserfaches 
+	DIN:   Deutsches Insitut für Normung
+	PVC:  Polyvinylchlorid
+	PE:  Polyethylen 
+	DVS:   Deutscher Verband für Schweißen und verwandte VerfahrenErklärung der verwendeten Symbole, Warnzeichen und Signalwörter
+Allgemeine Gefahrenstelle (Gefahr/Warnung/Vorsicht)
+GEFAHR:Gefährdung mit einem hohen Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge hat.
+WARNUNG:
+Gefährdung mit einem mittleren Risikograd, die, wenn sie nicht vermieden wird, den Tod oder eine schwere Verletzung zur Folge haben kann.
+VORSICHT:
+Gefährdung mit einem niedrigen Risikograd, die, wenn sie nicht vermieden wird, geringfügige oder mäßige Verletzungen zur Folge haben kann.
+HINWEIS:
+Weist auf eine Anweisung hin, die unbedingt zu beachten ist.
+INFORMATION:
+Gibt nützliche Empfehlungen.
+
+Benutzerinformation EWE 2K-Absperrschaum |  71. Angaben über das Erzeugnis 
+1.1 Geltungsbereich
+Diese Benutzerinformation gilt für
+Kartusche 190 ml/380 ml Aufsteckreduzierung 8 mmEWE-2K-Absperrschaum 190 ml, Artikelnummer 6120390
+EWE-2K-Absperrschaum 380 ml, Artikelnummer 6120391 bestehend aus: 
+Mischer
+EWE-2K-Absperrschaum Werkzeuge bestehend aus: 
+Druckluft-KartuschenpresseArtikelnummer 6120394
+	Spezialwerkzeug mit zwei  integrierten Auspressstempeln
+	Betriebsdruck: 7 bar
+	Druckluftanschluss: Nenn-weite 7,2
+Druckluft-Anschlussset
+Artikelnummer 6120395
+	kombinierter Druckregler und Filter
+	Kompressorkupplung
+	Gewebeschlauch 10 m mit Anschlüssen
+Klemmbacken mit Gas-Kugelhahn
+	Klemmbacken-Oberteile für Stahlleitungen mit Schrauben je nach Nennweite, DN 25, 32, 40, 50, Artikelnummer 612037X
+	Klemmbacken-Haltestück DN 25-80 für Stahlleitungen,  Artikelnummer 6120374
+	Gas-Kugelhahn G 1“ für 2K-Ab -
+sperrschaum,  Artikelnummer 6120396
+	Sechskant-Klemmbacken-Monta-geschlüssel,  Artikelnummer 6120309
+
+8  |  Benutzerinformation EWE 2K-AbsperrschaumEWE-2K-Absperrschaum Werkzeuge 
+bestehend aus: 
+Doppelklemmbacken-Ober-teile für Stahlleitungen
+	für DN 65 und 80,  Artikelnummer 6120373  und 6120352Anbohrgerät mit BohrerArtikelnummer 6120395
+	Anbohrgerät G 1“ ,  Artikelnummer 6120012
+	Bohrer 9 mm für Stahllei- tungen,  Artikelnummer 6121809
+	Sechskant-Anbohrgeräte- Schlüssel,  Artikelnummer 6120308
+Schleuse G 1“ Artikelnummer 6120399
+ Endkappen-Überschieber für 
+Stahlleitungen mit M6-Prüf -
+anschlussgewinde und M6- Gewindestift
+	je nach Nennweite DN 25,  32, 40, 50, 65, 80, Artikelnummer 61203XXPrüfanschluss M6 für Endkappen-Überschieber
+	Nennweite 7,2, Artikelnummer 6120387
+Klemmbacken Ober-und 
+Unterteil für PE und  PVC-Leitungen 
+	 für d 40 bis d 75 Artikelnummern 6120344 - 6120347
+
+
+Benutzerinformation EWE 2K-Absperrschaum |  91.2 Mitgeltende Unterlagen
+	Die Betriebsanweisungen des jeweiligen Auftraggebers bzw. ausführenden Unternehmens 
+sind anzuwenden
+	DVGW- und berufsgenossenschaftliches Regelwerk
+Insbesondere
+	 DVGW G 459 „Gas-Netzanschlüsse für maximale Betriebsdrücke bis einschließlich 5 bar“
+	 DVGW G 260 „Gasbeschaffenheit“
+	 DVGW G 465 Teil 2 „Gasleitungen mit einem Betriebsdruck bis 5 bar - Instandsetzung“
+	 DVGW G 469 „Druckprüfverfahren Gastransport/Gasverteilung“
+	 DVGW GW 15 „Nachumhüllen von Rohrleitungen, Armaturen und Formstücken“
+	 DVGW GW 309 „Elektrische Überbrückung bei Rohrtrennung“
+	 DVGW GW 350 „Schweißverbindungen für Rohrleitungen aus Stahl“
+	 DGUV 100-500 „Arbeiten an Gasleitungen“
+	 DVS-Richtlinien
+1.3 Verwendungsbereich/Medium
+	 Gase nach DVGW-Arbeitsblatt G 260/I (jedoch nicht für Flüssiggas in der Flüssigphase)
+	 für Stahlleitungen nach DIN 2448, DIN EN 10208, DIN 2470 in den Nennweiten DN 25, 32, 
+40, 50, 65, 80
+	für PVC-Leitungen nach DIN 8062, in den Nennweiten d 40, d 50, d 63, d 75
+	für PE-Leitungen nach DIN 8074, in den Nennweiten d 40, d 50, d 63, d 75
+1.4 Zulässiger Bauteile-Betriebsdruck (MOP)
+	      1 bar  DN 25 - 65
+	500 mbar  DN 80
+1.5 Verarbeitung, Transport und Lagerung
+	 Die Verabeitungs- und Lagerbedingungen des EWE-2K-Absperrschaums sind 
+unbedingt einzuhalten.
+	Der EWE-2K-Absperrschaum ist bis zur Verwendung in der werkseitigen Verpackung (Origi-nalgebinden) und trocken zu lagern.
+	 Transport und Lagerung des EWE-2K-Absperrschaums:  5°C - 30°C  
+  Das auf der Kartusche befindliche Temperatursiegel ist vor dem Einsatz zu 
+beachten. Eine Kartusche mit schwarzgefärbten Temperatursiegel hat die 
+Transport- und Lagertemperatur überschritten und darf nicht verwendet werden!
+	Verarbeitungs- und Kartuschentemperatur für den EWE-2K-Absperrschaum: 15°C - 30°C, optimal: 20°C - 25 °C
+	   Der auf der Kartusche befindliche Temperaturmessstreifen ist vor dem Einsatz zu 
+beachten.  Dieser zeigt die aktuelle Temperatur der Kartusche an.
+	Verwenden Sie die Thermobox zur Lagerung von bis zu 9 Kartuschen, um die vorgegebe -
+nen Temperaturen einzuhalten. Die Thermobox besitzt eine Temperatur-Voreinstellung von 20°C.
+
+10  |  Benutzerinformation EWE 2K-Absperrschaum	Beachten Sie das auf den Kartuschen befindliche Haltbarkeitsdatum.
+	Kartuschen sind nur begrenzt haltbar bzw. einsatzfähig! Mindest-Resthaltbarkeit bei 
+Auslieferung 3 Monate. Bitte bei der Disposition berücksichtigen. Abgelaufene Kartuschen dürfen nicht mehr eingesetzt werden 
+Gefahr von erhöhtem Gasaustritt!  
+	Die Werkzeuge bis zur Verwendung vor Verschmutzung geschützt lagern. Vor und nach dem Einsatz sind die Werkzeuge auf Beschädigung oder Verunreinigung zu prüfen.
+1.6 Verfahrensbeschreibung
+Bei diesem standardisierten Verfahren handelt es sich um ein Arbeitsverfahren mit geringer Gefährdung nach DGUV 100-500 (bei korrekter Anwendung gasfrei bzw. mit Schleichgas-menge ≤ 30 ml/h). 
+Die Hinweise zu Arbeiten an Gasleitungen gemäß DGUV 100-500 müssen eingehalten 
+werden. Dieses Verfahren eignet sich zum Trennen von Gasleitungen, die nach dem 
+Verschließen nicht mehr in Betrieb genommen werden. Das Anwendungsgebiet sind horizontale, strömungsfreie Stahl-Gasleitungen in den Dimensionen DN 25 bis DN 80, mit einem maximalen Betriebsdruck (MOP) bis 1000 mbar (DN 80 500 mbar) und einer maxima -
+len Neigung von 15°. Die zu trennende Stahl-Gasleitung wird über eine Anbohrvorrichtung angebohrt. Das Einbringen des Schaums erfolgt über eine Gasschleuse. Nach dem Aushärten des Schaums kann die Leitung mit einem Rohrabschneider getrennt werden. Über das verbleibende Rohrende wird eine modifizierte Endkappe mit Rollring aufgeschoben, anschließend verschweißt und einer Druckprobe unterzogen.
+2. Einbauhinweise (Installation/Montage)
+2.1 Hinweise zur Vorbereitung
+  Verletzungsgefahr durch beschädigte 
+Werkzeuge und Kartuschen!
+	Werkzeuge und Kartuschen vor Verwendung auf 
+einwandfreien Zustand prüfen.
+	Die Verwendung beschädigter oder ungeeigneter Werkzeuge/Kartuschen ist verboten!
+	Das auf der Kartusche befindliche Temperatursie -
+gel und der Temperaturmessstreifen sind vor dem Einsatz zu beachten. 
+	Eine Kartusche mit schwarzgefärbtem Temperatur -
+siegel hat die Transport- und Lagertemperatur überschritten und darf nicht verwendet werden. 
+Temperatursiegel schwarz verfärbt:
+	Kartusche nicht  mehr verwenden!Temperatursiegel weiß:
+	Kartusche kann  verwendet werden.
+Die grüne Markierung auf dem Temperatur -
+messstreifen zeigt die aktuelle Temperatur der Kartusche an.
+
+Benutzerinformation EWE 2K-Absperrschaum |  11
+2.2 Antrieb Anbohrgerät
+Als Antrieb eignen sich Druckluftbohrmaschinen mit einer max. Drehzahl von 500/min. 
+Auf die bestimmungsgemäße Verwendung ist zu achten. Die Sicherheitsbestimmungen der Maschine sind zu berücksichtigen.
+2.3 Montage an Stahlleitungen
+	 Übermäßige Kraftanwendung bei der Montage und der Anbohrung ist nicht 
+erforderlich und schadet den Werkzeugen und den Bohrern.
+	 Diese Montageanleitung gilt zunächst nur für Stahlleitungen.  
+Eine Anwendung bei PVC- und PE-Leitungen bitte nur nach Rücksprache mit 
+unseren Mitarbeitern im Innen- bzw. Außendienst. Die dafür erforderlichen Werk- zeuge (Klemmbacken und Bohrer) sind in Arbeit und müssen angefragt werden! 
+1.
+	DVGW- und berufsgenossenschaftliches Regelwerk sowie Betriebsanweisung des jeweiligen Auftraggebers bzw. ausführen-den Unternehmens sind anzuwenden.
+	 Entfernen der alten Rohrumhüllung und Montage der elektrischen Überbrückung.
+2.
+	Maß nehmen für die spätere Trennung.
+	Ausdehnung in Richtung Hauptleitung be -
+achten! Die Ausdehnung des EWE-2K-Ab -
+sperrschaums beträgt bei DN 25-40 ca. 25 cm und bei DN 50 - DN80 ca. 20 cm je Richtung. Verschweißbarkeit der Endkap -
+pe ist zu berücksichtigen.
+	 Trennstelle markieren.
+3.
+	 Montage der Klemmbacken unmittelbar 
+auf der markierten Trennstelle.
+
+
+12  |  Benutzerinformation EWE 2K-Absperrschaum
+4.
+	Montage des Gas-Kugelhahns.
+5.
+	Schneidöl zum funkenfreien Anbohren 
+einbringen.
+6.
+	Die beiden Feststellschrauben am EWE-Anbohrgerät lösen.
+7.
+	Die Vorschubtrommel durch Linksdrehen bis zum Anschlag in Startposition bringen.
+	Die Bohrstange ganz zurückziehen und mit Hilfe der Feststellschrauben fixieren.
+
+
+Benutzerinformation EWE 2K-Absperrschaum |  13
+  8.
+	Anbohrgerät in den Gas-Kugelhahn (offen) 
+schrauben.
+  9.
+	Fixierte Feststellschraube lösen.
+	Bohrstange mit Bohrer langsam und ohne Druck auf den Rohrscheitel setzen. Bohr -
+stange 3-5 mm über dem Rohr arretieren.
+10.
+	Die zwei Feststellschrauben wechselweise mit dem Anbohrgeräte-Schlüssel anzie -
+hen.
+11.
+	Antrieb auf die Bohrstange aufsetzen.
+	Anbohren der Stahl-Gasleitung, max.  500/min.
+
+
+14  |  Benutzerinformation EWE 2K-Absperrschaum
+12.
+	Mit der Hand durch Rechtsdrehen lang-
+sam den entsprechenden Vorschub geben, bis die Rohrwandung ganz durchtrennt ist.
+13.
+	Feststellschrauben lösen.
+  Verletzungsgefahr durch hoch-
+schnellende Bohrstange!► Bohrstange mit der Hand führen!
+14.
+	Die Bohrstange bis zum Anschlag nach oben ziehen und wieder mittels Feststell-schrauben fixieren.
+15.
+	Gas-Kugelhahn schließen.
+	Anbohrgerät demontieren.
+
+Benutzerinformation EWE 2K-Absperrschaum |  15
+  16.
+	Gasschleuse montieren.
+17.
+	Vordruck am Druckluft-Anschlussset auf  
+6 bar einstellen.
+18.
+	Mischerrohr und 8 mm Aufsteckreduzie -
+rung auf die EWE-2K-Absperrschaum- Kartusche schrauben.
+19.
+	EWE-2K-Absperrschaum-Kartusche ord-nungsgemäß in die Druckluft-Kartuschen-presse einlegen.
+	PSA bei Einbringung des 2K-Absperr -
+schaums tragen!
+
+
+16  |  Benutzerinformation EWE 2K-Absperrschaum
+20.
+	 Aushärtezeit des 2K-Absperr -
+schaums beachten.
+	die folgenden Arbeitsschritte sind ohne 
+Pausen durchzuführen! Vorlauf verwerfen.
+21.
+	Mischer in die Schleuse einführen  (Gas-Kugelhahn geschlossen).
+	Verschraubung an der Schleuse zur Ab -
+dichtung handfest fixieren.
+22.
+	Kugelhahn öffnen, Mischer bis Anschlag in Leitung einführen.
+	 Betriebsdruck berücksichtigen und 
+gegenhalten!
+	Einstecktiefe kontrollieren (Stege des Mischers müssen dicht an der Schleuse liegen).
+	Verschraubung an der Schleuse festziehen.
+23.
+	Kartuscheninhalt komplett einbringen.
+	Gelbe Markierung zeigt Endposition an.
+	Zwei Minuten Aushärtezeit abwarten.
+
+
+Benutzerinformation EWE 2K-Absperrschaum |  17
+24.
+	Verschraubung an der Schleuse lösen und 
+Kartusche herausziehen.
+25.
+	Demontage der Gasschleuse.
+26.
+	Demontage des Gaskugelhahns.
+27.
+	Demontage der Klemmbacken.
+
+
+18  |  Benutzerinformation EWE 2K-Absperrschaum
+28.
+	Kontrollprüfung Schaumdichtigkeit.
+29.
+	Nach weiteren fünf Minuten: Trennung auf 
+der Hausseite.
+30.
+	Trennung der Stahl-Gasleitung direkt vor dem Bohrloch.
+31.
+	EWE-2K-Absperrsschaum durchsägen.
+
+
+Benutzerinformation EWE 2K-Absperrschaum |  1933.
+	Vorbereitung zur Anbringung des End-
+kappen-Überschiebers, einschließlich Markierung der Einstecktiefe.
+	O-Ring im Endkappen-Überschieber fetten.
+34.
+	Endkappen-Überschieber inkl. Dekom-pressionsband aufschieben.
+	Einstecktiefe/Markierung berücksichtigen.
+	Band entfernen.
+35.
+	Stillgelegte Leitung mit geeignetem  Medium spülen.
+	Offenes Rohrende verschließen.
+32.
+	Kontrollprüfung Schaumdichtigkeit.
+	 Rohrende ohne Kappe nicht 
+unbeaufsichtigt lassen!
+	Endkappe unverzüglich, spätestens inner -
+halb von 30 min, montieren.
+
+20  |  Benutzerinformation EWE 2K-Absperrschaum36.
+	Prüfanschlussgewinde ausrichten.
+	Verschweißen des Endkappen-Über- 
+schiebers.
+37.
+	Prüfanschluss anbringen.
+38.
+	Prüfung der Schweißnaht mit max. Be -
+triebsdruck der Leitung (z.B. Abseifen).
+39.
+	Stiftschraube einschrauben und ver -
+schweißen.
+2.4 Besonderheiten bei DN 65/80
+Bei Trennung einer Stahlleitung DN 65 oder 80 sind zeitgleich zwei Kartuschen 
+EWE-2K-Absperrschaum durch zwei Anbohrungen einzubringen. Hierzu werden zwei 
+Werkzeugsets und eine Doppelklemmbacke benötigt.
+
+Benutzerinformation EWE 2K-Absperrschaum |  211.
+	Arbeitsschritte 4-16 nacheinander beid- 
+seitig durchführen!
+2.
+	Arbeitsschritte 18-24 zeitgleich beidseitig durchführen!
+3. Wartung und Instandhaltung
+ Die Lagerung und der T ransport der 2K-Absperrschaum-Werkzeuge hat in dem  
+ entsprechenden Montagekoffer zu erfolgen. 
+  Quetsch- und Verletzungsgefahr durch unbeabsichtigtes Anlaufen der
+ Maschine!
+ ► Die Druckluftgeräte nur drucklos, ohne angeschlossene Schläuche warten.
+ Die Geräte sind nach dem Gebrauch zu reinigen und trocken zu lagern. Vor der  
+ Wartung und Überprüfung der Druckluftgeräte sind diese von der Druckluftversor -
+gung zu trennen.
+Überprüfen der Gewinde, Bolzen, Schrauben und Anschlüsse auf Beschädigung und Funktion 
+sowie dem Zustand der Dichtungen. 
+Vor jedem Einsatz gehört auch eine Überprüfung der O-Ringe, der Klemmbacken und 
+Klemmschrauben, sowie der Ölung der einzelnen Elemente der EWE-2K-Kartuschenpresse.
+Die inneren Dichtungselemente müssen durch die Zugabe von Öl in die Druckluftzufuhr 
+regelmäßig geölt werden. Sämtliche Geräte dürfen nicht in flüssige Medien getaucht werden.
+ Explosions- und Brandgefahr durch Verwendung undichter oder beschädigter Teile!
+ ► Lebensgefahr!
+ ►  Werkzeuge und Kartuschen vor Verwendung prüfen!
+
+
+22  |  Benutzerinformation EWE 2K-Absperrschaum4. Zubehör und Service
+4.1 Thermobox für 2K-Absperrschaum
+	für bis zu 9 Kartuschen 380 ml, voreingestellt auf 20°C
+4.2 Zusätzlicher Service
+	Überprüfung von EWE-Werkzeugen, EWE-Anbohrgeräten und Zubehör
+	fachgerechte Demontage und Reinigung
+	Funktions- und Dichtheitsprüfung und Ersatz schadhafter Teile
+Bei weiteren Fragen stehen Ihnen unsere Mitarbeiter im Innen- und Außendienst gern 
+zur Verfügung. Sprechen Sie uns an!
+
+
+Benutzerinformation EWE 2K-Absperrschaum |  23
+
+24  |  Benutzerinformation EWE 2K-AbsperrschaumWilhelm Ewe GmbH & Co. KG
+Volkmaroder Straße 1938104 Braunschweig
+Telefon 0531 37005-0
+Fax 0531 37005-55info@ewe-armaturen.de
+www.ewe-armaturen.de
+#7100040 - Ausgabe 06/2021
+

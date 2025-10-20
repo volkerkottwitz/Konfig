@@ -1,0 +1,26 @@
+Anwendungshilfe:
+Welche Hülse für welche Rohrart?
+Bohrloch-Hülse
+	 für EWE-Anbohrarmaturen 
+	 aus Kunststoﬀ
+	 für Guss- und Stahlrohre
+	 hält das Bohrloch frei
+	 vermeidet das Zuwachsen des Bohrlochs durch Inkrustation 
+	 leichte Montage unter Druck mit dem dazugehörigen Bohr-
+loch-Hülsen-Setzgerät
+Bohrloch-Dichthülse
+	 für EWE-Anbohrarmaturen 
+	 dichtet - speziell bei ZMU-Rohren direkt im Bohrloch gegen die Rohrwandung ab
+	 vermeidet das Zuwachsen des Bohrlochs durch Inkrustation 
+	 das aufwendige Entfernen der Außenumhüllung bei Mehr-schicht-Rohren und das Nachisolieren entfällt
+	 Zerstörung des Korrosionsschutzes wird vermieden
+	 leichte Montage unter Druck mit dem dazugehörigen Bohr-loch- und PE-Hülsen-Setzgerät
+PE-Hülse
+	 für EWE-Anbohrarmaturen
+	 mit dieser Hülse sind schraubbare Anbohrarmaturen, die für PVC-Rohre eingesetzt werden, auch für PE-Rohre einsetzbar
+	 Hülse schneidet sich mit ihrem konischen Gewinde in das Bohrloch des PE-Rohres 
+	 ein Weg/f_ließen des PE-Rohres von der Dichtung wird ver-mieden
+	 leichte Montage unter Druck mit dem dazugehörigen Bohr-loch- und PE-Hülsen-Setzgerät
+	 Schweißaufwand entfällt, die Montage ist witterungsunsab-hängig
+
+
