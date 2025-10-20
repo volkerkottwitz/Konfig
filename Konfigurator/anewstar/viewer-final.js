@@ -9,6 +9,63 @@ let wurdeBereitsInitialGerendert = false;
 let globalPdfCache = [];
 let isLazyLoading = false; // Verhindert, dass der Lader mehrfach startet
 
+// ===================================================================
+//   SCHRITT 1: SYNONYM-WÖRTERBUCH & HILFSFUNKTION FÜR ZOLL-SUCHE
+// ===================================================================
+
+const zollSynonyms = [
+    ['1/4', '¼'],
+    ['1/2', '½'],
+    ['3/4', '¾'],
+    ['1 1/4', '1¼', '5/4'],
+    ['1 1/2', '1½', '3/2', '6/4'],
+    ['1 3/4', '1¾', '7/4'],
+    ['2', '8/4'], // 2 Zoll kann auch als 8/4 geschrieben sein
+    ['2 1/4', '2¼', '9/4'],
+    ['2 1/2', '2½', '5/2', '10/4']
+];
+
+/**
+ * Erweitert einen Suchbegriff um Zoll-Synonyme.
+ * Findet einen Zoll-Wert im Suchbegriff und ersetzt ihn durch eine Regex-Gruppe,
+ * die alle Synonyme (z.B. "5/4", "1 1/4", "1¼") abdeckt.
+ * @param {string} query - Der ursprüngliche Suchbegriff.
+ * @returns {string} - Der erweiterte Suchbegriff als Regex-String.
+ */
+// ===================================================================
+//   FINALE KORREKTUR: 'expandZollQuery' mit flexiblen Leerzeichen
+// ===================================================================
+function expandZollQuery(query) {
+    let finalQuery = query;
+
+    const allTerms = zollSynonyms.flat().sort((a, b) => b.length - a.length);
+
+    for (const term of allTerms) {
+        // Erstelle eine Regex, um den Begriff als "ganzes Wort" zu finden.
+        // Das \b sorgt dafür, dass wir nicht "1/4" in "1/40" finden.
+        // Wir ersetzen das Leerzeichen im Begriff durch \s+, um flexibler zu sein.
+        const termRegex = new RegExp(`\\b${term.replace(/\s+/g, '\\s+').replace('/', '\\/')}\\b`, 'i');
+
+        if (termRegex.test(finalQuery)) {
+            const group = zollSynonyms.find(g => g.includes(term));
+            if (group) {
+                // === HIER IST DIE ENTSCHEIDENDE ÄNDERUNG ===
+                // Beim Erstellen der Regex-Gruppe ersetzen wir jedes Leerzeichen
+                // in den Synonymen durch \s+, was "ein oder mehrere Whitespace-Zeichen" bedeutet.
+                const regexPart = `(${group.map(s => s.replace(/\s+/g, '\\s+').replace('/', '\\/')).join('|')})`;
+                
+                finalQuery = finalQuery.replace(termRegex, regexPart);
+                
+                return finalQuery;
+            }
+        }
+    }
+
+    return finalQuery;
+}
+
+
+
 function ladebildschirmPruefen() {
   if (csvGeladen && pdfGerendert) {
     document.getElementById('loadingScreen').style.display = 'none';
@@ -343,7 +400,7 @@ function startLocalSearch() {
 
 
 // ===================================================================
-//   ANPASSUNG 2: 'startGlobalSearch' ZURÜCKSETZEN AUF DIE GUTE VERSION
+//   ANGEPASSTE 'startGlobalSearch'-FUNKTION (MIT ÜBERSCHRIFTEN-EXTRAKTION)
 // ===================================================================
 function startGlobalSearch() {
   const searchText1 = document.getElementById('searchBox').value;
@@ -355,143 +412,157 @@ function startGlobalSearch() {
   }
 
   document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
-  const normalizedSearchText1 = normalize(searchText1);
-  const normalizedSearchText2 = normalize(searchText2);
+  
+  // Die Suchbegriffe werden jetzt hier erweitert, damit wir sie nur einmal berechnen müssen.
+  const expandedTerm1 = searchText1 ? expandZollQuery(searchText1) : null;
+  const expandedTerm2 = searchText2 ? expandZollQuery(searchText2) : null;
+  
+  const searchRegex1 = expandedTerm1 ? new RegExp(expandedTerm1, 'gi') : null;
+  const searchRegex2 = expandedTerm2 ? new RegExp(expandedTerm2, 'gi') : null;
+
   const activeOperatorBtn = document.querySelector('.operator-btn.active');
   const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und';
 
   const allResults = [];
-  let term1Count = 0;
-  let term2Count = 0;
   const geladeneDokumente = globalPdfCache.filter(p => p.geladen);
 
   for (const doc of geladeneDokumente) {
-    // Iteriere jetzt wieder über das Array der Seitentexte
     for (let i = 0; i < doc.seitenTexte.length; i++) {
       const pageText = doc.seitenTexte[i];
-      if (!pageText) continue; // Überspringe leere Seiten
-
       const normalizedPageText = normalize(pageText);
       
-      let matches1 = 0;
-      if (normalizedSearchText1) {
-          matches1 = (normalizedPageText.match(new RegExp(normalizedSearchText1.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g')) || []).length;
-      }
-      
-      let matches2 = 0;
-      if (normalizedSearchText2) {
-          matches2 = (normalizedPageText.match(new RegExp(normalizedSearchText2.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g')) || []).length;
-      }
+      // Wichtig: Regex-Indizes vor jeder Verwendung zurücksetzen!
+      if (searchRegex1) searchRegex1.lastIndex = 0;
+      if (searchRegex2) searchRegex2.lastIndex = 0;
 
-      const hasText1 = matches1 > 0;
-      const hasText2 = matches2 > 0;
+      const hasText1 = searchRegex1 ? searchRegex1.test(normalizedPageText) : false;
+      const hasText2 = searchRegex2 ? searchRegex2.test(normalizedPageText) : false;
       
       let isMatch = false;
-      if (normalizedSearchText1 && !normalizedSearchText2) { isMatch = hasText1; }
-      else if (!normalizedSearchText1 && normalizedSearchText2) { isMatch = hasText2; }
-      else if (normalizedSearchText1 && normalizedSearchText2) {
+      if (!expandedTerm2) { isMatch = hasText1; }
+      else {
         switch (searchOperator) {
           case 'und': isMatch = hasText1 && hasText2; break;
           case 'oder': isMatch = hasText1 || hasText2; break;
           case 'ohne': isMatch = hasText1 && !hasText2; break;
         }
       }
-
+      
       if (isMatch) {
-        term1Count += matches1;
-        term2Count += matches2;
+        // === HIER IST DIE NEUE LOGIK ===
+        // 1. Extrahiere die Überschrift von der gefundenen Seite.
+        const headline = extractHeadline(pageText);
+
+        // 2. Füge die Überschrift zum Ergebnisobjekt hinzu.
         allResults.push({
           docName: doc.name,
           docPath: doc.path,
-          pageNumber: i + 1, // Die exakte Seitenzahl!
+          pageNumber: i + 1,
+          headline: headline, // <--- NEUES FELD
           context: getContextSnippet(pageText, searchText1, searchText2)
         });
       }
     }
   }
 
+  // Die Statistik-Zählung ist hier nicht mehr vorhanden, das ist korrekt.
   displayGlobalResults(allResults, { 
       term1: searchText1, 
-      term2: searchText2, 
-      count1: term1Count, 
-      count2: term2Count 
+      term2: searchText2,
+      isFromGlobalSearch: true
   });
   
   document.getElementById('loadingSpinnerOverlay').style.display = 'none';
 }
 
 
-
 // ===================================================================
-//   KORRIGIERTE 'getContextSnippet' (FÜR ZUVERLÄSSIGE HERVORHEBUNG)
+//   FINALE, VERFEINERTE 'getContextSnippet'-FUNKTION
 // ===================================================================
 function getContextSnippet(pageText, term1, term2, length = 150) {
+  const expandedTerm1 = term1 ? expandZollQuery(term1) : null;
+  const expandedTerm2 = term2 ? expandZollQuery(term2) : null;
   const normPageText = normalize(pageText);
-  
-  // Finde den Startpunkt des Snippets basierend auf normalisierten Begriffen
-  const normTerm1 = term1 ? normalize(term1) : null;
-  const normTerm2 = term2 ? normalize(term2) : null;
-  
+
   let index = -1;
-  if (normTerm1) {
-    index = normPageText.indexOf(normTerm1);
+
+  // === NEUE, VERFEINERTE LOGIK ===
+  // 1. Versuche, den exakten (normalisierten) Originalbegriff zu finden.
+  //    Das ist oft relevanter für den Benutzer.
+  if (term1) {
+    index = normPageText.indexOf(normalize(term1));
   }
-  if (index === -1 && normTerm2) {
-    index = normPageText.indexOf(normTerm2);
+  if (index === -1 && term2) {
+    index = normPageText.indexOf(normalize(term2));
+  }
+
+  // 2. Wenn der Originalbegriff nicht gefunden wurde, suche nach irgendeinem Synonym.
+  if (index === -1 && expandedTerm1) {
+    try {
+      const searchRegex = new RegExp(expandedTerm1, 'i');
+      index = normPageText.search(searchRegex);
+    } catch (e) { /* Fehler ignorieren */ }
+  }
+  if (index === -1 && expandedTerm2) {
+    try {
+      const searchRegex = new RegExp(expandedTerm2, 'i');
+      index = normPageText.search(searchRegex);
+    } catch (e) { /* Fehler ignorieren */ }
   }
 
   if (index === -1) {
-    return pageText.substring(0, length) + '...'; // Fallback
+    return pageText.substring(0, length) + '...';
   }
 
   const start = Math.max(0, index - Math.floor(length / 3));
   let snippet = pageText.substring(start, start + length);
 
-  // === VERBESSERTE HERVORHEBUNG ===
-  // Ersetze die Begriffe im Snippet, ignoriere dabei Groß-/Kleinschreibung ('gi' Flag).
-  if (term1) {
-    // Erstelle eine sichere RegExp aus dem Originalbegriff
-    const escapedTerm1 = term1.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const regex1 = new RegExp(escapedTerm1, 'gi');
-    snippet = snippet.replace(regex1, '<strong>$&</strong>');
+  // Die Hervorhebung selbst bleibt intelligent und markiert alle Synonyme.
+  if (expandedTerm1) {
+    try {
+      const highlightRegex = new RegExp(expandedTerm1, 'gi');
+      snippet = snippet.replace(highlightRegex, '<strong>$&</strong>');
+    } catch (e) { /* Fehler ignorieren */ }
   }
-  
-  if (term2) {
-    const escapedTerm2 = term2.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const regex2 = new RegExp(escapedTerm2, 'gi');
-    snippet = snippet.replace(regex2, '<strong>$&</strong>');
+  if (expandedTerm2) {
+    try {
+      const highlightRegex = new RegExp(expandedTerm2, 'gi');
+      snippet = snippet.replace(highlightRegex, '<strong>$&</strong>');
+    } catch (e) { /* Fehler ignorieren */ }
   }
 
   return (start > 0 ? '...' : '') + snippet + (start + length < pageText.length ? '...' : '');
 }
 
 
+
 // ===================================================================
-//   KORRIGIERTE 'displayGlobalResults'-FUNKTION (MIT AUTOMATISCHER SUCHANZEIGE)
+//   ANGEPASSTE 'displayGlobalResults'-FUNKTION (ZEIGT ÜBERSCHRIFT AN)
 // ===================================================================
 function displayGlobalResults(results, searchData) {
   const overlay = document.getElementById('global-search-overlay');
   const titleEl = document.getElementById('global-search-title');
   const container = document.getElementById('global-search-results-container');
   
-  container.innerHTML = ''; // Alte Ergebnisse löschen
+  container.innerHTML = '';
 
   const operatorText = document.querySelector('.operator-btn.active')?.textContent || 'UND';
-  let titleText = `${results.length} Trefferseiten für "${searchData.term1}"`;
-  if (searchData.term2) {
-    titleText += ` ${operatorText} "${searchData.term2}"`;
+  let titleText = '';
+  const term1 = searchData.term1;
+  const term2 = searchData.term2;
+
+  if (term1 && term2) {
+    titleText = `${results.length} Trefferseiten für "${term1}" ${operatorText} "${term2}"`;
+  } else if (term1) {
+    titleText = `${results.length} Trefferseiten für "${term1}"`;
+  } else if (term2) {
+    titleText = `${results.length} Trefferseiten für "${term2}"`;
+  } else {
+    titleText = `${results.length} Trefferseiten gefunden`;
   }
   titleEl.textContent = titleText;
 
-  const statsDiv = document.createElement('div');
-  statsDiv.style.cssText = "padding: 5px 0 15px 0; border-bottom: 1px solid #dee2e6; margin-bottom: 15px; font-size: 0.9em; color: #555;";
-  let statsHTML = `<em>Statistik: "${searchData.term1}" (${searchData.count1}x)`;
-  if (searchData.term2) {
-    statsHTML += `, "${searchData.term2}" (${searchData.count2}x)`;
-  }
-  statsHTML += `</em>`;
-  statsDiv.innerHTML = statsHTML;
-  container.appendChild(statsDiv);
+  // Die Statistik-Anzeige lassen wir weg, da wir die Zählung entfernt haben.
   
   if (results.length === 0) {
     container.innerHTML += '<p style="text-align: center; margin-top: 20px;">Keine Ergebnisse gefunden.</p>';
@@ -517,7 +588,8 @@ function displayGlobalResults(results, searchData) {
       const detailsContainer = document.createElement('div');
       detailsContainer.className = 'accordion-details';
 
-      if (anzahlDokumente === 1) {
+      const isFromGlobalSearch = searchData.isFromGlobalSearch !== false;
+      if (!isFromGlobalSearch || anzahlDokumente === 1) {
         detailsContainer.style.display = 'block';
         docTitle.classList.add('active');
       } else {
@@ -527,25 +599,25 @@ function displayGlobalResults(results, searchData) {
       groupDiv.appendChild(docTitle);
 
       for (const item of groupedResults[docName]) {
+        // === HIER IST DIE NEUE LOGIK ===
+        // Erstelle einen optionalen HTML-Block für die Überschrift.
+        const headlineHTML = item.headline 
+          ? `<span class="result-headline">${item.headline}</span>` 
+          : '';
+
         const itemDiv = document.createElement('div');
         itemDiv.className = 'result-item';
+        // Füge den headlineHTML-Block zwischen Seitenzahl und Snippet ein.
         itemDiv.innerHTML = `
           <span class="page-number">Seite ${item.pageNumber}</span>
+          ${headlineHTML}
           <div class="context-snippet">${item.context}</div>
         `;
         
-        // === HIER IST DIE KORREKTUR ===
-        itemDiv.onclick = async () => { // Die Funktion wird 'async'
+        itemDiv.onclick = async () => {
           overlay.style.display = 'none';
           currentDocumentName = item.docName;
-          
-          // 1. Lade das neue Dokument und warte, bis es fertig ist.
           await loadAndRenderPdf(item.docPath, item.pageNumber);
-          
-          // 2. ERST DANACH: Aktiviere den Suchkontext.
-          //    Dies ist der "automatische Klick auf die Lupe", den Sie beschrieben haben.
-          //    Die Funktion liest die Suchfelder, findet die Treffer im neuen Dokument,
-          //    aktualisiert die 'searchInfo'-Zeile und löst die Hervorhebung aus.
           activateSearchContext();
         };
         detailsContainer.appendChild(itemDiv);
@@ -561,18 +633,20 @@ function displayGlobalResults(results, searchData) {
 
 
 // ===================================================================
-//   AKTION 3: activateSearchContext zur finalen Version ausbauen
+//   SCHRITT 3: 'activateSearchContext' anpassen
 // ===================================================================
 function activateSearchContext() {
-  // Die aktuellen Suchbegriffe aus den Feldern holen
   const term1 = document.getElementById('searchBox').value;
   const term2 = document.getElementById('searchBox2').value;
-  searchText = normalize(term1);
-  secondSearchText = normalize(term2);
+
+  // === HIER IST DIE ÄNDERUNG ===
+  // Wir speichern die erweiterten Begriffe in den globalen Variablen,
+  // damit die 'highlightMatches'-Funktion sie verwenden kann.
+  searchText = term1 ? normalize(expandZollQuery(term1)) : "";
+  secondSearchText = term2 ? normalize(expandZollQuery(term2)) : "";
   
   const searchInfo = document.getElementById('searchInfo');
 
-  // Wenn keine Suche aktiv ist, alles zurücksetzen
   if (!searchText && !secondSearchText) {
     searchInfo.innerHTML = '';
     matchPages.clear();
@@ -588,29 +662,32 @@ function activateSearchContext() {
   const activeOperatorBtn = document.querySelector('.operator-btn.active');
   const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und';
 
-  // Lokale Zähler für das aktuelle Dokument
   let localTerm1Count = 0;
   let localTerm2Count = 0;
 
   for (let i = 0; i < cacheEntry.seitenTexte.length; i++) {
     const pageText = cacheEntry.seitenTexte[i];
+    if (!pageText) continue;
+
     const normalizedPageText = normalize(pageText);
     
-    const escapedTerm1 = searchText.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const matches1 = (normalizedPageText.match(new RegExp(escapedTerm1, 'g')) || []).length;
+    let matches1 = 0;
+    if (searchText) {
+        matches1 = (normalizedPageText.match(new RegExp(searchText, 'gi')) || []).length;
+    }
     
     let matches2 = 0;
     if (secondSearchText) {
-        const escapedTerm2 = secondSearchText.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-        matches2 = (normalizedPageText.match(new RegExp(escapedTerm2, 'g')) || []).length;
+        matches2 = (normalizedPageText.match(new RegExp(secondSearchText, 'gi')) || []).length;
     }
 
     const hasText1 = matches1 > 0;
     const hasText2 = matches2 > 0;
 
     let isMatch = false;
-    if (!secondSearchText) { isMatch = hasText1; }
-    else {
+    if (searchText && !secondSearchText) { isMatch = hasText1; }
+    else if (!searchText && secondSearchText) { isMatch = hasText2; }
+    else if (searchText && secondSearchText) {
       switch (searchOperator) {
         case 'und': isMatch = hasText1 && hasText2; break;
         case 'oder': isMatch = hasText1 || hasText2; break;
@@ -625,7 +702,6 @@ function activateSearchContext() {
     }
   }
 
-  // Statuszeile mit Statistik und Klick-Funktion aufbauen
   if (matchPages.size > 0) {
     let statsText = `(${term1}: ${localTerm1Count}x`;
     if (term2) {
@@ -635,10 +711,8 @@ function activateSearchContext() {
     
     searchInfo.innerHTML = `🔍 <span id="local-search-trigger" style="cursor: pointer; text-decoration: underline;" title="Klicken für eine Übersicht aller Treffer in diesem Dokument">${matchPages.size} Seite(n) in diesem Dokument gefunden.</span> ${statsText}`;
     
-    // Event-Listener für das lokale Overlay hinzufügen
     document.getElementById('local-search-trigger').onclick = () => {
       const localResults = [];
-      // Durch die sortierten Trefferseiten iterieren
       for (const pageNum of [...matchPages].sort((a,b) => a - b)) {
         const pageText = cacheEntry.seitenTexte[pageNum - 1];
         localResults.push({
@@ -648,15 +722,12 @@ function activateSearchContext() {
           context: getContextSnippet(pageText, term1, term2)
         });
       }
-      // Die globale Anzeigefunktion mit den lokalen Daten aufrufen
-      displayGlobalResults(localResults, { term1: term1, term2: term2, count1: localTerm1Count, count2: localTerm2Count });
+      displayGlobalResults(localResults, { term1: term1, term2: term2, count1: localTerm1Count, count2: localTerm2Count, isLocal: true });
     };
 
   } else {
     searchInfo.innerHTML = '';
   }
-
-
 }
 
 
@@ -665,6 +736,47 @@ function normalize(text) {
   return text.replace(/[\u201C\u201D\u201E\u201F]/g, '"')
              .replace(/[\u2018\u2019]/g, "'")
              .toLowerCase();
+}
+
+
+// ===================================================================
+//   NEUE HILFSFUNKTION: 'extractHeadline'
+// ===================================================================
+/**
+ * Versucht, die wahrscheinlichste Überschrift aus einem Seitentext zu extrahieren.
+ * @param {string} pageText - Der gesamte Text einer PDF-Seite.
+ * @returns {string} - Die gefundene Überschrift oder ein leerer String.
+ */
+function extractHeadline(pageText) {
+  // Teilt den gesamten Seitentext in einzelne Zeilen auf.
+  const lines = pageText.split('\n');
+  
+  // Schlüsselwörter, die oft in Überschriften vorkommen.
+  const headlineKeywords = ['ventil', 'armatur', 'system', 'anschluss', 'rohr', 'dn', 'rp', 'hülse'];
+  // Wörter, die eher nicht in der Hauptüberschrift stehen.
+  const antiKeywords = ['preis', 'artikelnummer', 'art.-nr', 'menge', 'stück'];
+
+  for (const line of lines) {
+    const trimmedLine = line.trim();
+    const lowerLine = trimmedLine.toLowerCase();
+    
+    // Überprüfe die Kriterien für eine gute Überschrift:
+    // 1. Die Zeile muss Text enthalten.
+    // 2. Sie sollte nicht zu lang sein (z.B. weniger als 12 Wörter).
+    // 3. Sie muss mindestens ein Schlüsselwort enthalten.
+    // 4. Sie darf kein "Anti-Schlüsselwort" enthalten.
+    if (trimmedLine && 
+        trimmedLine.split(/\s+/).length < 12 &&
+        headlineKeywords.some(keyword => lowerLine.includes(keyword)) &&
+        !antiKeywords.some(keyword => lowerLine.includes(keyword))) {
+      
+      // Der erste Treffer wird als Überschrift zurückgegeben.
+      return trimmedLine;
+    }
+  }
+
+  // Wenn keine passende Zeile gefunden wurde, gib einen leeren String zurück.
+  return '';
 }
 
 
@@ -738,26 +850,17 @@ function getMarkierungsWerte() {
   }
 }
 
-// === 🎯 VERBESSERTE HIGHLIGHT-FUNKTION MIT RESPONSIVE MARKIERUNGEN (KORRIGIERT) ===
+// ===================================================================
+//   FINALE KORREKTUR (VOLLSTÄNDIG): 'highlightMatches' mit Regex-Unterstützung
+// ===================================================================
 function highlightMatches(page, container, viewport) {
   const canvas = container.querySelector('canvas');
-
-    // ===================================================================
-  //   NEU: BERECHNUNG DES HORIZONTALEN OFFSETS
-  // ===================================================================
-  // container ist der #canvasWrapper.
-  // Wir berechnen den Leerraum links vom Canvas innerhalb seines Wrappers.
   const canvasLeftOffset = (container.offsetWidth - canvas.offsetWidth) / 2;
-  
-  const baseScaleX = canvas.offsetWidth / canvas.width;
-  const baseScaleY = canvas.offsetHeight / canvas.height;
-  
-  const scaleX = baseScaleX;
-  const scaleY = baseScaleY;
+  const scaleX = canvas.offsetWidth / canvas.width;
+  const scaleY = canvas.offsetHeight / canvas.height;
 
   page.getTextContent().then(tc => {
     const items = tc.items;
-
     const lines = {};
     items.forEach(item => {
       const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
@@ -766,8 +869,10 @@ function highlightMatches(page, container, viewport) {
       lines[y].push({ ...item, tx, y });
     });
 
-    const searchNorm = normalize(searchText);
-    const search2Norm = normalize(secondSearchText);
+    // Erstelle direkt RegExp-Objekte aus den globalen (bereits erweiterten) Suchbegriffen.
+    // Das 'g' Flag ist wichtig für das Zurücksetzen von lastIndex.
+    const searchRegex1 = searchText ? new RegExp(searchText, 'gi') : null;
+    const searchRegex2 = secondSearchText ? new RegExp(secondSearchText, 'gi') : null;
 
     const zeilenMitArtikelnummer = new Set();
     const markierungsWerte = getMarkierungsWerte();
@@ -776,8 +881,12 @@ function highlightMatches(page, container, viewport) {
       const lineText = lineItems.map(i => i.str).join(' ');
       const lineTextNorm = normalize(lineText);
 
-      const hit1 = searchNorm && lineTextNorm.includes(searchNorm);
-      const hit2 = search2Norm && lineTextNorm.includes(search2Norm);
+      // Wir testen jetzt mit den Regex-Objekten.
+      const hit1 = searchRegex1 ? searchRegex1.test(lineTextNorm) : false;
+      if(searchRegex1) searchRegex1.lastIndex = 0; // Wichtig: Regex-Index zurücksetzen
+
+      const hit2 = searchRegex2 ? searchRegex2.test(lineTextNorm) : false;
+      if(searchRegex2) searchRegex2.lastIndex = 0; // Wichtig: Regex-Index zurücksetzen
 
       let bgColor = 'rgba(0, 150, 255, 0.3)';
       let ganzeZeileMarkieren = false;
@@ -807,9 +916,9 @@ function highlightMatches(page, container, viewport) {
         let x, y, width, height;
         if (ganzeZeileMarkieren) {
           const first = lineItems[0];
-          x = canvasLeftOffset; // KORREKTUR: Nicht 0, sondern der berechnete Offset
+          x = canvasLeftOffset;
           y = (first.tx[5] - position.height - 5) * scaleY;
-          width = canvas.offsetWidth; // <--- HIER IST DAS PROBLEM
+          width = canvas.offsetWidth;
           height = (position.height + 9) * scaleY;
         } else {
           const zoomOffset = isMobileDevice() ? 0 : (zoomFactor - 1.0) * - 580;
@@ -837,10 +946,7 @@ function highlightMatches(page, container, viewport) {
           borderRadius: '2px'
         });
 
-        // =======================================================
-        // HIER IST DIE ERSTE KORREKTUR
         klickDiv.setAttribute('data-tooltip', `Artikel ${artikelnummer} anzeigen`);
-        // =======================================================
 
         klickDiv.addEventListener('click', () => {
           const artikel = artikelMap.get(artikelnummer);
@@ -868,8 +974,12 @@ function highlightMatches(page, container, viewport) {
       const lineText = lineItems.map(i => i.str).join(' ');
       const lineTextNorm = normalize(lineText);
 
-      const hit1 = searchNorm && lineTextNorm.includes(searchNorm);
-      const hit2 = search2Norm && lineTextNorm.includes(search2Norm);
+      // Wir testen hier ebenfalls mit den Regex-Objekten.
+      const hit1 = searchRegex1 ? searchRegex1.test(lineTextNorm) : false;
+      if(searchRegex1) searchRegex1.lastIndex = 0; // Wichtig: Regex-Index zurücksetzen
+
+      const hit2 = searchRegex2 ? searchRegex2.test(lineTextNorm) : false;
+      if(searchRegex2) searchRegex2.lastIndex = 0; // Wichtig: Regex-Index zurücksetzen
 
       if (!(hit1 || hit2)) return;
 
@@ -882,7 +992,7 @@ function highlightMatches(page, container, viewport) {
         bgColor = 'rgba(74, 235, 227, 0.2)';
       }
 
-      const x = canvasLeftOffset; // KORREKTUR: Nicht 0, sondern der berechnete Offset
+      const x = canvasLeftOffset;
       const minY = Math.min(...lineItems.map(i => i.tx[5]));
       const maxY = Math.max(...lineItems.map(i => i.tx[5]));
       const textHeight = maxY - minY;
@@ -892,7 +1002,7 @@ function highlightMatches(page, container, viewport) {
 
       const y = (minY + markierungsWerte.zeilenYOffset) * scaleY-3;
       const height = (textHeight + padding) * scaleY;
-      const width = canvas.offsetWidth; // <--- HIER IST DAS PROBLEM
+      const width = canvas.offsetWidth;
 
       const div = document.createElement('div');
       Object.assign(div.style, {
@@ -907,10 +1017,7 @@ function highlightMatches(page, container, viewport) {
         borderRadius: '2px'
       });
 
-      // =======================================================
-      // HIER IST DIE ZWEITE KORREKTUR
       div.setAttribute('data-tooltip', `Keine Artikelnummer gefunden`);
-      // =======================================================
 
       div.addEventListener('click', () => {
         if (isMobileDevice()) {
