@@ -1,0 +1,1568 @@
+/* ========== Basislayout ========== */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap'  );
+
+body {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+/* ======================================================= */
+/* FINALES HEADER-CSS (FÜR ZENTRIERTE GRUPPE, 2-ZEILIG)    */
+/* ======================================================= */
+
+/* 1. Der äußere Header-Container (#header) */
+/* Seine EINZIGE Aufgabe ist es, den inneren Container zu zentrieren. */
+#header {
+  display: flex;
+  justify-content: center; /* Zentriert den inneren Container horizontal */
+  align-items: center;     /* Zentriert den inneren Container vertikal */
+  padding: 10px 20px;
+  background-color: #d2d2d4;
+  border-bottom: 2px solid #ddd;
+}
+
+
+/* WIR PASSEN DAS AN IHREN HTML-CODE AN */
+/* Da Sie keinen .header-main-content-Container haben, stylen wir die Kinder direkt */
+.header-left, .header-center-title, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Wir fügen den Abstand direkt zum Header hinzu */
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #d2d2d4;
+  border-bottom: 2px solid #ddd;
+  gap: 30px; /* Abstand zwischen Logo, Titel und Icons */
+}
+
+
+/* --- Styling der Inhalte --- */
+
+#header .header-left img {
+  height: 60px;
+  margin: 0;
+  display: block;
+}
+
+.header-center-title {
+  flex-direction: column; /* Richtet Titel und Dokumentenname untereinander aus */
+  text-align: center;
+}
+
+.main-title {
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#document-display-container {
+  width: 100%;
+  max-width: 550px;
+}
+
+#current-document-name {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  color: #003366;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+#header .buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* --- Mobile Anpassungen --- */
+@media screen and (max-width: 768px) {
+  /* Auf Mobile ziehen wir die Elemente wieder auseinander */
+/* Header-Anpassungen für Mobile */
+#header {
+  justify-content: space-between; /* Zieht die Elemente auseinander, um Platz zu schaffen */
+  gap: 10px;                      /* Reduziert den Abstand zwischen den Elementen */
+}
+
+#header .header-left img {
+  height: 45px; /* Kleineres Logo für mehr Platz */
+}
+
+.main-title {
+  font-size: 1.5rem; /* Kleinere Hauptüberschrift */
+}
+
+#current-document-name {
+  font-size: 0.75em; /* Kleinerer Dokumentenname */
+}
+}
+
+
+
+
+
+/* ========== Suchfeld & Buttons ========== */
+.search-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+input[type="text"] {
+    padding: 10px 18px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 25px;
+    width: 240px;
+    transition: all 0.3s ease-in-out;
+}
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+    border-color: #00a1e1;
+}
+
+/* ========== EINHEITLICHE BUTTON-FARBEN ========== */
+button {
+    background-color: #00a1e1;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #07577f;
+}
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+/* Spezielle Button-Varianten */
+.btn-secondary {
+    background-color: #d6d6d6;
+    color: #333;
+}
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Deaktivierte Buttons */
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+button:disabled:hover {
+    background-color: #ccc;
+}
+
+
+
+/* ========== Info & Fortschritt ========== */
+#infoSection {
+    margin-top: 15px;
+    color: #333;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+}
+
+#searchStatus {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.8rem;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 400;
+    margin: 0.4rem 0;
+    text-align: center;
+}
+
+#searchStatus span {
+    white-space: nowrap;
+}
+#progressBar {
+    width: 60%;
+    height: 5px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+#progressFill {
+    height: 100%;
+    background-color: #00a1e1;
+    width: 0%;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+/* ========== PDF-Container ========== */
+#pdfContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    margin-top: 20px;
+    position: relative;
+}
+
+#pdfViewer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* ========== VERBESSERTE HIGHLIGHT-BOXEN ========== */
+.highlight-box {
+    position: absolute;
+    z-index: 5;
+    pointer-events: auto;
+    cursor: pointer;
+    background-color: rgba(255, 230, 0, 0.4);
+    border: 1px solid rgba(0, 161, 225, 0.3);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.highlight-box:hover {
+    background-color: rgba(255, 230, 0, 0.6);
+    border-color: rgba(0, 161, 225, 0.6);
+    transform: scale(1.02);
+}
+
+.highlight-box.secondary {
+    background-color: rgba(0, 191, 255, 0.35);
+}
+
+/* ========== Navigation & Zoom ========== */
+.navigation-buttons,
+.zoom-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* ========== Ladeoverlay ========== */
+#loadingSpinnerOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.rotating-logo {
+    width: 60px;
+    height: 60px;
+    animation: spin 1.5s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* ========== Merkliste Panel (ehemals Warenkorb) ========== */
+#merkliste {
+    position: fixed;
+    right: 20px;
+    top: 100px;
+    width: 340px;
+    max-width: 90%;
+    background-color: white;
+    border: 2px solid #d2d2d4;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow: hidden;
+}
+
+.merkliste-header {
+    background-color: #00a1e1;
+    color: white;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.merkliste-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.merkliste-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.merkliste-inhalt {
+    padding: 20px;
+    font-size: 15px;
+    color: #333;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.merkliste-footer {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-kaufen {
+    background-color: #00a1e1;
+    color: white;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-kaufen:hover {
+    background-color: #07577f;
+}
+
+#merkliste ul li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* ========== Ladebildschirm ========== */
+#loadingScreen {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.loading-logo {
+    width: 100px;
+    height: auto;
+    animation: pulse 1.4s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.15); opacity: 0.6; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+#canvasWrapper {
+    display: flex;
+    justify-content: center;
+}
+#canvasWrapper canvas {
+    margin: 0 auto;
+    display: block;
+}
+
+/* ========== ACCESSIBILITY & PERFORMANCE ========== */
+.highlight-box:focus, button:focus {
+    outline: 2px solid #00a1e1;
+    outline-offset: 2px;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+    border-color: #00a1e1;
+}
+
+.highlight-box {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+#pdfViewer canvas {
+    image-rendering: optimizeQuality;
+}
+
+/* ========== DESKTOP MODAL DIALOG STYLES ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fefefe;
+    padding: 25px 30px;
+    border-radius: 14px;
+    max-width: 500px;
+    width: 90%;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.article-info {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #00a1e1;
+    text-align: left;
+}
+
+.article-info p {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.article-info strong {
+    color: #333;
+}
+
+.quantity-section {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.quantity-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.quantity-input {
+    width: 80px;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: #00a1e1;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 100px;
+}
+
+.btn-primary {
+    background-color: #00a1e1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #07577f;
+}
+
+/* ========== FEHLERBEHANDLUNG ========== */
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #dc3545;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+/* ========== SUCHOPERATOREN ========== */
+.search-operator-group {
+  display: flex;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  margin: 5px 0; 
+}
+
+.operator-btn {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  border-radius: 0;
+  border-right: 1px solid #ccc;
+}
+
+.operator-btn:last-child {
+  border-right: none;
+}
+
+.operator-btn:hover:not(.active) {
+  background-color: #e9ecef;
+}
+
+.operator-btn.active {
+  background-color: #00a1e1;
+  color: white;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.tooltip-wrapper {
+  display: contents;
+}
+
+/* ========== TOOLTIP STYLES (FINALE, ROBUSTE VERSION) ========== */
+[data-tooltip] {
+    position: relative;
+    cursor: pointer; 
+}
+
+/* DIESE REGEL IST DER SCHLÜSSEL FÜR DEN SPLIT-BUTTON */
+.split-button-part[data-tooltip] {
+    position: relative;
+    cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    [data-tooltip]:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 8px;
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        white-space: nowrap;
+        z-index: 10000;
+        pointer-events: none;
+        opacity: 0;
+        animation: tooltipFadeInFromTop 0.3s ease forwards;
+    }
+}
+
+@keyframes tooltipFadeInFromTop {
+    from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Diese Regel bleibt wichtig, um den Cursor für den Container zu deaktivieren */
+.split-button-container {
+    cursor: default;
+}
+
+
+
+
+/* ========== BILD-BUTTON ========== */
+.image-button {
+  display: block;
+  line-height: 0;
+}
+
+.image-button img {
+  height: 50px;
+  width: auto;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.image-button:hover img {
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== HAMBURGER-MENÜ ========== */
+#hamburger-btn {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #005A8C;
+  padding: 5px 10px;
+  z-index: 10001;
+}
+
+#mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  max-width: 80%;
+  height: 100%;
+  background-color: #f8f9fa;
+  box-shadow: -4px 0 15px rgba(0,0,0,0.15 );
+  z-index: 10000;
+  transition: right 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px;
+}
+
+#mobile-nav a {
+  padding: 18px 25px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #005A8C;
+  border-bottom: 1px solid #e0e0e0;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+#mobile-nav a:hover {
+  background-color: #e9ecef;
+}
+
+#mobile-nav.active {
+  right: 0;
+}
+
+body.mobile-nav-open::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+}
+
+/* ========== TREFFERSEITEN-BUTTONS (ADD/REMOVE) ========== */
+#removeHitBtn, #addHitBtn {
+  position: absolute;
+  z-index: 10;
+  top: 10px;
+  right: 10px;
+  left: auto;
+  transform: none;
+  padding: 1px 10px;
+  font-size: 11px;
+  border-radius: 12px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+#removeHitBtn {
+  background-color: rgba(220, 53, 69, 0.85);
+}
+#removeHitBtn:hover {
+  background-color: rgba(220, 53, 69, 1);
+  transform: scale(1.05);
+}
+
+#addHitBtn {
+  background-color: rgba(25, 135, 84, 0.85);
+}
+#addHitBtn:hover {
+  background-color: rgba(25, 135, 84, 1);
+  transform: scale(1.05);
+}
+
+/* FÜGEN SIE DIESEN BLOCK HINZU */
+
+/* --- Desktop-Anpassungen für BEIDE Buttons --- */
+@media screen and (min-width: 769px) {
+  #removeHitBtn, #addHitBtn {
+    /* Positionierung auf 3/4 der Breite */
+    left: 75%;
+    transform: translateX(-50%);
+    right: auto;
+
+    /* Wieder die ursprüngliche, größere Darstellung für Desktops */
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 20px;
+  }
+
+  #removeHitBtn:hover, #addHitBtn:hover {
+    /* Hover-Effekt für Desktop anpassen */
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+
+/* ========== DOKUMENTEN-AUSWAHL-DIALOG ========== */
+#docDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(248, 249, 250, 0.98 );
+  z-index: 10002;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.doc-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #dee2e6;
+  padding-bottom: 15px;
+  flex-shrink: 0;
+}
+
+.doc-dialog-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+#closeDocDialogBtn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+#docDialogList {
+  overflow-y: auto;
+  padding-top: 20px;
+  flex-grow: 1;
+}
+
+.doc-category-group {
+  margin-bottom: 25px;
+}
+
+.doc-category-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.doc-link {
+  display: block;
+  padding: 12px 15px;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: #212529;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.doc-link:hover {
+  border-color: #00a1e1;
+  background-color: #f0f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ========== HEADER ICON-BUTTONS ========== */
+.header-icon-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0.1 );
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.header-icon-btn i {
+  font-size: 22px;
+  color: #343a40;
+}
+
+.header-icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* ========== MERKLISTEN-BADGE ========== */
+.header-icon-btn.has-items {
+  position: relative;
+}
+
+/* =================================================================== */
+/*   NEUE REGELN FÜR DEN STABILEN BADGE-ANKER                      */
+/* =================================================================== */
+
+/* 1. Definiert den unsichtbaren Anker-Container */
+.badge-anchor {
+  position: relative; /* Macht diesen Span zum neuen Bezugspunkt */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 2. Positioniert den Badge relativ zum Anker, nicht mehr zum Button */
+.badge-anchor::after {
+  /* Diese Regel ist fast identisch zu Ihrer alten .header-icon-btn.has-items::after */
+  content: attr(data-count); 
+  position: absolute;
+  top: -7px;  /* Position leicht anpassen, da der Bezugspunkt jetzt kleiner ist */
+  right: -7px; /* Position leicht anpassen */
+  background-color: #dc3545;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  line-height: 15px;
+  text-align: center;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border: 2px solid #d2d2d4; 
+  box-sizing: border-box;
+  pointer-events: none;
+
+  /* Logik für die Sichtbarkeit */
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.badge-anchor.has-items::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ================================================== */
+/*      RESPONSIVE MEDIA QUERIES (AM ENDE GEBÜNDELT)      */
+/* ================================================== */
+@media screen and (max-width: 768px) {
+
+
+    #header .buttons.desktop-buttons {
+        display: none;
+    }
+    #hamburger-btn {
+        display: block;
+    }
+
+    /* Andere wichtige Mobile-Anpassungen */
+    .zoom-buttons {
+        display: none;
+    }
+    #pdfContainer {
+        height: auto;
+        max-height: none;
+        margin-top: 10px;
+        padding: 0;
+        -webkit-overflow-scrolling: touch;
+    }
+    #pdfViewer canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+    }
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+    input[type="text"] {
+        width: 90%;
+        max-width: 320px;
+        font-size: 16px;
+        padding: 12px 18px;
+    }
+    button {
+        padding: 10px 16px;
+        height: 40px;
+        font-size: 16px;
+        min-width: 44px;
+    }
+    .icon-button {
+        font-size: 18px;
+        height: 40px;
+        min-width: 44px;
+        padding: 8px 12px;
+    }
+ 
+    .highlight-box {
+        min-height: 44px !important;
+        min-width: 44px !important;
+    }
+    .highlight-box:active {
+        transform: scale(0.95);
+        background-color: rgba(255, 230, 0, 0.8);
+    }
+    #infoModal, .modal-overlay {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: 5vh;
+    }
+    #infoModal > div, .modal-content {
+        max-width: 95% !important;
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        margin: 0 !important;
+    }
+
+    /* ======================================================= */
+/*   ANPASSUNG FÜR SEHR SCHMALE BILDSCHIRME              */
+/* ======================================================= */
+@media screen and (max-width: 380px) {
+
+  /* Versteckt den Text "PDF" in den Navigations-Buttons */
+  .nav-button-text {
+    display: none;
+  }
+
+  /* Optional: Verringert den seitlichen Abstand der Buttons leicht,
+     um noch mehr Platz zu schaffen. */
+  .navigation-buttons button {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+
+/* ========== Merkliste Panel (ehemals Warenkorb) ========== */
+#merkliste {
+    position: fixed;
+    right: 20px;
+    top: 100px;
+    width: 340px;
+    max-width: 90%;
+    background-color: white;
+    border: 2px solid #d2d2d4;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto Condensed', sans-serif;
+    overflow: hidden;
+}
+
+.merkliste-header {
+    background-color: #00a1e1;
+    color: white;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.merkliste-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.merkliste-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.merkliste-inhalt {
+    padding: 20px;
+    font-size: 15px;
+    color: #333;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.merkliste-footer {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-kaufen {
+    background-color: #00a1e1;
+    color: white;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn-kaufen:hover {
+    background-color: #07577f;
+}
+
+#merkliste ul li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* ========== Ladebildschirm ========== */
+#loadingScreen {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.loading-logo {
+    width: 100px;
+    height: auto;
+    animation: pulse 1.4s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.15); opacity: 0.6; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+#canvasWrapper {
+    display: flex;
+    justify-content: center;
+}
+#canvasWrapper canvas {
+    margin: 0 auto;
+    display: block;
+}
+
+/* ========== ACCESSIBILITY & PERFORMANCE ========== */
+.highlight-box:focus, button:focus {
+    outline: 2px solid #00a1e1;
+    outline-offset: 2px;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+    border-color: #00a1e1;
+}
+
+.highlight-box {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+#pdfViewer canvas {
+    image-rendering: optimizeQuality;
+}
+
+/* ========== DESKTOP MODAL DIALOG STYLES ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fefefe;
+    padding: 25px 30px;
+    border-radius: 14px;
+    max-width: 500px;
+    width: 90%;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.article-info {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #00a1e1;
+    text-align: left;
+}
+
+.article-info p {
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.article-info strong {
+    color: #333;
+}
+
+.quantity-section {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.quantity-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.quantity-input {
+    width: 80px;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.quantity-input:focus {
+    outline: none;
+    border-color: #00a1e1;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 100px;
+}
+
+.btn-primary {
+    background-color: #00a1e1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #07577f;
+}
+
+/* ========== FEHLERBEHANDLUNG ========== */
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #dc3545;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+}
+
+
+/* ======================================================= */
+/* ===== STILE FÜR DEN NEUEN LOGIN-DIALOG              ===== */
+/* ======================================================= */
+
+/* 1. Das Overlay, das den Hintergrund abdunkelt */
+#password-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Etwas dunkler für mehr Fokus */
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 2. Die weiße "Karte" in der Mitte */
+.login-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* 3. Das Logo */
+.login-card .login-logo {
+    height: 45px; /* Etwas kleiner und dezenter */
+    margin-bottom: 25px;
+}
+
+/* 4. Überschriften und Text */
+.login-card h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.login-card p {
+    color: #6c757d; /* Ein weicheres Grau */
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* 5. Das Passwort-Eingabefeld */
+.login-card .input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.login-card input[type="password"] {
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 25px; /* Perfekt abgerundet */
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+
+.login-card input[type="password"]:focus {
+    outline: none;
+    border-color: #00a1e1;
+    box-shadow: 0 0 0 4px rgba(0, 161, 225, 0.2);
+}
+
+/* 6. Die Status-Nachricht für Fehler */
+.login-card .status-message {
+    color: #dc3545;
+    min-height: 24px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* 7. Die Buttons (KORRIGIERT FÜR MOBILE ZENTRIERUNG) */
+.login-card .btn-login,
+.login-card .btn-secondary {
+    width: 100%;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    /* === HIER IST DIE KORREKTUR === */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* === ENDE DER KORREKTUR === */
+}
+
+.login-card .btn-login {
+    background-color: #00a1e1;
+    color: white;
+}
+.login-card .btn-login:hover {
+    background-color: #0077b6;
+}
+
+.login-card .btn-secondary {
+    background-color: transparent;
+    color: #6c757d;
+    margin-top: 10px;
+}
+
+.login-card .btn-secondary:hover {
+    color: #333;
+}
+
+/* =====================================================
+   CSS für den Zähler am mobilen Hamburger-Menü-Button
+   ===================================================== */
+
+/* Positioniert den Badge relativ zum Button */
+#hamburger-btn {
+  position: relative;
+}
+
+/* Erstellt den eigentlichen Zähler-Badge (den roten Kreis) */
+#hamburger-btn.has-items::after {
+  content: attr(data-count); /* Liest die Zahl aus dem data-count Attribut */
+  position: absolute;
+  top: -5px;      /* Position anpassen, falls nötig */
+  right: -8px;    /* Position anpassen, falls nötig */
+  
+  background-color: #dc3545; /* Rote Hintergrundfarbe */
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%; /* Macht es rund */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  border: 2px solid white; /* Kleiner weißer Rand für besseren Kontrast */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* ======================================================= */
+/* ===== STILE FÜR DAS GLOBALE SUCHERGEBNIS-OVERLAY    ===== */
+/* ======================================================= */
+
+/* Das Overlay, das den ganzen Bildschirm abdunkelt */
+#global-search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10001; /* Muss über allem anderen liegen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Das eigentliche "Fenster" in der Mitte */
+.global-search-modal {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px; /* Breite auf dem Desktop */
+  height: 90%;
+  max-height: 700px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  overflow: hidden; /* Verhindert, dass Inhalte aus dem Radius ragen */
+}
+
+/* Der Kopfbereich des Fensters */
+.global-search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  border-bottom: 1px solid #dee2e6;
+  flex-shrink: 0; /* Verhindert, dass der Header schrumpft */
+}
+
+.global-search-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+#close-search-overlay-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+/* Der scrollbare Container für die Ergebnisse */
+#global-search-results-container {
+  padding: 10px 25px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Gruppe für ein Dokument (z.B. "Preisliste 2025") */
+.result-document-group {
+  margin-bottom: 20px;
+}
+
+.result-document-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #005A8C;
+  margin-bottom: 8px;
+}
+
+/* Einzelner Treffer-Eintrag */
+.result-item {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.result-item:hover {
+  background-color: #e9ecef;
+}
+
+.result-item .page-number {
+  font-weight: bold;
+  color: #00a1e1;
+}
+
+.result-item .context-snippet {
+  color: #495057;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Wichtig für die Hervorhebung im Snippet */
+.result-item .context-snippet strong {
+  color: #000;
+  background-color: rgba(255, 220, 0, 0.5); /* Gelbe Markierung */
+  padding: 1px 0;
+}
+
+/* Mobile Anpassungen */
+@media screen and (max-width: 768px) {
+  .global-search-modal {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+}
+
+/* In styles-final.css hinzufügen */
+
+.accordion-trigger {
+  cursor: pointer;
+  user-select: none; /* Verhindert, dass der Text beim Klicken markiert wird */
+}
+
+.accordion-trigger .accordion-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+}
+
+.accordion-trigger.active .accordion-arrow {
+  transform: rotate(90deg);
+}
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* HIER DIE 4 EINTRAGEN */
+  gap: 10px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 340px;
+}
