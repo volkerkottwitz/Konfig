@@ -182,6 +182,8 @@ button:disabled:hover {
     background-color: #ccc;
 }
 
+
+
 /* ========== Info & Fortschritt ========== */
 #infoSection {
     margin-top: 15px;
@@ -303,18 +305,6 @@ button:disabled:hover {
     100% { transform: rotate(360deg); }
 }
 
-/* ========== Button-Zeile ========== */
-.button-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin: 10px 0;
-}
-.button-row button {
-    flex: 1;
-    min-width: 100px;
-}
 
 /* ========== Merkliste Panel (ehemals Warenkorb) ========== */
 #merkliste {
@@ -607,9 +597,16 @@ input:focus {
   display: contents;
 }
 
-/* ========== TOOLTIP STYLES ========== */
+/* ========== TOOLTIP STYLES (FINALE, ROBUSTE VERSION) ========== */
 [data-tooltip] {
     position: relative;
+    cursor: pointer; 
+}
+
+/* DIESE REGEL IST DER SCHLÜSSEL FÜR DEN SPLIT-BUTTON */
+.split-button-part[data-tooltip] {
+    position: relative;
+    cursor: pointer;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -617,9 +614,9 @@ input:focus {
         content: attr(data-tooltip);
         position: absolute;
         top: 100%;
-        margin-top: 8px;
         left: 50%;
         transform: translateX(-50%);
+        margin-top: 8px;
         background: rgba(0, 0, 0, 0.85);
         color: white;
         padding: 6px 10px;
@@ -637,6 +634,14 @@ input:focus {
     from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
+
+/* Diese Regel bleibt wichtig, um den Cursor für den Container zu deaktivieren */
+.split-button-container {
+    cursor: default;
+}
+
+
+
 
 /* ========== BILD-BUTTON ========== */
 .image-button {
@@ -973,18 +978,7 @@ body.mobile-nav-open::after {
         min-width: 44px;
         padding: 8px 12px;
     }
-    .button-row {
-        flex-wrap: nowrap;
-        gap: 10px;
-        width: 100%;
-        max-width: 340px;
-    }
-    .button-row button {
-        flex: 1;
-        min-width: 0;
-        font-size: 15px;
-        padding: 10px;
-    }
+ 
     .highlight-box {
         min-height: 44px !important;
         min-width: 44px !important;
@@ -1430,4 +1424,145 @@ input:focus {
   
   border: 2px solid white; /* Kleiner weißer Rand für besseren Kontrast */
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* ======================================================= */
+/* ===== STILE FÜR DAS GLOBALE SUCHERGEBNIS-OVERLAY    ===== */
+/* ======================================================= */
+
+/* Das Overlay, das den ganzen Bildschirm abdunkelt */
+#global-search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10001; /* Muss über allem anderen liegen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Das eigentliche "Fenster" in der Mitte */
+.global-search-modal {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px; /* Breite auf dem Desktop */
+  height: 90%;
+  max-height: 700px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  overflow: hidden; /* Verhindert, dass Inhalte aus dem Radius ragen */
+}
+
+/* Der Kopfbereich des Fensters */
+.global-search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  border-bottom: 1px solid #dee2e6;
+  flex-shrink: 0; /* Verhindert, dass der Header schrumpft */
+}
+
+.global-search-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+#close-search-overlay-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+/* Der scrollbare Container für die Ergebnisse */
+#global-search-results-container {
+  padding: 10px 25px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+/* Gruppe für ein Dokument (z.B. "Preisliste 2025") */
+.result-document-group {
+  margin-bottom: 20px;
+}
+
+.result-document-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #005A8C;
+  margin-bottom: 8px;
+}
+
+/* Einzelner Treffer-Eintrag */
+.result-item {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.result-item:hover {
+  background-color: #e9ecef;
+}
+
+.result-item .page-number {
+  font-weight: bold;
+  color: #00a1e1;
+}
+
+.result-item .context-snippet {
+  color: #495057;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* Wichtig für die Hervorhebung im Snippet */
+.result-item .context-snippet strong {
+  color: #000;
+  background-color: rgba(255, 220, 0, 0.5); /* Gelbe Markierung */
+  padding: 1px 0;
+}
+
+/* Mobile Anpassungen */
+@media screen and (max-width: 768px) {
+  .global-search-modal {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+}
+
+/* In styles-final.css hinzufügen */
+
+.accordion-trigger {
+  cursor: pointer;
+  user-select: none; /* Verhindert, dass der Text beim Klicken markiert wird */
+}
+
+.accordion-trigger .accordion-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+}
+
+.accordion-trigger.active .accordion-arrow {
+  transform: rotate(90deg);
+}
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* HIER DIE 4 EINTRAGEN */
+  gap: 10px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 340px;
 }
