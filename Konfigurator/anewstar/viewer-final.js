@@ -2346,22 +2346,16 @@ function openBerichte(event) {
 }
 
 
-// ========================================================
-//   OPTIMIERTE FUNKTION ZUM ZURÜCKSETZEN DER ANWENDUNG
-// ========================================================
 function resetApplication() {
-  // Sicherheitsabfrage: Nur auf Desktop ausführen
-  if (isMobileDevice()) {
-    return; 
-  }
-
+  // Die Sicherheitsabfrage "if (isMobileDevice())" wurde entfernt.
+  
   console.log("Anwendung wird zurückgesetzt...");
 
   // 1. Leere die Suchfelder
   document.getElementById('searchBox').value = '';
   document.getElementById('searchBox2').value = '';
 
-    // 2. Suchergebnis-Informationen zurücksetzen
+  // 2. Suchergebnis-Informationen zurücksetzen
   document.getElementById('searchInfo').textContent = '';
   document.getElementById('currentMatchInfo').textContent = '';
   matchPages.clear();
@@ -2369,35 +2363,30 @@ function resetApplication() {
   // 3. UI-Helfer aktualisieren
   updateHelpers();
   
-  // 2. Leere die Merkliste
-  // 'splice(0, merkliste.length)' ist der sicherste Weg, ein const-Array zu leeren.
+  // 4. Leere die Merkliste
   merkliste.splice(0, merkliste.length);
   
-  // 3. Aktualisiere das Merklisten-Icon (damit der Zahlen-Badge verschwindet)
+  // 5. Aktualisiere das Merklisten-Icon
   updateMerklisteIcon();
 
-    // ========================================================
-  //   NEU: ZOOMFAKTOR ZURÜCKSETZEN
-  // ========================================================
+  // 6. Zoomfaktor zurücksetzen
   zoomFactor = 1.0;
   
-  // 4. Finde das Standard-PDF aus den geladenen Daten
+  // 7. Finde das Standard-PDF
   const defaultPdf = pdfsData.find(pdf => pdf.isDefault);
   
-  // 5. Wenn ein Standard-PDF gefunden wurde...
   if (defaultPdf) {
-    // ...aktualisiere den globalen Dokumentennamen...
     currentDocumentName = defaultPdf.name;
-    
-    // ...und rufe die bestehende Ladefunktion auf.
-    // Sie kümmert sich um den Rest (Spinner, Seite 1, etc.).
     loadAndRenderPdf(defaultPdf.path);
   } else {
     console.error("Kein Standard-PDF zum Zurücksetzen gefunden.");
   }
   
-  // 4. Setze den Fokus zurück ins erste Suchfeld für eine neue Eingabe
-  document.getElementById('searchBox').focus();
+  // 8. Setze den Fokus zurück ins erste Suchfeld
+  const searchBox = document.getElementById('searchBox');
+  if(searchBox) {
+      searchBox.focus();
+  }
 }
 
 
@@ -2608,50 +2597,7 @@ async function main() {
       distanzX = 0; distanzY = 0;
       if (pdfViewer) { pdfViewer.style.transition = 'none'; }
     });
-    pdfContainer.addEventListener('touchmove', function(e) {
-      if (e.touches.length > 1 || zoomFactor > 1.0) return;
-      const touch = e.touches[0];
-      distanzX = touch.screenX - startX;
-      distanzY = touch.screenY - startY;
-      if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
-        if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
-          distanzX /= 3;
-        }
-        pdfViewer.style.transform = `translateX(${distanzX}px)`;
-      }
-    }, { passive: true });
-    pdfContainer.addEventListener('touchend', function(event) {
-      const currentTime = new Date().getTime();
-      const tapLength = currentTime - lastTap;
-      lastTap = currentTime;
-      if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
-        event.preventDefault();
-        if (currentDocumentPath && pdfDoc) {
-          const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
-          const link = document.createElement('a');
-          link.href = urlForNewTab; link.target = '_blank';
-          document.body.appendChild(link); link.click(); document.body.removeChild(link);
-        }
-        return;
-      }
-      if (zoomFactor > 1.0) return;
-      const mindestDistanz = pdfContainer.clientWidth * 0.25;
-      if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-        if (pdfViewer) {
-          pdfViewer.style.transition = 'opacity 0.3s ease-out';
-          pdfViewer.style.opacity = '0';
-        }
-        setTimeout(() => {
-          if (distanzX < 0) { document.getElementById('next-page').click(); } 
-          else { document.getElementById('prev-page').click(); }
-        }, 50);
-      } else if (distanzX !== 0) {
-        if (pdfViewer) {
-          pdfViewer.style.transition = 'transform 0.3s ease-out';
-          pdfViewer.style.transform = 'translateX(0)';
-        }
-      }
-    });
+
   }
 }
 
