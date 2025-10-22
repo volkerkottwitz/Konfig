@@ -2629,38 +2629,62 @@ pdfContainer.addEventListener('touchstart', function(e) {
         pdfViewer.style.transform = `translateX(${distanzX}px)`;
       }
     }, { passive: true });
-    pdfContainer.addEventListener('touchend', function(event) {
-      const currentTime = new Date().getTime();
-      const tapLength = currentTime - lastTap;
-      lastTap = currentTime;
-      if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
-        event.preventDefault();
-        if (currentDocumentPath && pdfDoc) {
-          const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
-          const link = document.createElement('a');
-          link.href = urlForNewTab; link.target = '_blank';
-          document.body.appendChild(link); link.click(); document.body.removeChild(link);
-        }
-        return;
+// ===================================================================
+//   'touchend'-LISTENER (MIT 20% ZOOM-TOLERANZ)
+// ===================================================================
+pdfContainer.addEventListener('touchend', function(event) {
+  // Die Logik für den Doppelklick-Ersatz bleibt unberührt.
+  const currentTime = new Date().getTime();
+  const tapLength = currentTime - lastTap;
+  lastTap = currentTime;
+  if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
+    event.preventDefault();
+    if (currentDocumentPath && pdfDoc) {
+      const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
+      const link = document.createElement('a');
+      link.href = urlForNewTab;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    return;
+  }
+
+  // === HIER IST DIE ANGEPASSTE 20%-TOLERANZ-PRÜFUNG ===
+  // Die Wisch-Logik wird ausgeführt, wenn der Zoomfaktor
+  // zwischen 0.8 und 1.2 liegt.
+  if (zoomFactor >= 0.8 && zoomFactor <= 1.2) {
+    
+    const mindestDistanz = pdfContainer.clientWidth * 0.25;
+
+    // Fall 1: Genug gewischt -> Seite blättern
+    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+      const pdfViewer = document.getElementById('pdfViewer');
+      if (pdfViewer) {
+        pdfViewer.style.transition = 'opacity 0.3s ease-out';
+        pdfViewer.style.opacity = '0';
       }
-      if (zoomFactor > 1.0) return;
-      const mindestDistanz = pdfContainer.clientWidth * 0.25;
-      if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-        if (pdfViewer) {
-          pdfViewer.style.transition = 'opacity 0.3s ease-out';
-          pdfViewer.style.opacity = '0';
+      setTimeout(() => {
+        if (distanzX < 0) {
+          document.getElementById('next-page').click();
+        } else {
+          document.getElementById('prev-page').click();
         }
-        setTimeout(() => {
-          if (distanzX < 0) { document.getElementById('next-page').click(); } 
-          else { document.getElementById('prev-page').click(); }
-        }, 50);
-      } else if (distanzX !== 0) {
-        if (pdfViewer) {
-          pdfViewer.style.transition = 'transform 0.3s ease-out';
-          pdfViewer.style.transform = 'translateX(0)';
-        }
+      }, 50);
+    } 
+    // Fall 2: Nicht genug gewischt -> Seite zurückschnellen lassen
+    else if (distanzX !== 0) {
+      const pdfViewer = document.getElementById('pdfViewer');
+      if (pdfViewer) {
+        pdfViewer.style.transition = 'transform 0.3s ease-out';
+        pdfViewer.style.transform = 'translateX(0)';
       }
-    });
+    }
+  }
+  // Wenn der zoomFactor außerhalb des Bereichs 0.8 - 1.2 liegt, passiert nichts.
+});
+
   }
 }
 
