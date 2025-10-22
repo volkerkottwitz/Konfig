@@ -2590,13 +2590,33 @@ async function main() {
     });
     let startX = 0, startY = 0, distanzX = 0, distanzY = 0, lastTap = 0;
     const pdfViewer = document.getElementById('pdfViewer');
-    pdfContainer.addEventListener('touchstart', function(e) {
-      if (e.touches.length > 1 || zoomFactor > 1.0) return;
-      const touch = e.touches[0];
-      startX = touch.screenX; startY = touch.screenY;
-      distanzX = 0; distanzY = 0;
-      if (pdfViewer) { pdfViewer.style.transition = 'none'; }
-    });
+// ===================================================================
+//   KORRIGIERTER 'touchstart'-LISTENER (GEGEN DAS HAKEN)
+// ===================================================================
+pdfContainer.addEventListener('touchstart', function(e) {
+  // SCHRITT 1: IMMER die laufende Animation entfernen.
+  // Das ist der entscheidende Fix, um das "Haken" im Zoom-Modus zu verhindern.
+  const pdfViewer = document.getElementById('pdfViewer');
+  if (pdfViewer) {
+    pdfViewer.style.transition = 'none';
+  }
+
+  // SCHRITT 2: Prüfen, ob wir die Wisch-Logik überhaupt starten sollen.
+  // Wenn gezoomt ist oder mehr als ein Finger benutzt wird, überlassen wir
+  // dem Browser die Kontrolle und brechen hier ab.
+  if (e.touches.length > 1 || !(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
+    return;
+  }
+
+  // SCHRITT 3: Nur wenn wir im erlaubten Wisch-Bereich sind,
+  // bereiten wir die Wischgeste vor, indem wir die Startwerte speichern.
+  const touch = e.touches[0];
+  startX = touch.screenX;
+  startY = touch.screenY;
+  distanzX = 0;
+  distanzY = 0;
+});
+
     pdfContainer.addEventListener('touchmove', function(e) {
       if (e.touches.length > 1 || zoomFactor > 1.0) return;
       const touch = e.touches[0];
