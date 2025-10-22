@@ -2597,7 +2597,50 @@ async function main() {
       distanzX = 0; distanzY = 0;
       if (pdfViewer) { pdfViewer.style.transition = 'none'; }
     });
-
+    pdfContainer.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 1 || zoomFactor > 1.0) return;
+      const touch = e.touches[0];
+      distanzX = touch.screenX - startX;
+      distanzY = touch.screenY - startY;
+      if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
+        if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
+          distanzX /= 3;
+        }
+        pdfViewer.style.transform = `translateX(${distanzX}px)`;
+      }
+    }, { passive: true });
+    pdfContainer.addEventListener('touchend', function(event) {
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap;
+      lastTap = currentTime;
+      if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
+        event.preventDefault();
+        if (currentDocumentPath && pdfDoc) {
+          const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
+          const link = document.createElement('a');
+          link.href = urlForNewTab; link.target = '_blank';
+          document.body.appendChild(link); link.click(); document.body.removeChild(link);
+        }
+        return;
+      }
+      if (zoomFactor > 1.0) return;
+      const mindestDistanz = pdfContainer.clientWidth * 0.25;
+      if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
+        if (pdfViewer) {
+          pdfViewer.style.transition = 'opacity 0.3s ease-out';
+          pdfViewer.style.opacity = '0';
+        }
+        setTimeout(() => {
+          if (distanzX < 0) { document.getElementById('next-page').click(); } 
+          else { document.getElementById('prev-page').click(); }
+        }, 50);
+      } else if (distanzX !== 0) {
+        if (pdfViewer) {
+          pdfViewer.style.transition = 'transform 0.3s ease-out';
+          pdfViewer.style.transform = 'translateX(0)';
+        }
+      }
+    });
   }
 }
 
