@@ -10,121 +10,161 @@
 
   <!-- Stile für die Anwendung (übernommen von interneAnfrage.html ) -->
   <style>
-    .search-highlight {
-      background-color: rgba(0, 0, 0, 0.2);
-      font-weight: bold;
-      border-radius: 3px;
-      padding: 0 2px;
-    }
-    .header-right .buttons {
-      display: flex;
-      gap: 10px;
-    }
-    .form-section-container {
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 25px auto;
-      background-color: #fdfdfd;
-      max-width: 900px;
-    }
-    .form-section-container h3 {
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: 25px;
-      padding-bottom: 10px;
-      color: #00a1e1;
-      font-size: 1.3em;
-    }
-    .centered-form-layout {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-    .centered-form-layout > * {
-      width: 100%;
-      max-width: 500px;
-    }
-    
-    /* Stile für die Suchleiste & Ergebnisse */
-    #kundenSuche {
-        width: 100%;
-        padding: 12px 20px;
-        font-size: 16px;
+
+    /* ===================================================================== */
+    /* ===== FINALER, AUFGERÄUMTER & KONSISTENTER CSS-BLOCK (v9) ===== */
+    /* ===================================================================== */
+
+    /* --- 1. Grundlegende Layout-Stile (unverändert) --- */
+    .search-highlight { background-color: rgba(0, 0, 0, 0.2); font-weight: bold; border-radius: 3px; padding: 0 2px; }
+    .header-right .buttons { display: flex; gap: 10px; }
+    .form-section-container { border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 25px auto; background-color: #fdfdfd; max-width: 900px; }
+    .form-section-container h3 { text-align: center; margin-top: 0; margin-bottom: 25px; padding-bottom: 10px; color: #00a1e1; font-size: 1.3em; }
+    .centered-form-layout { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+    .centered-form-layout > * { width: 100%; max-width: 500px; }
+
+    /* --- 2. Suchergebnisse für Kunden (unverändert) --- */
+    #suchErgebnisse { position: relative; width: 100%; max-width: 500px; margin-top: -10px; background-color: white; border: 1px solid #ddd; border-radius: 8px; z-index: 1000; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .ergebnis-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #eee; }
+    .ergebnis-item:last-child { border-bottom: none; }
+    .ergebnis-item.active, .ergebnis-item:hover { background-color: #46a1f0; }
+    .ergebnis-item.no-results { cursor: default; color: #888; }
+    .ergebnis-item.no-results:hover { background-color: white; }
+
+    /* --- 3. EINHEITLICHE STILE FÜR NORMALE EINGABEFELDER (text, tel, date) --- */
+    .centered-form-layout input[type="text"],
+    .centered-form-layout input[type="tel"],
+    .centered-form-layout input[type="date"] {
+        height: 45px;
+        border-radius: 8px;
         border: 1px solid #ccc;
-        border-radius: 25px;
+        padding: 0 20px;
+        font-size: 16px;
         box-sizing: border-box;
         transition: all 0.2s ease-in-out;
-    }
-    #kundenSuche:focus {
-        outline: none;
-        border-color: #00a1e1;
-        box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
-    }
-    #suchErgebnisse {
-        position: relative; 
         width: 100%;
         max-width: 500px;
-        margin-top: -10px;
-        background-color: white;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        z-index: 1000;
-        max-height: 300px;
-        overflow-y: auto;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .ergebnis-item {
-        padding: 12px 20px;
-        cursor: pointer;
-        border-bottom: 1px solid #eee;
-    }
-    .ergebnis-item:last-child {
-        border-bottom: none;
-    }
-    .ergebnis-item.active, 
-    .ergebnis-item:hover {
-        background-color: #46a1f0; 
-    }
-    .ergebnis-item.no-results {
-        cursor: default;
-        color: #888;
-    }
-    .ergebnis-item.no-results:hover {
-        background-color: white;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
     }
 
-/* ================================================================= */
-/* ===== KONSISTENTE STILE FÜR DIE HAUPT-DROPDOWNS ===== */
-/* ================================================================= */
+    /* --- 4. DER "NUKLEARE RESET" FÜR SELECT2-DROPDOWNS --- */
+    
+    /* Schritt A: Select2-Standarddesign komplett entfernen */
+    .select2-container--default .select2-selection--single {
+        background-color: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+    }
 
-/* Diese Regeln gelten jetzt NUR für Select2-Boxen innerhalb von .centered-form-layout */
-.centered-form-layout .select2-container .select2-selection--single .select2-selection__rendered {
-    line-height: 43px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-.centered-form-layout .select2-container .select2-selection--single {
-    height: 45px !important;
-    border-radius: 25px !important;
-    border: 1px solid #ccc !important;
+/* Schritt B: Unser Design auf den äußeren Select2-Container anwenden (FINALE BREITEN-KORREKTUR) */
+.centered-form-layout .select2-container {
+    height: 45px; /* !important ist hier nicht mehr nötig */
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 0 20px;
+    font-size: 16px;
+    box-sizing: border-box; /* Wichtig! */
+    transition: all 0.2s ease-in-out;
+    width: 100%; /* Breite wird vom Elternelement gesteuert */
+    max-width: 500px; /* Breite wird vom Elternelement gesteuert */
+    font-family: 'Roboto', sans-serif;
+    color: #333;
     display: flex;
     align-items: center;
+    background-color: white;
+    position: relative;
 }
-.centered-form-layout .select2-container--default.select2-container--open .select2-selection--single,
-.centered-form-layout .select2-container--default .select2-selection--single:focus {
+
+
+/* Schritt C: Den Text im Inneren sauber positionieren (FINALE VERSION) */
+.centered-form-layout .select2-container .select2-selection__rendered {
+    padding: 0 !important;
+    color: #333 !important;
+    margin-top: 1px; /* Ein winziger Pixel nach unten für die perfekte optische Mitte */
+}
+
+
+    /* Schritt D: Den Pfeil rechts positionieren */
+    .centered-form-layout .select2-container--default .select2-selection__arrow {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        height: auto !important;
+        width: auto !important;
+    }
+
+/* ======================================================================== */
+/* ===== FINAL: Hässlichen Standard-Fokus-Rahmen in Select2 entfernen (Aggressive Methode) ===== */
+/* ======================================================================== */
+.select2-container *:focus {
+    outline: none !important;
+}
+
+
+
+/* --- 5. EINHEITLICHER FOKUS-EFFEKT FÜR ALLE FELDER (ROBUSTE VERSION) --- */
+.centered-form-layout input[type="text"]:focus,
+.centered-form-layout input[type="text"]:focus-visible, /* NEU */
+.centered-form-layout input[type="tel"]:focus,
+.centered-form-layout input[type="tel"]:focus-visible, /* NEU */
+.centered-form-layout input[type="date"]:focus,
+.centered-form-layout input[type="date"]:focus-visible, /* NEU */
+.centered-form-layout .select2-container.select2-container--open,
+.centered-form-layout .select2-container:focus-within {
+    outline: none !important;
     border-color: #00a1e1 !important;
     box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25) !important;
 }
-.centered-form-layout .select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 43px !important;
-}
 
+    /* --- 6. STYLING FÜR DATUMSFELDER (VERHALTEN & ICON) --- */
+    .centered-form-layout input[type="date"] {
+        width: 100% !important;
+        max-width: 200px !important;
+        box-sizing: border-box;
+        text-align: left;
+        position: relative;
+    }
+    .centered-form-layout input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    /* --- 7. SONSTIGE STILE (Trennlinie, Artikel-Dropdown etc.) --- */
+    .form-divider {
+        border: none;
+        border-top: 1px solid #e0e0e0;
+        margin: 15px 0;
+    }
     .grund-steuerung .select2-container {
         width: 100% !important;
-        max-width: 250px; /* Passen Sie diesen Wert bei Bedarf an */
+        max-width: 250px;
     }
+
+    /* ======================================================================== */
+/* ===== FINAL: Markenkonforme Farbe für markierten Text (Selection) ===== */
+/* ======================================================================== */
+::selection {
+    background-color: #00a1e1; /* Unser schönes EWE-Blau */
+    color: #ffffff;           /* Weißer Text für besten Kontrast */
+}
+
+    /* --- 8. MOBILE OPTIMIERUNG --- */
+    @media (max-width: 768px) {
+      .form-section-container {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+
+
   </style>
 </head>
 <body>
@@ -148,27 +188,34 @@
     <h3>Kundendaten</h3>
     <div id="kundenDetails" class="centered-form-layout">
       <!-- ===== HIER IST DIE NEUE SUCHLEISTE ===== -->
-      <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
+      <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled autocomplete="new-password">
       <div id="suchErgebnisse" style="display: none;"></div>
       
-      <input type="text" id="name" placeholder="Name">
-      <input type="text" id="firma" placeholder="Firma">
-      <input type="text" id="strasse" placeholder="Straße">
-      <input type="text" id="plz" placeholder="PLZ">
-      <input type="text" id="ort" placeholder="Ort">
-      <input type="text" id="land" placeholder="Land">
-      <input type="text" id="email" placeholder="E-Mail">
-      <input type="text" id="telefon" placeholder="Telefon">
+      <input type="text" id="name" placeholder="Name" autocomplete="new-password">
+      <input type="text" id="firma" placeholder="Firma" autocomplete="new-password">
+      <input type="text" id="strasse" placeholder="Straße" autocomplete="new-password">
+      <input type="text" id="plz" placeholder="PLZ" autocomplete="new-password">
+      <input type="text" id="ort" placeholder="Ort" autocomplete="new-password">
+      <input type="text" id="land" placeholder="Land" autocomplete="new-password">
+      <input type="text" id="email" placeholder="E-Mail" autocomplete="new-password">
+      <input type="text" id="telefon" placeholder="Telefon" autocomplete="new-password">
+      <input type="text" id="kundennummer" placeholder="Kundennummer (optional)" autocomplete="new-password">
+
+
     </div>
   </section>
 
-  <section class="form-section-container">
+<!-- ===== FINALE, EINHEITLICHE RETOURENDETAILS START ===== -->
+<section class="form-section-container">
     <h3>Retourendetails</h3>
     <div id="retourenDetails" class="centered-form-layout">
+      
+      <!-- Dropdowns und Textfelder bleiben wie gehabt -->
       <select id="bearbeiterDropdown">
         <option value="">-- Bearbeiter auswählen --</option>
         <option value="Rafael Furtwängler">Rafael Furtwängler</option>
         <option value="Christof Münster">Christof Münster</option>
+        <option value="Thorben Buttschaft">Thorben Buttschaft</option>
         <option value="Sascha Heusel">Sascha Heusel</option>
         <option value="Bernhard Kneissl">Bernhard Kneissl</option>
         <option value="Christopher-Sean Haus">Christopher-Sean Haus</option>
@@ -185,22 +232,32 @@
         <option value="manuell">-- Manuelle Eingabe --</option>
       </select>
       <input type="text" id="bearbeiterManuell" placeholder="Bearbeiter (manuell)" style="display: none;">
+      
       <select id="anlieferungDropdown">
         <option value="">-- Anlieferung auswählen --</option>
         <option value="PKW Außendienst">PKW Außendienst</option>
-        <option value="EWE-LW">EWE-LKW</option>
+        <option value="EWE-LKW">EWE-LKW</option>
         <option value="Paketdienst">Paketdienst</option>
         <option value="Spedition">Spedition</option>
         <option value="Sonstiges">Sonstiges</option>
       </select>
-      <div id="abholdatumContainer">
-        <label for="abholdatum">Abholdatum:</label>
-        <div class="date-picker-container">
-          <button type="button" id="datumZurueck" class="date-arrow">◀</button>
-          <input type="date" id="abholdatum">
-          <button type="button" id="datumVor" class="date-arrow">▶</button>
-        </div>
-      </div>
+
+      <input type="text" id="auftragsnummer" placeholder="Auftragsnummer" autocomplete="new-password">
+      <input type="text" id="rechnungsnummer" placeholder="Bezug zu Rechnungsnummer" autocomplete="new-password">
+      <input type="text" id="reklamationsnummer" placeholder="Reklamationsnummer" autocomplete="new-password">
+
+      <!-- ===== HIER KOMMT DIE NEUE TRENNLINIE ===== -->
+      <hr class="form-divider">
+
+      <!-- ===== FINALE, GEKLONTE & KORRIGIERTE DATUMSFELDER ===== -->
+      <input type="text" id="abholdatum" placeholder="Abholdatum" 
+             onfocus="this.type='date'" 
+             onblur="formatDate(this, 'Abholdatum')">
+      
+      <input type="text" id="wareneingang_datum" placeholder="Wareneingangsdatum" 
+             onfocus="this.type='date'" 
+             onblur="formatDate(this, 'Wareneingangsdatum')">
+
     </div>
   </section>
 
@@ -269,7 +326,6 @@
       bearbeiter: document.getElementById("bearbeiterDropdown"),
       bearbeiterManuell: document.getElementById("bearbeiterManuell"),
       anlieferung: document.getElementById("anlieferungDropdown"),
-      abholdatum: document.getElementById("abholdatum"),
       bemerkungen: document.getElementById("bemerkungen"), 
       checkReklamation: document.getElementById("checkReklamation"),
       checkNeuware: document.getElementById("checkNeuware"),
@@ -279,44 +335,50 @@
       weiterleitungAnName: document.getElementById("weiterleitungAnName")
     };
 
+
     // LOGIK FÜR DIE INTELLIGENTE SUCHLEISTE
     let kunden = [];
     let activeResultIndex = -1;
     const kundenSucheInput = document.getElementById('kundenSuche');
     const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
 
-// =================================================================
-// ===== NEUER CODE-BLOCK (Native Web Crypto API) =====
-// =================================================================
-
-// Diese Funktion startet den gesamten Prozess
 // ========================================================================
 // ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
 // ========================================================================
 
 async function loadProtectedData() {
-    // 1. Versuche, das Passwort aus dem aktuellen sessionStorage zu lesen
-    let password = sessionStorage.getItem('customerDataPassword');
+    // 1. Versuche, das Passwort aus dem localStorage zu lesen (konsistent mit anderen Seiten)
+    let password = localStorage.getItem('customerDataPassword');
 
-    // 2. NEU: Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
+    // 2. Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
     if (!password && window.location.hash.includes('password=')) {
         const urlHash = window.location.hash.substring(1);
         const params = new URLSearchParams(urlHash);
         password = params.get('password');
+        
         if (password) {
-            sessionStorage.setItem('customerDataPassword', password);
+            localStorage.setItem('customerDataPassword', password);
             history.replaceState(null, '', window.location.pathname + window.location.search);
         }
     }
 
-    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben -> umleiten
-    if (!password) {
-        // Annahme: Diese Datei liegt in einem Unterordner.
-        window.location.href = '../authentifizierung.html';
-        return new Promise(() => {}); 
+    // Hilfsfunktion, um das Suchfeld zu deaktivieren und die Nachricht anzuzeigen
+    function disableSearch(message) {
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        if (kundenSucheInput) {
+            kundenSucheInput.disabled = true;
+            kundenSucheInput.placeholder = message;
+        }
     }
 
-    // 4. Wenn wir ein Passwort haben, lade und entschlüssele die Daten.
+    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben...
+    if (!password) {
+        console.log("Kein Passwort gefunden. Kundensuche wird deaktiviert.");
+        disableSearch("Für Kundensuche bitte anmelden");
+        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
+    }
+
+    // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
     try {
         const kundenSucheInput = document.getElementById('kundenSuche');
         if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
@@ -331,13 +393,13 @@ async function loadProtectedData() {
         
         kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
         
-        return kunden;
+        return true; // <-- WICHTIG: Signal für Erfolg zurückgeben
 
     } catch (error) {
-        sessionStorage.removeItem('customerDataPassword');
-        alert("Fehler bei der Datenentschlüsselung. Sie werden zur erneuten Anmeldung weitergeleitet.");
-        window.location.href = '../authentifizierung.html';
-        return new Promise(() => {});
+        console.error("Fehler bei der Datenentschlüsselung:", error);
+        localStorage.removeItem('customerDataPassword');
+        disableSearch("Anmeldung fehlgeschlagen. Bitte neu anmelden.");
+        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
     }
 }
 
@@ -421,24 +483,34 @@ function initializeCustomerSearchListeners() {
     });
 
    
-    suchErgebnisseContainer.addEventListener('click', function(e) {
-        const ergebnisItem = e.target.closest('.ergebnis-item');
-        if (ergebnisItem && ergebnisItem.dataset.index) {
-            const index = ergebnisItem.dataset.index;
-            const kunde = kunden[index];
-            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-            inputs.name.value = kunde.Name || "";
-            inputs.firma.value = kunde.Firma || "";
-            inputs.telefon.value = kunde.Telefon || "";
-            inputs.email.value = kunde['E-Mail'] || "";
-            inputs.strasse.value = adresseTeile[0] || "";
-            inputs.ort.value = adresseTeile[1] || "";
-            inputs.plz.value = adresseTeile[2] || "";
-            inputs.land.value = adresseTeile[3] || "";
-            kundenSucheInput.value = '';
-            suchErgebnisseContainer.style.display = 'none';
-        }
-    });
+suchErgebnisseContainer.addEventListener('click', function(e) {
+    const ergebnisItem = e.target.closest('.ergebnis-item');
+    if (ergebnisItem && ergebnisItem.dataset.index) {
+        const index = ergebnisItem.dataset.index;
+        const kunde = kunden[index];
+        const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+        
+        // Bestehende Felder befüllen
+        inputs.name.value = kunde.Name || "";
+        inputs.firma.value = kunde.Firma || "";
+        inputs.telefon.value = kunde.Telefon || "";
+        inputs.email.value = kunde['E-Mail'] || "";
+        inputs.strasse.value = adresseTeile[0] || "";
+        inputs.ort.value = adresseTeile[1] || "";
+        inputs.plz.value = adresseTeile[2] || "";
+        inputs.land.value = adresseTeile[3] || "";
+
+        // ===== NEU & FINAL: Kundennummer in das unsichtbare Feld eintragen =====
+        // Das Feld 'Kundennummer' kommt jetzt aus unserer neuen, kombinierten CSV-Datei.
+        // Es wird gefüllt, wenn eine Nummer vorhanden ist (auch mit '?'), ansonsten bleibt es leer.
+        document.getElementById("kundennummer").value = kunde.Kundennummer || ""; 
+
+        // Rest der Funktion
+        kundenSucheInput.value = '';
+        suchErgebnisseContainer.style.display = 'none';
+    }
+});
+
     
     document.addEventListener('click', function(e) {
         if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
@@ -503,29 +575,46 @@ function initializeCustomerSearchListeners() {
       }
     });
 
-    // Datepicker-Funktionalität
-    function initializeDatePicker() {
-      const abholdatumInput = retourenInputs.abholdatum;
-      const datumZurueckBtn = document.getElementById("datumZurueck");
-      const datumVorBtn = document.getElementById("datumVor");
-      
-      // Aktuelles Datum als Standard setzen
-      const heute = new Date();
-      abholdatumInput.value = heute.toISOString().split('T')[0];
-      
-      // Event-Listener für Vor/Zurück-Buttons
-      datumZurueckBtn.addEventListener('click', function() {
-        const currentDate = new Date(abholdatumInput.value);
-        currentDate.setDate(currentDate.getDate() - 1);
-        abholdatumInput.value = currentDate.toISOString().split('T')[0];
-      });
-      
-      datumVorBtn.addEventListener('click', function() {
-        const currentDate = new Date(abholdatumInput.value);
-        currentDate.setDate(currentDate.getDate() + 1);
-        abholdatumInput.value = currentDate.toISOString().split('T')[0];
-      });
-    }
+
+
+// ========================================================================
+// ===== NEU: Funktion zur Formatierung des Datums nach der Auswahl =====
+// ========================================================================
+
+function formatDate(inputElement, labelText) {
+  // Zuerst den Typ auf Text zurücksetzen, damit wir den Wert manipulieren können
+  inputElement.type = 'text';
+  
+  const isoDate = inputElement.value; // z.B. "2025-10-09"
+  
+  // Nur formatieren, wenn ein gültiges Datum im ISO-Format vorhanden ist
+  if (isoDate && isoDate.includes('-')) {
+    const parts = isoDate.split('-'); // Ergibt: ["2025", "10", "09"]
+    const year = parts[0];
+    const month = parts[1];
+    const day = parts[2];
+    
+    // Das gewünschte Format "Label: TT.MM.JJJJ" erstellen und ins Feld schreiben
+    // Wir verwenden absichtlich den 'labelText' und nicht den 'placeholder',
+    // da der placeholder verschwindet, sobald ein Wert im Feld steht.
+    inputElement.value = `${labelText}: ${day}.${month}.${year}`;
+  } else {
+    // Wenn kein Datum ausgewählt wurde oder der Wert ungültig ist,
+    // leeren wir das Feld, damit der ursprüngliche Platzhalter wieder sichtbar wird.
+    inputElement.value = ''; 
+  }
+}
+
+// ========================================================================
+// ===== NEU: Hilfsfunktion zum Erzeugen des heutigen Datums im TT.MM.JJJJ-Format =====
+// ========================================================================
+function getTodayGermanDate() {
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, '0'); // Stellt sicher, dass der Tag zweistellig ist (z.B. 09)
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Monat ist 0-basiert, daher +1. Auch zweistellig.
+  const year = today.getFullYear();
+  return `${day}.${month}.${year}`; // Gibt z.B. "09.10.2025" zurück
+}
 
     // Merkliste aus localStorage laden
     function ladeMerklisteAusLocalStorage() {
@@ -609,6 +698,7 @@ function initializeCustomerSearchListeners() {
                     <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
                     <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
                     <option value="Doppelt bestellt">Doppelt bestellt</option>
+                    <option value="Neuware / Einlagern">Neuware / Einlagern</option>
                     <option value="Sonstiges">Sonstiges</option>
                   </select>
                 </div>
@@ -675,6 +765,7 @@ function initializeCustomerSearchListeners() {
                 <option value="Artikel beschädigt / defekt">Artikel beschädigt / defekt</option>
                 <option value="Falscher Artikel geliefert">Falscher Artikel geliefert</option>
                 <option value="Doppelt bestellt">Doppelt bestellt</option>
+                <option value="Neuware / Einlagern">Neuware / Einlagern</option>
                 <option value="Sonstiges">Sonstiges</option>
               </select>
             </div>
@@ -783,12 +874,12 @@ function initializeCustomerSearchListeners() {
         }
       });
       
-      if (hinzugefuegt > 0) {
-        updateArtikelListe();
-        alert(`${hinzugefuegt} Artikel wurden zur Liste hinzugefügt.`);
-      } else {
-        alert('Bitte füllen Sie mindestens den Namen oder die Artikelnummer für einen Artikel aus.');
-      }
+if (hinzugefuegt > 0) {
+    updateArtikelListe();
+    // alert(`${hinzugefuegt} Artikel wurden zur Liste hinzugefügt.`); // <-- Auskommentiert oder gelöscht
+} else {
+    alert('Bitte füllen Sie mindestens den Namen oder die Artikelnummer für einen Artikel aus.');
+}
     }
 
     // Event-Listener für die Buttons
@@ -844,6 +935,39 @@ async function generateRetourenscheinPDF() {
         doc.text(label, x + 6, y + 3.5);
     };
 
+    // ========================================================================
+    // ===== DATEN FÜR PDF SAMMELN (ROBUSTE VERSION) =====
+    // ========================================================================
+
+    // Hilfsfunktion, um das Datum sicher zu extrahieren und zu formatieren
+    const getFormattedDate = (elementId) => {
+        const input = document.getElementById(elementId);
+        if (!input || !input.value) return '';
+        
+        // Prüft, ob das Datum bereits im Anzeigeformat "Label: TT.MM.JJJJ" vorliegt
+        if (input.value.includes(':')) {
+            return input.value.split(': ')[1]; // Extrahiert "TT.MM.JJJJ"
+        }
+        // Falls das Feld noch im `type="date"`-Zustand ist, wird der ISO-Wert formatiert
+        if (input.value.includes('-')) {
+            const parts = input.value.split('-');
+            return `${parts[2]}.${parts[1]}.${parts[0]}`;
+        }
+        return ''; // Fallback
+    };
+    
+    // Alle Werte sicher auslesen
+    const abholDatumValue = getFormattedDate("abholdatum");
+    const wareneingangsdatumValue = getFormattedDate("wareneingang_datum");
+    const auftragsnummerValue = document.getElementById("auftragsnummer").value;
+    const reklamationsnummerValue = document.getElementById("reklamationsnummer").value;
+    const rechnungsnummerValue = document.getElementById("rechnungsnummer").value;
+    const kundennummerValue = document.getElementById("kundennummer").value;
+    const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" 
+        ? retourenInputs.bearbeiterManuell.value 
+        : retourenInputs.bearbeiter.value;
+
+
     // --- 1. Header ---
     let y = page_margin;
     const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png';
@@ -870,26 +994,24 @@ async function generateRetourenscheinPDF() {
     const kundenBoxHeight = 58;
     doc.rect(page_margin, kundenBoxY, content_width, kundenBoxHeight-1);
     const today = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    const abholDatum = retourenInputs.abholdatum.value ? new Date(retourenInputs.abholdatum.value).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
-    const firma = inputs.firma.value ? `${inputs.firma.value}\n` : '';
-    const nameValue = `${firma}${inputs.name.value}`;
+    
     drawTextField(page_margin + 5, kundenBoxY + 5, "Firma", inputs.firma.value, 85, 12); 
     drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Ansprechpartner", inputs.name.value);
     drawTextField(page_width / 2 + 5, kundenBoxY + 20.5, "Datum", today);
-    const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" ? retourenInputs.bearbeiterManuell.value : retourenInputs.bearbeiter.value;
     drawTextField(page_width / 2 + 5, kundenBoxY + 30, "Bearbeiter", bearbeiterWert);
     drawTextField(page_margin + 5, kundenBoxY + 20.5, "Adresse", inputs.strasse.value);
     drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`);
     const separatorY = kundenBoxY + 42;
     doc.line(page_margin, separatorY-2, page_width - page_margin, separatorY-2);
     drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", retourenInputs.anlieferung.value);
-    drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", abholDatum);
+    drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", abholDatumValue); // <-- KORRIGIERT
     y = kundenBoxY + kundenBoxHeight;
 
-    // --- 3. Artikeltabelle ---
+    // --- 3. Artikeltabelle (unverändert) ---
+    // ... (Ihr Code für die Artikeltabelle bleibt hier)
     y += 3;
     doc.setFontSize(9).setFont("helvetica", "bold").text("Bitte beachten Sie, dass die Ware ordnungsgemäß sowie transportgerecht zur Abholung verpackt werden muss!", page_margin + 2, y + 5);
-    y += 5; // Artikel um 2px nach oben
+    y += 5;
     const tableStartY = y;
     const rowHeight = 10, maxRows = 5, tableHeaderHeight = 7;
     const tableBodyHeight = maxRows * rowHeight;
@@ -927,20 +1049,24 @@ async function generateRetourenscheinPDF() {
     doc.line(page_margin + content_width - 12, tableStartY + tableHeaderHeight, page_margin + content_width - 12, tableStartY + tableTotalHeight);
     y = tableStartY + tableTotalHeight;
 
+
     // --- 4. Interner Vermerk-Block ---
     y += 7;
     const internBoxY = y;
     const internBoxHeight = 29;
     doc.rect(page_margin, internBoxY, content_width, internBoxHeight);
-    drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", "", 85, 6, true);
-    drawTextField(page_margin + 5, internBoxY + 12.5, "Auftragsnummer", "", 85, 6, true);
-    drawTextField(page_margin + 5, internBoxY + 22, "Reklamationsnummer", "", 85, 6, true);
-    drawTextField(page_width / 2 + 5, internBoxY + 3, "Kundennummer", "", 85, 6, true);
-    drawTextField(page_width / 2 + 5, internBoxY + 12.5, "Bezug zu Rechnungsnummer", "", 85, 6, true);
+    
+    drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", wareneingangsdatumValue, 85, 6, true); // <-- KORRIGIERT
+    drawTextField(page_margin + 5, internBoxY + 12.5, "Auftragsnummer", auftragsnummerValue, 85, 6, true);
+    drawTextField(page_margin + 5, internBoxY + 22, "Reklamationsnummer", reklamationsnummerValue, 85, 6, true);
+    
+    drawTextField(page_width / 2 + 5, internBoxY + 3, "Kundennummer", kundennummerValue, 85, 6, true);
+    drawTextField(page_width / 2 + 5, internBoxY + 12.5, "Bezug zu Rechnungsnummer", rechnungsnummerValue, 85, 6, true);
     drawTextField(page_width / 2 + 5, internBoxY + 22, "Gutschrift", "", 85, 6, true);
     y += internBoxHeight;
 
-    // --- 5. Reklamations-Block ---
+    // --- 5. Reklamations-Block (unverändert) ---
+    // ... (Ihr Code für den Reklamations-Block bleibt hier)
     y += 5;
     const reklBoxHeight = 22;
     doc.rect(page_margin, y, content_width, reklBoxHeight);
@@ -973,7 +1099,9 @@ async function generateRetourenscheinPDF() {
     
     y += reklBoxHeight;
 
-    // --- 6. Notiz-Block ---
+
+    // --- 6. Notiz-Block (unverändert) ---
+    // ... (Ihr Code für den Notiz-Block bleibt hier)
     y += 3;
     
     doc.setFontSize(10).setFont("helvetica", "bold").text("Notizen", page_margin + 2, y + 5);
@@ -983,10 +1111,12 @@ async function generateRetourenscheinPDF() {
     doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.bemerkungen.value, page_margin + 2, y + 5, { maxWidth: content_width - 4 });
 
     y += notizBoxHeight;
-    // --- 7. Footer ---
+
+
+    // --- 7. Footer (unverändert) ---
     const finalY = doc.internal.pageSize.getHeight() - 4;
     doc.setFontSize(7).setFont("helvetica", "normal");
-    doc.text("VK-11 Retourenschein (Stand 05/2020)", page_margin, finalY);
+    doc.text("VK-11 Retourenschein (Stand 10/2025)", page_margin, finalY);
     doc.text("Wilhelm Ewe GmbH & Co. KG - Volkmaroder Straße 19 - 38104 Braunschweig", page_width / 2, finalY, { align: 'center' });
     doc.text("Seite 1 von 1", page_width - page_margin, finalY, { align: 'right' });
 
@@ -1001,8 +1131,16 @@ async function generateRetourenscheinPDF() {
 // ========================================================================
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Unabhängige UI-Elemente sofort initialisieren
-    initializeDatePicker();
+      // ========================================================================
+    // ===== HIER DIE NEUEN ZEILEN EINFÜGEN =====
+    // ========================================================================
+    const todayGerman = getTodayGermanDate();
+    document.getElementById('abholdatum').value = `Abholdatum: ${todayGerman}`;
+    document.getElementById('wareneingang_datum').value = `Wareneingangsdatum: ${todayGerman}`;
+    // =================  
+  
+  // 1. Unabhängige UI-Elemente sofort initialisieren
+    
     initManuelleArtikelEingabe();
     ladeMerklisteAusLocalStorage();
     
@@ -1013,19 +1151,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     try {
-        // 3. Authentifizierung prüfen und auf Daten warten
-        await loadProtectedData();
+        // 3. Authentifizierung prüfen und auf das Ergebnis warten
+        const isLoginSuccessful = await loadProtectedData();
 
-        // Wenn wir hier ankommen, ist alles gut.
-        console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+        // 4. NUR bei erfolgreicher Anmeldung die Suche aktivieren
+        if (isLoginSuccessful) {
+            console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
 
-        // 4. UI-Elemente aktivieren, die von den Daten abhängen
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        kundenSucheInput.disabled = false;
-        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+            // UI-Elemente aktivieren, die von den Daten abhängen
+            const kundenSucheInput = document.getElementById('kundenSuche');
+            kundenSucheInput.disabled = false;
+            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
 
-        // 5. Event-Listener für die Suche aktivieren
-        initializeCustomerSearchListeners();
+            kundenSucheInput.focus();
+
+            // Event-Listener für die Suche aktivieren
+            initializeCustomerSearchListeners();
+        }
+        // Wenn die Anmeldung fehlschlägt, bleibt die Suche deaktiviert.
 
     } catch (error) {
         console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
@@ -1033,7 +1176,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+
   </script>
+    <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
+  <button onclick="generateRetourenscheinPDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
+    PDF erzeugen
+  </button>
 </body>
 </html>
 
