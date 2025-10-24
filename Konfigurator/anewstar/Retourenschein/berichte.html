@@ -8,227 +8,156 @@
   <link rel="stylesheet" href="interneAnfrage.css">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-  <style>
+<style>
+    /* ===================================================================== */
+    /* ===== BERICHTE.HTML - FINALES, VEREINHEITLICHTES CSS (v1.2) ===== */
+    /* ===================================================================== */
 
-    /* ================================================================== */
-    /* ===== BASIS-STILE & LAYOUT ======================================= */
-    /* ================================================================== */
-    .form-section-container {
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 25px auto;
-      background-color: #fdfdfd;
-      max-width: 900px;
-    }
-    .form-section-container h3 {
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: 25px;
-      padding-bottom: 10px;
-      color: #00a1e1;
-      font-size: 1.3em;
-    }
-    .centered-form-layout {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-    .centered-form-layout > * {
-      width: 100%;
-      max-width: 500px;
-    }
+    /* --- 1. Grundlegende Layout-Stile (aus berichte.html) --- */
+    .form-section-container { border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 25px auto; background-color: #fdfdfd; max-width: 900px; }
+    .form-section-container h3 { text-align: center; margin-top: 0; margin-bottom: 25px; padding-bottom: 10px; color: #00a1e1; font-size: 1.3em; }
+    .centered-form-layout { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+    .centered-form-layout > * { width: 100%; max-width: 500px; }
 
-
-    /* ================================================================== */
-/* ===== NEU: Stile für das einspaltige Formular-Layout         ===== */
-/* ================================================================== */
-
-/* 
-   Diese neue Klasse ist für Zeilen, die mehrere Felder enthalten.
-   Wir verwenden Flexbox, um die Felder darin anzuordnen.
-*/
-.form-row {
-    display: flex;
-    gap: 15px; /* Abstand zwischen den Feldern in einer Zeile */
-    width: 100%;
-    max-width: 530px; /* Passt zur Breite der anderen Felder */
-}
-
-
-/* 
-   Spezifische Anpassung für PLZ und Ort:
-   Das PLZ-Feld soll schmaler sein als das Ort-Feld.
-   Wir geben dem PLZ-Feld 1 Teil und dem Ort-Feld 2 Teile der Breite.
-*/
-.form-row #plz {
-    flex: 1;
-}
-.form-row #ort {
-    flex: 2;
-}
-
-
-    /* FÜGEN SIE DIESEN BLOCK ZU IHREM CSS HINZU */
-/* (Ein guter Platz ist direkt vor der .search-input-group Regel) */
-
-/* ================================================================== */
-/* ===== KUNDENSUCHE (AUFGERÄUMT) =================================== */
-/* ================================================================== */
-
-/* NEU: Diese Regel ist der entscheidende Fix */
-.search-wrapper {
-    position: relative;
-}
-
-/* Gruppe für Suchfeld und Mikrofon-Button */
-.search-input-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-}
-
-    /* Das Suchfeld selbst (alle Regeln an einem Ort) */
-    #kundenSuche {
-        flex-grow: 1; /* Wächst, um den Platz zu füllen */
-        height: 48px;
-        padding: 12px 20px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 25px !important; /* Wichtig, um externe Stile zu überschreiben */
-        box-sizing: border-box;
-        transition: all 0.2s ease-in-out;
-    }
-    #kundenSuche:focus {
-        outline: none;
-        border-color: #00a1e1;
-        box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
-    }
-
-    /* Die schwebende Ergebnisliste */
-    #suchErgebnisse {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background-color: white;
-        border: 1px solid #ddd;
-        border-top: none;
-        border-radius: 0 0 12px 12px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        max-height: 300px;
-        overflow-y: auto;
-    }
-    .ergebnis-item {
-        padding: 12px 20px;
-        cursor: pointer;
-        border-bottom: 1px solid #eee;
-    }
+    /* --- 2. Suchergebnisse & Highlight (aus berichte.html) --- */
+    .search-wrapper { position: relative; }
+    #suchErgebnisse { position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; background-color: white; border: 1px solid #ddd; border-radius: 0 0 8px 8px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); max-height: 300px; overflow-y: auto; }
+    .ergebnis-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #eee; }
     .ergebnis-item:last-child { border-bottom: none; }
     .ergebnis-item:hover { background-color: #f0f8ff; }
     .ergebnis-item.active { background-color: #e6f7ff; }
-    .ergebnis-item.best-match { background-color: #e0ffe0; font-weight: bold; }
-    .ergebnis-item.no-results { cursor: default; color: #888; }
-    .ergebnis-item.no-results:hover { background-color: white; }
-    .search-highlight {
-      background-color: rgba(0, 0, 0, 0.2);
-      font-weight: bold;
-      border-radius: 3px;
-      padding: 0 2px;
+    .search-highlight { background-color: rgba(0, 0, 0, 0.2); font-weight: bold; border-radius: 3px; padding: 0 2px; }
+
+    /* --- 3. NEU: EINHEITLICHE STILE FÜR ALLE FORMULARFELDER (aus retourenschein.html) --- */
+    .centered-form-layout input[type="text"],
+    .centered-form-layout input[type="tel"],
+    .centered-form-layout .select2-container,
+    #bericht-text, 
+    #aufgaben-text {
+        height: 45px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 0 20px;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: all 0.2s ease-in-out;
+        width: 100%;
+        max-width: 500px;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        background-color: white;
     }
 
-    /* ================================================================== */
-    /* ===== ICON-BUTTONS & TELEFON-GRUPPE ============================== */
-    /* ================================================================== */
+    /* --- 4. NEU: DER "NUKLEARE RESET" FÜR SELECT2-DROPDOWNS (aus retourenschein.html) --- */
+    .select2-container--default .select2-selection--single { background-color: transparent !important; border: none !important; border-radius: 0 !important; padding: 0 !important; height: auto !important; }
+    .centered-form-layout .select2-container { display: flex !important; align-items: center !important; position: relative; }
+    .centered-form-layout .select2-container .select2-selection__rendered { padding: 0 !important; color: #333 !important; margin-top: 1px; }
+    .centered-form-layout .select2-container--default .select2-selection__arrow { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); height: auto !important; width: auto !important; }
+    .select2-container *:focus { outline: none !important; }
 
-    /* Allgemeiner Stil für Icon-Buttons (Mikrofon & Telefon) */
-    .icon-button {
+    /* --- 5. NEU: EINHEITLICHER FOKUS-EFFEKT (aus retourenschein.html) --- */
+    .centered-form-layout input[type="text"]:focus,
+    .centered-form-layout input[type="tel"]:focus,
+    .centered-form-layout .select2-container.select2-container--open,
+    .centered-form-layout .select2-container:focus-within,
+    #bericht-text:focus,
+    #aufgaben-text:focus {
+        outline: none !important;
+        border-color: #00a1e1 !important;
+        box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25) !important;
+    }
+
+    /* --- 6. SPEZIELLE LAYOUT-GRUPPEN (aus berichte.html, angepasst) --- */
+    .search-input-group, .phone-group, .form-row {
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex-shrink: 0; /* Verhindert, dass der Button schrumpft */
-        width: 48px;
-        height: 48px;
+        gap: 10px;
+        width: 100%;
+        max-width: 500px;
+    }
+    .search-input-group input, .phone-group input, .form-row input {
+        flex-grow: 1;
+    }
+    .form-row #plz { flex: 1; }
+    .form-row #ort { flex: 2; }
+
+    /* --- 7. ICON-BUTTONS (aus berichte.html, angepasst) --- */
+    .icon-button {
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        width: 45px; /* Höhe an Felder angepasst */
+        height: 45px; /* Höhe an Felder angepasst */
         background-color: #f0f0f0;
         border: 1px solid #ccc;
-        border-radius: 50%; /* Runder Button */
-        font-size: 1.5rem;
-        color: #555;
+        border-radius: 50%;
+        font-size: 1.4rem;
         cursor: pointer;
         transition: all 0.2s ease-in-out;
     }
-    .icon-button:hover {
-        background-color: #007bff;
-        color: white;
-        transform: scale(1.05);
-    }
-    #speech-search-button.is-listening {
-        background-color: #dc3545;
-        color: white;
-    }
+    .icon-button:hover { background-color: #007bff; color: white; }
+    #speech-search-button.is-listening { background-color: #dc3545; color: white; }
 
-/* Innerhalb des <style>-Blocks */
+    /* --- 8. SPRACHEINGABE-SEKTIONEN (NEU & VERBESSERT) --- */
 
-/* Gruppe für Telefonnummer und Anruf-Button */
-.phone-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    /* Die folgende Regel ist die eigentliche Korrektur.
-       Sie sorgt dafür, dass die Gruppe die gleiche Maximalbreite
-       hat wie die anderen Felder. */
-    max-width: 530px; /* Passt zur Breite der anderen Felder */
-}
-
-/* Diese Regel sorgt dafür, dass das Input-Feld den Platz füllt */
-.phone-group input {
-    flex-grow: 1;
-}
-
-
-
-
-    /* ================================================================== */
-    /* ===== SPRACHEINGABE-SEKTIONEN ==================================== */
-    /* ================================================================== */
-    #spracheingabe-container, #aufgaben-container {
+    /* Stellt sicher, dass die Beschreibungstexte zentriert sind */
+    .centered-form-layout p {
         text-align: center;
+        margin-bottom: 10px;
+        color: #666;
     }
-    #bericht-text, #aufgaben-text {
-        width: 100%;
-        height: 200px;
-        margin-top: 1rem;
-        padding: 0.5rem;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
+
+    /* Vereinheitlicht das Design der Textareas mit den anderen Feldern */
+    #bericht-text, 
+    #aufgaben-text {
+        height: 200px; /* Höhe für das große Textfeld */
+        padding: 15px 20px; /* Mehr Innenabstand für Text */
+        line-height: 1.5; /* Besserer Zeilenabstand */
+        /* Die Breite wird bereits durch .centered-form-layout > * gesetzt */
+        max-width: 700px
     }
-    #aufgaben-text { height: 120px; }
+    #aufgaben-text { 
+        height: 120px; /* Kleinere Höhe für das Aufgabenfeld */
+    }
+
+    /* Stile für die Aufnahme-Buttons */
     .aufnahme-button {
-        margin-top: 1rem;
-        padding: 0.8rem 1.5rem;
+        padding: 10px 25px;
         font-size: 1rem;
         cursor: pointer;
         border: none;
-        border-radius: 4px;
-        background-color: #28a745;
+        border-radius: 8px; /* Gleicher Radius wie die Felder */
+        background-color: #28a745; /* Grün für "Start" */
         color: white;
         transition: background-color 0.3s;
+        /* Wir geben dem Button eine feste, aber nicht zu breite Größe */
+        width: 100%;
+        max-width: 250px; 
     }
-    .aufnahme-button:hover { background-color: #218838; }
-    .aufnahme-button.recording { background-color: #dc3545; }
+    .aufnahme-button:hover { 
+        background-color: #218838; 
+    }
+    .aufnahme-button.recording { 
+        background-color: #dc3545; /* Rot für "Recording" */
+    }
+
+    /* Status-Text unter dem Button */
     .aufnahme-status {
-        margin-top: 1rem;
-        color: #666;
+        color: #665;
         min-height: 20px;
+        margin-top: -5px; /* Rücken wir etwas näher an den Button */
+        margin-bottom: 5px;
     }
 
+    /* --- 9. GLOBALE HELFER & MOBILE OPTIMIERUNG (aus retourenschein.html) --- */
+    ::selection { background-color: #00a1e1; color: #ffffff; }
+    @media (max-width: 768px) {
+      .form-section-container, #spracheingabe-container, #aufgaben-container { 
+        margin-left: 10px; 
+        margin-right: 10px; 
+      }
+    }
+</style>
 
-  </style>
 </head>
 <body>
   <header id="header">
@@ -338,20 +267,30 @@
     </div>
   </section>
 
-  <section id="spracheingabe-container">
+  <!-- ================================================================== -->
+  <!-- ===== NEUE, VERBESSERTE SPRACHEINGABE-SEKTIONEN (im Kasten-Design) ===== -->
+  <!-- ================================================================== -->
+
+  <!-- Sektion 1: Berichtsinhalt -->
+  <section class="form-section-container">
     <h3>Berichtsinhalt per Sprache eingeben</h3>
-    <p>Klicken Sie auf "Aufnahme starten" und diktieren Sie Ihren Bericht.</p>
-    <button id="aufnahme-button-bericht" class="aufnahme-button">Aufnahme starten</button>
-    <textarea id="bericht-text" placeholder="Ihr diktierter Bericht erscheint hier..."></textarea>
-    <div id="aufnahme-status-bericht" class="aufnahme-status"></div>
+    <div class="centered-form-layout">
+      <p style="text-align: center; margin-bottom: 10px;">Klicken Sie auf "Aufnahme starten" und diktieren Sie Ihren Bericht.</p>
+      <button id="aufnahme-button-bericht" class="aufnahme-button">Aufnahme starten</button>
+      <div id="aufnahme-status-bericht" class="aufnahme-status"></div>
+      <textarea id="bericht-text" placeholder="Ihr diktierter Bericht erscheint hier..."></textarea>
+    </div>
   </section>
 
-  <section id="aufgaben-container">
+  <!-- Sektion 2: Aufgaben -->
+  <section class="form-section-container">
     <h3>Zu erledigende Aufgaben</h3>
-    <p>Diktieren Sie hier die Aufgaben, die sich aus dem Gespräch ergeben haben.</p>
-    <button id="aufnahme-button-aufgaben" class="aufnahme-button">Aufnahme starten</button>
-    <textarea id="aufgaben-text" placeholder="Ihre diktierten Aufgaben erscheinen hier..."></textarea>
-    <div id="aufnahme-status-aufgaben" class="aufnahme-status"></div>
+    <div class="centered-form-layout">
+      <p style="text-align: center; margin-bottom: 10px;">Diktieren Sie hier die Aufgaben, die sich aus dem Gespräch ergeben haben.</p>
+      <button id="aufnahme-button-aufgaben" class="aufnahme-button">Aufnahme starten</button>
+      <div id="aufnahme-status-aufgaben" class="aufnahme-status"></div>
+      <textarea id="aufgaben-text" placeholder="Ihre diktierten Aufgaben erscheinen hier..."></textarea>
+    </div>
   </section>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -399,6 +338,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 speechButton.style.cursor = 'pointer';
                 speechButton.style.opacity = '1';
             }
+
+            kundenSucheInput.focus();
             
             // Die Such-Listener können jetzt sicher initialisiert werden.
             initializeCustomerSearchListeners();
