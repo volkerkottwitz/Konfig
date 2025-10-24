@@ -40,36 +40,6 @@
       max-width: 500px;
     }
 
-
-    /* ================================================================== */
-/* ===== NEU: Stile für das einspaltige Formular-Layout         ===== */
-/* ================================================================== */
-
-/* 
-   Diese neue Klasse ist für Zeilen, die mehrere Felder enthalten.
-   Wir verwenden Flexbox, um die Felder darin anzuordnen.
-*/
-.form-row {
-    display: flex;
-    gap: 15px; /* Abstand zwischen den Feldern in einer Zeile */
-    width: 100%;
-    max-width: 530px; /* Passt zur Breite der anderen Felder */
-}
-
-
-/* 
-   Spezifische Anpassung für PLZ und Ort:
-   Das PLZ-Feld soll schmaler sein als das Ort-Feld.
-   Wir geben dem PLZ-Feld 1 Teil und dem Ort-Feld 2 Teile der Breite.
-*/
-.form-row #plz {
-    flex: 1;
-}
-.form-row #ort {
-    flex: 2;
-}
-
-
     /* FÜGEN SIE DIESEN BLOCK ZU IHREM CSS HINZU */
 /* (Ein guter Platz ist direkt vor der .search-input-group Regel) */
 
@@ -170,26 +140,15 @@
         color: white;
     }
 
-/* Innerhalb des <style>-Blocks */
-
-/* Gruppe für Telefonnummer und Anruf-Button */
-.phone-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    /* Die folgende Regel ist die eigentliche Korrektur.
-       Sie sorgt dafür, dass die Gruppe die gleiche Maximalbreite
-       hat wie die anderen Felder. */
-    max-width: 530px; /* Passt zur Breite der anderen Felder */
-}
-
-/* Diese Regel sorgt dafür, dass das Input-Feld den Platz füllt */
-.phone-group input {
-    flex-grow: 1;
-}
-
-
-
+    /* Gruppe für Telefonnummer und Anruf-Button */
+    .phone-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .phone-group input {
+        flex-grow: 1;
+    }
 
     /* ================================================================== */
     /* ===== SPRACHEINGABE-SEKTIONEN ==================================== */
@@ -249,50 +208,31 @@
 
   <section class="form-section-container">
     <h3>Kundendaten</h3>
-<!-- ======================================================= -->
-<!-- ===== NEU: Logisches, einspaltiges Adress-Layout    ===== -->
-<!-- ======================================================= -->
-<div id="kundenDetails" class="centered-form-layout">
+    <div id="kundenDetails" class="centered-form-layout">
+<!-- ERSETZEN SIE DEN ALTEN .search-wrapper HIERMIT -->
 
-    <!-- Suchleiste bleibt oben -->
-    <div class="search-wrapper">
-        <div class="search-input-group">
-            <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
-            <button id="speech-search-button" class="icon-button" title="Suche per Sprache">🎤</button>
-        </div>
-        <div id="suchErgebnisse" style="display: none;"></div>
-    </div>
-
-    <!-- Neue, logische Reihenfolge der Felder -->
-    <input type="text" id="firma" placeholder="Firma">
-    <input type="text" id="name" placeholder="Ansprechpartner">
-
-    <!-- Container für PLZ und Ort, damit sie nebeneinander stehen können -->
-    <div class="form-row">
-        <input type="text" id="strasse" placeholder="Straße und Hausnummer">
-    </div>
-    <div class="form-row">
-        <input type="text" id="plz" placeholder="PLZ">
-        <input type="text" id="ort" placeholder="Ort">
-    </div>
-    
-    <input type="text" id="land" placeholder="Land">
-    <input type="text" id="email" placeholder="E-Mail">
-
-    <!-- Telefon-Gruppe bleibt unverändert -->
-<div class="phone-group">
-    <input type="text" id="telefon" placeholder="Telefon">
-    <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
+<div class="search-wrapper">
+  <div class="search-input-group">
+    <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
+    <button id="speech-search-button" class="icon-button" title="Suche per Sprache">🎤</button>
+  </div>
+  <div id="suchErgebnisse" style="display: none;"></div>
 </div>
 
-
-    <input type="text" id="kundennummer" placeholder="Kundennummer (optional)">
-
-
-
-
+ 
 </div>
-
+      <input type="text" id="name" placeholder="Name">
+      <input type="text" id="firma" placeholder="Firma">
+      <input type="text" id="strasse" placeholder="Straße">
+      <input type="text" id="plz" placeholder="PLZ">
+      <input type="text" id="ort" placeholder="Ort">
+      <input type="text" id="land" placeholder="Land">
+      <input type="text" id="email" placeholder="E-Mail">
+      <div class="phone-group">
+  <input type="text" id="telefon" placeholder="Telefon">
+  <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
+</div>
+    </div>
   </section>
 
   <section class="form-section-container">
@@ -301,6 +241,7 @@
       <select id="sachbearbeiterDropdown">
         <option value="">-- Innendienst auswählen --</option>
         <option value="Denise Otto">Denise Otto</option>
+        <option value="Diana Kahlert">Diana Kahlert</option>
         <option value="Sascha Heusel">Sascha Heusel</option>
         <option value="Nadine Suhr">Nadine Suhr</option>
         <option value="Nils Vokuhl">Nils Vokuhl</option>
@@ -372,31 +313,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     initializePhoneLink();
 
     try {
-        // 1. Starte den Lade- und Schutzprozess und warte auf das Ergebnis.
-        const isLoginSuccessful = await loadProtectedData();
+        // 1. Starte den Lade- und Schutzprozess.
+        // Die Funktion hält hier an, bis die Daten geladen sind (oder eine Umleitung stattfindet).
+        await loadProtectedData();
 
-        // 2. Wenn der Login erfolgreich war, aktiviere die abhängigen Funktionen.
-        if (isLoginSuccessful) {
-            console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+        // 2. Wenn der Code hier ankommt, war alles erfolgreich.
+        // Die globale Variable 'kunden' ist jetzt gefüllt.
+        console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
 
-            // Elemente holen
-            const kundenSucheInput = document.getElementById('kundenSuche');
-            const speechButton = document.getElementById('speech-search-button');
-
-            // Suchfeld aktivieren
-            kundenSucheInput.disabled = false;
-            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
-            
-            // Mikrofon-Button aktivieren
-            if (speechButton) {
-                speechButton.disabled = false;
-                speechButton.style.cursor = 'pointer';
-                speechButton.style.opacity = '1';
-            }
-            
-            // Die Such-Listener können jetzt sicher initialisiert werden.
-            initializeCustomerSearchListeners();
-        }
+        // 3. Aktiviere jetzt die Teile der Seite, die von den Kundendaten abhängen.
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        kundenSucheInput.disabled = false;
+        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+        
+        // Die Such-Listener können jetzt sicher initialisiert werden.
+        initializeCustomerSearchListeners();
 
     } catch (error) {
         // Dieser Block wird nur bei wirklich unerwarteten Fehlern ausgeführt,
@@ -525,80 +456,8 @@ function initializePhoneLink() {
 
 
 // ========================================================================
-// ===== FINALE, PASSIVE LADE-LOGIK FÜR DIESE SEITE                 =====
+// ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
 // ========================================================================
-
-// ========================================================================
-// ===== ANGEPASSTE VERSION: UNIVERSALER DATENSCHUTZ- & LADE-CODE     =====
-// ========================================================================
-
-async function loadProtectedData() {
-    // 1. Versuche, das Passwort aus dem aktuellen localStorage zu lesen
-    let password = localStorage.getItem('customerDataPassword');
-
-    // 2. Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
-    if (!password && window.location.hash.includes('password=')) {
-        const urlHash = window.location.hash.substring(1);
-        const params = new URLSearchParams(urlHash);
-        password = params.get('password');
-        
-        if (password) {
-            localStorage.setItem('customerDataPassword', password);
-            history.replaceState(null, '', window.location.pathname + window.location.search);
-        }
-    }
-
-// Hilfsfunktion, um Suchfeld UND Mikrofon zu deaktivieren
-function disableSearch(message) {
-    const kundenSucheInput = document.getElementById('kundenSuche');
-    const speechButton = document.getElementById('speech-search-button'); // Mikrofon-Button holen
-
-    if (kundenSucheInput) {
-        kundenSucheInput.disabled = true;
-        kundenSucheInput.placeholder = message;
-    }
-    if (speechButton) {
-        speechButton.disabled = true; // Button deaktivieren
-        speechButton.style.cursor = 'not-allowed'; // Mauszeiger ändern
-        speechButton.style.opacity = '0.5'; // Visuell ausgrauen
-    }
-}
-
-    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben...
-    if (!password) {
-        console.log("Kein Passwort gefunden. Kundensuche wird deaktiviert.");
-        disableSearch("Für Kundensuche bitte anmelden");
-        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
-    }
-
-    // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
-    try {
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
-
-        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
-        const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
-        
-        if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
-        
-        const encryptedArrayBuffer = await response.arrayBuffer();
-        const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
-        
-        kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
-        
-        const options = { keys: ['Name', 'Firma', 'Adresse'], includeScore: true, threshold: 0.4, ignoreLocation: true };
-        fuse = new Fuse(kunden, options);
-        
-        return true; // <-- WICHTIG: Signal für Erfolg zurückgeben
-
-    } catch (error) {
-        console.error("Fehler bei der Datenentschlüsselung:", error);
-        localStorage.removeItem('customerDataPassword');
-        disableSearch("Anmeldung fehlgeschlagen. Bitte neu anmelden.");
-        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
-    }
-}
-
 
 // Die exakte decryptData-Funktion, die in jeder Datei benötigt wird
 async function decryptData(encryptedArrayBuffer, password) {
@@ -612,32 +471,93 @@ async function decryptData(encryptedArrayBuffer, password) {
     return new TextDecoder().decode(decryptedData);
 }
 
+/**
+ * Prüft die Authentifizierung, lädt und entschlüsselt die Kundendaten.
+ * Leitet bei fehlender Authentifizierung zur Login-Seite um.
+ * Gibt bei Erfolg die entschlüsselten und geparsten Kundendaten zurück.
+ */
+// ========================================================================
+// ===== KORRIGIERTE VERSION FÜR DATEIEN IN EINEM UNTERORDNER         =====
+// ========================================================================
 
+async function loadProtectedData() {
+    // Holt das Passwort aus dem Speicher
+    const password = sessionStorage.getItem('customerDataPassword');
+
+    // Prüft, ob ein Passwort vorhanden ist
+    if (!password) {
+        // WENN NEIN: Leite zum Login im HAUPTORDNER um.
+        // Das ist die korrigierte Zeile mit "../"
+        window.location.href = '../authentifizierung.html';
+        return new Promise(() => {}); 
+    }
+
+    // WENN JA: Lade und entschlüssele die Daten
+    try {
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
+
+        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+        const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+        
+        if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
+        
+        const encryptedArrayBuffer = await response.arrayBuffer();
+        const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
+        
+        const parsedData = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
+        kunden = parsedData;
+
+                // ========================================================
+        // NEUER BLOCK: Fuse.js wird hier initialisiert
+        // ========================================================
+        const options = {
+          keys: ['Name', 'Firma', 'Adresse'], // Felder, die durchsucht werden sollen
+          includeScore: true,       // Wichtig, um die Qualität des Treffers zu bewerten
+          threshold: 0.4,           // Wie unscharf gesucht wird (0.0 = exakt, 1.0 = alles)
+          ignoreLocation: true,     // Sucht im gesamten Text, nicht nur am Anfang
+        };
+        fuse = new Fuse(kunden, options);
+        // ============================================
+        
+        return kunden;
+
+    } catch (error) {
+        // Falls bei der Entschlüsselung ein Fehler passiert
+        sessionStorage.removeItem('customerDataPassword');
+        alert("Fehler bei der Datenentschlüsselung. Sie werden zur erneuten Anmeldung weitergeleitet.");
+        // Leite auch hier korrekt zum Login im HAUPTORDNER um.
+        // Das ist die zweite korrigierte Zeile mit "../"
+        window.location.href = '../authentifizierung.html';
+        return new Promise(() => {});
+    }
+}
+
+
+    async function decryptData(encryptedArrayBuffer, password) {
+        const ITERATIONS = 480000, SALT_SIZE_BYTES = 16, NONCE_SIZE_BYTES = 12;
+        const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
+        const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+        const data = encryptedArrayBuffer.slice(SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
+        const passwordKey = await window.crypto.subtle.importKey('raw', new TextEncoder().encode(password), { name: 'PBKDF2' }, false, ['deriveKey']);
+        const aesKey = await window.crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: ITERATIONS, hash: 'SHA-256' }, passwordKey, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
+        const decryptedData = await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, aesKey, data);
+        return new TextDecoder().decode(decryptedData);
+    }
 
 // ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
 
-// ===== FINALE, PERFORMANTE SUCHFUNKTION MIT DEBOUNCING =====
+// ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
+
+// ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
 
 function initializeCustomerSearchListeners() {
     const kundenSucheInput = document.getElementById('kundenSuche');
     const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
     let activeResultIndex = -1;
-    let debounceTimer; // Timer für das Debouncing
 
-    // --- HILFSFUNKTIONEN ---
-
-    function updateActiveResult(ergebnisse) {
-        // ... (Diese Funktion bleibt unverändert)
-        ergebnisse.forEach(item => item.classList.remove('active'));
-        if (activeResultIndex > -1) {
-            const activeItem = ergebnisse[activeResultIndex];
-            activeItem.classList.add('active');
-            activeItem.scrollIntoView({ block: 'nearest' });
-        }
-    }
-
+    // Diese Funktion ist dafür verantwortlich, die Ergebnisbox zu füllen und anzuzeigen.
     function zeigeSuchErgebnisse(treffer, suchbegriffe, fuseErgebnisse) {
-        // ... (Diese Funktion bleibt unverändert)
         if (!treffer || treffer.length === 0) {
             suchErgebnisseContainer.innerHTML = '<div class="ergebnis-item no-results">Keine Treffer gefunden</div>';
         } else {
@@ -649,7 +569,7 @@ function initializeCustomerSearchListeners() {
                 let label = `${kunde.Name ? kunde.Name.trim() + ' – ' : ''}${kunde.Firma ? kunde.Firma.trim() : ''}${(plz || ort) ? ` (${plz} ${ort})` : ''}`;
                 
                 suchbegriffe.forEach(term => {
-                    if (term) {
+                    if (term) { // Sicherheitsprüfung
                         label = label.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), match => `<span class="search-highlight">${match}</span>`);
                     }
                 });
@@ -662,37 +582,45 @@ function initializeCustomerSearchListeners() {
                 return `<div class="${itemClass}" data-index="${originalIndex}">${label}</div>`;
             }).join('');
         }
+        // Diese Zeile macht die Box sichtbar.
         suchErgebnisseContainer.style.display = 'block';
     }
 
-    // --- EVENT-LISTENER MIT DEBOUNCING ---
-
+    // Listener für die Texteingabe (per Tippen oder Sprache)
     kundenSucheInput.addEventListener('input', function() {
-        // Lösche den alten Timer bei jeder neuen Eingabe
-        clearTimeout(debounceTimer);
-        
+        activeResultIndex = -1;
         const suchbegriff = this.value;
 
-        // Starte einen neuen Timer
-        debounceTimer = setTimeout(() => {
-            activeResultIndex = -1;
-            if (suchbegriff.length < 2) {
-                suchErgebnisseContainer.style.display = 'none';
-                return;
-            }
-            const suchTokens = suchbegriff.split(' ').filter(token => token.length > 0);
-            const erweiterteSuche = suchTokens.map(token => ({ $or: [ { Name: token }, { Firma: token }, { Adresse: token } ] }));
-            const fuseErgebnisse = fuse.search({ $and: erweiterteSuche });
-            const treffer = fuseErgebnisse.map(ergebnis => ergebnis.item);
-            zeigeSuchErgebnisse(treffer, suchTokens, fuseErgebnisse);
-        }, 300); // Warte 300 Millisekunden nach der letzten Eingabe
+        if (suchbegriff.length < 2) { // Zurück auf 2 Zeichen für bessere Reaktionsfähigkeit
+            suchErgebnisseContainer.style.display = 'none';
+            return;
+        }
+
+        const suchTokens = suchbegriff.split(' ').filter(token => token.length > 0);
+        const erweiterteSuche = suchTokens.map(token => ({
+            $or: [ { Name: token }, { Firma: token }, { Adresse: token } ]
+        }));
+
+        const fuseErgebnisse = fuse.search({ $and: erweiterteSuche });
+        const treffer = fuseErgebnisse.map(ergebnis => ergebnis.item);
+
+        zeigeSuchErgebnisse(treffer, suchTokens, fuseErgebnisse);
     });
 
-    // Die anderen Listener bleiben unverändert
+    // Listener für die Pfeiltasten-Navigation
     kundenSucheInput.addEventListener('keydown', function(e) {
         const ergebnisse = suchErgebnisseContainer.querySelectorAll('.ergebnis-item:not(.no-results)');
         if (ergebnisse.length === 0) return;
         
+        function updateActiveResult(ergebnisse) {
+            ergebnisse.forEach(item => item.classList.remove('active'));
+            if (activeResultIndex > -1) {
+                const activeItem = ergebnisse[activeResultIndex];
+                activeItem.classList.add('active');
+                activeItem.scrollIntoView({ block: 'nearest' });
+            }
+        }
+
         switch (e.key) {
             case 'ArrowDown': e.preventDefault(); activeResultIndex = (activeResultIndex + 1) % ergebnisse.length; updateActiveResult(ergebnisse); break;
             case 'ArrowUp': e.preventDefault(); activeResultIndex = (activeResultIndex - 1 + ergebnisse.length) % ergebnisse.length; updateActiveResult(ergebnisse); break;
@@ -701,36 +629,35 @@ function initializeCustomerSearchListeners() {
         }
     });
 
-suchErgebnisseContainer.addEventListener('click', function(e) {
-    const ergebnisItem = e.target.closest('.ergebnis-item');
-    if (ergebnisItem && ergebnisItem.dataset.index) {
-        const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
-        
-        // Bestehende Felder befüllen (unverändert)
-        document.getElementById("name").value = kunde.Name || "";
-        document.getElementById("firma").value = kunde.Firma || "";
-        const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-        document.getElementById("strasse").value = adresseTeile[0] || "";
-        document.getElementById("ort").value = adresseTeile[1] || "";
-        document.getElementById("plz").value = adresseTeile[2] || "";
-        document.getElementById("land").value = adresseTeile[3] || "";
-        document.getElementById("email").value = kunde["E-Mail"] || "";
-        const telefonInput = document.getElementById("telefon");
-        telefonInput.value = kunde.Telefon || "";
-        telefonInput.dispatchEvent(new Event('input'));
+    // Listener für das Klicken auf ein Suchergebnis
+    suchErgebnisseContainer.addEventListener('click', function(e) {
+        const ergebnisItem = e.target.closest('.ergebnis-item');
+        if (ergebnisItem && ergebnisItem.dataset.index) {
+            const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
+            
+            document.getElementById("name").value = kunde.Name || "";
+            document.getElementById("firma").value = kunde.Firma || "";
+            
+            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+            document.getElementById("strasse").value = adresseTeile[0] || "";
+            document.getElementById("ort").value = adresseTeile[1] || "";
+            document.getElementById("plz").value = adresseTeile[2] || "";
+            document.getElementById("land").value = adresseTeile[3] || "";
+            
+            document.getElementById("email").value = kunde["E-Mail"] || "";
+            
+            const telefonInput = document.getElementById("telefon");
+            telefonInput.value = kunde.Telefon || "";
+            // Löst das 'input'-Event aus, damit der Anruf-Button erscheint
+            telefonInput.dispatchEvent(new Event('input'));
 
-        // ===== NEU: Kundennummer in das unsichtbare Feld eintragen =====
-        document.getElementById("kundennummer").value = kunde.Kundennummer || "";
+            kundenSucheInput.value = '';
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
 
-        // Rest der Funktion (unverändert)
-        kundenSucheInput.value = '';
-        suchErgebnisseContainer.style.display = 'none';
-    }
-});
-
-
+    // Listener, um die Ergebnisliste auszublenden, wenn man daneben klickt
     document.addEventListener('click', function(e) {
-        // ... (Dieser Block bleibt unverändert)
         if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
             suchErgebnisseContainer.style.display = 'none';
         }
@@ -807,143 +734,125 @@ suchErgebnisseContainer.addEventListener('click', function(e) {
     // ===== PDF-GENERIERUNGSFUNKTION (MIT KORREKTUREN) =====
     // =================================================================
 
-async function generateBerichtPDF() {
-    try {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        
-        const logoImg = await loadImageAsBase64("https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png"  ).catch(() => null);
-        
-        const margin = 20;
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const pageHeight = doc.internal.pageSize.getHeight();
-        let yPosition = margin;
-
-        function addPageHeader() {
-            if (logoImg) doc.addImage(logoImg, "PNG", margin, margin, 40, 30, undefined, 'FAST');
+    async function generateBerichtPDF() {
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
             
-            const heute = new Date();
-            const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
-            doc.setFontSize(10);
-            doc.setTextColor(100);
-            doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
-            const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
-            doc.text(`Berichts-Nr: ${berichtsNummer}`, pageWidth - margin, margin + 20, { align: "right" });
-        }
+            const logoImg = await loadImageAsBase64("https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" ).catch(() => null);
+            
+            const margin = 20;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            let yPosition = margin;
 
-        function checkPageBreak(neededSpace) {
-            if (yPosition + neededSpace > pageHeight - margin) {
-                doc.addPage();
-                yPosition = margin;
-                addPageHeader();
-                yPosition += 30;
+            function addPageHeader() {
+                // KORREKTUR 1: Logo-Dimensionen angepasst (Breite 40, Höhe 15)
+                if (logoImg) doc.addImage(logoImg, "PNG", margin, margin, 40, 30, undefined, 'FAST');
+                
+                const heute = new Date();
+                const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
+                doc.setFontSize(10);
+                doc.setTextColor(100);
+                doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
+                const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
+                doc.text(`Berichts-Nr: ${berichtsNummer}`, pageWidth - margin, margin + 20, { align: "right" });
             }
-        }
 
-        addPageHeader();
-        yPosition += 40;
+            function checkPageBreak(neededSpace) {
+                if (yPosition + neededSpace > pageHeight - margin) {
+                    doc.addPage();
+                    yPosition = margin;
+                    addPageHeader();
+                    yPosition += 30; // Platz für Header auf neuer Seite
+                }
+            }
 
-        const mainTitle = document.getElementById("mainTitleInput").value || "Bericht";
-        doc.setFontSize(20);
-        doc.setTextColor(0);
-        doc.setFont("helvetica", "bold");
-        doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
-        yPosition += 20;
+            addPageHeader();
+            yPosition += 40; // Etwas weniger Platz nach dem Header
 
-        function drawSection(title, data) {
-            checkPageBreak(20 + data.length * 6);
-            doc.setFontSize(14);
-            doc.setFont("helvetica", "bold");
-            doc.setTextColor(0, 161, 225);
-            doc.text(title, margin, yPosition);
-            yPosition += 10;
-            doc.setFontSize(10);
-            doc.setFont("helvetica", "normal");
+            const mainTitle = document.getElementById("mainTitleInput").value || "Bericht";
+            doc.setFontSize(20);
             doc.setTextColor(0);
-            data.forEach(item => {
-                const splitItem = doc.splitTextToSize(item, pageWidth - 2 * margin); // Breite für den Textumbruch angepasst
-                doc.text(splitItem, margin, yPosition);
-                yPosition += splitItem.length * 5 + 1; // Zeilenabstand angepasst
-            });
-            yPosition += 5;
-        }
-
-        // ===== HIER IST DIE FINALE ÄNDERUNG INTEGRIERT =====
-        
-        // 1. Kundennummer aus dem unsichtbaren Feld lesen
-        const kundennummerValue = document.getElementById("kundennummer").value;
-
-        // 2. Array für die Kundendaten vorbereiten
-        const kundenDatenArray = [
-            `Firma: ${document.getElementById("firma").value || 'N/A'}`,
-            `Ansprechpartner: ${document.getElementById("name").value || 'N/A'}`
-        ];
-
-        // 3. Kundennummer nur hinzufügen, wenn sie vorhanden ist
-        if (kundennummerValue) {
-            kundenDatenArray.push(`Kundennummer: ${kundennummerValue}`);
-        }
-
-        // 4. Restliche Kundendaten hinzufügen
-        kundenDatenArray.push(
-            `Adresse: ${document.getElementById("strasse").value || 'N/A'}, ${document.getElementById("plz").value} ${document.getElementById("ort").value}`,
-            `E-Mail: ${document.getElementById("email").value || 'N/A'}`,
-            `Telefon: ${document.getElementById("telefon").value || 'N/A'}`
-        );
-
-        // 5. Die "KUNDE"-Sektion mit dem vollständigen Array zeichnen
-        drawSection("KUNDE", kundenDatenArray);
-
-        // =======================================================
-
-        drawSection("BEARBEITUNG", [
-            `Innendienst: ${getSachbearbeiterValue() || 'N/A'}`,
-            `Ausgestellt von: ${getAussendienstmitarbeiterValue() || 'N/A'}`
-        ]);
-
-        const berichtInhalt = document.getElementById('bericht-text').value;
-        if (berichtInhalt.trim()) {
-            checkPageBreak(30);
-            doc.setFontSize(14);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(0, 161, 225);
-            doc.text("BERICHTSINHALT", margin, yPosition);
-            yPosition += 10;
-            doc.setFontSize(11);
-            doc.setFont("helvetica", "normal");
-            doc.setTextColor(0);
-            const splitBericht = doc.splitTextToSize(berichtInhalt, pageWidth - 2 * margin);
-            checkPageBreak(splitBericht.length * 6); // Angepasster Platzbedarf
-            doc.text(splitBericht, margin, yPosition);
-            yPosition += splitBericht.length * 6 + 10;
+            doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
+            yPosition += 20;
+
+            function drawSection(title, data) {
+                checkPageBreak(20 + data.length * 6);
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(0, 161, 225);
+                doc.text(title, margin, yPosition);
+                yPosition += 10;
+                doc.setFontSize(10);
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0);
+                data.forEach(item => {
+                    const splitItem = doc.splitTextToSize(item, pageWidth - 2 * margin - 35); // Textumbruch für lange Werte
+                    doc.text(splitItem, margin, yPosition);
+                    yPosition += splitItem.length * 5;
+                });
+                yPosition += 5; // Etwas weniger Abstand nach der Sektion
+            }
+
+            // KORREKTUR 2: Reihenfolge geändert (Kunde zuerst)
+            drawSection("KUNDE", [
+                `${document.getElementById("firma").value || 'N/A'}`,
+                `${document.getElementById("name").value || 'N/A'}`,
+                `${document.getElementById("strasse").value || 'N/A'}`,
+                `${document.getElementById("ort").value} ${document.getElementById("plz").value}`,
+                `${document.getElementById("email").value || 'N/A'}`,
+                `${document.getElementById("telefon").value || 'N/A'}`
+            ]);
+
+            drawSection("BEARBEITUNG", [
+                `Innendienst: ${getSachbearbeiterValue() || 'N/A'}`,
+                `Ausgestellt von: ${getAussendienstmitarbeiterValue() || 'N/A'}`
+            ]);
+
+            const berichtInhalt = document.getElementById('bericht-text').value;
+            if (berichtInhalt.trim()) {
+                checkPageBreak(30);
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(0, 161, 225);
+                doc.text("BERICHTSINHALT", margin, yPosition);
+                yPosition += 10;
+                doc.setFontSize(11);
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0);
+                const splitBericht = doc.splitTextToSize(berichtInhalt, pageWidth - 2 * margin);
+                checkPageBreak(splitBericht.length * 5);
+                doc.text(splitBericht, margin, yPosition);
+                yPosition += splitBericht.length * 5 + 10;
+            }
+
+            const aufgabenInhalt = document.getElementById('aufgaben-text').value;
+            if (aufgabenInhalt.trim()) {
+                checkPageBreak(30);
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(0, 161, 225);
+                doc.text("ZU ERLEDIGENDE AUFGABEN", margin, yPosition);
+                yPosition += 10;
+                doc.setFontSize(11);
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0);
+                const splitAufgaben = doc.splitTextToSize(aufgabenInhalt, pageWidth - 2 * margin);
+                checkPageBreak(splitAufgaben.length * 5);
+                doc.text(splitAufgaben, margin, yPosition);
+            }
+
+            const firmaName = (document.getElementById("firma").value || "Bericht").replace(/[^a-zA-Z0-9]/g, "-");
+            const datumForFilename = new Date().toISOString().split('T')[0];
+            doc.save(`${firmaName}_${datumForFilename}.pdf`);
+
+        } catch (error) {
+            console.error("Fehler bei der PDF-Erstellung:", error);
+            alert("Fehler bei der PDF-Erstellung. Bitte Konsole prüfen: " + error.message);
         }
-
-        const aufgabenInhalt = document.getElementById('aufgaben-text').value;
-        if (aufgabenInhalt.trim()) {
-            checkPageBreak(30);
-            doc.setFontSize(14);
-            doc.setFont("helvetica", "bold");
-            doc.setTextColor(0, 161, 225);
-            doc.text("ZU ERLEDIGENDE AUFGABEN", margin, yPosition);
-            yPosition += 10;
-            doc.setFontSize(11);
-            doc.setFont("helvetica", "normal");
-            doc.setTextColor(0);
-            const splitAufgaben = doc.splitTextToSize(aufgabenInhalt, pageWidth - 2 * margin);
-            checkPageBreak(splitAufgaben.length * 6); // Angepasster Platzbedarf
-            doc.text(splitAufgaben, margin, yPosition);
-        }
-
-        const firmaName = (document.getElementById("firma").value || "Bericht").replace(/[^a-zA-Z0-9]/g, "-");
-        const datumForFilename = new Date().toISOString().split('T')[0];
-        doc.save(`${firmaName}_${datumForFilename}.pdf`);
-
-    } catch (error) {
-        console.error("Fehler bei der PDF-Erstellung:", error);
-        alert("Fehler bei der PDF-Erstellung. Bitte Konsole prüfen: " + error.message);
     }
-}
-
   </script>
 
   <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">

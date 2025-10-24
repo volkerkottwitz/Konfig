@@ -159,8 +159,6 @@
       <input type="text" id="land" placeholder="Land">
       <input type="text" id="email" placeholder="E-Mail">
       <input type="text" id="telefon" placeholder="Telefon">
-      <input type="text" id="kundennummer" placeholder="Kundennummer (optional)">
-
     </div>
   </section>
 
@@ -190,7 +188,7 @@
       <select id="anlieferungDropdown">
         <option value="">-- Anlieferung auswählen --</option>
         <option value="PKW Außendienst">PKW Außendienst</option>
-        <option value="EWE-LW">EWE-LW</option>
+        <option value="EWE-LW">EWE-LKW</option>
         <option value="Paketdienst">Paketdienst</option>
         <option value="Spedition">Spedition</option>
         <option value="Sonstiges">Sonstiges</option>
@@ -287,43 +285,38 @@
     const kundenSucheInput = document.getElementById('kundenSuche');
     const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
 
+// =================================================================
+// ===== NEUER CODE-BLOCK (Native Web Crypto API) =====
+// =================================================================
+
+// Diese Funktion startet den gesamten Prozess
 // ========================================================================
 // ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
 // ========================================================================
 
 async function loadProtectedData() {
-    // 1. Versuche, das Passwort aus dem localStorage zu lesen (konsistent mit anderen Seiten)
-    let password = localStorage.getItem('customerDataPassword');
+    // 1. Versuche, das Passwort aus dem aktuellen sessionStorage zu lesen
+    let password = sessionStorage.getItem('customerDataPassword');
 
-    // 2. Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
+    // 2. NEU: Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
     if (!password && window.location.hash.includes('password=')) {
         const urlHash = window.location.hash.substring(1);
         const params = new URLSearchParams(urlHash);
         password = params.get('password');
-        
         if (password) {
-            localStorage.setItem('customerDataPassword', password);
+            sessionStorage.setItem('customerDataPassword', password);
             history.replaceState(null, '', window.location.pathname + window.location.search);
         }
     }
 
-    // Hilfsfunktion, um das Suchfeld zu deaktivieren und die Nachricht anzuzeigen
-    function disableSearch(message) {
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        if (kundenSucheInput) {
-            kundenSucheInput.disabled = true;
-            kundenSucheInput.placeholder = message;
-        }
-    }
-
-    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben...
+    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben -> umleiten
     if (!password) {
-        console.log("Kein Passwort gefunden. Kundensuche wird deaktiviert.");
-        disableSearch("Für Kundensuche bitte anmelden");
-        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
+        // Annahme: Diese Datei liegt in einem Unterordner.
+        window.location.href = '../authentifizierung.html';
+        return new Promise(() => {}); 
     }
 
-    // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
+    // 4. Wenn wir ein Passwort haben, lade und entschlüssele die Daten.
     try {
         const kundenSucheInput = document.getElementById('kundenSuche');
         if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
@@ -338,13 +331,13 @@ async function loadProtectedData() {
         
         kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
         
-        return true; // <-- WICHTIG: Signal für Erfolg zurückgeben
+        return kunden;
 
     } catch (error) {
-        console.error("Fehler bei der Datenentschlüsselung:", error);
-        localStorage.removeItem('customerDataPassword');
-        disableSearch("Anmeldung fehlgeschlagen. Bitte neu anmelden.");
-        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
+        sessionStorage.removeItem('customerDataPassword');
+        alert("Fehler bei der Datenentschlüsselung. Sie werden zur erneuten Anmeldung weitergeleitet.");
+        window.location.href = '../authentifizierung.html';
+        return new Promise(() => {});
     }
 }
 
@@ -428,34 +421,24 @@ function initializeCustomerSearchListeners() {
     });
 
    
-suchErgebnisseContainer.addEventListener('click', function(e) {
-    const ergebnisItem = e.target.closest('.ergebnis-item');
-    if (ergebnisItem && ergebnisItem.dataset.index) {
-        const index = ergebnisItem.dataset.index;
-        const kunde = kunden[index];
-        const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-        
-        // Bestehende Felder befüllen
-        inputs.name.value = kunde.Name || "";
-        inputs.firma.value = kunde.Firma || "";
-        inputs.telefon.value = kunde.Telefon || "";
-        inputs.email.value = kunde['E-Mail'] || "";
-        inputs.strasse.value = adresseTeile[0] || "";
-        inputs.ort.value = adresseTeile[1] || "";
-        inputs.plz.value = adresseTeile[2] || "";
-        inputs.land.value = adresseTeile[3] || "";
-
-        // ===== NEU & FINAL: Kundennummer in das unsichtbare Feld eintragen =====
-        // Das Feld 'Kundennummer' kommt jetzt aus unserer neuen, kombinierten CSV-Datei.
-        // Es wird gefüllt, wenn eine Nummer vorhanden ist (auch mit '?'), ansonsten bleibt es leer.
-        document.getElementById("kundennummer").value = kunde.Kundennummer || ""; 
-
-        // Rest der Funktion
-        kundenSucheInput.value = '';
-        suchErgebnisseContainer.style.display = 'none';
-    }
-});
-
+    suchErgebnisseContainer.addEventListener('click', function(e) {
+        const ergebnisItem = e.target.closest('.ergebnis-item');
+        if (ergebnisItem && ergebnisItem.dataset.index) {
+            const index = ergebnisItem.dataset.index;
+            const kunde = kunden[index];
+            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+            inputs.name.value = kunde.Name || "";
+            inputs.firma.value = kunde.Firma || "";
+            inputs.telefon.value = kunde.Telefon || "";
+            inputs.email.value = kunde['E-Mail'] || "";
+            inputs.strasse.value = adresseTeile[0] || "";
+            inputs.ort.value = adresseTeile[1] || "";
+            inputs.plz.value = adresseTeile[2] || "";
+            inputs.land.value = adresseTeile[3] || "";
+            kundenSucheInput.value = '';
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
     
     document.addEventListener('click', function(e) {
         if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
@@ -866,7 +849,7 @@ async function generateRetourenscheinPDF() {
     const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png';
     let logoHeight = 15;
     try {
-        const logoImg = await loadImage(logoUrl  );
+        const logoImg = await loadImage(logoUrl );
         const logoWidth = 40;
         logoHeight = logoWidth * (logoImg.height / logoImg.width);
         doc.addImage(logoImg, 'PNG', page_width - page_margin - logoWidth, y, logoWidth, logoHeight);
@@ -906,7 +889,7 @@ async function generateRetourenscheinPDF() {
     // --- 3. Artikeltabelle ---
     y += 3;
     doc.setFontSize(9).setFont("helvetica", "bold").text("Bitte beachten Sie, dass die Ware ordnungsgemäß sowie transportgerecht zur Abholung verpackt werden muss!", page_margin + 2, y + 5);
-    y += 5;
+    y += 5; // Artikel um 2px nach oben
     const tableStartY = y;
     const rowHeight = 10, maxRows = 5, tableHeaderHeight = 7;
     const tableBodyHeight = maxRows * rowHeight;
@@ -952,11 +935,7 @@ async function generateRetourenscheinPDF() {
     drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", "", 85, 6, true);
     drawTextField(page_margin + 5, internBoxY + 12.5, "Auftragsnummer", "", 85, 6, true);
     drawTextField(page_margin + 5, internBoxY + 22, "Reklamationsnummer", "", 85, 6, true);
-    
-    // ===== NEU & FINAL: Kundennummer aus dem unsichtbaren Feld auslesen und eintragen =====
-    const kundennummerValue = document.getElementById("kundennummer").value;
-    drawTextField(page_width / 2 + 5, internBoxY + 3, "Kundennummer", kundennummerValue, 85, 6, true);
-
+    drawTextField(page_width / 2 + 5, internBoxY + 3, "Kundennummer", "", 85, 6, true);
     drawTextField(page_width / 2 + 5, internBoxY + 12.5, "Bezug zu Rechnungsnummer", "", 85, 6, true);
     drawTextField(page_width / 2 + 5, internBoxY + 22, "Gutschrift", "", 85, 6, true);
     y += internBoxHeight;
@@ -1034,22 +1013,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     try {
-        // 3. Authentifizierung prüfen und auf das Ergebnis warten
-        const isLoginSuccessful = await loadProtectedData();
+        // 3. Authentifizierung prüfen und auf Daten warten
+        await loadProtectedData();
 
-        // 4. NUR bei erfolgreicher Anmeldung die Suche aktivieren
-        if (isLoginSuccessful) {
-            console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+        // Wenn wir hier ankommen, ist alles gut.
+        console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
 
-            // UI-Elemente aktivieren, die von den Daten abhängen
-            const kundenSucheInput = document.getElementById('kundenSuche');
-            kundenSucheInput.disabled = false;
-            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+        // 4. UI-Elemente aktivieren, die von den Daten abhängen
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        kundenSucheInput.disabled = false;
+        kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
 
-            // Event-Listener für die Suche aktivieren
-            initializeCustomerSearchListeners();
-        }
-        // Wenn die Anmeldung fehlschlägt, bleibt die Suche deaktiviert.
+        // 5. Event-Listener für die Suche aktivieren
+        initializeCustomerSearchListeners();
 
     } catch (error) {
         console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
@@ -1057,12 +1033,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-
   </script>
-    <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
-  <button onclick="generateRetourenscheinPDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
-    PDF erzeugen
-  </button>
 </body>
 </html>
 
