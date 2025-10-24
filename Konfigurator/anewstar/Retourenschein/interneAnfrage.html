@@ -127,6 +127,22 @@
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 43px !important;
 }
+
+/* ======================================================================== */
+/* ===== FINAL: Markenkonforme Farbe für markierten Text (Selection) ===== */
+/* ======================================================================== */
+::selection {
+    background-color: #00a1e1; /* Unser schönes EWE-Blau */
+    color: #ffffff;           /* Weißer Text für besten Kontrast */
+}
+
+/* ======================================================================== */
+/* ===== FINAL: Hässlichen Standard-Fokus-Rahmen in Select2 entfernen (Aggressive Methode) ===== */
+/* ======================================================================== */
+.select2-container *:focus {
+    outline: none !important;
+}
+
   </style>
 </head>
 <body>
@@ -150,18 +166,19 @@
     <h3>Kundendaten</h3>
     <div id="kundenDetails" class="centered-form-layout">
       <!-- ===== HTML-ÄNDERUNG: Wrapper entfernt, Suchleiste direkt im Layout ===== -->
-      <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled>
+      <!-- ===== HIER IST DIE NEUE SUCHLEISTE ===== -->
+      <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled autocomplete="new-password">
       <div id="suchErgebnisse" style="display: none;"></div>
       
-      <input type="text" id="name" placeholder="Name">
-      <input type="text" id="firma" placeholder="Firma">
-      <input type="text" id="strasse" placeholder="Straße">
-      <input type="text" id="plz" placeholder="PLZ">
-      <input type="text" id="ort" placeholder="Ort">
-      <input type="text" id="land" placeholder="Land">
-      <input type="text" id="email" placeholder="E-Mail">
-      <input type="text" id="telefon" placeholder="Telefon">
-      <input type="text" id="kundennummer" placeholder="Kundennummer (optional)">
+      <input type="text" id="name" placeholder="Name" autocomplete="new-password">
+      <input type="text" id="firma" placeholder="Firma" autocomplete="new-password">
+      <input type="text" id="strasse" placeholder="Straße" autocomplete="new-password">
+      <input type="text" id="plz" placeholder="PLZ" autocomplete="new-password">
+      <input type="text" id="ort" placeholder="Ort" autocomplete="new-password">
+      <input type="text" id="land" placeholder="Land" autocomplete="new-password">
+      <input type="text" id="email" placeholder="E-Mail" autocomplete="new-password">
+      <input type="text" id="telefon" placeholder="Telefon" autocomplete="new-password">
+      <input type="text" id="kundennummer" placeholder="Kundennummer (optional)" autocomplete="new-password">
 
     </div>
   </section>
@@ -172,6 +189,7 @@
       <select id="sachbearbeiterDropdown">
         <option value="">-- Innendienst auswählen --</option>
         <option value="Denise Otto">Denise Otto</option>
+        <option value="Diana Kahlert">Diana Kahlert</option>
         <option value="Sascha Heusel">Sascha Heusel</option>
         <option value="Nadine Suhr">Nadine Suhr</option>
         <option value="Nils Vokuhl">Nils Vokuhl</option>
@@ -1145,6 +1163,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             const kundenSucheInput = document.getElementById('kundenSuche');
             kundenSucheInput.disabled = false;
             kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+
+            kundenSucheInput.focus();
 
             // Event-Listener für die Suche aktivieren
             initializeCustomerSearchListeners();
