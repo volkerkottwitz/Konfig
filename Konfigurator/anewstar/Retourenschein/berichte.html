@@ -148,14 +148,37 @@
         margin-bottom: 5px;
     }
 
-    /* --- 9. GLOBALE HELFER & MOBILE OPTIMIERUNG (aus retourenschein.html) --- */
+    /* --- 9. GLOBALE HELFER & MOBILE OPTIMIERUNG --- */
     ::selection { background-color: #00a1e1; color: #ffffff; }
+
     @media (max-width: 768px) {
+      /* Sorgt für mehr seitlichen Abstand auf kleinen Bildschirmen */
       .form-section-container, #spracheingabe-container, #aufgaben-container { 
         margin-left: 10px; 
         margin-right: 10px; 
       }
+
+      /* ===== HIER SIND DIE NEUEN REGELN ===== */
+
+      /* 1. Stapelt die Elemente in den Layout-Gruppen untereinander */
+      .search-input-group, 
+      .phone-group, 
+      .form-row {
+        flex-direction: column; /* Ändert die Ausrichtung von nebeneinander zu untereinander */
+        gap: 15px; /* Behält einen schönen Abstand zwischen den gestapelten Elementen bei */
+      }
+
+      /* 2. Sorgt dafür, dass die runden Icon-Buttons zentriert und nicht zu groß sind */
+      .search-input-group .icon-button,
+      .phone-group .icon-button {
+        width: 60px;  /* Gibt dem Button eine feste, gut klickbare Größe */
+        height: 60px;
+        font-size: 1.8rem;
+        align-self: center; /* Zentriert den Button horizontal */
+      }
     }
+
+   
 </style>
 
 </head>
@@ -198,16 +221,15 @@
     <input type="text" id="firma" placeholder="Firma" autocomplete="new-password">
     <input type="text" id="name" placeholder="Ansprechpartner" autocomplete="new-password">
 
-    <!-- Container für PLZ und Ort, damit sie nebeneinander stehen können -->
+    <!-- Das Straßen-Feld steht für sich allein und braucht keinen extra Container -->
+    <input type="text" id="strasse" placeholder="Straße und Hausnummer" autocomplete="new-password">
+
+    <!-- NUR die Felder, die nebeneinander sollen, kommen in einen form-row Container -->
     <div class="form-row">
-        <!-- Hinzugefügt: autocomplete="new-password" -->
-        <input type="text" id="strasse" placeholder="Straße und Hausnummer" autocomplete="new-password">
-    </div>
-    <div class="form-row">
-        <!-- Hinzugefügt: autocomplete="new-password" -->
         <input type="text" id="plz" placeholder="PLZ" autocomplete="new-password">
         <input type="text" id="ort" placeholder="Ort" autocomplete="new-password">
     </div>
+
     
     <!-- Hinzugefügt: autocomplete="new-password" -->
     <input type="text" id="land" placeholder="Land" autocomplete="new-password">
@@ -245,7 +267,7 @@
       </select>
       <input type="text" id="sachbearbeiterManuell" placeholder="Sachbearbeiter (manuell)" style="display: none;">
       <select id="aussendienstDropdown">
-        <option value="">-- Außendienstmitarbeiter auswählen --</option>
+        <option value="">-- Außendienst auswählen --</option>
         <option value="Rafael Furtwängler">Rafael Furtwängler</option>
         <option value="Christof Münster">Christof Münster</option>
         <option value="Sascha Heusel">Sascha Heusel</option>
@@ -361,7 +383,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function initializeDropdowns() {
       $("#sachbearbeiterDropdown").select2({ placeholder: "-- Innendienst auswählen --", allowClear: true });
-      $("#aussendienstDropdown").select2({ placeholder: "-- Außendienstmitarbeiter auswählen --", allowClear: true });
+      $("#aussendienstDropdown").select2({ placeholder: "-- Außendienst auswählen --", allowClear: true });
       $("#sachbearbeiterDropdown").on("change", function () { handleManualInput(this, document.getElementById("sachbearbeiterManuell")); });
       $("#aussendienstDropdown").on("change", function () { handleManualInput(this, document.getElementById("aussendienstManuell")); });
     }
@@ -658,8 +680,10 @@ suchErgebnisseContainer.addEventListener('click', function(e) {
         document.getElementById("firma").value = kunde.Firma || "";
         const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
         document.getElementById("strasse").value = adresseTeile[0] || "";
-        document.getElementById("ort").value = adresseTeile[1] || "";
-        document.getElementById("plz").value = adresseTeile[2] || "";
+        // ===== HIER IST DIE KORREKTUR =====
+        // Wir weisen die Daten jetzt den korrekten Feldern zu
+        document.getElementById("plz").value = adresseTeile[1] || ""; // PLZ kommt in das PLZ-Feld
+        document.getElementById("ort").value = adresseTeile[2] || ""; // Ort kommt in das Ort-Feld
         document.getElementById("land").value = adresseTeile[3] || "";
         document.getElementById("email").value = kunde["E-Mail"] || "";
         const telefonInput = document.getElementById("telefon");
