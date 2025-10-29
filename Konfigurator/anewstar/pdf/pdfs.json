@@ -434,5 +434,23 @@
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/SDgefahren.pdf",
     "category": "Allgemein",
     "isDefault": false
+  },
+  {
+    "name": "Next Suite OOWV",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/D_PBL_NEXT_OOWV_Suite_26-08-25.pdf",
+    "category": "Prospekte",
+    "isDefault": true
+  },
+  {
+    "name": "EWE-Armaturen für Sanitär Heizung Klima",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/EWE-Armaturen für SHK.pdf",
+    "category": "Prospekte",
+    "isDefault": true
+  },
+  {
+    "name": "PBL_Werbemittel_Lieferanten_032025",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/PBL_Werbemittel_Lieferanten_032025.pdf",
+    "category": "Prospekte",
+    "isDefault": true
   }
 ]
