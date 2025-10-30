@@ -9,17 +9,17 @@
     "name": "EWE-Ersatzteilprospekt Wasserzählerschacht",
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Ersatzteile_fuer_EWE-WZ-Schaechte_u_FLEXORIPP.pdf",
     "category": "Ersatzteile",
-    "isDefault": true
+    "isDefault": false
   },  {
     "name": "EWE-Ersatzteilprospekt Wasserzähleranlagen",
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Ersatzteile_fuer_Wasserzaehler-Anlagen.pdf",
     "category": "Ersatzteile",
-    "isDefault": true
+    "isDefault": false
   },  {
     "name": "EWE-Zubehör divers für Wasserzählerschächte",
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/EWEKurzinfo2025.pdf",
     "category": "Ersatzteile",
-    "isDefault": true
+    "isDefault": false
   },
   {
     "name": "Benutzerinformation: 2k-Absperrschaum",
@@ -439,18 +439,18 @@
     "name": "Next Suite OOWV",
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/D_PBL_NEXT_OOWV_Suite_26-08-25.pdf",
     "category": "Prospekte",
-    "isDefault": true
+    "isDefault": false
   },
   {
     "name": "EWE-Armaturen für Sanitär Heizung Klima",
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/EWE-Armaturen für SHK.pdf",
     "category": "Prospekte",
-    "isDefault": true
+    "isDefault": false
   },
   {
     "name": "PBL_Werbemittel_Lieferanten_032025",
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/PBL_Werbemittel_Lieferanten_032025.pdf",
     "category": "Prospekte",
-    "isDefault": true
+    "isDefault": false
   }
 ]
