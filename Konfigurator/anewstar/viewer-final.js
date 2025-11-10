@@ -902,10 +902,22 @@ function highlightMatches(page, container, viewport) {
         ganzeZeileMarkieren = true;
       }
 
-      const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|[0-9]{7}(?:-[a-zA-Z0-9]{2,})?)(\*{1,2})?)/g;
+  //       const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|[0-9]{7}(?:-[a-zA-Z0-9]{2,})?)(\*{1,2})?)/g;
+  //       const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|[0-9]{7}(?:-(?:V|K|[a-zA-Z0-9]{2,}))?)(\*{1,2})?)/g;
+const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|W[0-9]{6}|[0-9]{7}(?:-(?:V|K|[a-zA-Z0-9]{2,}))?)(\*{1,2})?)/g;
+
       let match;
       while ((match = regex.exec(lineText)) !== null) {
         const artikelnummer = match[1];
+
+        // START: HIER DIE NEUEN ZEILEN EINFÜGEN
+        const kontextIndex = match.index;
+        const kontextText = lineText.substring(Math.max(0, kontextIndex - 20), kontextIndex);
+        if (/mobil|telefon|\+49/i.test(kontextText)) {
+            continue; 
+        }
+        // ENDE: NEUE ZEILEN
+      
         const matchStart = match.index + match[0].indexOf(artikelnummer);
         zeilenMitArtikelnummer.add(lineItems[0].y);
 
