@@ -94,10 +94,27 @@ function openProtectedWindow(baseUrl) {
 }
 
 
-      document.getElementById("jetztKaufenBtn").addEventListener("click", () => openProtectedWindow('kaufen.html'));
-      document.getElementById("retourenscheinBtn").addEventListener("click", () => openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html' ));
-      document.getElementById("jetztAnfragenBtn").addEventListener("click", () => openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html' ));
-      
+// =================================================================================
+// NEUER, FINALER CODE MIT KORREKTEN RELATIVEN PFADEN (Version für viewer-final.js)
+// Basierend auf dem Standort der index-final.html im Ordner /anewstar/
+// =================================================================================
+
+// 1. Kaufen-Button: `kaufen.html` ist im selben Ordner.
+document.getElementById("jetztKaufenBtn").addEventListener("click", () => {
+  // Der Pfad ist einfach der Dateiname, da sie im selben Verzeichnis liegt.
+  openProtectedWindow('kaufen.html');
+});
+
+// 2. Retourenschein-Button: `retourenschein.html` ist im Unterordner "Retourenschein".
+document.getElementById("retourenscheinBtn").addEventListener("click", () => {
+  // Der Pfad ist der Name des Unterordners gefolgt vom Dateinamen.
+  openProtectedWindow('./Retourenschein/retourenschein.html');
+});
+
+// 3. Anfrage-Button: `interneAnfrage.html` ist ebenfalls im Unterordner "Retourenschein".
+document.getElementById("jetztAnfragenBtn").addEventListener("click", () => {
+  openProtectedWindow('./Retourenschein/interneAnfrage.html');
+});      
       document.getElementById("merklisteSchließenBtn").addEventListener("click", () => { document.body.removeChild(dialog); });
       dialog.addEventListener("click", (e) => { if (e.target === dialog) document.body.removeChild(dialog); });
       

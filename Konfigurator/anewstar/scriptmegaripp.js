@@ -180,7 +180,7 @@ function saveSelection(key, value, articlePartKey, selectionNumber, nextScreenId
         case 'deckel':
             articleCode = (value === 'Kugelhahn') ? 'A' : (value === 'Schrägsitz') ? 'B' : (value === 'KSR-Ventil') ? 'C' : (value === 'KMR – Kugelhahn*') ? 'D' : 'E';
             break;
-        case 'wasserzähleranlage':
+        case 'wasserzaehleranlage':
             articleCode = value;
             break;
         case 'peVerschraubung':
