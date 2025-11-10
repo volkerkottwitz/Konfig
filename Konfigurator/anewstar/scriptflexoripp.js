@@ -78,7 +78,7 @@ const screenImages = {
     screen4a: 'images/mitoderohne.png', // Beispielbild, bitte anpassen
     'screen5-mit': 'images/swzanlageohnedruckminderer.JPG', // Wichtig: ID mit Bindestrich in Anführungszeichen
     'screen5-ohne': 'images/swzanlagemitdruckminderer.JPG',// Wichtig: ID mit Bindestrich in Anführungszeichen
-    screen6: 'images/4verbinder.JPG',
+    screen6: 'images/4verbinder.jpg',
     screen8: 'images/PERohrGrklein.JPG',
     screen9: 'images/4Verbinder.jpg',
     screen10: 'images/schluessel.jpg' // Beispielbild, bitte anpassen
