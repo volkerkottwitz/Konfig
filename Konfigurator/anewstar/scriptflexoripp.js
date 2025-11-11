@@ -841,7 +841,7 @@ function generatePDF() {
 
     // Bilder-URLs
     const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
-    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.jpg";
+    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.png";
     
     // Generiere die Anfragenummer
     const requestNumber = generateRequestNumber();
