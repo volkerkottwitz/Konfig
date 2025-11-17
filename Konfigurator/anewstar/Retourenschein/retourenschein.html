@@ -1198,53 +1198,57 @@ async function generateRetourenscheinPDF() {
 // ===== NEU: DER EINZIGE UND KORREKTE STARTPUNKT DER SEITE         =====
 // ========================================================================
 
+// ========================================================================
+// ===== NEU: DER EINZIGE UND KORREKTE STARTPUNKT DER SEITE (Version 2) =====
+// ========================================================================
+
 document.addEventListener("DOMContentLoaded", async () => {
-      // ========================================================================
-    // ===== HIER DIE NEUEN ZEILEN EINFÜGEN =====
-    // ========================================================================
-    restoreFormData();
-    
+  
+    // --- SCHRITT 1: Seite mit Standardwerten initialisieren ---
+
+    // Heutiges Datum als Standard in die Datumsfelder eintragen
     const todayGerman = getTodayGermanDate();
     document.getElementById('abholdatum').value = `Abholdatum: ${todayGerman}`;
     document.getElementById('wareneingang_datum').value = `Wareneingangsdatum: ${todayGerman}`;
-    // =================  
-  
-  // 1. Unabhängige UI-Elemente sofort initialisieren
     
+    // Das erste leere Feld für manuelle Artikeleingabe erstellen
     initManuelleArtikelEingabe();
+    
+    // Versuchen, Artikel aus der Merkliste einer VORHERIGEN Seite zu laden.
+    // Dies überschreibt die leere Artikelliste, falls Daten vorhanden sind.
     ladeMerklisteAusLocalStorage();
     
-    // 2. jQuery-abhängige Initialisierungen
+    // jQuery-abhängige Dropdowns initialisieren
     $(document).ready(function() {
         $('#bearbeiterDropdown').select2({ placeholder: "-- Bearbeiter auswählen --", allowClear: true });
         $('#anlieferungDropdown').select2({ placeholder: "-- Anlieferung auswählen --", allowClear: true });
     });
 
+    // --- SCHRITT 2: Versuchen, die Standardwerte mit gespeicherten Daten zu überschreiben ---
+    
+    // Diese Funktion wird jetzt NACH der Initialisierung aufgerufen.
+    // Wenn gespeicherte Daten existieren, überschreibt sie die eben gesetzten Standardwerte.
+    // Wenn keine Daten da sind, passiert einfach nichts.
+    restoreFormData();
+
+    // --- SCHRITT 3: Kundensuche laden (unverändert) ---
     try {
-        // 3. Authentifizierung prüfen und auf das Ergebnis warten
         const isLoginSuccessful = await loadProtectedData();
 
-        // 4. NUR bei erfolgreicher Anmeldung die Suche aktivieren
         if (isLoginSuccessful) {
             console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
-
-            // UI-Elemente aktivieren, die von den Daten abhängen
             const kundenSucheInput = document.getElementById('kundenSuche');
             kundenSucheInput.disabled = false;
             kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
-
             kundenSucheInput.focus();
-
-            // Event-Listener für die Suche aktivieren
             initializeCustomerSearchListeners();
         }
-        // Wenn die Anmeldung fehlschlägt, bleibt die Suche deaktiviert.
-
     } catch (error) {
         console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
         document.body.innerHTML = "<h2>Ein kritischer Fehler ist aufgetreten. Bitte laden Sie die Seite neu.</h2>";
     }
 });
+
 
 
   </script>
