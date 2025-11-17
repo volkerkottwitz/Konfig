@@ -967,6 +967,54 @@ function restoreFormData() {
 
 
 async function generateRetourenscheinPDF() {
+        // ========================================================================
+    // ===== DATEN IM LOCALSTORAGE SPEICHERN =====
+    // ========================================================================
+    try {
+        const formData = {
+            // Kundendaten
+            name: document.getElementById('name').value,
+            firma: document.getElementById('firma').value,
+            strasse: document.getElementById('strasse').value,
+            plz: document.getElementById('plz').value,
+            ort: document.getElementById('ort').value,
+            land: document.getElementById('land').value,
+            email: document.getElementById('email').value,
+            telefon: document.getElementById('telefon').value,
+            kundennummer: document.getElementById('kundennummer').value,
+
+            // Retourendetails (mit jQuery für Select2)
+            bearbeiter: $('#bearbeiterDropdown').val(),
+            bearbeiterManuell: document.getElementById('bearbeiterManuell').value,
+            anlieferung: $('#anlieferungDropdown').val(),
+            auftragsnummer: document.getElementById('auftragsnummer').value,
+            rechnungsnummer: document.getElementById('rechnungsnummer').value,
+            reklamationsnummer: document.getElementById('reklamationsnummer').value,
+            abholdatum: document.getElementById('abholdatum').value,
+            wareneingang_datum: document.getElementById('wareneingang_datum').value,
+
+            // Artikel (die globale Variable sichern)
+            artikel: window.merklisteItems || [],
+
+            // Bemerkungen & Interne Vermerke
+            bemerkungen: document.getElementById('bemerkungen').value,
+            checkReklamation: document.getElementById('checkReklamation').checked,
+            checkReparatur: document.getElementById('checkReparatur').checked,
+            checkNeuware: document.getElementById('checkNeuware').checked,
+            checkWeiterleitung: document.getElementById('checkWeiterleitung').checked,
+            weiterleitungAnName: document.getElementById('weiterleitungAnName').value,
+            checkRuecksendung: document.getElementById('checkRuecksendung').checked
+        };
+        localStorage.setItem('retourenscheinFormData', JSON.stringify(formData));
+        console.log('Formulardaten erfolgreich im localStorage gesichert.');
+    } catch (error) {
+        console.error("Fehler beim Sichern der Formulardaten:", error);
+    }
+    // ========================================================================
+    // ===== ENDE DES SPEICHER-BLOCKS =====
+    // ========================================================================
+
+  
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
 
