@@ -201,23 +201,26 @@
     <span id="searchInfo"></span>
     <span id="currentMatchInfo"></span>
     <span id="page-info"></span> <!-- Hier kommt die Seitenzahl rein -->
-    <span id="lazy-load-status" style="display: none; color: #007bff;"></span>
+    <span id="lazy-load-status" style="display: none; color: #005A8C;"></span>
+
   </div>
   <div id="progressBar"><div id="progressFill"></div></div>
 </div>
 
 <div class="navigation-buttons">
+  <!-- Gruppe 1: Navigation -->
   <button id="prev-page" data-tooltip="Vorherige Seite">◀ <span class="nav-button-text">PDF</span></button>
   <button onclick="prevMatch()" data-tooltip="Vorheriger Treffer" disabled>⬅ 🎯</button>
   <button onclick="nextMatch()" data-tooltip="Nächster Treffer" disabled>🎯 ➡</button>
   <button id="next-page" data-tooltip="Nächste Seite"><span class="nav-button-text">PDF</span> ▶</button>
-</div>
 
-
-  <div class="zoom-buttons">
+  <!-- Gruppe 2: Zoom -->
+  <div class="zoom-group">
     <button onclick="zoomOut()" data-tooltip="Verkleinern">🔍 –</button>
     <button onclick="zoomIn()" data-tooltip="Vergrößern">🔍 +</button>
   </div>
+</div>
+
 
 
   <div id="pdfContainer">

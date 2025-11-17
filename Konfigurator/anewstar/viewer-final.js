@@ -1314,26 +1314,49 @@ function zeigeHinzugefügtOverlay(text) {
   setTimeout(() => overlay.remove(), 2500);
 }
 
-// === 🔄 NAVIGATION UND STEUERUNG ===
+// ===================================================================
+//   NEU: Intelligente Treffer-Navigation (behebt "Verlust des Fokus")
+// ===================================================================
 function prevMatch() {
-  const arr = [...matchPages].sort((a, b) => a - b);
-  const i = arr.indexOf(currentPage);
-  if (i > 0) {
-    currentPage = arr[i - 1];
+  const sortedPages = [...matchPages].sort((a, b) => a - b);
+  
+  // Finde den größten Treffer, der kleiner als die aktuelle Seite ist.
+  const prevPage = sortedPages.reverse().find(p => p < currentPage);
+
+  if (prevPage !== undefined) {
+    currentPage = prevPage;
     renderPage(currentPage);
     updateHelpers();
+  } else {
+    // Optional: Wenn es keinen vorherigen gibt, zum letzten Treffer springen
+    if (sortedPages.length > 0) {
+        currentPage = sortedPages[0]; // sortedPages ist hier noch umgedreht
+        renderPage(currentPage);
+        updateHelpers();
+    }
   }
 }
 
 function nextMatch() {
-  const arr = [...matchPages].sort((a, b) => a - b);
-  const i = arr.indexOf(currentPage);
-  if (i < arr.length - 1) {
-    currentPage = arr[i + 1];
+  const sortedPages = [...matchPages].sort((a, b) => a - b);
+
+  // Finde den kleinsten Treffer, der größer als die aktuelle Seite ist.
+  const nextPage = sortedPages.find(p => p > currentPage);
+
+  if (nextPage !== undefined) {
+    currentPage = nextPage;
     renderPage(currentPage);
     updateHelpers();
+  } else {
+    // Optional: Wenn es keinen nächsten gibt, zum ersten Treffer springen
+    if (sortedPages.length > 0) {
+        currentPage = sortedPages[0];
+        renderPage(currentPage);
+        updateHelpers();
+    }
   }
 }
+
 
 // In Ihrer viewer-final.js
 
@@ -2321,14 +2344,13 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 });
 
 
-    // Prüfen, ob beim allerersten Start der Login-Dialog gezeigt werden soll.
-    if (!localStorage.getItem('customerDataPassword')) {
-        const success = await showPasswordDialogAndLogin();
-        if (success) {
-            // Wenn der initiale Login erfolgreich war, UI aktualisieren
-            updateAuthUI();
-        }
-    }
+// if (!localStorage.getItem('customerDataPassword')) {
+//     const success = await showPasswordDialogAndLogin();
+//     if (success) {
+//         updateAuthUI();
+//     }
+// }
+
     
     // UI in jedem Fall aktualisieren (z.B. wenn der Benutzer schon angemeldet war)
     updateAuthUI();
@@ -2698,6 +2720,77 @@ pdfContainer.addEventListener('touchend', function(event) {
 });
 
   }
+  // ===================================================================
+//   NEU: JAVASCRIPT-BASIERTE TOOLTIP-LOGIK
+// ===================================================================
+function initializeTooltips() {
+  let tooltipElement;
+
+  // Funktion zum Anzeigen des Tooltips
+  function showTooltip(event) {
+    const target = event.currentTarget;
+    const tooltipText = target.getAttribute('data-tooltip');
+    if (!tooltipText) return;
+
+    // Erstelle das Tooltip-Element
+    tooltipElement = document.createElement('div');
+    tooltipElement.className = 'custom-tooltip'; // Eigene Klasse für Styling
+    tooltipElement.textContent = tooltipText;
+    document.body.appendChild(tooltipElement);
+
+    // Positioniere das Tooltip-Element
+    const targetRect = target.getBoundingClientRect();
+    const tooltipRect = tooltipElement.getBoundingClientRect();
+
+    // Berechne die Position, zentriert über dem Element
+    let top = targetRect.top - tooltipRect.height - 8; // 8px über dem Element
+    let left = targetRect.left + (targetRect.width / 2) - (tooltipRect.width / 2);
+
+    // Korrigiere, wenn der Tooltip links oder rechts aus dem Fenster ragt
+    if (left < 0) {
+      left = 5; // Kleiner Abstand vom Rand
+    }
+    if (left + tooltipRect.width > window.innerWidth) {
+      left = window.innerWidth - tooltipRect.width - 5;
+    }
+    
+    // Wenn oben kein Platz ist, zeige ihn unten an
+    if (top < 0) {
+        top = targetRect.bottom + 8;
+    }
+
+    tooltipElement.style.left = `${left}px`;
+    tooltipElement.style.top = `${top}px`;
+
+    // Mache den Tooltip nach einer winzigen Verzögerung sichtbar, um die CSS-Animation auszulösen
+setTimeout(() => {
+    if (tooltipElement) { // Prüfen, ob der Tooltip noch existiert
+        tooltipElement.style.opacity = '1';
+        tooltipElement.style.transform = 'translateY(0)';
+    }
+}, 10); // 10 Millisekunden reichen völlig aus
+
+  }
+
+  // Funktion zum Verstecken des Tooltips
+  function hideTooltip() {
+    if (tooltipElement) {
+      tooltipElement.remove();
+      tooltipElement = null;
+    }
+  }
+
+  // Finde ALLE Elemente mit data-tooltip und füge Listener hinzu
+  document.querySelectorAll('[data-tooltip]').forEach(element => {
+    element.addEventListener('mouseenter', showTooltip);
+    element.addEventListener('mouseleave', hideTooltip);
+    element.addEventListener('click', hideTooltip); // Versteckt Tooltip bei Klick
+  });
+}
+
+// Rufen Sie die neue Funktion am Ende von main() auf
+initializeTooltips();
+
 }
 
 // ===================================================================
@@ -2734,6 +2827,9 @@ function openYoutubeChannel() {
   
   // Öffnet die URL in einem neuen, vom Skript kontrollierten Fenster
   window.open(youtubeUrl, '_blank' );
+
+
+
 }
 
 
