@@ -170,7 +170,7 @@
 <body>
   <header id="header">
     <div class="header-left">
-      <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/images/logo.png" alt="EWE Logo">
+      <img src="https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" alt="EWE Logo">
     </div>
     <div class="header-content">
       <h1>Retourenschein</h1>
@@ -898,6 +898,74 @@ if (hinzugefuegt > 0) {
  * 1. Ersetzen Sie die alte `generateRetourenscheinPDF`-Funktion durch diese.
  * 2. Passen Sie die `logoUrl`-Variable an, sodass sie auf Ihr Logo zeigt.
  */
+
+
+
+// ========================================================================
+// ===== NEU: Funktion zum Wiederherstellen der Formulardaten (Schritt 2) =====
+// ========================================================================
+function restoreFormData() {
+    try {
+        const savedDataJSON = localStorage.getItem('retourenscheinFormData');
+        if (!savedDataJSON) return; // Keine Daten gefunden, nichts tun.
+
+        const savedData = JSON.parse(savedDataJSON);
+
+        // Kundendaten wiederherstellen
+        document.getElementById('name').value = savedData.name || '';
+        document.getElementById('firma').value = savedData.firma || '';
+        document.getElementById('strasse').value = savedData.strasse || '';
+        document.getElementById('plz').value = savedData.plz || '';
+        document.getElementById('ort').value = savedData.ort || '';
+        document.getElementById('land').value = savedData.land || '';
+        document.getElementById('email').value = savedData.email || '';
+        document.getElementById('telefon').value = savedData.telefon || '';
+        document.getElementById('kundennummer').value = savedData.kundennummer || '';
+
+        // Retourendetails wiederherstellen (inkl. Select2-Dropdowns)
+        $('#bearbeiterDropdown').val(savedData.bearbeiter).trigger('change');
+        document.getElementById('bearbeiterManuell').value = savedData.bearbeiterManuell || '';
+        $('#anlieferungDropdown').val(savedData.anlieferung).trigger('change');
+        document.getElementById('auftragsnummer').value = savedData.auftragsnummer || '';
+        document.getElementById('rechnungsnummer').value = savedData.rechnungsnummer || '';
+        document.getElementById('reklamationsnummer').value = savedData.reklamationsnummer || '';
+        document.getElementById('abholdatum').value = savedData.abholdatum || '';
+        document.getElementById('wareneingang_datum').value = savedData.wareneingang_datum || '';
+
+        // Artikel wiederherstellen und die Liste neu zeichnen
+        window.merklisteItems = savedData.artikel || [];
+        updateArtikelListe(); // Diese Funktion existiert bereits und zeichnet die Artikelliste
+
+        // Bemerkungen & Interne Vermerke (Checkboxes)
+        document.getElementById('bemerkungen').value = savedData.bemerkungen || '';
+        document.getElementById('checkReklamation').checked = savedData.checkReklamation;
+        document.getElementById('checkReparatur').checked = savedData.checkReparatur;
+        document.getElementById('checkNeuware').checked = savedData.checkNeuware;
+        document.getElementById('checkWeiterleitung').checked = savedData.checkWeiterleitung;
+        document.getElementById('weiterleitungAnName').value = savedData.weiterleitungAnName || '';
+        document.getElementById('checkRuecksendung').checked = savedData.checkRuecksendung;
+        
+        // Wichtig: Sichtbarkeit der manuellen Felder korrekt setzen, falls nötig
+        if (savedData.bearbeiter === 'manuell') {
+            document.getElementById('bearbeiterManuell').style.display = 'block';
+        }
+        if (savedData.checkWeiterleitung) {
+            document.getElementById('weiterleitungAnName').style.display = 'block';
+        }
+
+        // Nach erfolgreicher Wiederherstellung die Daten löschen
+        localStorage.removeItem('retourenscheinFormData');
+        
+        console.log("Formulardaten erfolgreich aus dem localStorage wiederhergestellt.");
+
+    } catch (error) {
+        console.error("Fehler beim Wiederherstellen der Formulardaten:", error);
+        localStorage.removeItem('retourenscheinFormData');
+    }
+}
+
+
+
 async function generateRetourenscheinPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -970,7 +1038,7 @@ async function generateRetourenscheinPDF() {
 
     // --- 1. Header ---
     let y = page_margin;
-    const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/images/logo.png';
+    const logoUrl = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png';
     let logoHeight = 15;
     try {
         const logoImg = await loadImage(logoUrl );
@@ -1134,6 +1202,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       // ========================================================================
     // ===== HIER DIE NEUEN ZEILEN EINFÜGEN =====
     // ========================================================================
+    restoreFormData();
+    
     const todayGerman = getTodayGermanDate();
     document.getElementById('abholdatum').value = `Abholdatum: ${todayGerman}`;
     document.getElementById('wareneingang_datum').value = `Wareneingangsdatum: ${todayGerman}`;
