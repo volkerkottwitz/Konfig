@@ -2650,74 +2650,79 @@ async function main() {
 // ===================================================================
 //   KORRIGIERTER 'touchstart'-LISTENER (GEGEN DAS HAKEN)
 // ===================================================================
+// NEUER, VERBESSERTER touchstart-Listener
 pdfContainer.addEventListener('touchstart', function(e) {
-  // SCHRITT 1: IMMER die laufende Animation entfernen.
-  // Das ist der entscheidende Fix, um das "Haken" im Zoom-Modus zu verhindern.
-  const pdfViewer = document.getElementById('pdfViewer');
-  if (pdfViewer) {
-    pdfViewer.style.transition = 'none';
-  }
-
-  // SCHRITT 2: Prüfen, ob wir die Wisch-Logik überhaupt starten sollen.
-  // Wenn gezoomt ist oder mehr als ein Finger benutzt wird, überlassen wir
-  // dem Browser die Kontrolle und brechen hier ab.
-  if (e.touches.length > 1 || !(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
+  // Wenn gezoomt ist ODER mehr als ein Finger benutzt wird,
+  // soll unser Skript absolut nichts tun. Wir überlassen dem Browser die Kontrolle.
+  if (zoomFactor > 1.2 || e.touches.length > 1) {
+    // Wichtig: Wir setzen die Distanz zurück, um ungewolltes Blättern zu verhindern.
+    distanzX = 0;
+    distanzY = 0;
     return;
   }
 
-  // SCHRITT 3: Nur wenn wir im erlaubten Wisch-Bereich sind,
-  // bereiten wir die Wischgeste vor, indem wir die Startwerte speichern.
+  // Nur wenn wir im "Blätter-Modus" sind, bereiten wir die Geste vor.
   const touch = e.touches[0];
   startX = touch.screenX;
   startY = touch.screenY;
   distanzX = 0;
   distanzY = 0;
-});
+  
+  // Verhindern, dass die Seite beim Wischen "hüpft"
+  const pdfViewer = document.getElementById('pdfViewer');
+  if (pdfViewer) {
+    pdfViewer.style.transition = 'none';
+  }
+}, { passive: false }); // Wichtig: passive: false erlaubt uns ggf. preventDefault()
 
-    pdfContainer.addEventListener('touchmove', function(e) {
-      if (e.touches.length > 1 || zoomFactor > 1.0) return;
-      const touch = e.touches[0];
-      distanzX = touch.screenX - startX;
-      distanzY = touch.screenY - startY;
-      if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
-        if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
-          distanzX /= 3;
-        }
-        pdfViewer.style.transform = `translateX(${distanzX}px)`;
-      }
-    }, { passive: true });
-// ===================================================================
-//   'touchend'-LISTENER (MIT 20% ZOOM-TOLERANZ)
-// ===================================================================
+
+// NEUER, VERBESSERTER touchmove-Listener
+pdfContainer.addEventListener('touchmove', function(e) {
+  // Auch hier: Wenn gezoomt ist oder mehr als ein Finger im Spiel ist, nichts tun.
+  if (zoomFactor > 1.2 || e.touches.length > 1) {
+    return;
+  }
+
+  // Nur wenn wir im "Blätter-Modus" sind, bewegen wir die Seite visuell mit.
+  e.preventDefault(); // Verhindert, dass der Browser gleichzeitig scrollt.
+  const touch = e.touches[0];
+  distanzX = touch.screenX - startX;
+  distanzY = touch.screenY - startY;
+  
+  const pdfViewer = document.getElementById('pdfViewer');
+  if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
+    // Begrenzt das "Überwischen" am Anfang und Ende für ein besseres Gefühl.
+    if ((currentPage === 1 && distanzX > 0) || (currentPage === pdfDoc.numPages && distanzX < 0)) {
+      distanzX /= 3;
+    }
+    pdfViewer.style.transform = `translateX(${distanzX}px)`;
+  }
+}, { passive: false });
+
+
+// NEUER, VERBESSERTER touchend-Listener
 pdfContainer.addEventListener('touchend', function(event) {
-  // Die Logik für den Doppelklick-Ersatz bleibt unberührt.
+  // Die Logik für den Doppel-Tap bleibt unverändert.
   const currentTime = new Date().getTime();
   const tapLength = currentTime - lastTap;
   lastTap = currentTime;
-  if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
+  if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20 && Math.abs(distanzY) < 20) {
     event.preventDefault();
     if (currentDocumentPath && pdfDoc) {
       const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
-      const link = document.createElement('a');
-      link.href = urlForNewTab;
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      window.open(urlForNewTab, '_blank');
     }
     return;
   }
 
-  // === HIER IST DIE ANGEPASSTE 20%-TOLERANZ-PRÜFUNG ===
-  // Die Wisch-Logik wird ausgeführt, wenn der Zoomfaktor
-  // zwischen 0.8 und 1.2 liegt.
-  if (zoomFactor >= 0.8 && zoomFactor <= 1.2) {
-    
+  // Wichtig: Die Wisch-Logik wird jetzt NUR ausgeführt, wenn die Distanz
+  // überhaupt einen Wert hat (also nicht nach einem Zoom-Vorgang).
+  if (distanzX !== 0) {
     const mindestDistanz = pdfContainer.clientWidth * 0.25;
+    const pdfViewer = document.getElementById('pdfViewer');
 
-    // Fall 1: Genug gewischt -> Seite blättern
-    if (Math.abs(distanzX) > Math.abs(distanzY) && Math.abs(distanzX) > mindestDistanz) {
-      const pdfViewer = document.getElementById('pdfViewer');
+    if (Math.abs(distanzX) > mindestDistanz) {
+      // Genug gewischt -> Blättern
       if (pdfViewer) {
         pdfViewer.style.transition = 'opacity 0.3s ease-out';
         pdfViewer.style.opacity = '0';
@@ -2729,18 +2734,20 @@ pdfContainer.addEventListener('touchend', function(event) {
           document.getElementById('prev-page').click();
         }
       }, 50);
-    } 
-    // Fall 2: Nicht genug gewischt -> Seite zurückschnellen lassen
-    else if (distanzX !== 0) {
-      const pdfViewer = document.getElementById('pdfViewer');
+    } else {
+      // Nicht genug gewischt -> Zurückschnellen
       if (pdfViewer) {
         pdfViewer.style.transition = 'transform 0.3s ease-out';
         pdfViewer.style.transform = 'translateX(0)';
       }
     }
   }
-  // Wenn der zoomFactor außerhalb des Bereichs 0.8 - 1.2 liegt, passiert nichts.
+  
+  // Setze die Distanz für den nächsten Touch-Vorgang IMMER zurück.
+  distanzX = 0;
+  distanzY = 0;
 });
+
 
   }
   // ===================================================================
