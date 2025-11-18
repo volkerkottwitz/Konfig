@@ -1034,14 +1034,14 @@ async function generateRetourenscheinPDF() {
     const fieldBackgroundColor = [230, 245, 255];
 
     // --- Hilfsfunktionen zum Zeichnen ---
-    const drawTextField = (x, y, label, value, width = 85, height = 6, useBgColor = true) => {
+    const drawTextField = (x, y, label, value, width = 85, height = 6, useBgColor = true, lineHeightFactor = 1.15) => {
         if (useBgColor) {
             doc.setFillColor(...fieldBackgroundColor).rect(x, y + 1, width, height, 'F');
         }
         doc.setFontSize(7).setFont("helvetica", "bold").text(label, x, y);
         doc.setFont("helvetica", "normal").setFontSize(10);
-        const textY = (label === "Name") ? y + 6.5 : y + 5.5;
-        doc.text(value || '', x + 1, textY, { maxWidth: width - 2, lineHeightFactor: 1.15 });
+        const textY = y + 5.5;
+        doc.text(value || '', x + 1, textY, { maxWidth: width - 2, lineHeightFactor: lineHeightFactor });
         doc.setDrawColor(0).line(x, y + height + 1, x + width, y + height + 1);
     };
 
@@ -1111,16 +1111,33 @@ async function generateRetourenscheinPDF() {
     doc.rect(page_margin, kundenBoxY, content_width, kundenBoxHeight-1);
     const today = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
     
-    drawTextField(page_margin + 5, kundenBoxY + 5, "Firma", inputs.firma.value, 85, 12); 
-    drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Ansprechpartner", inputs.name.value);
-    drawTextField(page_width / 2 + 5, kundenBoxY + 20.5, "Datum", today);
-    drawTextField(page_width / 2 + 5, kundenBoxY + 30, "Bearbeiter", bearbeiterWert);
-    drawTextField(page_margin + 5, kundenBoxY + 20.5, "Adresse", inputs.strasse.value);
-    drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`);
+    drawTextField(page_margin + 5, kundenBoxY + 5, "Firma", inputs.firma.value, 90, 12); 
+            // NEU: Ansprechpartner mit E-Mail und Telefonnummer zusammenführen
+        let ansprechpartnerValue = inputs.name.value;
+        
+        // E-Mail und Telefonnummer auf eine Zeile mit Komma-Trennung
+        let contactInfo = [];
+        if (inputs.email.value) {
+            contactInfo.push(inputs.email.value);
+        }
+        if (inputs.telefon.value) {
+            contactInfo.push(inputs.telefon.value);
+        }
+        
+        if (contactInfo.length > 0) {
+            ansprechpartnerValue += "\n" + contactInfo.join(", ");
+        }
+        
+        // NEU: Feld für Ansprechpartner vergrößern (height=12) und lineHeightFactor anpassen
+        drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Ansprechpartner", ansprechpartnerValue, 90, 12, true, 1.25);
+    drawTextField(page_width / 2 + 5, kundenBoxY + 20.5, "Datum", today, 90);
+    drawTextField(page_width / 2 + 5, kundenBoxY + 30, "Bearbeiter", bearbeiterWert, 90);
+    drawTextField(page_margin + 5, kundenBoxY + 20.5, "Adresse", inputs.strasse.value, 90);
+    drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`, 90);
     const separatorY = kundenBoxY + 42;
     doc.line(page_margin, separatorY-2, page_width - page_margin, separatorY-2);
-    drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", retourenInputs.anlieferung.value);
-    drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", abholDatumValue); // <-- KORRIGIERT
+    drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", retourenInputs.anlieferung.value, 90);
+    drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", abholDatumValue, 90); // <-- KORRIGIERT
     y = kundenBoxY + kundenBoxHeight;
 
     // --- 3. Artikeltabelle (unverändert) ---
@@ -1237,8 +1254,26 @@ async function generateRetourenscheinPDF() {
     doc.text("Seite 1 von 1", page_width - page_margin, finalY, { align: 'right' });
 
     // --- PDF Speichern ---
-    const filename = `Retourenschein_${inputs.name.value.replace(/ /g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
-    doc.save(filename);
+// NEUER CODE (Retourenschein_Firma_Ansprechpartner_Ort_Datum):
+
+// 1. Alle benötigten Werte aus den Feldern holen.
+const firma = document.getElementById("firma").value || "";
+const ansprechpartner = document.getElementById("name").value || "";
+const ort = document.getElementById("ort").value || "";
+const datum = new Date().toISOString().split('T')[0];
+
+// 2. Alle Teile zu einem Array zusammenfügen. "Retourenschein" kommt immer an den Anfang.
+//    Leere Teile (falls ein Feld nicht ausgefüllt ist) werden herausgefiltert.
+const filenameParts = ["Retourenschein", firma, ansprechpartner, ort, datum].filter(part => part);
+
+// 3. Jeden Teil bereinigen (Sonderzeichen entfernen) und mit "_" verbinden.
+const cleanFilename = filenameParts.map(part => 
+    part.replace(/[^a-zA-Z0-9äöüÄÖÜß\s]/g, "").trim()
+).join("_");
+
+// 4. PDF mit dem neuen, sauberen Dateinamen speichern.
+doc.save(`${cleanFilename}.pdf`);
+
 }
 
 
@@ -1306,4 +1341,3 @@ document.addEventListener("DOMContentLoaded", async () => {
   </button>
 </body>
 </html>
-

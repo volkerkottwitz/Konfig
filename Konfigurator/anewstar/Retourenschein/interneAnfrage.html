@@ -1199,16 +1199,31 @@ for (let i = 1; i <= totalPages; i++) {
 }
 
         
-        // Dateiname generieren
-        const firmaName = inputs.firma.value || "Unbekannt";
-        const cleanFirmaName = firmaName.replace(/[^a-zA-Z0-9äöüÄÖÜß\-]/g, "-");
-        const heute = new Date();
-        const datumForFilename = heute.toISOString().split('T')[0];
-        const filename = `PDF_${cleanFirmaName}_${datumForFilename}.pdf`;
-        
-        // PDF speichern
-        doc.save(filename);
-        console.log(`PDF erfolgreich erstellt: ${filename}`);
+// NEUER CODE (Überschrift_Firma_Ansprechpartner_Ort_Datum):
+
+// 1. Alle benötigten Werte aus den Feldern holen.
+const ueberschrift = document.getElementById("mainTitleInput").value || "Interne Anfrage";
+const firma = document.getElementById("firma").value || "";
+const ansprechpartner = document.getElementById("name").value || "";
+const ort = document.getElementById("ort").value || "";
+const datum = new Date().toISOString().split('T')[0];
+
+// 2. Alle Teile in der NEUEN REIHENFOLGE zu einem Array zusammenfügen.
+const filenameParts = [ueberschrift, firma, ansprechpartner, ort, datum].filter(part => part);
+
+// 3. Jeden Teil bereinigen (Sonderzeichen entfernen, Leerzeichen am Rand weg) und mit "_" verbinden.
+const cleanFilename = filenameParts.map(part => 
+    part.replace(/[^a-zA-Z0-9äöüÄÖÜß\s]/g, "").trim()
+).join("_");
+
+// 4. PDF mit dem neuen, sauberen Dateinamen speichern.
+doc.save(`${cleanFilename}.pdf`);
+
+
+
+        // NEUE, KORREKTE ZEILE:
+console.log(`PDF erfolgreich erstellt: ${cleanFilename}.pdf`);
+
         
       } catch (error) {
         console.error("Fehler bei der PDF-Erstellung:", error);

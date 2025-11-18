@@ -875,6 +875,8 @@ async function generateBerichtPDF() {
     try {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
+        const heute = new Date();
+        const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
         
         const logoImg = await loadImageAsBase64("https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png"  ).catch(() => null);
         
@@ -886,12 +888,11 @@ async function generateBerichtPDF() {
         function addPageHeader() {
             if (logoImg) doc.addImage(logoImg, "PNG", margin, margin, 40, 30, undefined, 'FAST');
             
-            const heute = new Date();
+            
             const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
             doc.setFontSize(10);
             doc.setTextColor(100);
             doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
-            const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
             doc.text(`Berichts-Nr: ${berichtsNummer}`, pageWidth - margin, margin + 20, { align: "right" });
         }
 
@@ -998,9 +999,29 @@ async function generateBerichtPDF() {
             doc.text(splitAufgaben, margin, yPosition);
         }
 
-        const firmaName = (document.getElementById("firma").value || "Bericht").replace(/[^a-zA-Z0-9]/g, "-");
-        const datumForFilename = new Date().toISOString().split('T')[0];
-        doc.save(`${firmaName}_${datumForFilename}.pdf`);
+// NEUER CODE (Firma_Ansprechpartner_Ort_Berichtsnummer):
+
+// NEUER CODE (BER-Nummer_Firma_Ansprechpartner_Ort):
+
+// 1. Alle benötigten Werte aus den Feldern holen.
+const firma = document.getElementById("firma").value || "Bericht";
+const ansprechpartner = document.getElementById("name").value || "";
+const ort = document.getElementById("ort").value || ""; // Wir verwenden bereits den Ort, nicht die PLZ. Das passt also.
+// Die Variable 'berichtsNummer' existiert bereits.
+
+// 2. Alle Teile in der NEUEN REIHENFOLGE zu einem Array zusammenfügen.
+const filenameParts = [berichtsNummer, firma, ansprechpartner, ort].filter(part => part);
+
+// 3. Jeden Teil bereinigen und mit "_" verbinden.
+const cleanFilename = filenameParts.map(part => 
+    part.replace(/[^a-zA-Z0-9äöüÄÖÜß\s\-]/g, "").trim()
+).join("_");
+
+// 4. PDF mit dem neuen Dateinamen speichern.
+doc.save(`${cleanFilename}.pdf`);
+
+
+
 
     } catch (error) {
         console.error("Fehler bei der PDF-Erstellung:", error);
