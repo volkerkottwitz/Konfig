@@ -330,31 +330,33 @@
 // ===== NEU: ANGEPASSTER STARTPUNKT DER SEITE                      =====
 // ========================================================================
 
+// ========================================================================
+// ===== NEU: KORREKTER STARTPUNKT DER SEITE (Version 2) =====
+// ========================================================================
 document.addEventListener("DOMContentLoaded", async () => {
-    // Diese Funktionen sind unabhängig und können sofort ausgeführt werden.
+  
+    // --- SCHRITT 1: Seite mit Standardwerten initialisieren ---
     displayCurrentDate();
     initializeDropdowns();
     initializeSpeechRecognition();
     initializeSpeechSearch();
     initializePhoneLink();
 
+    // --- SCHRITT 2: Versuchen, die Standardwerte mit gespeicherten Daten zu überschreiben ---
+    restoreBerichtData();
+
+    // --- SCHRITT 3: Kundensuche laden (unverändert) ---
     try {
-        // 1. Starte den Lade- und Schutzprozess und warte auf das Ergebnis.
         const isLoginSuccessful = await loadProtectedData();
 
-        // 2. Wenn der Login erfolgreich war, aktiviere die abhängigen Funktionen.
         if (isLoginSuccessful) {
             console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
-
-            // Elemente holen
             const kundenSucheInput = document.getElementById('kundenSuche');
             const speechButton = document.getElementById('speech-search-button');
 
-            // Suchfeld aktivieren
             kundenSucheInput.disabled = false;
             kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
             
-            // Mikrofon-Button aktivieren
             if (speechButton) {
                 speechButton.disabled = false;
                 speechButton.style.cursor = 'pointer';
@@ -362,18 +364,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
 
             kundenSucheInput.focus();
-            
-            // Die Such-Listener können jetzt sicher initialisiert werden.
             initializeCustomerSearchListeners();
         }
-
     } catch (error) {
-        // Dieser Block wird nur bei wirklich unerwarteten Fehlern ausgeführt,
-        // da die typischen Fehler (falsches Passwort etc.) schon in loadProtectedData() behandelt werden.
         console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
         document.body.innerHTML = "<h2>Ein kritischer Fehler ist aufgetreten. Bitte laden Sie die Seite neu.</h2>";
     }
 });
+
 
     function displayCurrentDate() {
       const today = new Date();
@@ -772,6 +770,62 @@ suchErgebnisseContainer.addEventListener('click', function(e) {
       });
     }
 
+// ========================================================================
+// ===== NEU: Funktion zum Wiederherstellen der Bericht-Formulardaten =====
+// ========================================================================
+function restoreBerichtData() {
+    try {
+        const savedDataJSON = localStorage.getItem('berichtFormData');
+        if (!savedDataJSON) return; // Keine Daten gefunden, nichts tun.
+
+        const savedData = JSON.parse(savedDataJSON);
+
+        // Haupttitel
+        document.getElementById('mainTitleInput').value = savedData.mainTitle || 'Besuchsbericht';
+
+        // Kundendaten
+        document.getElementById('name').value = savedData.name || '';
+        document.getElementById('firma').value = savedData.firma || '';
+        document.getElementById('strasse').value = savedData.strasse || '';
+        document.getElementById('plz').value = savedData.plz || '';
+        document.getElementById('ort').value = savedData.ort || '';
+        document.getElementById('land').value = savedData.land || '';
+        document.getElementById('email').value = savedData.email || '';
+        document.getElementById('telefon').value = savedData.telefon || '';
+        document.getElementById('kundennummer').value = savedData.kundennummer || '';
+
+        // Bearbeitung (Dropdowns mit Select2)
+        $('#sachbearbeiterDropdown').val(savedData.sachbearbeiter).trigger('change');
+        document.getElementById('sachbearbeiterManuell').value = savedData.sachbearbeiterManuell || '';
+        $('#aussendienstDropdown').val(savedData.aussendienst).trigger('change');
+        document.getElementById('aussendienstManuell').value = savedData.aussendienstManuell || '';
+
+        // Bericht und Aufgaben
+        document.getElementById('bericht-text').value = savedData.berichtText || '';
+        document.getElementById('aufgaben-text').value = savedData.aufgabenText || '';
+
+        // Sichtbarkeit der manuellen Felder korrekt setzen
+        if (savedData.sachbearbeiter === 'manuell') {
+            document.getElementById('sachbearbeiterManuell').style.display = 'block';
+        }
+        if (savedData.aussendienst === 'manuell') {
+            document.getElementById('aussendienstManuell').style.display = 'block';
+        }
+        
+        // Telefon-Button-Sichtbarkeit aktualisieren
+        document.getElementById('telefon').dispatchEvent(new Event('input'));
+
+        // Nach erfolgreicher Wiederherstellung die Daten löschen
+        localStorage.removeItem('berichtFormData');
+        console.log("Bericht-Formulardaten erfolgreich wiederhergestellt.");
+
+    } catch (error) {
+        console.error("Fehler beim Wiederherstellen der Bericht-Formulardaten:", error);
+        localStorage.removeItem('berichtFormData');
+    }
+}
+
+
 
     // --- Angepasste PDF-Generierungsfunktion ---
    // =================================================================
@@ -779,6 +833,45 @@ suchErgebnisseContainer.addEventListener('click', function(e) {
     // =================================================================
 
 async function generateBerichtPDF() {
+        // ========================================================================
+    // ===== DATEN IM LOCALSTORAGE SPEICHERN =====
+    // ========================================================================
+    try {
+        const formData = {
+            // Haupttitel
+            mainTitle: document.getElementById('mainTitleInput').value,
+
+            // Kundendaten
+            name: document.getElementById('name').value,
+            firma: document.getElementById('firma').value,
+            strasse: document.getElementById('strasse').value,
+            plz: document.getElementById('plz').value,
+            ort: document.getElementById('ort').value,
+            land: document.getElementById('land').value,
+            email: document.getElementById('email').value,
+            telefon: document.getElementById('telefon').value,
+            kundennummer: document.getElementById('kundennummer').value,
+
+            // Bearbeitung (Dropdowns)
+            sachbearbeiter: $('#sachbearbeiterDropdown').val(),
+            sachbearbeiterManuell: document.getElementById('sachbearbeiterManuell').value,
+            aussendienst: $('#aussendienstDropdown').val(),
+            aussendienstManuell: document.getElementById('aussendienstManuell').value,
+
+            // Bericht und Aufgaben
+            berichtText: document.getElementById('bericht-text').value,
+            aufgabenText: document.getElementById('aufgaben-text').value
+        };
+        localStorage.setItem('berichtFormData', JSON.stringify(formData));
+        console.log('Bericht-Formulardaten erfolgreich im localStorage gesichert.');
+    } catch (error) {
+        console.error("Fehler beim Sichern der Bericht-Formulardaten:", error);
+    }
+    // ========================================================================
+    // ===== ENDE DES SPEICHER-BLOCKS =====
+    // ========================================================================
+
+    
     try {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();

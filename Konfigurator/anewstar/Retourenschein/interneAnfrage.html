@@ -694,8 +694,109 @@ suchErgebnisseContainer.addEventListener('click', function(e) {
       return dropdown.value === "manuell" ? manualInput.value || "" : dropdown.value || "";
     }
 
+// ========================================================================
+// ===== NEU: Funktion zum Wiederherstellen der Anfrage-Formulardaten =====
+// ========================================================================
+function restoreAnfrageFormData() {
+    try {
+        const savedDataJSON = localStorage.getItem('anfrageFormData');
+        if (!savedDataJSON) return; // Keine Daten gefunden, nichts tun.
+
+        const savedData = JSON.parse(savedDataJSON);
+
+        // Haupttitel
+        document.getElementById('mainTitleInput').value = savedData.mainTitle || 'Interne Anfrage';
+
+        // Kundendaten
+        document.getElementById('name').value = savedData.name || '';
+        document.getElementById('firma').value = savedData.firma || '';
+        document.getElementById('strasse').value = savedData.strasse || '';
+        document.getElementById('plz').value = savedData.plz || '';
+        document.getElementById('ort').value = savedData.ort || '';
+        document.getElementById('land').value = savedData.land || '';
+        document.getElementById('email').value = savedData.email || '';
+        document.getElementById('telefon').value = savedData.telefon || '';
+        document.getElementById('kundennummer').value = savedData.kundennummer || '';
+
+        // Bearbeitung (Dropdowns mit Select2)
+        $('#sachbearbeiterDropdown').val(savedData.sachbearbeiter).trigger('change');
+        document.getElementById('sachbearbeiterManuell').value = savedData.sachbearbeiterManuell || '';
+        $('#aussendienstDropdown').val(savedData.aussendienst).trigger('change');
+        document.getElementById('aussendienstManuell').value = savedData.aussendienstManuell || '';
+
+        // Artikel wiederherstellen und Liste neu zeichnen
+        window.merklisteItems = savedData.artikel || [];
+        updateArtikelListe();
+
+        // Mitteilung für den Innendienst
+        document.getElementById('hintergrund').value = savedData.hintergrund || '';
+        document.getElementById('fokus').value = savedData.fokus || '';
+        document.getElementById('preisgestaltung').value = savedData.preisgestaltung || '';
+
+        // Sichtbarkeit der manuellen Felder korrekt setzen
+        if (savedData.sachbearbeiter === 'manuell') {
+            document.getElementById('sachbearbeiterManuell').style.display = 'block';
+        }
+        if (savedData.aussendienst === 'manuell') {
+            document.getElementById('aussendienstManuell').style.display = 'block';
+        }
+
+        // Nach erfolgreicher Wiederherstellung die Daten löschen
+        localStorage.removeItem('anfrageFormData');
+        console.log("Anfrage-Formulardaten erfolgreich wiederhergestellt.");
+
+    } catch (error) {
+        console.error("Fehler beim Wiederherstellen der Anfrage-Formulardaten:", error);
+        localStorage.removeItem('anfrageFormData');
+    }
+}
+
+
     // PDF Generierung - Professionelle Implementierung
     async function generateAngebotsanfragePDF() {
+          // ========================================================================
+    // ===== DATEN IM LOCALSTORAGE SPEICHERN =====
+    // ========================================================================
+    try {
+        const formData = {
+            // Haupttitel
+            mainTitle: document.getElementById('mainTitleInput').value,
+
+            // Kundendaten
+            name: document.getElementById('name').value,
+            firma: document.getElementById('firma').value,
+            strasse: document.getElementById('strasse').value,
+            plz: document.getElementById('plz').value,
+            ort: document.getElementById('ort').value,
+            land: document.getElementById('land').value,
+            email: document.getElementById('email').value,
+            telefon: document.getElementById('telefon').value,
+            kundennummer: document.getElementById('kundennummer').value,
+
+            // Bearbeitung (Dropdowns)
+            sachbearbeiter: $('#sachbearbeiterDropdown').val(),
+            sachbearbeiterManuell: document.getElementById('sachbearbeiterManuell').value,
+            aussendienst: $('#aussendienstDropdown').val(),
+            aussendienstManuell: document.getElementById('aussendienstManuell').value,
+
+            // Artikel (globale Variable)
+            artikel: window.merklisteItems || [],
+
+            // Mitteilung für den Innendienst
+            hintergrund: document.getElementById('hintergrund').value,
+            fokus: document.getElementById('fokus').value,
+            preisgestaltung: document.getElementById('preisgestaltung').value
+        };
+        localStorage.setItem('anfrageFormData', JSON.stringify(formData));
+        console.log('Anfrage-Formulardaten erfolgreich im localStorage gesichert.');
+    } catch (error) {
+        console.error("Fehler beim Sichern der Anfrage-Formulardaten:", error);
+    }
+    // ========================================================================
+    // ===== ENDE DES SPEICHER-BLOCKS =====
+    // ========================================================================
+
+      
       try {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
@@ -1139,42 +1240,42 @@ for (let i = 1; i <= totalPages; i++) {
 // ===== NEU: DER EINZIGE UND KORREKTE STARTPUNKT DER SEITE         =====
 // ========================================================================
 
+// ========================================================================
+// ===== NEU: KORREKTER STARTPUNKT DER SEITE (Version 2) =====
+// ========================================================================
 document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Unabhängige UI-Elemente sofort initialisieren
+  
+    // --- SCHRITT 1: Seite mit Standardwerten initialisieren ---
     displayCurrentDate();
     ladeMerklisteAusLocalStorage();
     addManuelleArtikelSection();
     
-    // 2. jQuery-abhängige Initialisierungen
     $(document).ready(function() {
         $("#sachbearbeiterDropdown").select2({ placeholder: "-- Innendienst auswählen --", allowClear: true });
         $("#aussendienstDropdown").select2({ placeholder: "-- Außendienstmitarbeiter auswählen --", allowClear: true });
     });
 
-    try {
-        // 3. Authentifizierung prüfen und auf Daten warten
-        const isLoginSuccessful = await loadProtectedData(); // Ergebnis speichern
+    // --- SCHRITT 2: Versuchen, die Standardwerte mit gespeicherten Daten zu überschreiben ---
+    restoreAnfrageFormData();
 
-        // 4. NUR bei erfolgreicher Anmeldung die Suche aktivieren
+    // --- SCHRITT 3: Kundensuche laden (unverändert) ---
+    try {
+        const isLoginSuccessful = await loadProtectedData();
+
         if (isLoginSuccessful) {
             console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
-
-            // Diese Zeilen werden jetzt nur noch bei Erfolg ausgeführt
             const kundenSucheInput = document.getElementById('kundenSuche');
             kundenSucheInput.disabled = false;
             kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
-
             kundenSucheInput.focus();
-
-            // Event-Listener für die Suche aktivieren
             initializeCustomerSearchListeners();
         }
-
     } catch (error) {
         console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
         document.body.innerHTML = "<h2>Ein kritischer Fehler ist aufgetreten. Bitte laden Sie die Seite neu.</h2>";
     }
 });
+
 
   </script>
     <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
