@@ -438,16 +438,28 @@ function startGlobalSearch() {
       const hasText1 = searchRegex1 ? searchRegex1.test(normalizedPageText) : false;
       const hasText2 = searchRegex2 ? searchRegex2.test(normalizedPageText) : false;
       
-      let isMatch = false;
-      if (!expandedTerm2) { isMatch = hasText1; }
-      else {
-        switch (searchOperator) {
-          case 'und': isMatch = hasText1 && hasText2; break;
-          case 'oder': isMatch = hasText1 || hasText2; break;
-          case 'ohne': isMatch = hasText1 && !hasText2; break;
-        }
-      }
-      
+// NEUER, KORRIGIERTER isMatch-Block:
+
+let isMatch = false;
+
+// Fall 1: Nur das erste Feld ist ausgefüllt.
+if (expandedTerm1 && !expandedTerm2) {
+    isMatch = hasText1;
+} 
+// Fall 2: Nur das zweite Feld ist ausgefüllt.
+else if (!expandedTerm1 && expandedTerm2) {
+    isMatch = hasText2;
+} 
+// Fall 3: Beide Felder sind ausgefüllt.
+else if (expandedTerm1 && expandedTerm2) {
+    switch (searchOperator) {
+        case 'und': isMatch = hasText1 && hasText2; break;
+        case 'oder': isMatch = hasText1 || hasText2; break;
+        case 'ohne': isMatch = hasText1 && !hasText2; break;
+    }
+}
+// (Wenn beide Felder leer sind, bleibt isMatch = false, was korrekt ist)
+
       if (isMatch) {
         // === HIER IST DIE NEUE LOGIK ===
         // 1. Extrahiere die Überschrift von der gefundenen Seite.
