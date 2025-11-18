@@ -2700,9 +2700,12 @@ pdfContainer.addEventListener('touchmove', function(e) {
 }, { passive: false });
 
 
-// NEUER, VERBESSERTER touchend-Listener
+// NEUER, ROBUSTER touchend-Listener
+
+// FINALE, NEU GESCHRIEBENE touchend-Funktion
+
 pdfContainer.addEventListener('touchend', function(event) {
-  // Die Logik für den Doppel-Tap bleibt unverändert.
+  // 1. Doppel-Tap-Logik (unverändert)
   const currentTime = new Date().getTime();
   const tapLength = currentTime - lastTap;
   lastTap = currentTime;
@@ -2712,41 +2715,47 @@ pdfContainer.addEventListener('touchend', function(event) {
       const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
       window.open(urlForNewTab, '_blank');
     }
+    distanzX = 0; distanzY = 0; // Wichtig: Zurücksetzen
     return;
   }
 
-  // Wichtig: Die Wisch-Logik wird jetzt NUR ausgeführt, wenn die Distanz
-  // überhaupt einen Wert hat (also nicht nach einem Zoom-Vorgang).
-  if (distanzX !== 0) {
-    const mindestDistanz = pdfContainer.clientWidth * 0.25;
-    const pdfViewer = document.getElementById('pdfViewer');
+  // 2. Wisch-Logik (komplett neu und klar strukturiert)
+  const mindestDistanz = pdfContainer.clientWidth * 0.25;
+  const pdfViewer = document.getElementById('pdfViewer');
 
-    if (Math.abs(distanzX) > mindestDistanz) {
-      // Genug gewischt -> Blättern
-      if (pdfViewer) {
-        pdfViewer.style.transition = 'opacity 0.3s ease-out';
-        pdfViewer.style.opacity = '0';
+  // Nur fortfahren, wenn eine signifikante horizontale Wischbewegung stattgefunden hat
+  if (Math.abs(distanzX) > mindestDistanz && Math.abs(distanzX) > Math.abs(distanzY)) {
+    
+    // Geste nach RECHTS (Finger von links nach rechts, distanzX ist positiv)
+    if (distanzX > 0) {
+      if (currentPage > 1) { // Nur ausführen, wenn wir NICHT auf der ersten Seite sind
+        if (pdfViewer) { pdfViewer.style.transition = 'opacity 0.3s ease-out'; pdfViewer.style.opacity = '0'; }
+        setTimeout(() => { document.getElementById('prev-page').click(); }, 50);
+      } else {
+        // Am Anschlag -> zurückschnellen
+        if (pdfViewer) { pdfViewer.style.transition = 'transform 0.3s ease-out'; pdfViewer.style.transform = 'translateX(0)'; }
       }
-      setTimeout(() => {
-        if (distanzX < 0) {
-          document.getElementById('next-page').click();
-        } else {
-          document.getElementById('prev-page').click();
-        }
-      }, 50);
-    } else {
-      // Nicht genug gewischt -> Zurückschnellen
-      if (pdfViewer) {
-        pdfViewer.style.transition = 'transform 0.3s ease-out';
-        pdfViewer.style.transform = 'translateX(0)';
+    } 
+    // Geste nach LINKS (Finger von rechts nach links, distanzX ist negativ)
+    else if (distanzX < 0) {
+      if (currentPage < pdfDoc.numPages) { // Nur ausführen, wenn wir NICHT auf der letzten Seite sind
+        if (pdfViewer) { pdfViewer.style.transition = 'opacity 0.3s ease-out'; pdfViewer.style.opacity = '0'; }
+        setTimeout(() => { document.getElementById('next-page').click(); }, 50);
+      } else {
+        // Am Anschlag -> zurückschnellen
+        if (pdfViewer) { pdfViewer.style.transition = 'transform 0.3s ease-out'; pdfViewer.style.transform = 'translateX(0)'; }
       }
     }
+  } else if (distanzX !== 0) {
+    // Wenn nicht genug gewischt wurde, immer zurückschnellen
+    if (pdfViewer) { pdfViewer.style.transition = 'transform 0.3s ease-out'; pdfViewer.style.transform = 'translateX(0)'; }
   }
   
-  // Setze die Distanz für den nächsten Touch-Vorgang IMMER zurück.
+  // Am Ende IMMER die Distanzen für die nächste Geste zurücksetzen.
   distanzX = 0;
   distanzY = 0;
 });
+
 
 
   }
