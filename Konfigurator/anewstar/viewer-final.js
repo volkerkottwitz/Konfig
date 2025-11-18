@@ -1440,33 +1440,44 @@ function addCurrentHit() {
   }
 
 // In Ihrer viewer-final.js
-
+// NEUE, ERWEITERTE updateHelpers() FUNKTION
 function updateHelpers() {
-  updateCurrentMatchInfo();
-  updateProgressBar();
-
+  // Holen der UI-Elemente
+  const progressBar = document.getElementById('progressBar'); // Korrigierte ID
   const removeHitBtn = document.getElementById('removeHitBtn');
   const addHitBtn = document.getElementById('addHitBtn');
 
-  if (!removeHitBtn || !addHitBtn) return; // Sicherheitsabfrage
+  // Sicherheitsabfrage
+  if (!progressBar || !removeHitBtn || !addHitBtn) return;
 
+  // Die zwei zentralen Bedingungen
+  const hasTreffer = matchPages.size > 0;
   const isCurrentlyOnMatchPage = matchPages.has(currentPage);
 
-  // Standardmäßig beide Buttons ausblenden
+  // --- Logik für die Sichtbarkeit der Fortschrittsanzeige ---
+  progressBar.style.display = hasTreffer ? 'block' : 'none';
+  
+  // Aktualisiere die anderen Helfer nur, wenn es auch Treffer gibt
+  if (hasTreffer) {
+    updateCurrentMatchInfo();
+    updateProgressBar();
+  } else {
+    // Wenn keine Treffer, setze die Anzeigen explizit zurück
+    document.getElementById('currentMatchInfo').textContent = '';
+    document.getElementById('progressFill').style.width = '0%';
+  }
+
+  // --- Logik für Add/Remove-Buttons (wie von Ihnen gewünscht) ---
   removeHitBtn.style.display = 'none';
   addHitBtn.style.display = 'none';
 
-  // --- FINALE, KORRIGIERTE LOGIK ---
   if (isCurrentlyOnMatchPage) {
-    // Zustand 1: Wir sind auf einer Trefferseite.
-    // Zeige IMMER den "Entfernen"-Button an, auch wenn es der letzte Treffer ist.
     removeHitBtn.style.display = 'block';
   } else {
-    // Zustand 2: Wir sind NICHT auf einer Trefferseite.
-    // Zeige IMMER den "Hinzufügen"-Button an.
     addHitBtn.style.display = 'block';
   }
 }
+
 
 
 // In Ihrer viewer-final.js
@@ -2394,7 +2405,7 @@ function openBerichte(event) {
 
 function resetApplication() {
   // Die Sicherheitsabfrage "if (isMobileDevice())" wurde entfernt.
-  
+  updateHelpers(); 
   console.log("Anwendung wird zurückgesetzt...");
 
   // 1. Leere die Suchfelder

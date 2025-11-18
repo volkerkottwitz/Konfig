@@ -250,6 +250,12 @@ button:disabled:hover {
     transition: width 0.4s ease;
 }
 
+/* ========== NEU: Fortschrittsbalken standardmäßig ausblenden ========== */
+#progressBar {
+    display: none;
+}
+
+
 /* ========== PDF-Container ========== */
 #pdfContainer {
     display: flex;
