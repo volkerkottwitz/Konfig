@@ -491,45 +491,45 @@ else if (expandedTerm1 && expandedTerm2) {
 // ===================================================================
 //   FINALE, VERFEINERTE 'getContextSnippet'-FUNKTION
 // ===================================================================
+// NEUE, VERBESSERTE getContextSnippet() FUNKTION
+
 function getContextSnippet(pageText, term1, term2, length = 150) {
+  // Erweitere die Suchbegriffe sofort zu einer Regex
   const expandedTerm1 = term1 ? expandZollQuery(term1) : null;
   const expandedTerm2 = term2 ? expandZollQuery(term2) : null;
   const normPageText = normalize(pageText);
 
   let index = -1;
 
-  // === NEUE, VERFEINERTE LOGIK ===
-  // 1. Versuche, den exakten (normalisierten) Originalbegriff zu finden.
-  //    Das ist oft relevanter für den Benutzer.
-  if (term1) {
-    index = normPageText.indexOf(normalize(term1));
-  }
-  if (index === -1 && term2) {
-    index = normPageText.indexOf(normalize(term2));
-  }
-
-  // 2. Wenn der Originalbegriff nicht gefunden wurde, suche nach irgendeinem Synonym.
-  if (index === -1 && expandedTerm1) {
+  // --- NEUE, ROBUSTERE LOGIK ZUR POSITIONSFINDUNG ---
+  // 1. Versuche, die Position des ersten erweiterten Begriffs zu finden.
+  if (expandedTerm1) {
     try {
+      // Wir verwenden .search() mit einer Regex, um die erste Fundstelle eines Synonyms zu finden.
       const searchRegex = new RegExp(expandedTerm1, 'i');
       index = normPageText.search(searchRegex);
-    } catch (e) { /* Fehler ignorieren */ }
+    } catch (e) { /* Fehler bei ungültiger Regex ignorieren */ }
   }
+
+  // 2. Wenn der erste Begriff nichts findet, versuche es mit dem zweiten.
   if (index === -1 && expandedTerm2) {
     try {
       const searchRegex = new RegExp(expandedTerm2, 'i');
       index = normPageText.search(searchRegex);
     } catch (e) { /* Fehler ignorieren */ }
   }
+  // ----------------------------------------------------
 
+  // Wenn absolut nichts gefunden wurde, nimm den Anfang der Seite.
   if (index === -1) {
     return pageText.substring(0, length) + '...';
   }
 
+  // Zentriere den Ausschnitt um die gefundene Position.
   const start = Math.max(0, index - Math.floor(length / 3));
   let snippet = pageText.substring(start, start + length);
 
-  // Die Hervorhebung selbst bleibt intelligent und markiert alle Synonyme.
+  // Hebe nun ALLE Synonyme im erstellten Snippet hervor.
   if (expandedTerm1) {
     try {
       const highlightRegex = new RegExp(expandedTerm1, 'gi');
@@ -543,6 +543,7 @@ function getContextSnippet(pageText, term1, term2, length = 150) {
     } catch (e) { /* Fehler ignorieren */ }
   }
 
+  // Füge "..." am Anfang oder Ende hinzu, falls der Ausschnitt nicht den kompletten Text zeigt.
   return (start > 0 ? '...' : '') + snippet + (start + length < pageText.length ? '...' : '');
 }
 
