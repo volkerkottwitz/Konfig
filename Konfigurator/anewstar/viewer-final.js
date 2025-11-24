@@ -2704,32 +2704,42 @@ pdfContainer.addEventListener('touchmove', function(e) {
 
 // FINALE, ERWEITERTE touchend-FUNKTION
 
+// FINALE, ERWEITERTE touchend-FUNKTION (MIT DOPPEL-TAP-AKTION)
+
 pdfContainer.addEventListener('touchend', function(event) {
-  // Doppel-Tap-Logik (unverändert)
   const currentTime = new Date().getTime();
   const tapLength = currentTime - lastTap;
-  lastTap = currentTime;
-  if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
-    // ... (Doppel-Tap-Code bleibt gleich) ...
-    return;
-  }
 
+  // --- ANFANG: DOPPEL-TAP-LOGIK ---
+  // Prüft auf schnellen Tap ohne Wischbewegung
+  if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
+    
+    // AKTION: PDF in neuem Tab öffnen (genau wie beim Desktop-Doppelklick)
+    if (currentDocumentPath && pdfDoc) {
+      const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
+      window.open(urlForNewTab, '_blank');
+    }
+    
+    // Wichtig: Verhindert, dass die Wisch-Logik danach ausgeführt wird.
+    lastTap = 0; // Zurücksetzen, um "Dreifach-Taps" zu vermeiden
+    return; 
+  }
+  // --- ENDE: DOPPEL-TAP-LOGIK ---
+
+  // Zeitstempel für den nächsten Tap wird nur gesetzt, wenn es kein Doppel-Tap war.
+  lastTap = currentTime;
+
+  // --- ANFANG: WISCH-LOGIK (unverändert) ---
   const mindestDistanz = pdfContainer.clientWidth * 0.25;
   const pdfViewer = document.getElementById('pdfViewer');
+  let geblaettert = false;
 
-  // --- HIER BEGINNEN DIE ÄNDERUNGEN ---
-  let geblaettert = false; // Eine Hilfsvariable, um zu prüfen, ob eine Aktion stattfand
-
-  // Prüfen, ob eine relevante Wischbewegung stattgefunden hat
   if (Math.abs(distanzX) > mindestDistanz && Math.abs(distanzX) > Math.abs(distanzY)) {
-    
-    // Geste nach LINKS (will zur NÄCHSTEN Seite)
     if (distanzX < 0 && currentPage < pdfDoc.numPages) {
       if (pdfViewer) { pdfViewer.style.transition = 'opacity 0.3s ease-out'; pdfViewer.style.opacity = '0'; }
       setTimeout(() => { document.getElementById('next-page').click(); }, 50);
       geblaettert = true;
     } 
-    // Geste nach RECHTS (will zur VORHERIGEN Seite)
     else if (distanzX > 0 && currentPage > 1) {
       if (pdfViewer) { pdfViewer.style.transition = 'opacity 0.3s ease-out'; pdfViewer.style.opacity = '0'; }
       setTimeout(() => { document.getElementById('prev-page').click(); }, 50);
@@ -2737,8 +2747,6 @@ pdfContainer.addEventListener('touchend', function(event) {
     }
   }
 
-  // Wenn NICHT geblättert wurde (entweder nicht weit genug gewischt ODER am Anschlag),
-  // dann sorge IMMER dafür, dass die Seite zurückschnellt.
   if (!geblaettert && distanzX !== 0) {
     if (pdfViewer) {
       pdfViewer.style.transition = 'transform 0.3s ease-out';
@@ -2746,10 +2754,11 @@ pdfContainer.addEventListener('touchend', function(event) {
     }
   }
   
-  // Am Ende IMMER die Distanzen für die nächste Geste zurücksetzen.
   distanzX = 0;
   distanzY = 0;
+  // --- ENDE: WISCH-LOGIK ---
 });
+
 
 
 }
