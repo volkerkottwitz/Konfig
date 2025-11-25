@@ -209,7 +209,7 @@ button:disabled:hover {
 /* ========== Info & Fortschritt ========== */
 #infoSection {
     margin-top: 15px;
-    color: #005A8C;
+    color: #003366;
     font-size: 15px;
     display: flex;
     flex-direction: column;
@@ -232,7 +232,11 @@ button:disabled:hover {
 
 #searchStatus span {
     white-space: nowrap;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
 }
+
 #progressBar {
     width: 60%;
     height: 5px;
@@ -310,6 +314,11 @@ button:disabled:hover {
     gap: 10px; /* Reduzierter Abstand für die Hauptgruppe */
     margin-top: 20px;
 }
+
+.navigation-buttons button {
+    font-size: 13px;
+}
+
 /* ========== NEU: Styling für die Zoom-Gruppe ========== */
 .zoom-group {
   display: flex;

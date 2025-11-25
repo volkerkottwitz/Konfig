@@ -260,7 +260,7 @@ function startLazyLoading() {
     const geladeneAnzahl = globalPdfCache.filter(p => p.geladen).length;
 
     statusElement.textContent = `(Initialisiere Suche: ${geladeneAnzahl}/${globalPdfCache.length})`;
-
+    statusElement.style.color = '#003366';
     if (ungeladenesPdf) {
       try {
         // 1. Erstelle den Pfad zur .json-Datei
@@ -288,6 +288,7 @@ function startLazyLoading() {
     } else {
       console.log("Alle Text-Caches wurden erstellt.");
       statusElement.textContent = 'Suche bereit.';
+      statusElement.style.color = '#003366';
       setTimeout(() => { statusElement.style.display = 'none'; }, 2000);
       isLazyLoading = false;
     }
@@ -2656,19 +2657,32 @@ async function main() {
 let startX = 0, startY = 0, distanzX = 0, distanzY = 0, lastTap = 0;
 const pdfViewer = document.getElementById('pdfViewer');
 
+// OPTIMIERTER touchstart-Listener
 pdfContainer.addEventListener('touchstart', function(e) {
-  if (e.touches.length > 1 || !(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
+  // Nur auf den ersten Finger reagieren, um Konflikte mit Pinch-Zoom zu vermeiden.
+  if (e.touches.length > 1) {
     return;
   }
+
+  // Prüfen, ob wir uns im "Wisch-zum-Blättern"-Zoom-Bereich befinden.
+  if (!(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
+    return;
+  }
+
+  // Erst HIER, wenn wir sicher sind, dass eine Wischgeste beginnen könnte,
+  // setzen wir alle Werte zurück und bereiten die Geste vor.
   const touch = e.touches[0];
   startX = touch.screenX;
   startY = touch.screenY;
   distanzX = 0;
   distanzY = 0;
+  
   if (pdfViewer) {
+    // Deaktiviert die "Zurückschnell"-Animation, während der Finger zieht.
     pdfViewer.style.transition = 'none';
   }
 });
+
 
 // NEUER, VERBESSERTER touchmove-Listener
 
@@ -2711,47 +2725,62 @@ pdfContainer.addEventListener('touchmove', function(e) {
 
 // FINALE, ERWEITERTE touchend-FUNKTION (MIT DOPPEL-TAP-AKTION)
 
+// FINALER, OPTIMIERTER touchend-Listener
 pdfContainer.addEventListener('touchend', function(event) {
   const currentTime = new Date().getTime();
   const tapLength = currentTime - lastTap;
 
-  // --- ANFANG: DOPPEL-TAP-LOGIK ---
-  // Prüft auf schnellen Tap ohne Wischbewegung
+  // --- 1. DOPPEL-TAP-LOGIK (ROBUST) ---
   if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
-    
-    // AKTION: PDF in neuem Tab öffnen (genau wie beim Desktop-Doppelklick)
     if (currentDocumentPath && pdfDoc) {
       const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
       window.open(urlForNewTab, '_blank');
     }
-    
-    // Wichtig: Verhindert, dass die Wisch-Logik danach ausgeführt wird.
-    lastTap = 0; // Zurücksetzen, um "Dreifach-Taps" zu vermeiden
-    return; 
+    lastTap = 0; // Verhindert "Dreifach-Tap"-Fehler
+    return;
   }
-  // --- ENDE: DOPPEL-TAP-LOGIK ---
-
-  // Zeitstempel für den nächsten Tap wird nur gesetzt, wenn es kein Doppel-Tap war.
+  // Zeitstempel für den nächsten Tap wird erst NACH der Prüfung gesetzt.
   lastTap = currentTime;
 
-  // --- ANFANG: WISCH-LOGIK (unverändert) ---
+  // --- 2. WISCH-LOGIK (ROBUST) ---
   const mindestDistanz = pdfContainer.clientWidth * 0.25;
   const pdfViewer = document.getElementById('pdfViewer');
   let geblaettert = false;
 
-  if (Math.abs(distanzX) > mindestDistanz && Math.abs(distanzX) > Math.abs(distanzY)) {
+  if (pdfViewer && Math.abs(distanzX) > mindestDistanz && Math.abs(distanzX) > Math.abs(distanzY)) {
+    
+    // Funktion, die nach der Fade-Out-Animation ausgeführt wird
+    const nachAnimationBlaettern = (richtung) => {
+      if (richtung === 'vor') {
+        document.getElementById('next-page').click();
+      } else {
+        document.getElementById('prev-page').click();
+      }
+      // Wichtig: Listener entfernen, um Mehrfachauslösung zu verhindern
+      pdfViewer.removeEventListener('transitionend', geblaettertHandler);
+    };
+
+    let geblaettertHandler; // Hilfsvariable für den Event-Listener
+
+    // Geste nach LINKS (NÄCHSTE Seite)
     if (distanzX < 0 && currentPage < pdfDoc.numPages) {
-      if (pdfViewer) { pdfViewer.style.transition = 'opacity 0.3s ease-out'; pdfViewer.style.opacity = '0'; }
-      setTimeout(() => { document.getElementById('next-page').click(); }, 50);
+      geblaettertHandler = () => nachAnimationBlaettern('vor');
+      pdfViewer.addEventListener('transitionend', geblaettertHandler, { once: true });
+      pdfViewer.style.transition = 'opacity 0.2s ease-out'; // Kürzere Animation für besseres Gefühl
+      pdfViewer.style.opacity = '0';
       geblaettert = true;
     } 
+    // Geste nach RECHTS (VORHERIGE Seite)
     else if (distanzX > 0 && currentPage > 1) {
-      if (pdfViewer) { pdfViewer.style.transition = 'opacity 0.3s ease-out'; pdfViewer.style.opacity = '0'; }
-      setTimeout(() => { document.getElementById('prev-page').click(); }, 50);
+      geblaettertHandler = () => nachAnimationBlaettern('zurueck');
+      pdfViewer.addEventListener('transitionend', geblaettertHandler, { once: true });
+      pdfViewer.style.transition = 'opacity 0.2s ease-out';
+      pdfViewer.style.opacity = '0';
       geblaettert = true;
     }
   }
 
+  // --- 3. ZURÜCKSCHNELL-LOGIK (unverändert) ---
   if (!geblaettert && distanzX !== 0) {
     if (pdfViewer) {
       pdfViewer.style.transition = 'transform 0.3s ease-out';
@@ -2759,11 +2788,10 @@ pdfContainer.addEventListener('touchend', function(event) {
     }
   }
   
+  // Distanzen für die nächste Geste zurücksetzen
   distanzX = 0;
   distanzY = 0;
-  // --- ENDE: WISCH-LOGIK ---
 });
-
 
 
 }
