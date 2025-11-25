@@ -959,7 +959,9 @@ const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-z
         }
 
         const klickDiv = document.createElement('div');
-        Object.assign(klickDiv.style, {
+        klickDiv.className = 'article-click-box'; // Eindeutige Klasse hinzufügen
+
+          Object.assign(klickDiv.style, {
           position: 'absolute',
           left: `${x}px`,
           top: `${y}px`,
@@ -1030,6 +1032,8 @@ const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-z
       const width = canvas.offsetWidth;
 
       const div = document.createElement('div');
+      div.className = 'line-click-box'; // Eindeutige Klasse hinzufügen
+
       Object.assign(div.style, {
         position: 'absolute',
         left: `${x}px`,
@@ -2668,33 +2672,34 @@ pdfContainer.addEventListener('touchstart', function(e) {
 
 // NEUER, VERBESSERTER touchmove-Listener
 
+// KORRIGIERTER touchmove-Listener (verhindert Blockieren & Ruckeln)
 pdfContainer.addEventListener('touchmove', function(e) {
-  // Diese Sicherheitsabfragen sind weiterhin wichtig
-  if (e.touches.length > 1 || zoomFactor > 1.0) return;
+  // 1. Geste sofort beenden, wenn es sich um eine Multi-Touch-Geste (wie Pinch-Zoom) handelt.
+  //    So kann der Browser ungestört zoomen und pannen.
+  if (e.touches.length > 1) {
+    return;
+  }
 
+  // 2. Geste ebenfalls beenden, wenn der Zoom-Faktor außerhalb unseres "Wisch-zum-Blättern"-Bereichs liegt.
+  //    Dies verhindert Konflikte, wenn der Nutzer mit einem Finger auf einer bereits gezoomten Seite navigieren will.
+  if (!(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
+      return;
+  }
+
+  // Der Rest Ihrer Logik zum Vorbereiten der Wisch-Geste bleibt unverändert.
   const touch = e.touches[0];
   distanzX = touch.screenX - startX;
   distanzY = touch.screenY - startY;
 
-  // Nur bei horizontaler Bewegung reagieren
   if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
-    
-    // --- HIER IST DIE VERBESSERTE LOGIK ---
     let bewegung = distanzX;
-
-    // Fall 1: Auf Seite 1 und Versuch, nach rechts zu wischen (zurück)
     if (currentPage === 1 && distanzX > 0) {
-      // Dämpfe die Bewegung stark, um einen "Wand"-Effekt zu erzeugen
       bewegung = distanzX / (1 + (distanzX / pdfContainer.clientWidth) * 2);
     } 
-    // Fall 2: Auf der letzten Seite und Versuch, nach links zu wischen (vorwärts)
     else if (currentPage === pdfDoc.numPages && distanzX < 0) {
-      // Dämpfe die Bewegung in die andere Richtung
       const absDistanz = Math.abs(distanzX);
       bewegung = - (absDistanz / (1 + (absDistanz / pdfContainer.clientWidth) * 2));
     }
-    
-    // Wende die (ggf. gedämpfte) Bewegung auf die Seite an
     pdfViewer.style.transform = `translateX(${bewegung}px)`;
   }
 }, { passive: true });

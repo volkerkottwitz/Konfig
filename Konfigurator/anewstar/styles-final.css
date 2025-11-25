@@ -1615,3 +1615,26 @@ input:focus {
   width: 100%;
   max-width: 340px;
 }
+
+/* ======================================================= */
+/*   NEU: KORREKTUR FÜR TOUCH-GESTEN & ZOOM-RUCKELN      */
+/* ======================================================= */
+
+/* 
+  Schritt 1: Alle Markierungen und Overlays werden für Touch-Gesten
+  standardmäßig "durchsichtig" gemacht. Gesten gehen direkt an den
+  darunterliegenden PDF-Container durch. Das verhindert Ruckeln.
+*/
+.article-click-box,
+.line-click-box {
+  pointer-events: none;
+}
+
+/*
+  Schritt 2: Wir erlauben Klick-Ereignisse explizit NUR für die
+  Boxen, die eine Artikelnummer enthalten, damit diese weiterhin
+  den Dialog öffnen können.
+*/
+.article-click-box {
+  pointer-events: auto; /* Erlaubt Klicks wieder für diese spezifischen Boxen */
+}
