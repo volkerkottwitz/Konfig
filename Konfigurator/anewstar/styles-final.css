@@ -1647,3 +1647,23 @@ input:focus {
 .article-click-box {
   pointer-events: auto; /* Erlaubt Klicks wieder für diese spezifischen Boxen */
 }
+
+
+/* Performance-Optimierungen für Touch-Gesten */
+.article-click-box,
+.line-click-box {
+  will-change: transform;
+}
+
+#pdfViewer {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+#pdfContainer * {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}

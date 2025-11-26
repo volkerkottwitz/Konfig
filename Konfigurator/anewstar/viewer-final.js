@@ -2642,16 +2642,21 @@ async function main() {
 
 // === 🔧 Variablen für Gestensteuerung und Zustand ===
 let startX = 0, startY = 0, distanzX = 0, distanzY = 0, lastTap = 0;
-let currentGesture = 'none'; // NEU: Zustandsvariable für robuste Gestenerkennung
+let currentGesture = 'none';
+let touchStartTime = 0; // NEU: Zeitstempel für Touch-Start
 const pdfViewer = document.getElementById('pdfViewer');
 
-// === 🖱️ EVENT DELEGATION FÜR MARKIERUNGEN (NEU) ===
-// Ein einziger Listener ersetzt hunderte individuelle Klick-Listener.
+// === 🖱️ OPTIMIERTE EVENT DELEGATION MIT TOUCH-BLOCKIERUNG ===
 pdfContainer.addEventListener('click', function(event) {
+  // NEU: Ignoriere Klicks, die aus einem Pan/Swipe entstanden sind
+  if (currentGesture === 'browser-pan' || currentGesture === 'swipe-to-page') {
+    return;
+  }
+
   const target = event.target.closest('.article-click-box, .line-click-box');
 
   if (!target) {
-    return; // Klick war außerhalb einer Markierung
+    return;
   }
 
   const type = target.getAttribute('data-highlight-type');
@@ -2664,7 +2669,6 @@ pdfContainer.addEventListener('click', function(event) {
     if (artikel) {
       openArticleDialog(artikelnummer, artikel, 'add');
     } else {
-      console.log("❌ Artikel NICHT in artikelMap:", artikelnummer);
       const pseudoArtikel = { nummer: artikelnummer, name: lineText, preis: 0 };
       openArticleDialog(artikelnummer, pseudoArtikel, 'add');
     }
@@ -2676,9 +2680,12 @@ pdfContainer.addEventListener('click', function(event) {
       zeigeArtikelDialog(lineText);
     }
   }
-});
+}, { passive: true }); // NEU: Auch hier passive
 
+// === OPTIMIERTER touchstart (mit passive Option) ===
 pdfContainer.addEventListener('touchstart', function(e) {
+  touchStartTime = Date.now(); // NEU: Zeitstempel speichern
+  
   // 1. Multi-Touch (Zoom/Pinch)
   if (e.touches.length > 1) {
     currentGesture = 'browser-zoom';
@@ -2701,26 +2708,25 @@ pdfContainer.addEventListener('touchstart', function(e) {
   if (pdfViewer) {
     pdfViewer.style.transition = 'none';
   }
-});
+}, { passive: true }); // NEU: Passive Option hinzugefügt
 
-// NEUER, VERBESSERTER touchmove-Listener
-
-// KORRIGIERTER touchmove-Listener (verhindert Blockieren & Ruckeln)
+// === OPTIMIERTER touchmove (bereits passive) ===
 pdfContainer.addEventListener('touchmove', function(e) {
-  // NEU: Nur fortfahren, wenn es eine 'swipe-to-page' Geste ist.
   if (currentGesture !== 'swipe-to-page') {
-    // WICHTIG: Wenn während einer Wisch-Geste ein zweiter Finger dazukommt, 
-    // muss der Zustand sofort auf 'browser-zoom' umgestellt werden.
     if (e.touches.length > 1) {
       currentGesture = 'browser-zoom';
     }
     return;
   }
 
-  // Der Rest Ihrer Logik zum Vorbereiten der Wisch-Geste bleibt unverändert.
   const touch = e.touches[0];
   distanzX = touch.screenX - startX;
   distanzY = touch.screenY - startY;
+
+  // NEU: Schwellenwert für Bewegungserkennung (reduziert Jitter)
+  if (Math.abs(distanzX) < 5 && Math.abs(distanzY) < 5) {
+    return; // Ignoriere winzige Bewegungen
+  }
 
   if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
     let bewegung = distanzX;
@@ -2731,86 +2737,84 @@ pdfContainer.addEventListener('touchmove', function(e) {
       const absDistanz = Math.abs(distanzX);
       bewegung = - (absDistanz / (1 + (absDistanz / pdfContainer.clientWidth) * 2));
     }
-    pdfViewer.style.transform = `translateX(${bewegung}px)`;
+    
+    // NEU: Verwende transform3d für Hardware-Beschleunigung
+    pdfViewer.style.transform = `translate3d(${bewegung}px, 0, 0)`;
   }
 }, { passive: true });
 
-
-// FINALE, KORREKTE touchend-FUNKTION
-
-// FINALE, ERWEITERTE touchend-FUNKTION
-
-// FINALE, ERWEITERTE touchend-FUNKTION (MIT DOPPEL-TAP-AKTION)
-
+// === OPTIMIERTER touchend ===
 pdfContainer.addEventListener('touchend', function(event) {
-  // NEU: Wenn die Geste ein Zoom oder Pan war, ignorieren wir die Wisch-Logik.
+  const touchDuration = Date.now() - touchStartTime; // NEU: Dauer berechnen
+  
+  // NEU: Wenn die Geste ein Zoom oder Pan war, ignorieren
   if (currentGesture === 'browser-zoom' || currentGesture === 'browser-pan') {
-    currentGesture = 'none'; // Zustand zurücksetzen
+    currentGesture = 'none';
     return;
   }
 
-  // Wenn es keine unserer Gesten war, ebenfalls zurücksetzen und abbrechen.
   if (currentGesture !== 'swipe-to-page') {
     currentGesture = 'none';
     return;
   }
 
-  // Zustand zurücksetzen, da die Geste beendet ist.
-  currentGesture = 'none';
-
-  const currentTime = new Date().getTime();
+  const currentTime = Date.now();
   const tapLength = currentTime - lastTap;
 
-  // --- ANFANG: DOPPEL-TAP-LOGIK ---
-  // Prüft auf schnellen Tap ohne Wischbewegung
-  if (tapLength < 300 && tapLength > 0 && Math.abs(distanzX) < 20) {
+  // === DOPPEL-TAP-LOGIK (mit verbesserter Erkennung) ===
+  // NEU: Prüfe auch die Touch-Dauer (schneller Tap = < 200ms)
+  if (tapLength < 300 && tapLength > 0 && 
+      Math.abs(distanzX) < 20 && 
+      touchDuration < 200) { // NEU: Bedingung hinzugefügt
     
-    // AKTION: PDF in neuem Tab öffnen (genau wie beim Desktop-Doppelklick)
     if (currentDocumentPath && pdfDoc) {
       const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
       window.open(urlForNewTab, '_blank');
     }
     
-    // Wichtig: Verhindert, dass die Wisch-Logik danach ausgeführt wird.
-    lastTap = 0; // Zurücksetzen, um "Dreifach-Taps" zu vermeiden
+    lastTap = 0;
+    currentGesture = 'none'; // NEU: Explizit zurücksetzen
     return; 
   }
-  // --- ENDE: DOPPEL-TAP-LOGIK ---
 
-  // Zeitstempel für den nächsten Tap wird nur gesetzt, wenn es kein Doppel-Tap war.
   lastTap = currentTime;
 
-  // --- ANFANG: WISCH-LOGIK (unverändert) ---
+  // === WISCH-LOGIK ===
   const mindestDistanz = pdfContainer.clientWidth * 0.25;
-  const pdfViewer = document.getElementById('pdfViewer');
   let geblaettert = false;
 
   if (Math.abs(distanzX) > mindestDistanz && Math.abs(distanzX) > Math.abs(distanzY)) {
     if (distanzX < 0 && currentPage < pdfDoc.numPages) {
-      if (pdfViewer) { pdfViewer.style.transition = 'opacity 0.3s ease-out'; pdfViewer.style.opacity = '0'; }
+      if (pdfViewer) { 
+        pdfViewer.style.transition = 'opacity 0.3s ease-out'; 
+        pdfViewer.style.opacity = '0'; 
+      }
       setTimeout(() => { document.getElementById('next-page').click(); }, 50);
       geblaettert = true;
     } 
     else if (distanzX > 0 && currentPage > 1) {
-      if (pdfViewer) { pdfViewer.style.transition = 'opacity 0.3s ease-out'; pdfViewer.style.opacity = '0'; }
+      if (pdfViewer) { 
+        pdfViewer.style.transition = 'opacity 0.3s ease-out'; 
+        pdfViewer.style.opacity = '0'; 
+      }
       setTimeout(() => { document.getElementById('prev-page').click(); }, 50);
       geblaettert = true;
     }
   }
 
-  // HIER wird das "Zurückschnellen" verhindert, wenn es eine Panning-Geste war, 
-  // da wir durch die neue Logik nur noch hier landen, wenn es eine Wisch-Geste war.
-  if (!geblaettert && distanzX !== 0) {
+  // Zurückschnellen nur bei kleinen Bewegungen
+  if (!geblaettert && Math.abs(distanzX) > 5) { // NEU: Schwellenwert hinzugefügt
     if (pdfViewer) {
       pdfViewer.style.transition = 'transform 0.3s ease-out';
-      pdfViewer.style.transform = 'translateX(0)';
+      pdfViewer.style.transform = 'translate3d(0, 0, 0)'; // NEU: translate3d statt translateX
     }
   }
   
   distanzX = 0;
   distanzY = 0;
-  // --- ENDE: WISCH-LOGIK ---
-});
+  currentGesture = 'none'; // NEU: Explizit zurücksetzen
+}, { passive: true }); // NEU: Passive Option hinzugefügt
+
 
 
 
