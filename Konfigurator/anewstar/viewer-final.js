@@ -976,20 +976,10 @@ const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-z
 
         klickDiv.setAttribute('data-tooltip', `Artikel ${artikelnummer} anzeigen`);
 
-        klickDiv.addEventListener('click', () => {
-          const artikel = artikelMap.get(artikelnummer);
-          if (artikel) {
-            openArticleDialog(artikelnummer, artikel, 'add');
-          } else {
-            console.log("❌ Artikel NICHT in artikelMap:", artikelnummer);
-            const pseudoArtikel = {
-              nummer: artikelnummer,
-              name: lineText,
-              preis: 0
-            };
-            openArticleDialog(artikelnummer, pseudoArtikel, 'add');
-          }
-        });
+        // NEU: Statt Event-Listener, speichern wir die Daten im Element
+        klickDiv.setAttribute('data-artikelnummer', artikelnummer);
+        klickDiv.setAttribute('data-line-text', lineText); // Fallback-Text speichern
+        klickDiv.setAttribute('data-highlight-type', 'article');
 
         container.appendChild(klickDiv);
       }
@@ -1049,13 +1039,9 @@ const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-z
 
       div.setAttribute('data-tooltip', `Keine Artikelnummer gefunden`);
 
-      div.addEventListener('click', () => {
-        if (isMobileDevice()) {
-          openNoArticleDialog(lineText);
-        } else {
-          zeigeArtikelDialog(lineText);
-        }
-      });
+      // NEU: Statt Event-Listener, speichern wir die Daten im Element
+      div.setAttribute('data-line-text', lineText);
+      div.setAttribute('data-highlight-type', 'line');
 
       container.appendChild(div);
     });
@@ -2654,13 +2640,59 @@ async function main() {
     });
 // URSPRÜNGLICHE, WIEDERHERGESTELLTE GESTENSTEUERUNG
 
+// === 🔧 Variablen für Gestensteuerung und Zustand ===
 let startX = 0, startY = 0, distanzX = 0, distanzY = 0, lastTap = 0;
+let currentGesture = 'none'; // NEU: Zustandsvariable für robuste Gestenerkennung
 const pdfViewer = document.getElementById('pdfViewer');
 
+// === 🖱️ EVENT DELEGATION FÜR MARKIERUNGEN (NEU) ===
+// Ein einziger Listener ersetzt hunderte individuelle Klick-Listener.
+pdfContainer.addEventListener('click', function(event) {
+  const target = event.target.closest('.article-click-box, .line-click-box');
+
+  if (!target) {
+    return; // Klick war außerhalb einer Markierung
+  }
+
+  const type = target.getAttribute('data-highlight-type');
+  const lineText = target.getAttribute('data-line-text');
+
+  if (type === 'article') {
+    const artikelnummer = target.getAttribute('data-artikelnummer');
+    const artikel = artikelMap.get(artikelnummer);
+    
+    if (artikel) {
+      openArticleDialog(artikelnummer, artikel, 'add');
+    } else {
+      console.log("❌ Artikel NICHT in artikelMap:", artikelnummer);
+      const pseudoArtikel = { nummer: artikelnummer, name: lineText, preis: 0 };
+      openArticleDialog(artikelnummer, pseudoArtikel, 'add');
+    }
+  } 
+  else if (type === 'line') {
+    if (isMobileDevice()) {
+      openNoArticleDialog(lineText);
+    } else {
+      zeigeArtikelDialog(lineText);
+    }
+  }
+});
+
 pdfContainer.addEventListener('touchstart', function(e) {
-  if (e.touches.length > 1 || !(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
+  // 1. Multi-Touch (Zoom/Pinch)
+  if (e.touches.length > 1) {
+    currentGesture = 'browser-zoom';
     return;
   }
+
+  // 2. Panning auf gezoomter Seite
+  if (!(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
+    currentGesture = 'browser-pan';
+    return;
+  }
+
+  // 3. Unsere Wisch-Geste (Swipe-to-Page)
+  currentGesture = 'swipe-to-page';
   const touch = e.touches[0];
   startX = touch.screenX;
   startY = touch.screenY;
@@ -2675,16 +2707,14 @@ pdfContainer.addEventListener('touchstart', function(e) {
 
 // KORRIGIERTER touchmove-Listener (verhindert Blockieren & Ruckeln)
 pdfContainer.addEventListener('touchmove', function(e) {
-  // 1. Geste sofort beenden, wenn es sich um eine Multi-Touch-Geste (wie Pinch-Zoom) handelt.
-  //    So kann der Browser ungestört zoomen und pannen.
-  if (e.touches.length > 1) {
+  // NEU: Nur fortfahren, wenn es eine 'swipe-to-page' Geste ist.
+  if (currentGesture !== 'swipe-to-page') {
+    // WICHTIG: Wenn während einer Wisch-Geste ein zweiter Finger dazukommt, 
+    // muss der Zustand sofort auf 'browser-zoom' umgestellt werden.
+    if (e.touches.length > 1) {
+      currentGesture = 'browser-zoom';
+    }
     return;
-  }
-
-  // 2. Geste ebenfalls beenden, wenn der Zoom-Faktor außerhalb unseres "Wisch-zum-Blättern"-Bereichs liegt.
-  //    Dies verhindert Konflikte, wenn der Nutzer mit einem Finger auf einer bereits gezoomten Seite navigieren will.
-  if (!(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
-      return;
   }
 
   // Der Rest Ihrer Logik zum Vorbereiten der Wisch-Geste bleibt unverändert.
@@ -2713,6 +2743,21 @@ pdfContainer.addEventListener('touchmove', function(e) {
 // FINALE, ERWEITERTE touchend-FUNKTION (MIT DOPPEL-TAP-AKTION)
 
 pdfContainer.addEventListener('touchend', function(event) {
+  // NEU: Wenn die Geste ein Zoom oder Pan war, ignorieren wir die Wisch-Logik.
+  if (currentGesture === 'browser-zoom' || currentGesture === 'browser-pan') {
+    currentGesture = 'none'; // Zustand zurücksetzen
+    return;
+  }
+
+  // Wenn es keine unserer Gesten war, ebenfalls zurücksetzen und abbrechen.
+  if (currentGesture !== 'swipe-to-page') {
+    currentGesture = 'none';
+    return;
+  }
+
+  // Zustand zurücksetzen, da die Geste beendet ist.
+  currentGesture = 'none';
+
   const currentTime = new Date().getTime();
   const tapLength = currentTime - lastTap;
 
@@ -2753,6 +2798,8 @@ pdfContainer.addEventListener('touchend', function(event) {
     }
   }
 
+  // HIER wird das "Zurückschnellen" verhindert, wenn es eine Panning-Geste war, 
+  // da wir durch die neue Logik nur noch hier landen, wenn es eine Wisch-Geste war.
   if (!geblaettert && distanzX !== 0) {
     if (pdfViewer) {
       pdfViewer.style.transition = 'transform 0.3s ease-out';
@@ -2881,5 +2928,3 @@ function openYoutubeChannel() {
 
 
 }
-
-
