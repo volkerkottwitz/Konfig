@@ -1,7 +1,7 @@
 [
-  {
-    "name": "EWE-Preisliste 2025 (Hauptliste)",
-    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2025.pdf",
+    {
+    "name": "EWE-Preisliste 2026 (Hauptliste)",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2026.pdf",
     "category": "Preislisten",
     "isDefault": true
   },
@@ -452,5 +452,11 @@
     "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/PBL_Werbemittel_Lieferanten_032025.pdf",
     "category": "Prospekte",
     "isDefault": false
+  },
+    {
+    "name": "EWE-Preisliste 2025 (Hauptliste)",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2025.pdf",
+    "category": "Preislisten",
+    "isDefault": true
   }
 ]
