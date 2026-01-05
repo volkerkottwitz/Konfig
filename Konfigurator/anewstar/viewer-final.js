@@ -398,32 +398,55 @@ function startLocalSearch() {
   }
 }
 
+// ===================================================================
+//   SCHRITT 1: Intelligenter Tokenizer für Multi-Keyword & Phrasensuche
+// ===================================================================
+/**
+ * Zerlegt einen Suchstring in einzelne Wörter und exakte Phrasen.
+ * Phrasen werden mit Anführungszeichen (") definiert.
+ * @param {string} query - Die komplette Eingabe aus einem Suchfeld.
+ * @returns {string[]} - Ein Array von Such-Tokens (Wörter und Phrasen).
+ */
+function tokenizeQuery(query) {
+  if (!query || typeof query !== 'string') {
+    return [];
+  }
+  
+  const tokens = [];
+  // Dieser reguläre Ausdruck findet entweder eine Phrase in Anführungszeichen
+  // oder ein einzelnes, nicht-leeres Wort.
+  const regex = /"([^"]+)"|\S+/g;
+  
+  let match;
+  while ((match = regex.exec(query)) !== null) {
+    // Wenn match[1] existiert, ist es eine Phrase. Ansonsten ist es ein einzelnes Wort (match[0]).
+    tokens.push(match[1] || match[0]);
+  }
+  
+  return tokens;
+}
 
 
 // ===================================================================
-//   ANGEPASSTE 'startGlobalSearch'-FUNKTION (MIT ÜBERSCHRIFTEN-EXTRAKTION)
+//   SCHRITT 2: startGlobalSearch mit neuer Logik ersetzen
 // ===================================================================
 function startGlobalSearch() {
-  const searchText1 = document.getElementById('searchBox').value;
-  const searchText2 = document.getElementById('searchBox2').value;
+  // 1. Eingaben aus beiden Feldern holen und mit der neuen Funktion zerlegen
+  const tokens1 = tokenizeQuery(document.getElementById('searchBox').value);
+  const tokens2 = tokenizeQuery(document.getElementById('searchBox2').value);
 
-  if ((!searchText1 || searchText1.length < 2) && (!searchText2 || searchText2.length < 2)) {
-    alert('Bitte geben Sie für die globale Suche mindestens 2 Zeichen ein.');
+  if (tokens1.length === 0 && tokens2.length === 0) {
+    alert('Bitte geben Sie mindestens einen Suchbegriff ein.');
     return;
   }
 
   document.getElementById('loadingSpinnerOverlay').style.display = 'flex';
-  
-  // Die Suchbegriffe werden jetzt hier erweitert, damit wir sie nur einmal berechnen müssen.
-  const expandedTerm1 = searchText1 ? expandZollQuery(searchText1) : null;
-  const expandedTerm2 = searchText2 ? expandZollQuery(searchText2) : null;
-  
-  const searchRegex1 = expandedTerm1 ? new RegExp(expandedTerm1, 'gi') : null;
-  const searchRegex2 = expandedTerm2 ? new RegExp(expandedTerm2, 'gi') : null;
 
-  const activeOperatorBtn = document.querySelector('.operator-btn.active');
-  const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und';
+  // 2. Für jeden Token eine erweiterte Regex erstellen
+  const regexes1 = tokens1.map(token => new RegExp(expandZollQuery(token), 'gi'));
+  const regexes2 = tokens2.map(token => new RegExp(expandZollQuery(token), 'gi'));
 
+  const searchOperator = document.querySelector('.operator-btn.active')?.dataset.op || 'und';
   const allResults = [];
   const geladeneDokumente = globalPdfCache.filter(p => p.geladen);
 
@@ -431,57 +454,50 @@ function startGlobalSearch() {
     for (let i = 0; i < doc.seitenTexte.length; i++) {
       const pageText = doc.seitenTexte[i];
       const normalizedPageText = normalize(pageText);
+
+      // 3. Prüfen, ob die Bedingungen für jede Gruppe erfüllt sind
+      // Gruppe 1: ALLE Tokens aus Feld 1 müssen vorhanden sein
+      const group1Match = regexes1.length > 0 ? regexes1.every(regex => {
+        regex.lastIndex = 0; // Wichtig für globale Regexes in Schleifen
+        return regex.test(normalizedPageText);
+      }) : true;
+
+      // Gruppe 2: ALLE Tokens aus Feld 2 müssen vorhanden sein
+      const group2Match = regexes2.length > 0 ? regexes2.every(regex => {
+        regex.lastIndex = 0;
+        return regex.test(normalizedPageText);
+      }) : true; // Standardmäßig true, wird durch Operatorlogik gesteuert
+
+      // 4. Die Ergebnisse der Gruppen mit dem Operator verknüpfen
+      let isMatch = false;
+      if (tokens1.length > 0 && tokens2.length === 0) {
+        isMatch = group1Match;
+      } else if (tokens1.length === 0 && tokens2.length > 0) {
+        isMatch = group2Match;
+      } else if (tokens1.length > 0 && tokens2.length > 0) {
+        switch (searchOperator) {
+          case 'und': isMatch = group1Match && group2Match; break;
+          case 'oder': isMatch = group1Match || group2Match; break;
+          case 'ohne': isMatch = group1Match && !group2Match; break;
+        }
+      }
       
-      // Wichtig: Regex-Indizes vor jeder Verwendung zurücksetzen!
-      if (searchRegex1) searchRegex1.lastIndex = 0;
-      if (searchRegex2) searchRegex2.lastIndex = 0;
-
-      const hasText1 = searchRegex1 ? searchRegex1.test(normalizedPageText) : false;
-      const hasText2 = searchRegex2 ? searchRegex2.test(normalizedPageText) : false;
-      
-// NEUER, KORRIGIERTER isMatch-Block:
-
-let isMatch = false;
-
-// Fall 1: Nur das erste Feld ist ausgefüllt.
-if (expandedTerm1 && !expandedTerm2) {
-    isMatch = hasText1;
-} 
-// Fall 2: Nur das zweite Feld ist ausgefüllt.
-else if (!expandedTerm1 && expandedTerm2) {
-    isMatch = hasText2;
-} 
-// Fall 3: Beide Felder sind ausgefüllt.
-else if (expandedTerm1 && expandedTerm2) {
-    switch (searchOperator) {
-        case 'und': isMatch = hasText1 && hasText2; break;
-        case 'oder': isMatch = hasText1 || hasText2; break;
-        case 'ohne': isMatch = hasText1 && !hasText2; break;
-    }
-}
-// (Wenn beide Felder leer sind, bleibt isMatch = false, was korrekt ist)
-
       if (isMatch) {
-        // === HIER IST DIE NEUE LOGIK ===
-        // 1. Extrahiere die Überschrift von der gefundenen Seite.
         const headline = extractHeadline(pageText);
-
-        // 2. Füge die Überschrift zum Ergebnisobjekt hinzu.
         allResults.push({
           docName: doc.name,
           docPath: doc.path,
           pageNumber: i + 1,
-          headline: headline, // <--- NEUES FELD
-          context: getContextSnippet(pageText, searchText1, searchText2)
+          headline: headline,
+          context: getContextSnippet(pageText, tokens1, tokens2) // Übergibt die Token-Arrays
         });
       }
     }
   }
 
-  // Die Statistik-Zählung ist hier nicht mehr vorhanden, das ist korrekt.
   displayGlobalResults(allResults, { 
-      term1: searchText1, 
-      term2: searchText2,
+      term1: document.getElementById('searchBox').value, 
+      term2: document.getElementById('searchBox2').value,
       isFromGlobalSearch: true
   });
   
@@ -489,62 +505,38 @@ else if (expandedTerm1 && expandedTerm2) {
 }
 
 
-// ===================================================================
-//   FINALE, VERFEINERTE 'getContextSnippet'-FUNKTION
-// ===================================================================
-// NEUE, VERBESSERTE getContextSnippet() FUNKTION
 
-function getContextSnippet(pageText, term1, term2, length = 150) {
-  // Erweitere die Suchbegriffe sofort zu einer Regex
-  const expandedTerm1 = term1 ? expandZollQuery(term1) : null;
-  const expandedTerm2 = term2 ? expandZollQuery(term2) : null;
+// ===================================================================
+//   SCHRITT 3: getContextSnippet für Token-Arrays anpassen
+// ===================================================================
+function getContextSnippet(pageText, tokens1, tokens2, length = 150) {
   const normPageText = normalize(pageText);
-
+  const allTokens = [...tokens1, ...tokens2];
   let index = -1;
 
-  // --- NEUE, ROBUSTERE LOGIK ZUR POSITIONSFINDUNG ---
-  // 1. Versuche, die Position des ersten erweiterten Begriffs zu finden.
-  if (expandedTerm1) {
+  // Finde die Position des ersten Tokens im Text
+  if (allTokens.length > 0) {
     try {
-      // Wir verwenden .search() mit einer Regex, um die erste Fundstelle eines Synonyms zu finden.
-      const searchRegex = new RegExp(expandedTerm1, 'i');
-      index = normPageText.search(searchRegex);
-    } catch (e) { /* Fehler bei ungültiger Regex ignorieren */ }
+      const firstTokenRegex = new RegExp(expandZollQuery(allTokens[0]), 'i');
+      index = normPageText.search(firstTokenRegex);
+    } catch (e) { /* ignorieren */ }
   }
 
-  // 2. Wenn der erste Begriff nichts findet, versuche es mit dem zweiten.
-  if (index === -1 && expandedTerm2) {
-    try {
-      const searchRegex = new RegExp(expandedTerm2, 'i');
-      index = normPageText.search(searchRegex);
-    } catch (e) { /* Fehler ignorieren */ }
-  }
-  // ----------------------------------------------------
-
-  // Wenn absolut nichts gefunden wurde, nimm den Anfang der Seite.
   if (index === -1) {
     return pageText.substring(0, length) + '...';
   }
 
-  // Zentriere den Ausschnitt um die gefundene Position.
   const start = Math.max(0, index - Math.floor(length / 3));
   let snippet = pageText.substring(start, start + length);
 
-  // Hebe nun ALLE Synonyme im erstellten Snippet hervor.
-  if (expandedTerm1) {
+  // Hebe JEDEN Token aus BEIDEN Feldern im Snippet hervor
+  allTokens.forEach(token => {
     try {
-      const highlightRegex = new RegExp(expandedTerm1, 'gi');
+      const highlightRegex = new RegExp(expandZollQuery(token), 'gi');
       snippet = snippet.replace(highlightRegex, '<strong>$&</strong>');
-    } catch (e) { /* Fehler ignorieren */ }
-  }
-  if (expandedTerm2) {
-    try {
-      const highlightRegex = new RegExp(expandedTerm2, 'gi');
-      snippet = snippet.replace(highlightRegex, '<strong>$&</strong>');
-    } catch (e) { /* Fehler ignorieren */ }
-  }
+    } catch (e) { /* ignorieren */ }
+  });
 
-  // Füge "..." am Anfang oder Ende hinzu, falls der Ausschnitt nicht den kompletten Text zeigt.
   return (start > 0 ? '...' : '') + snippet + (start + length < pageText.length ? '...' : '');
 }
 
@@ -647,23 +639,23 @@ function displayGlobalResults(results, searchData) {
 
 
 // ===================================================================
-//   SCHRITT 3: 'activateSearchContext' anpassen
+//   SCHRITT 4: activateSearchContext mit neuer Logik ersetzen
 // ===================================================================
 function activateSearchContext() {
-  const term1 = document.getElementById('searchBox').value;
-  const term2 = document.getElementById('searchBox2').value;
+  // 1. Eingaben aus beiden Feldern holen und tokenizen
+  const tokens1 = tokenizeQuery(document.getElementById('searchBox').value);
+  const tokens2 = tokenizeQuery(document.getElementById('searchBox2').value);
 
-  // === HIER IST DIE ÄNDERUNG ===
-  // Wir speichern die erweiterten Begriffe in den globalen Variablen,
-  // damit die 'highlightMatches'-Funktion sie verwenden kann.
-  searchText = term1 ? normalize(expandZollQuery(term1)) : "";
-  secondSearchText = term2 ? normalize(expandZollQuery(term2)) : "";
-  
+  // 2. Globale Suchvariablen für die Hervorhebungsfunktion (highlightMatches) vorbereiten
+  // Wir erstellen eine große ODER-verknüpfte Regex für jedes Feld.
+  searchText = tokens1.length > 0 ? tokens1.map(t => `(${expandZollQuery(t)})`).join('|') : "";
+  secondSearchText = tokens2.length > 0 ? tokens2.map(t => `(${expandZollQuery(t)})`).join('|') : "";
+
   const searchInfo = document.getElementById('searchInfo');
+  matchPages.clear();
 
-  if (!searchText && !secondSearchText) {
+  if (tokens1.length === 0 && tokens2.length === 0) {
     searchInfo.innerHTML = '';
-    matchPages.clear();
     updateHelpers();
     updateNavigation();
     return;
@@ -672,12 +664,14 @@ function activateSearchContext() {
   const cacheEntry = globalPdfCache.find(p => p.path === currentDocumentPath);
   if (!cacheEntry || !cacheEntry.geladen) return;
 
-  matchPages.clear();
-  const activeOperatorBtn = document.querySelector('.operator-btn.active');
-  const searchOperator = activeOperatorBtn ? activeOperatorBtn.dataset.op : 'und';
+  const searchOperator = document.querySelector('.operator-btn.active')?.dataset.op || 'und';
 
-  let localTerm1Count = 0;
-  let localTerm2Count = 0;
+  // Regex-Objekte für die Trefferzählung
+  const regexes1 = tokens1.map(token => new RegExp(expandZollQuery(token), 'gi'));
+  const regexes2 = tokens2.map(token => new RegExp(expandZollQuery(token), 'gi'));
+
+  let totalMatches1 = 0;
+  let totalMatches2 = 0;
 
   for (let i = 0; i < cacheEntry.seitenTexte.length; i++) {
     const pageText = cacheEntry.seitenTexte[i];
@@ -685,63 +679,83 @@ function activateSearchContext() {
 
     const normalizedPageText = normalize(pageText);
     
-    let matches1 = 0;
-    if (searchText) {
-        matches1 = (normalizedPageText.match(new RegExp(searchText, 'gi')) || []).length;
-    }
-    
-    let matches2 = 0;
-    if (secondSearchText) {
-        matches2 = (normalizedPageText.match(new RegExp(secondSearchText, 'gi')) || []).length;
-    }
+    // Prüfen, ob die Bedingungen für jede Gruppe erfüllt sind
+    const group1Match = regexes1.length > 0 ? regexes1.every(regex => {
+      regex.lastIndex = 0;
+      return regex.test(normalizedPageText);
+    }) : true;
 
-    const hasText1 = matches1 > 0;
-    const hasText2 = matches2 > 0;
+    const group2Match = regexes2.length > 0 ? regexes2.every(regex => {
+      regex.lastIndex = 0;
+      return regex.test(normalizedPageText);
+    }) : true;
 
     let isMatch = false;
-    if (searchText && !secondSearchText) { isMatch = hasText1; }
-    else if (!searchText && secondSearchText) { isMatch = hasText2; }
-    else if (searchText && secondSearchText) {
+    if (tokens1.length > 0 && tokens2.length === 0) {
+      isMatch = group1Match;
+    } else if (tokens1.length === 0 && tokens2.length > 0) {
+      isMatch = group2Match;
+    } else if (tokens1.length > 0 && tokens2.length > 0) {
       switch (searchOperator) {
-        case 'und': isMatch = hasText1 && hasText2; break;
-        case 'oder': isMatch = hasText1 || hasText2; break;
-        case 'ohne': isMatch = hasText1 && !hasText2; break;
+        case 'und': isMatch = group1Match && group2Match; break;
+        case 'oder': isMatch = group1Match || group2Match; break;
+        case 'ohne': isMatch = group1Match && !group2Match; break;
       }
     }
 
     if (isMatch) {
       matchPages.add(i + 1);
-      localTerm1Count += matches1;
-      localTerm2Count += matches2;
+      // Zähle die Matches für die Statistik
+      regexes1.forEach(regex => { regex.lastIndex = 0; totalMatches1 += (normalizedPageText.match(regex) || []).length; });
+      regexes2.forEach(regex => { regex.lastIndex = 0; totalMatches2 += (normalizedPageText.match(regex) || []).length; });
     }
   }
 
-  if (matchPages.size > 0) {
-    let statsText = `(${term1}: ${localTerm1Count}x`;
-    if (term2) {
-      statsText += `, ${term2}: ${localTerm2Count}x`;
-    }
-    statsText += `)`;
-    
-    searchInfo.innerHTML = `🔍 <span id="local-search-trigger" style="cursor: pointer; text-decoration: underline;" title="Klicken für eine Übersicht aller Treffer in diesem Dokument">${matchPages.size} Seite(n) in diesem Dokument gefunden.</span> ${statsText}`;
-    
-    document.getElementById('local-search-trigger').onclick = () => {
-      const localResults = [];
-      for (const pageNum of [...matchPages].sort((a,b) => a - b)) {
-        const pageText = cacheEntry.seitenTexte[pageNum - 1];
-        localResults.push({
-          docName: cacheEntry.name,
-          docPath: cacheEntry.path,
-          pageNumber: pageNum,
-          context: getContextSnippet(pageText, term1, term2)
-        });
-      }
-      displayGlobalResults(localResults, { term1: term1, term2: term2, count1: localTerm1Count, count2: localTerm2Count, isLocal: true });
-    };
+  // NEUER, KORREKTER BLOCK in activateSearchContext
 
-  } else {
-    searchInfo.innerHTML = '';
+if (matchPages.size > 0) {
+  const term1 = document.getElementById('searchBox').value;
+  const term2 = document.getElementById('searchBox2').value;
+  let statsText = `(${term1}: ${totalMatches1}x`;
+  if (term2) {
+    statsText += `, ${term2}: ${totalMatches2}x`;
   }
+  statsText += `)`;
+  
+  // 1. Den Link wie gewohnt erstellen
+  searchInfo.innerHTML = `🔍 <span id="local-search-trigger" style="cursor: pointer; text-decoration: underline;" title="Klicken für eine Übersicht aller Treffer in diesem Dokument">${matchPages.size} Seite(n) in diesem Dokument gefunden.</span> ${statsText}`;
+  
+  // 2. Den Event-Listener DIREKT DANACH an das neu erstellte Element binden
+  document.getElementById('local-search-trigger').onclick = () => {
+    const localResults = [];
+    const tokens1 = tokenizeQuery(term1);
+    const tokens2 = tokenizeQuery(term2);
+    const cacheEntry = globalPdfCache.find(p => p.path === currentDocumentPath);
+
+    // Iteriere über die sortierten Trefferseiten
+    for (const pageNum of [...matchPages].sort((a, b) => a - b)) {
+      const pageText = cacheEntry.seitenTexte[pageNum - 1];
+      localResults.push({
+        docName: cacheEntry.name,
+        docPath: cacheEntry.path,
+        pageNumber: pageNum,
+        headline: extractHeadline(pageText), // Überschrift hinzufügen
+        context: getContextSnippet(pageText, tokens1, tokens2) // Snippet erstellen
+      });
+    }
+    
+    // Zeige das globale Ergebnis-Overlay mit den lokalen Ergebnissen an
+    displayGlobalResults(localResults, { 
+      term1: term1, 
+      term2: term2, 
+      isFromGlobalSearch: false // Wichtig: Signalisiert, dass es eine lokale Übersicht ist
+    });
+  };
+
+} else {
+  searchInfo.innerHTML = '';
+}
+
 }
 
 
