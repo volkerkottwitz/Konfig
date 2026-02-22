@@ -187,9 +187,7 @@
   <section class="form-section-container">
     <h3>Kundendaten</h3>
     <div id="kundenDetails" class="centered-form-layout">
-      <!-- ===== HIER IST DIE NEUE SUCHLEISTE ===== -->
-      <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled autocomplete="new-password">
-      <div id="suchErgebnisse" style="display: none;"></div>
+      <input type="text" id="kundenSuche" placeholder="🔍 Firma oder Adresse suchen..." autocomplete="off">
       
       <input type="text" id="name" placeholder="Name" autocomplete="new-password">
       <input type="text" id="firma" placeholder="Firma" autocomplete="new-password">
@@ -246,7 +244,6 @@
         <option value="">-- Anlieferung auswählen --</option>
         <option value="PKW Außendienst">PKW Außendienst</option>
         <option value="EWE-LKW">EWE-LKW</option>
-        <option value="Selbstanlieferung">Selbstanlieferung</option>
         <option value="Paketdienst">Paketdienst</option>
         <option value="Spedition">Spedition</option>
         <option value="Sonstiges">Sonstiges</option>
@@ -346,224 +343,36 @@
     };
 
 
-    // LOGIK FÜR DIE INTELLIGENTE SUCHLEISTE
-    let kunden = [];
-    let activeResultIndex = -1;
-    const kundenSucheInput = document.getElementById('kundenSuche');
-    const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
+    // GOOGLE PLACES ADRESSSUCHE
+    window.initGooglePlaces = function() {
+      const input = document.getElementById('kundenSuche');
+      const autocomplete = new google.maps.places.Autocomplete(input, {
+        types: ['establishment'],
+        componentRestrictions: { country: ['de', 'at', 'ch'] },
+        fields: ['name', 'address_components']
+      });
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.address_components) return;
+        document.getElementById('firma').value = place.name || '';
+        let strasse = '', hausnummer = '', plz = '', ort = '', land = '';
+        place.address_components.forEach(c => {
+          if (c.types.includes('route')) strasse = c.long_name;
+          if (c.types.includes('street_number')) hausnummer = c.long_name;
+          if (c.types.includes('postal_code')) plz = c.long_name;
+          if (c.types.includes('locality')) ort = c.long_name;
+          if (c.types.includes('country')) land = c.long_name;
+        });
+        document.getElementById('strasse').value = hausnummer ? `${strasse} ${hausnummer}` : strasse;
+        document.getElementById('plz').value = plz;
+        document.getElementById('ort').value = ort;
+        document.getElementById('land').value = land;
+        input.value = '';
+      });
+    };
 
-// ========================================================================
-// ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
-// ========================================================================
+// (Kundenstamm-Code entfernt – ersetzt durch Google Places)
 
-async function loadProtectedData() {
-    // 1. Versuche, das Passwort aus dem localStorage zu lesen (konsistent mit anderen Seiten)
-    let password = localStorage.getItem('customerDataPassword');
-
-    // 2. Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
-    if (!password && window.location.hash.includes('password=')) {
-        const urlHash = window.location.hash.substring(1);
-        const params = new URLSearchParams(urlHash);
-        password = params.get('password');
-        
-        if (password) {
-            localStorage.setItem('customerDataPassword', password);
-            history.replaceState(null, '', window.location.pathname + window.location.search);
-        }
-    }
-
-    // Hilfsfunktion, um das Suchfeld zu deaktivieren und die Nachricht anzuzeigen
-    function disableSearch(message) {
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        if (kundenSucheInput) {
-            kundenSucheInput.disabled = true;
-            kundenSucheInput.placeholder = message;
-        }
-    }
-
-    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben...
-    if (!password) {
-        console.log("Kein Passwort gefunden. Kundensuche wird deaktiviert.");
-        disableSearch("Für Kundensuche bitte anmelden");
-        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
-    }
-
-    // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
-    try {
-        const kundenSucheInput = document.getElementById('kundenSuche');
-        if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
-
-        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
-        const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
-        
-        if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
-        
-        const encryptedArrayBuffer = await response.arrayBuffer();
-        const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
-        
-        kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
-        
-        return true; // <-- WICHTIG: Signal für Erfolg zurückgeben
-
-    } catch (error) {
-        console.error("Fehler bei der Datenentschlüsselung:", error);
-        localStorage.removeItem('customerDataPassword');
-        disableSearch("Anmeldung fehlgeschlagen. Bitte neu anmelden.");
-        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
-    }
-}
-
-
-// Hilfsfunktion, die die eigentliche Entschlüsselung durchführt
-async function decryptData(encryptedArrayBuffer, password) {
-    const ITERATIONS = 480000;
-    const SALT_SIZE_BYTES = 16;
-    const NONCE_SIZE_BYTES = 12;
-
-    // Daten aus der Datei extrahieren
-    const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
-    const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
-    const data = encryptedArrayBuffer.slice(SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
-
-    // Passwort in einen Basisschlüssel umwandeln
-    const passwordKey = await window.crypto.subtle.importKey(
-        'raw', new TextEncoder().encode(password), { name: 'PBKDF2' }, false, ['deriveKey']
-    );
-
-    // Starken AES-Schlüssel ableiten
-    const aesKey = await window.crypto.subtle.deriveKey(
-        { name: 'PBKDF2', salt: salt, iterations: ITERATIONS, hash: 'SHA-256' },
-        passwordKey, { name: 'AES-GCM', length: 256 }, true, ['decrypt']
-    );
-
-    // Daten entschlüsseln
-    const decryptedData = await window.crypto.subtle.decrypt(
-        { name: 'AES-GCM', iv: nonce }, aesKey, data
-    );
-
-    // Entschlüsselte Daten in Text umwandeln
-    return new TextDecoder().decode(decryptedData);
-}
-
-function initializeCustomerSearchListeners() {
-    kundenSucheInput.addEventListener('input', function() {
-        activeResultIndex = -1;
-        const suchbegriff = this.value.toLowerCase();
-        if (suchbegriff.length < 2) {
-            suchErgebnisseContainer.style.display = 'none';
-            return;
-        }
-        const suchbegriffe = suchbegriff.split(' ').filter(Boolean);
-        const treffer = kunden.filter(kunde => {
-            const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
-            const ort = adresseTeile[1] || '';
-            const plz = adresseTeile[2] || '';
-            const suchString = `${kunde.Name || ''} ${kunde.Firma || ''} ${plz} ${ort}`.toLowerCase();
-            return suchbegriffe.every(term => suchString.includes(term));
-        }).slice(0, 50);
-        zeigeSuchErgebnisse(treffer, suchbegriffe);
-    });
-
-    kundenSucheInput.addEventListener('keydown', function(e) {
-        const ergebnisse = suchErgebnisseContainer.querySelectorAll('.ergebnis-item:not(.no-results)');
-        if (ergebnisse.length === 0) return;
-        switch (e.key) {
-            case 'ArrowDown':
-                e.preventDefault();
-                activeResultIndex = (activeResultIndex + 1) % ergebnisse.length;
-                updateActiveResult(ergebnisse);
-                break;
-            case 'ArrowUp':
-                e.preventDefault();
-                activeResultIndex = (activeResultIndex - 1 + ergebnisse.length) % ergebnisse.length;
-                updateActiveResult(ergebnisse);
-                break;
-            case 'Enter':
-                e.preventDefault();
-                if (activeResultIndex > -1) {
-                    ergebnisse[activeResultIndex].click();
-                } else if (ergebnisse.length === 1) {
-                    ergebnisse[0].click();
-                }
-                break;
-            case 'Escape':
-                suchErgebnisseContainer.style.display = 'none';
-                break;
-        }
-    });
-
-   
-suchErgebnisseContainer.addEventListener('click', function(e) {
-    const ergebnisItem = e.target.closest('.ergebnis-item');
-    if (ergebnisItem && ergebnisItem.dataset.index) {
-        const index = ergebnisItem.dataset.index;
-        const kunde = kunden[index];
-        const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
-        
-        // Bestehende Felder befüllen
-        inputs.name.value = kunde.Name || "";
-        inputs.firma.value = kunde.Firma || "";
-        inputs.telefon.value = kunde.Telefon || "";
-        inputs.email.value = kunde['E-Mail'] || "";
-        inputs.strasse.value = adresseTeile[0] || "";
-        inputs.ort.value = adresseTeile[1] || "";
-        inputs.plz.value = adresseTeile[2] || "";
-        inputs.land.value = adresseTeile[3] || "";
-
-        // ===== NEU & FINAL: Kundennummer in das unsichtbare Feld eintragen =====
-        // Das Feld 'Kundennummer' kommt jetzt aus unserer neuen, kombinierten CSV-Datei.
-        // Es wird gefüllt, wenn eine Nummer vorhanden ist (auch mit '?'), ansonsten bleibt es leer.
-        document.getElementById("kundennummer").value = kunde.Kundennummer || ""; 
-
-        // Rest der Funktion
-        kundenSucheInput.value = '';
-        suchErgebnisseContainer.style.display = 'none';
-    }
-});
-
-    
-    document.addEventListener('click', function(e) {
-        if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
-            suchErgebnisseContainer.style.display = 'none';
-        }
-    });
-
-    } 
-
-
-     function updateActiveResult(ergebnisse) {
-        ergebnisse.forEach(item => item.classList.remove('active'));
-        if (activeResultIndex > -1) {
-            const activeItem = ergebnisse[activeResultIndex];
-            activeItem.classList.add('active');
-            activeItem.scrollIntoView({ block: 'nearest' });
-        }
-    }
-
-    function zeigeSuchErgebnisse(treffer, suchbegriffe) {
-        if (treffer.length === 0) {
-            suchErgebnisseContainer.innerHTML = '<div class="ergebnis-item no-results">Keine Treffer gefunden</div>';
-        } else {
-            let html = '';
-            treffer.forEach(kunde => {
-                const originalIndex = kunden.indexOf(kunde);
-                const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
-                const ort = adresseTeile[1] || '';
-                const plz = adresseTeile[2] || '';
-                const nameTeil = kunde.Name ? `${kunde.Name.trim()} – ` : '';
-                const firmaTeil = kunde.Firma ? kunde.Firma.trim() : 'Unbekannte Firma';
-                let ortsTeil = (plz && ort) ? ` (${plz} ${ort})` : (ort ? ` (${ort})` : (plz ? ` (${plz})` : ''));
-                let label = `${nameTeil}${firmaTeil}${ortsTeil}`;
-                suchbegriffe.forEach(term => {
-                    const regex = new RegExp(term, 'gi');
-                    label = label.replace(regex, match => `<span class="search-highlight">${match}</span>`);
-                });
-                html += `<div class="ergebnis-item" data-index="${originalIndex}">${label}</div>`;
-            });
-            suchErgebnisseContainer.innerHTML = html;
-        }
-        suchErgebnisseContainer.style.display = 'block';
-    }
 
 
     // Initialisierung der anderen Dropdowns
@@ -1324,27 +1133,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Wenn keine Daten da sind, passiert einfach nichts.
     restoreFormData();
 
-    // --- SCHRITT 3: Kundensuche laden (unverändert) ---
-    try {
-        const isLoginSuccessful = await loadProtectedData();
-
-        if (isLoginSuccessful) {
-            console.log(`retourenschein.html: Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
-            const kundenSucheInput = document.getElementById('kundenSuche');
-            kundenSucheInput.disabled = false;
-            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
-            kundenSucheInput.focus();
-            initializeCustomerSearchListeners();
-        }
-    } catch (error) {
-        console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
-        document.body.innerHTML = "<h2>Ein kritischer Fehler ist aufgetreten. Bitte laden Sie die Seite neu.</h2>";
-    }
 });
 
 
 
   </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN4cAc4nq9je0of0cb_0wEUb1yCz54r7k&libraries=places&callback=initGooglePlaces" async defer></script>
     <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
   <button onclick="generateRetourenscheinPDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
     PDF erzeugen
