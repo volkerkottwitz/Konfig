@@ -462,11 +462,17 @@ function startGlobalSearch() {
         return regex.test(normalizedPageText);
       }) : true;
 
-      // Gruppe 2: ALLE Tokens aus Feld 2 müssen vorhanden sein
+      // Gruppe 2: ALLE Tokens aus Feld 2 müssen vorhanden sein (für UND/ODER)
       const group2Match = regexes2.length > 0 ? regexes2.every(regex => {
         regex.lastIndex = 0;
         return regex.test(normalizedPageText);
       }) : true; // Standardmäßig true, wird durch Operatorlogik gesteuert
+
+      // Für OHNE: MINDESTENS EIN Token aus Feld 2 reicht zum Ausschließen
+      const group2AnyMatch = regexes2.length > 0 ? regexes2.some(regex => {
+        regex.lastIndex = 0;
+        return regex.test(normalizedPageText);
+      }) : false;
 
       // 4. Die Ergebnisse der Gruppen mit dem Operator verknüpfen
       let isMatch = false;
@@ -478,7 +484,7 @@ function startGlobalSearch() {
         switch (searchOperator) {
           case 'und': isMatch = group1Match && group2Match; break;
           case 'oder': isMatch = group1Match || group2Match; break;
-          case 'ohne': isMatch = group1Match && !group2Match; break;
+          case 'ohne': isMatch = group1Match && !group2AnyMatch; break;
         }
       }
       
@@ -690,6 +696,12 @@ function activateSearchContext() {
       return regex.test(normalizedPageText);
     }) : true;
 
+    // Für OHNE: MINDESTENS EIN Token aus Feld 2 reicht zum Ausschließen
+    const group2AnyMatch = regexes2.length > 0 ? regexes2.some(regex => {
+      regex.lastIndex = 0;
+      return regex.test(normalizedPageText);
+    }) : false;
+
     let isMatch = false;
     if (tokens1.length > 0 && tokens2.length === 0) {
       isMatch = group1Match;
@@ -699,7 +711,7 @@ function activateSearchContext() {
       switch (searchOperator) {
         case 'und': isMatch = group1Match && group2Match; break;
         case 'oder': isMatch = group1Match || group2Match; break;
-        case 'ohne': isMatch = group1Match && !group2Match; break;
+        case 'ohne': isMatch = group1Match && !group2AnyMatch; break;
       }
     }
 

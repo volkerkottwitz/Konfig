@@ -67,7 +67,7 @@
           <div style="display: flex; align-items: center; margin-bottom: 20px;"><span style="font-size: 1.5rem; margin-right: 10px;">📝</span><h2 style="margin: 0; font-size: 1.3rem;">Ihre Merkliste</h2></div>
           ${merklisteHTML}
           <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-            <button id="jetztKaufenBtn" style="padding: 12px 20px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">🛒 Kaufen</button>
+            <button id="jetztKaufenBtn" disabled style="padding: 12px 20px; background: #adb5bd; color: white; border: none; border-radius: 8px; cursor: not-allowed; font-size: 14px; opacity: 0.65;">🛒 Kaufen</button>
             <button id="retourenscheinBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">📋 Retoure</button>
             <button id="jetztAnfragenBtn" style="padding: 12px 20px; background: #00a1e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">📋 Anfrage</button>
             <button id="merklisteSchließenBtn" style="padding: 12px 20px; background: #6c757d; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">Schließen</button>
@@ -415,7 +415,7 @@ document.getElementById("jetztAnfragenBtn").addEventListener("click", () => {
               <h1>📝 Ihre Merkliste</h1>
               <div id="merklisteContainer"></div>
               <div class="button-container">
-                <button class="btn btn-buy" onclick="openProtectedWindow('kaufen.html', true )">🛒 Kaufen</button>
+                <button class="btn btn-buy" disabled style="opacity: 0.65; cursor: not-allowed; background: #adb5bd;">🛒 Kaufen</button>
                 <button class="btn btn-primary" onclick="openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/retourenschein.html' )">📋 Retoure</button>
                 <button class="btn btn-primary" onclick="openProtectedWindow('https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/interneAnfrage.html' )">📋 Anfrage</button>
                 <button class="btn btn-secondary" onclick="window.close()">Schließen</button>
