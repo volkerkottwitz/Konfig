@@ -8,186 +8,179 @@
   <link rel="stylesheet" href="interneAnfrage.css">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-  <style>
+<style>
+    /* ===================================================================== */
+    /* ===== BERICHTE.HTML - FINALES, VEREINHEITLICHTES CSS (v1.2) ===== */
+    /* ===================================================================== */
 
-    /* ================================================================== */
-    /* ===== BASIS-STILE & LAYOUT ======================================= */
-    /* ================================================================== */
-    .form-section-container {
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 25px auto;
-      background-color: #fdfdfd;
-      max-width: 900px;
-    }
-    .form-section-container h3 {
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: 25px;
-      padding-bottom: 10px;
-      color: #00a1e1;
-      font-size: 1.3em;
-    }
-    .centered-form-layout {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-    .centered-form-layout > * {
-      width: 100%;
-      max-width: 500px;
-    }
+    /* --- 1. Grundlegende Layout-Stile (aus berichte.html) --- */
+    .form-section-container { border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 25px auto; background-color: #fdfdfd; max-width: 900px; }
+    .form-section-container h3 { text-align: center; margin-top: 0; margin-bottom: 25px; padding-bottom: 10px; color: #00a1e1; font-size: 1.3em; }
+    .centered-form-layout { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+    .centered-form-layout > * { width: 100%; max-width: 500px; }
 
-    /* FÜGEN SIE DIESEN BLOCK ZU IHREM CSS HINZU */
-/* (Ein guter Platz ist direkt vor der .search-input-group Regel) */
-
-/* ================================================================== */
-/* ===== KUNDENSUCHE (AUFGERÄUMT) =================================== */
-/* ================================================================== */
-
-/* NEU: Diese Regel ist der entscheidende Fix */
-.search-wrapper {
-    position: relative;
-}
-
-/* Gruppe für Suchfeld und Mikrofon-Button */
-.search-input-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-}
-
-    /* Das Suchfeld selbst (alle Regeln an einem Ort) */
-    #kundenSuche {
-        flex-grow: 1; /* Wächst, um den Platz zu füllen */
-        height: 48px;
-        padding: 12px 20px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 25px !important; /* Wichtig, um externe Stile zu überschreiben */
-        box-sizing: border-box;
-        transition: all 0.2s ease-in-out;
-    }
-    #kundenSuche:focus {
-        outline: none;
-        border-color: #00a1e1;
-        box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
-    }
-
-    /* Die schwebende Ergebnisliste */
-    #suchErgebnisse {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background-color: white;
-        border: 1px solid #ddd;
-        border-top: none;
-        border-radius: 0 0 12px 12px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        max-height: 300px;
-        overflow-y: auto;
-    }
-    .ergebnis-item {
-        padding: 12px 20px;
-        cursor: pointer;
-        border-bottom: 1px solid #eee;
-    }
+    /* --- 2. Suchergebnisse & Highlight (aus berichte.html) --- */
+    .search-wrapper { position: relative; }
+    #suchErgebnisse { position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; background-color: white; border: 1px solid #ddd; border-radius: 0 0 8px 8px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); max-height: 300px; overflow-y: auto; }
+    .ergebnis-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #eee; }
     .ergebnis-item:last-child { border-bottom: none; }
     .ergebnis-item:hover { background-color: #f0f8ff; }
     .ergebnis-item.active { background-color: #e6f7ff; }
-    .ergebnis-item.best-match { background-color: #e0ffe0; font-weight: bold; }
-    .ergebnis-item.no-results { cursor: default; color: #888; }
-    .ergebnis-item.no-results:hover { background-color: white; }
-    .search-highlight {
-      background-color: rgba(0, 0, 0, 0.2);
-      font-weight: bold;
-      border-radius: 3px;
-      padding: 0 2px;
-    }
+    .search-highlight { background-color: rgba(0, 0, 0, 0.2); font-weight: bold; border-radius: 3px; padding: 0 2px; }
 
-    /* ================================================================== */
-    /* ===== ICON-BUTTONS & TELEFON-GRUPPE ============================== */
-    /* ================================================================== */
-
-    /* Allgemeiner Stil für Icon-Buttons (Mikrofon & Telefon) */
-    .icon-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0; /* Verhindert, dass der Button schrumpft */
-        width: 48px;
-        height: 48px;
-        background-color: #f0f0f0;
+    /* --- 3. NEU: EINHEITLICHE STILE FÜR ALLE FORMULARFELDER (aus retourenschein.html) --- */
+    .centered-form-layout input[type="text"],
+    .centered-form-layout input[type="tel"],
+    .centered-form-layout .select2-container,
+    #bericht-text, 
+    #aufgaben-text {
+        height: 45px;
+        border-radius: 8px;
         border: 1px solid #ccc;
-        border-radius: 50%; /* Runder Button */
-        font-size: 1.5rem;
-        color: #555;
-        cursor: pointer;
+        padding: 0 20px;
+        font-size: 16px;
+        box-sizing: border-box;
         transition: all 0.2s ease-in-out;
-    }
-    .icon-button:hover {
-        background-color: #007bff;
-        color: white;
-        transform: scale(1.05);
-    }
-    #speech-search-button.is-listening {
-        background-color: #dc3545;
-        color: white;
+        width: 100%;
+        max-width: 500px;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        background-color: white;
     }
 
-    /* Gruppe für Telefonnummer und Anruf-Button */
-    .phone-group {
+    /* --- 4. NEU: DER "NUKLEARE RESET" FÜR SELECT2-DROPDOWNS (aus retourenschein.html) --- */
+    .select2-container--default .select2-selection--single { background-color: transparent !important; border: none !important; border-radius: 0 !important; padding: 0 !important; height: auto !important; }
+    .centered-form-layout .select2-container { display: flex !important; align-items: center !important; position: relative; }
+    .centered-form-layout .select2-container .select2-selection__rendered { padding: 0 !important; color: #333 !important; margin-top: 1px; }
+    .centered-form-layout .select2-container--default .select2-selection__arrow { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); height: auto !important; width: auto !important; }
+    .select2-container *:focus { outline: none !important; }
+
+    /* --- 5. NEU: EINHEITLICHER FOKUS-EFFEKT (aus retourenschein.html) --- */
+    .centered-form-layout input[type="text"]:focus,
+    .centered-form-layout input[type="tel"]:focus,
+    .centered-form-layout .select2-container.select2-container--open,
+    .centered-form-layout .select2-container:focus-within,
+    #bericht-text:focus,
+    #aufgaben-text:focus {
+        outline: none !important;
+        border-color: #00a1e1 !important;
+        box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25) !important;
+    }
+
+    /* --- 6. SPEZIELLE LAYOUT-GRUPPEN (aus berichte.html, angepasst) --- */
+    .search-input-group, .phone-group, .form-row {
         display: flex;
         align-items: center;
         gap: 10px;
+        width: 100%;
+        max-width: 500px;
     }
-    .phone-group input {
+    .search-input-group input, .phone-group input, .form-row input {
         flex-grow: 1;
     }
+    .form-row #plz { flex: 1; }
+    .form-row #ort { flex: 2; }
 
-    /* ================================================================== */
-    /* ===== SPRACHEINGABE-SEKTIONEN ==================================== */
-    /* ================================================================== */
-    #spracheingabe-container, #aufgaben-container {
-        text-align: center;
-    }
-    #bericht-text, #aufgaben-text {
-        width: 100%;
-        height: 200px;
-        margin-top: 1rem;
-        padding: 0.5rem;
-        font-size: 1rem;
+    /* --- 7. ICON-BUTTONS (aus berichte.html, angepasst) --- */
+    .icon-button {
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        width: 45px; /* Höhe an Felder angepasst */
+        height: 45px; /* Höhe an Felder angepasst */
+        background-color: #f0f0f0;
         border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
+        border-radius: 50%;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
     }
-    #aufgaben-text { height: 120px; }
+    .icon-button:hover { background-color: #007bff; color: white; }
+    #speech-search-button.is-listening { background-color: #dc3545; color: white; }
+
+    /* --- 8. SPRACHEINGABE-SEKTIONEN (NEU & VERBESSERT) --- */
+
+    /* Stellt sicher, dass die Beschreibungstexte zentriert sind */
+    .centered-form-layout p {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #666;
+    }
+
+    /* Vereinheitlicht das Design der Textareas mit den anderen Feldern */
+    #bericht-text, 
+    #aufgaben-text {
+        height: 200px; /* Höhe für das große Textfeld */
+        padding: 15px 20px; /* Mehr Innenabstand für Text */
+        line-height: 1.5; /* Besserer Zeilenabstand */
+        /* Die Breite wird bereits durch .centered-form-layout > * gesetzt */
+        max-width: 700px
+    }
+    #aufgaben-text { 
+        height: 120px; /* Kleinere Höhe für das Aufgabenfeld */
+    }
+
+    /* Stile für die Aufnahme-Buttons */
     .aufnahme-button {
-        margin-top: 1rem;
-        padding: 0.8rem 1.5rem;
+        padding: 10px 25px;
         font-size: 1rem;
         cursor: pointer;
         border: none;
-        border-radius: 4px;
-        background-color: #28a745;
+        border-radius: 8px; /* Gleicher Radius wie die Felder */
+        background-color: #28a745; /* Grün für "Start" */
         color: white;
         transition: background-color 0.3s;
+        /* Wir geben dem Button eine feste, aber nicht zu breite Größe */
+        width: 100%;
+        max-width: 250px; 
     }
-    .aufnahme-button:hover { background-color: #218838; }
-    .aufnahme-button.recording { background-color: #dc3545; }
+    .aufnahme-button:hover { 
+        background-color: #218838; 
+    }
+    .aufnahme-button.recording { 
+        background-color: #dc3545; /* Rot für "Recording" */
+    }
+
+    /* Status-Text unter dem Button */
     .aufnahme-status {
-        margin-top: 1rem;
-        color: #666;
+        color: #665;
         min-height: 20px;
+        margin-top: -5px; /* Rücken wir etwas näher an den Button */
+        margin-bottom: 5px;
     }
 
+    /* --- 9. GLOBALE HELFER & MOBILE OPTIMIERUNG --- */
+    ::selection { background-color: #00a1e1; color: #ffffff; }
 
-  </style>
+    @media (max-width: 768px) {
+      /* Sorgt für mehr seitlichen Abstand auf kleinen Bildschirmen */
+      .form-section-container, #spracheingabe-container, #aufgaben-container { 
+        margin-left: 10px; 
+        margin-right: 10px; 
+      }
+
+      /* ===== HIER SIND DIE NEUEN REGELN ===== */
+
+      /* 1. Stapelt die Elemente in den Layout-Gruppen untereinander */
+      .search-input-group, 
+      .phone-group, 
+      .form-row {
+        flex-direction: column; /* Ändert die Ausrichtung von nebeneinander zu untereinander */
+        gap: 15px; /* Behält einen schönen Abstand zwischen den gestapelten Elementen bei */
+      }
+
+      /* 2. Sorgt dafür, dass die runden Icon-Buttons zentriert und nicht zu groß sind */
+      .search-input-group .icon-button,
+      .phone-group .icon-button {
+        width: 60px;  /* Gibt dem Button eine feste, gut klickbare Größe */
+        height: 60px;
+        font-size: 1.8rem;
+        align-self: center; /* Zentriert den Button horizontal */
+      }
+    }
+
+   
+</style>
+
 </head>
 <body>
   <header id="header">
@@ -208,25 +201,54 @@
 
   <section class="form-section-container">
     <h3>Kundendaten</h3>
-    <div id="kundenDetails" class="centered-form-layout">
-<!-- ERSETZEN SIE DEN ALTEN .search-wrapper HIERMIT -->
+<!-- ======================================================= -->
+<!-- ===== NEU: Logisches, einspaltiges Adress-Layout    ===== -->
+<!-- ======================================================= -->
+<div id="kundenDetails" class="centered-form-layout">
 
-<input type="text" id="kundenSuche" placeholder="🔍 Firma oder Adresse suchen..." autocomplete="off" style="width:100%; max-width:500px; height:45px; border-radius:8px; border:1px solid #ccc; padding:0 20px; font-size:16px; box-sizing:border-box;">
-
- 
-</div>
-      <input type="text" id="name" placeholder="Name">
-      <input type="text" id="firma" placeholder="Firma">
-      <input type="text" id="strasse" placeholder="Straße">
-      <input type="text" id="plz" placeholder="PLZ">
-      <input type="text" id="ort" placeholder="Ort">
-      <input type="text" id="land" placeholder="Land">
-      <input type="text" id="email" placeholder="E-Mail">
-      <div class="phone-group">
-  <input type="text" id="telefon" placeholder="Telefon">
-  <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
-</div>
+    <!-- Suchleiste bleibt oben -->
+    <div class="search-wrapper">
+        <div class="search-input-group">
+            <!-- Hinzugefügt: autocomplete="new-password" -->
+            <input type="text" id="kundenSuche" placeholder="Lade Kundenliste..." disabled autocomplete="new-password">
+            <button id="speech-search-button" class="icon-button" title="Suche per Sprache">🎤</button>
+        </div>
+        <div id="suchErgebnisse" style="display: none;"></div>
     </div>
+
+    <!-- Neue, logische Reihenfolge der Felder -->
+    <!-- Hinzugefügt: autocomplete="new-password" -->
+    <input type="text" id="firma" placeholder="Firma" autocomplete="new-password">
+    <input type="text" id="name" placeholder="Ansprechpartner" autocomplete="new-password">
+
+    <!-- Das Straßen-Feld steht für sich allein und braucht keinen extra Container -->
+    <input type="text" id="strasse" placeholder="Straße und Hausnummer" autocomplete="new-password">
+
+    <!-- NUR die Felder, die nebeneinander sollen, kommen in einen form-row Container -->
+    <div class="form-row">
+        <input type="text" id="plz" placeholder="PLZ" autocomplete="new-password">
+        <input type="text" id="ort" placeholder="Ort" autocomplete="new-password">
+    </div>
+
+    
+    <!-- Hinzugefügt: autocomplete="new-password" -->
+    <input type="text" id="land" placeholder="Land" autocomplete="new-password">
+    <input type="text" id="email" placeholder="E-Mail" autocomplete="new-password">
+
+    <!-- Telefon-Gruppe bleibt unverändert -->
+    <div class="phone-group">
+        <!-- Hinzugefügt: autocomplete="new-password" -->
+        <input type="text" id="telefon" placeholder="Telefon" autocomplete="new-password">
+        <button id="call-button" class="icon-button" title="Kunden anrufen" style="display: none;">📞</button>
+    </div>
+
+    <!-- Hinzugefügt: autocomplete="new-password" -->
+    <input type="text" id="kundennummer" placeholder="Kundennummer (optional)" autocomplete="new-password">
+</div>
+
+
+</div>
+
   </section>
 
   <section class="form-section-container">
@@ -235,9 +257,9 @@
       <select id="sachbearbeiterDropdown">
         <option value="">-- Innendienst auswählen --</option>
         <option value="Denise Otto">Denise Otto</option>
-        <option value="Diana Kahlert">Diana Kahlert</option>
         <option value="Sascha Heusel">Sascha Heusel</option>
         <option value="Nadine Suhr">Nadine Suhr</option>
+        <option value="Diana Kahlert">Diana Kahlert</option>
         <option value="Nils Vokuhl">Nils Vokuhl</option>
         <option value="Claudia Batke">Claudia Batke</option>
         <option value="Karsten Walter">Karsten Walter</option>
@@ -245,7 +267,7 @@
       </select>
       <input type="text" id="sachbearbeiterManuell" placeholder="Sachbearbeiter (manuell)" style="display: none;">
       <select id="aussendienstDropdown">
-        <option value="">-- Außendienstmitarbeiter auswählen --</option>
+        <option value="">-- Außendienst auswählen --</option>
         <option value="Rafael Furtwängler">Rafael Furtwängler</option>
         <option value="Christof Münster">Christof Münster</option>
         <option value="Sascha Heusel">Sascha Heusel</option>
@@ -267,20 +289,30 @@
     </div>
   </section>
 
-  <section id="spracheingabe-container">
+  <!-- ================================================================== -->
+  <!-- ===== NEUE, VERBESSERTE SPRACHEINGABE-SEKTIONEN (im Kasten-Design) ===== -->
+  <!-- ================================================================== -->
+
+  <!-- Sektion 1: Berichtsinhalt -->
+  <section class="form-section-container">
     <h3>Berichtsinhalt per Sprache eingeben</h3>
-    <p>Klicken Sie auf "Aufnahme starten" und diktieren Sie Ihren Bericht.</p>
-    <button id="aufnahme-button-bericht" class="aufnahme-button">Aufnahme starten</button>
-    <textarea id="bericht-text" placeholder="Ihr diktierter Bericht erscheint hier..."></textarea>
-    <div id="aufnahme-status-bericht" class="aufnahme-status"></div>
+    <div class="centered-form-layout">
+      <p style="text-align: center; margin-bottom: 10px;">Klicken Sie auf "Aufnahme starten" und diktieren Sie Ihren Bericht.</p>
+      <button id="aufnahme-button-bericht" class="aufnahme-button">Aufnahme starten</button>
+      <div id="aufnahme-status-bericht" class="aufnahme-status"></div>
+      <textarea id="bericht-text" placeholder="Ihr diktierter Bericht erscheint hier..."></textarea>
+    </div>
   </section>
 
-  <section id="aufgaben-container">
+  <!-- Sektion 2: Aufgaben -->
+  <section class="form-section-container">
     <h3>Zu erledigende Aufgaben</h3>
-    <p>Diktieren Sie hier die Aufgaben, die sich aus dem Gespräch ergeben haben.</p>
-    <button id="aufnahme-button-aufgaben" class="aufnahme-button">Aufnahme starten</button>
-    <textarea id="aufgaben-text" placeholder="Ihre diktierten Aufgaben erscheinen hier..."></textarea>
-    <div id="aufnahme-status-aufgaben" class="aufnahme-status"></div>
+    <div class="centered-form-layout">
+      <p style="text-align: center; margin-bottom: 10px;">Diktieren Sie hier die Aufgaben, die sich aus dem Gespräch ergeben haben.</p>
+      <button id="aufnahme-button-aufgaben" class="aufnahme-button">Aufnahme starten</button>
+      <div id="aufnahme-status-aufgaben" class="aufnahme-status"></div>
+      <textarea id="aufgaben-text" placeholder="Ihre diktierten Aufgaben erscheinen hier..."></textarea>
+    </div>
   </section>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -291,12 +323,55 @@
 
 
   <script>
-document.addEventListener("DOMContentLoaded", () => {
+    let kunden = [];
+    let fuse; // NEUE ZEILE
+
+// ========================================================================
+// ===== NEU: ANGEPASSTER STARTPUNKT DER SEITE                      =====
+// ========================================================================
+
+// ========================================================================
+// ===== NEU: KORREKTER STARTPUNKT DER SEITE (Version 2) =====
+// ========================================================================
+document.addEventListener("DOMContentLoaded", async () => {
+  
+    // --- SCHRITT 1: Seite mit Standardwerten initialisieren ---
     displayCurrentDate();
     initializeDropdowns();
     initializeSpeechRecognition();
+    initializeSpeechSearch();
     initializePhoneLink();
+
+    // --- SCHRITT 2: Versuchen, die Standardwerte mit gespeicherten Daten zu überschreiben ---
+    restoreBerichtData();
+
+    // --- SCHRITT 3: Kundensuche laden (unverändert) ---
+    try {
+        const isLoginSuccessful = await loadProtectedData();
+
+        if (isLoginSuccessful) {
+            console.log(`Schutzprüfung bestanden. ${kunden.length} Kunden geladen.`);
+            const kundenSucheInput = document.getElementById('kundenSuche');
+            const speechButton = document.getElementById('speech-search-button');
+
+            kundenSucheInput.disabled = false;
+            kundenSucheInput.placeholder = "🔍 Kunde, Firma, PLZ oder Ort suchen...";
+            
+            if (speechButton) {
+                speechButton.disabled = false;
+                speechButton.style.cursor = 'pointer';
+                speechButton.style.opacity = '1';
+            }
+
+            kundenSucheInput.focus();
+            initializeCustomerSearchListeners();
+        }
+    } catch (error) {
+        console.error("Ein schwerwiegender Fehler ist beim Seitenaufbau aufgetreten:", error);
+        document.body.innerHTML = "<h2>Ein kritischer Fehler ist aufgetreten. Bitte laden Sie die Seite neu.</h2>";
+    }
 });
+
 
     function displayCurrentDate() {
       const today = new Date();
@@ -306,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function initializeDropdowns() {
       $("#sachbearbeiterDropdown").select2({ placeholder: "-- Innendienst auswählen --", allowClear: true });
-      $("#aussendienstDropdown").select2({ placeholder: "-- Außendienstmitarbeiter auswählen --", allowClear: true });
+      $("#aussendienstDropdown").select2({ placeholder: "-- Außendienst auswählen --", allowClear: true });
       $("#sachbearbeiterDropdown").on("change", function () { handleManualInput(this, document.getElementById("sachbearbeiterManuell")); });
       $("#aussendienstDropdown").on("change", function () { handleManualInput(this, document.getElementById("aussendienstManuell")); });
     }
@@ -417,8 +492,80 @@ function initializePhoneLink() {
 
 
 // ========================================================================
-// ===== NEU: UNIVERSALER DATENSCHUTZ- & LADE-CODE                  =====
+// ===== FINALE, PASSIVE LADE-LOGIK FÜR DIESE SEITE                 =====
 // ========================================================================
+
+// ========================================================================
+// ===== ANGEPASSTE VERSION: UNIVERSALER DATENSCHUTZ- & LADE-CODE     =====
+// ========================================================================
+
+async function loadProtectedData() {
+    // 1. Versuche, das Passwort aus dem aktuellen localStorage zu lesen
+    let password = localStorage.getItem('customerDataPassword');
+
+    // 2. Wenn nicht gefunden, prüfe, ob es im URL-Hash übergeben wurde
+    if (!password && window.location.hash.includes('password=')) {
+        const urlHash = window.location.hash.substring(1);
+        const params = new URLSearchParams(urlHash);
+        password = params.get('password');
+        
+        if (password) {
+            localStorage.setItem('customerDataPassword', password);
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+    }
+
+// Hilfsfunktion, um Suchfeld UND Mikrofon zu deaktivieren
+function disableSearch(message) {
+    const kundenSucheInput = document.getElementById('kundenSuche');
+    const speechButton = document.getElementById('speech-search-button'); // Mikrofon-Button holen
+
+    if (kundenSucheInput) {
+        kundenSucheInput.disabled = true;
+        kundenSucheInput.placeholder = message;
+    }
+    if (speechButton) {
+        speechButton.disabled = true; // Button deaktivieren
+        speechButton.style.cursor = 'not-allowed'; // Mauszeiger ändern
+        speechButton.style.opacity = '0.5'; // Visuell ausgrauen
+    }
+}
+
+    // 3. FINALE PRÜFUNG: Wenn wir jetzt immer noch kein Passwort haben...
+    if (!password) {
+        console.log("Kein Passwort gefunden. Kundensuche wird deaktiviert.");
+        disableSearch("Für Kundensuche bitte anmelden");
+        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
+    }
+
+    // 4. Wenn wir hier ankommen, haben wir ein Passwort. Lade und entschlüssele die Daten.
+    try {
+        const kundenSucheInput = document.getElementById('kundenSuche');
+        if(kundenSucheInput) kundenSucheInput.placeholder = "Entschlüssele Kundendaten...";
+
+        const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
+        const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+        
+        if (!response.ok) throw new Error('Kundendatei nicht gefunden.');
+        
+        const encryptedArrayBuffer = await response.arrayBuffer();
+        const decryptedCsvText = await decryptData(encryptedArrayBuffer, password);
+        
+        kunden = Papa.parse(decryptedCsvText, { header: true, skipEmptyLines: true, bom: true }).data;
+        
+        const options = { keys: ['Name', 'Firma', 'Adresse'], includeScore: true, threshold: 0.4, ignoreLocation: true };
+        fuse = new Fuse(kunden, options);
+        
+        return true; // <-- WICHTIG: Signal für Erfolg zurückgeben
+
+    } catch (error) {
+        console.error("Fehler bei der Datenentschlüsselung:", error);
+        localStorage.removeItem('customerDataPassword');
+        disableSearch("Anmeldung fehlgeschlagen. Bitte neu anmelden.");
+        return false; // <-- WICHTIG: Signal für Fehlschlag zurückgeben
+    }
+}
+
 
 // Die exakte decryptData-Funktion, die in jeder Datei benötigt wird
 async function decryptData(encryptedArrayBuffer, password) {
@@ -432,37 +579,132 @@ async function decryptData(encryptedArrayBuffer, password) {
     return new TextDecoder().decode(decryptedData);
 }
 
-/**
- * Prüft die Authentifizierung, lädt und entschlüsselt die Kundendaten.
- * Leitet bei fehlender Authentifizierung zur Login-Seite um.
- * Gibt bei Erfolg die entschlüsselten und geparsten Kundendaten zurück.
- */
-window.initGooglePlaces = function() {
-    const input = document.getElementById('kundenSuche');
-    const autocomplete = new google.maps.places.Autocomplete(input, {
-        types: ['establishment'],
-        componentRestrictions: { country: ['de', 'at', 'ch'] },
-        fields: ['name', 'address_components']
+
+
+// ERSETZEN SIE DIE GESAMTE FUNKTION "initializeCustomerSearchListeners" HIERMIT
+
+// ===== FINALE, PERFORMANTE SUCHFUNKTION MIT DEBOUNCING =====
+
+function initializeCustomerSearchListeners() {
+    const kundenSucheInput = document.getElementById('kundenSuche');
+    const suchErgebnisseContainer = document.getElementById('suchErgebnisse');
+    let activeResultIndex = -1;
+    let debounceTimer; // Timer für das Debouncing
+
+    // --- HILFSFUNKTIONEN ---
+
+    function updateActiveResult(ergebnisse) {
+        // ... (Diese Funktion bleibt unverändert)
+        ergebnisse.forEach(item => item.classList.remove('active'));
+        if (activeResultIndex > -1) {
+            const activeItem = ergebnisse[activeResultIndex];
+            activeItem.classList.add('active');
+            activeItem.scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    function zeigeSuchErgebnisse(treffer, suchbegriffe, fuseErgebnisse) {
+        // ... (Diese Funktion bleibt unverändert)
+        if (!treffer || treffer.length === 0) {
+            suchErgebnisseContainer.innerHTML = '<div class="ergebnis-item no-results">Keine Treffer gefunden</div>';
+        } else {
+            suchErgebnisseContainer.innerHTML = treffer.map((kunde, index) => {
+                const originalIndex = kunden.indexOf(kunde);
+                const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : [];
+                const ort = adresseTeile[1] || '';
+                const plz = adresseTeile[2] || '';
+                let label = `${kunde.Name ? kunde.Name.trim() + ' – ' : ''}${kunde.Firma ? kunde.Firma.trim() : ''}${(plz || ort) ? ` (${plz} ${ort})` : ''}`;
+                
+                suchbegriffe.forEach(term => {
+                    if (term) {
+                        label = label.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), match => `<span class="search-highlight">${match}</span>`);
+                    }
+                });
+
+                let itemClass = 'ergebnis-item';
+                if (index === 0 && fuseErgebnisse && fuseErgebnisse[0] && fuseErgebnisse[0].score < 0.1) {
+                    itemClass += ' best-match';
+                }
+
+                return `<div class="${itemClass}" data-index="${originalIndex}">${label}</div>`;
+            }).join('');
+        }
+        suchErgebnisseContainer.style.display = 'block';
+    }
+
+    // --- EVENT-LISTENER MIT DEBOUNCING ---
+
+    kundenSucheInput.addEventListener('input', function() {
+        // Lösche den alten Timer bei jeder neuen Eingabe
+        clearTimeout(debounceTimer);
+        
+        const suchbegriff = this.value;
+
+        // Starte einen neuen Timer
+        debounceTimer = setTimeout(() => {
+            activeResultIndex = -1;
+            if (suchbegriff.length < 2) {
+                suchErgebnisseContainer.style.display = 'none';
+                return;
+            }
+            const suchTokens = suchbegriff.split(' ').filter(token => token.length > 0);
+            const erweiterteSuche = suchTokens.map(token => ({ $or: [ { Name: token }, { Firma: token }, { Adresse: token } ] }));
+            const fuseErgebnisse = fuse.search({ $and: erweiterteSuche });
+            const treffer = fuseErgebnisse.map(ergebnis => ergebnis.item);
+            zeigeSuchErgebnisse(treffer, suchTokens, fuseErgebnisse);
+        }, 300); // Warte 300 Millisekunden nach der letzten Eingabe
     });
-    autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.address_components) return;
-        document.getElementById('firma').value = place.name || '';
-        let strasse = '', hausnummer = '', plz = '', ort = '', land = '';
-        place.address_components.forEach(c => {
-            if (c.types.includes('route')) strasse = c.long_name;
-            if (c.types.includes('street_number')) hausnummer = c.long_name;
-            if (c.types.includes('postal_code')) plz = c.long_name;
-            if (c.types.includes('locality')) ort = c.long_name;
-            if (c.types.includes('country')) land = c.long_name;
-        });
-        document.getElementById('strasse').value = hausnummer ? `${strasse} ${hausnummer}` : strasse;
-        document.getElementById('plz').value = plz;
-        document.getElementById('ort').value = ort;
-        document.getElementById('land').value = land;
-        input.value = '';
+
+    // Die anderen Listener bleiben unverändert
+    kundenSucheInput.addEventListener('keydown', function(e) {
+        const ergebnisse = suchErgebnisseContainer.querySelectorAll('.ergebnis-item:not(.no-results)');
+        if (ergebnisse.length === 0) return;
+        
+        switch (e.key) {
+            case 'ArrowDown': e.preventDefault(); activeResultIndex = (activeResultIndex + 1) % ergebnisse.length; updateActiveResult(ergebnisse); break;
+            case 'ArrowUp': e.preventDefault(); activeResultIndex = (activeResultIndex - 1 + ergebnisse.length) % ergebnisse.length; updateActiveResult(ergebnisse); break;
+            case 'Enter': e.preventDefault(); if (activeResultIndex > -1) ergebnisse[activeResultIndex].click(); else if (ergebnisse.length === 1) ergebnisse[0].click(); break;
+            case 'Escape': suchErgebnisseContainer.style.display = 'none'; break;
+        }
     });
-};
+
+suchErgebnisseContainer.addEventListener('click', function(e) {
+    const ergebnisItem = e.target.closest('.ergebnis-item');
+    if (ergebnisItem && ergebnisItem.dataset.index) {
+        const kunde = kunden[parseInt(ergebnisItem.dataset.index)];
+        
+        // Bestehende Felder befüllen (unverändert)
+        document.getElementById("name").value = kunde.Name || "";
+        document.getElementById("firma").value = kunde.Firma || "";
+        const adresseTeile = kunde.Adresse ? kunde.Adresse.split(",").map(x => x.trim()) : ["", "", "", ""];
+        document.getElementById("strasse").value = adresseTeile[0] || "";
+        // ===== HIER IST DIE KORREKTUR =====
+        // Wir weisen die Daten jetzt den korrekten Feldern zu
+        document.getElementById("plz").value = adresseTeile[1] || ""; // PLZ kommt in das PLZ-Feld
+        document.getElementById("ort").value = adresseTeile[2] || ""; // Ort kommt in das Ort-Feld
+        document.getElementById("land").value = adresseTeile[3] || "";
+        document.getElementById("email").value = kunde["E-Mail"] || "";
+        const telefonInput = document.getElementById("telefon");
+        telefonInput.value = kunde.Telefon || "";
+        telefonInput.dispatchEvent(new Event('input'));
+
+        // ===== NEU: Kundennummer in das unsichtbare Feld eintragen =====
+        document.getElementById("kundennummer").value = kunde.Kundennummer || "";
+
+        // Rest der Funktion (unverändert)
+        kundenSucheInput.value = '';
+        suchErgebnisseContainer.style.display = 'none';
+    }
+});
+
+
+    document.addEventListener('click', function(e) {
+        // ... (Dieser Block bleibt unverändert)
+        if (!kundenSucheInput.contains(e.target) && !suchErgebnisseContainer.contains(e.target)) {
+            suchErgebnisseContainer.style.display = 'none';
+        }
+    });
+}
 
 
 
@@ -528,133 +770,266 @@ window.initGooglePlaces = function() {
       });
     }
 
+// ========================================================================
+// ===== NEU: Funktion zum Wiederherstellen der Bericht-Formulardaten =====
+// ========================================================================
+function restoreBerichtData() {
+    try {
+        const savedDataJSON = localStorage.getItem('berichtFormData');
+        if (!savedDataJSON) return; // Keine Daten gefunden, nichts tun.
+
+        const savedData = JSON.parse(savedDataJSON);
+
+        // Haupttitel
+        document.getElementById('mainTitleInput').value = savedData.mainTitle || 'Besuchsbericht';
+
+        // Kundendaten
+        document.getElementById('name').value = savedData.name || '';
+        document.getElementById('firma').value = savedData.firma || '';
+        document.getElementById('strasse').value = savedData.strasse || '';
+        document.getElementById('plz').value = savedData.plz || '';
+        document.getElementById('ort').value = savedData.ort || '';
+        document.getElementById('land').value = savedData.land || '';
+        document.getElementById('email').value = savedData.email || '';
+        document.getElementById('telefon').value = savedData.telefon || '';
+        document.getElementById('kundennummer').value = savedData.kundennummer || '';
+
+        // Bearbeitung (Dropdowns mit Select2)
+        $('#sachbearbeiterDropdown').val(savedData.sachbearbeiter).trigger('change');
+        document.getElementById('sachbearbeiterManuell').value = savedData.sachbearbeiterManuell || '';
+        $('#aussendienstDropdown').val(savedData.aussendienst).trigger('change');
+        document.getElementById('aussendienstManuell').value = savedData.aussendienstManuell || '';
+
+        // Bericht und Aufgaben
+        document.getElementById('bericht-text').value = savedData.berichtText || '';
+        document.getElementById('aufgaben-text').value = savedData.aufgabenText || '';
+
+        // Sichtbarkeit der manuellen Felder korrekt setzen
+        if (savedData.sachbearbeiter === 'manuell') {
+            document.getElementById('sachbearbeiterManuell').style.display = 'block';
+        }
+        if (savedData.aussendienst === 'manuell') {
+            document.getElementById('aussendienstManuell').style.display = 'block';
+        }
+        
+        // Telefon-Button-Sichtbarkeit aktualisieren
+        document.getElementById('telefon').dispatchEvent(new Event('input'));
+
+        // Nach erfolgreicher Wiederherstellung die Daten löschen
+        localStorage.removeItem('berichtFormData');
+        console.log("Bericht-Formulardaten erfolgreich wiederhergestellt.");
+
+    } catch (error) {
+        console.error("Fehler beim Wiederherstellen der Bericht-Formulardaten:", error);
+        localStorage.removeItem('berichtFormData');
+    }
+}
+
+
 
     // --- Angepasste PDF-Generierungsfunktion ---
    // =================================================================
     // ===== PDF-GENERIERUNGSFUNKTION (MIT KORREKTUREN) =====
     // =================================================================
 
-    async function generateBerichtPDF() {
-        try {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            const logoImg = await loadImageAsBase64("https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png" ).catch(() => null);
-            
-            const margin = 20;
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
-            let yPosition = margin;
+async function generateBerichtPDF() {
+        // ========================================================================
+    // ===== DATEN IM LOCALSTORAGE SPEICHERN =====
+    // ========================================================================
+    try {
+        const formData = {
+            // Haupttitel
+            mainTitle: document.getElementById('mainTitleInput').value,
 
-            function addPageHeader() {
-                // KORREKTUR 1: Logo-Dimensionen angepasst (Breite 40, Höhe 15)
-                if (logoImg) doc.addImage(logoImg, "PNG", margin, margin, 40, 30, undefined, 'FAST');
-                
-                const heute = new Date();
-                const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
-                doc.setFontSize(10);
-                doc.setTextColor(100);
-                doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
-                const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
-                doc.text(`Berichts-Nr: ${berichtsNummer}`, pageWidth - margin, margin + 20, { align: "right" });
-            }
+            // Kundendaten
+            name: document.getElementById('name').value,
+            firma: document.getElementById('firma').value,
+            strasse: document.getElementById('strasse').value,
+            plz: document.getElementById('plz').value,
+            ort: document.getElementById('ort').value,
+            land: document.getElementById('land').value,
+            email: document.getElementById('email').value,
+            telefon: document.getElementById('telefon').value,
+            kundennummer: document.getElementById('kundennummer').value,
 
-            function checkPageBreak(neededSpace) {
-                if (yPosition + neededSpace > pageHeight - margin) {
-                    doc.addPage();
-                    yPosition = margin;
-                    addPageHeader();
-                    yPosition += 30; // Platz für Header auf neuer Seite
-                }
-            }
+            // Bearbeitung (Dropdowns)
+            sachbearbeiter: $('#sachbearbeiterDropdown').val(),
+            sachbearbeiterManuell: document.getElementById('sachbearbeiterManuell').value,
+            aussendienst: $('#aussendienstDropdown').val(),
+            aussendienstManuell: document.getElementById('aussendienstManuell').value,
 
-            addPageHeader();
-            yPosition += 40; // Etwas weniger Platz nach dem Header
-
-            const mainTitle = document.getElementById("mainTitleInput").value || "Bericht";
-            doc.setFontSize(20);
-            doc.setTextColor(0);
-            doc.setFont("helvetica", "bold");
-            doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
-            yPosition += 20;
-
-            function drawSection(title, data) {
-                checkPageBreak(20 + data.length * 6);
-                doc.setFontSize(14);
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(0, 161, 225);
-                doc.text(title, margin, yPosition);
-                yPosition += 10;
-                doc.setFontSize(10);
-                doc.setFont("helvetica", "normal");
-                doc.setTextColor(0);
-                data.forEach(item => {
-                    const splitItem = doc.splitTextToSize(item, pageWidth - 2 * margin - 35); // Textumbruch für lange Werte
-                    doc.text(splitItem, margin, yPosition);
-                    yPosition += splitItem.length * 5;
-                });
-                yPosition += 5; // Etwas weniger Abstand nach der Sektion
-            }
-
-            // KORREKTUR 2: Reihenfolge geändert (Kunde zuerst)
-            drawSection("KUNDE", [
-                `${document.getElementById("firma").value || 'N/A'}`,
-                `${document.getElementById("name").value || 'N/A'}`,
-                `${document.getElementById("strasse").value || 'N/A'}`,
-                `${document.getElementById("ort").value} ${document.getElementById("plz").value}`,
-                `${document.getElementById("email").value || 'N/A'}`,
-                `${document.getElementById("telefon").value || 'N/A'}`
-            ]);
-
-            drawSection("BEARBEITUNG", [
-                `Innendienst: ${getSachbearbeiterValue() || 'N/A'}`,
-                `Ausgestellt von: ${getAussendienstmitarbeiterValue() || 'N/A'}`
-            ]);
-
-            const berichtInhalt = document.getElementById('bericht-text').value;
-            if (berichtInhalt.trim()) {
-                checkPageBreak(30);
-                doc.setFontSize(14);
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(0, 161, 225);
-                doc.text("BERICHTSINHALT", margin, yPosition);
-                yPosition += 10;
-                doc.setFontSize(11);
-                doc.setFont("helvetica", "normal");
-                doc.setTextColor(0);
-                const splitBericht = doc.splitTextToSize(berichtInhalt, pageWidth - 2 * margin);
-                checkPageBreak(splitBericht.length * 5);
-                doc.text(splitBericht, margin, yPosition);
-                yPosition += splitBericht.length * 5 + 10;
-            }
-
-            const aufgabenInhalt = document.getElementById('aufgaben-text').value;
-            if (aufgabenInhalt.trim()) {
-                checkPageBreak(30);
-                doc.setFontSize(14);
-                doc.setFont("helvetica", "bold");
-                doc.setTextColor(0, 161, 225);
-                doc.text("ZU ERLEDIGENDE AUFGABEN", margin, yPosition);
-                yPosition += 10;
-                doc.setFontSize(11);
-                doc.setFont("helvetica", "normal");
-                doc.setTextColor(0);
-                const splitAufgaben = doc.splitTextToSize(aufgabenInhalt, pageWidth - 2 * margin);
-                checkPageBreak(splitAufgaben.length * 5);
-                doc.text(splitAufgaben, margin, yPosition);
-            }
-
-            const firmaName = (document.getElementById("firma").value || "Bericht").replace(/[^a-zA-Z0-9]/g, "-");
-            const datumForFilename = new Date().toISOString().split('T')[0];
-            doc.save(`${firmaName}_${datumForFilename}.pdf`);
-
-        } catch (error) {
-            console.error("Fehler bei der PDF-Erstellung:", error);
-            alert("Fehler bei der PDF-Erstellung. Bitte Konsole prüfen: " + error.message);
-        }
+            // Bericht und Aufgaben
+            berichtText: document.getElementById('bericht-text').value,
+            aufgabenText: document.getElementById('aufgaben-text').value
+        };
+        localStorage.setItem('berichtFormData', JSON.stringify(formData));
+        console.log('Bericht-Formulardaten erfolgreich im localStorage gesichert.');
+    } catch (error) {
+        console.error("Fehler beim Sichern der Bericht-Formulardaten:", error);
     }
+    // ========================================================================
+    // ===== ENDE DES SPEICHER-BLOCKS =====
+    // ========================================================================
+
+    
+    try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const heute = new Date();
+        const berichtsNummer = `BER-${heute.toISOString().slice(0, 10).replace(/-/g, '')}-${heute.toTimeString().slice(0, 5).replace(':', '')}`;
+        
+        const logoImg = await loadImageAsBase64("https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png"  ).catch(() => null);
+        
+        const margin = 20;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        let yPosition = margin;
+
+        function addPageHeader() {
+            if (logoImg) doc.addImage(logoImg, "PNG", margin, margin, 40, 30, undefined, 'FAST');
+            
+            
+            const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
+            doc.text(`Berichts-Nr: ${berichtsNummer}`, pageWidth - margin, margin + 20, { align: "right" });
+        }
+
+        function checkPageBreak(neededSpace) {
+            if (yPosition + neededSpace > pageHeight - margin) {
+                doc.addPage();
+                yPosition = margin;
+                addPageHeader();
+                yPosition += 30;
+            }
+        }
+
+        addPageHeader();
+        yPosition += 40;
+
+        const mainTitle = document.getElementById("mainTitleInput").value || "Bericht";
+        doc.setFontSize(20);
+        doc.setTextColor(0);
+        doc.setFont("helvetica", "bold");
+        doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
+        yPosition += 20;
+
+        function drawSection(title, data) {
+            checkPageBreak(20 + data.length * 6);
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 161, 225);
+            doc.text(title, margin, yPosition);
+            yPosition += 10;
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0);
+            data.forEach(item => {
+                const splitItem = doc.splitTextToSize(item, pageWidth - 2 * margin); // Breite für den Textumbruch angepasst
+                doc.text(splitItem, margin, yPosition);
+                yPosition += splitItem.length * 5 + 1; // Zeilenabstand angepasst
+            });
+            yPosition += 5;
+        }
+
+        // ===== HIER IST DIE FINALE ÄNDERUNG INTEGRIERT =====
+        
+        // 1. Kundennummer aus dem unsichtbaren Feld lesen
+        const kundennummerValue = document.getElementById("kundennummer").value;
+
+        // 2. Array für die Kundendaten vorbereiten
+        const kundenDatenArray = [
+            `Firma: ${document.getElementById("firma").value || 'N/A'}`,
+            `Ansprechpartner: ${document.getElementById("name").value || 'N/A'}`
+        ];
+
+        // 3. Kundennummer nur hinzufügen, wenn sie vorhanden ist
+        if (kundennummerValue) {
+            kundenDatenArray.push(`Kundennummer: ${kundennummerValue}`);
+        }
+
+        // 4. Restliche Kundendaten hinzufügen
+        kundenDatenArray.push(
+            `Adresse: ${document.getElementById("strasse").value || 'N/A'}, ${document.getElementById("plz").value} ${document.getElementById("ort").value}`,
+            `E-Mail: ${document.getElementById("email").value || 'N/A'}`,
+            `Telefon: ${document.getElementById("telefon").value || 'N/A'}`
+        );
+
+        // 5. Die "KUNDE"-Sektion mit dem vollständigen Array zeichnen
+        drawSection("KUNDE", kundenDatenArray);
+
+        // =======================================================
+
+        drawSection("BEARBEITUNG", [
+            `Innendienst: ${getSachbearbeiterValue() || 'N/A'}`,
+            `Ausgestellt von: ${getAussendienstmitarbeiterValue() || 'N/A'}`
+        ]);
+
+        const berichtInhalt = document.getElementById('bericht-text').value;
+        if (berichtInhalt.trim()) {
+            checkPageBreak(30);
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 161, 225);
+            doc.text("BERICHTSINHALT", margin, yPosition);
+            yPosition += 10;
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0);
+            const splitBericht = doc.splitTextToSize(berichtInhalt, pageWidth - 2 * margin);
+            checkPageBreak(splitBericht.length * 6); // Angepasster Platzbedarf
+            doc.text(splitBericht, margin, yPosition);
+            yPosition += splitBericht.length * 6 + 10;
+        }
+
+        const aufgabenInhalt = document.getElementById('aufgaben-text').value;
+        if (aufgabenInhalt.trim()) {
+            checkPageBreak(30);
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(0, 161, 225);
+            doc.text("ZU ERLEDIGENDE AUFGABEN", margin, yPosition);
+            yPosition += 10;
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0);
+            const splitAufgaben = doc.splitTextToSize(aufgabenInhalt, pageWidth - 2 * margin);
+            checkPageBreak(splitAufgaben.length * 6); // Angepasster Platzbedarf
+            doc.text(splitAufgaben, margin, yPosition);
+        }
+
+// NEUER CODE (Firma_Ansprechpartner_Ort_Berichtsnummer):
+
+// NEUER CODE (BER-Nummer_Firma_Ansprechpartner_Ort):
+
+// 1. Alle benötigten Werte aus den Feldern holen.
+const firma = document.getElementById("firma").value || "Bericht";
+const ansprechpartner = document.getElementById("name").value || "";
+const ort = document.getElementById("ort").value || ""; // Wir verwenden bereits den Ort, nicht die PLZ. Das passt also.
+// Die Variable 'berichtsNummer' existiert bereits.
+
+// 2. Alle Teile in der NEUEN REIHENFOLGE zu einem Array zusammenfügen.
+const filenameParts = [berichtsNummer, firma, ansprechpartner, ort].filter(part => part);
+
+// 3. Jeden Teil bereinigen und mit "_" verbinden.
+const cleanFilename = filenameParts.map(part => 
+    part.replace(/[^a-zA-Z0-9äöüÄÖÜß\s\-]/g, "").trim()
+).join("_");
+
+// 4. PDF mit dem neuen Dateinamen speichern.
+doc.save(`${cleanFilename}.pdf`);
+
+
+
+
+    } catch (error) {
+        console.error("Fehler bei der PDF-Erstellung:", error);
+        alert("Fehler bei der PDF-Erstellung. Bitte Konsole prüfen: " + error.message);
+    }
+}
+
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN4cAc4nq9je0of0cb_0wEUb1yCz54r7k&libraries=places&callback=initGooglePlaces" async defer></script>
 
   <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
   <button onclick="generateBerichtPDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
