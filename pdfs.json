@@ -1,0 +1,604 @@
+[
+  {
+    "name": "ANBOHREN MIT BDH Monteurdeutsch)",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ANBOHREN MIT BDH Monteurdeutsch.pdf",
+    "category": "Anleitung für Anbohren mit BDH",
+    "isDefault": true,
+    "protected": true
+  },
+  {
+    "name": "Anbohrung mit Bohrlochdichthülse - S_Brand",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Anbohrung mit Bohrlochdichthülse - S_Brand.pdf",
+    "category": "Fachaufsatz",
+    "isDefault": true,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: 2k-Absperrschaum",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_2k-absperrschaum.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Wasserzählerschacht vor Flexoripp",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_alterwz-schacht.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Anbohrarmaturen Gas",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_anbohrarmaturen-gas.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Anbohrarmaturen Wasser",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_anbohrarmaturen-wasser.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Anbohren Abwasser",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_anbohren-abwasser.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Anbohren mit EWE-Anbohrwerkzeug",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_anbohren-mit-ewe-werkzeugen.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Ausblasarmaturen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_ausblasarmaturen.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Blasensetzen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_blasensetzen.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Dichtungssatz Systemtrenner",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_dichtungssatz-systemtrenner.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: DIN-Ventile",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_din-ventile.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Einbaugarnituren",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_einbaugarnituren.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Entluefter",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_entluefter.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Flex-Schachtset",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_flex-schachtset.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Flexoripp",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_flexoripp.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Flexoripp Merged Benutzerinfo",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_flexoripp_merged_Benutzerinfo.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Feuerwehr-Systemtrenner Pruefset",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_fw-st-pruefset.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Gartenarmaturen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_gartenarmaturen.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: KMR",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_kmr.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Mauerdurchfuehrungen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_mauerdurchfuehrungen.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Megaripp",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_megaripp.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: PE-Schweissstutzen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_pe-schweissstutzen.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Schneidwerkzeug",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_schneidwerkzeug.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Standrohr-Pruefanlage",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_standrohr-pruefanlage.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Wasserzähler-Anlagen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/bi-d_wza.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Next Suite OOWV",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/D_PBL_NEXT_OOWV_Suite_26-08-25.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: MODU-Standrohre",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/dbi-de-modu-standrohre.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Standrohre mit Kunstoffwasserzähler",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/dbi-de-standrohre-kwz.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Benutzerinformation: Standrohre",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/dbi-de-standrohre.pdf",
+    "category": "Benutzerinformationen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Deckel",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Deckel.pdf",
+    "category": "Allgemein",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Einführung von duktilen Gußrohren mit ZMU",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Einführung von duktilen Gußrohren mit ZMU.pdf",
+    "category": "Fachaufsatz",
+    "isDefault": true,
+    "protected": true
+  },
+  {
+    "name": "EWE-Ersatzteilprospekt Wasserzählerschacht",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Ersatzteile_fuer_EWE-WZ-Schaechte_u_FLEXORIPP.pdf",
+    "category": "Ersatzteile",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "EWE-Ersatzteilprospekt Wasserzähleranlagen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Ersatzteile_fuer_Wasserzaehler-Anlagen.pdf",
+    "category": "Ersatzteile",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "EWE-Armaturen für Sanitär Heizung Klima",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/EWE-Armaturen für SHK.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "EWE-Preisliste 2025 (Hauptliste)",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2025.pdf",
+    "category": "Preislisten",
+    "isDefault": true,
+    "protected": true
+  },
+  {
+    "name": "EWE-Preisliste 2026 (Hauptliste)",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-preisliste-2026.pdf",
+    "category": "Preislisten",
+    "isDefault": true,
+    "protected": true
+  },
+  {
+    "name": "Allg.: EWE-Produkte-2025 Neuheiten/Produkte die entfallen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ewe-produkte-2025neuheiten.pdf",
+    "category": "Allgemein",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "EWE-Zubehör divers für Wasserzählerschächte",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/EWEKurzinfo2025.pdf",
+    "category": "Ersatzteile",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Allgemein: Schulungsangebote",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/f-d_schulungsangebot.pdf",
+    "category": "Allgemein",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Allgemein: Information SI-Messing",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/f-d_si-messing.pdf",
+    "category": "Allgemein",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "flexorippanlagen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/flexorippanlagen.pdf",
+    "category": "Allgemein",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sammeldokument: Alles PDF Anbohren",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedanbohren.pdf",
+    "category": "Sammeldokumente",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sammeldokument: Alle PDF Garten",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedgarten.pdf",
+    "category": "Sammeldokumente",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sammeldokument: Divers",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedothers.pdf",
+    "category": "Sammeldokumente",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sammeldokument: Alle Sicherheitsdatenblätter",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedsicherheits.pdf",
+    "category": "Sammeldokumente",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sammeldokument: Alle PDF über Wasserzähleranlagen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/ilovepdf_mergedwza.pdf",
+    "category": "Sammeldokumente",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: 2k-Absperrschaum",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_2k-absperrschaum.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Abwasser-Druckleitung",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_abwasser-druckleitung.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Anbohrarmaturen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_anbohrarmaturen.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Bauwasser-Armaturen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_bauwasser-armaturen.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Erdabsperr-Gartenarmaturen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_erdabsperr-gartenarmaturen.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Feuerwehr-Systemtrenner",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_feuerwehr-systemtrenner.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Flex-Schachtset",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_flex-schachtset.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Flexoripp-Megaripp",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_flexoripp-megaripp.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Kera-Anbohrarmatur",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_kera-anbohrarmatur.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Leistungsprofil",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_leistungsprofil.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Mauerdurchfuehrungen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_mauerdurchfuehrungen.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Modu-Standrohr",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_modu-standrohr.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Multi-DAV",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_multi-dav.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Next-Standrohrverwaltung",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_next-srv.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: next-suite",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_next-suite.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Service",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_service.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: SI-Messing",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_si-messing.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Spülkissen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_spuelkissen.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Standrohr-Prüfanlage",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_standrohr-pruefanlage.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Standrohre-Kunststoff-Wasserzähler",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_standrohre-kunststoff-wz.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Standrohre",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_standrohre.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Standrohre Merged Compressed",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_standrohre_merged_compressed.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Prospekt: Wasserzaehleranlagen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/p-d_wasserzaehler-anlagen.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "PBL_Werbemittel_Lieferanten_032025",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/PBL_Werbemittel_Lieferanten_032025.pdf",
+    "category": "Prospekte",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "RohrdeckungFlex",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/RohrdeckungFlex.pdf",
+    "category": "Allgemein",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sicherheitsdatenblatt: 2k-Absperrschaum",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/sd-d_2k-absperrschaum.pdf",
+    "category": "Sicherheitsdatenblätter",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sicherheitsdatenblatt: EWE-Armaturen-Desinfekt",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/sd-d_ewe-armaturen-desinfekt.pdf",
+    "category": "Sicherheitsdatenblätter",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sicherheitsdatenblatt: Standrohrpruefanlage-Desinfekt",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/sd-d_standrohrpruefanlage-desinfekt.pdf",
+    "category": "Sicherheitsdatenblätter",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Sicherheitsdatenblatt: Unisilikon",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/sd-d_unisilikon.pdf",
+    "category": "Sicherheitsdatenblätter",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Allgemein: SDgefahren",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/SDgefahren.pdf",
+    "category": "Allgemein",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Tabelle: Anbohren",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/tabelle-anbohren.pdf",
+    "category": "Tabellen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Tabelle: Auslaufmengen",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/tabelle-auslaufmengen.pdf",
+    "category": "Tabellen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Tabelle: Bohrwerkzeug",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/tabelle-bohrwerkzeug.pdf",
+    "category": "Tabellen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Tabelle: Haltestuecke",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/tabelle-haltestuecke.pdf",
+    "category": "Tabellen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Tabelle: Hilfsabsperrung",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/tabelle-hilfsabsperrung.pdf",
+    "category": "Tabellen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Tabelle: Hülse",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/tabelle-huelse.pdf",
+    "category": "Tabellen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Tabelle: Spueleinrichtung",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/tabelle-spueleinrichtung.pdf",
+    "category": "Tabellen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Alle technische Tabellen über Anbohren",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Technische Tabelle - Anbohren.pdf",
+    "category": "Tabellen",
+    "isDefault": false,
+    "protected": true
+  },
+  {
+    "name": "Wurzelschaden am Rohr",
+    "path": "https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/pdf/Wurzelschaden am Rohr.pdf",
+    "category": "Zeitungsbericht",
+    "isDefault": true,
+    "protected": true
+  }
+]
