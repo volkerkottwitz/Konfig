@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": "vk",
+      "salt": "HBBwgrBB+w7aI7enYT7rVw==",
+      "nonce": "oEobdjyn+bNIqxnJ",
+      "key": "M3NE1cAXJU7aHZx18GWe/NDplrUdxns50qOjM65HlRGAP+1LZoShMnkObY6DfU3p"
+    },
+    {
+      "id": "hb",
+      "salt": "oiIKE/C1P5Nq2GLPu4P57w==",
+      "nonce": "vdECnRbM90n7tanA",
+      "key": "/FJmAHO09DMvDSrCKUnVlKYOK5+mLga9TeJ5fGkFw1mYhy5l3HeBZiUeYYAbc+S9"
+    },
+    {
+      "id": "dk",
+      "salt": "P3b4fApp8P3cwqbE5q8DQQ==",
+      "nonce": "BzntAUTcC/nQ22yO",
+      "key": "tyxU85qSnB4HqJ3RjgwfoBLB9umnhwukkADPoZrnmrhXR6UJ5l27+D0GAdSw01pY"
+    },
+    {
+      "id": "do",
+      "salt": "y2SPttHbV1Ez7i/AMUFbeg==",
+      "nonce": "jcbD/tyX3qlvDw3k",
+      "key": "3BowXCHkBcf4hnbPdW7a5SV6BHrZRJUVdI+Vu31y5RLNICbcNCBjoQ3nbffuiGfd"
+    },
+    {
+      "id": "shared",
+      "salt": "2G1mSMdI7D7jNkkJr4yevQ==",
+      "nonce": "+plPN03rYdiOkbyY",
+      "key": "uXHxM0f6b++mqnKOupGR7/UXabPvjP5oY4obiKkOak7SAUzd62mZ3FpIaYMVqLc3"
+    }
+  ]
+}

@@ -31,6 +31,9 @@
     .ergebnis-item.no-results { cursor: default; color: #888; }
     .ergebnis-item.no-results:hover { background-color: white; }
 
+    /* --- 2b. Kunden-Ergebnisse nach PLZ-Lookup --- */
+    #kundenErgebnisse { display: none; position: relative; width: 100%; max-width: 500px; margin-top: -10px; background-color: white; border: 1px solid #ddd; border-radius: 8px; z-index: 1000; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+
     /* --- 3. EINHEITLICHE STILE FÜR NORMALE EINGABEFELDER (text, tel, date) --- */
     .centered-form-layout input[type="text"],
     .centered-form-layout input[type="tel"],
@@ -190,6 +193,7 @@
       <input type="text" id="kundenSuche" placeholder="🔍 Firma oder Adresse suchen..." autocomplete="off">
       
       <input type="text" id="name" placeholder="Name" autocomplete="new-password">
+      <div id="kundenErgebnisse"></div>
       <input type="text" id="firma" placeholder="Firma" autocomplete="new-password">
       <input type="text" id="strasse" placeholder="Straße" autocomplete="new-password">
       <input type="text" id="plz" placeholder="PLZ" autocomplete="new-password">
@@ -198,7 +202,6 @@
       <input type="text" id="email" placeholder="E-Mail" autocomplete="new-password">
       <input type="text" id="telefon" placeholder="Telefon" autocomplete="new-password">
       <input type="text" id="kundennummer" placeholder="Kundennummer (optional)" autocomplete="new-password">
-
 
     </div>
   </section>
@@ -242,12 +245,16 @@
       
       <select id="anlieferungDropdown">
         <option value="">-- Anlieferung auswählen --</option>
+        <option value="Selbstanlieferung">Selbstanlieferung</option>
+        <option value="Paketlieferung">Paketlieferung</option>
+        <option value="Speditionslieferung">Speditionslieferung</option>
         <option value="PKW Außendienst">PKW Außendienst</option>
         <option value="EWE-LKW">EWE-LKW</option>
         <option value="Paketdienst">Paketdienst</option>
         <option value="Spedition">Spedition</option>
         <option value="Sonstiges">Sonstiges</option>
       </select>
+      <input type="text" id="anlieferungManuell" placeholder="Anlieferung (Freitext)" style="display: none;">
 
       <input type="text" id="auftragsnummer" placeholder="Auftragsnummer" autocomplete="new-password">
       <input type="text" id="rechnungsnummer" placeholder="Bezug zu Rechnungsnummer" autocomplete="new-password">
@@ -318,6 +325,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
+    // Globale Kundendatenbank (aus verschluesselter CSV geladen)
+    let kundenDatenbank = [];
+
     // Referenzen auf die HTML-Elemente
     const inputs = {
       name: document.getElementById("name" ),
@@ -333,6 +343,7 @@
       bearbeiter: document.getElementById("bearbeiterDropdown"),
       bearbeiterManuell: document.getElementById("bearbeiterManuell"),
       anlieferung: document.getElementById("anlieferungDropdown"),
+      anlieferungManuell: document.getElementById("anlieferungManuell"),
       bemerkungen: document.getElementById("bemerkungen"), 
       checkReklamation: document.getElementById("checkReklamation"),
       checkNeuware: document.getElementById("checkNeuware"),
@@ -368,10 +379,121 @@
         document.getElementById('ort').value = ort;
         document.getElementById('land').value = land;
         input.value = '';
+        if (kundenDatenbank.length > 0) showKundenByPLZ(plz);
       });
     };
 
-// (Kundenstamm-Code entfernt – ersetzt durch Google Places)
+// ========================================================================
+// ===== PLZ-KUNDEN-LOOKUP (Envelope Encryption + Web Crypto API) =========
+// ========================================================================
+
+async function loadKundenDatenbank() {
+    const password = localStorage.getItem('customerDataPassword') || sessionStorage.getItem('customerDataPassword');
+    if (!password) {
+        console.log('Kein Passwort gesetzt - Kunden-Lookup deaktiviert.');
+        return;
+    }
+
+    try {
+        // 1. keys.json laden
+        const keysResponse = await fetch('keys.json');
+        if (!keysResponse.ok) { console.log('keys.json nicht gefunden.'); return; }
+        const keysData = await keysResponse.json();
+
+        // 2. Master-Key mit User-Passwort entschluesseln
+        let masterKeyRaw = null;
+        for (const userEntry of keysData.users) {
+            try {
+                const salt = Uint8Array.from(atob(userEntry.salt), c => c.charCodeAt(0));
+                const nonce = Uint8Array.from(atob(userEntry.nonce), c => c.charCodeAt(0));
+                const encryptedKey = Uint8Array.from(atob(userEntry.key), c => c.charCodeAt(0));
+
+                const keyMaterial = await crypto.subtle.importKey(
+                    'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']
+                );
+                const derivedKey = await crypto.subtle.deriveKey(
+                    { name: 'PBKDF2', salt: salt, iterations: 480000, hash: 'SHA-256' },
+                    keyMaterial,
+                    { name: 'AES-GCM', length: 256 }, false, ['decrypt']
+                );
+                masterKeyRaw = await crypto.subtle.decrypt(
+                    { name: 'AES-GCM', iv: nonce }, derivedKey, encryptedKey
+                );
+                console.log('Authentifiziert als: ' + userEntry.id);
+                break;
+            } catch (e) { continue; }
+        }
+
+        if (!masterKeyRaw) { console.log('Passwort stimmt mit keinem User ueberein.'); return; }
+
+        // 3. namplzkdn.enc laden und mit Master-Key entschluesseln
+        const encResponse = await fetch('namplzkdn.enc');
+        if (!encResponse.ok) { console.log('namplzkdn.enc nicht gefunden.'); return; }
+        const encData = await encResponse.arrayBuffer();
+
+        const encNonce = encData.slice(0, 12);
+        const ciphertext = encData.slice(12);
+
+        const masterCryptoKey = await crypto.subtle.importKey(
+            'raw', masterKeyRaw, { name: 'AES-GCM' }, false, ['decrypt']
+        );
+        const decrypted = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: encNonce }, masterCryptoKey, ciphertext
+        );
+
+        // 4. CSV parsen
+        const csvText = new TextDecoder().decode(decrypted);
+        const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+        kundenDatenbank = parsed.data;
+        console.log(kundenDatenbank.length + ' Kunden geladen.');
+
+    } catch (error) {
+        console.log('Fehler beim Laden der Kundendatenbank:', error);
+    }
+}
+
+function showKundenByPLZ(plz) {
+    const container = document.getElementById('kundenErgebnisse');
+    if (!container) return;
+
+    if (!plz || plz.length < 4 || kundenDatenbank.length === 0) {
+        container.innerHTML = '';
+        container.style.display = 'none';
+        return;
+    }
+
+    const treffer = kundenDatenbank.filter(k => k.PLZ === plz);
+
+    if (treffer.length === 0) {
+        container.innerHTML = '';
+        container.style.display = 'none';
+        return;
+    }
+
+    container.innerHTML = '';
+    treffer.forEach(kunde => {
+        const div = document.createElement('div');
+        div.className = 'ergebnis-item';
+        div.textContent = kunde.Name + ' \u2014 ' + kunde.Kundennummer;
+        div.addEventListener('click', () => {
+            document.getElementById('name').value = kunde.Name;
+            document.getElementById('kundennummer').value = kunde.Kundennummer;
+            container.innerHTML = '';
+            container.style.display = 'none';
+        });
+        container.appendChild(div);
+    });
+    container.style.display = 'block';
+}
+
+// Dropdown schliessen bei Klick ausserhalb
+document.addEventListener('click', function(e) {
+    const container = document.getElementById('kundenErgebnisse');
+    if (container && !container.contains(e.target) && e.target.id !== 'plz' && e.target.id !== 'kundennummer') {
+        container.innerHTML = '';
+        container.style.display = 'none';
+    }
+});
 
 
 
@@ -394,7 +516,18 @@
       }
     });
 
-
+    // Event-Listener für Anlieferung-Dropdown
+    $('#anlieferungDropdown').on('change', function () {
+      const selectedValue = this.value;
+      const manuellesEingabefeld = retourenInputs.anlieferungManuell;
+      if (selectedValue === "Sonstiges") {
+        manuellesEingabefeld.style.display = "block";
+        manuellesEingabefeld.focus();
+      } else {
+        manuellesEingabefeld.style.display = "none";
+        manuellesEingabefeld.value = "";
+      }
+    });
 
 // ========================================================================
 // ===== NEU: Funktion zur Formatierung des Datums nach der Auswahl =====
@@ -745,6 +878,7 @@ function restoreFormData() {
         $('#bearbeiterDropdown').val(savedData.bearbeiter).trigger('change');
         document.getElementById('bearbeiterManuell').value = savedData.bearbeiterManuell || '';
         $('#anlieferungDropdown').val(savedData.anlieferung).trigger('change');
+        document.getElementById('anlieferungManuell').value = savedData.anlieferungManuell || '';
         document.getElementById('auftragsnummer').value = savedData.auftragsnummer || '';
         document.getElementById('rechnungsnummer').value = savedData.rechnungsnummer || '';
         document.getElementById('reklamationsnummer').value = savedData.reklamationsnummer || '';
@@ -767,6 +901,9 @@ function restoreFormData() {
         // Wichtig: Sichtbarkeit der manuellen Felder korrekt setzen, falls nötig
         if (savedData.bearbeiter === 'manuell') {
             document.getElementById('bearbeiterManuell').style.display = 'block';
+        }
+        if (savedData.anlieferung === 'Sonstiges') {
+            document.getElementById('anlieferungManuell').style.display = 'block';
         }
         if (savedData.checkWeiterleitung) {
             document.getElementById('weiterleitungAnName').style.display = 'block';
@@ -806,6 +943,7 @@ async function generateRetourenscheinPDF() {
             bearbeiter: $('#bearbeiterDropdown').val(),
             bearbeiterManuell: document.getElementById('bearbeiterManuell').value,
             anlieferung: $('#anlieferungDropdown').val(),
+            anlieferungManuell: document.getElementById('anlieferungManuell').value,
             auftragsnummer: document.getElementById('auftragsnummer').value,
             rechnungsnummer: document.getElementById('rechnungsnummer').value,
             reklamationsnummer: document.getElementById('reklamationsnummer').value,
@@ -898,10 +1036,12 @@ async function generateRetourenscheinPDF() {
     const reklamationsnummerValue = document.getElementById("reklamationsnummer").value;
     const rechnungsnummerValue = document.getElementById("rechnungsnummer").value;
     const kundennummerValue = document.getElementById("kundennummer").value;
-    const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell" 
-        ? retourenInputs.bearbeiterManuell.value 
+    const bearbeiterWert = retourenInputs.bearbeiter.value === "manuell"
+        ? retourenInputs.bearbeiterManuell.value
         : retourenInputs.bearbeiter.value;
-
+    const anlieferungWert = retourenInputs.anlieferung.value === "Sonstiges"
+        ? retourenInputs.anlieferungManuell.value
+        : retourenInputs.anlieferung.value;
 
     // --- 1. Header ---
     let y = page_margin;
@@ -955,7 +1095,7 @@ async function generateRetourenscheinPDF() {
     drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`, 90);
     const separatorY = kundenBoxY + 42;
     doc.line(page_margin, separatorY-2, page_width - page_margin, separatorY-2);
-    drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", retourenInputs.anlieferung.value, 90);
+    drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", anlieferungWert, 90);
     drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", abholDatumValue, 90); // <-- KORRIGIERT
     y = kundenBoxY + kundenBoxHeight;
 
@@ -1127,11 +1267,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // --- SCHRITT 2: Versuchen, die Standardwerte mit gespeicherten Daten zu überschreiben ---
-    
-    // Diese Funktion wird jetzt NACH der Initialisierung aufgerufen.
-    // Wenn gespeicherte Daten existieren, überschreibt sie die eben gesetzten Standardwerte.
-    // Wenn keine Daten da sind, passiert einfach nichts.
     restoreFormData();
+
+    // --- SCHRITT 3: Kundendatenbank laden (Envelope Encryption) ---
+    loadKundenDatenbank();
+
+    // --- SCHRITT 4: PLZ-Feld Event-Listener fuer manuelle Eingabe ---
+    document.getElementById('plz').addEventListener('input', function() {
+        if (this.value.length >= 4) {
+            showKundenByPLZ(this.value.trim());
+        } else {
+            const container = document.getElementById('kundenErgebnisse');
+            if (container) { container.innerHTML = ''; container.style.display = 'none'; }
+        }
+    });
 
 });
 

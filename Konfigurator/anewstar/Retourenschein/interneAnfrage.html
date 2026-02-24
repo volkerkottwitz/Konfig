@@ -49,10 +49,11 @@
     /* Stile für die Suchleiste & Ergebnisse */
     #kundenSuche {
         width: 100%;
-        padding: 12px 20px;
+        height: 45px;
+        padding: 0 20px;
         font-size: 16px;
         border: 1px solid #ccc;
-        border-radius: 25px;
+        border-radius: 8px;
         box-sizing: border-box;
         transition: all 0.2s ease-in-out;
     }
@@ -94,54 +95,101 @@
         background-color: white;
     }
 
-    /* ================================================================= */
-    /* ===== KONSISTENTE STILE FÜR ALLE SELECT2-DROPDOWNS ===== */
-    /* ================================================================= */
+    /* --- Kunden-Ergebnisse nach PLZ-Lookup --- */
+    #kundenErgebnisse { display: none; position: relative; width: 100%; max-width: 500px; margin-top: -10px; background-color: white; border: 1px solid #ddd; border-radius: 8px; z-index: 1000; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
-/* KORREKTUR: Die problematische padding-Regel wurde entfernt.
-   Der Text richtet sich jetzt standardmäßig links aus. */
-.select2-container .select2-selection--single .select2-selection__rendered {
-    /* padding-left: 20px !important; <-- ENTFERNT */
-    line-height: 43px; /* Zentriert den Text vertikal in der Box */
-    padding-left: 10px; /* Behält einen kleinen Abstand zum Rand bei */
-    padding-right: 20px; /* Verhindert, dass Text unter den Pfeil rutscht */
-}
+    /* --- EINHEITLICHE STILE FÜR NORMALE EINGABEFELDER (text, tel, date) --- */
+    .centered-form-layout input[type="text"],
+    .centered-form-layout input[type="tel"],
+    .centered-form-layout input[type="date"] {
+        height: 45px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 0 20px;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: all 0.2s ease-in-out;
+        width: 100%;
+        max-width: 500px;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+    }
 
-/* 2. Höhe und Rahmen anpassen */
-.select2-container .select2-selection--single {
-    height: 45px !important;
-    border-radius: 25px !important;
-    border: 1px solid #ccc !important;
-    display: flex;
-    align-items: center;
-}
+    /* --- DER "NUKLEARE RESET" FÜR SELECT2-DROPDOWNS --- */
 
-/* 3. Rahmenfarbe bei Fokus anpassen */
-.select2-container--default.select2-container--open .select2-selection--single,
-.select2-container--default .select2-selection--single:focus {
-    border-color: #00a1e1 !important;
-    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25) !important;
-}
+    /* Schritt A: Select2-Standarddesign komplett entfernen */
+    .select2-container--default .select2-selection--single {
+        background-color: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+    }
 
-/* 4. Pfeil-Icon vertikal zentrieren */
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 43px !important;
-}
+    /* Schritt B: Unser Design auf den äußeren Select2-Container anwenden */
+    .centered-form-layout .select2-container {
+        height: 45px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        padding: 0 20px;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: all 0.2s ease-in-out;
+        width: 100%;
+        max-width: 500px;
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        display: flex;
+        align-items: center;
+        background-color: white;
+        position: relative;
+    }
 
-/* ======================================================================== */
-/* ===== FINAL: Markenkonforme Farbe für markierten Text (Selection) ===== */
-/* ======================================================================== */
-::selection {
-    background-color: #00a1e1; /* Unser schönes EWE-Blau */
-    color: #ffffff;           /* Weißer Text für besten Kontrast */
-}
+    /* Schritt C: Den Text im Inneren sauber positionieren */
+    .centered-form-layout .select2-container .select2-selection__rendered {
+        padding: 0 !important;
+        color: #333 !important;
+        margin-top: 1px;
+    }
 
-/* ======================================================================== */
-/* ===== FINAL: Hässlichen Standard-Fokus-Rahmen in Select2 entfernen (Aggressive Methode) ===== */
-/* ======================================================================== */
-.select2-container *:focus {
-    outline: none !important;
-}
+    /* Schritt D: Den Pfeil rechts positionieren */
+    .centered-form-layout .select2-container--default .select2-selection__arrow {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        height: auto !important;
+        width: auto !important;
+    }
+
+    /* ======================================================================== */
+    /* ===== Hässlichen Standard-Fokus-Rahmen in Select2 entfernen          ===== */
+    /* ======================================================================== */
+    .select2-container *:focus {
+        outline: none !important;
+    }
+
+    /* --- EINHEITLICHER FOKUS-EFFEKT FÜR ALLE FELDER --- */
+    .centered-form-layout input[type="text"]:focus,
+    .centered-form-layout input[type="text"]:focus-visible,
+    .centered-form-layout input[type="tel"]:focus,
+    .centered-form-layout input[type="tel"]:focus-visible,
+    .centered-form-layout input[type="date"]:focus,
+    .centered-form-layout input[type="date"]:focus-visible,
+    .centered-form-layout .select2-container.select2-container--open,
+    .centered-form-layout .select2-container:focus-within {
+        outline: none !important;
+        border-color: #00a1e1 !important;
+        box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25) !important;
+    }
+
+    /* ======================================================================== */
+    /* ===== Markenkonforme Farbe für markierten Text (Selection)            ===== */
+    /* ======================================================================== */
+    ::selection {
+        background-color: #00a1e1;
+        color: #ffffff;
+    }
 
   </style>
 </head>
@@ -168,6 +216,7 @@
       <input type="text" id="kundenSuche" placeholder="🔍 Firma oder Adresse suchen..." autocomplete="off">
       
       <input type="text" id="name" placeholder="Name" autocomplete="new-password">
+      <div id="kundenErgebnisse"></div>
       <input type="text" id="firma" placeholder="Firma" autocomplete="new-password">
       <input type="text" id="strasse" placeholder="Straße" autocomplete="new-password">
       <input type="text" id="plz" placeholder="PLZ" autocomplete="new-password">
@@ -257,6 +306,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
+    // Globale Kundendatenbank (aus verschluesselter CSV geladen)
+    let kundenDatenbank = [];
+
     // Referenzen auf die HTML-Elemente
     const sachbearbeiterDropdown = document.getElementById("sachbearbeiterDropdown" );
     const sachbearbeiterManuellInput = document.getElementById("sachbearbeiterManuell");
@@ -303,9 +355,121 @@
         document.getElementById('ort').value = ort;
         document.getElementById('land').value = land;
         input.value = '';
+        if (kundenDatenbank.length > 0) showKundenByPLZ(plz);
       });
     };
 
+// ========================================================================
+// ===== PLZ-KUNDEN-LOOKUP (Envelope Encryption + Web Crypto API) =========
+// ========================================================================
+
+async function loadKundenDatenbank() {
+    const password = localStorage.getItem('customerDataPassword') || sessionStorage.getItem('customerDataPassword');
+    if (!password) {
+        console.log('Kein Passwort gesetzt - Kunden-Lookup deaktiviert.');
+        return;
+    }
+
+    try {
+        // 1. keys.json laden
+        const keysResponse = await fetch('keys.json');
+        if (!keysResponse.ok) { console.log('keys.json nicht gefunden.'); return; }
+        const keysData = await keysResponse.json();
+
+        // 2. Master-Key mit User-Passwort entschluesseln
+        let masterKeyRaw = null;
+        for (const userEntry of keysData.users) {
+            try {
+                const salt = Uint8Array.from(atob(userEntry.salt), c => c.charCodeAt(0));
+                const nonce = Uint8Array.from(atob(userEntry.nonce), c => c.charCodeAt(0));
+                const encryptedKey = Uint8Array.from(atob(userEntry.key), c => c.charCodeAt(0));
+
+                const keyMaterial = await crypto.subtle.importKey(
+                    'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']
+                );
+                const derivedKey = await crypto.subtle.deriveKey(
+                    { name: 'PBKDF2', salt: salt, iterations: 480000, hash: 'SHA-256' },
+                    keyMaterial,
+                    { name: 'AES-GCM', length: 256 }, false, ['decrypt']
+                );
+                masterKeyRaw = await crypto.subtle.decrypt(
+                    { name: 'AES-GCM', iv: nonce }, derivedKey, encryptedKey
+                );
+                console.log('Authentifiziert als: ' + userEntry.id);
+                break;
+            } catch (e) { continue; }
+        }
+
+        if (!masterKeyRaw) { console.log('Passwort stimmt mit keinem User ueberein.'); return; }
+
+        // 3. namplzkdn.enc laden und mit Master-Key entschluesseln
+        const encResponse = await fetch('namplzkdn.enc');
+        if (!encResponse.ok) { console.log('namplzkdn.enc nicht gefunden.'); return; }
+        const encData = await encResponse.arrayBuffer();
+
+        const encNonce = encData.slice(0, 12);
+        const ciphertext = encData.slice(12);
+
+        const masterCryptoKey = await crypto.subtle.importKey(
+            'raw', masterKeyRaw, { name: 'AES-GCM' }, false, ['decrypt']
+        );
+        const decrypted = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: encNonce }, masterCryptoKey, ciphertext
+        );
+
+        // 4. CSV parsen
+        const csvText = new TextDecoder().decode(decrypted);
+        const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+        kundenDatenbank = parsed.data;
+        console.log(kundenDatenbank.length + ' Kunden geladen.');
+
+    } catch (error) {
+        console.log('Fehler beim Laden der Kundendatenbank:', error);
+    }
+}
+
+function showKundenByPLZ(plz) {
+    const container = document.getElementById('kundenErgebnisse');
+    if (!container) return;
+
+    if (!plz || plz.length < 4 || kundenDatenbank.length === 0) {
+        container.innerHTML = '';
+        container.style.display = 'none';
+        return;
+    }
+
+    const treffer = kundenDatenbank.filter(k => k.PLZ === plz);
+
+    if (treffer.length === 0) {
+        container.innerHTML = '';
+        container.style.display = 'none';
+        return;
+    }
+
+    container.innerHTML = '';
+    treffer.forEach(kunde => {
+        const div = document.createElement('div');
+        div.className = 'ergebnis-item';
+        div.textContent = kunde.Name + ' \u2014 ' + kunde.Kundennummer;
+        div.addEventListener('click', () => {
+            document.getElementById('name').value = kunde.Name;
+            document.getElementById('kundennummer').value = kunde.Kundennummer;
+            container.innerHTML = '';
+            container.style.display = 'none';
+        });
+        container.appendChild(div);
+    });
+    container.style.display = 'block';
+}
+
+// Dropdown schliessen bei Klick ausserhalb
+document.addEventListener('click', function(e) {
+    const container = document.getElementById('kundenErgebnisse');
+    if (container && !container.contains(e.target) && e.target.id !== 'plz' && e.target.id !== 'kundennummer') {
+        container.innerHTML = '';
+        container.style.display = 'none';
+    }
+});
 
     // Initialisierung der anderen Dropdowns
     $(document).ready(function() {
@@ -1074,6 +1238,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // --- SCHRITT 2: Versuchen, die Standardwerte mit gespeicherten Daten zu überschreiben ---
     restoreAnfrageFormData();
+
+    // --- SCHRITT 3: Kundendatenbank laden (Envelope Encryption) ---
+    loadKundenDatenbank();
+
+    // --- SCHRITT 4: PLZ-Feld Event-Listener fuer manuelle Eingabe ---
+    document.getElementById('plz').addEventListener('input', function() {
+        if (this.value.length >= 4) {
+            showKundenByPLZ(this.value.trim());
+        } else {
+            const container = document.getElementById('kundenErgebnisse');
+            if (container) { container.innerHTML = ''; container.style.display = 'none'; }
+        }
+    });
 
 });
 
