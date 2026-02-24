@@ -38,15 +38,35 @@
     </div>
 
     <script>
-        // Diese Funktion wird nur zur Validierung des Passworts verwendet.
-        async function validatePassword(password ) {
+        // Prueft Passwort gegen Envelope-System (keys.json) + Fallback auf kundenstamm.enc
+        async function validatePassword(password) {
+            // --- Methode 1: Envelope Encryption (keys.json) ---
+            try {
+                const keysResp = await fetch('Retourenschein/keys.json?t=' + Date.now());
+                if (keysResp.ok) {
+                    const keysData = await keysResp.json();
+                    for (const entry of keysData.users) {
+                        try {
+                            const salt = Uint8Array.from(atob(entry.salt), c => c.charCodeAt(0));
+                            const nonce = Uint8Array.from(atob(entry.nonce), c => c.charCodeAt(0));
+                            const encKey = Uint8Array.from(atob(entry.key), c => c.charCodeAt(0));
+                            const keyMaterial = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+                            const derivedKey = await crypto.subtle.deriveKey(
+                                { name: 'PBKDF2', salt, iterations: 480000, hash: 'SHA-256' },
+                                keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
+                            );
+                            await crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, derivedKey, encKey);
+                            return true; // Erfolg
+                        } catch (e) { continue; }
+                    }
+                }
+            } catch (e) { /* Fallback */ }
+
+            // --- Methode 2: Fallback auf kundenstamm.enc ---
             const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
-            const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+            const response = await fetch(encryptedFilePath + '?t=' + Date.now());
             if (!response.ok) throw new Error('Netzwerkfehler');
-            
             const encryptedArrayBuffer = await response.arrayBuffer();
-            
-            // Wir entschlüsseln hier nur, um zu prüfen, ob es klappt. Das Ergebnis wird nicht gespeichert.
             const ITERATIONS = 480000, SALT_SIZE_BYTES = 16, NONCE_SIZE_BYTES = 12;
             const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
             const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
@@ -54,8 +74,6 @@
             const passwordKey = await window.crypto.subtle.importKey('raw', new TextEncoder().encode(password), { name: 'PBKDF2' }, false, ['deriveKey']);
             const aesKey = await window.crypto.subtle.deriveKey({ name: 'PBKDF2', salt: salt, iterations: ITERATIONS, hash: 'SHA-256' }, passwordKey, { name: 'AES-GCM', length: 256 }, true, ['decrypt']);
             await window.crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, aesKey, data);
-            
-            // Wenn wir hier ankommen, ohne dass ein Fehler geworfen wurde, ist das Passwort korrekt.
             return true;
         }
 

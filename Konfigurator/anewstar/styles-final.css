@@ -1393,6 +1393,7 @@ input:focus {
     height: 50px;
     padding: 0 20px;
     font-size: 1rem;
+    text-align: center;
     border: 1px solid #ced4da;
     border-radius: 25px; /* Perfekt abgerundet */
     box-sizing: border-box;

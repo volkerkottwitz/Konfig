@@ -829,31 +829,6 @@ function extractHeadline(pageText) {
  * @returns {Map<string, Set<number>>} - Eine Map, bei der der Schlüssel das Wort
  *   und der Wert ein Set mit den Seitenzahlen ist.
  */
-function createSearchIndex(pageTexts) {
-    const index = new Map();
-
-    for (let i = 0; i < pageTexts.length; i++) {
-        const pageText = pageTexts[i];
-        const pageNum = i + 1;
-
-        // Normalisiere den Text und zerlege ihn in einzelne Wörter.
-        // Wir filtern kurze Wörter (< 3 Zeichen) und Zahlen heraus, um den Index klein zu halten.
-        const words = normalize(pageText).split(/\s+/).filter(word => word.length > 2 && isNaN(word));
-
-        for (const word of words) {
-            if (!index.has(word)) {
-                // Wenn das Wort neu ist, erstelle einen neuen Eintrag mit der aktuellen Seitenzahl.
-                index.set(word, new Set());
-            }
-            // Füge die aktuelle Seitenzahl zum Set für dieses Wort hinzu.
-            // Ein Set verhindert doppelte Einträge automatisch.
-            index.get(word).add(pageNum);
-        }
-    }
-    return index;
-}
-
-
 
 function countMatches(txt, s1, s2) {
   const c1 = (txt.match(new RegExp(s1, 'g')) || []).length;
@@ -942,8 +917,6 @@ function highlightMatches(page, container, viewport) {
         ganzeZeileMarkieren = true;
       }
 
-  //       const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|[0-9]{7}(?:-[a-zA-Z0-9]{2,})?)(\*{1,2})?)/g;
-  //       const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|[0-9]{7}(?:-(?:V|K|[a-zA-Z0-9]{2,}))?)(\*{1,2})?)/g;
 const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|W[0-9]{6}|[0-9]{7}(?:-(?:V|K|[a-zA-Z0-9]{2,}))?)(\*{1,2})?)/g;
 
       let match;
@@ -1743,7 +1716,7 @@ function printAllMatches() {
   }
 
   // Die bewährte Sicherheitsabfrage für mobile Geräte
-  const limit = 15;
+  const limit = 25;
   if (isMobileDevice() && matchPages.size > limit) {
     alert(`Auf mobilen Geräten können maximal ${limit} Seiten auf einmal gedruckt werden, um Probleme zu vermeiden. Sie versuchen, ${matchPages.size} Seiten zu drucken. Bitte reduzieren Sie die Anzahl der Trefferseiten.`);
     return;
@@ -2282,16 +2255,38 @@ function showPasswordDialogAndLogin() {
 }
 
 /**
- * Prüft ein Passwort, indem es versucht, die kundenstamm.enc zu entschlüsseln.
+ * Prüft ein Passwort gegen das Envelope-Encryption-System (keys.json).
+ * Fallback: Alte Methode (kundenstamm.enc) fuer das Shared-Passwort.
  * Wirft einen Fehler, wenn das Passwort falsch ist.
  */
 async function validatePassword(password) {
+    // --- Methode 1: Envelope Encryption (keys.json) ---
+    try {
+        const keysResp = await fetch('Retourenschein/keys.json?t=' + Date.now());
+        if (keysResp.ok) {
+            const keysData = await keysResp.json();
+            for (const entry of keysData.users) {
+                try {
+                    const salt = Uint8Array.from(atob(entry.salt), c => c.charCodeAt(0));
+                    const nonce = Uint8Array.from(atob(entry.nonce), c => c.charCodeAt(0));
+                    const encKey = Uint8Array.from(atob(entry.key), c => c.charCodeAt(0));
+                    const keyMaterial = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+                    const derivedKey = await crypto.subtle.deriveKey(
+                        { name: 'PBKDF2', salt, iterations: 480000, hash: 'SHA-256' },
+                        keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
+                    );
+                    await crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce }, derivedKey, encKey);
+                    return; // Erfolg — Passwort ist gueltig
+                } catch (e) { continue; }
+            }
+        }
+    } catch (e) { /* keys.json nicht erreichbar, Fallback nutzen */ }
+
+    // --- Methode 2: Fallback auf kundenstamm.enc (altes Shared-Passwort) ---
     const encryptedFilePath = 'https://volkerkottwitz.github.io/Konfig/Konfigurator/anewstar/Retourenschein/kundenstamm.enc';
-    const response = await fetch(encryptedFilePath + '?t=' + new Date( ).getTime());
+    const response = await fetch(encryptedFilePath + '?t=' + Date.now());
     if (!response.ok) throw new Error('Kundendatei nicht erreichbar');
     const encryptedArrayBuffer = await response.arrayBuffer();
-    
-    // Die decryptData-Funktion wird hier nur zur Validierung genutzt
     const ITERATIONS = 480000, SALT_SIZE_BYTES = 16, NONCE_SIZE_BYTES = 12;
     const salt = encryptedArrayBuffer.slice(0, SALT_SIZE_BYTES);
     const nonce = encryptedArrayBuffer.slice(SALT_SIZE_BYTES, SALT_SIZE_BYTES + NONCE_SIZE_BYTES);
@@ -2370,7 +2365,6 @@ async function initializeAuth() {
     document.getElementById('loginBtn').addEventListener('click', async () => {
         const success = await showPasswordDialogAndLogin();
         if (success) {
-            alert('Anmeldung erfolgreich!');
             updateAuthUI();
         }
     });
