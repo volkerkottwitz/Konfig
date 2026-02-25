@@ -603,7 +603,7 @@ async function saveKundeToSupabase() {
     try {
         const { data, error } = await supabaseClient
             .from('kunden')
-            .upsert(kundeData, { onConflict: 'idx_kunden_name_plz' })
+            .insert(kundeData)
             .select();
 
         if (error) {
