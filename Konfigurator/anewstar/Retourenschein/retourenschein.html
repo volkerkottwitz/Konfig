@@ -203,6 +203,9 @@
       <input type="text" id="email" placeholder="E-Mail" autocomplete="new-password">
       <input type="text" id="telefon" placeholder="Telefon" autocomplete="new-password">
       <input type="text" id="kundennummer" placeholder="Kundennummer (optional)" autocomplete="new-password">
+      <button type="button" id="kundenSpeichernBtn" style="display:none; margin-top:6px; background:linear-gradient(135deg,#005A8C,#00a1e1); color:white; border:none; height:44px; border-radius:8px; font-family:'Roboto Condensed',sans-serif; font-size:0.9rem; font-weight:600; cursor:pointer; max-width:500px; width:100%;">
+        <i class="bi bi-cloud-plus"></i> Neuen Kunden speichern
+      </button>
 
     </div>
   </section>
@@ -324,10 +327,18 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
   <script>
     // Globale Kundendatenbank (aus verschluesselter CSV geladen)
     let kundenDatenbank = [];
+
+    // Supabase-Client fuer Kunden-Speicherung
+    const supabaseClient = window.supabase ? window.supabase.createClient(
+      'https://majbsrgcrvlwjpzlalxf.supabase.co',
+      'sb_publishable_lodqq8_fd-FOPy3g8dhOtw_ipkKLcut'
+    ) : null;
+    let supabaseKunden = [];
 
     // Referenzen auf die HTML-Elemente
     const inputs = {
@@ -453,38 +464,189 @@ async function loadKundenDatenbank() {
     }
 }
 
-function showKundenByPLZ(plz) {
+async function showKundenByPLZ(plz) {
     const container = document.getElementById('kundenErgebnisse');
     if (!container) return;
 
-    if (!plz || plz.length < 4 || kundenDatenbank.length === 0) {
+    if (!plz || plz.length < 4) {
         container.innerHTML = '';
         container.style.display = 'none';
+        updateSpeichernButton();
         return;
     }
 
-    const treffer = kundenDatenbank.filter(k => k.PLZ === plz);
+    // 1. Treffer aus verschluesselter Datenbank
+    const encTreffer = kundenDatenbank.filter(k => k.PLZ === plz);
 
-    if (treffer.length === 0) {
+    // 2. Treffer aus Supabase (async)
+    supabaseKunden = await loadSupabaseKundenByPLZ(plz);
+
+    if (encTreffer.length === 0 && supabaseKunden.length === 0) {
         container.innerHTML = '';
         container.style.display = 'none';
+        updateSpeichernButton();
         return;
     }
 
     container.innerHTML = '';
-    treffer.forEach(kunde => {
+
+    // Stammkunden anzeigen (Lock-Icon)
+    encTreffer.forEach(kunde => {
         const div = document.createElement('div');
         div.className = 'ergebnis-item';
-        div.textContent = kunde.Name + ' \u2014 ' + kunde.Kundennummer;
+        div.innerHTML = '<i class="bi bi-lock" style="opacity:0.4; margin-right:6px;" title="Stammkunde"></i>' +
+            kunde.Name + ' \u2014 ' + kunde.Kundennummer;
         div.addEventListener('click', () => {
             document.getElementById('name').value = kunde.Name;
             document.getElementById('kundennummer').value = kunde.Kundennummer;
             container.innerHTML = '';
             container.style.display = 'none';
+            document.getElementById('kundenSpeichernBtn').style.display = 'none';
         });
         container.appendChild(div);
     });
+
+    // Supabase-Kunden anzeigen (Cloud-Icon, blauer Rand, Loeschen-Button)
+    supabaseKunden.forEach(kunde => {
+        const div = document.createElement('div');
+        div.className = 'ergebnis-item';
+        div.style.borderLeft = '3px solid #00a1e1';
+        div.style.display = 'flex';
+        div.style.justifyContent = 'space-between';
+        div.style.alignItems = 'center';
+
+        const textSpan = document.createElement('span');
+        textSpan.style.cursor = 'pointer';
+        textSpan.style.flex = '1';
+        textSpan.innerHTML = '<i class="bi bi-cloud" style="color:#00a1e1; margin-right:6px;" title="Gespeicherter Kunde"></i>' +
+            (kunde.name || '') +
+            (kunde.firma ? ' (' + kunde.firma + ')' : '') +
+            (kunde.kundennummer ? ' \u2014 ' + kunde.kundennummer : '');
+        textSpan.addEventListener('click', () => {
+            document.getElementById('name').value = kunde.name || '';
+            document.getElementById('firma').value = kunde.firma || '';
+            document.getElementById('strasse').value = kunde.strasse || '';
+            document.getElementById('plz').value = kunde.plz || '';
+            document.getElementById('ort').value = kunde.ort || '';
+            document.getElementById('land').value = kunde.land || '';
+            document.getElementById('email').value = kunde.email || '';
+            document.getElementById('telefon').value = kunde.telefon || '';
+            document.getElementById('kundennummer').value = kunde.kundennummer || '';
+            container.innerHTML = '';
+            container.style.display = 'none';
+            document.getElementById('kundenSpeichernBtn').style.display = 'none';
+        });
+        div.appendChild(textSpan);
+
+        const delBtn = document.createElement('button');
+        delBtn.innerHTML = '<i class="bi bi-x"></i>';
+        delBtn.title = 'Kunde loeschen';
+        delBtn.style.cssText = 'background:none; border:none; color:#999; cursor:pointer; padding:4px 8px; font-size:1rem;';
+        delBtn.addEventListener('mouseenter', () => { delBtn.style.color = '#dc3545'; });
+        delBtn.addEventListener('mouseleave', () => { delBtn.style.color = '#999'; });
+        delBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteSupabaseKunde(kunde.id);
+        });
+        div.appendChild(delBtn);
+
+        container.appendChild(div);
+    });
+
     container.style.display = 'block';
+    updateSpeichernButton();
+}
+
+// Supabase-Kunden nach PLZ laden
+async function loadSupabaseKundenByPLZ(plz) {
+    if (!supabaseClient || !plz || plz.length < 4) return [];
+    try {
+        const { data, error } = await supabaseClient
+            .from('kunden')
+            .select('*')
+            .eq('plz', plz.trim());
+        if (error) { console.error('Supabase-Fehler:', error.message); return []; }
+        return data || [];
+    } catch (err) {
+        console.error('Supabase-Verbindungsfehler:', err);
+        return [];
+    }
+}
+
+// Neuen Kunden in Supabase speichern
+async function saveKundeToSupabase() {
+    if (!supabaseClient) {
+        zeigeToast('<i class="bi bi-x-circle"></i> Supabase nicht verfuegbar.', 'undo');
+        return;
+    }
+    const name = document.getElementById('name').value.trim();
+    const plz = document.getElementById('plz').value.trim();
+    if (!name || !plz) {
+        zeigeToast('<i class="bi bi-exclamation-triangle"></i> Bitte Name und PLZ eingeben.', 'info');
+        return;
+    }
+
+    const kundeData = {
+        name: name,
+        firma: document.getElementById('firma').value.trim() || null,
+        strasse: document.getElementById('strasse').value.trim() || null,
+        plz: plz,
+        ort: document.getElementById('ort').value.trim() || null,
+        land: document.getElementById('land').value.trim() || 'Deutschland',
+        email: document.getElementById('email').value.trim() || null,
+        telefon: document.getElementById('telefon').value.trim() || null,
+        kundennummer: document.getElementById('kundennummer').value.trim() || null
+    };
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('kunden')
+            .upsert(kundeData, { onConflict: 'idx_kunden_name_plz' })
+            .select();
+
+        if (error) {
+            if (error.code === '23505') {
+                zeigeToast('<i class="bi bi-info-circle"></i> Dieser Kunde existiert bereits.', 'success');
+            } else {
+                console.error('Supabase-Speicherfehler:', error);
+                zeigeToast('<i class="bi bi-x-circle"></i> Fehler: ' + error.message, 'undo');
+            }
+            return;
+        }
+
+        zeigeToast('<i class="bi bi-check-circle"></i> Kunde gespeichert!', 'success');
+        document.getElementById('kundenSpeichernBtn').style.display = 'none';
+    } catch (err) {
+        console.error('Speicherfehler:', err);
+        zeigeToast('<i class="bi bi-x-circle"></i> Verbindungsfehler.', 'undo');
+    }
+}
+
+// Supabase-Kunden loeschen
+async function deleteSupabaseKunde(id) {
+    if (!supabaseClient) return;
+    try {
+        const { error } = await supabaseClient.from('kunden').delete().eq('id', id);
+        if (error) {
+            zeigeToast('<i class="bi bi-x-circle"></i> Fehler beim Loeschen.', 'undo');
+            return;
+        }
+        supabaseKunden = supabaseKunden.filter(k => k.id !== id);
+        const plz = document.getElementById('plz').value.trim();
+        if (plz) showKundenByPLZ(plz);
+        zeigeToast('<i class="bi bi-trash"></i> Kunde geloescht.', 'undo');
+    } catch (err) {
+        console.error('Loeschfehler:', err);
+    }
+}
+
+// Speichern-Button anzeigen wenn Name + PLZ vorhanden
+function updateSpeichernButton() {
+    const btn = document.getElementById('kundenSpeichernBtn');
+    if (!btn || !supabaseClient) return;
+    const name = document.getElementById('name').value.trim();
+    const plz = document.getElementById('plz').value.trim();
+    btn.style.display = (name && plz) ? 'block' : 'none';
 }
 
 // Dropdown schliessen bei Klick ausserhalb
@@ -1307,6 +1469,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (container) { container.innerHTML = ''; container.style.display = 'none'; }
         }
     });
+
+    // --- SCHRITT 5: Kunde-speichern Event-Listener ---
+    document.getElementById('kundenSpeichernBtn').addEventListener('click', saveKundeToSupabase);
+    document.getElementById('name').addEventListener('input', updateSpeichernButton);
 
 });
 
