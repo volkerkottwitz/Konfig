@@ -541,11 +541,11 @@ async function showKundenByPLZ(plz) {
         div.appendChild(textSpan);
 
         const delBtn = document.createElement('button');
-        delBtn.innerHTML = '<i class="bi bi-x"></i>';
-        delBtn.title = 'Kunde loeschen';
-        delBtn.style.cssText = 'background:none; border:none; color:#999; cursor:pointer; padding:4px 8px; font-size:1rem;';
-        delBtn.addEventListener('mouseenter', () => { delBtn.style.color = '#dc3545'; });
-        delBtn.addEventListener('mouseleave', () => { delBtn.style.color = '#999'; });
+        delBtn.innerHTML = '<i class="bi bi-trash"></i>';
+        delBtn.title = 'Gespeicherten Kunden loeschen';
+        delBtn.style.cssText = 'background:#dc3545; border:none; color:white; cursor:pointer; padding:4px 10px; font-size:0.85rem; border-radius:6px; margin-left:8px; flex-shrink:0;';
+        delBtn.addEventListener('mouseenter', () => { delBtn.style.background = '#b02030'; });
+        delBtn.addEventListener('mouseleave', () => { delBtn.style.background = '#dc3545'; });
         delBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             deleteSupabaseKunde(kunde.id);
