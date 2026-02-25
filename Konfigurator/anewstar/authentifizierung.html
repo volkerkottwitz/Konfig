@@ -98,7 +98,7 @@
                 await validatePassword(password);
 
                 // ERFOLG! Speichere jetzt nur das Passwort.
-                sessionStorage.setItem('customerDataPassword', password);
+                localStorage.setItem('customerDataPassword', password);
                 
                 // Leite zum Hauptprogramm weiter.
                 window.location.href = 'index-final.html';
