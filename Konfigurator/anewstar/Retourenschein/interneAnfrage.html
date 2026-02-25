@@ -216,7 +216,12 @@
     <div id="kundenDetails" class="centered-form-layout">
       <input type="text" id="kundenSuche" placeholder="Firma oder Adresse suchen..." autocomplete="off">
       
-      <input type="text" id="name" placeholder="Name" autocomplete="new-password">
+      <div style="display:flex; gap:8px; align-items:center; width:100%; max-width:500px;">
+        <input type="text" id="name" placeholder="Name" autocomplete="new-password" style="flex:1;">
+        <button type="button" id="kundenLoeschenBtn" style="display:none; background:#dc3545; border:none; color:white; height:45px; width:45px; border-radius:8px; cursor:pointer; font-size:1rem; flex-shrink:0;" title="Gespeicherten Kunden loeschen">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
       <div id="kundenErgebnisse"></div>
       <input type="text" id="firma" placeholder="Firma" autocomplete="new-password">
       <input type="text" id="strasse" placeholder="Straße" autocomplete="new-password">
@@ -344,6 +349,7 @@
       'sb_publishable_lodqq8_fd-FOPy3g8dhOtw_ipkKLcut'
     ) : null;
     let supabaseKunden = [];
+    let selectedSupabaseKundeId = null; // ID des aktuell ausgewaehlten Supabase-Kunden
 
     // Referenzen auf die HTML-Elemente
     const sachbearbeiterDropdown = document.getElementById("sachbearbeiterDropdown" );
@@ -504,6 +510,8 @@ async function showKundenByPLZ(plz) {
             container.innerHTML = '';
             container.style.display = 'none';
             document.getElementById('kundenSpeichernBtn').style.display = 'none';
+            selectedSupabaseKundeId = null;
+            document.getElementById('kundenLoeschenBtn').style.display = 'none';
         });
         container.appendChild(div);
     });
@@ -537,6 +545,8 @@ async function showKundenByPLZ(plz) {
             container.innerHTML = '';
             container.style.display = 'none';
             document.getElementById('kundenSpeichernBtn').style.display = 'none';
+            selectedSupabaseKundeId = kunde.id;
+            document.getElementById('kundenLoeschenBtn').style.display = 'block';
         });
         div.appendChild(textSpan);
 
@@ -1393,9 +1403,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (this.value.trim().length >= 4) showKundenByPLZ(this.value.trim());
     });
 
+    // --- SCHRITT 4c: Name-Feld bei Fokus Dropdown oeffnen ---
+    document.getElementById('name').addEventListener('focus', function() {
+        const plz = document.getElementById('plz').value.trim();
+        if (plz.length >= 4) showKundenByPLZ(plz);
+    });
+
     // --- SCHRITT 5: Kunde-speichern Event-Listener ---
     document.getElementById('kundenSpeichernBtn').addEventListener('click', saveKundeToSupabase);
     document.getElementById('name').addEventListener('input', updateSpeichernButton);
+
+    // --- SCHRITT 6: Kunde-loeschen Event-Listener ---
+    document.getElementById('kundenLoeschenBtn').addEventListener('click', async function() {
+        if (!selectedSupabaseKundeId) return;
+        await deleteSupabaseKunde(selectedSupabaseKundeId);
+        selectedSupabaseKundeId = null;
+        this.style.display = 'none';
+        document.getElementById('name').value = '';
+        document.getElementById('firma').value = '';
+        document.getElementById('kundennummer').value = '';
+    });
 
 });
 
