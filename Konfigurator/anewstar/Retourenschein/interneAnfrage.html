@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="interneAnfrage.css">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
   <style>
        .search-highlight {
@@ -204,8 +205,8 @@
     </div>
     <div class="header-right">
       <div class="buttons">
-        <button onclick="window.close( )" class="btn btn-secondary">🔙 Zurück</button>
-        <button onclick="generateAngebotsanfragePDF()" class="btn btn-primary">PDF erzeugen</button>
+        <button onclick="window.close( )" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Zurück</button>
+        <button onclick="generateAngebotsanfragePDF()" class="btn btn-primary"><i class="bi bi-file-earmark-pdf"></i> PDF erzeugen</button>
       </div>
     </div>
   </header>
@@ -213,7 +214,7 @@
   <section class="form-section-container">
     <h3>Kundendaten</h3>
     <div id="kundenDetails" class="centered-form-layout">
-      <input type="text" id="kundenSuche" placeholder="🔍 Firma oder Adresse suchen..." autocomplete="off">
+      <input type="text" id="kundenSuche" placeholder="Firma oder Adresse suchen..." autocomplete="off">
       
       <input type="text" id="name" placeholder="Name" autocomplete="new-password">
       <div id="kundenErgebnisse"></div>
@@ -284,18 +285,42 @@
   </section>
   <section id="briefingSection" class="search-container">
     <h3>Mitteilung für den Innendienst</h3>
+    <p class="briefing-hint">Aktivieren Sie die gewünschten Felder per Checkbox. Nur aktivierte Felder erscheinen im PDF. Überschriften sind editierbar.</p>
     <div class="briefing-grid">
-      <div class="briefing-field">
-        <label for="hintergrund">Hintergrund:</label>
+      <div class="briefing-field" data-field-id="hintergrund">
+        <div class="field-toggle-row">
+          <input type="checkbox" id="toggle-hintergrund" class="field-toggle" checked>
+          <input type="text" class="field-label-edit" value="Hintergrund" data-default="Hintergrund">
+        </div>
         <textarea id="hintergrund" placeholder="Kontext des Kundengesprächs..."></textarea>
       </div>
-      <div class="briefing-field">
-        <label for="fokus">Fokus :</label>
+      <div class="briefing-field" data-field-id="fokus">
+        <div class="field-toggle-row">
+          <input type="checkbox" id="toggle-fokus" class="field-toggle" checked>
+          <input type="text" class="field-label-edit" value="Fokus" data-default="Fokus">
+        </div>
         <textarea id="fokus" placeholder="Was soll besonders hervorgehoben werden?..."></textarea>
       </div>
-      <div class="briefing-field">
-        <label for="preisgestaltung">Preisgestaltung:</label>
+      <div class="briefing-field" data-field-id="preisgestaltung">
+        <div class="field-toggle-row">
+          <input type="checkbox" id="toggle-preisgestaltung" class="field-toggle" checked>
+          <input type="text" class="field-label-edit" value="Preisgestaltung" data-default="Preisgestaltung">
+        </div>
         <textarea id="preisgestaltung" placeholder="Vereinbarte Rabatte, Sonderkonditionen..."></textarea>
+      </div>
+      <div class="briefing-field inactive" data-field-id="bericht">
+        <div class="field-toggle-row">
+          <input type="checkbox" id="toggle-bericht" class="field-toggle">
+          <input type="text" class="field-label-edit" value="Bericht" data-default="Bericht">
+        </div>
+        <textarea id="bericht" placeholder="Besuchsbericht, Gesprächsnotizen..."></textarea>
+      </div>
+      <div class="briefing-field inactive" data-field-id="aufgaben">
+        <div class="field-toggle-row">
+          <input type="checkbox" id="toggle-aufgaben" class="field-toggle">
+          <input type="text" class="field-label-edit" value="Zu erledigende Aufgaben" data-default="Zu erledigende Aufgaben">
+        </div>
+        <textarea id="aufgaben" placeholder="Aufgaben, Follow-ups, nächste Schritte..."></textarea>
       </div>
     </div>
   </section>
@@ -327,7 +352,9 @@
     const briefingInputs = {
       hintergrund: document.getElementById("hintergrund"),
       fokus: document.getElementById("fokus"),
-      preisgestaltung: document.getElementById("preisgestaltung")
+      preisgestaltung: document.getElementById("preisgestaltung"),
+      bericht: document.getElementById("bericht"),
+      aufgaben: document.getElementById("aufgaben")
     };
 
     // GOOGLE PLACES ADRESSSUCHE
@@ -517,12 +544,38 @@ document.addEventListener('click', function(e) {
       }
     }
 
-    // Funktion zum Entfernen eines Artikels
+    // Toast-Nachricht anzeigen (wie auf der Hauptseite)
+    function zeigeToast(text, type = 'info') {
+      const old = document.getElementById('toast-nachricht');
+      if (old) old.remove();
+      const toast = document.createElement('div');
+      toast.id = 'toast-nachricht';
+      const bg = type === 'success' ? 'linear-gradient(135deg,#005A8C,#00a1e1)'
+               : type === 'undo'    ? 'linear-gradient(135deg,#c62828,#e53935)'
+               : 'linear-gradient(135deg,#005A8C,#00a1e1)';
+      toast.style.cssText = `position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:${bg}; color:white; padding:10px 22px; border-radius:8px; font-family:'Roboto Condensed',sans-serif; font-size:0.9rem; font-weight:600; box-shadow:0 4px 16px rgba(0,0,0,0.2); z-index:10000; display:flex; align-items:center; gap:12px; animation:toastIn 0.3s ease;`;
+      toast.innerHTML = text;
+      document.body.appendChild(toast);
+      setTimeout(() => { if (toast.parentNode) toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s ease'; setTimeout(() => toast.remove(), 300); }, 3000);
+    }
+
+    // Funktion zum Entfernen eines Artikels (mit Undo)
     function removeArtikel(index) {
-      if (confirm("Möchten Sie diesen Artikel wirklich entfernen?")) {
-        window.merklisteItems.splice(index, 1);
-        updateArtikelListe();
-      }
+      const entfernterArtikel = window.merklisteItems[index];
+      const name = entfernterArtikel.name || entfernterArtikel.bezeichnung || 'Artikel';
+      window.merklisteItems.splice(index, 1);
+      updateArtikelListe();
+      zeigeToast(`<i class="bi bi-trash"></i> ${name} entfernt <button onclick="undoRemoveArtikel(${index}, ${JSON.stringify(JSON.stringify(entfernterArtikel))})" style="background:rgba(255,255,255,0.25); border:none; color:white; border-radius:6px; padding:4px 10px; cursor:pointer; font-size:0.8rem; font-family:'Roboto Condensed',sans-serif; margin-left:4px;">Rückgängig</button>`, 'undo');
+    }
+
+    // Undo-Funktion fuer entfernte Artikel
+    function undoRemoveArtikel(index, artikelJson) {
+      const artikel = JSON.parse(artikelJson);
+      window.merklisteItems.splice(index, 0, artikel);
+      updateArtikelListe();
+      const old = document.getElementById('toast-nachricht');
+      if (old) old.remove();
+      zeigeToast('<i class="bi bi-arrow-counterclockwise"></i> Artikel wiederhergestellt', 'success');
     }
 
     // Merkliste-Artikel anzeigen
@@ -594,11 +647,10 @@ document.addEventListener('click', function(e) {
     }
 
     function removeManuelleArtikel(index) {
-      if (confirm("Möchten Sie diesen manuellen Artikel wirklich entfernen?")) {
-        const element = document.getElementById(`manuellerArtikel-${index}`);
-        if (element) {
-          element.remove();
-        }
+      const element = document.getElementById(`manuellerArtikel-${index}`);
+      if (element) {
+        element.remove();
+        zeigeToast('<i class="bi bi-trash"></i> Manueller Artikel entfernt', 'undo');
       }
     }
 
@@ -698,6 +750,26 @@ function restoreAnfrageFormData() {
         document.getElementById('hintergrund').value = savedData.hintergrund || '';
         document.getElementById('fokus').value = savedData.fokus || '';
         document.getElementById('preisgestaltung').value = savedData.preisgestaltung || '';
+        document.getElementById('bericht').value = savedData.bericht || '';
+        document.getElementById('aufgaben').value = savedData.aufgaben || '';
+
+        // Toggle-States wiederherstellen
+        if (savedData.toggleStates) {
+          Object.entries(savedData.toggleStates).forEach(([id, checked]) => {
+            const cb = document.getElementById('toggle-' + id);
+            if (cb) {
+              cb.checked = checked;
+              cb.closest('.briefing-field').classList.toggle('inactive', !checked);
+            }
+          });
+        }
+        // Editierbare Labels wiederherstellen
+        if (savedData.fieldLabels) {
+          Object.entries(savedData.fieldLabels).forEach(([id, label]) => {
+            const field = document.querySelector(`.briefing-field[data-field-id="${id}"] .field-label-edit`);
+            if (field) field.value = label;
+          });
+        }
 
         // Sichtbarkeit der manuellen Felder korrekt setzen
         if (savedData.sachbearbeiter === 'manuell') {
@@ -718,56 +790,53 @@ function restoreAnfrageFormData() {
 }
 
 
-    // PDF Generierung - Professionelle Implementierung
+    // PDF-Generierung
     async function generateAngebotsanfragePDF() {
-          // ========================================================================
-    // ===== DATEN IM LOCALSTORAGE SPEICHERN =====
-    // ========================================================================
-    try {
+      // Formulardaten im localStorage sichern
+      try {
         const formData = {
-            // Haupttitel
-            mainTitle: document.getElementById('mainTitleInput').value,
-
-            // Kundendaten
-            name: document.getElementById('name').value,
-            firma: document.getElementById('firma').value,
-            strasse: document.getElementById('strasse').value,
-            plz: document.getElementById('plz').value,
-            ort: document.getElementById('ort').value,
-            land: document.getElementById('land').value,
-            email: document.getElementById('email').value,
-            telefon: document.getElementById('telefon').value,
-            kundennummer: document.getElementById('kundennummer').value,
-
-            // Bearbeitung (Dropdowns)
-            sachbearbeiter: $('#sachbearbeiterDropdown').val(),
-            sachbearbeiterManuell: document.getElementById('sachbearbeiterManuell').value,
-            aussendienst: $('#aussendienstDropdown').val(),
-            aussendienstManuell: document.getElementById('aussendienstManuell').value,
-
-            // Artikel (globale Variable)
-            artikel: window.merklisteItems || [],
-
-            // Mitteilung für den Innendienst
-            hintergrund: document.getElementById('hintergrund').value,
-            fokus: document.getElementById('fokus').value,
-            preisgestaltung: document.getElementById('preisgestaltung').value
+          mainTitle: document.getElementById('mainTitleInput').value,
+          name: document.getElementById('name').value,
+          firma: document.getElementById('firma').value,
+          strasse: document.getElementById('strasse').value,
+          plz: document.getElementById('plz').value,
+          ort: document.getElementById('ort').value,
+          land: document.getElementById('land').value,
+          email: document.getElementById('email').value,
+          telefon: document.getElementById('telefon').value,
+          kundennummer: document.getElementById('kundennummer').value,
+          sachbearbeiter: $('#sachbearbeiterDropdown').val(),
+          sachbearbeiterManuell: document.getElementById('sachbearbeiterManuell').value,
+          aussendienst: $('#aussendienstDropdown').val(),
+          aussendienstManuell: document.getElementById('aussendienstManuell').value,
+          artikel: window.merklisteItems || [],
+          hintergrund: document.getElementById('hintergrund').value,
+          fokus: document.getElementById('fokus').value,
+          preisgestaltung: document.getElementById('preisgestaltung').value,
+          bericht: document.getElementById('bericht').value,
+          aufgaben: document.getElementById('aufgaben').value,
+          toggleStates: Object.fromEntries(
+            [...document.querySelectorAll('.field-toggle')].map(cb => [
+              cb.id.replace('toggle-', ''), cb.checked
+            ])
+          ),
+          fieldLabels: Object.fromEntries(
+            [...document.querySelectorAll('.briefing-field[data-field-id]')].map(f => [
+              f.dataset.fieldId,
+              f.querySelector('.field-label-edit').value
+            ])
+          )
         };
         localStorage.setItem('anfrageFormData', JSON.stringify(formData));
-        console.log('Anfrage-Formulardaten erfolgreich im localStorage gesichert.');
-    } catch (error) {
-        console.error("Fehler beim Sichern der Anfrage-Formulardaten:", error);
-    }
-    // ========================================================================
-    // ===== ENDE DES SPEICHER-BLOCKS =====
-    // ========================================================================
+      } catch (error) {
+        console.error("Fehler beim Sichern der Formulardaten:", error);
+      }
 
-      
       try {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        
-        // Firmenlogo laden (falls verfügbar)
+
+        // Logo laden
         const logoUrl = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
         let logoImg = null;
         try {
@@ -775,422 +844,297 @@ function restoreAnfrageFormData() {
         } catch (error) {
           console.warn("Logo konnte nicht geladen werden:", error);
         }
-        
-        // Seitenränder und Positionen definieren
+
+        // Layout-Konstanten
         const margin = 20;
+        const labelCol = margin;
+        const valueCol = margin + 38;
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
-        const contentHeight = pageHeight - 2 * margin;
+        const contentWidth = pageWidth - 2 * margin;
         let yPosition = margin;
         let currentPage = 1;
-        
-        // Funktion für blaue Designbalken (links)
+
+        // === Hilfsfunktionen ===
+
         function addBlueDesignBars() {
-          // Drei blaue Balken links wie im Referenz-PDF
-          doc.setFillColor(0, 161, 225); // EWE Blau
-          doc.rect(0, 40, 4, 20, 'F'); // Erster Balken
-          doc.rect(0, 65, 4, 20, 'F'); // Zweiter Balken  
-          doc.rect(0, 90, 4, 20, 'F'); // Dritter Balken
+          doc.setFillColor(0, 161, 225);
+          doc.rect(0, 40, 4, 20, 'F');
+          doc.rect(0, 65, 4, 20, 'F');
+          doc.rect(0, 90, 4, 20, 'F');
         }
-        
-        // Funktion für Header auf jeder Seite
+
         function addPageHeader(pageNum, totalPages) {
-          // Blaue Designbalken hinzufügen
           addBlueDesignBars();
-          
-          // Logo (vergrößert um 5px in der Höhe)
           if (logoImg) {
-            const logoWidth = 35;
-            const logoHeight = 25; // Von 20 auf 25 erhöht (+5px)
-            doc.addImage(logoImg, "PNG", margin, margin, logoWidth, logoHeight, undefined, 'FAST');
+            doc.addImage(logoImg, "PNG", margin, margin, 25, 25, undefined, 'FAST');
           }
-          
-          // Datum und Seitenangabe rechts oben
           const heute = new Date();
-          const datumString = heute.toLocaleDateString("de-DE", { 
-            year: "numeric", 
-            month: "long", 
-            day: "numeric" 
-          });
-          
+          const datumString = heute.toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" });
           doc.setFontSize(10);
           doc.setTextColor(100, 100, 100);
           doc.text(datumString, pageWidth - margin, margin + 10, { align: "right" });
-          
-          // Seitenangabe nur bei mehrseitigen PDFs
           if (totalPages > 1) {
             doc.text(`Seite ${pageNum} von ${totalPages}`, pageWidth - margin, margin + 20, { align: "right" });
           }
-          
-          // Editierbare Überschrift (klein, unter Datum)
-          const mainTitle = document.getElementById("mainTitleInput").value || "INTERNE ANGEBOTSANFORDERUNG";
+          // Innendienst / Aussendienst rechts oben
+          doc.setFontSize(8);
+          const sbVal = getSachbearbeiterValue();
+          const adVal = getAussendienstmitarbeiterValue();
+          let headerY = margin + 26;
+          if (sbVal) {
+            doc.text(`Innendienst: ${sbVal}`, pageWidth - margin, headerY, { align: "right" });
+            headerY += 5;
+          }
+          if (adVal) {
+            doc.text(adVal, pageWidth - margin, headerY, { align: "right" });
+          }
+        }
+
+        function addPageFooter(pageNum, totalPages) {
+          const footerY = pageHeight - 15;
+          const mainTitle = document.getElementById("mainTitleInput").value || "Interne Anfrage";
+          const kundenName = inputs.firma.value || inputs.name.value || "";
+          doc.setDrawColor(200, 200, 200);
+          doc.line(margin, footerY - 5, pageWidth - margin, footerY - 5);
           doc.setFontSize(8);
           doc.setTextColor(100, 100, 100);
-          doc.text(mainTitle.toUpperCase(), pageWidth - margin, margin + 30, { align: "right" });
+          doc.text(mainTitle, margin, footerY);
+          if (kundenName) {
+            doc.text(kundenName, pageWidth / 2, footerY, { align: "center" });
+          }
+          doc.text(`Seite ${pageNum} von ${totalPages}`, pageWidth - margin, footerY, { align: "right" });
         }
-        
-// --- NEUER CODE ---
 
-// --- NEUER CODE (Version 2) ---
-
-// Funktion für Fußzeile auf jeder Seite
-function addPageFooter(pageNum, totalPages) {
-  const footerY = pageHeight - 15; // Position der Fußzeile (15mm vom unteren Rand)
-  const mainTitle = document.getElementById("mainTitleInput").value || "Interne Anfrage";
-  
-  // Kundennamen holen (Firma hat Vorrang, sonst Name)
-  const kundenName = inputs.firma.value || inputs.name.value || "";
-
-  // Trennlinie über der Fußzeile
-  doc.setDrawColor(200, 200, 200);
-  doc.line(margin, footerY - 5, pageWidth - margin, footerY - 5);
-
-  doc.setFontSize(8);
-  doc.setTextColor(100, 100, 100);
-
-  // Titel links in der Fußzeile
-  doc.text(mainTitle, margin, footerY);
-
-  // Kundenname zentriert in der Fußzeile
-  if (kundenName) {
-    doc.text(kundenName, pageWidth / 2, footerY, { align: "center" });
-  }
-
-  // Seitenzahl rechts in der Fußzeile
-  const pageString = `Seite ${pageNum} von ${totalPages}`;
-  doc.text(pageString, pageWidth - margin, footerY, { align: "right" });
-}
-
-
-
-        // Funktion für neue Seite
         function addNewPage() {
           doc.addPage();
           currentPage++;
-          yPosition = margin + 50; // Platz für Header lassen
+          yPosition = margin + 50;
         }
-        
-        // Funktion um zu prüfen, ob neue Seite benötigt wird
+
         function checkPageBreak(neededSpace) {
-          if (yPosition + neededSpace > pageHeight - margin) {
+          if (yPosition + neededSpace > pageHeight - 30) {
             addNewPage();
             return true;
           }
           return false;
         }
-        
-        // Erste Seite Header
-        addPageHeader(1, 1); // Wird später mit korrekter Seitenzahl aktualisiert
-        
-        yPosition += 50; // Platz für Header
-        
-        // Haupttitel
+
+        // Sektions-Ueberschrift mit Trennlinie
+        function addSectionHeader(title) {
+          checkPageBreak(25);
+          doc.setDrawColor(0, 161, 225);
+          doc.setLineWidth(0.5);
+          doc.line(margin, yPosition, pageWidth - margin, yPosition);
+          doc.setLineWidth(0.2);
+          yPosition += 8;
+          doc.setFontSize(11);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(0, 161, 225);
+          doc.text(title.toUpperCase(), margin, yPosition);
+          yPosition += 8;
+        }
+
+        // Label-Value Zeile (nur wenn Value vorhanden)
+        function addLabelValue(label, value) {
+          if (!value || value === "Nicht angegeben") return;
+          checkPageBreak(7);
+          doc.setFontSize(10);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(80, 80, 80);
+          doc.text(label, labelCol, yPosition);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(0, 0, 0);
+          doc.text(value, valueCol, yPosition);
+          yPosition += 6;
+        }
+
+        // === Seite 1: Header ===
+        addPageHeader(1, 1);
+        yPosition += 50;
+
+        // Haupttitel (Schrift passt sich an Breite an)
         const mainTitle = document.getElementById("mainTitleInput").value || "INTERNE ANGEBOTSANFORDERUNG";
-        doc.setFontSize(20);
-        doc.setTextColor(0, 0, 0);
+        const titleText = mainTitle.toUpperCase();
         doc.setFont("helvetica", "bold");
-        doc.text(mainTitle.toUpperCase(), pageWidth / 2, yPosition, { align: "center" });
-        
-        yPosition += 20;
-        
-        // Mitarbeiter-Informationen
+        doc.setTextColor(0, 0, 0);
+        let titleSize = 18;
+        doc.setFontSize(titleSize);
+        while (titleSize > 10 && doc.getTextWidth(titleText) > contentWidth) {
+          titleSize -= 1;
+          doc.setFontSize(titleSize);
+        }
+        doc.text(titleText, pageWidth / 2, yPosition, { align: "center" });
+        yPosition += 15;
+
+        // === BEARBEITUNG ===
         const sachbearbeiter = getSachbearbeiterValue();
         const aussendienstmitarbeiter = getAussendienstmitarbeiterValue();
-        
+
         if (sachbearbeiter || aussendienstmitarbeiter) {
-          checkPageBreak(40);
-          
-          doc.setFontSize(14);
-          doc.setFont("helvetica", "bold");
-          doc.setTextColor(0, 161, 225); // Firmenfarbe
-          doc.text("BEARBEITUNG", margin, yPosition);
-          
-          yPosition += 10;
-          
+          addSectionHeader("Bearbeitung");
+          addLabelValue("Innendienst:", sachbearbeiter);
+          addLabelValue("Ausgestellt von:", aussendienstmitarbeiter);
+          yPosition += 6;
+        }
+
+        // === KUNDENDATEN ===
+        const kundenFirma = inputs.firma.value.trim();
+        const kundenName = inputs.name.value.trim();
+        const kundenStrasse = inputs.strasse.value.trim();
+        const kundenPlz = inputs.plz.value.trim();
+        const kundenOrt = inputs.ort.value.trim();
+        const kundenEmail = inputs.email.value.trim();
+        const kundenTelefon = inputs.telefon.value.trim();
+        const kundennummerValue = document.getElementById("kundennummer").value.trim();
+
+        const hatKundendaten = kundenFirma || kundenName || kundenStrasse || kundenEmail || kundenTelefon;
+        if (hatKundendaten) {
+          addSectionHeader("Kundendaten");
+          addLabelValue("Firma:", kundenFirma);
+          addLabelValue("Ansprechpartner:", kundenName);
+          const adresse = [kundenStrasse, [kundenPlz, kundenOrt].filter(Boolean).join(' ')].filter(Boolean).join(', ');
+          addLabelValue("Adresse:", adresse);
+          addLabelValue("E-Mail:", kundenEmail);
+          addLabelValue("Telefon:", kundenTelefon);
+          addLabelValue("Kundennummer:", kundennummerValue);
+          yPosition += 6;
+        }
+
+        // === BRIEFING ===
+        const briefingFelder = [];
+        document.querySelectorAll('.briefing-field[data-field-id]').forEach(field => {
+          const fieldId = field.dataset.fieldId;
+          const toggle = document.getElementById('toggle-' + fieldId);
+          if (toggle && toggle.checked) {
+            const label = field.querySelector('.field-label-edit').value || field.querySelector('.field-label-edit').dataset.default;
+            const textarea = document.getElementById(fieldId);
+            const value = textarea ? textarea.value.trim() : '';
+            if (value) {
+              briefingFelder.push([label, value]);
+            }
+          }
+        });
+
+        if (briefingFelder.length > 0) {
+          addSectionHeader("Mitteilung");
           doc.setFontSize(10);
-          doc.setFont("helvetica", "normal");
-          doc.setTextColor(0, 0, 0); // Schwarz
-          
-          if (sachbearbeiter) {
+          briefingFelder.forEach(([label, value]) => {
+            const splitText = doc.splitTextToSize(value, contentWidth);
+            const neededSpace = 8 + splitText.length * 5 + 4;
+            checkPageBreak(neededSpace);
             doc.setFont("helvetica", "bold");
-            doc.text("Innendienst:", margin, yPosition);
-            doc.setFont("helvetica", "normal");
-            doc.text(sachbearbeiter, margin + 35, yPosition);
+            doc.setTextColor(80, 80, 80);
+            doc.text(label + ":", labelCol, yPosition);
             yPosition += 6;
-          }
-          
-          if (aussendienstmitarbeiter) {
-            doc.setFont("helvetica", "bold");
-            doc.text("ausgestellt von:", margin, yPosition);
             doc.setFont("helvetica", "normal");
-            doc.text(aussendienstmitarbeiter, margin + 35, yPosition);
-            yPosition += 6;
-          }
-          
-          yPosition += 10;
-        }
-        
-        // Kundendaten-Sektion
-        checkPageBreak(50);
-        
-        doc.setFontSize(14);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(0, 161, 225); // Firmenfarbe
-        doc.text("KUNDENDATEN", margin, yPosition);
-        
-        yPosition += 10;
-        
-        // Kundendaten sammeln
-        const kundenDaten = {
-          firma: inputs.firma.value || "Nicht angegeben",
-          name: inputs.name.value || "Nicht angegeben",
-          strasse: inputs.strasse.value || "Nicht angegeben",
-          plz: inputs.plz.value || "",
-          ort: inputs.ort.value || "",
-          email: inputs.email.value || "Nicht angegeben",
-          telefon: inputs.telefon.value || "Nicht angegeben"
-        };
-        
-        // Adresse zusammensetzen
-        const adresse = `${kundenDaten.strasse}, ${kundenDaten.plz} ${kundenDaten.ort}`.trim();
-        
-                // ===== NEU: Kundennummer auslesen und die Tabelle anpassen =====
-        const kundennummerValue = document.getElementById("kundennummer").value;
-
-        // Kundendaten-Tabelle
-        doc.setFontSize(10);
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(0, 0, 0); // Schwarz
-        
-
-        const kundenInfos = [
-        
-         
-          ["Firma:", kundenDaten.firma],
-          ["Ansprechpartner:", kundenDaten.name],
-          ["Adresse:", adresse || "Nicht angegeben"],
-          ["E-Mail:", kundenDaten.email],
-          ["Telefon:", kundenDaten.telefon]
-        ];
-                if (kundennummerValue) {
-            kundenInfos.push(["Kundennummer:", kundennummerValue]);
+            doc.setTextColor(0, 0, 0);
+            doc.text(splitText, labelCol, yPosition);
+            yPosition += splitText.length * 5 + 4;
+          });
+          yPosition += 4;
         }
 
-        
-        kundenInfos.forEach(([label, value]) => {
-          checkPageBreak(8);
-          doc.setFont("helvetica", "bold");
-          doc.text(label, margin, yPosition);
-          doc.setFont("helvetica", "normal");
-          doc.text(value, margin + 35, yPosition);
-          yPosition += 6;
-        });
-        
-        yPosition += 10;
-        
-        // Briefing-Sektion
-        checkPageBreak(30);
-        
-        doc.setFontSize(14);
-        doc.setFont("helvetica", "bold");
-        doc.setTextColor(0, 161, 225);
-        doc.text("MITTEILUNG FÜR DEN INNENDIENST", margin, yPosition);
-        
-        yPosition += 10;
-        
-        // Briefing-Daten sammeln
-        const briefingDaten = {
-          hintergrund: briefingInputs.hintergrund.value || "Nicht angegeben",
-          fokus: briefingInputs.fokus.value || "Nicht angegeben",
-          preisgestaltung: briefingInputs.preisgestaltung.value || "Nicht angegeben"
-        };
-        
-        // Briefing-Felder
-        const briefingFelder = [
-          ["Hintergrund:", briefingDaten.hintergrund],
-          ["Fokus :", briefingDaten.fokus],
-          ["Preisgestaltung:", briefingDaten.preisgestaltung]
-        ];
-        
-        doc.setFontSize(10);
-        briefingFelder.forEach(([label, value]) => {
-          const splitText = doc.splitTextToSize(value, pageWidth - 2 * margin);
-          const neededSpace = 6 + splitText.length * 4 + 6;
-          checkPageBreak(neededSpace);
-          
-          doc.setFont("helvetica", "bold");
-          doc.setTextColor(0, 0, 0); // Schwarz
-          doc.text(label, margin, yPosition);
-          yPosition += 6;
-          
-          doc.setFont("helvetica", "normal");
-          doc.setTextColor(0, 0, 0); // Schwarz für Briefing-Text
-          doc.text(splitText, margin, yPosition);
-          yPosition += splitText.length * 4 + 6;
-        });
-        
-        yPosition += 5;
-        
-// --- NEUER CODE ---
-
-// Artikel-Sektion (Dynamische Überschrift)
-const angebotsdetailsTitle = document.getElementById("mainTitleInput").value || "Angebotsdetails";
-const titleHeight = 15; // Ungefähre Höhe für die Überschrift + Abstand
-
-// Prüfen, ob die Überschrift UND der Tabellen-Header auf die Seite passen
-checkPageBreak(titleHeight + 30); // 30 ist der Platz für den Tabellen-Header
-
-doc.setFontSize(14);
-doc.setFont("helvetica", "bold");
-doc.setTextColor(0, 161, 225);
-doc.text(angebotsdetailsTitle.toUpperCase(), margin, yPosition); // <-- Dynamischer Text
-
-yPosition += 15;
-
-        
-        // Artikel sammeln
+        // === ARTIKEL (nur wenn vorhanden) ===
         const alleArtikel = [];
-        
-        // Artikel aus Merkliste
         if (window.merklisteItems && window.merklisteItems.length > 0) {
           window.merklisteItems.forEach(artikel => {
             alleArtikel.push({
               nummer: artikel.nummer || artikel.artikelnummer || "N/A",
               bezeichnung: artikel.name || artikel.bezeichnung || "Unbekannter Artikel",
               menge: artikel.menge || 1,
-              spezifikation: artikel.spezifikation || "Keine Angabe"
+              spezifikation: artikel.spezifikation || ""
             });
           });
         }
-        
-        // Artikel-Tabelle erstellen
+
         if (alleArtikel.length > 0) {
-          
-          // Funktion für Tabellen-Header
+          addSectionHeader("Artikel");
+
+          // Tabellen-Header Funktion
           function drawTableHeader() {
             doc.setFontSize(9);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(0, 0, 0); // Schwarz
-            
-            // Header-Zeile
+            doc.setTextColor(80, 80, 80);
             doc.text("Pos", margin, yPosition);
-            doc.text("Menge", margin + 20, yPosition);
-            doc.text("Artikel", margin + 40, yPosition);
+            doc.text("Menge", margin + 15, yPosition);
+            doc.text("Art.-Nr.", margin + 35, yPosition);
+            doc.text("Bezeichnung", margin + 65, yPosition);
             doc.text("Spezifikation", margin + 120, yPosition);
-            
-            yPosition += 8;
-            
-            // Trennlinie
-            doc.setDrawColor(200, 200, 200);
+            yPosition += 4;
+            doc.setDrawColor(180, 180, 180);
             doc.line(margin, yPosition, pageWidth - margin, yPosition);
-            yPosition += 8; // Abstand nach der Trennlinie
+            yPosition += 5;
           }
-          
-          // Ersten Tabellen-Header zeichnen
-          checkPageBreak(30); // Mindestens 30mm für Header + ersten Artikel
+
+          checkPageBreak(30);
           drawTableHeader();
-          
-          // Artikel-Zeilen
+
           alleArtikel.forEach((artikel, index) => {
-            // Platz für Artikel berechnen (Artikelnummer + Bezeichnung + Spezifikation)
-            const artikelBezeichnungLines = doc.splitTextToSize(artikel.bezeichnung, 75);
-            const spezifikationLines = doc.splitTextToSize(artikel.spezifikation, 65);
-            const maxLines = Math.max(artikelBezeichnungLines.length, spezifikationLines.length);
-            const artikelHoehe = Math.max(16, 8 + maxLines * 4); // Mindestens 16px Höhe
-            
-            // Prüfen ob genug Platz für den Artikel vorhanden ist
-            if (yPosition + artikelHoehe > pageHeight - margin) {
-              // Neue Seite beginnen
+            const bezeichnungLines = doc.splitTextToSize(artikel.bezeichnung, 50);
+            const spezLines = artikel.spezifikation ? doc.splitTextToSize(artikel.spezifikation, 55) : [];
+            const maxLines = Math.max(bezeichnungLines.length, spezLines.length, 1);
+            const artikelHoehe = Math.max(10, maxLines * 5 + 2);
+
+            if (yPosition + artikelHoehe > pageHeight - 30) {
               doc.addPage();
               currentPage++;
-              yPosition = margin + 30; // Platz für Header lassen
-              
-              // Header auf neuer Seite wiederholen
-              addPageHeader(currentPage, currentPage); // Wird später korrigiert
+              yPosition = margin + 30;
+              addPageHeader(currentPage, currentPage);
               yPosition += 20;
               drawTableHeader();
             }
-            
-            const startY = yPosition;
-            
-            doc.setFont("helvetica", "normal");
-            doc.setTextColor(0, 0, 0); // Schwarz
-            
-            // Position
-            doc.text((index + 1).toString(), margin, startY);
-            
-            // Menge
-            doc.text(artikel.menge.toString() + " Stk", margin + 20, startY);
-            
-            // Artikelnummer (fett)
-            doc.setFont("helvetica", "bold");
-            doc.text(artikel.nummer, margin + 40, startY);
-            
-            // Artikelbezeichnung (normal, kann 2 Zeilen einnehmen)
-            doc.setFont("helvetica", "normal");
-            doc.text(artikelBezeichnungLines, margin + 40, startY + 6);
-            
-            // Spezifikation
-            doc.text(spezifikationLines, margin + 120, startY);
-            
-            yPosition += artikelHoehe;
-            
-            // Trennlinie nach jedem Artikel (außer dem letzten)
-            if (index < alleArtikel.length - 1) {
-              doc.setDrawColor(230, 230, 230);
-              doc.line(margin, yPosition, pageWidth - margin, yPosition);
-              yPosition += 5; // Abstand nach der Trennlinie
+
+            // Zebra-Hintergrund fuer gerade Zeilen
+            if (index % 2 === 0) {
+              doc.setFillColor(245, 247, 250);
+              doc.rect(margin, yPosition - 4, contentWidth, artikelHoehe + 2, 'F');
             }
+
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(0, 0, 0);
+
+            const startY = yPosition;
+            doc.text((index + 1).toString(), margin + 3, startY);
+            doc.text(artikel.menge.toString(), margin + 18, startY);
+            doc.setFont("helvetica", "bold");
+            doc.text(artikel.nummer, margin + 35, startY);
+            doc.setFont("helvetica", "normal");
+            doc.text(bezeichnungLines, margin + 65, startY);
+            if (spezLines.length > 0) {
+              doc.setTextColor(80, 80, 80);
+              doc.text(spezLines, margin + 120, startY);
+              doc.setTextColor(0, 0, 0);
+            }
+
+            yPosition += artikelHoehe;
           });
-        } else {
-          checkPageBreak(15);
-          doc.setFontSize(10);
-          doc.setFont("helvetica", "italic");
-          doc.setTextColor(100, 100, 100);
-          doc.text("Keine Artikel angegeben.", margin, yPosition);
         }
-        
-// --- NEUER CODE ---
+        // Kein "Keine Artikel" Text — Sektion wird komplett weggelassen
 
-// Header und Footer auf allen Seiten finalisieren
-const totalPages = doc.internal.getNumberOfPages();
-for (let i = 1; i <= totalPages; i++) {
-  doc.setPage(i); // Zur Seite i wechseln
+        // Header und Footer auf allen Seiten finalisieren
+        const totalPages = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+          doc.setPage(i);
+          addPageHeader(i, totalPages);
+          addPageFooter(i, totalPages);
+        }
 
-  // Header aktualisieren (besonders für die Seitenzahl "Seite X von Y")
-  addPageHeader(i, totalPages);
-  
-  // Neue Fußzeile hinzufügen
-  addPageFooter(i, totalPages);
-}
+        // Dateiname zusammensetzen
+        const ueberschrift = document.getElementById("mainTitleInput").value || "Interne Anfrage";
+        const firma = document.getElementById("firma").value || "";
+        const ansprechpartner = document.getElementById("name").value || "";
+        const ort = document.getElementById("ort").value || "";
+        const datum = new Date().toISOString().split('T')[0];
+        const filenameParts = [ueberschrift, firma, ansprechpartner, ort, datum].filter(part => part);
+        const cleanFilename = filenameParts.map(part =>
+          part.replace(/[^a-zA-Z0-9äöüÄÖÜß\s]/g, "").trim()
+        ).join("_");
 
-        
-// NEUER CODE (Überschrift_Firma_Ansprechpartner_Ort_Datum):
+        doc.save(`${cleanFilename}.pdf`);
+        console.log(`PDF erstellt: ${cleanFilename}.pdf`);
 
-// 1. Alle benötigten Werte aus den Feldern holen.
-const ueberschrift = document.getElementById("mainTitleInput").value || "Interne Anfrage";
-const firma = document.getElementById("firma").value || "";
-const ansprechpartner = document.getElementById("name").value || "";
-const ort = document.getElementById("ort").value || "";
-const datum = new Date().toISOString().split('T')[0];
-
-// 2. Alle Teile in der NEUEN REIHENFOLGE zu einem Array zusammenfügen.
-const filenameParts = [ueberschrift, firma, ansprechpartner, ort, datum].filter(part => part);
-
-// 3. Jeden Teil bereinigen (Sonderzeichen entfernen, Leerzeichen am Rand weg) und mit "_" verbinden.
-const cleanFilename = filenameParts.map(part => 
-    part.replace(/[^a-zA-Z0-9äöüÄÖÜß\s]/g, "").trim()
-).join("_");
-
-// 4. PDF mit dem neuen, sauberen Dateinamen speichern.
-doc.save(`${cleanFilename}.pdf`);
-
-
-
-        // NEUE, KORREKTE ZEILE:
-console.log(`PDF erfolgreich erstellt: ${cleanFilename}.pdf`);
-
-        
       } catch (error) {
         console.error("Fehler bei der PDF-Erstellung:", error);
         alert("Fehler bei der PDF-Erstellung. Bitte versuchen Sie es erneut.");
@@ -1226,6 +1170,36 @@ console.log(`PDF erfolgreich erstellt: ${cleanFilename}.pdf`);
 // ========================================================================
 document.addEventListener("DOMContentLoaded", async () => {
   
+    // --- SCHRITT 0: Briefing-Feld-Toggles initialisieren ---
+    document.querySelectorAll('.field-toggle').forEach(cb => {
+      cb.addEventListener('change', function() {
+        const field = this.closest('.briefing-field');
+        field.classList.toggle('inactive', !this.checked);
+      });
+    });
+
+    // --- SCHRITT 0b: Titel-Input fokussieren, selektieren + Auto-Resize ---
+    const titleInput = document.getElementById('mainTitleInput');
+    const measureCtx = document.createElement('canvas').getContext('2d');
+    function fitTitleFont() {
+      const maxSize = window.innerWidth <= 768 ? 24 : 32;
+      const availWidth = titleInput.clientWidth - 12;
+      let size = maxSize;
+      measureCtx.font = `bold ${size}px 'Roboto Condensed', Arial, sans-serif`;
+      while (size > 14 && measureCtx.measureText(titleInput.value || titleInput.placeholder).width > availWidth) {
+        size -= 1;
+        measureCtx.font = `bold ${size}px 'Roboto Condensed', Arial, sans-serif`;
+      }
+      titleInput.style.fontSize = size + 'px';
+    }
+    titleInput.addEventListener('input', fitTitleFont);
+    window.addEventListener('resize', fitTitleFont);
+    setTimeout(() => {
+      fitTitleFont();
+      titleInput.focus();
+      titleInput.select();
+    }, 300);
+
     // --- SCHRITT 1: Seite mit Standardwerten initialisieren ---
     displayCurrentDate();
     ladeMerklisteAusLocalStorage();
@@ -1258,8 +1232,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN4cAc4nq9je0of0cb_0wEUb1yCz54r7k&libraries=places&callback=initGooglePlaces" async defer></script>
     <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
-  <button onclick="generateAngebotsanfragePDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
-    PDF erzeugen
+  <button onclick="generateAngebotsanfragePDF()" class="btn btn-primary">
+    <i class="bi bi-file-earmark-pdf"></i> PDF erzeugen
   </button>
 </body>
 </html>

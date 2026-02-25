@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="retourenschein.css">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
   <!-- Stile für die Anwendung (übernommen von interneAnfrage.html ) -->
   <style>
@@ -181,8 +182,8 @@
     </div>
     <div class="header-right">
       <div class="buttons">
-        <button onclick="window.close( )" class="btn btn-secondary">🔙 Zurück</button>
-        <button onclick="generateRetourenscheinPDF()" class="btn btn-primary">PDF erzeugen</button>
+        <button onclick="window.close( )" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Zurück</button>
+        <button onclick="generateRetourenscheinPDF()" class="btn btn-primary"><i class="bi bi-file-earmark-pdf"></i> PDF erzeugen</button>
       </div>
     </div>
   </header>
@@ -190,7 +191,7 @@
   <section class="form-section-container">
     <h3>Kundendaten</h3>
     <div id="kundenDetails" class="centered-form-layout">
-      <input type="text" id="kundenSuche" placeholder="🔍 Firma oder Adresse suchen..." autocomplete="off">
+      <input type="text" id="kundenSuche" placeholder="Firma oder Adresse suchen..." autocomplete="off">
       
       <input type="text" id="name" placeholder="Name" autocomplete="new-password">
       <div id="kundenErgebnisse"></div>
@@ -609,12 +610,37 @@ function getTodayGermanDate() {
       }
     });
 
-    // Funktion zum Entfernen eines Artikels
+    // Toast-Nachricht anzeigen
+    function zeigeToast(text, type) {
+      const old = document.getElementById('toast-nachricht');
+      if (old) old.remove();
+      const toast = document.createElement('div');
+      toast.id = 'toast-nachricht';
+      const bg = type === 'success' ? 'linear-gradient(135deg,#005A8C,#00a1e1)'
+               : type === 'undo'    ? 'linear-gradient(135deg,#c62828,#e53935)'
+               : 'linear-gradient(135deg,#005A8C,#00a1e1)';
+      toast.style.cssText = `position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:${bg}; color:white; padding:10px 22px; border-radius:8px; font-family:'Roboto Condensed',sans-serif; font-size:0.9rem; font-weight:600; box-shadow:0 4px 16px rgba(0,0,0,0.2); z-index:10000; display:flex; align-items:center; gap:12px; animation:toastIn 0.3s ease;`;
+      toast.innerHTML = text;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s ease'; setTimeout(() => toast.remove(), 300); }, 3000);
+    }
+
+    // Funktion zum Entfernen eines Artikels (mit Undo)
     function removeArtikel(index) {
-      if (confirm('Möchten Sie diesen Artikel wirklich entfernen?')) {
-        window.merklisteItems.splice(index, 1);
-        updateArtikelListe();
-      }
+      const entfernterArtikel = window.merklisteItems[index];
+      const name = entfernterArtikel.name || entfernterArtikel.bezeichnung || 'Artikel';
+      window.merklisteItems.splice(index, 1);
+      updateArtikelListe();
+      zeigeToast(`<i class="bi bi-trash"></i> ${name} entfernt <button onclick="undoRemoveArtikel(${index}, ${JSON.stringify(JSON.stringify(entfernterArtikel))})" style="background:rgba(255,255,255,0.25); border:none; color:white; border-radius:6px; padding:4px 10px; cursor:pointer; font-size:0.8rem; font-family:'Roboto Condensed',sans-serif; margin-left:4px;">Rückgängig</button>`, 'undo');
+    }
+
+    function undoRemoveArtikel(index, artikelJson) {
+      const artikel = JSON.parse(artikelJson);
+      window.merklisteItems.splice(index, 0, artikel);
+      updateArtikelListe();
+      const old = document.getElementById('toast-nachricht');
+      if (old) old.remove();
+      zeigeToast('<i class="bi bi-arrow-counterclockwise"></i> Artikel wiederhergestellt', 'success');
     }
 
     // Merkliste-Artikel anzeigen (falls vorhanden) - VERBESSERTE VERSION
@@ -655,7 +681,7 @@ function getTodayGermanDate() {
                   </select>
                 </div>
                 <button class="entfernen-btn" onclick="removeArtikel(${index})" title="Artikel entfernen">
-                  🗑️ Entfernen
+                  <i class="bi bi-trash"></i> Entfernen
                 </button>
               </div>
             </div>`;
@@ -1289,8 +1315,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN4cAc4nq9je0of0cb_0wEUb1yCz54r7k&libraries=places&callback=initGooglePlaces" async defer></script>
     <section class="form-section-container" style="text-align: center; box-shadow: none; border: none; background: none;">
-  <button onclick="generateRetourenscheinPDF()" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
-    PDF erzeugen
+  <button onclick="generateRetourenscheinPDF()" class="btn btn-primary">
+    <i class="bi bi-file-earmark-pdf"></i> PDF erzeugen
   </button>
 </body>
 </html>

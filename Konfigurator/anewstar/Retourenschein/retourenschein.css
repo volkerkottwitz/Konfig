@@ -16,8 +16,8 @@ body {
   align-items: center;     /* Zentriert alle Elemente vertikal auf einer Linie */
   gap: 40px;               /* Fügt einen großzügigen Abstand ZWISCHEN den Elementen hinzu */
   padding: 15px 20px;
-  background-color: #d2d2d4; /* Der graue Hintergrund bleibt */
-  border-bottom: 2px solid #ddd;
+  background: linear-gradient(135deg, #005A8C 0%, #0080b8 50%, #00a1e1 100%);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
   flex-wrap: wrap; /* Erlaubt einen sauberen Umbruch auf kleinen Bildschirmen */
 }
 
@@ -42,20 +42,34 @@ body {
   opacity: 0.8;
 }
 
-/* ========== BUTTON-STILE ========== */
+/* ========== BUTTON-STILE (angepasst an Hauptprogramm) ========== */
 button {
-    background-color: #00a1e1; /* Einheitliche Button-Farbe */
+    background-color: #00a1e1;
     color: white;
     border: none;
     padding: 12px 20px;
-    border-radius: 10px;
+    height: 44px;
+    box-sizing: border-box;
+    border-radius: 8px;
     font-size: 16px;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #07577f; /* Dunklerer Farbton beim Überfahren */
+    background-color: #07577f;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #808080;
+    cursor: not-allowed;
 }
 
 /* ========== CONTAINER FÜR DROPDOWN & KUNDENDETAILS ========== */
@@ -322,24 +336,22 @@ button:hover {
 
 .entfernen-btn {
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, #dc3545, #c82333);
+  background-color: #dc3545;
   color: white;
   border: none;
   border-radius: 8px;
   padding: 10px 16px;
   cursor: pointer;
   font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  transition: background-color 0.3s ease;
   margin-top: 10px;
   justify-self: center;
   min-width: 140px;
 }
 
 .entfernen-btn:hover {
-  background: linear-gradient(135deg, #c82333, #a71e2a);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(220, 53, 69, 0.3);
+  background-color: #c82333;
 }
 
 /* ========== EMPTY STATE ========== */
@@ -463,35 +475,32 @@ button:hover {
 }
 
 .btn {
-  padding: 14px 24px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 16px;
-  font-weight: 600;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
   cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 120px;
+  transition: background-color 0.3s ease;
+  min-width: 100px;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #00a1e1, #0077b6);
+  background-color: #00a1e1;
   color: white;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #0077b6, #005577);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 161, 225, 0.3);
+  background-color: #07577f;
 }
 
 .btn-secondary {
-  background: #e9ecef;
-  color: #495057;
+  background-color: #d6d6d6;
+  color: #333;
 }
 
 .btn-secondary:hover {
-  background: #dee2e6;
-  transform: translateY(-1px);
+  background-color: #bbb;
 }
 
 /* ========== RESPONSIVE ANPASSUNGEN FÜR MOBILGERÄTE ========== */
@@ -700,5 +709,11 @@ button:hover {
   #weiterleitungAnName {
     grid-column: 1; /* Nimmt die volle Breite ein */
   }
+}
+
+/* ========== TOAST-NACHRICHTEN ========== */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
