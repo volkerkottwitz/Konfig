@@ -1470,6 +1470,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
+    // --- SCHRITT 4b: PLZ-Feld auch bei Fokus Dropdown anzeigen ---
+    document.getElementById('plz').addEventListener('focus', function() {
+        if (this.value.trim().length >= 4) showKundenByPLZ(this.value.trim());
+    });
+
     // --- SCHRITT 5: Kunde-speichern Event-Listener ---
     document.getElementById('kundenSpeichernBtn').addEventListener('click', saveKundeToSupabase);
     document.getElementById('name').addEventListener('input', updateSpeichernButton);
