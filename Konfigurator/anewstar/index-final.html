@@ -66,13 +66,14 @@
 
 
 
-<!-- KORREKT (ALS BUTTON) -->
-<button type="button" 
-        onclick="openBerichte(event)" 
-        class="header-icon-btn" 
+<!-- DEAKTIVIERT: Bericht diktieren (bei Bedarf wieder einkommentieren)
+<button type="button"
+        onclick="openBerichte(event)"
+        class="header-icon-btn"
         data-tooltip="Bericht diktieren">
   <i class="bi bi-mic-fill"></i>
 </button>
+-->
 
 
       <a href="megaripp.html"
@@ -138,10 +139,11 @@
     <i class="bi bi-list-check"></i> Merkliste
   </a>
 
-  <!-- Bericht diktieren -->
+  <!-- DEAKTIVIERT: Bericht diktieren (bei Bedarf wieder einkommentieren)
   <a href="#" onclick="openBerichte(event); closeMobileNav();">
     <i class="bi bi-mic-fill"></i> Bericht diktieren
   </a>
+  -->
 
   <!-- Konfiguratoren -->
   <a href="megaripp.html" target="_blank" rel="opener" onclick="closeMobileNav()">
@@ -169,26 +171,28 @@
 
 
 <div class="search-container">
-  <input type="text" id="searchBox" placeholder="Suchbegriff 1" data-tooltip="Ersten Suchbegriff eingeben">
-
-  <!-- NEUE SUCHOPERATOR-BUTTONS -->
-  <div id="search-operator-group" class="search-operator-group">
-    <button class="operator-btn active" data-op="und" data-tooltip="Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen">UND</button>
-    <button class="operator-btn" data-op="oder" data-tooltip="Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt">ODER</button>
-    <button class="operator-btn" data-op="ohne" data-tooltip="Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten">OHNE</button>
+  <div class="search-primary-row">
+    <input type="text" id="searchBox" placeholder="Suchbegriff eingeben" data-tooltip="Ersten Suchbegriff eingeben">
+    <button id="toggle-advanced-search" class="toggle-advanced-btn" data-tooltip="Erweiterte Suche"><i class="bi bi-chevron-down"></i></button>
   </div>
 
-  <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (verknüpft)" data-tooltip="Zweiten Suchbegriff eingeben (optional)">
+  <!-- Erweiterte Suche: Operatoren + 2. Suchfeld (Mobile einklappbar) -->
+  <div id="advanced-search-section" class="advanced-search-section">
+    <div id="search-operator-group" class="search-operator-group">
+      <button class="operator-btn active" data-op="und" data-tooltip="Zeigt nur Seiten, auf denen BEIDE Begriffe vorkommen">UND</button>
+      <button class="operator-btn" data-op="oder" data-tooltip="Zeigt Seiten, auf denen MINDESTENS EINER der Begriffe vorkommt">ODER</button>
+      <button class="operator-btn" data-op="ohne" data-tooltip="Zeigt Seiten, die den ersten, aber NICHT den zweiten Begriff enthalten">OHNE</button>
+    </div>
+    <input type="text" id="searchBox2" placeholder="Suchbegriff 2 (verknuepft)" data-tooltip="Zweiten Suchbegriff eingeben (optional)">
+  </div>
 
-<div class="button-row">
-    <button id="local-search-btn" class="icon-button" data-tooltip="Nur im aktuellen Dokument suchen (Enter)">🔍</button>
-    <button id="global-search-btn" class="icon-button" data-tooltip="Alle Dokumente durchsuchen">🌐</button>
-    <button id="print-current-btn" class="icon-button" data-tooltip="Aktuelle Seite drucken">🖨️</button>
-    <button id="print-matches-btn" class="icon-button" data-tooltip="Alle Treffer drucken">📑</button>
+  <div class="button-row">
+    <button id="local-search-btn" class="icon-button" data-tooltip="Nur im aktuellen Dokument suchen (Enter)"><i class="bi bi-search"></i></button>
+    <button id="global-search-btn" class="icon-button" data-tooltip="Alle Dokumente durchsuchen"><i class="bi bi-globe2"></i></button>
+    <button id="print-current-btn" class="icon-button" data-tooltip="Aktuelle Seite drucken"><i class="bi bi-printer"></i></button>
+    <button id="print-matches-btn" class="icon-button" data-tooltip="Alle Treffer drucken"><i class="bi bi-files"></i></button>
+  </div>
 </div>
-
-
-</div> <!-- <<<<<<< HIER IST DER FEHLENDE SCHLIESSENDE TAG -->
 
 
   <div id="loadingSpinnerOverlay">
@@ -201,31 +205,38 @@
     <span id="searchInfo"></span>
     <span id="currentMatchInfo"></span>
     <span id="page-info"></span> <!-- Hier kommt die Seitenzahl rein -->
-    <span id="lazy-load-status" style="display: none; color: #005A8C;"></span>
+    <span id="lazy-load-status" style="display: none;" data-tooltip="Dokumente werden für die Suche vorbereitet. Sie können bereits arbeiten."></span>
 
   </div>
   <div id="progressBar"><div id="progressFill"></div></div>
 </div>
 
 <div class="navigation-buttons">
-  <!-- Gruppe 1: Navigation -->
-  <button id="prev-page" data-tooltip="Vorherige Seite">◀ <span class="nav-button-text">PDF</span></button>
-  <button onclick="prevMatch()" data-tooltip="Vorheriger Treffer" disabled>⬅ 🎯</button>
-  <button onclick="nextMatch()" data-tooltip="Nächster Treffer" disabled>🎯 ➡</button>
-  <button id="next-page" data-tooltip="Nächste Seite"><span class="nav-button-text">PDF</span> ▶</button>
+  <!-- Gruppe 1: PDF-Seiten-Navigation -->
+  <div class="nav-group nav-group-pages">
+    <button id="prev-page" data-tooltip="Vorherige Seite"><i class="bi bi-chevron-left"></i> <span class="nav-button-text">PDF</span></button>
+    <button id="next-page" data-tooltip="Naechste Seite"><span class="nav-button-text">PDF</span> <i class="bi bi-chevron-right"></i></button>
+  </div>
 
-  <!-- Gruppe 2: Zoom -->
+  <!-- Gruppe 2: Treffer-Navigation -->
+  <div class="nav-group nav-group-matches">
+    <button onclick="prevMatch()" class="match-nav-btn" data-tooltip="Vorheriger Treffer" disabled><i class="bi bi-chevron-left"></i></button>
+    <span class="match-nav-label">Treffer</span>
+    <button onclick="nextMatch()" class="match-nav-btn" data-tooltip="Naechster Treffer" disabled><i class="bi bi-chevron-right"></i></button>
+  </div>
+
+  <!-- Gruppe 3: Zoom (nur Desktop) -->
   <div class="zoom-group">
-    <button onclick="zoomOut()" data-tooltip="Verkleinern">🔍 –</button>
-    <button onclick="zoomIn()" data-tooltip="Vergrößern">🔍 +</button>
+    <button onclick="zoomOut()" data-tooltip="Verkleinern"><i class="bi bi-zoom-out"></i></button>
+    <button onclick="zoomIn()" data-tooltip="Vergroessern"><i class="bi bi-zoom-in"></i></button>
   </div>
 </div>
 
 
 
   <div id="pdfContainer">
-    <button id="removeHitBtn" style="display: none;" data-tooltip="Die aktuelle Seite wird aus Ihrer Mappe entfernt">Seite entfernen</button>
-    <button id="addHitBtn" style="display: none;" data-tooltip="Die aktuelle Seite wird Ihrer Mappe hinzugefügt">Seite hinzufügen</button>
+    <button id="removeHitBtn" style="display: none;" data-tooltip="Diese Seite aus Ihrer Druckmappe entfernen. So können Sie die Auswahl reduzieren."><i class="bi bi-dash-circle"></i> <span class="hit-btn-text">Entfernen</span></button>
+    <button id="addHitBtn" style="display: none;" data-tooltip="Diese Seite zur Druckmappe hinzufügen. Ideal, um einzelne Seiten für Kunden zusammenzustellen."><i class="bi bi-plus-circle"></i> <span class="hit-btn-text">Hinzufügen</span></button>
     <div id="pdfViewer"></div>
   </div>
 
@@ -250,7 +261,7 @@
   <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:450px; width:90%; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
     
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-      <h2 style="margin: 0; font-size: 1.4rem;">📝 Ihre Merkliste</h2>
+      <h2 style="margin: 0; font-size: 1.4rem;"><i class="bi bi-list-check"></i> Ihre Merkliste</h2>
       <button onclick="schließeMerkliste()" style="background:none; border:none; font-size:22px; cursor:pointer; color:#333;">✖</button>
     </div>
 
@@ -311,11 +322,12 @@
 <div id="global-search-overlay" style="display: none;">
   <div class="global-search-modal">
     <div class="global-search-header">
+      <i class="bi bi-globe2"></i>
       <h2 id="global-search-title">Suchergebnisse</h2>
-      <button id="close-search-overlay-btn" title="Schließen">✖</button>
+      <button id="close-search-overlay-btn" title="Schliessen"><i class="bi bi-x-lg"></i></button>
     </div>
     <div id="global-search-results-container">
-      <!-- Die Ergebnisse werden hier dynamisch eingefügt -->
+      <!-- Die Ergebnisse werden hier dynamisch eingefuegt -->
     </div>
   </div>
 </div>

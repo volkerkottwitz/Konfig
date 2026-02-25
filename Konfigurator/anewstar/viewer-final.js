@@ -9,6 +9,188 @@ let wurdeBereitsInitialGerendert = false;
 let globalPdfCache = [];
 let isLazyLoading = false; // Verhindert, dass der Lader mehrfach startet
 
+// === ARTIKEL-DATENBANK (Klarname-Lookup) ===
+let artikelDB = null; // wird async geladen
+fetch('artikel_db.json')
+  .then(r => r.json())
+  .then(data => { artikelDB = data; console.log(`Artikel-DB geladen: ${Object.keys(data).length} Artikel`); })
+  .catch(err => console.warn('Artikel-DB konnte nicht geladen werden:', err));
+
+// Artikel-Lookup: Gibt {bezeichnung, klarname, preis} zurück oder null
+function lookupArtikel(nummer) {
+  if (!artikelDB || !nummer) return null;
+  const clean = String(nummer).replace(/\D/g, '').padStart(7, '0');
+  const entry = artikelDB[clean];
+  if (!entry) return null;
+  return {
+    bezeichnung: entry.b,
+    klarname: entry.a || entry.b,
+    preis: entry.p != null ? entry.p.toFixed(2).replace('.', ',') + ' \u20AC' : 'n.a.'
+  };
+}
+
+// Artikel-Info-Banner anzeigen wenn Suchbegriff eine Artikelnummer ist
+function zeigeArtikelInfo(suchbegriff) {
+  // Altes Banner entfernen
+  const altesBanner = document.getElementById('artikel-info-banner');
+  if (altesBanner) altesBanner.remove();
+
+  if (!suchbegriff || !artikelDB) return;
+
+  // Pruefen ob der Suchbegriff eine Artikelnummer sein koennte (5-7 Ziffern)
+  const clean = suchbegriff.trim().replace(/\D/g, '');
+  if (clean.length < 5 || clean.length > 7) return;
+
+  const info = lookupArtikel(clean);
+  if (!info) return;
+
+  const artNr = clean.padStart(7, '0');
+  const banner = document.createElement('div');
+  banner.id = 'artikel-info-banner';
+  const bannerMobil = isMobileDevice() ? 'margin:6px 10px; font-size:0.85rem; padding:8px 12px;' : 'margin:6px auto; max-width:600px; padding:8px 16px;';
+  banner.style.cssText = 'background:linear-gradient(135deg,#005A8C,#00a1e1); color:white; border-radius:8px; font-family:"Roboto Condensed",sans-serif; box-shadow:0 2px 8px rgba(0,0,0,0.15); display:flex; align-items:center; gap:10px; font-size:0.9rem;' + bannerMobil;
+  banner.innerHTML = `
+    <div style="flex:1; min-width:0;">
+      <div style="font-weight:600; line-height:1.3;">${info.klarname}</div>
+      <div style="font-size:0.8rem; opacity:0.85; margin-top:2px;">${artNr} &middot; ${info.preis}</div>
+    </div>
+    <button id="banner-add-merkliste" style="background:rgba(255,255,255,0.25); border:none; color:white; border-radius:6px; padding:5px 10px; cursor:pointer; font-size:0.8rem; font-family:'Roboto Condensed',sans-serif; font-weight:600; white-space:nowrap; transition:background 0.2s ease;"
+            onmouseenter="this.style.background='rgba(255,255,255,0.4)'" onmouseleave="this.style.background='rgba(255,255,255,0.25)'">
+      <i class="bi bi-plus-lg"></i> Merkliste
+    </button>
+    <button onclick="this.closest('#artikel-info-banner').remove()" style="background:none; border:none; color:rgba(255,255,255,0.6); cursor:pointer; font-size:0.85rem; padding:2px 4px;" title="Schließen">✕</button>`;
+
+  // Merkliste-Button Event
+  banner.querySelector('#banner-add-merkliste').addEventListener('click', function() {
+    const preisZahl = info.preis !== 'n.a.' ? parseFloat(info.preis.replace(/[^\d,]/g, '').replace(',', '.')) : 0;
+    addToMerkliste({ name: info.klarname, nummer: artNr, preisZahl: preisZahl }, 1);
+    updateMerklisteIcon();
+    this.innerHTML = '<i class="bi bi-check-lg"></i> Hinzugefügt';
+    this.style.background = 'rgba(40,167,69,0.5)';
+    this.disabled = true;
+    // Banner nach kurzer Bestätigung automatisch schließen
+    setTimeout(() => { banner.remove(); }, 800);
+  });
+
+  // Banner nach der Suchleiste einfuegen
+  const infoSection = document.getElementById('infoSection');
+  if (infoSection) infoSection.parentNode.insertBefore(banner, infoSection);
+}
+
+// === ARTIKEL-AUTOCOMPLETE (Dropdown bei Nummerneingabe) ===
+function initArtikelAutocomplete() {
+  const searchBox = document.getElementById('searchBox');
+  if (!searchBox) return;
+
+  // Dropdown-Container erstellen
+  const dropdown = document.createElement('div');
+  dropdown.id = 'artikel-autocomplete';
+  dropdown.style.cssText = 'display:none; position:absolute; left:0; right:0; top:100%; background:white; border:1px solid #dee2e6; border-top:none; border-radius:0 0 8px 8px; box-shadow:0 4px 12px rgba(0,0,0,0.15); max-height:250px; overflow-y:auto; z-index:9999; font-family:"Roboto Condensed",sans-serif;';
+
+  // searchBox braucht einen relativ positionierten Wrapper
+  const wrapper = document.createElement('div');
+  wrapper.id = 'searchBox-wrapper';
+  wrapper.style.cssText = 'position:relative; width:240px;';
+  // Mobile: Wrapper uebernimmt die Breite der searchBox
+  if (isMobileDevice()) {
+    wrapper.style.width = '90%';
+    wrapper.style.maxWidth = '320px';
+  }
+  searchBox.parentNode.insertBefore(wrapper, searchBox);
+  wrapper.appendChild(searchBox);
+  wrapper.appendChild(dropdown);
+  // searchBox soll im Wrapper volle Breite nutzen
+  searchBox.style.width = '100%';
+
+  let ausgewaehlt = -1; // Fuer Pfeiltasten-Navigation
+
+  searchBox.addEventListener('input', function() {
+    const val = this.value.trim();
+    const nurZiffern = val.replace(/\D/g, '');
+
+    // Nur bei 2+ Ziffern und wenn es wie eine Nummer aussieht
+    if (nurZiffern.length < 2 || !artikelDB || !/^\d+$/.test(val.trim())) {
+      dropdown.style.display = 'none';
+      ausgewaehlt = -1;
+      return;
+    }
+
+    // Artikel suchen: Ziffern muessen irgendwo in der 7-stelligen Nummer vorkommen
+    const treffer = [];
+    for (const [nr, entry] of Object.entries(artikelDB)) {
+      if (nr.includes(nurZiffern)) {
+        treffer.push({ nr, ...entry });
+        if (treffer.length >= 8) break;
+      }
+    }
+
+    if (treffer.length === 0) {
+      dropdown.style.display = 'none';
+      ausgewaehlt = -1;
+      return;
+    }
+
+    dropdown.innerHTML = treffer.map((t, i) => {
+      const name = t.a || t.b;
+      const preis = t.p != null ? t.p.toFixed(2).replace('.', ',') + ' \u20AC' : 'n.a.';
+      return `<div class="ac-item" data-nr="${t.nr}" style="padding:8px 12px; cursor:pointer; border-bottom:1px solid #f0f0f0; transition:background 0.1s ease;"
+                   onmouseenter="this.style.background='#e8f4fd'" onmouseleave="this.style.background='${i === ausgewaehlt ? '#e8f4fd' : 'white'}'">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:8px;">
+          <span style="font-weight:600; color:#333; font-size:0.9rem;">${t.nr}</span>
+          <span style="font-weight:600; color:#005A8C; font-size:0.85rem; white-space:nowrap;">${preis}</span>
+        </div>
+        <div style="font-size:0.82rem; color:#666; line-height:1.3; margin-top:2px;">${name}</div>
+      </div>`;
+    }).join('');
+
+    dropdown.style.display = 'block';
+    ausgewaehlt = -1;
+
+    // Klick-Handler fuer Vorschlaege
+    dropdown.querySelectorAll('.ac-item').forEach(item => {
+      item.addEventListener('click', function() {
+        searchBox.value = this.dataset.nr;
+        dropdown.style.display = 'none';
+        startLocalSearch();
+      });
+    });
+  });
+
+  // Pfeiltasten + Enter
+  searchBox.addEventListener('keydown', function(e) {
+    const items = dropdown.querySelectorAll('.ac-item');
+    if (dropdown.style.display === 'none' || items.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      ausgewaehlt = Math.min(ausgewaehlt + 1, items.length - 1);
+      items.forEach((el, i) => el.style.background = i === ausgewaehlt ? '#e8f4fd' : 'white');
+      items[ausgewaehlt].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      ausgewaehlt = Math.max(ausgewaehlt - 1, 0);
+      items.forEach((el, i) => el.style.background = i === ausgewaehlt ? '#e8f4fd' : 'white');
+      items[ausgewaehlt].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && ausgewaehlt >= 0) {
+      e.preventDefault();
+      searchBox.value = items[ausgewaehlt].dataset.nr;
+      dropdown.style.display = 'none';
+      startLocalSearch();
+    } else if (e.key === 'Escape') {
+      dropdown.style.display = 'none';
+      ausgewaehlt = -1;
+    }
+  });
+
+  // Dropdown schliessen bei Klick ausserhalb
+  document.addEventListener('click', function(e) {
+    if (!wrapper.contains(e.target)) {
+      dropdown.style.display = 'none';
+      ausgewaehlt = -1;
+    }
+  });
+}
+
 // ===================================================================
 //   SCHRITT 1: SYNONYM-WÖRTERBUCH & HILFSFUNKTION FÜR ZOLL-SUCHE
 // ===================================================================
@@ -259,8 +441,7 @@ function startLazyLoading() {
     const ungeladenesPdf = globalPdfCache.find(p => !p.geladen);
     const geladeneAnzahl = globalPdfCache.filter(p => p.geladen).length;
 
-    statusElement.textContent = `(Initialisiere Suche: ${geladeneAnzahl}/${globalPdfCache.length})`;
-    statusElement.style.color = '#003366';
+    statusElement.textContent = `Dokumente laden \u2026 ${geladeneAnzahl} / ${globalPdfCache.length}`;
     if (ungeladenesPdf) {
       try {
         // 1. Erstelle den Pfad zur .json-Datei
@@ -287,8 +468,7 @@ function startLazyLoading() {
       setTimeout(loadNext, 100); 
     } else {
       console.log("Alle Text-Caches wurden erstellt.");
-      statusElement.textContent = 'Suche bereit.';
-      statusElement.style.color = '#003366';
+      statusElement.textContent = 'Alle Dokumente geladen';
       setTimeout(() => { statusElement.style.display = 'none'; }, 2000);
       isLazyLoading = false;
     }
@@ -299,6 +479,22 @@ function startLazyLoading() {
 
 
 
+
+// === Gedruckte Seitennummer aus PDF-Seitentext extrahieren ===
+function extractPrintedPageNumberFromText(text) {
+  if (!text) return '';
+  const head = text.substring(0, 300).trim();
+  // Muster 1 (gerade Seiten, links): "1.02 Preisliste..." (auch mit fuehrendem Whitespace)
+  const match1 = head.match(/^\s*(\d+\.\d{2})\s/);
+  if (match1) return match1[1];
+  // Muster 2 (ungerade Seiten, rechts): "...Preisliste 1.03..."
+  const match2 = head.match(/Preisliste\s+(\d+\.\d{2})/);
+  if (match2) return match2[1];
+  // Muster 3 (Fallback): Seitennummer irgendwo im Format X.XX am Anfang
+  const match3 = head.match(/(\d+\.\d{2})\s+Preisliste/);
+  if (match3) return match3[1];
+  return '';
+}
 
 // === 🖼️ SEITE RENDERN (Wiederhergestellte, funktionierende Version) ===
 function renderPage(pageNum) {
@@ -326,13 +522,24 @@ function renderPage(pageNum) {
       // WICHTIG: Die UI-Helfer werden wieder hier aufgerufen
       clearHighlights();
       highlightMatches(page, wrapper, viewport);
-      document.getElementById('page-info').textContent = `📄 Seite ${pageNum} / ${pdfDoc.numPages}`;
+      const pageInfoEl = document.getElementById('page-info');
+      pageInfoEl.className = 'status-pill pill-page';
+      pageInfoEl.innerHTML = `Seite ${pageNum} / ${pdfDoc.numPages}`;
+      // Gedruckte Seitennummer asynchron nachladen
+      page.getTextContent().then(tc => {
+        const text = tc.items.map(item => item.str).join(' ');
+        const printed = extractPrintedPageNumberFromText(text);
+        if (printed) {
+          pageInfoEl.innerHTML = `Seite ${pageNum} / ${pdfDoc.numPages} &middot; PL Seite ${printed}`;
+        }
+      }).catch(err => console.warn('[PageNum] Text-Extraktion fehlgeschlagen:', err));
       updateNavigation();
       updateHelpers(); // <--- DER ENTSCHEIDENDE AUFRUF IST WIEDER HIER
 
       setTimeout(() => {
           viewer.style.transition = 'opacity 0.3s ease-in';
           viewer.style.opacity = '1';
+          viewer.style.transform = '';
       }, 50);
 
       document.getElementById('loadingSpinnerOverlay').style.display = 'none';
@@ -347,9 +554,9 @@ function renderPage(pageNum) {
 
 
 
-// === 🧹 Treffer-Hervorhebungen entfernen ===
+// === Treffer-Hervorhebungen entfernen ===
 function clearHighlights() {
-  document.querySelectorAll('.highlight-box').forEach(el => el.remove());
+  document.querySelectorAll('.highlight-box, .article-click-box, .line-click-box').forEach(el => el.remove());
 }
 
 // ===================================================================
@@ -363,16 +570,19 @@ function startLocalSearch() {
   const term1 = document.getElementById('searchBox').value;
   const term2 = document.getElementById('searchBox2').value;
 
+  // === ARTIKEL-ERKENNUNG: 7-stellige Nummer im Suchfeld? ===
+  zeigeArtikelInfo(term1);
+
   // === NEUE, VERBESSERTE PRÜFUNG ===
   // Die Suche wird nur gestartet, wenn mindestens ein Feld Text enthält
   // UND dieser Text mindestens 2 Zeichen lang ist.
   if ((!term1 || term1.length < 2) && (!term2 || term2.length < 2)) {
     const searchInfo = document.getElementById('searchInfo');
-    searchInfo.textContent = '⚠️ Bitte geben Sie mindestens 2 Zeichen ein.';
-    searchInfo.style.color = '#dc3545';
+    searchInfo.className = 'status-pill pill-warn';
+    searchInfo.innerHTML = 'Bitte mindestens 2 Zeichen eingeben.';
     setTimeout(() => {
-      searchInfo.textContent = '';
-      searchInfo.style.color = '';
+      searchInfo.innerHTML = '';
+      searchInfo.className = '';
     }, 3000);
     return;
   }
@@ -388,14 +598,61 @@ function startLocalSearch() {
     }
   } else {
     const searchInfo = document.getElementById('searchInfo');
-    searchInfo.textContent = '🔍 Keine Treffer in diesem Dokument gefunden.';
-    searchInfo.style.color = '';
-    setTimeout(() => {
-      if (searchInfo.textContent === '🔍 Keine Treffer in diesem Dokument gefunden.') {
-        searchInfo.textContent = '';
-      }
-    }, 3000);
+    // Schnelle Pruefung: Gibt es Treffer in anderen Dokumenten?
+    const globalCount = countGlobalMatchDocs(term1, term2);
+    if (globalCount > 0) {
+      searchInfo.className = 'status-pill pill-search';
+      searchInfo.innerHTML = `Nicht in diesem Dokument &mdash; in ${globalCount} anderen gefunden`;
+      startGlobalSearch();
+    } else {
+      searchInfo.className = 'status-pill pill-error';
+      searchInfo.innerHTML = 'Keine Treffer in allen Dokumenten.';
+      setTimeout(() => {
+        if (searchInfo.innerHTML.includes('Keine Treffer')) {
+          searchInfo.innerHTML = '';
+          searchInfo.className = '';
+        }
+      }, 5000);
+    }
   }
+}
+
+// === Schnelle Zaehlung: In wie vielen ANDEREN Dokumenten gibt es Treffer? ===
+function countGlobalMatchDocs(rawTerm1, rawTerm2) {
+  const tokens1 = tokenizeQuery(rawTerm1 || '');
+  const tokens2 = tokenizeQuery(rawTerm2 || '');
+  if (tokens1.length === 0 && tokens2.length === 0) return 0;
+
+  const regexes1 = tokens1.map(t => new RegExp(expandZollQuery(t), 'gi'));
+  const regexes2 = tokens2.map(t => new RegExp(expandZollQuery(t), 'gi'));
+  const searchOperator = document.querySelector('.operator-btn.active')?.dataset.op || 'und';
+
+  let docCount = 0;
+  for (const doc of globalPdfCache) {
+    if (!doc.geladen) continue;
+    // Aktuelles Dokument ueberspringen
+    if (doc.path === currentDocumentPath) continue;
+
+    let found = false;
+    for (let i = 0; i < doc.seitenTexte.length && !found; i++) {
+      const norm = normalize(doc.seitenTexte[i]);
+      const g1 = regexes1.length > 0 ? regexes1.every(r => { r.lastIndex = 0; return r.test(norm); }) : true;
+      const g2 = regexes2.length > 0 ? regexes2.every(r => { r.lastIndex = 0; return r.test(norm); }) : true;
+      const g2any = regexes2.length > 0 ? regexes2.some(r => { r.lastIndex = 0; return r.test(norm); }) : false;
+
+      let match = false;
+      if (tokens1.length > 0 && tokens2.length === 0) match = g1;
+      else if (tokens1.length === 0 && tokens2.length > 0) match = g2;
+      else if (tokens1.length > 0 && tokens2.length > 0) {
+        if (searchOperator === 'und') match = g1 && g2;
+        else if (searchOperator === 'oder') match = g1 || g2;
+        else if (searchOperator === 'ohne') match = g1 && !g2any;
+      }
+      if (match) found = true;
+    }
+    if (found) docCount++;
+  }
+  return docCount;
 }
 
 // ===================================================================
@@ -515,27 +772,53 @@ function startGlobalSearch() {
 // ===================================================================
 //   SCHRITT 3: getContextSnippet für Token-Arrays anpassen
 // ===================================================================
-function getContextSnippet(pageText, tokens1, tokens2, length = 150) {
-  const normPageText = normalize(pageText);
+function getContextSnippet(pageText, tokens1, tokens2, length = 250) {
+  // 1. Text bereinigen: Steuerzeichen, mehrfache Leerzeichen, Tabs zusammenfassen
+  const cleaned = pageText
+    .replace(/[\r\t]+/g, ' ')
+    .replace(/\n{2,}/g, '\n')
+    .replace(/ {2,}/g, ' ')
+    .replace(/[^\S\n]+/g, ' ')
+    .trim();
+
+  const normCleaned = normalize(cleaned);
   const allTokens = [...tokens1, ...tokens2];
   let index = -1;
 
-  // Finde die Position des ersten Tokens im Text
+  // 2. Position des ersten Tokens finden
   if (allTokens.length > 0) {
     try {
       const firstTokenRegex = new RegExp(expandZollQuery(allTokens[0]), 'i');
-      index = normPageText.search(firstTokenRegex);
+      index = normCleaned.search(firstTokenRegex);
     } catch (e) { /* ignorieren */ }
   }
 
   if (index === -1) {
-    return pageText.substring(0, length) + '...';
+    const fallback = cleaned.substring(0, length);
+    const cut = fallback.lastIndexOf(' ');
+    return (cut > length * 0.6 ? fallback.substring(0, cut) : fallback) + '\u2026';
   }
 
-  const start = Math.max(0, index - Math.floor(length / 3));
-  let snippet = pageText.substring(start, start + length);
+  // 3. Ausschnitt um den Treffer: 1/3 davor, 2/3 danach
+  let start = Math.max(0, index - Math.floor(length / 3));
+  let end = Math.min(cleaned.length, start + length);
 
-  // Hebe JEDEN Token aus BEIDEN Feldern im Snippet hervor
+  // An Wortgrenzen ausrichten
+  if (start > 0) {
+    const spaceAfter = cleaned.indexOf(' ', start);
+    if (spaceAfter !== -1 && spaceAfter - start < 20) start = spaceAfter + 1;
+  }
+  if (end < cleaned.length) {
+    const spaceBefore = cleaned.lastIndexOf(' ', end);
+    if (spaceBefore > start && end - spaceBefore < 20) end = spaceBefore;
+  }
+
+  let snippet = cleaned.substring(start, end);
+
+  // 4. Zeilenumbrueche durch Trennzeichen ersetzen fuer saubere Darstellung
+  snippet = snippet.replace(/\n/g, ' \u00B7 ');
+
+  // 5. Treffer hervorheben
   allTokens.forEach(token => {
     try {
       const highlightRegex = new RegExp(expandZollQuery(token), 'gi');
@@ -543,7 +826,9 @@ function getContextSnippet(pageText, tokens1, tokens2, length = 150) {
     } catch (e) { /* ignorieren */ }
   });
 
-  return (start > 0 ? '...' : '') + snippet + (start + length < pageText.length ? '...' : '');
+  const prefix = start > 0 ? '\u2026 ' : '';
+  const suffix = end < cleaned.length ? ' \u2026' : '';
+  return prefix + snippet + suffix;
 }
 
 
@@ -555,7 +840,7 @@ function displayGlobalResults(results, searchData) {
   const overlay = document.getElementById('global-search-overlay');
   const titleEl = document.getElementById('global-search-title');
   const container = document.getElementById('global-search-results-container');
-  
+
   container.innerHTML = '';
 
   const operatorText = document.querySelector('.operator-btn.active')?.textContent || 'UND';
@@ -564,25 +849,21 @@ function displayGlobalResults(results, searchData) {
   const term2 = searchData.term2;
 
   if (term1 && term2) {
-    titleText = `${results.length} Trefferseiten für "${term1}" ${operatorText} "${term2}"`;
+    titleText = `${results.length} Trefferseiten \u2014 "${term1}" ${operatorText} "${term2}"`;
   } else if (term1) {
-    titleText = `${results.length} Trefferseiten für "${term1}"`;
+    titleText = `${results.length} Trefferseiten \u2014 "${term1}"`;
   } else if (term2) {
-    titleText = `${results.length} Trefferseiten für "${term2}"`;
+    titleText = `${results.length} Trefferseiten \u2014 "${term2}"`;
   } else {
     titleText = `${results.length} Trefferseiten gefunden`;
   }
   titleEl.textContent = titleText;
 
-  // Die Statistik-Anzeige lassen wir weg, da wir die Zählung entfernt haben.
-  
   if (results.length === 0) {
-    container.innerHTML += '<p style="text-align: center; margin-top: 20px;">Keine Ergebnisse gefunden.</p>';
+    container.innerHTML = '<div class="global-search-no-results"><i class="bi bi-search"></i>Keine Ergebnisse gefunden.</div>';
   } else {
     const groupedResults = results.reduce((acc, result) => {
-      if (!acc[result.docName]) {
-        acc[result.docName] = [];
-      }
+      if (!acc[result.docName]) acc[result.docName] = [];
       acc[result.docName].push(result);
       return acc;
     }, {});
@@ -590,13 +871,14 @@ function displayGlobalResults(results, searchData) {
     const anzahlDokumente = Object.keys(groupedResults).length;
 
     for (const docName in groupedResults) {
+      const hitCount = groupedResults[docName].length;
       const groupDiv = document.createElement('div');
       groupDiv.className = 'result-document-group';
-      
+
       const docTitle = document.createElement('div');
       docTitle.className = 'doc-category-title accordion-trigger';
-      docTitle.innerHTML = `<span class="accordion-arrow">►</span> ${docName} (${groupedResults[docName].length} Treffer)`;
-      
+      docTitle.innerHTML = `<i class="bi bi-chevron-right accordion-arrow"></i> ${docName} <span class="doc-hit-count">${hitCount}</span>`;
+
       const detailsContainer = document.createElement('div');
       detailsContainer.className = 'accordion-details';
 
@@ -611,21 +893,18 @@ function displayGlobalResults(results, searchData) {
       groupDiv.appendChild(docTitle);
 
       for (const item of groupedResults[docName]) {
-        // === HIER IST DIE NEUE LOGIK ===
-        // Erstelle einen optionalen HTML-Block für die Überschrift.
-        const headlineHTML = item.headline 
-          ? `<span class="result-headline">${item.headline}</span>` 
+        const headlineHTML = item.headline
+          ? `<span class="result-headline">${item.headline}</span>`
           : '';
 
         const itemDiv = document.createElement('div');
         itemDiv.className = 'result-item';
-        // Füge den headlineHTML-Block zwischen Seitenzahl und Snippet ein.
         itemDiv.innerHTML = `
           <span class="page-number">Seite ${item.pageNumber}</span>
           ${headlineHTML}
           <div class="context-snippet">${item.context}</div>
         `;
-        
+
         itemDiv.onclick = async () => {
           overlay.style.display = 'none';
           currentDocumentName = item.docName;
@@ -638,7 +917,7 @@ function displayGlobalResults(results, searchData) {
       container.appendChild(groupDiv);
     }
   }
-  
+
   overlay.style.display = 'flex';
 }
 
@@ -662,6 +941,7 @@ function activateSearchContext() {
 
   if (tokens1.length === 0 && tokens2.length === 0) {
     searchInfo.innerHTML = '';
+    searchInfo.className = '';
     updateHelpers();
     updateNavigation();
     return;
@@ -735,7 +1015,8 @@ if (matchPages.size > 0) {
   statsText += `)`;
   
   // 1. Den Link wie gewohnt erstellen
-  searchInfo.innerHTML = `🔍 <span id="local-search-trigger" style="cursor: pointer; text-decoration: underline;" title="Klicken für eine Übersicht aller Treffer in diesem Dokument">${matchPages.size} Seite(n) in diesem Dokument gefunden.</span> ${statsText}`;
+  searchInfo.className = 'status-pill pill-search';
+  searchInfo.innerHTML = `<span id="local-search-trigger" title="Klicken fuer eine Uebersicht aller Treffer">${matchPages.size} Seite(n) gefunden</span> ${statsText}`;
   
   // 2. Den Event-Listener DIREKT DANACH an das neu erstellte Element binden
   document.getElementById('local-search-trigger').onclick = () => {
@@ -766,6 +1047,7 @@ if (matchPages.size > 0) {
 
 } else {
   searchInfo.innerHTML = '';
+  searchInfo.className = '';
 }
 
 }
@@ -837,42 +1119,32 @@ function countMatches(txt, s1, s2) {
 }
 
 // === 📏 RESPONSIVE MARKIERUNGSGRÖSSENWERTE MIT ZOOM-ANPASSUNG ===
-function getMarkierungsWerte() {
-  if (isMobileDevice()) {
-    return { 
-      yOffset: -2, 
-      widthAdd: 0, 
-      heightAdd: -10,
-      zeilenYOffset: -17,
-      zeilenHeight: 18
-    };
-  } else {
-    // Desktop: Markierungen skalieren mit Zoomfaktor
-    const baseWidthAdd = 42;
-    const baseHeightAdd = 1;
-    const baseYOffset = -5;
-    
-    // Skalierung basierend auf Zoomfaktor
-    const scaleFactor = Math.max(0.5, Math.min(3.0, zoomFactor)); // Begrenzt zwischen 0.5x und 3.0x
-    
-    return { 
-      yOffset: baseYOffset * scaleFactor, 
-      widthAdd: baseWidthAdd * scaleFactor, 
-      heightAdd: baseHeightAdd * scaleFactor,
-      zeilenYOffset: -17 * scaleFactor,
-      zeilenHeight: 18 * scaleFactor
-    };
-  }
-}
+// ===================================================================
+//   HIGHLIGHT-SYSTEM: Markierungen auf dem PDF
+//   - EWE-Blau Farbschema (einheitlich)
+//   - Positionsberechnung direkt aus Viewport-Koordinaten
+//   - Keine Magic Numbers, skaliert korrekt mit Zoom
+// ===================================================================
 
-// ===================================================================
-//   FINALE KORREKTUR (VOLLSTÄNDIG): 'highlightMatches' mit Regex-Unterstützung
-// ===================================================================
+// EWE-Blau Farbkonstanten fuer Markierungen
+// Artikelboxen (klein, brauchen weniger Opacity)
+const MARK_COLOR_HIT1    = 'rgba(0, 161, 225, 0.20)';  // Suchfeld 1
+const MARK_COLOR_HIT2    = 'rgba(0, 90, 140, 0.20)';   // Suchfeld 2
+const MARK_COLOR_BOTH    = 'rgba(0, 161, 225, 0.30)';   // Beide Suchfelder
+const MARK_COLOR_ARTICLE = 'rgba(0, 161, 225, 0.25)';   // Artikelnummer ohne Suche
+// Zeilen-Markierungen (volle Breite, brauchen mehr Opacity)
+const LINE_COLOR_HIT1    = 'rgba(0, 161, 225, 0.22)';  // Suchfeld 1 Zeile
+const LINE_COLOR_HIT2    = 'rgba(0, 90, 140, 0.22)';   // Suchfeld 2 Zeile
+const LINE_COLOR_BOTH    = 'rgba(0, 161, 225, 0.30)';   // Beide Suchfelder Zeile
+
 function highlightMatches(page, container, viewport) {
   const canvas = container.querySelector('canvas');
   const canvasLeftOffset = (container.offsetWidth - canvas.offsetWidth) / 2;
   const scaleX = canvas.offsetWidth / canvas.width;
   const scaleY = canvas.offsetHeight / canvas.height;
+  const pad = 1; // Pixel Padding um Markierungen
+  const yShift = 2; // Pixel nach unten verschieben (Artikel-Boxen)
+  const lineYShift = 3; // Pixel nach unten verschieben (Zeilen-Markierungen)
 
   page.getTextContent().then(tc => {
     const items = tc.items;
@@ -884,106 +1156,97 @@ function highlightMatches(page, container, viewport) {
       lines[y].push({ ...item, tx, y });
     });
 
-    // Erstelle direkt RegExp-Objekte aus den globalen (bereits erweiterten) Suchbegriffen.
-    // Das 'g' Flag ist wichtig für das Zurücksetzen von lastIndex.
     const searchRegex1 = searchText ? new RegExp(searchText, 'gi') : null;
     const searchRegex2 = secondSearchText ? new RegExp(secondSearchText, 'gi') : null;
-
     const zeilenMitArtikelnummer = new Set();
-    const markierungsWerte = getMarkierungsWerte();
 
+    // --- Pass 1: Artikelnummern finden und markieren ---
     Object.values(lines).forEach(lineItems => {
       const lineText = lineItems.map(i => i.str).join(' ');
       const lineTextNorm = normalize(lineText);
 
-      // Wir testen jetzt mit den Regex-Objekten.
       const hit1 = searchRegex1 ? searchRegex1.test(lineTextNorm) : false;
-      if(searchRegex1) searchRegex1.lastIndex = 0; // Wichtig: Regex-Index zurücksetzen
-
+      if (searchRegex1) searchRegex1.lastIndex = 0;
       const hit2 = searchRegex2 ? searchRegex2.test(lineTextNorm) : false;
-      if(searchRegex2) searchRegex2.lastIndex = 0; // Wichtig: Regex-Index zurücksetzen
+      if (searchRegex2) searchRegex2.lastIndex = 0;
 
-      let bgColor = 'rgba(0, 150, 255, 0.3)';
+      let bgColor = MARK_COLOR_ARTICLE;
+      let lineColor = null;
       let ganzeZeileMarkieren = false;
 
       if (hit1 && hit2) {
-        bgColor = 'rgba(18, 189, 18, 0.15)';
+        bgColor = MARK_COLOR_BOTH;
+        lineColor = LINE_COLOR_BOTH;
         ganzeZeileMarkieren = true;
       } else if (hit1) {
-        bgColor = 'rgba(255, 165, 0, 0.2)';
+        bgColor = MARK_COLOR_HIT1;
+        lineColor = LINE_COLOR_HIT1;
         ganzeZeileMarkieren = true;
       } else if (hit2) {
-        bgColor = 'rgba(74, 235, 227, 0.2)';
+        bgColor = MARK_COLOR_HIT2;
+        lineColor = LINE_COLOR_HIT2;
         ganzeZeileMarkieren = true;
       }
 
-const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|W[0-9]{6}|[0-9]{7}(?:-(?:V|K|[a-zA-Z0-9]{2,}))?)(\*{1,2})?)/g;
+      const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-zA-Z0-9]{3,}|W[0-9]{6}|[0-9]{7}(?:-(?:V|K|[a-zA-Z0-9]{2,}))?)(\*{1,2})?)/g;
 
       let match;
       while ((match = regex.exec(lineText)) !== null) {
         const artikelnummer = match[1];
 
-        // START: HIER DIE NEUEN ZEILEN EINFÜGEN
+        // Telefonnummern-Filter
         const kontextIndex = match.index;
         const kontextText = lineText.substring(Math.max(0, kontextIndex - 20), kontextIndex);
-        if (/mobil|telefon|\+49/i.test(kontextText)) {
-            continue; 
-        }
-        // ENDE: NEUE ZEILEN
-      
+        if (/mobil|telefon|\+49/i.test(kontextText)) continue;
+
         const matchStart = match.index + match[0].indexOf(artikelnummer);
         zeilenMitArtikelnummer.add(lineItems[0].y);
 
-        const position = calculatePreciseArticlePosition(lineItems, artikelnummer, matchStart, scaleX, scaleY);
-        
-        if (!position) continue;
-
         let x, y, width, height;
+
         if (ganzeZeileMarkieren) {
-          const first = lineItems[0];
+          // Ganze Zeile markieren (Suchtreffer)
+          const topY = Math.min(...lineItems.map(i => i.tx[5] - (Math.abs(i.tx[3]) || 10)));
+          const bottomY = Math.max(...lineItems.map(i => i.tx[5]));
           x = canvasLeftOffset;
-          y = (first.tx[5] - position.height - 5) * scaleY;
+          y = (topY * scaleY) - pad + lineYShift;
           width = canvas.offsetWidth;
-          height = (position.height + 9) * scaleY;
+          height = ((bottomY - topY) * scaleY) + (pad * 2);
         } else {
-          const zoomOffset = isMobileDevice() ? 0 : (zoomFactor - 1.0) * - 580;
-          x = position.x + zoomOffset;
-          y = position.y + markierungsWerte.yOffset;
-          let extraBreite = 0;
-          if (artikelnummer.includes('DIBT') || artikelnummer.startsWith('0392-')) {
-            const baseExtraBreite = 20;
-            extraBreite = isMobileDevice() ? baseExtraBreite : baseExtraBreite * Math.max(0.5, Math.min(3.0, zoomFactor));
-          }
-          width = position.width + markierungsWerte.widthAdd + extraBreite;
-          height = position.height + markierungsWerte.heightAdd;
+          // Praezise Artikel-Box
+          const pos = calculateArticleScreenPosition(lineItems, artikelnummer, matchStart, scaleX, scaleY, canvasLeftOffset, pad, yShift);
+          if (!pos) continue;
+          x = pos.x; y = pos.y; width = pos.width; height = pos.height;
         }
 
         const klickDiv = document.createElement('div');
-        klickDiv.className = 'article-click-box'; // Eindeutige Klasse hinzufügen
+        klickDiv.className = 'article-click-box';
 
-          Object.assign(klickDiv.style, {
+        Object.assign(klickDiv.style, {
           position: 'absolute',
           left: `${x}px`,
           top: `${y}px`,
           width: `${width}px`,
           height: `${height}px`,
-          backgroundColor: bgColor,
-          cursor: 'pointer',
-          border: '1px solid rgba(0, 161, 225, 0.3)',
-          borderRadius: '2px'
+          backgroundColor: ganzeZeileMarkieren ? lineColor : bgColor
         });
 
-        klickDiv.setAttribute('data-tooltip', `Artikel ${artikelnummer} anzeigen`);
+        // Tooltip mit Klarname + Preis
+        const artInfo = lookupArtikel(artikelnummer);
+        if (artInfo) {
+          klickDiv.setAttribute('data-tooltip', `${artInfo.klarname}\n${artikelnummer}  \u2022  ${artInfo.preis}`);
+        } else {
+          klickDiv.setAttribute('data-tooltip', `Artikel ${artikelnummer}`);
+        }
 
-        // NEU: Statt Event-Listener, speichern wir die Daten im Element
         klickDiv.setAttribute('data-artikelnummer', artikelnummer);
-        klickDiv.setAttribute('data-line-text', lineText); // Fallback-Text speichern
+        klickDiv.setAttribute('data-line-text', lineText);
         klickDiv.setAttribute('data-highlight-type', 'article');
-
         container.appendChild(klickDiv);
       }
     });
 
+    // --- Pass 2: Zeilen mit Suchtreffer OHNE Artikelnummer ---
     Object.values(lines).forEach(lineItems => {
       const yKey = lineItems[0].y;
       if (zeilenMitArtikelnummer.has(yKey)) return;
@@ -991,38 +1254,32 @@ const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-z
       const lineText = lineItems.map(i => i.str).join(' ');
       const lineTextNorm = normalize(lineText);
 
-      // Wir testen hier ebenfalls mit den Regex-Objekten.
       const hit1 = searchRegex1 ? searchRegex1.test(lineTextNorm) : false;
-      if(searchRegex1) searchRegex1.lastIndex = 0; // Wichtig: Regex-Index zurücksetzen
-
+      if (searchRegex1) searchRegex1.lastIndex = 0;
       const hit2 = searchRegex2 ? searchRegex2.test(lineTextNorm) : false;
-      if(searchRegex2) searchRegex2.lastIndex = 0; // Wichtig: Regex-Index zurücksetzen
+      if (searchRegex2) searchRegex2.lastIndex = 0;
 
       if (!(hit1 || hit2)) return;
 
       let bgColor;
       if (hit1 && hit2) {
-        bgColor = 'rgba(18, 189, 18, 0.15)';
+        bgColor = LINE_COLOR_BOTH;
       } else if (hit1) {
-        bgColor = 'rgba(255, 165, 0, 0.2)';
+        bgColor = LINE_COLOR_HIT1;
       } else {
-        bgColor = 'rgba(74, 235, 227, 0.2)';
+        bgColor = LINE_COLOR_HIT2;
       }
 
-      const x = canvasLeftOffset;
-      const minY = Math.min(...lineItems.map(i => i.tx[5]));
-      const maxY = Math.max(...lineItems.map(i => i.tx[5]));
-      const textHeight = maxY - minY;
-      
-      const basePadding = 24;
-      const padding = isMobileDevice() ? basePadding : basePadding * Math.max(0.5, Math.min(3.0, zoomFactor));
+      const topY = Math.min(...lineItems.map(i => i.tx[5] - (Math.abs(i.tx[3]) || 10)));
+      const bottomY = Math.max(...lineItems.map(i => i.tx[5]));
 
-      const y = (minY + markierungsWerte.zeilenYOffset) * scaleY-3;
-      const height = (textHeight + padding) * scaleY;
+      const x = canvasLeftOffset;
+      const y = (topY * scaleY) - pad + lineYShift;
+      const height = ((bottomY - topY) * scaleY) + (pad * 2);
       const width = canvas.offsetWidth;
 
       const div = document.createElement('div');
-      div.className = 'line-click-box'; // Eindeutige Klasse hinzufügen
+      div.className = 'line-click-box';
 
       Object.assign(div.style, {
         position: 'absolute',
@@ -1030,27 +1287,27 @@ const regex = /(?:^|[^\#\w])((?:0392-[A-Z]{5,10}|[0-9]{7}-(?:DIBT|wrs)|0392-[a-z
         top: `${y}px`,
         width: `${width}px`,
         height: `${height}px`,
-        backgroundColor: bgColor,
-        cursor: 'pointer',
-        border: '1px solid rgba(0, 161, 225, 0.3)',
-        borderRadius: '2px'
+        backgroundColor: bgColor
       });
 
-      div.setAttribute('data-tooltip', `Keine Artikelnummer gefunden`);
+      // Erklaerung im Tooltip: Suchtreffer, aber keine Artikelnummer
+      const suchbegriff = (hit1 && hit2) ? `\u201E${searchText}\u201C und \u201E${secondSearchText}\u201C`
+        : hit1 ? `\u201E${searchText}\u201C`
+        : `\u201E${secondSearchText}\u201C`;
+      div.setAttribute('data-tooltip', `Suchtreffer f\u00FCr ${suchbegriff}\nKeine Artikelnummer in dieser Zeile erkannt.`);
 
-      // NEU: Statt Event-Listener, speichern wir die Daten im Element
       div.setAttribute('data-line-text', lineText);
       div.setAttribute('data-highlight-type', 'line');
-
       container.appendChild(div);
     });
   });
 }
 
-// === 🎯 PRÄZISE ARTIKELNUMMERN-POSITIONSBERECHNUNG MIT ZOOM-ANPASSUNG ===
-function calculatePreciseArticlePosition(lineItems, artikelnummer, matchStart, scaleX, scaleY) {
+// === Praezise Artikelposition in Bildschirm-Pixeln ===
+// item.width/height sind in PDF User Space, tx[] ist in Viewport-Koordinaten.
+// vpScale konvertiert von User Space nach Viewport Space.
+function calculateArticleScreenPosition(lineItems, artikelnummer, matchStart, scaleX, scaleY, canvasLeftOffset, pad, yShift) {
   try {
-    // Finde das Text-Item, das die Artikelnummer enthält
     let cumulativeText = '';
     let targetItem = null;
     let charOffset = 0;
@@ -1058,47 +1315,53 @@ function calculatePreciseArticlePosition(lineItems, artikelnummer, matchStart, s
     for (let item of lineItems) {
       const itemStart = cumulativeText.length;
       const itemEnd = itemStart + item.str.length;
-      
       if (matchStart >= itemStart && matchStart < itemEnd) {
         targetItem = item;
         charOffset = matchStart - itemStart;
         break;
       }
-      
       cumulativeText += item.str + ' ';
     }
 
     if (!targetItem) return null;
 
-    // Berechne die durchschnittliche Zeichenbreite für dieses Text-Item
-    const avgCharWidth = (targetItem.width || targetItem.tx[0] || 10) / Math.max(targetItem.str.length, 1);
-    
-    // Berechne Position und Größe (Zoom ist bereits im viewport enthalten)
-    const baseStartX = targetItem.tx[4] + (charOffset * avgCharWidth);
-    const baseStartY = targetItem.tx[5] - targetItem.height - 2;
-    const baseWidth = artikelnummer.length * avgCharWidth;
-    const baseHeight = targetItem.height + 4;
-    
-    const startX = baseStartX * scaleX;
-    const startY = baseStartY * scaleY;
-    const width = baseWidth * scaleX;
-    const height = baseHeight * scaleY;
+    // Skalierungsfaktor: PDF User Space -> Viewport
+    const origHScale = targetItem.transform ? targetItem.transform[0] : 1;
+    const vpScale = origHScale !== 0 ? (targetItem.tx[0] / origHScale) : 1;
 
+    // Zeichenbreite in Viewport-Koordinaten
+    const vpTextWidth = (targetItem.width || 10) * vpScale;
+    const avgCharWidth = vpTextWidth / Math.max(targetItem.str.length, 1);
+
+    // Texthoehe in Viewport-Koordinaten
+    const vpH = Math.abs(targetItem.tx[3]) || 10;
+
+    // Position in Viewport-Koordinaten
+    const vpX = targetItem.tx[4] + (charOffset * avgCharWidth);
+    const vpY = targetItem.tx[5] - vpH;
+    let vpW = (artikelnummer.length + 0.3) * avgCharWidth;
+
+    // Extra Breite fuer lange Artikel-IDs (DIBT, 0392-)
+    if (artikelnummer.includes('DIBT') || artikelnummer.startsWith('0392-')) {
+      vpW += avgCharWidth * 2;
+    }
+
+    // Umrechnung in Bildschirm-Pixel + Padding
     return {
-      x: Math.max(0, startX),
-      y: Math.max(0, startY),
-      width: Math.max(20, width),
-      height: Math.max(15, height)
+      x: (vpX * scaleX) + canvasLeftOffset - pad,
+      y: (vpY * scaleY) - pad + (yShift || 0),
+      width: (vpW * scaleX) + (pad * 2),
+      height: (vpH * scaleY) + (pad * 2)
     };
   } catch (error) {
     console.warn('Fehler bei Positionsberechnung:', error);
-    // Fallback zur ursprünglichen Methode (Zoom ist bereits im viewport enthalten)
     const firstItem = lineItems[0];
+    const vpH = Math.abs(firstItem.tx[3]) || 10;
     return {
-      x: (firstItem.tx[4] - 3) * scaleX,
-      y: (firstItem.tx[5] - firstItem.height - 9) * scaleY,
-      width: artikelnummer.length * 11 * scaleX,
-      height: (firstItem.height + 12) * scaleY
+      x: (firstItem.tx[4] * scaleX) + canvasLeftOffset - pad,
+      y: ((firstItem.tx[5] - vpH) * scaleY) - pad + (yShift || 0),
+      width: (artikelnummer.length * 8 * scaleX) + (pad * 2),
+      height: (vpH * scaleY) + (pad * 2)
     };
   }
 }
@@ -1128,6 +1391,10 @@ function openArticleDialogMobile(artikelnummer, artikel, dialogType) {
   ).trim() || artikel.name || "";
   const bereinigt = bereinigeText(kompletterText);
 
+  // Klarname aus Artikel-DB
+  const dbInfo = lookupArtikel(artikelnummer);
+  const displayName = dbInfo ? dbInfo.klarname : bereinigt;
+
   const roherPreis = artikel.BRUTTOPREIS || "";
   const bruttopreisText = roherPreis
     .toString()
@@ -1135,7 +1402,7 @@ function openArticleDialogMobile(artikelnummer, artikel, dialogType) {
     .replace(/[^\d,.-]/g, '')
     .replace(/\.(?=\d{3})/g, '')
     .replace(',', '.');
-  const bruttopreisZahl = parseFloat(bruttopreisText) || 0;
+  const bruttopreisZahl = parseFloat(bruttopreisText) || (dbInfo && dbInfo.preis !== 'n.a.' ? parseFloat(dbInfo.preis.replace(/[^\d,]/g, '').replace(',', '.')) : 0);
 
   const bruttopreis = new Intl.NumberFormat('de-DE', {
     style: 'currency',
@@ -1146,7 +1413,7 @@ function openArticleDialogMobile(artikelnummer, artikel, dialogType) {
     type: 'articleData',
     dialogType: dialogType,
     nummer: artikelnummer,
-    name: bereinigt,
+    name: displayName,
     preis: bruttopreis,
     preisZahl: bruttopreisZahl,
     currentQuantity: vorhandenerArtikel ? vorhandenerArtikel.menge : 0
@@ -1244,14 +1511,18 @@ window.addEventListener('message', function(event) {
 
 // Artikel zur Merkliste hinzufügen
 function addToMerkliste(articleData, quantity) {
+  // Klarname aus Artikel-DB nachschlagen falls vorhanden
+  const dbInfo = lookupArtikel(articleData.nummer);
+  const displayName = dbInfo ? dbInfo.klarname : articleData.name;
+
   merkliste.push({
-    name: articleData.name,
+    name: displayName,
     nummer: articleData.nummer,
     preis: articleData.preisZahl,
     menge: quantity
   });
 
-  zeigeHinzugefügtOverlay(`${articleData.name} (${articleData.nummer})`);
+  zeigeHinzugefügtOverlay(`${displayName} (${articleData.nummer})`);
 }
 
 // Menge zu bestehendem Artikel hinzufügen
@@ -1454,7 +1725,9 @@ function updateHelpers() {
     updateProgressBar();
   } else {
     // Wenn keine Treffer, setze die Anzeigen explizit zurück
-    document.getElementById('currentMatchInfo').textContent = '';
+    const matchReset = document.getElementById('currentMatchInfo');
+    matchReset.innerHTML = '';
+    matchReset.className = '';
     document.getElementById('progressFill').style.width = '0%';
   }
 
@@ -1480,9 +1753,13 @@ function updateCurrentMatchInfo() {
 
   // Nur eine Anzeige ausgeben, wenn es auch Treffer gibt und die Seite ein Treffer ist
   if (idx > 0 && matchPages.size > 0) {
-    document.getElementById('currentMatchInfo').textContent = `🎯 Treffer ${idx} / ${matchPages.size}`;
+    const matchEl = document.getElementById('currentMatchInfo');
+    matchEl.className = 'status-pill pill-match';
+    matchEl.innerHTML = `Treffer ${idx} / ${matchPages.size}`;
   } else {
-    document.getElementById('currentMatchInfo').textContent = ''; // Ansonsten Anzeige leeren
+    const matchEl = document.getElementById('currentMatchInfo');
+    matchEl.innerHTML = '';
+    matchEl.className = '';
   }
 }
 
@@ -1510,11 +1787,14 @@ function updateNavigation() {
   document.getElementById('prev-page').disabled = currentPage <= 1;
   document.getElementById('next-page').disabled = currentPage >= pdfDoc.numPages;
   
-  // Treffer-Navigation (nur aktivieren wenn Treffer vorhanden)
+  // Treffer-Navigation: Gruppe ein-/ausblenden
   const hasTreffer = matchPages.size > 0;
-  const prevMatchBtn = document.querySelector('button[onclick="prevMatch()"]');
-  const nextMatchBtn = document.querySelector('button[onclick="nextMatch()"]');
-  
+  const matchGroup = document.querySelector('.nav-group-matches');
+  if (matchGroup) {
+    matchGroup.classList.toggle('has-matches', hasTreffer);
+  }
+  const prevMatchBtn = document.querySelector('.match-nav-btn[onclick="prevMatch()"]');
+  const nextMatchBtn = document.querySelector('.match-nav-btn[onclick="nextMatch()"]');
   if (prevMatchBtn) prevMatchBtn.disabled = !hasTreffer;
   if (nextMatchBtn) nextMatchBtn.disabled = !hasTreffer;
 }
@@ -1876,7 +2156,7 @@ function zeigeArtikelDialog(roherText) {
   };
 }
 
-// 💬 Hauptdialog: Artikel anzeigen, Menge erfassen, ggf. erhöhen (Desktop)
+// Hauptdialog: Artikel anzeigen, Menge erfassen, ggf. erhoehen (Desktop)
 function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
   if (document.getElementById('artikelDialog')) return;
 
@@ -1884,6 +2164,10 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
     (artikel.KURZTEXT1 ?? "") + " " + (artikel.KURZTEXT2 ?? "")
   ).trim() || artikel.name || "";
   const bereinigt = bereinigeText(kompletterText);
+
+  // Klarname aus Artikel-DB
+  const dbInfo = lookupArtikel(artikelnummer);
+  const displayName = dbInfo ? dbInfo.klarname : bereinigt;
 
   // Preis bereinigen und konvertieren
   const roherPreis = artikel.BRUTTOPREIS || "";
@@ -1893,7 +2177,7 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
     .replace(/[^\d,.-]/g, '')
     .replace(/\.(?=\d{3})/g, '')
     .replace(',', '.');
-  const bruttopreisZahl = parseFloat(bruttopreisText) || 0;
+  const bruttopreisZahl = parseFloat(bruttopreisText) || (dbInfo && dbInfo.preis !== 'n.a.' ? parseFloat(dbInfo.preis.replace(/[^\d,]/g, '').replace(',', '.')) : 0);
 
   const bruttopreis = new Intl.NumberFormat('de-DE', {
     style: 'currency',
@@ -1902,146 +2186,124 @@ function zeigeArtikelDialogDirekt(artikelnummer, artikel) {
 
   const vorhandenerArtikel = merkliste.find(item => item.nummer === artikelnummer);
 
-  // Wenn Artikel bereits in der Merkliste → Dialog zur Mengenänderung
-  if (vorhandenerArtikel) {
-    const mengeDialog = document.createElement("div");
-    mengeDialog.id = "artikelDialog";
-    Object.assign(mengeDialog.style, {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      backgroundColor: "rgba(0,0,0,0.4)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 9999
+  // Overlay-Hintergrund erstellen
+  function erstelleOverlay() {
+    const overlay = document.createElement("div");
+    overlay.id = "artikelDialog";
+    Object.assign(overlay.style, {
+      position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+      backgroundColor: "rgba(0,0,0,0.4)", display: "flex",
+      justifyContent: "center", alignItems: "center", zIndex: 9999
     });
+    // Klick auf Overlay schliesst Dialog
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
+    return overlay;
+  }
 
+  // Wenn Artikel bereits in der Merkliste -> Mengen-Dialog
+  if (vorhandenerArtikel) {
+    const mengeDialog = erstelleOverlay();
     mengeDialog.innerHTML = `
-      <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:440px; width:80%;
-                  font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2); text-align: center;">
-        <h2 style="margin-top:0; font-size:1.3rem;">📝 Artikel bereits in der Merkliste</h2>
-        <p style="font-size: 1.1rem; margin-bottom: 18px;">
-          <strong>${bereinigt}</strong> ist bereits in der Merkliste.<br><br>
-          Aktuelle Menge: <strong>${vorhandenerArtikel.menge}</strong>
-        </p>
-        <label for="anzahlInput" style="display:block; margin-bottom: 6px;">Zusätzliche Menge:</label>
-        <input id="anzahlInput" type="number" min="1" value="1"
-               style="width:80px; padding:6px; font-size:0.8rem; border-radius:6px; border:1px solid #ccc;" />
-        <div style="margin-top:20px; display:flex; justify-content:center; gap:15px;">
-          <button id="abbrechenBestaetigung"
-                  style="padding:10px 16px; background:#d6d6d6; color:#333; border:none;
-                         border-radius:8px; cursor:pointer;">Abbrechen</button>
-          <button id="entfernenArtikel"
-                  style="padding:10px 16px; background:#dc3545; color:white; border:none;
-                         border-radius:8px; cursor:pointer;">Entfernen</button>
-          <button id="bestaetigenHinzufuegen"
-                  style="padding:10px 16px; background:#00a1e1; color:white; border:none;
-                         border-radius:8px; cursor:pointer;">Hinzufügen</button>
+      <div style="background:#fff; border-radius:14px; max-width:440px; width:90%; font-family:'Roboto Condensed',sans-serif; box-shadow:0 8px 30px rgba(0,0,0,0.2); overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#005A8C 0%,#0080b8 50%,#00a1e1 100%); color:white; padding:14px 20px; display:flex; align-items:center; gap:10px;">
+          <i class="bi bi-info-circle" style="font-size:1.2rem;"></i>
+          <h2 style="margin:0; font-size:1.1rem; font-weight:600;">Bereits in der Merkliste</h2>
         </div>
-      </div>
-    `;
+        <div style="padding:20px;">
+          <div style="background:#f8f9fa; border-left:4px solid #00a1e1; border-radius:8px; padding:12px 16px; margin-bottom:16px;">
+            <div style="font-weight:600; color:#333; line-height:1.3;">${displayName}</div>
+            <div style="font-size:0.85rem; color:#666; margin-top:4px;">Art.-Nr. ${artikelnummer} &middot; ${bruttopreis}</div>
+          </div>
+          <div style="text-align:center; margin-bottom:16px;">
+            <span style="font-size:0.9rem; color:#555;">Aktuelle Menge: <strong>${vorhandenerArtikel.menge}</strong></span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:20px;">
+            <label style="font-size:0.9rem; color:#555;">Zusaetzlich:</label>
+            <input id="anzahlInput" type="number" min="1" value="1"
+                   style="width:70px; padding:8px; font-size:15px; border-radius:6px; border:1px solid #dee2e6; text-align:center; font-family:'Roboto Condensed',sans-serif;">
+          </div>
+          <div style="display:flex; justify-content:center; gap:10px;">
+            <button id="abbrechenBestaetigung" style="padding:10px 18px; background:#e9ecef; color:#495057; border:none; border-radius:8px; cursor:pointer; font-family:'Roboto Condensed',sans-serif; font-weight:600; font-size:0.9rem;">Abbrechen</button>
+            <button id="entfernenArtikel" style="padding:10px 18px; background:none; color:#dc3545; border:1px solid #dc3545; border-radius:8px; cursor:pointer; font-family:'Roboto Condensed',sans-serif; font-weight:600; font-size:0.9rem;">
+              <i class="bi bi-trash"></i> Entfernen
+            </button>
+            <button id="bestaetigenHinzufuegen" style="padding:10px 18px; background:#00a1e1; color:white; border:none; border-radius:8px; cursor:pointer; font-family:'Roboto Condensed',sans-serif; font-weight:600; font-size:0.9rem;">
+              <i class="bi bi-plus-lg"></i> Hinzufuegen
+            </button>
+          </div>
+        </div>
+      </div>`;
 
     document.body.appendChild(mengeDialog);
 
-    // Abbrechen → Dialog schließen
-    document.getElementById("abbrechenBestaetigung").addEventListener("click", () => {
-      mengeDialog.remove();
-    });
+    document.getElementById("abbrechenBestaetigung").addEventListener("click", () => mengeDialog.remove());
 
-    // Entfernen → Artikel aus der Merkliste löschen
     document.getElementById("entfernenArtikel").addEventListener("click", () => {
       const index = merkliste.findIndex(item => item.nummer === artikelnummer);
       if (index !== -1) {
         merkliste.splice(index, 1);
-        zeigeHinzugefügtOverlay(`${bereinigt} wurde entfernt`);
+        zeigeHinzugefügtOverlay(`${displayName} wurde entfernt`);
       }
       mengeDialog.remove();
-
       updateMerklisteIcon();
-
     });
 
-    // Menge erhöhen
     document.getElementById("bestaetigenHinzufuegen").addEventListener("click", () => {
       const zusatzmenge = parseInt(document.getElementById("anzahlInput").value, 10);
-      if (isNaN(zusatzmenge) || zusatzmenge < 1) {
-        alert("Bitte eine gültige Menge eingeben.");
-        return;
-      }
+      if (isNaN(zusatzmenge) || zusatzmenge < 1) { alert("Bitte eine gueltige Menge eingeben."); return; }
       vorhandenerArtikel.menge += zusatzmenge;
-      zeigeHinzugefügtOverlay(`${bereinigt} (neu: ${vorhandenerArtikel.menge} Stück)`);
+      zeigeHinzugefügtOverlay(`${displayName} (neu: ${vorhandenerArtikel.menge} Stueck)`);
       mengeDialog.remove();
     });
 
-    return; // keine weitere Anzeige
+    return;
   }
 
-  // Wenn Artikel noch nicht in der Merkliste → regulärer Dialog
-  const dialog = document.createElement("div");
-  dialog.id = "artikelDialog";
-  Object.assign(dialog.style, {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.4)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 9999
-  });
-
+  // Wenn Artikel noch nicht in der Merkliste -> Hinzufuegen-Dialog
+  const dialog = erstelleOverlay();
   dialog.innerHTML = `
-    <div style="background:#fefefe; padding:25px 30px; border-radius:14px; max-width:480px; width:80%;
-                font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
-      <h2 style="margin-top:0; font-size:1.4rem;">📝 Artikel zur Merkliste hinzufügen</h2>
-      <p><strong>Bezeichnung:</strong><br>${bereinigt}</p>
-      <p><strong>Artikelnummer:</strong> ${artikelnummer}</p>
-      <p><strong>Bruttopreis:</strong> ${bruttopreis}</p>
-      <label for="anzahlInput">Anzahl:</label>
-      <input id="anzahlInput" type="number" min="1" value="1"
-             style="width:70px; padding:4px; margin-left:10px; font-size:0.8rem; border-radius:4px; border:1px solid #ccc;" />
-      <div style="margin-top:20px; display:flex; justify-content: flex-end; gap:10px;">
-        <button id="abbrechenBtn"
-                style="padding:10px 16px; background:#d6d6d6; color:#333; border:none;
-                       border-radius:8px; cursor:pointer;">Abbrechen</button>
-        <button id="hinzufuegenBtn"
-                style="padding:10px 16px; background:#00a1e1; color:white; border:none;
-                       border-radius:8px; cursor:pointer;">Hinzufügen</button>
+    <div style="background:#fff; border-radius:14px; max-width:480px; width:90%; font-family:'Roboto Condensed',sans-serif; box-shadow:0 8px 30px rgba(0,0,0,0.2); overflow:hidden;">
+      <div style="background:linear-gradient(135deg,#005A8C 0%,#0080b8 50%,#00a1e1 100%); color:white; padding:14px 20px; display:flex; align-items:center; gap:10px;">
+        <i class="bi bi-plus-circle" style="font-size:1.2rem;"></i>
+        <h2 style="margin:0; font-size:1.1rem; font-weight:600;">Artikel zur Merkliste</h2>
       </div>
-    </div>
-  `;
+      <div style="padding:20px;">
+        <div style="background:#f8f9fa; border-left:4px solid #00a1e1; border-radius:8px; padding:12px 16px; margin-bottom:16px;">
+          <div style="font-weight:600; color:#333; line-height:1.3;">${displayName}</div>
+          <div style="font-size:0.85rem; color:#666; margin-top:4px;">Art.-Nr. ${artikelnummer} &middot; ${bruttopreis}</div>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:20px;">
+          <label style="font-size:0.9rem; color:#555;">Anzahl:</label>
+          <input id="anzahlInput" type="number" min="1" value="1"
+                 style="width:70px; padding:8px; font-size:15px; border-radius:6px; border:1px solid #dee2e6; text-align:center; font-family:'Roboto Condensed',sans-serif;">
+        </div>
+        <div style="display:flex; justify-content:center; gap:10px;">
+          <button id="abbrechenBtn" style="padding:10px 18px; background:#e9ecef; color:#495057; border:none; border-radius:8px; cursor:pointer; font-family:'Roboto Condensed',sans-serif; font-weight:600; font-size:0.9rem;">Abbrechen</button>
+          <button id="hinzufuegenBtn" style="padding:10px 18px; background:#00a1e1; color:white; border:none; border-radius:8px; cursor:pointer; font-family:'Roboto Condensed',sans-serif; font-weight:600; font-size:0.9rem;">
+            <i class="bi bi-plus-lg"></i> Hinzufuegen
+          </button>
+        </div>
+      </div>
+    </div>`;
 
   document.body.appendChild(dialog);
 
-  // Abbrechen → Dialog schließen
-  document.getElementById("abbrechenBtn").addEventListener("click", () => {
-    dialog.remove();
-  });
+  document.getElementById("abbrechenBtn").addEventListener("click", () => dialog.remove());
 
-  // Hinzufügen
   document.getElementById("hinzufuegenBtn").addEventListener("click", () => {
     const menge = parseInt(document.getElementById("anzahlInput").value, 10);
-    if (isNaN(menge) || menge < 1) {
-      alert("Bitte eine gültige Anzahl eingeben.");
-      return;
-    }
+    if (isNaN(menge) || menge < 1) { alert("Bitte eine gueltige Anzahl eingeben."); return; }
 
     merkliste.push({
-      name: bereinigt,
+      name: displayName,
       nummer: artikelnummer,
       preis: bruttopreisZahl,
       menge: menge
     });
 
-    zeigeHinzugefügtOverlay(`${bereinigt} (${artikelnummer})`);
+    zeigeHinzugefügtOverlay(`${displayName} (${artikelnummer})`);
     dialog.remove();
-
-    updateMerklisteIcon(); 
+    updateMerklisteIcon();
   });
 }
 
@@ -2425,8 +2687,12 @@ function resetApplication() {
   document.getElementById('searchBox2').value = '';
 
   // 2. Suchergebnis-Informationen zurücksetzen
-  document.getElementById('searchInfo').textContent = '';
-  document.getElementById('currentMatchInfo').textContent = '';
+  const resetSearchInfo = document.getElementById('searchInfo');
+  resetSearchInfo.innerHTML = '';
+  resetSearchInfo.className = '';
+  const resetMatchInfo = document.getElementById('currentMatchInfo');
+  resetMatchInfo.innerHTML = '';
+  resetMatchInfo.className = '';
   matchPages.clear();
 
   // 3. UI-Helfer aktualisieren
@@ -2594,6 +2860,17 @@ async function main() {
     });
   }
 
+  // --- Toggle fuer erweiterte Suche (Mobile) ---
+  const toggleAdvBtn = document.getElementById('toggle-advanced-search');
+  const advSection = document.getElementById('advanced-search-section');
+  if (toggleAdvBtn && advSection) {
+    toggleAdvBtn.addEventListener('click', () => {
+      const isExpanded = advSection.classList.toggle('expanded');
+      toggleAdvBtn.classList.toggle('active', isExpanded);
+      toggleAdvBtn.querySelector('i').className = isExpanded ? 'bi bi-chevron-up' : 'bi bi-chevron-down';
+    });
+  }
+
    // --- Listener für die 4 Haupt-Buttons ---
   document.getElementById('local-search-btn').addEventListener('click', startLocalSearch);
   document.getElementById('global-search-btn').addEventListener('click', startGlobalSearch);
@@ -2658,26 +2935,31 @@ async function main() {
         window.open(urlForNewTab, '_blank');
       }
     });
-// URSPRÜNGLICHE, WIEDERHERGESTELLTE GESTENSTEUERUNG
+// GESTENSTEUERUNG (Swipe, Tap, Zoom-Erkennung)
 
-// === 🔧 Variablen für Gestensteuerung und Zustand ===
 let startX = 0, startY = 0, distanzX = 0, distanzY = 0, lastTap = 0;
 let currentGesture = 'none';
-let touchStartTime = 0; // NEU: Zeitstempel für Touch-Start
+let touchStartTime = 0;
+let lastMoveTime = 0;
+let lastMoveX = 0;
 const pdfViewer = document.getElementById('pdfViewer');
 
-// === 🖱️ OPTIMIERTE EVENT DELEGATION MIT TOUCH-BLOCKIERUNG ===
+// Erkennt ob die Seite nativ gezoomt ist (Pinch-Zoom)
+function isNativeZoomed() {
+  if (window.visualViewport) {
+    return window.visualViewport.scale > 1.05;
+  }
+  return false;
+}
+
+// Event-Delegation fuer Artikel-Klicks
 pdfContainer.addEventListener('click', function(event) {
-  // NEU: Ignoriere Klicks, die aus einem Pan/Swipe entstanden sind
   if (currentGesture === 'browser-pan' || currentGesture === 'swipe-to-page') {
     return;
   }
 
   const target = event.target.closest('.article-click-box, .line-click-box');
-
-  if (!target) {
-    return;
-  }
+  if (!target) return;
 
   const type = target.getAttribute('data-highlight-type');
   const lineText = target.getAttribute('data-line-text');
@@ -2685,14 +2967,13 @@ pdfContainer.addEventListener('click', function(event) {
   if (type === 'article') {
     const artikelnummer = target.getAttribute('data-artikelnummer');
     const artikel = artikelMap.get(artikelnummer);
-    
     if (artikel) {
       openArticleDialog(artikelnummer, artikel, 'add');
     } else {
       const pseudoArtikel = { nummer: artikelnummer, name: lineText, preis: 0 };
       openArticleDialog(artikelnummer, pseudoArtikel, 'add');
     }
-  } 
+  }
   else if (type === 'line') {
     if (isMobileDevice()) {
       openNoArticleDialog(lineText);
@@ -2700,37 +2981,40 @@ pdfContainer.addEventListener('click', function(event) {
       zeigeArtikelDialog(lineText);
     }
   }
-}, { passive: true }); // NEU: Auch hier passive
+}, { passive: true });
 
-// === OPTIMIERTER touchstart (mit passive Option) ===
+// === touchstart ===
 pdfContainer.addEventListener('touchstart', function(e) {
-  touchStartTime = Date.now(); // NEU: Zeitstempel speichern
-  
+  touchStartTime = Date.now();
+
   // 1. Multi-Touch (Zoom/Pinch)
   if (e.touches.length > 1) {
     currentGesture = 'browser-zoom';
     return;
   }
 
-  // 2. Panning auf gezoomter Seite
-  if (!(zoomFactor >= 0.8 && zoomFactor <= 1.2)) {
+  // 2. Gezoomt? JS-Zoom ODER nativer Pinch-Zoom → Browser pannen lassen
+  const isJsZoomed = !(zoomFactor >= 0.8 && zoomFactor <= 1.2);
+  if (isJsZoomed || isNativeZoomed()) {
     currentGesture = 'browser-pan';
     return;
   }
 
-  // 3. Unsere Wisch-Geste (Swipe-to-Page)
+  // 3. Swipe-to-Page (nur bei normalem Zoom)
   currentGesture = 'swipe-to-page';
   const touch = e.touches[0];
   startX = touch.screenX;
   startY = touch.screenY;
   distanzX = 0;
   distanzY = 0;
+  lastMoveX = startX;
+  lastMoveTime = touchStartTime;
   if (pdfViewer) {
     pdfViewer.style.transition = 'none';
   }
-}, { passive: true }); // NEU: Passive Option hinzugefügt
+}, { passive: true });
 
-// === OPTIMIERTER touchmove (bereits passive) ===
+// === touchmove ===
 pdfContainer.addEventListener('touchmove', function(e) {
   if (currentGesture !== 'swipe-to-page') {
     if (e.touches.length > 1) {
@@ -2743,31 +3027,34 @@ pdfContainer.addEventListener('touchmove', function(e) {
   distanzX = touch.screenX - startX;
   distanzY = touch.screenY - startY;
 
-  // NEU: Schwellenwert für Bewegungserkennung (reduziert Jitter)
+  // Jitter-Filter
   if (Math.abs(distanzX) < 5 && Math.abs(distanzY) < 5) {
-    return; // Ignoriere winzige Bewegungen
+    return;
   }
+
+  // Velocity-Tracking (letzte Bewegung merken)
+  lastMoveX = touch.screenX;
+  lastMoveTime = Date.now();
 
   if (pdfViewer && Math.abs(distanzX) > Math.abs(distanzY)) {
     let bewegung = distanzX;
+    // Rubber-Band an den Raendern
     if (currentPage === 1 && distanzX > 0) {
       bewegung = distanzX / (1 + (distanzX / pdfContainer.clientWidth) * 2);
-    } 
+    }
     else if (currentPage === pdfDoc.numPages && distanzX < 0) {
       const absDistanz = Math.abs(distanzX);
-      bewegung = - (absDistanz / (1 + (absDistanz / pdfContainer.clientWidth) * 2));
+      bewegung = -(absDistanz / (1 + (absDistanz / pdfContainer.clientWidth) * 2));
     }
-    
-    // NEU: Verwende transform3d für Hardware-Beschleunigung
     pdfViewer.style.transform = `translate3d(${bewegung}px, 0, 0)`;
   }
 }, { passive: true });
 
-// === OPTIMIERTER touchend ===
+// === touchend ===
 pdfContainer.addEventListener('touchend', function(event) {
-  const touchDuration = Date.now() - touchStartTime; // NEU: Dauer berechnen
-  
-  // NEU: Wenn die Geste ein Zoom oder Pan war, ignorieren
+  const touchDuration = Date.now() - touchStartTime;
+
+  // Zoom oder Pan → ignorieren, sauber zuruecksetzen
   if (currentGesture === 'browser-zoom' || currentGesture === 'browser-pan') {
     currentGesture = 'none';
     return;
@@ -2781,59 +3068,72 @@ pdfContainer.addEventListener('touchend', function(event) {
   const currentTime = Date.now();
   const tapLength = currentTime - lastTap;
 
-  // === DOPPEL-TAP-LOGIK (mit verbesserter Erkennung) ===
-  // NEU: Prüfe auch die Touch-Dauer (schneller Tap = < 200ms)
-  if (tapLength < 300 && tapLength > 0 && 
-      Math.abs(distanzX) < 20 && 
-      touchDuration < 200) { // NEU: Bedingung hinzugefügt
-    
+  // === DOPPEL-TAP → PDF im neuen Tab oeffnen ===
+  if (tapLength < 300 && tapLength > 0 &&
+      Math.abs(distanzX) < 20 &&
+      touchDuration < 200) {
     if (currentDocumentPath && pdfDoc) {
       const urlForNewTab = `${currentDocumentPath}#page=${currentPage}`;
       window.open(urlForNewTab, '_blank');
     }
-    
     lastTap = 0;
-    currentGesture = 'none'; // NEU: Explizit zurücksetzen
-    return; 
+    currentGesture = 'none';
+    return;
   }
 
   lastTap = currentTime;
 
-  // === WISCH-LOGIK ===
+  // === WISCH-LOGIK mit Velocity ===
   const mindestDistanz = pdfContainer.clientWidth * 0.25;
+  // Velocity: Pixel pro Millisekunde der letzten Bewegung
+  const timeSinceLastMove = currentTime - lastMoveTime;
+  const velocity = timeSinceLastMove > 0 ? Math.abs(distanzX) / touchDuration : 0;
+  // Schneller Flick: niedrigere Distanz-Schwelle
+  const istFlick = velocity > 0.4 && Math.abs(distanzX) > 40;
   let geblaettert = false;
 
-  if (Math.abs(distanzX) > mindestDistanz && Math.abs(distanzX) > Math.abs(distanzY)) {
+  if ((Math.abs(distanzX) > mindestDistanz || istFlick) && Math.abs(distanzX) > Math.abs(distanzY)) {
     if (distanzX < 0 && currentPage < pdfDoc.numPages) {
-      if (pdfViewer) { 
-        pdfViewer.style.transition = 'opacity 0.3s ease-out'; 
-        pdfViewer.style.opacity = '0'; 
+      if (pdfViewer) {
+        pdfViewer.style.transition = 'opacity 0.3s ease-out';
+        pdfViewer.style.opacity = '0';
       }
       setTimeout(() => { document.getElementById('next-page').click(); }, 50);
       geblaettert = true;
-    } 
+    }
     else if (distanzX > 0 && currentPage > 1) {
-      if (pdfViewer) { 
-        pdfViewer.style.transition = 'opacity 0.3s ease-out'; 
-        pdfViewer.style.opacity = '0'; 
+      if (pdfViewer) {
+        pdfViewer.style.transition = 'opacity 0.3s ease-out';
+        pdfViewer.style.opacity = '0';
       }
       setTimeout(() => { document.getElementById('prev-page').click(); }, 50);
       geblaettert = true;
     }
   }
 
-  // Zurückschnellen nur bei kleinen Bewegungen
-  if (!geblaettert && Math.abs(distanzX) > 5) { // NEU: Schwellenwert hinzugefügt
+  // Zurueckschnellen bei zu kurzer Wischbewegung
+  if (!geblaettert && Math.abs(distanzX) > 5) {
     if (pdfViewer) {
       pdfViewer.style.transition = 'transform 0.3s ease-out';
-      pdfViewer.style.transform = 'translate3d(0, 0, 0)'; // NEU: translate3d statt translateX
+      pdfViewer.style.transform = 'translate3d(0, 0, 0)';
     }
   }
-  
+
   distanzX = 0;
   distanzY = 0;
-  currentGesture = 'none'; // NEU: Explizit zurücksetzen
-}, { passive: true }); // NEU: Passive Option hinzugefügt
+  currentGesture = 'none';
+}, { passive: true });
+
+// === touchcancel (z.B. eingehender Anruf, Systemgeste) ===
+pdfContainer.addEventListener('touchcancel', function() {
+  if (pdfViewer && currentGesture === 'swipe-to-page') {
+    pdfViewer.style.transition = 'transform 0.3s ease-out';
+    pdfViewer.style.transform = 'translate3d(0, 0, 0)';
+  }
+  distanzX = 0;
+  distanzY = 0;
+  currentGesture = 'none';
+}, { passive: true });
 
 
 
@@ -2855,8 +3155,13 @@ function initializeTooltips() {
 
     // Erstelle das Tooltip-Element
     tooltipElement = document.createElement('div');
-    tooltipElement.className = 'custom-tooltip'; // Eigene Klasse für Styling
-    tooltipElement.textContent = tooltipText;
+    tooltipElement.className = 'custom-tooltip';
+    // Zeilenumbrueche im Tooltip ermoeglichen
+    if (tooltipText.includes('\n')) {
+      tooltipElement.innerHTML = tooltipText.replace(/\n/g, '<br>');
+    } else {
+      tooltipElement.textContent = tooltipText;
+    }
     document.body.appendChild(tooltipElement);
 
     // Positioniere das Tooltip-Element
@@ -2905,12 +3210,26 @@ setTimeout(() => {
   document.querySelectorAll('[data-tooltip]').forEach(element => {
     element.addEventListener('mouseenter', showTooltip);
     element.addEventListener('mouseleave', hideTooltip);
-    element.addEventListener('click', hideTooltip); // Versteckt Tooltip bei Klick
+    element.addEventListener('click', hideTooltip);
+  });
+
+  // Event-Delegation fuer dynamische Elemente (article-click-box + line-click-box im PDF)
+  document.addEventListener('mouseover', function(e) {
+    const box = e.target.closest('.article-click-box[data-tooltip], .line-click-box[data-tooltip]');
+    if (box && !box._tooltipBound) {
+      box._tooltipBound = true;
+      box.addEventListener('mouseenter', showTooltip);
+      box.addEventListener('mouseleave', hideTooltip);
+      box.addEventListener('click', hideTooltip);
+      // Sofort auslösen fuer den aktuellen Hover
+      showTooltip({ currentTarget: box });
+    }
   });
 }
 
 // Rufen Sie die neue Funktion am Ende von main() auf
 initializeTooltips();
+initArtikelAutocomplete();
 
 }
 

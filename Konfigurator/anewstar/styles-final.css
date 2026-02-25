@@ -1,49 +1,61 @@
+/* ========================================================
+   EWE DuoViewer — Modernisiertes CSS (25.02.2026)
+   Backup: styles-final.BACKUP-2026-02-25.css
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap');
+
+/* ========== Design-Tokens (CSS-Variablen) ========== */
+:root {
+  --color-primary: #00a1e1;
+  --color-primary-dark: #07577f;
+  --color-primary-hover: #0077b6;
+  --color-accent: #005A8C;
+  --color-bg: #f8f9fa;
+  --color-bg-white: #ffffff;
+  --color-border: #ced4da;
+  --color-border-light: #e0e0e0;
+  --color-text: #333;
+  --color-text-muted: #6c757d;
+  --color-text-dark: #212529;
+  --color-danger: #dc3545;
+  --color-danger-dark: #c82333;
+  --color-success: #198754;
+  /* Markierungsfarben sind jetzt im JS als MARK_COLOR_* Konstanten */
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.18);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 25px;
+}
+
 /* ========== Basislayout ========== */
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap'  );
-
 body {
-    font-family: 'Roboto Condensed', Arial, sans-serif;
-    margin: 0;
-    background-color: #f8f9fa;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  margin: 0;
+  background-color: var(--color-bg);
 }
 
-/* ======================================================= */
-/* FINALES HEADER-CSS (FÜR ZENTRIERTE GRUPPE, 2-ZEILIG)    */
-/* ======================================================= */
-
-/* 1. Der äußere Header-Container (#header) */
-/* Seine EINZIGE Aufgabe ist es, den inneren Container zu zentrieren. */
-#header {
-  display: flex;
-  justify-content: center; /* Zentriert den inneren Container horizontal */
-  align-items: center;     /* Zentriert den inneren Container vertikal */
-  padding: 10px 20px;
-  background-color: #d2d2d4;
-  border-bottom: 2px solid #ddd;
-}
-
-
-/* WIR PASSEN DAS AN IHREN HTML-CODE AN */
-/* Da Sie keinen .header-main-content-Container haben, stylen wir die Kinder direkt */
-.header-left, .header-center-title, .header-right {
-  display: flex;
-  align-items: center;
-}
-
-/* Wir fügen den Abstand direkt zum Header hinzu */
+/* ========== HEADER (Modernisiert mit Gradient) ========== */
 #header {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px 20px;
-  background-color: #d2d2d4;
-  border-bottom: 2px solid #ddd;
-  gap: 30px; /* Abstand zwischen Logo, Titel und Icons */
+  background: linear-gradient(135deg, #005A8C 0%, #0080b8 50%, #00a1e1 100%);
+  border-bottom: none;
+  gap: 30px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
 }
 
-
-/* --- Styling der Inhalte --- */
+.header-left, .header-center-title, .header-right {
+  display: flex;
+  align-items: center;
+}
 
 #header .header-left img {
   height: 60px;
@@ -52,17 +64,18 @@ body {
 }
 
 .header-center-title {
-  flex-direction: column; /* Richtet Titel und Dokumentenname untereinander aus */
+  flex-direction: column;
   text-align: center;
 }
 
 .main-title {
   margin: 0;
   padding: 0;
-  color: white;
+  color: #ffffff;
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
+  letter-spacing: 0.5px;
 }
 
 #document-display-container {
@@ -77,7 +90,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  color: #003366;
+  color: rgba(255, 255, 255, 0.75);
   font-size: 14px;
   font-weight: bold;
   margin-top: 2px;
@@ -88,551 +101,581 @@ body {
   gap: 15px;
 }
 
-/* --- Mobile Anpassungen --- */
-@media screen and (max-width: 768px) {
-  /* Auf Mobile ziehen wir die Elemente wieder auseinander */
-/* Header-Anpassungen für Mobile */
-#header {
-  justify-content: space-between; /* Zieht die Elemente auseinander, um Platz zu schaffen */
-  gap: 10px;                      /* Reduziert den Abstand zwischen den Elementen */
-}
-
-#header .header-left img {
-  height: 45px; /* Kleineres Logo für mehr Platz */
-}
-
-.main-title {
-  font-size: 26px; /* Kleinere Hauptüberschrift */
-}
-
-#current-document-name {
-  font-size: 14px; /* Kleinerer Dokumentenname */
-}
-}
-
-
-
-
-
 /* ========== Suchfeld & Buttons ========== */
-/* Ersetzen Sie Ihren alten .search-container Block */
 .search-container {
-    position: relative; 
-    display: flex;
-    justify-content: center;
-    align-items: center; /* NEU: Richtet alle Elemente vertikal mittig aus */
-    gap: 15px;
-    padding: 20px;
-    flex-wrap: wrap;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
-/* Passen Sie den input[type="text"] Block an */
+/* Desktop: Wrapper transparent, Toggle versteckt */
+.search-primary-row {
+  display: contents;
+}
+.toggle-advanced-btn {
+  display: none;
+}
+.advanced-search-section {
+  display: contents;
+}
+
 input[type="text"] {
-    padding: 10px 18px;
-    font-size: 16px;
-    border: 1px solid #ced4da;
-    border-radius: 10px;
-    width: 240px;
-    transition: all 0.3s ease-in-out;
-    height: 44px; /* NEU: Feste Höhe */
-    box-sizing: border-box; /* NEU: Korrekte Box-Berechnung */
-    color: #005A8C;
+  padding: 10px 18px;
+  font-size: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  width: 240px;
+  transition: all 0.3s ease-in-out;
+  height: 44px;
+  box-sizing: border-box;
+  color: var(--color-accent);
 }
 
-/* Passen Sie den .operator-btn Block an */
 .operator-btn {
-  /* ... Ihre bestehenden Regeln ... */
-  height: 44px; /* NEU: Feste Höhe */
-  box-sizing: border-box; /* NEU: Korrekte Box-Berechnung */
+  height: 44px;
+  box-sizing: border-box;
 }
 
-/* Passen Sie die .button-row an, damit die Buttons darin auch die Höhe bekommen */
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 340px;
+}
+
 .button-row button {
-    height: 44px; /* NEU: Feste Höhe */
-    box-sizing: border-box; /* NEU: Korrekte Box-Berechnung */
+  height: 44px;
+  box-sizing: border-box;
 }
 
 input[type="text"]:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
-    border-color: #00a1e1;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+  border-color: var(--color-primary);
 }
 
 /* ========== EINHEITLICHE BUTTON-FARBEN ========== */
 button {
-    background-color: #00a1e1;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  height: 44px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 button:hover {
-    background-color: #07577f;
+  background-color: var(--color-primary-dark);
 }
 button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
 }
 
-/* Spezielle Button-Varianten */
 .btn-secondary {
-    background-color: #d6d6d6;
-    color: #333;
+  background-color: #d6d6d6;
+  color: var(--color-text);
 }
 .btn-secondary:hover {
-    background-color: #bbb;
+  background-color: #bbb;
 }
 
 .btn-danger {
-    background-color: #dc3545;
-    color: white;
+  background-color: var(--color-danger);
+  color: white;
 }
 .btn-danger:hover {
-    background-color: #c82333;
+  background-color: var(--color-danger-dark);
 }
 
-/* Deaktivierte Buttons */
 button:disabled {
-    background-color: #ccc;
-    color: #808080;
-    cursor: not-allowed;
+  background-color: #ccc;
+  color: #808080;
+  cursor: not-allowed;
 }
 button:disabled:hover {
-    background-color: #ccc;
+  background-color: #ccc;
 }
-
-
 
 /* ========== Info & Fortschritt ========== */
 #infoSection {
-    margin-top: 15px;
-    color: #003366;
-    font-size: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 10px;
+  margin-top: 12px;
+  color: var(--color-accent);
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
 }
 
 #searchStatus {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.7rem;
-    font-size: 0.8rem;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 400;
-    margin: 0.4rem 0;
-    text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 500;
+  margin: 0.3rem 0;
+  text-align: center;
 }
 
 #searchStatus span {
-    white-space: nowrap;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
+  white-space: nowrap;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Dezenter Text-Stil fuer Status-Elemente */
+#searchStatus .status-pill {
+  background: none;
+  border: none;
+  padding: 2px 0;
+  gap: 4px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+#searchStatus .status-pill.pill-page {
+  color: var(--color-accent);
+}
+
+#searchStatus .status-pill.pill-match {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+#searchStatus .status-pill.pill-search {
+  color: var(--color-primary);
+}
+
+#searchStatus .status-pill.pill-warn {
+  color: #e65100;
+}
+
+#searchStatus .status-pill.pill-error {
+  color: #c62828;
+}
+
+#searchStatus #local-search-trigger {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#lazy-load-status {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+#searchStatus .status-divider {
+  color: var(--color-border);
+  font-weight: 300;
+  padding: 0 2px;
+}
+
+@media screen and (max-width: 768px) {
+  #searchStatus .status-pill {
+    font-size: 0.75rem;
+  }
+  #searchStatus {
+    gap: 5px;
+    min-height: 40px;
+  }
 }
 
 #progressBar {
-    width: 60%;
-    height: 5px;
-    background-color: #e0e0e0;
-    border-radius: 3px;
-    margin-top: 6px;
-    margin-bottom: 15px;
-    overflow: hidden;
+  width: 60%;
+  height: 5px;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  margin-top: 6px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  display: none;
 }
 #progressFill {
-    height: 100%;
-    background-color: #00a1e1;
-    width: 0%;
-    border-radius: 2px;
-    transition: width 0.4s ease;
+  height: 100%;
+  background-color: var(--color-primary);
+  width: 0%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
 }
-
-/* ========== NEU: Fortschrittsbalken standardmäßig ausblenden ========== */
-#progressBar {
-    display: none;
-}
-
 
 /* ========== PDF-Container ========== */
 #pdfContainer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow: auto;
-    width: 100%;
-    height: auto;
-    max-height: 100vh;
-    margin-top: 20px;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: auto;
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  margin-top: 20px;
+  position: relative;
 }
 
 #pdfViewer {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
 }
 
-/* ========== VERBESSERTE HIGHLIGHT-BOXEN ========== */
-.highlight-box {
-    position: absolute;
-    z-index: 5;
-    pointer-events: auto;
-    cursor: pointer;
-    background-color: rgba(255, 230, 0, 0.4);
-    border: 1px solid rgba(0, 161, 225, 0.3);
-    border-radius: 2px;
-    transition: all 0.2s ease;
-    will-change: transform;
-    backface-visibility: hidden;
-}
-
-.highlight-box:hover {
-    background-color: rgba(255, 230, 0, 0.6);
-    border-color: rgba(0, 161, 225, 0.6);
-    transform: scale(1.02);
-}
-
-.highlight-box.secondary {
-    background-color: rgba(0, 191, 255, 0.35);
-}
+/* ========== HIGHLIGHT-BOXEN (PDF-Markierungen) ========== */
 
 /* ========== Navigation & Zoom ========== */
-/* Ersetze den alten Block hiermit */
 .navigation-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Wichtig für die vertikale Ausrichtung */
-    gap: 10px; /* Reduzierter Abstand für die Hauptgruppe */
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
 }
 
 .navigation-buttons button {
-    font-size: 13px;
+  font-size: 13px;
 }
 
-/* ========== NEU: Styling für die Zoom-Gruppe ========== */
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .zoom-group {
   display: flex;
-  gap: 10px; /* Abstand zwischen den Zoom-Buttons */
-  margin-left: 30px; /* Schafft eine klare visuelle Trennung zur Navigations-Gruppe */
+  gap: 10px;
+  margin-left: 14px;
 }
 
-
-/* =================================================================== */
-/*   NEU: Intelligentes Ausblenden der Treffer-Buttons           */
-/* =================================================================== */
-.navigation-buttons button[onclick*="Match"] {
-  display: none; /* Versteckt die Treffer-Buttons standardmäßig */
+/* Treffer-Navigation: gleicher Stil wie PDF-Buttons, versteckt wenn keine Treffer */
+.nav-group-matches {
+  display: none;
 }
-
-.navigation-buttons button[onclick*="Match"]:not(:disabled) {
-  display: inline-flex; /* Zeigt sie nur an, wenn sie NICHT deaktiviert sind */
+.nav-group-matches.has-matches {
+  display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 4px;
 }
 
+.match-nav-btn {
+  min-width: auto !important;
+  transition: all 0.2s ease;
+}
+.match-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
-/* ========== Ladeoverlay ========== */
+.match-nav-label {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  padding: 0 2px;
+}
+
+/* ========== Ladeoverlay (Spinner) ========== */
 #loadingSpinnerOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.85);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 .rotating-logo {
-    width: 60px;
-    height: 60px;
-    animation: spin 1.5s linear infinite;
+  width: 60px;
+  height: 60px;
+  animation: spin 1.5s linear infinite;
 }
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-
-/* ========== Merkliste Panel (ehemals Warenkorb) ========== */
+/* ========== Merkliste Panel ========== */
 #merkliste {
-    position: fixed;
-    right: 20px;
-    top: 100px;
-    width: 340px;
-    max-width: 90%;
-    background-color: white;
-    border: 2px solid #d2d2d4;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    z-index: 9998;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Roboto Condensed', sans-serif;
-    overflow: hidden;
+  position: fixed;
+  right: 20px;
+  top: 100px;
+  width: 340px;
+  max-width: 90%;
+  background-color: white;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto Condensed', sans-serif;
+  overflow: hidden;
 }
 
 .merkliste-header {
-    background-color: #00a1e1;
-    color: white;
-    padding: 12px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .merkliste-header h2 {
-    font-size: 18px;
-    margin: 0;
+  font-size: 18px;
+  margin: 0;
 }
 
 .merkliste-header button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
 }
 
 .merkliste-inhalt {
-    padding: 20px;
-    font-size: 15px;
-    color: #333;
-    max-height: 300px;
-    overflow-y: auto;
+  padding: 20px;
+  font-size: 15px;
+  color: var(--color-text);
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .merkliste-footer {
-    padding: 15px;
-    border-top: 1px solid #eee;
-    display: flex;
-    justify-content: center;
+  padding: 15px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: center;
 }
 
 .btn-kaufen {
-    background-color: #00a1e1;
-    color: white;
-    padding: 10px 20px;
-    font-size: 15px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: var(--color-primary);
+  color: white;
+  padding: 12px 20px;
+  height: 44px;
+  box-sizing: border-box;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 .btn-kaufen:hover {
-    background-color: #07577f;
+  background-color: var(--color-primary-dark);
 }
 
 #merkliste ul li {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
 }
 
-/* ========== Ladebildschirm ========== */
+/* ========== Ladebildschirm (Start) ========== */
 #loadingScreen {
-    position: fixed;
-    top: 0; 
-    left: 0;
-    width: 100vw; 
-    height: 100vh;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 99999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
 }
 
 .loading-logo {
-    width: 100px;
-    height: auto;
-    animation: pulse 1.4s infinite ease-in-out;
+  width: 100px;
+  height: auto;
+  animation: pulse 1.4s infinite ease-in-out;
 }
 
 @keyframes pulse {
-    0%   { transform: scale(1); opacity: 1; }
-    50%  { transform: scale(1.15); opacity: 0.6; }
-    100% { transform: scale(1); opacity: 1; }
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.15); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 #canvasWrapper {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 #canvasWrapper canvas {
-    margin: 0 auto;
-    display: block;
+  margin: 0 auto;
+  display: block;
 }
 
 /* ========== ACCESSIBILITY & PERFORMANCE ========== */
 .highlight-box:focus, button:focus {
-    outline: 2px solid #00a1e1;
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 input:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
-    border-color: #00a1e1;
-}
-
-.highlight-box {
-    will-change: transform;
-    backface-visibility: hidden;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+  border-color: var(--color-primary);
 }
 
 #pdfViewer canvas {
-    image-rendering: optimizeQuality;
+  image-rendering: optimizeQuality;
 }
 
 /* ========== DESKTOP MODAL DIALOG STYLES ========== */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
 .modal-content {
-    background: #fefefe;
-    padding: 25px 30px;
-    border-radius: 14px;
-    max-width: 500px;
-    width: 90%;
-    font-family: 'Segoe UI', sans-serif;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    text-align: center;
+  background: var(--color-bg-white);
+  padding: 25px 30px;
+  border-radius: 14px;
+  max-width: 500px;
+  width: 90%;
+  font-family: 'Roboto Condensed', sans-serif;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
 }
 
 .modal-content h2 {
-    margin-top: 0;
-    font-size: 1.4rem;
-    color: #333;
+  margin-top: 0;
+  font-size: 1.4rem;
+  color: var(--color-text);
 }
 
 .article-info {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #00a1e1;
-    text-align: left;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--color-primary);
+  text-align: left;
 }
 
 .article-info p {
-    margin: 8px 0;
-    line-height: 1.4;
+  margin: 8px 0;
+  line-height: 1.4;
 }
 
 .article-info strong {
-    color: #333;
+  color: var(--color-text);
 }
 
 .quantity-section {
-    margin: 25px 0;
-    text-align: center;
+  margin: 25px 0;
+  text-align: center;
 }
 
 .quantity-section label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #333;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--color-text);
 }
 
 .quantity-input {
-    width: 80px;
-    padding: 8px;
-    font-size: 16px;
-    border: 2px solid #ced4da;
-    border-radius: 6px;
-    text-align: center;
+  width: 80px;
+  padding: 8px;
+  font-size: 16px;
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  text-align: center;
 }
 
 .quantity-input:focus {
-    outline: none;
-    border-color: #00a1e1;
-    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
 }
 
 .button-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
 }
 
 .btn {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    min-width: 100px;
+  padding: 12px 20px;
+  height: 44px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  min-width: 100px;
 }
 
 .btn-primary {
-    background-color: #00a1e1;
-    color: white;
+  background-color: var(--color-primary);
+  color: white;
 }
-
 .btn-primary:hover {
-    background-color: #07577f;
+  background-color: var(--color-primary-dark);
 }
 
 /* ========== FEHLERBEHANDLUNG ========== */
 .error {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px 0;
-    border-left: 4px solid #dc3545;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: var(--radius-sm);
+  margin: 20px 0;
+  border-left: 4px solid var(--color-danger);
 }
 
 .loading {
-    text-align: center;
-    padding: 40px;
-    color: #666;
+  text-align: center;
+  padding: 40px;
+  color: #666;
 }
 
 /* ========== SUCHOPERATOREN ========== */
-/* Passen Sie den .search-operator-group Block an */
 .search-operator-group {
   display: flex;
   border-radius: 10px;
   border: 1px solid #ccc;
   background-color: #f0f0f0;
-  margin: 5px 0; 
+  margin: 5px 0;
   overflow: hidden;
-  height: 44px; /* NEU: Feste Höhe */
-  box-sizing: border-box; /* NEU: Korrekte Box-Berechnung */
+  height: 44px;
+  box-sizing: border-box;
 }
-
 
 .operator-btn {
   position: relative;
   background-color: transparent;
-  color: #00a1e1;
+  color: var(--color-primary);
   border: none;
   padding: 8px 16px;
   cursor: pointer;
@@ -653,45 +696,34 @@ input:focus {
 }
 
 .operator-btn.active {
-  background-color: #00a1e1;
+  background-color: var(--color-primary);
   color: white;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
 }
 
-
-
-/* ========== NEU: STYLING FÜR JAVASCRIPT-TOOLTIPS (MIT ANIMATION) ========== */
+/* ========== TOOLTIPS (MIT ANIMATION) ========== */
 .custom-tooltip {
   position: fixed;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.88);
   color: white;
-  padding: 6px 10px;
+  padding: 7px 12px;
   border-radius: 6px;
   font-size: 13px;
+  line-height: 1.4;
   font-family: 'Roboto Condensed', sans-serif;
-  white-space: nowrap;
+  white-space: normal;
+  max-width: 350px;
   z-index: 10001;
   pointer-events: none;
-  
-  /* --- Start der Animations-Regeln --- */
-  opacity: 0; /* Startet unsichtbar */
-  transform: translateY(-5px); /* Startet 5px weiter oben */
-  transition: opacity 0.2s ease, transform 0.2s ease; /* Animiert beide Eigenschaften */
-  will-change: opacity, transform; /* Performance-Optimierung für den Browser */
-  /* --- Ende der Animations-Regeln --- */
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  will-change: opacity, transform;
 }
 
-
-
-
-
-/* Diese Regel bleibt wichtig, um den Cursor für den Container zu deaktivieren */
 .split-button-container {
-    cursor: default;
+  cursor: default;
 }
-
-
-
 
 /* ========== BILD-BUTTON ========== */
 .image-button {
@@ -702,7 +734,7 @@ input:focus {
 .image-button img {
   height: 50px;
   width: auto;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   transition: all 0.3s ease;
   opacity: 0.9;
 }
@@ -710,7 +742,7 @@ input:focus {
 .image-button:hover img {
   opacity: 1;
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 /* ========== HAMBURGER-MENÜ ========== */
@@ -719,9 +751,10 @@ input:focus {
   font-size: 24px;
   background: none;
   border: none;
-  color: #005A8C;
+  color: rgba(255, 255, 255, 0.9);
   padding: 5px 10px;
   z-index: 10001;
+  position: relative;
 }
 
 #mobile-nav {
@@ -731,8 +764,8 @@ input:focus {
   width: 280px;
   max-width: 80%;
   height: 100%;
-  background-color: #f8f9fa;
-  box-shadow: -4px 0 15px rgba(0,0,0,0.15 );
+  background-color: var(--color-bg);
+  box-shadow: -4px 0 15px rgba(0,0,0,0.15);
   z-index: 10000;
   transition: right 0.3s ease-in-out;
   display: flex;
@@ -744,8 +777,8 @@ input:focus {
   padding: 18px 25px;
   text-decoration: none;
   font-size: 1.1rem;
-  color: #005A8C;
-  border-bottom: 1px solid #e0e0e0;
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-border-light);
   display: block;
   transition: background-color 0.2s;
 }
@@ -759,14 +792,14 @@ input:focus {
 }
 
 body.mobile-nav-open::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    z-index: 9999;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 9999;
 }
 
 /* ========== TREFFERSEITEN-BUTTONS (ADD/REMOVE) ========== */
@@ -777,55 +810,66 @@ body.mobile-nav-open::after {
   right: 10px;
   left: auto;
   transform: none;
-  padding: 1px 10px;
-  font-size: 11px;
-  border-radius: 12px;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-family: 'Roboto Condensed', sans-serif;
   font-weight: 600;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  border: none;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 #removeHitBtn {
-  background-color: rgba(220, 53, 69, 0.85);
+  background: rgba(0, 90, 140, 0.75);
+  box-shadow: 0 2px 8px rgba(0, 90, 140, 0.25);
 }
 #removeHitBtn:hover {
-  background-color: rgba(220, 53, 69, 1);
-  transform: scale(1.05);
+  background: rgba(0, 90, 140, 0.95);
+  box-shadow: 0 3px 12px rgba(0, 90, 140, 0.35);
 }
 
 #addHitBtn {
-  background-color: rgba(25, 135, 84, 0.85);
+  background: rgba(0, 128, 184, 0.75);
+  box-shadow: 0 2px 8px rgba(0, 128, 184, 0.25);
 }
 #addHitBtn:hover {
-  background-color: rgba(25, 135, 84, 1);
-  transform: scale(1.05);
+  background: rgba(0, 128, 184, 0.95);
+  box-shadow: 0 3px 12px rgba(0, 128, 184, 0.35);
 }
 
-/* FÜGEN SIE DIESEN BLOCK HINZU */
+#removeHitBtn i, #addHitBtn i {
+  font-size: 1rem;
+}
 
-/* --- Desktop-Anpassungen für BEIDE Buttons --- */
 @media screen and (min-width: 769px) {
   #removeHitBtn, #addHitBtn {
-    /* Positionierung auf 3/4 der Breite */
     left: 75%;
     transform: translateX(-50%);
     right: auto;
-
-    /* Wieder die ursprüngliche, größere Darstellung für Desktops */
-    padding: 6px 14px;
-    font-size: 13px;
-    border-radius: 20px;
+    padding: 7px 18px;
+    font-size: 0.85rem;
   }
-
   #removeHitBtn:hover, #addHitBtn:hover {
-    /* Hover-Effekt für Desktop anpassen */
-    transform: translateX(-50%) scale(1.05);
+    transform: translateX(-50%) translateY(-1px);
   }
 }
 
+@media screen and (max-width: 480px) {
+  #removeHitBtn, #addHitBtn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+  .hit-btn-text {
+    display: none;
+  }
+}
 
 /* ========== DOKUMENTEN-AUSWAHL-DIALOG ========== */
 #docDialog {
@@ -834,7 +878,7 @@ body.mobile-nav-open::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(248, 249, 250, 0.98 );
+  background-color: rgba(248, 249, 250, 0.98);
   z-index: 10002;
   display: flex;
   flex-direction: column;
@@ -860,7 +904,7 @@ body.mobile-nav-open::after {
   background: none;
   border: none;
   font-size: 2rem;
-  color: #6c757d;
+  color: var(--color-text-muted);
   cursor: pointer;
 }
 
@@ -886,20 +930,20 @@ body.mobile-nav-open::after {
   padding: 12px 15px;
   background-color: #fff;
   border: 1px solid #e9ecef;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   margin-bottom: 8px;
   text-decoration: none;
-  color: #212529;
+  color: var(--color-text-dark);
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .doc-link:hover {
-  border-color: #00a1e1;
+  border-color: var(--color-primary);
   background-color: #f0f9ff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ========== HEADER ICON-BUTTONS ========== */
@@ -909,7 +953,7 @@ body.mobile-nav-open::after {
   align-items: center;
   width: 44px;
   height: 44px;
-  background-color: rgba(255, 255, 255, 0.1 );
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
@@ -917,11 +961,11 @@ body.mobile-nav-open::after {
 
 .header-icon-btn i {
   font-size: 22px;
-  color: #005A8C;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .header-icon-btn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.25);
   transform: scale(1.1);
 }
 
@@ -930,41 +974,33 @@ body.mobile-nav-open::after {
   position: relative;
 }
 
-/* =================================================================== */
-/*   NEUE REGELN FÜR DEN STABILEN BADGE-ANKER                      */
-/* =================================================================== */
-
-/* 1. Definiert den unsichtbaren Anker-Container */
 .badge-anchor {
-  position: relative; /* Macht diesen Span zum neuen Bezugspunkt */
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* 2. Positioniert den Badge relativ zum Anker, nicht mehr zum Button */
 .badge-anchor::after {
-  /* Diese Regel ist fast identisch zu Ihrer alten .header-icon-btn.has-items::after */
-  content: attr(data-count); 
+  content: attr(data-count);
   position: absolute;
-  top: -7px;  /* Position leicht anpassen, da der Bezugspunkt jetzt kleiner ist */
-  right: -7px; /* Position leicht anpassen */
-  background-color: #dc3545;
+  top: -8px;
+  right: -8px;
+  background-color: var(--color-primary);
   color: white;
-  font-size: 11px;
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-  line-height: 15px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Roboto Condensed', sans-serif;
+  line-height: 20px;
   text-align: center;
   border-radius: 50%;
-  min-width: 18px;
-  height: 18px;
+  min-width: 20px;
+  height: 20px;
   padding: 0 4px;
-  border: 2px solid #d2d2d4; 
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   pointer-events: none;
-
-  /* Logik für die Sichtbarkeit */
   opacity: 0;
   transform: scale(0.5);
   transition: opacity 0.2s, transform 0.2s;
@@ -975,529 +1011,298 @@ body.mobile-nav-open::after {
   transform: scale(1);
 }
 
-/* ================================================== */
-/*      RESPONSIVE MEDIA QUERIES (AM ENDE GEBÜNDELT)      */
-/* ================================================== */
+/* ========================================================
+   RESPONSIVE: Mobile (max-width: 768px)
+   ======================================================== */
 @media screen and (max-width: 768px) {
 
+  /* --- Header --- */
+  #header {
+    justify-content: space-between;
+    gap: 8px;
+  }
+  #header .header-left img {
+    height: 40px;
+  }
+  .main-title {
+    font-size: 22px;
+  }
+  #current-document-name {
+    font-size: 12px;
+  }
+  #header .buttons.desktop-buttons {
+    display: none;
+  }
+  #hamburger-btn {
+    display: block;
+  }
 
-    #header .buttons.desktop-buttons {
-        display: none;
-    }
-    #hamburger-btn {
-        display: block;
-    }
-
-    /* Andere wichtige Mobile-Anpassungen */
-    .zoom-buttons {
-        display: none;
-    }
-
-    /* Innerhalb von @media screen and (max-width: 768px) { ... } einfügen */
-
-.zoom-group {
-  display: none; /* Versteckt die Zoom-Gruppe auf mobilen Geräten */
-}
-
-    #pdfContainer {
-        height: auto;
-        max-height: none;
-        margin-top: 10px;
-        padding: 0;
-        -webkit-overflow-scrolling: touch;
-    }
-    #pdfViewer canvas {
-        width: 100% !important;
-        height: auto !important;
-        max-width: 100%;
-    }
-    .search-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 15px;
-    }
-    input[type="text"] {
-        width: 90%;
-        max-width: 320px;
-        font-size: 16px;
-        padding: 12px 18px;
-        color: #005A8C;
-    }
-    button {
-        padding: 10px 16px;
-        height: 40px;
-        font-size: 16px;
-        min-width: 44px;
-    }
-    .icon-button {
-        font-size: 18px;
-        height: 40px;
-        min-width: 44px;
-        padding: 8px 12px;
-    }
- 
-    .highlight-box {
-        min-height: 44px !important;
-        min-width: 44px !important;
-    }
-    .highlight-box:active {
-        transform: scale(0.95);
-        background-color: rgba(255, 230, 0, 0.8);
-    }
-    #infoModal, .modal-overlay {
-        padding: 10px;
-        align-items: flex-start;
-        padding-top: 5vh;
-    }
-    #infoModal > div, .modal-content {
-        max-width: 95% !important;
-        max-height: 80vh !important;
-        overflow-y: auto !important;
-        margin: 0 !important;
-    }
-
-    /* ======================================================= */
-/*   ANPASSUNG FÜR SEHR SCHMALE BILDSCHIRME              */
-/* ======================================================= */
-@media screen and (max-width: 380px) {
-
-  /* Versteckt den Text "PDF" in den Navigations-Buttons */
-  .nav-button-text {
+  .zoom-buttons,
+  .zoom-group {
     display: none;
   }
 
-  /* Optional: Verringert den seitlichen Abstand der Buttons leicht,
-     um noch mehr Platz zu schaffen. */
-  .navigation-buttons button {
-    padding-left: 10px;
-    padding-right: 10px;
+  /* --- PDF Container --- */
+  #pdfContainer {
+    height: auto;
+    max-height: none;
+    margin-top: 6px;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  #pdfViewer canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+  }
+
+  /* --- Suchbereich kompakt --- */
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .search-primary-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .search-primary-row input[type="text"] {
+    flex: 1;
+    width: auto;
+    max-width: none;
+  }
+
+  .toggle-advanced-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+    background: #f0f4f8;
+    color: var(--color-accent);
+    border: 1px solid #d0dce8;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .toggle-advanced-btn.active {
+    background: var(--color-accent);
+    color: #fff;
+    border-color: var(--color-accent);
+  }
+
+  .advanced-search-section {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .advanced-search-section.expanded {
+    display: flex;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    max-width: none;
+    font-size: 16px;
+    padding: 10px 14px;
+    height: 44px;
+    color: var(--color-accent);
+    box-sizing: border-box;
+  }
+
+  /* --- Buttons kompakt --- */
+  button {
+    padding: 8px 14px;
+    height: 38px;
+    font-size: 15px;
+    min-width: 38px;
+  }
+
+  .button-row {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin: 2px auto;
+    align-self: center;
+    max-width: none;
+    width: auto;
+    grid-template-columns: none;
+  }
+  .icon-button {
+    font-size: 13px;
+    height: 34px !important;
+    width: 52px;
+    min-width: auto !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    flex: none;
+    border-radius: var(--radius-sm);
+  }
+
+  /* --- Operatoren kompakt --- */
+  .search-operator-group {
+    height: 38px;
+    align-self: center;
+  }
+  .operator-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+
+  /* --- Info-Bereich kompakt --- */
+  #infoSection {
+    margin-top: 6px;
+    padding: 0 8px;
+  }
+
+  /* --- Navigation kompakt --- */
+  .navigation-buttons {
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .nav-group {
+    gap: 4px;
+  }
+  .nav-group-pages button,
+  .match-nav-btn {
+    padding: 6px 12px;
+    height: 34px;
+    font-size: 12px;
+  }
+  .match-nav-label {
+    font-size: 0.7rem;
+  }
+
+  .highlight-box {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  .highlight-box:active {
+    transform: scale(0.95);
+    background-color: rgba(255, 230, 0, 0.8);
+  }
+  #infoModal, .modal-overlay {
+    padding: 10px;
+    align-items: flex-start;
+    padding-top: 5vh;
+  }
+  #infoModal > div, .modal-content {
+    max-width: 95% !important;
+    max-height: 80vh !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
   }
 }
 
-
-/* ========== Merkliste Panel (ehemals Warenkorb) ========== */
-#merkliste {
-    position: fixed;
-    right: 20px;
-    top: 100px;
-    width: 340px;
-    max-width: 90%;
-    background-color: white;
-    border: 2px solid #d2d2d4;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    z-index: 9998;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Roboto Condensed', sans-serif;
-    overflow: hidden;
+/* ========== Mittelgrosse Handys (max-width: 480px) ========== */
+@media screen and (max-width: 480px) {
+  .main-title {
+    font-size: 19px;
+  }
+  #current-document-name {
+    font-size: 11px;
+  }
+  #header .header-left img {
+    height: 36px;
+  }
+  .search-container {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  .button-row {
+    gap: 6px;
+  }
+  .icon-button {
+    height: 32px;
+    min-width: 32px;
+    font-size: 13px;
+  }
+  .nav-group-pages button,
+  .match-nav-btn {
+    padding: 5px 10px;
+    height: 32px;
+    font-size: 11px;
+  }
 }
 
-.merkliste-header {
-    background-color: #00a1e1;
-    color: white;
-    padding: 12px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.merkliste-header h2 {
-    font-size: 18px;
-    margin: 0;
-}
-
-.merkliste-header button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 0;
-}
-
-.merkliste-inhalt {
-    padding: 20px;
+/* ========== Kleine Handys (max-width: 380px) ========== */
+@media screen and (max-width: 380px) {
+  .main-title {
+    font-size: 17px;
+  }
+  #current-document-name {
+    font-size: 10px;
+  }
+  #header .header-left img {
+    height: 32px;
+  }
+  .nav-button-text {
+    display: none;
+  }
+  .search-container {
+    padding: 6px 8px;
+  }
+  input[type="text"] {
+    padding: 8px 10px;
+    height: 40px;
     font-size: 15px;
-    color: #333;
-    max-height: 300px;
-    overflow-y: auto;
+  }
+  .toggle-advanced-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+  .icon-button {
+    height: 30px;
+    min-width: 30px;
+    font-size: 12px;
+  }
+  .operator-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+  .search-operator-group {
+    height: 34px;
+  }
+  .navigation-buttons {
+    gap: 6px;
+  }
+  .nav-group-pages button {
+    padding: 4px 8px;
+    height: 30px;
+    font-size: 10px;
+  }
+  .match-nav-label {
+    font-size: 0.65rem;
+  }
+  #searchStatus .status-pill {
+    font-size: 0.7rem;
+  }
 }
 
-.merkliste-footer {
-    padding: 15px;
-    border-top: 1px solid #eee;
-    display: flex;
-    justify-content: center;
-}
+/* ========================================================
+   LOGIN-DIALOG
+   ======================================================== */
 
-.btn-kaufen {
-    background-color: #00a1e1;
-    color: white;
-    padding: 10px 20px;
-    font-size: 15px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.btn-kaufen:hover {
-    background-color: #07577f;
-}
-
-#merkliste ul li {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-}
-
-/* ========== Ladebildschirm ========== */
-#loadingScreen {
-    position: fixed;
-    top: 0; 
-    left: 0;
-    width: 100vw; 
-    height: 100vh;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 99999;
-}
-
-.loading-logo {
-    width: 100px;
-    height: auto;
-    animation: pulse 1.4s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0%   { transform: scale(1); opacity: 1; }
-    50%  { transform: scale(1.15); opacity: 0.6; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-#canvasWrapper {
-    display: flex;
-    justify-content: center;
-}
-#canvasWrapper canvas {
-    margin: 0 auto;
-    display: block;
-}
-
-/* ========== ACCESSIBILITY & PERFORMANCE ========== */
-.highlight-box:focus, button:focus {
-    outline: 2px solid #00a1e1;
-    outline-offset: 2px;
-}
-
-input:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
-    border-color: #00a1e1;
-}
-
-.highlight-box {
-    will-change: transform;
-    backface-visibility: hidden;
-}
-
-#pdfViewer canvas {
-    image-rendering: optimizeQuality;
-}
-
-/* ========== DESKTOP MODAL DIALOG STYLES ========== */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-}
-
-.modal-content {
-    background: #fefefe;
-    padding: 25px 30px;
-    border-radius: 14px;
-    max-width: 500px;
-    width: 90%;
-    font-family: 'Segoe UI', sans-serif;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    text-align: center;
-}
-
-.modal-content h2 {
-    margin-top: 0;
-    font-size: 1.4rem;
-    color: #333;
-}
-
-.article-info {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #00a1e1;
-    text-align: left;
-}
-
-.article-info p {
-    margin: 8px 0;
-    line-height: 1.4;
-}
-
-.article-info strong {
-    color: #333;
-}
-
-.quantity-section {
-    margin: 25px 0;
-    text-align: center;
-}
-
-.quantity-section label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #333;
-}
-
-.quantity-input {
-    width: 80px;
-    padding: 8px;
-    font-size: 16px;
-    border: 2px solid #ced4da;
-    border-radius: 6px;
-    text-align: center;
-}
-
-.quantity-input:focus {
-    outline: none;
-    border-color: #00a1e1;
-    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.25);
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.btn {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    min-width: 100px;
-}
-
-.btn-primary {
-    background-color: #00a1e1;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #07577f;
-}
-
-/* ========== FEHLERBEHANDLUNG ========== */
-.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px 0;
-    border-left: 4px solid #dc3545;
-}
-
-.loading {
-    text-align: center;
-    padding: 40px;
-    color: #666;
-}
-
-}
-
-
-/* ======================================================= */
-/* ===== STILE FÜR DEN NEUEN LOGIN-DIALOG              ===== */
-/* ======================================================= */
-
-/* 1. Das Overlay, das den Hintergrund abdunkelt */
 #password-dialog-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Etwas dunkler für mehr Fokus */
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* 2. Die weiße "Karte" in der Mitte */
-.login-card {
-    background-color: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    padding: 40px;
-    text-align: center;
-    max-width: 420px;
-    width: 100%;
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-/* 3. Das Logo */
-.login-card .login-logo {
-    height: 45px; /* Etwas kleiner und dezenter */
-    margin-bottom: 25px;
-}
-
-/* 4. Überschriften und Text */
-.login-card h2 {
-    margin-top: 0;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-.login-card p {
-    color: #6c757d; /* Ein weicheres Grau */
-    margin-bottom: 30px;
-    font-size: 1rem;
-}
-
-/* 5. Das Passwort-Eingabefeld */
-.login-card .input-wrapper {
-    position: relative;
-    margin-bottom: 15px;
-}
-
-.login-card input[type="password"] {
-    width: 100%;
-    height: 50px;
-    padding: 0 20px;
-    font-size: 1rem;
-    text-align: center;
-    border: 1px solid #ced4da;
-    border-radius: 25px; /* Perfekt abgerundet */
-    box-sizing: border-box;
-    transition: all 0.2s ease-in-out;
-}
-
-.login-card input[type="password"]:focus {
-    outline: none;
-    border-color: #00a1e1;
-    box-shadow: 0 0 0 4px rgba(0, 161, 225, 0.2);
-}
-
-/* 6. Die Status-Nachricht für Fehler */
-.login-card .status-message {
-    color: #dc3545;
-    min-height: 24px;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-/* 7. Die Buttons (KORRIGIERT FÜR MOBILE ZENTRIERUNG) */
-.login-card .btn-login,
-.login-card .btn-secondary {
-    width: 100%;
-    border: none;
-    padding: 15px 20px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    /* === HIER IST DIE KORREKTUR === */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* === ENDE DER KORREKTUR === */
-}
-
-.login-card .btn-login {
-    background-color: #00a1e1;
-    color: white;
-}
-.login-card .btn-login:hover {
-    background-color: #0077b6;
-}
-
-.login-card .btn-secondary {
-    background-color: transparent;
-    color: #6c757d;
-    margin-top: 10px;
-}
-
-.login-card .btn-secondary:hover {
-    color: #333;
-}
-
-/* =====================================================
-   CSS für den Zähler am mobilen Hamburger-Menü-Button
-   ===================================================== */
-
-/* Positioniert den Badge relativ zum Button */
-#hamburger-btn {
-  position: relative;
-}
-
-/* Erstellt den eigentlichen Zähler-Badge (den roten Kreis) */
-#hamburger-btn.has-items::after {
-  content: attr(data-count); /* Liest die Zahl aus dem data-count Attribut */
-  position: absolute;
-  top: -5px;      /* Position anpassen, falls nötig */
-  right: -8px;    /* Position anpassen, falls nötig */
-  
-  background-color: #dc3545; /* Rote Hintergrundfarbe */
-  color: white;
-  font-size: 10px;
-  font-weight: bold;
-  
-  min-width: 18px;
-  height: 18px;
-  border-radius: 50%; /* Macht es rund */
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  border: 2px solid white; /* Kleiner weißer Rand für besseren Kontrast */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-/* ======================================================= */
-/* ===== STILE FÜR DAS GLOBALE SUCHERGEBNIS-OVERLAY    ===== */
-/* ======================================================= */
-
-/* Das Overlay, das den ganzen Bildschirm abdunkelt */
-#global-search-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10001; /* Muss über allem anderen liegen */
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1505,94 +1310,295 @@ input:focus {
   box-sizing: border-box;
 }
 
-/* Das eigentliche "Fenster" in der Mitte */
-.global-search-modal {
-  background-color: #f8f9fa;
-  border-radius: 12px;
+.login-card {
+  background-color: var(--color-bg-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 40px;
+  text-align: center;
+  max-width: 420px;
   width: 100%;
-  max-width: 800px; /* Breite auf dem Desktop */
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.login-card .login-logo {
+  height: 45px;
+  margin-bottom: 25px;
+}
+
+.login-card h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: var(--color-text);
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.login-card p {
+  color: var(--color-text-muted);
+  margin-bottom: 30px;
+  font-size: 1rem;
+}
+
+.login-card .input-wrapper {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.login-card input[type="password"] {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-card input[type="password"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(0, 161, 225, 0.2);
+}
+
+.login-card .status-message {
+  color: var(--color-danger);
+  min-height: 24px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.login-card .btn-login,
+.login-card .btn-secondary {
+  width: 100%;
+  border: none;
+  padding: 15px 20px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.login-card .btn-login {
+  background-color: var(--color-primary);
+  color: white;
+}
+.login-card .btn-login:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.login-card .btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-muted);
+  margin-top: 10px;
+}
+.login-card .btn-secondary:hover {
+  color: var(--color-text);
+}
+
+/* ========== HAMBURGER-BADGE ========== */
+#hamburger-btn.has-items::after {
+  content: attr(data-count);
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background-color: var(--color-primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Roboto Condensed', sans-serif;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* ========================================================
+   GLOBALES SUCHERGEBNIS-OVERLAY
+   ======================================================== */
+
+#global-search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.global-search-modal {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  width: 100%;
+  max-width: 800px;
   height: 90%;
   max-height: 700px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  overflow: hidden; /* Verhindert, dass Inhalte aus dem Radius ragen */
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
 }
 
-/* Der Kopfbereich des Fensters */
 .global-search-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 15px 25px;
-  border-bottom: 1px solid #dee2e6;
-  flex-shrink: 0; /* Verhindert, dass der Header schrumpft */
+  gap: 12px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #005A8C, #0080b8, #00a1e1);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.global-search-header > i {
+  font-size: 1.3rem;
 }
 
 .global-search-header h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-family: 'Roboto Condensed', sans-serif;
+  flex: 1;
 }
 
 #close-search-overlay-btn {
-  background: none;
+  background: rgba(255,255,255,0.15);
   border: none;
-  font-size: 1.8rem;
-  color: #6c757d;
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: background 0.2s ease;
 }
 
-/* Der scrollbare Container für die Ergebnisse */
+#close-search-overlay-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
 #global-search-results-container {
-  padding: 10px 25px;
+  padding: 16px 24px;
   overflow-y: auto;
   flex-grow: 1;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
-/* Gruppe für ein Dokument (z.B. "Preisliste 2025") */
 .result-document-group {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
-.result-document-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #005A8C;
+.doc-category-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  padding: 10px 14px;
+  background: #f0f4f8;
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 8px;
 }
 
-/* Einzelner Treffer-Eintrag */
+.doc-category-title .doc-hit-count {
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: auto;
+}
+
 .result-item {
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 5px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  border: 1px solid #eef1f5;
+  background: #fff;
 }
 
 .result-item:hover {
-  background-color: #e9ecef;
+  background: #eef6fb;
+  border-color: #c8e1f0;
+  box-shadow: 0 2px 6px rgba(0,90,140,0.08);
 }
 
 .result-item .page-number {
-  font-weight: bold;
-  color: #00a1e1;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-primary);
+  padding: 2px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.result-item .result-headline {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
 }
 
 .result-item .context-snippet {
   color: #495057;
-  font-size: 0.9rem;
-  margin-top: 4px;
+  font-size: 0.83rem;
+  margin-top: 6px;
+  line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding: 8px 10px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #d0dce8;
 }
 
-/* Wichtig für die Hervorhebung im Snippet */
 .result-item .context-snippet strong {
-  color: #000;
-  background-color: rgba(255, 220, 0, 0.5); /* Gelbe Markierung */
-  padding: 1px 0;
+  color: var(--color-accent);
+  background-color: rgba(0, 161, 225, 0.15);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 700;
 }
 
-/* Mobile Anpassungen */
+.global-search-no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+}
+
+.global-search-no-results i {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 12px;
+  color: #c8d6e0;
+}
+
 @media screen and (max-width: 768px) {
   .global-search-modal {
     width: 100%;
@@ -1600,60 +1606,50 @@ input:focus {
     max-height: 100%;
     border-radius: 0;
   }
+  .global-search-header {
+    padding: 14px 16px;
+  }
+  #global-search-results-container {
+    padding: 12px 14px;
+  }
 }
 
-/* In styles-final.css hinzufügen */
-
+/* ========== ACCORDION ========== */
 .accordion-trigger {
   cursor: pointer;
-  user-select: none; /* Verhindert, dass der Text beim Klicken markiert wird */
+  user-select: none;
 }
 
 .accordion-trigger .accordion-arrow {
   display: inline-block;
   transition: transform 0.2s ease-in-out;
+  font-size: 0.8rem;
 }
 
 .accordion-trigger.active .accordion-arrow {
   transform: rotate(90deg);
 }
-.button-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* HIER DIE 4 EINTRAGEN */
-  gap: 10px;
-  margin: 10px 0;
-  width: 100%;
-  max-width: 340px;
-}
 
-/* ======================================================= */
-/*   NEU: KORREKTUR FÜR TOUCH-GESTEN & ZOOM-RUCKELN      */
-/* ======================================================= */
-
-/* 
-  Schritt 1: Alle Markierungen und Overlays werden für Touch-Gesten
-  standardmäßig "durchsichtig" gemacht. Gesten gehen direkt an den
-  darunterliegenden PDF-Container durch. Das verhindert Ruckeln.
-*/
+/* ========== TOUCH-GESTEN & ZOOM ========== */
 .article-click-box,
 .line-click-box {
-  pointer-events: none;
-}
-
-/*
-  Schritt 2: Wir erlauben Klick-Ereignisse explizit NUR für die
-  Boxen, die eine Artikelnummer enthalten, damit diese weiterhin
-  den Dialog öffnen können.
-*/
-.article-click-box {
-  pointer-events: auto; /* Erlaubt Klicks wieder für diese spezifischen Boxen */
-}
-
-
-/* Performance-Optimierungen für Touch-Gesten */
-.article-click-box,
-.line-click-box {
+  pointer-events: auto;
   will-change: transform;
+  border-radius: 2px;
+}
+
+.article-click-box {
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.article-click-box:hover {
+  background-color: rgba(0, 161, 225, 0.30) !important;
+  box-shadow: 0 0 0 2px rgba(0, 161, 225, 0.4);
+}
+
+.line-click-box {
+  cursor: default;
 }
 
 #pdfViewer {
