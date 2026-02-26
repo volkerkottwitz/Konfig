@@ -57,6 +57,104 @@ if (duoViewerBtn) {
         window.close();
     });
 }
+    // Info-Bilder: Info-Badge + Tooltip + alte Pulse-Animation entfernen
+    document.querySelectorAll('.info-image').forEach(image => {
+        image.classList.remove('pulse');
+        const container = image.closest('.info-image-container');
+        if (container && !container.querySelector('.info-badge')) {
+            const badge = document.createElement('span');
+            badge.className = 'info-badge';
+            badge.innerHTML = '<i class="bi bi-info-lg"></i>';
+            container.appendChild(badge);
+            container.setAttribute('data-tooltip', 'Für Produktinfos klicken');
+        }
+    });
+
+    // Button-Tooltips setzen
+    const tooltips = {
+        'screen2': [
+            'Kompakter Zähler für Einfamilienhaus, DN 25',
+            'Standard für größere Durchflussmengen, DN 32',
+            'Großzähler für Mehrfamilien-/Gewerbeanschluss, DN 40'
+        ],
+        'screen3': [
+            'Voller Durchgang, geringer Druckverlust, 90°-Absperrung',
+            'Feinfühlige Regelung, bewährt im Trinkwasserbereich'
+        ],
+        'screen4': [
+            'Voller Durchgang, geringer Druckverlust',
+            'Feinfühlige Regelung, klassische Absperrung',
+            'Kegelmembran-Rückflussverhinderer mit Kugelhahn',
+            'Kegelmembran-Rückflussverhinderer mit Schrägsitzventil',
+            'Kombinierte Sicherungsarmatur, prüfbar nach DIN EN 1717'
+        ],
+        'screen5': [
+            'Einfamilienhaus, Einzelanschluss',
+            'Zweifamilienhaus, Haus + Garten',
+            'Mehrfamilienhaus, mehrere Versorgungsbereiche',
+            'Gewerbe, getrennte Versorgungsbereiche',
+            'Großanlage, max. Ausbaustufe'
+        ],
+        'screen6': [
+            'Standard Einzelanschluss, DN 25',
+            'Größere Durchflussmenge, DN 32',
+            'Mehrfamilienhaus/Gewerbe, DN 40',
+            'Großanschluss, DN 50'
+        ],
+        'screen7': [
+            'Standard Hausinstallation, DN 25',
+            'Größere Durchflussmenge, DN 32',
+            'Mehrfamilienhaus/Gewerbe, DN 40',
+            'Großanschluss, DN 50'
+        ],
+        'screen7b': [
+            'Belastungsklasse 12,5t — Gehwege, Einfahrten, Grünflächen',
+            'Für Einbau in bestehende Betonschächte',
+            'Wenn bereits eine Abdeckung vorhanden ist'
+        ],
+        'screen8': [
+            'Sechskantschlüssel SW24 (Art. 0398001)',
+            'Kein Schlüssel benötigt'
+        ]
+    };
+    Object.entries(tooltips).forEach(([screenId, tips]) => {
+        const screen = document.getElementById(screenId);
+        if (!screen) return;
+        const buttons = screen.querySelectorAll('button:not(.back-btn)');
+        buttons.forEach((btn, i) => {
+            if (tips[i]) btn.setAttribute('data-tooltip', tips[i]);
+        });
+    });
+
+    // Universelles Tooltip-System (wie DuoViewer)
+    let activeTooltip = null;
+    document.addEventListener('mouseenter', function(e) {
+        const target = e.target.closest('[data-tooltip]');
+        if (!target || target.classList.contains('info-image-container')) return;
+        const text = target.getAttribute('data-tooltip');
+        if (!text) return;
+        activeTooltip = document.createElement('div');
+        activeTooltip.className = 'custom-tooltip';
+        activeTooltip.textContent = text;
+        document.body.appendChild(activeTooltip);
+        const rect = target.getBoundingClientRect();
+        const ttRect = activeTooltip.getBoundingClientRect();
+        let top = rect.top - ttRect.height - 8;
+        let left = rect.left + (rect.width / 2) - (ttRect.width / 2);
+        if (left < 5) left = 5;
+        if (left + ttRect.width > window.innerWidth) left = window.innerWidth - ttRect.width - 5;
+        if (top < 0) top = rect.bottom + 8;
+        activeTooltip.style.left = left + 'px';
+        activeTooltip.style.top = top + 'px';
+        setTimeout(() => { if (activeTooltip) { activeTooltip.style.opacity = '1'; activeTooltip.style.transform = 'translateY(0)'; } }, 10);
+    }, true);
+    document.addEventListener('mouseleave', function(e) {
+        const target = e.target.closest('[data-tooltip]');
+        if (!target || !activeTooltip) return;
+        activeTooltip.remove();
+        activeTooltip = null;
+    }, true);
+
     initializeButtonGroups();
     updateProgressBar(currentStep, totalSteps);
     initializeFormValidation();
@@ -292,7 +390,9 @@ function generatePDF() {
     const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/megaripp.png";
     
     // Benutzerdaten aus dem Formular holen
-    const name = document.getElementById('name').value;
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const company = document.getElementById('company').value || "";
     const street = document.getElementById('street').value;
     const postalCode = document.getElementById('postalCode').value;
     const city = document.getElementById('city').value;
@@ -359,7 +459,8 @@ function generatePDF() {
     doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(0, 51, 102); doc.text("Benutzerdaten:", 20, yOffset);
     yOffset += 8;
     doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(0, 0, 0);
-    doc.text(`Name: ${name}`, 25, yOffset); yOffset += 8;
+    doc.text(`Name: ${firstName} ${lastName}`, 25, yOffset); yOffset += 8;
+    if (company) { doc.text(`Firma: ${company}`, 25, yOffset); yOffset += 8; }
     doc.text(`Straße: ${street}`, 25, yOffset); yOffset += 8;
     doc.text(`PLZ: ${postalCode}`, 25, yOffset); yOffset += 8;
     doc.text(`Ort: ${city}`, 25, yOffset); yOffset += 8;

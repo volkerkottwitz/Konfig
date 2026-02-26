@@ -1,0 +1,666 @@
+/* =================================================================== */
+/*   GEMEINSAMES CSS — FLEXORIPP + MEGARIPP KONFIGURATOR               */
+/*   Design-Angleichung an DuoViewer (26.02.2026)                      */
+/*   Zusammengefuehrt aus stylesFLEXO.css + stylesMEGA.css             */
+/* =================================================================== */
+
+/* ========== 1. BASIS-STILE & SCHRIFTART ========== */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700&display=swap');
+
+:root {
+  --color-primary: #00a1e1;
+  --color-primary-dark: #07577f;
+  --color-primary-hover: #0077b6;
+  --color-accent: #005A8C;
+  --color-bg: #f8f9fa;
+  --color-bg-white: #ffffff;
+  --color-border: #ced4da;
+  --color-border-light: #e0e0e0;
+  --color-text: #333;
+  --color-text-muted: #6c757d;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.18);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+body {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* ========== 2. HEADER-BEREICH (EWE-Gradient wie DuoViewer) ========== */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--color-accent) 0%, #0080b8 50%, var(--color-primary) 100%);
+    border-bottom: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+header .logo {
+    height: 50px;
+    width: auto;
+    margin-top: 10px;
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* ========== 3. HEADER-BUTTON ("Zum DuoViewer") ========== */
+.header-action-btn {
+    background-color: rgba(255,255,255,0.15);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    width: auto;
+    max-width: none;
+    height: 38px;
+    box-sizing: border-box;
+}
+
+.header-action-btn:hover {
+    background-color: rgba(255,255,255,0.25);
+    transform: translateY(-1px);
+}
+
+.header-action-btn .btn-icon {
+    height: 18px;
+    width: auto;
+}
+
+/* ========== 4. MAIN-CONTAINER ========== */
+main {
+    position: relative;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--color-bg-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    transition: height 0.4s ease-in-out;
+}
+
+/* ========== 5. SCREEN-SYSTEM ========== */
+.screen {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.screen:not(.active) {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Screen-Animationen */
+.screen.exit-to-left  { transform: translateX(-100%); }
+.screen.enter-from-right { transform: translateX(100%); }
+.screen.exit-to-right { transform: translateX(100%); }
+.screen.enter-from-left  { transform: translateX(-100%); }
+
+/* ========== 6. BUTTON-LAYOUT & STILE ========== */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Allgemeine Stile fuer Auswahl-Buttons */
+button {
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    color: white;
+    border: none;
+    padding: 0 24px;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 90%;
+    max-width: 450px;
+    height: 44px;
+    box-sizing: border-box;
+}
+
+button:hover {
+    background: linear-gradient(135deg, var(--color-primary-hover), #005577);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 161, 225, 0.3);
+}
+
+/* Zurueck-Button */
+button.back-btn {
+    background: #e9ecef;
+    color: #495057;
+    margin-top: 10px;
+}
+
+button.back-btn:hover {
+    background: #dee2e6;
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+/* ========== 7. TITEL & BILDER IN DEN SCREENS ========== */
+section.screen h2 {
+    margin: 15px 0 20px 0;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+}
+
+.info-image-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.info-image {
+    max-width: 200px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 0 0 0 rgba(0, 161, 225, 0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+.info-image:hover {
+    transform: scale(1.05);
+    animation: none;
+    box-shadow: 0 0 20px rgba(0, 161, 225, 0.5);
+}
+
+/* Info-Badge ("i" oben rechts) */
+.info-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Roboto Condensed', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Hover-Tooltip fuer Info-Bilder */
+.info-image-container[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: 'Roboto Condensed', sans-serif;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Tooltip auf Mobile ausblenden */
+@media (hover: none) {
+    .info-image-container[data-tooltip]:hover::after {
+        display: none;
+    }
+}
+
+/* ========== 8. BILD-ANIMATIONEN ========== */
+@keyframes glowPulse {
+    0%   { box-shadow: 0 0 8px rgba(0, 161, 225, 0.15); }
+    50%  { box-shadow: 0 0 20px rgba(0, 161, 225, 0.4); }
+    100% { box-shadow: 0 0 8px rgba(0, 161, 225, 0.15); }
+}
+
+@keyframes slowPulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.info-image.pulse {
+    animation: slowPulse 5s ease-in-out infinite;
+}
+
+/* ========== 8b. INFO-TEXT SCREENS (Megaripp) ========== */
+.info-detail-img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    margin: 20px auto;
+    display: block;
+}
+
+.info-text {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    padding: 0 15px;
+}
+
+.info-text h3 {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    margin: 18px 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.info-text ul {
+    margin: 6px 0 12px 0;
+    padding-left: 20px;
+}
+
+.info-text li {
+    margin-bottom: 5px;
+    line-height: 1.4;
+    font-size: 0.95rem;
+}
+
+.info-text p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 8px 0;
+}
+
+.info-text .hint-box {
+    background: rgba(0, 161, 225, 0.08);
+    border-left: 3px solid var(--color-primary);
+    padding: 10px 14px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: 12px 0;
+    font-size: 0.9rem;
+}
+
+/* ========== 9. FORMULAR-STILE (Benutzerdaten) ========== */
+#userDataForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+}
+
+.input-container label {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.9rem;
+}
+
+.input-container input,
+.input-container textarea {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+}
+
+.input-container input:focus,
+.input-container textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 161, 225, 0.15);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Formular-Container (Flexoripp) */
+#userDataScreen .form-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+}
+
+#userDataScreen input,
+#userDataScreen textarea {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto 15px auto;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+#userDataScreen .input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+#userDataScreen .input-group input {
+    width: 48%;
+    max-width: none;
+    margin: 0;
+}
+
+#userDataScreen input::placeholder,
+#userDataScreen textarea::placeholder {
+    color: #999;
+}
+
+/* ========== 10. FORTSCHRITTSANZEIGE ========== */
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: rgba(255,255,255,0.25);
+    border-radius: 0;
+    position: relative;
+    display: none;
+    overflow: hidden;
+    order: 3;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #ffffff;
+    transition: width 0.4s ease;
+}
+
+.progress-text {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    margin: 8px 0 0 0;
+    display: none;
+    order: 4;
+}
+
+/* ========== 11. INTERAKTIVE ZUSAMMENFASSUNG ========== */
+#summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.summary-item-btn {
+    width: 100%;
+    max-width: 100%;
+    background: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-light);
+    text-align: left;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+}
+
+.summary-item-btn:hover {
+    background: #e9ecef;
+    border-color: var(--color-primary);
+    transform: none;
+    box-shadow: none;
+}
+
+.summary-label {
+    font-weight: 600;
+}
+
+.summary-value {
+    font-weight: 400;
+    color: var(--color-primary-hover);
+    text-align: right;
+}
+
+.summary-articleno {
+    display: block;
+    font-size: 0.9em;
+    color: var(--color-primary-hover);
+    margin-top: 5px;
+}
+
+.summary-error-box {
+    color: #c62828;
+    background-color: #fdd;
+    border: 1px solid #c62828;
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    margin-top: 15px;
+    text-align: left;
+}
+
+/* ========== 13. FLOATING EWEEN-BUTTON ========== */
+.floating-eween-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+    color: white;
+    border-radius: 50px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.floating-eween-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 90, 140, 0.4);
+}
+
+.floating-eween-btn i {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .floating-eween-btn span { display: none; }
+    .floating-eween-btn { padding: 14px; border-radius: 50%; }
+}
+
+/* ========== 12. VISUELLE NAVIGATIONSLEISTE ========== */
+.visual-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #e9ecef;
+    min-height: 60px;
+    flex-wrap: wrap;
+}
+
+.visual-nav-step {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.visual-nav-step:hover {
+    transform: scale(1.1);
+    border-color: var(--color-primary);
+}
+
+/* ========== 13. BENUTZERDEFINIERTER TOOLTIP ========== */
+#custom-tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Roboto Condensed', sans-serif;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 1000;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.custom-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.88);
+    color: white;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    font-family: 'Roboto Condensed', sans-serif;
+    white-space: normal;
+    max-width: 350px;
+    z-index: 10001;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ========== 14. INAKTIVITAETS-HINWEIS (Video) ========== */
+.inactivity-hint {
+    display: none;
+    position: absolute;
+    top: -25px;
+    right: 175px;
+    width: 130px;
+    padding: 8px;
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    z-index: 999;
+    animation: fadeInHint 0.5s ease-in-out;
+}
+
+.inactivity-hint p {
+    margin: 0 0 8px 0;
+    font-size: 0.9em;
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+.inactivity-hint video {
+    width: 100%;
+    border-radius: 5px;
+}
+
+@keyframes fadeInHint {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* ========== 15. RESPONSIVE ANPASSUNGEN ========== */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .header-action-btn {
+        font-size: 13px;
+        padding: 8px 14px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 600px) {
+    .inactivity-hint {
+        top: -20px;
+        right: 15px;
+        width: 90px;
+        padding: 5px;
+        border-radius: 6px;
+    }
+
+    .inactivity-hint p {
+        font-size: 0.7em;
+    }
+}

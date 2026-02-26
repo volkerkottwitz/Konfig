@@ -1415,16 +1415,124 @@ function jumpToScreenFromNav(event) {
 // ===================================================================
 document.addEventListener('DOMContentLoaded', () => {
     
-    // === HIER IST DIE KORREKTUR ===
-    // Fügt den Event-Listener für alle Info-Bilder wieder hinzu.
+    // Info-Bilder: Klick-Handler, Info-Badge + Tooltip
     const infoImages = document.querySelectorAll('.info-image');
     infoImages.forEach(image => {
-        image.addEventListener('click', () => {
-            // Ruft die bereits existierende Funktion auf, wenn ein Bild geklickt wird.
-            openInfoScreen(image);
+        image.addEventListener('click', () => openInfoScreen(image));
+
+        // Alte Pulse-Animation entfernen (ersetzt durch CSS glowPulse)
+        image.classList.remove('pulse');
+
+        // Info-Badge ("i") in den Container einfuegen
+        const container = image.closest('.info-image-container');
+        if (container && !container.querySelector('.info-badge')) {
+            const badge = document.createElement('span');
+            badge.className = 'info-badge';
+            badge.innerHTML = '<i class="bi bi-info-lg"></i>';
+            container.appendChild(badge);
+            container.setAttribute('data-tooltip', 'Für Produktinfos klicken');
+        }
+    });
+
+    // Button-Tooltips setzen
+    const tooltips = {
+        'screen2': [
+            'Kompakter Zähler für Einfamilienhaus, DN 25',
+            'Österreich-Variante, DN 25',
+            'Standard für größere Durchflussmengen, DN 32',
+            'Österreich-Norm, 175mm Baulänge'
+        ],
+        'screen3': [
+            'Flache Verlegung, geringer Erdaushub',
+            'Standard-Einbautiefe',
+            'Nur für DIBt-Zulassung verfügbar',
+            'Mittlere Einbautiefe',
+            'Tiefere Verlegung, mehr Frostschutz',
+            'Maximale Einbautiefe'
+        ],
+        'screen4': [
+            'Klasse A15, für Grünflächen und Gehwege',
+            'Klasse A15, mit Stehbolzen-Sicherung',
+            'Klasse B125 (12,5t), für Einfahrten und Parkplätze',
+            'Klasse B125, mit Stehbolzen-Sicherung',
+            'Leichte Abdeckung, max. 200 kg Belastung'
+        ],
+        'screen4a': [
+            'Standard — ohne zusätzliche Druckregulierung',
+            'Mit integriertem Druckminderer zur Druckbegrenzung'
+        ],
+        'screen5-mit': [
+            'Beidseitig Kugelhahn — voller Durchgang',
+            'Eingang Kugelhahn, Ausgang KSR — mit Rückflussschutz',
+            'Kugelhahn + Kegelmembran-RV + Kugelhahn',
+            'Beidseitig Freistromventil',
+            'Eingang Freistrom, Ausgang KSR — mit Rückflussschutz',
+            'Freistrom + Kegelmembran-RV + Freistrom'
+        ],
+        'screen5-ohne': [
+            'Freistrom + Druckminderer + KSR',
+            'Freistrom + Druckminderer + Freistrom',
+            'Kugelhahn + Druckminderer + Kugelhahn',
+            'Kugelhahn + Druckminderer + KSR'
+        ],
+        'screen6': [
+            'Bleifreies Si-Messing, trinkwasserzugelassen',
+            'Polypropylen-Verschraubung, kostengünstig',
+            'Für Stumpfschweißung an PE-Rohr',
+            'Elektroschweißmuffe für PE-Verbindung'
+        ],
+        'screen8': [
+            'Standard Einzelanschluss, DN 25',
+            'Größere Durchflussmenge, DN 32',
+            'Mehrfamilienhaus/Gewerbe, DN 40',
+            'Großanschluss, DN 50'
+        ],
+        'screen9': [
+            'Standardanschluss — ein PE-Rohr',
+            'Doppelter Ausgang — zwei PE-Rohre'
+        ],
+        'screen10': [
+            'Kombischlüssel für Schachtabdeckung',
+            'Kein Schlüssel benötigt'
+        ]
+    };
+    Object.entries(tooltips).forEach(([screenId, tips]) => {
+        const screen = document.getElementById(screenId);
+        if (!screen) return;
+        const buttons = screen.querySelectorAll('button:not(.back-btn)');
+        buttons.forEach((btn, i) => {
+            if (tips[i]) btn.setAttribute('data-tooltip', tips[i]);
         });
     });
-    // === ENDE DER KORREKTUR ===
+
+    // Universelles Tooltip-System (wie DuoViewer)
+    let activeTooltip = null;
+    document.addEventListener('mouseenter', function(e) {
+        const target = e.target.closest('[data-tooltip]');
+        if (!target || target.classList.contains('info-image-container')) return;
+        const text = target.getAttribute('data-tooltip');
+        if (!text) return;
+        activeTooltip = document.createElement('div');
+        activeTooltip.className = 'custom-tooltip';
+        activeTooltip.textContent = text;
+        document.body.appendChild(activeTooltip);
+        const rect = target.getBoundingClientRect();
+        const ttRect = activeTooltip.getBoundingClientRect();
+        let top = rect.top - ttRect.height - 8;
+        let left = rect.left + (rect.width / 2) - (ttRect.width / 2);
+        if (left < 5) left = 5;
+        if (left + ttRect.width > window.innerWidth) left = window.innerWidth - ttRect.width - 5;
+        if (top < 0) top = rect.bottom + 8;
+        activeTooltip.style.left = left + 'px';
+        activeTooltip.style.top = top + 'px';
+        setTimeout(() => { if (activeTooltip) { activeTooltip.style.opacity = '1'; activeTooltip.style.transform = 'translateY(0)'; } }, 10);
+    }, true);
+    document.addEventListener('mouseleave', function(e) {
+        const target = e.target.closest('[data-tooltip]');
+        if (!target || !activeTooltip) return;
+        activeTooltip.remove();
+        activeTooltip = null;
+    }, true);
 
     // Event-Listener für den Submit-Button (bereits vorhanden)
     document.querySelector('.submit-btn').addEventListener('click', function(event) {

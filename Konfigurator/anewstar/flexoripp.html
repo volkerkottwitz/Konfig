@@ -7,16 +7,14 @@
     <!-- Papa Parse Bibliothek für CSV-Verarbeitung -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
-    <!-- === GEÄNDERT: Link zur neuen CSS-Datei === -->
-    <link rel="stylesheet" href="stylesFLEXO.css">
+    <link rel="stylesheet" href="stylesKonfigurator.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="images/icon.png">
-    <!-- Die Google Fonts sind bereits im neuen CSS importiert, dieser Link kann aber als Fallback bleiben -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400&display=swap" rel="stylesheet">
-    <div id="info-box"></div>
 </head>
 
 <body>
+<div id="info-box"></div>
 <div id="custom-tooltip"></div>
 <!-- Fortschrittsanzeige -->
 
@@ -40,8 +38,6 @@
 </div>
 <div class="progress-text">Schritt 1 von 8</div>
     </header>
-
-</header>
 
 <!-- === NEU: Container für die visuelle Navigationsleiste === -->
 <div id="visual-nav-container" class="visual-nav">
@@ -76,7 +72,7 @@
         <button onclick="saveSchacht('Schacht 260mm Q3 6,3|10 x 5/4“', this.innerText)">Zähler 260mm Q3 6,3|10 x 5/4“</button>
         <button onclick="saveSchacht('Schacht Österreich 175mm Q3 4|10 5/4“ x 1“', this.innerText)">Zähler Österr. 175mm Q3 4|10 5/4“ x 1“</button>
     </div>
-    <button onclick="window.close()" class="back-btn">🔙 Zurück zum DuoViewer</button>
+    <button onclick="window.close()" class="back-btn"><i class="bi bi-arrow-left"></i> Zurück zum DuoViewer</button>
 <!--    <button class="back-btn" onclick="window.location.href='index-final.html'">Zurück zur Startseite</button> -->
 </section>
 
@@ -247,6 +243,9 @@
     <section class="screen" id="userDataScreen">
         <h2>Ihre Daten</h2>
         <div class="form-container">
+            <div class="input-container">
+                <input type="text" id="addressSearch" placeholder="Adresse suchen..." autocomplete="off">
+            </div>
             <form id="userDataForm">
                 <div class="input-container">
                     <label for="firstName">Vorname*</label> <!-- NEU: Vorname -->
@@ -302,6 +301,38 @@
 
 </main>
 
+<a href="#" onclick="window.open('Eween/index.html', 'eween', 'width=420,height=650,resizable=yes,scrollbars=yes'); return false;" class="floating-eween-btn" title="Fragen? EWEEN hilft!">
+    <i class="bi bi-chat-dots-fill"></i>
+    <span>EWEEN</span>
+</a>
+
 <script src="scriptflexoripp.js"></script>
+    <script>
+    window.initGooglePlaces = function() {
+        const input = document.getElementById('addressSearch');
+        if (!input) return;
+        const autocomplete = new google.maps.places.Autocomplete(input, {
+            types: ['establishment'],
+            componentRestrictions: { country: ['de', 'at', 'ch'] },
+            fields: ['address_components']
+        });
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (!place.address_components) return;
+            let strasse = '', hausnummer = '', plz = '', ort = '';
+            place.address_components.forEach(c => {
+                if (c.types.includes('route')) strasse = c.long_name;
+                if (c.types.includes('street_number')) hausnummer = c.long_name;
+                if (c.types.includes('postal_code')) plz = c.long_name;
+                if (c.types.includes('locality')) ort = c.long_name;
+            });
+            document.getElementById('street').value = hausnummer ? strasse + ' ' + hausnummer : strasse;
+            document.getElementById('postalCode').value = plz;
+            document.getElementById('city').value = ort;
+            input.value = '';
+        });
+    };
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN4cAc4nq9je0of0cb_0wEUb1yCz54r7k&libraries=places&callback=initGooglePlaces" async defer></script>
 </body>
 </html>
