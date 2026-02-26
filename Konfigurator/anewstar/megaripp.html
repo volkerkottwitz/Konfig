@@ -15,7 +15,7 @@
 <div id="custom-tooltip"></div>
 
     <header>
-<a href="https://www.ewe-armaturen.de/" target="_blank" title="EWE Armaturen Webseite besuchen">
+<a href="https://www.ewe-armaturen.de/" target="_blank" data-tooltip="EWE Armaturen Webseite besuchen">
     <img src="images/logo.png" alt="Firmenlogo" class="logo">
 </a>
    <h1 onclick="resetConfig()" style="cursor: pointer;" data-tooltip="Klicken — startet Konfigurator neu">Megaripp-Konfigurator</h1>
@@ -23,7 +23,7 @@
     <!-- ======================================================= -->
     <!-- +++ NEUER BUTTON DIREKT NEBEN DEM TITEL +++ -->
     <!-- ======================================================= -->
-<button id="closeToDuoViewerBtn" class="header-action-btn" title="Konfigurator schließen und zum DuoViewer zurückkehren">
+<button id="closeToDuoViewerBtn" class="header-action-btn" data-tooltip="Konfigurator schließen und zum DuoViewer zurückkehren">
    <!-- <img src="images/back-icon.png" alt="Zurück" class="btn-icon">  Icon als Bild -->
     <span>Zum DuoViewer</span>
 </button>
@@ -393,7 +393,7 @@
 
     </main>
 
-    <a href="#" onclick="window.open('Eween/index.html', 'eween', 'width=420,height=650,resizable=yes,scrollbars=yes'); return false;" class="floating-eween-btn" title="Fragen? EWEEN hilft!">
+    <a href="#" onclick="window.open('Eween/index.html', 'eween', 'width=420,height=650,resizable=yes,scrollbars=yes'); return false;" class="floating-eween-btn" data-tooltip="Fragen? EWEEN hilft!">
         <i class="bi bi-chat-dots-fill"></i>
         <span>EWEEN</span>
     </a>
