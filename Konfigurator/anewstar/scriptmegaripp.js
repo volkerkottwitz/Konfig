@@ -387,7 +387,8 @@ function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
-    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/megaripp.png";
+    const productImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/megaripp.png";
+    const schachtImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/schachtausgang.jpg";
     
     // Benutzerdaten aus dem Formular holen
     const fullName = document.getElementById('fullName').value;
@@ -398,83 +399,166 @@ function generatePDF() {
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value || "Nicht angegeben";
     const comments = document.getElementById('comments').value || "Keine Bemerkungen";
-
-    // Inhalt des PDFs erstellen (gekürzt für die Übersicht)
-    
-    // Firmenname und Adresse
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.setTextColor(0, 51, 102);
-    doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
-    
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
-
-    // Logo einfügen
-    doc.addImage(eweLogo, 'PNG', 156, 5, 30, 30);
-
-    // Datum
-    const currentDate = new Date().toLocaleDateString();
-    doc.setFontSize(10);
-    doc.text(`Datum: ${currentDate}`, 158, 40);
-
-    // Betreff
-    
-    doc.setTextColor(0, 51, 102);
-    
     const requestNumber = generateRequestNumber();
-    doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
-    doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.text("Sehr geehrte Damen und Herren,", 20, 85);
-    doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 94);
-    doc.setFont("helvetica", "bold"); doc.text("MEGARIPP", 122, 94);
-    doc.text("Bitte bieten Sie mir folgende Zusammenstellung an:", 20, 101);
-    doc.setDrawColor(0, 0, 0); doc.setLineWidth(0.5); doc.line(20, 108, 190, 108);
-
-    let yOffset = 118;
+    const currentDate = new Date().toLocaleDateString('de-DE');
     const articleNumber = getArticleNumber();
-    doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(0, 51, 102);
-    doc.text(`Artikelnummer: ${articleNumber}`, 20, yOffset);
-    yOffset += 10;
+
+    const pageW = 210, marginL = 15, marginR = 15, contentW = pageW - marginL - marginR;
+    const eweBlue = [0, 90, 140];
+    const eweLightBlue = [0, 161, 225];
+    const eweDark = [0, 51, 102];
+
+    // === HEADER: EWE Gradient Bar ===
+    doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
+    doc.rect(0, 0, 70, 6, 'F');
+    doc.setFillColor(0, 125, 180);
+    doc.rect(70, 0, 70, 6, 'F');
+    doc.setFillColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.rect(140, 0, 70, 6, 'F');
+
+    // Logo
+    doc.addImage(eweLogo, 'PNG', 160, 10, 30, 30);
+
+    // Firmenname
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Wilhelm Ewe GmbH & Co.KG", marginL, 18);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    doc.text("Volkmaroder Str. 19 | 38104 Braunschweig | Tel. 0531 / 3 80 08-0", marginL, 24);
+
+    // Titel
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("MEGARIPP-Konfiguration", marginL, 38);
+
+    // Info-Zeile
+    doc.setFillColor(240, 248, 255);
+    doc.roundedRect(marginL, 42, contentW, 10, 2, 2, 'F');
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(60, 60, 60);
+    doc.text(`Anfrage-Nr.: ${requestNumber}`, marginL + 4, 48.5);
+    doc.text(`Datum: ${currentDate}`, marginL + 70, 48.5);
+    doc.text(`Art.-Nr.: ${articleNumber}`, marginL + 130, 48.5);
+
+    // === KUNDENDATEN-BOX (2-spaltig) ===
+    let y = 58;
+    doc.setFillColor(245, 250, 255);
+    doc.setDrawColor(200, 220, 240);
+    doc.setLineWidth(0.3);
+    doc.roundedRect(marginL, y, contentW, 32, 2, 2, 'FD');
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Kundendaten", marginL + 4, y + 6);
+    doc.setDrawColor(200, 220, 240);
+    doc.line(marginL + 4, y + 8, marginL + contentW - 4, y + 8);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(40, 40, 40);
+    const col1X = marginL + 4, col2X = marginL + contentW / 2 + 4;
+    const labelW = 20;
+    doc.setFont("helvetica", "bold"); doc.text("Name:", col1X, y + 14);
+    doc.setFont("helvetica", "normal"); doc.text(fullName, col1X + labelW, y + 14);
+    doc.setFont("helvetica", "bold"); doc.text("Firma:", col1X, y + 20);
+    doc.setFont("helvetica", "normal"); doc.text(company || "\u2013", col1X + labelW, y + 20);
+    doc.setFont("helvetica", "bold"); doc.text("Adresse:", col1X, y + 26);
+    doc.setFont("helvetica", "normal"); doc.text(`${street}, ${postalCode} ${city}`, col1X + labelW, y + 26);
+    doc.setFont("helvetica", "bold"); doc.text("E-Mail:", col2X, y + 14);
+    doc.setFont("helvetica", "normal"); doc.text(email, col2X + labelW, y + 14);
+    doc.setFont("helvetica", "bold"); doc.text("Telefon:", col2X, y + 20);
+    doc.setFont("helvetica", "normal"); doc.text(phone, col2X + labelW, y + 20);
+
+    // === KONFIGURATIONSTABELLE + PRODUKTBILD ===
+    y = 96;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Ihre Konfiguration", marginL, y);
+    y += 4;
     
-    let selections = [
-        `Ein MegaRipp ${lastSelections.selection1}`,
-        `mit ${lastSelections.selection4} Wasserzähleranlage(n) ${lastSelections.selection2} / ${lastSelections.selection3}.`,
-        `Eingangsseitig:  1 x ${lastSelections.selection5}.`,
-        `Ausgangsseitig: ${lastSelections.selection4} x Stutzen ${lastSelections.selection6}.`,
-        `Die gewählte Abdeckung ist : ${lastSelections.selection7}`,
-        `Schachtschlüssel : ${lastSelections.selection8}`,
+    // Tabelle (linke 2/3)
+    const tableW = contentW * 0.63;
+    const imgAreaX = marginL + tableW + 4;
+    const imgAreaW = contentW - tableW - 4;
+    const rowH = 9;
+    const colLabelW = 50;
+    const configRows = [
+        { label: 'Anlagengröße', value: lastSelections.selection1 || '\u2013' },
+        { label: 'WZ-Anlage Eingang', value: lastSelections.selection2 || '\u2013' },
+        { label: 'WZ-Anlage Ausgang', value: lastSelections.selection3 || '\u2013' },
+        { label: 'Anzahl WZ-Anlagen', value: lastSelections.selection4 || '\u2013' },
+        { label: 'PE-Größe Eingang', value: lastSelections.selection5 || '\u2013' },
+        { label: 'PE-Größe Ausgang', value: lastSelections.selection6 || '\u2013' },
+        { label: 'Abdeckung', value: lastSelections.selection7 || '\u2013' },
+        { label: 'Schachtschlüssel', value: lastSelections.selection8 || '\u2013' }
     ];
-
-    doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(0, 51, 102);
-    doc.text("Zusammenstellung:", 20, yOffset);
-    yOffset += 8;
-    doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(0, 0, 0);
-    selections.forEach(item => { doc.text(`${item}`, 25, yOffset); yOffset += 8; });
-    doc.addImage(flexorippImage, 'JPEG', 140, 116, 40, 50);
-
-    yOffset += 12;
-    doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(0, 51, 102); doc.text("Benutzerdaten:", 20, yOffset);
-    yOffset += 8;
-    doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(0, 0, 0);
-    doc.text(`Name: ${fullName}`, 25, yOffset); yOffset += 8;
-    if (company) { doc.text(`Firma: ${company}`, 25, yOffset); yOffset += 8; }
-    doc.text(`Straße: ${street}`, 25, yOffset); yOffset += 8;
-    doc.text(`PLZ: ${postalCode}`, 25, yOffset); yOffset += 8;
-    doc.text(`Ort: ${city}`, 25, yOffset); yOffset += 8;
-    doc.text(`E-Mail: ${email}`, 25, yOffset); yOffset += 8;
-    doc.text(`Telefon: ${phone}`, 25, yOffset); yOffset += 8;
-    doc.text(`Bemerkungen: ${comments}`, 25, yOffset);
-
-    const pdfData = doc.output('blob');
-    const url = URL.createObjectURL(pdfData);
-    window.open(url);
+    const tableStartY = y;
+    doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
+    doc.rect(marginL, y, tableW, rowH, 'F');
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(255, 255, 255);
+    doc.text("Merkmal", marginL + 3, y + 6);
+    doc.text("Auswahl", marginL + colLabelW + 3, y + 6);
+    y += rowH;
+    configRows.forEach((row, i) => {
+        if (i % 2 === 0) { doc.setFillColor(245, 250, 255); doc.rect(marginL, y, tableW, rowH, 'F'); }
+        doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(40, 40, 40);
+        doc.text(row.label, marginL + 3, y + 6);
+        const valLines = doc.splitTextToSize(row.value, tableW - colLabelW - 6);
+        doc.text(valLines[0], marginL + colLabelW + 3, y + 6);
+        y += rowH;
+    });
+    const tableEndY = y;
+    doc.setDrawColor(200, 210, 220); doc.setLineWidth(0.3);
+    doc.rect(marginL, tableStartY, tableW, tableEndY - tableStartY);
+    doc.line(marginL + colLabelW, tableStartY + rowH, marginL + colLabelW, tableEndY);
+    // Produktbild rechts
+    const imgBoxH = tableEndY - tableStartY;
+    doc.setDrawColor(200, 220, 240); doc.setFillColor(250, 252, 255);
+    doc.roundedRect(imgAreaX, tableStartY, imgAreaW, imgBoxH, 2, 2, 'FD');
+    const imgW = imgAreaW - 8, imgH = imgW * 1.25;
+    const imgX = imgAreaX + 4, imgY = tableStartY + (imgBoxH - imgH) / 2 - 5;
+    try { doc.addImage(productImage, 'PNG', imgX, imgY > tableStartY + 2 ? imgY : tableStartY + 2, imgW, imgH); } catch(e) {}
+    doc.setFont("helvetica", "italic"); doc.setFontSize(7); doc.setTextColor(120, 120, 120);
+    doc.text("MegaRipp Wasserzählerschacht", imgAreaX + imgAreaW / 2, tableStartY + imgBoxH - 3, { align: "center" });
+    // Zusammenfassung
+    y = tableEndY + 6;
+    doc.setFillColor(245, 250, 255);
+    doc.roundedRect(marginL, y, contentW, 24, 2, 2, 'F');
+    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Zusammenfassung", marginL + 4, y + 6);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor(40, 40, 40);
+    const summaryText = `Ein MegaRipp ${lastSelections.selection1 || ''} mit ${lastSelections.selection4 || ''} WZ-Anlage(n) ${lastSelections.selection2 || ''} / ${lastSelections.selection3 || ''}. Eingang: 1 x ${lastSelections.selection5 || ''}. Ausgang: ${lastSelections.selection4 || ''} x ${lastSelections.selection6 || ''}. Abdeckung: ${lastSelections.selection7 || ''}. Schlüssel: ${lastSelections.selection8 || ''}.`;
+    doc.text(doc.splitTextToSize(summaryText, contentW - 8), marginL + 4, y + 12);
+    // Bemerkungen
+    y += 30;
+    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Bemerkungen", marginL, y);
+    y += 4;
+    doc.setDrawColor(200, 220, 240); doc.setLineWidth(0.3);
+    doc.roundedRect(marginL, y, contentW, 18, 2, 2, 'D');
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(60, 60, 60);
+    doc.text(doc.splitTextToSize(comments, contentW - 8).slice(0, 3), marginL + 4, y + 6);
+    // Footer
+    const footerY = 280;
+    doc.setDrawColor(0, 161, 225); doc.setLineWidth(0.5);
+    doc.line(marginL, footerY, pageW - marginR, footerY);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(130, 130, 130);
+    doc.text("Wilhelm Ewe GmbH & Co.KG | Volkmaroder Str. 19 | 38104 Braunschweig | Tel. 0531 / 3 80 08-0 | www.ewe-armaturen.de", pageW / 2, footerY + 4, { align: "center" });
+    doc.text("Seite 1 von 1", pageW / 2, footerY + 8, { align: "center" });
+    // Speichern
+    const datum = new Date().toISOString().split('T')[0];
+    const filenameParts = [company, "Anfrage Megaripp", requestNumber, datum].filter(p => p);
+    const cleanFilename = filenameParts.map(p => p.replace(/[^a-zA-Z0-9äöüÄÖÜß\s]/g, "").trim()).join("_");
+    doc.save(`${cleanFilename}.pdf`);
 }
 
-/**
- * Sendet die Zusammenstellung per E-Mail.
- */
 function sendEmail() {
     let emailBody = `
 Sehr geehrte Damen und Herren,
@@ -655,6 +739,7 @@ function showInfo(infoId) {
 function showUserDataScreen() {
     document.getElementById('summaryScreen').classList.remove('active');
     document.getElementById('userDataScreen').classList.add('active');
+    setTimeout(adjustMainContainerHeight, 50);
 }
 
 /**

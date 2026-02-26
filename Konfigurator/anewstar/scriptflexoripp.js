@@ -838,210 +838,184 @@ function generateRequestNumber() {
 function generatePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-
-    // Bilder-URLs
     const eweLogo = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/logo.png";
-    const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.png";
-    
-    // Generiere die Anfragenummer
-    const requestNumber = generateRequestNumber();
+    const productImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/flexoripp.png";
 
-    // Holen der Benutzerdaten aus dem Formular
     const fullName = document.getElementById('fullName').value;
-    const company = document.getElementById('company').value || "Nicht angegeben";
+    const company = document.getElementById('company').value || "";
     const street = document.getElementById('street').value;
     const postalCode = document.getElementById('postalCode').value;
     const city = document.getElementById('city').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value || "Nicht angegeben";
     const comments = document.getElementById('comments').value || "Keine Bemerkungen";
+    const requestNumber = generateRequestNumber();
+    const currentDate = new Date().toLocaleDateString('de-DE');
 
-    // Firmenname und Adresse
+    const pageW = 210, marginL = 15, marginR = 15, contentW = pageW - marginL - marginR;
+    const eweBlue = [0, 90, 140];
+    const eweLightBlue = [0, 161, 225];
+    const eweDark = [0, 51, 102];
+
+    // === HEADER: EWE Gradient Bar ===
+    doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
+    doc.rect(0, 0, 70, 6, 'F');
+    doc.setFillColor(0, 125, 180);
+    doc.rect(70, 0, 70, 6, 'F');
+    doc.setFillColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.rect(140, 0, 70, 6, 'F');
+
+    doc.addImage(eweLogo, 'PNG', 160, 10, 30, 30);
+
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.setTextColor(0, 51, 102);
-    doc.text("Wilhelm Ewe GmbH & Co.KG", 105, 34, { align: "right" });
-
+    doc.setFontSize(16);
+    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Wilhelm Ewe GmbH & Co.KG", marginL, 18);
     doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Volkmaroder Str. 19, 38104 Braunschweig", 105, 40, { align: "right" });
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    doc.text("Volkmaroder Str. 19 | 38104 Braunschweig | Tel. 0531 / 3 80 08-0", marginL, 24);
 
-    // Logo einfügen
-    doc.addImage(eweLogo, 'PNG', 156, 5, 30, 30);
-
-    // Datum
-    const currentDate = new Date().toLocaleDateString();
-    doc.setFontSize(10);
-    doc.text(`Datum: ${currentDate}`, 158, 40);
-
-        // Abschnitt Anfragenummer
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.setTextColor(0, 51, 102);
-        doc.text(`Anfragenummer: ${requestNumber}`, 20, 75);
-
-
-    // Einleitungstext
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Sehr geehrte Damen und Herren,", 20, 85);
-    doc.text("anbei sende ich Ihnen meine Konfiguration des EWE-Produktes:", 20, 94);
-    doc.text("Bitte bieten Sie mir folgende Zusammenstellung an:", 20, 101);
-
-    // "FLEXORIPP" fett setzen
     doc.setFont("helvetica", "bold");
-    doc.text("FLEXORIPP", 122, 94);
+    doc.setFontSize(20);
+    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("FLEXORIPP-Konfiguration", marginL, 38);
 
-    // Horizontale Linie
-    doc.setDrawColor(0, 0, 0);
-    doc.setLineWidth(0.5);
-    doc.line(20, 108, 190, 108);
-
-    // Auswahlpunkte
- // --- NEUE LOGIK FÜR DIE ZUSAMMENSTELLUNG ---
-    let yOffset = 118;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(0, 51, 102);
-    doc.text("Ihre Konfiguration:", 20, yOffset);
-    yOffset += 8;
-
+    // Info-Zeile
+    doc.setFillColor(240, 248, 255);
+    doc.roundedRect(marginL, 42, contentW, 10, 2, 2, 'F');
     doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(60, 60, 60);
+    doc.text(`Anfrage-Nr.: ${requestNumber}`, marginL + 4, 48.5);
+    doc.text(`Datum: ${currentDate}`, marginL + 90, 48.5);
+
+    // === KUNDENDATEN-BOX ===
+    let y = 58;
+    doc.setFillColor(245, 250, 255);
+    doc.setDrawColor(200, 220, 240);
+    doc.setLineWidth(0.3);
+    doc.roundedRect(marginL, y, contentW, 32, 2, 2, 'FD');
+    doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
+    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Kundendaten", marginL + 4, y + 6);
+    doc.line(marginL + 4, y + 8, marginL + contentW - 4, y + 8);
+    doc.setFontSize(9);
+    doc.setTextColor(40, 40, 40);
+    const col1X = marginL + 4, col2X = marginL + contentW / 2 + 4, labelW = 20;
+    doc.setFont("helvetica", "bold"); doc.text("Name:", col1X, y + 14);
+    doc.setFont("helvetica", "normal"); doc.text(fullName, col1X + labelW, y + 14);
+    doc.setFont("helvetica", "bold"); doc.text("Firma:", col1X, y + 20);
+    doc.setFont("helvetica", "normal"); doc.text(company || "\u2013", col1X + labelW, y + 20);
+    doc.setFont("helvetica", "bold"); doc.text("Adresse:", col1X, y + 26);
+    doc.setFont("helvetica", "normal"); doc.text(`${street}, ${postalCode} ${city}`, col1X + labelW, y + 26);
+    doc.setFont("helvetica", "bold"); doc.text("E-Mail:", col2X, y + 14);
+    doc.setFont("helvetica", "normal"); doc.text(email, col2X + labelW, y + 14);
+    doc.setFont("helvetica", "bold"); doc.text("Telefon:", col2X, y + 20);
+    doc.setFont("helvetica", "normal"); doc.text(phone, col2X + labelW, y + 20);
 
-    // =======================================================
-    // +++ HIER IST DIE EINFACHE ÄNDERUNG +++
-    // =======================================================
-    // Eine Hilfsfunktion, die Text bei einer festen Breite umbricht.
-    const addZeileMitArtikel = (label, beschreibung, artikel) => {
-        if (!beschreibung) return;
+    // === KONFIGURATIONSTABELLE + PRODUKTBILD ===
+    y = 96;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Ihre Konfiguration", marginL, y);
+    y += 4;
 
-        const startXLabel = 25;
-        const startXText = 65;
-        const maxTextBreite = 90; // Feste Breite, lässt rechts Platz für das Bild (160 - 65 - Puffer)
+    const tableW = contentW * 0.63;
+    const imgAreaX = marginL + tableW + 4;
+    const imgAreaW = contentW - tableW - 4;
+    const rowH = 14;
+    const colLabelW = 30;
 
-        doc.setFont("helvetica", "bold");
-        doc.text(label, startXLabel, yOffset);
-        doc.setFont("helvetica", "normal");
-
-        // Text umbrechen und ausgeben
-        const beschreibungZeilen = doc.splitTextToSize(beschreibung, maxTextBreite);
-        doc.text(beschreibungZeilen, startXText, yOffset);
-
-        // y-Position für die nächste Zeile berechnen
-        let naechsteYPos = yOffset + (beschreibungZeilen.length * 5); // ca. 5 Einheiten pro Zeile
-
-        if (artikel && artikel.Artikelnummer) {
-            const preisText = artikel.Preis ? ` | Preis: ${artikel.Preis} €` : '';
-            doc.setFontSize(8);
-            doc.setTextColor(100, 100, 100);
-            doc.text(`Art.-Nr.: ${artikel.Artikelnummer}${preisText}`, startXText, naechsteYPos);
-            doc.setFontSize(10);
-            doc.setTextColor(0, 0, 0);
-            naechsteYPos += 4; // Extra Platz für die Artikelnummer
+    // Verschraubungstext berechnen
+    let verschraubungText = 'Ohne Verschraubung';
+    let verschraubungArtikel = null;
+    if (userSelection.peVerschraubung) {
+        const anzahl = gefundeneArtikelGlobal.verschraubung && gefundeneArtikelGlobal.verschraubung.menge === 2 ? '2 x' : '1 x';
+        let schachtGewinde = '';
+        if (gefundeneArtikelGlobal.schacht) {
+            schachtGewinde = userSelection.schacht.includes('\u00d6sterr') ? '1"' : (gefundeneArtikelGlobal.schacht.Gewinde || '');
         }
-        
-        // Den globalen yOffset aktualisieren
-        yOffset = naechsteYPos + 4;
-    };
-    // =======================================================
-
-    // Jetzt die Zeilen erstellen
-    addZeileMitArtikel("Schacht:", `${userSelection.schacht} | ${userSelection.rohrdeckung} | ${userSelection.wasserzaehleranlage}`, gefundeneArtikelGlobal.schacht);
-    addZeileMitArtikel("Deckel:", userSelection.deckel, gefundeneArtikelGlobal.deckel);
-    
-
-let verschraubungText = 'Ohne Verschraubung';
-if (userSelection.peVerschraubung) {
-    const anzahl = gefundeneArtikelGlobal.verschraubung && gefundeneArtikelGlobal.verschraubung.menge === 2 ? '2 x' : '1 x';
-    
-    // =======================================================
-    // +++ HIER IST DIE ÄNDERUNG FÜR DIE ÖSTERREICH-REGEL +++
-    // =======================================================
-    let schachtGewinde = '';
-    // Prüfe zuerst, ob überhaupt ein Schacht gefunden wurde
-    if (gefundeneArtikelGlobal.schacht) {
-        // Prüfe, ob die Benutzerauswahl für den Schacht "Österr." enthält
-        if (userSelection.schacht.includes('Österr')) {
-            // Wenn ja, setze das Gewinde für die Anzeige fest auf 1"
-            schachtGewinde = '1"';
-        } else {
-            // Wenn nein, nimm das normale Gewinde aus der Datenbank
-            schachtGewinde = gefundeneArtikelGlobal.schacht.Gewinde;
-        }
+        verschraubungText = `${anzahl} ${userSelection.peVerschraubung} (${userSelection.groesseVerbindung} x ${schachtGewinde})`;
+        verschraubungArtikel = gefundeneArtikelGlobal.verschraubung;
     }
-    // =======================================================
-    
-    // Baue den Text mit dem (potenziell überschriebenen) Gewinde zusammen.
-    verschraubungText = `${anzahl} ${userSelection.peVerschraubung} (${userSelection.groesseVerbindung} x ${schachtGewinde})`;
-}
 
-    addZeileMitArtikel("Anschluss:", verschraubungText, gefundeneArtikelGlobal.verschraubung);
-    addZeileMitArtikel("Schlüssel:", userSelection.wasserzaehlerSchluessel, gefundeneArtikelGlobal.schluessel);
+    const configRows = [
+        { label: 'Schacht', value: `${userSelection.schacht || ''} | ${userSelection.rohrdeckung || ''} | ${userSelection.wasserzaehleranlage || ''}`, artikel: gefundeneArtikelGlobal.schacht },
+        { label: 'Deckel', value: userSelection.deckel || '\u2013', artikel: gefundeneArtikelGlobal.deckel },
+        { label: 'Anschluss', value: verschraubungText, artikel: verschraubungArtikel },
+        { label: 'Schl\u00fcssel', value: userSelection.wasserzaehlerSchluessel || '\u2013', artikel: gefundeneArtikelGlobal.schluessel }
+    ];
 
-    // Bild an seiner festen Position hinzufügen
-    doc.addImage(flexorippImage, 'JPEG', 160, 122, 20, 35);
-
-    // Trennlinie
-    doc.setLineWidth(0.5);
-    doc.line(20, yOffset + 1, 190, yOffset + 1);
-
-    // Benutzer-Daten einfügen
-    yOffset += 12;
+    // Tabellenkopf
+    const tableStartY = y;
+    doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
+    doc.rect(marginL, y, tableW, 9, 'F');
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.setTextColor(0, 51, 102);
-    doc.text("Benutzerdaten:", 20, yOffset);
+    doc.setFontSize(9);
+    doc.setTextColor(255, 255, 255);
+    doc.text("Merkmal", marginL + 3, y + 6);
+    doc.text("Auswahl / Artikelnummer", marginL + colLabelW + 3, y + 6);
+    y += 9;
 
-    yOffset += 8;
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-    
-    doc.text("Name:", 25, yOffset);
-    doc.text(fullName, 60, yOffset);
-    yOffset += 8;
+    // Tabellenzeilen
+    configRows.forEach((row, i) => {
+        if (i % 2 === 0) { doc.setFillColor(245, 250, 255); doc.rect(marginL, y, tableW, rowH, 'F'); }
+        doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(40, 40, 40);
+        doc.text(row.label, marginL + 3, y + 6);
+        doc.setFont("helvetica", "normal");
+        const maxValW = tableW - colLabelW - 6;
+        const valLines = doc.splitTextToSize(row.value, maxValW);
+        doc.text(valLines[0], marginL + colLabelW + 3, y + 6);
+        if (row.artikel && row.artikel.Artikelnummer) {
+            const preisText = row.artikel.Preis ? ` | ${row.artikel.Preis} \u20ac` : '';
+            doc.setFontSize(7); doc.setTextColor(100, 100, 100);
+            doc.text(`Art.-Nr.: ${row.artikel.Artikelnummer}${preisText}`, marginL + colLabelW + 3, y + 11);
+            doc.setFontSize(9); doc.setTextColor(40, 40, 40);
+        }
+        y += rowH;
+    });
 
-    // NEU: Firma
-    doc.text("Firma:", 25, yOffset);
-    doc.text(company, 60, yOffset);
-    yOffset += 8;
+    const tableEndY = y;
+    doc.setDrawColor(200, 210, 220); doc.setLineWidth(0.3);
+    doc.rect(marginL, tableStartY, tableW, tableEndY - tableStartY);
+    doc.line(marginL + colLabelW, tableStartY + 9, marginL + colLabelW, tableEndY);
 
-    doc.text("Straße:", 25, yOffset);
-    doc.text(street, 60, yOffset);
-    yOffset += 8;
-    doc.text("PLZ:", 25, yOffset);
-    doc.text(postalCode, 60, yOffset);
-    yOffset += 8;
-    doc.text("Ort:", 25, yOffset);
-    doc.text(city, 60, yOffset);
-    yOffset += 8;
-    doc.text("E-Mail:", 25, yOffset);
-    doc.text(email, 60, yOffset);
-    yOffset += 8;
-    doc.text("Telefon:", 25, yOffset);
-    doc.text(phone, 60, yOffset);
-    yOffset += 8;
-    doc.text("Bemerkungen:", 25, yOffset);
-    doc.text(comments, 60, yOffset);
+    // Produktbild rechts
+    const imgBoxH = tableEndY - tableStartY;
+    doc.setDrawColor(200, 220, 240); doc.setFillColor(250, 252, 255);
+    doc.roundedRect(imgAreaX, tableStartY, imgAreaW, imgBoxH, 2, 2, 'FD');
+    const imgW = imgAreaW - 10, imgH = imgW * 1.6;
+    const imgX = imgAreaX + 5, imgY = tableStartY + (imgBoxH - imgH) / 2;
+    try { doc.addImage(productImage, 'PNG', imgX, imgY > tableStartY + 2 ? imgY : tableStartY + 2, imgW, Math.min(imgH, imgBoxH - 8)); } catch(e) {}
+    doc.setFont("helvetica", "italic"); doc.setFontSize(7); doc.setTextColor(120, 120, 120);
+    doc.text("Flexoripp Wasserz\u00e4hlersch.", imgAreaX + imgAreaW / 2, tableStartY + imgBoxH - 3, { align: "center" });
 
+    // === BEMERKUNGEN ===
+    y = tableEndY + 6;
+    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+    doc.text("Bemerkungen", marginL, y);
+    y += 4;
+    doc.setDrawColor(200, 220, 240); doc.setLineWidth(0.3);
+    doc.roundedRect(marginL, y, contentW, 18, 2, 2, 'D');
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(60, 60, 60);
+    doc.text(doc.splitTextToSize(comments, contentW - 8).slice(0, 3), marginL + 4, y + 6);
 
-    // PDF öffnen
-    // ALT:
-    // const pdfData = doc.output('blob');
-    // const url = URL.createObjectURL(pdfData);
-    // window.open(url);
+    // === FOOTER ===
+    const footerY = 280;
+    doc.setDrawColor(0, 161, 225); doc.setLineWidth(0.5);
+    doc.line(marginL, footerY, pageW - marginR, footerY);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(130, 130, 130);
+    doc.text("Wilhelm Ewe GmbH & Co.KG | Volkmaroder Str. 19 | 38104 Braunschweig | Tel. 0531 / 3 80 08-0 | www.ewe-armaturen.de", pageW / 2, footerY + 4, { align: "center" });
+    doc.text("Seite 1 von 1", pageW / 2, footerY + 8, { align: "center" });
 
-    // NEU:
-    // 1. Den gewünschten Dateinamen zusammenbauen.
-    const fileName = `Anfrage Flexoripp ${requestNumber}.pdf`;
-
-    // 2. Die save()-Methode aufrufen, um den Download mit dem neuen Namen zu starten.
-    doc.save(fileName);
-    // =======================================================
+    // === SPEICHERN ===
+    const datum = new Date().toISOString().split('T')[0];
+    const filenameParts = [company, "Anfrage Flexoripp", requestNumber, datum].filter(p => p && p !== "Nicht angegeben");
+    const cleanFilename = filenameParts.map(p => p.replace(/[^a-zA-Z0-9äöüÄÖÜß\s]/g, "").trim()).join("_");
+    doc.save(`${cleanFilename}.pdf`);
 }
 
 
@@ -1211,10 +1185,7 @@ function showUserDataScreen() {
     
     // Zeige den Benutzer-Daten-Bildschirm an
     document.getElementById('userDataScreen').classList.add('active');
-
-
-
-
+    setTimeout(adjustMainContainerHeight, 50);
 }
 
 
