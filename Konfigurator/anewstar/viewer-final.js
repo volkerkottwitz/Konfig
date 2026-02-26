@@ -2416,14 +2416,15 @@ function generateMerklistePDF(merklisteItems) {
     doc.setLineWidth(0.5);
     doc.line(20, yOffset + 2, 190, yOffset + 2);
 
-    const pdfData = doc.output('blob');
-    const url = URL.createObjectURL(pdfData);
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     if (isIOS) {
       doc.save("Merkliste.pdf");
     } else {
+      const pdfData = doc.output('blob');
+      const url = URL.createObjectURL(pdfData);
       window.open(url);
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
     }
   };
 }
