@@ -390,8 +390,7 @@ function generatePDF() {
     const flexorippImage = "https://volkerkottwitz.github.io/Konfig/Konfigurator/images/megaripp.png";
     
     // Benutzerdaten aus dem Formular holen
-    const firstName = document.getElementById('firstName').value;
-    const lastName = document.getElementById('lastName').value;
+    const fullName = document.getElementById('fullName').value;
     const company = document.getElementById('company').value || "";
     const street = document.getElementById('street').value;
     const postalCode = document.getElementById('postalCode').value;
@@ -459,7 +458,7 @@ function generatePDF() {
     doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(0, 51, 102); doc.text("Benutzerdaten:", 20, yOffset);
     yOffset += 8;
     doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(0, 0, 0);
-    doc.text(`Name: ${firstName} ${lastName}`, 25, yOffset); yOffset += 8;
+    doc.text(`Name: ${fullName}`, 25, yOffset); yOffset += 8;
     if (company) { doc.text(`Firma: ${company}`, 25, yOffset); yOffset += 8; }
     doc.text(`Straße: ${street}`, 25, yOffset); yOffset += 8;
     doc.text(`PLZ: ${postalCode}`, 25, yOffset); yOffset += 8;

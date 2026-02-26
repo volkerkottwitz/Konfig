@@ -847,9 +847,8 @@ function generatePDF() {
     const requestNumber = generateRequestNumber();
 
     // Holen der Benutzerdaten aus dem Formular
-    const firstName = document.getElementById('firstName').value; // NEU
-    const lastName = document.getElementById('lastName').value;   // NEU (ehemals 'name')
-    const company = document.getElementById('company').value || "Nicht angegeben"; // NEU
+    const fullName = document.getElementById('fullName').value;
+    const company = document.getElementById('company').value || "Nicht angegeben";
     const street = document.getElementById('street').value;
     const postalCode = document.getElementById('postalCode').value;
     const city = document.getElementById('city').value;
@@ -1002,9 +1001,8 @@ if (userSelection.peVerschraubung) {
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     
-    // NEU: Vorname und Nachname
     doc.text("Name:", 25, yOffset);
-    doc.text(`${firstName} ${lastName}`, 60, yOffset);
+    doc.text(fullName, 60, yOffset);
     yOffset += 8;
 
     // NEU: Firma

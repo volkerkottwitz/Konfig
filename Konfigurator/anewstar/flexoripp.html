@@ -22,7 +22,7 @@
 <a href="https://www.ewe-armaturen.de/" target="_blank" title="EWE Armaturen Webseite besuchen">
     <img src="images/logo.png" alt="Firmenlogo" class="logo">
 </a>
-   <h1 onclick="resetConfig()" style="cursor: pointer;" title="Konfiguration neu starten">Flexoripp-Konfigurator</h1>
+   <h1 onclick="resetConfig()" style="cursor: pointer;" data-tooltip="Klicken — startet Konfigurator neu">Flexoripp-Konfigurator</h1>
  
    <!-- ======================================================= -->
     <!-- +++ NEUER BUTTON DIREKT NEBEN DEM TITEL +++ -->
@@ -248,12 +248,8 @@
             </div>
             <form id="userDataForm">
                 <div class="input-container">
-                    <label for="firstName">Vorname*</label> <!-- NEU: Vorname -->
-                    <input type="text" id="firstName" name="firstName" required placeholder="Ihr Vorname">
-                </div>
-                <div class="input-container">
-                    <label for="lastName">Nachname*</label> <!-- NEU: Nachname (aus altem "Name") -->
-                    <input type="text" id="lastName" name="lastName" required placeholder="Ihr Nachname">
+                    <label for="fullName">Name*</label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="Ihr Name">
                 </div>
                 
                 <div class="input-container">
@@ -312,14 +308,13 @@
         const input = document.getElementById('addressSearch');
         if (!input) return;
         const autocomplete = new google.maps.places.Autocomplete(input, {
-            types: ['establishment'],
             componentRestrictions: { country: ['de', 'at', 'ch'] },
-            fields: ['address_components']
+            fields: ['address_components', 'name']
         });
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
             if (!place.address_components) return;
-            let strasse = '', hausnummer = '', plz = '', ort = '';
+            let strasse = '', hausnummer = '', plz = '', ort = '', firma = '';
             place.address_components.forEach(c => {
                 if (c.types.includes('route')) strasse = c.long_name;
                 if (c.types.includes('street_number')) hausnummer = c.long_name;
@@ -329,6 +324,11 @@
             document.getElementById('street').value = hausnummer ? strasse + ' ' + hausnummer : strasse;
             document.getElementById('postalCode').value = plz;
             document.getElementById('city').value = ort;
+            // Firmenname aus Place-Name uebernehmen (falls vorhanden und nicht gleich Adresse)
+            if (place.name && place.name !== strasse && place.name !== (strasse + ' ' + hausnummer)) {
+                const companyField = document.getElementById('company');
+                if (companyField && !companyField.value) companyField.value = place.name;
+            }
             input.value = '';
         });
     };

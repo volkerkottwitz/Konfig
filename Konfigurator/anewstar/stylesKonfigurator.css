@@ -62,6 +62,24 @@ header h1 {
     font-size: 1.8rem;
     margin: 0;
     flex-shrink: 0;
+    position: relative;
+}
+
+header h1[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.88);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 400;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
 }
 
 /* ========== 3. HEADER-BUTTON ("Zum DuoViewer") ========== */
