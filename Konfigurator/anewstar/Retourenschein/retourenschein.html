@@ -1200,15 +1200,21 @@ async function generateRetourenscheinPDF() {
     const page_height = doc.internal.pageSize.getHeight();
     const content_width = page_width - (2 * page_margin);
     const fieldBackgroundColor = [230, 245, 255];
-    const rowHeight = 10;
+    const eweBlue = [0, 90, 140];
+    const eweLightBlue = [0, 161, 225];
+    const eweDark = [0, 51, 102];
+    const rowHeight = 14;
     const tableHeaderHeight = 7;
+    const maxRowsPerPage = 10;
     const footerZoneY = page_height - 10;
 
     // Hoehen der festen Bloecke (Interner Vermerk + Reklamation + Notizen)
-    const internVermerkGap = 7, internBoxHeight = 29;
-    const reklGap = 5, reklBoxHeight = 22;
-    const notizGap = 3, notizLabelHeight = 7, notizBoxHeight = 20;
-    const fixedSectionsTotal = internVermerkGap + internBoxHeight + reklGap + reklBoxHeight + notizGap + notizLabelHeight + notizBoxHeight; // 93mm
+    const internVermerkGap = 10, internBoxHeight = 34;
+    const reklGap = 10, reklBoxHeight = 22;
+    const notizGap = 10, notizLabelHeight = 7, notizBoxHeight = 20;
+    const sectionHeaderExtra = 6; // Section-Header vor Interner Vermerk
+    const reklHeaderExtra = 8; // Section-Header vor Reklamation
+    const fixedSectionsTotal = sectionHeaderExtra + internVermerkGap + internBoxHeight + reklHeaderExtra + reklGap + reklBoxHeight + notizGap + notizLabelHeight + notizBoxHeight; // 127mm
 
     // --- Hilfsfunktion zum Laden eines Bildes ---
     const loadImage = (url) => new Promise((resolve, reject) => {
@@ -1237,23 +1243,52 @@ async function generateRetourenscheinPDF() {
         doc.text(label, x + 6, y + 3.5);
     };
 
-    const drawTableHeader = (tableStartY) => {
-        doc.setFontSize(9).setFont("helvetica", "bold").setDrawColor(0);
-        doc.text("Menge", page_margin + 3, tableStartY + 5);
-        doc.text("Artikelbezeichnung", page_margin + 25, tableStartY + 5);
-        doc.text("EWE-Artikelnummer", page_margin + 105, tableStartY + 5);
-        doc.text("Art der Rücklieferung", page_margin + 150, tableStartY + 5);
+    const drawDesignBars = () => {
+        doc.setFillColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+        doc.rect(0, 47, 4, 20, 'F');
+        doc.rect(0, 72, 4, 20, 'F');
+        doc.rect(0, 97, 4, 20, 'F');
     };
 
-    const drawArticleRow = (rowY, article) => {
+    const drawSectionHeader = (title, atY) => {
+        doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+        doc.setLineWidth(0.5);
+        doc.line(page_margin, atY, page_width - page_margin, atY);
+        doc.setLineWidth(0.2);
+        doc.setFont("helvetica", "bold").setFontSize(10);
+        doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+        doc.text(title.toUpperCase(), page_margin + 1, atY + 6);
+    };
+
+    const drawTableHeader = (tableStartY) => {
+        doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
+        doc.rect(page_margin, tableStartY, content_width, tableHeaderHeight, 'F');
+        doc.setFontSize(9).setFont("helvetica", "bold");
+        doc.setTextColor(255, 255, 255);
+        doc.text("Pos.", page_margin + 2, tableStartY + 5);
+        doc.text("Menge", page_margin + 13, tableStartY + 5);
+        doc.text("Artikelbezeichnung", page_margin + 30, tableStartY + 5);
+        doc.text("EWE-Artikelnummer", page_margin + 110, tableStartY + 5);
+        doc.text("Art der Rücklieferung", page_margin + 153, tableStartY + 5);
+        doc.setTextColor(0, 0, 0);
+    };
+
+    const drawArticleRow = (rowY, article, posNr) => {
         doc.setFillColor(...fieldBackgroundColor);
         doc.rect(page_margin + 1, rowY + 1, content_width - 2, rowHeight - 1, 'F');
+        if (posNr) {
+            doc.setFont("helvetica", "normal").setFontSize(8);
+            doc.setTextColor(120, 120, 120);
+            doc.text(posNr.toString(), page_margin + 4, rowY + 6);
+        }
         if (article) {
             doc.setFont("helvetica", "normal").setFontSize(9);
-            doc.text(article.menge.toString(), page_margin + 3, rowY + 5);
-            doc.text(article.name, page_margin + 25, rowY + 5, { maxWidth: 75 });
-            doc.text(article.nummer, page_margin + 105, rowY + 5, { maxWidth: 43 });
-            doc.text(article.grund, page_margin + 150, rowY + 5, { maxWidth: 30 });
+            doc.setTextColor(0, 0, 0);
+            const textY = rowY + 6;
+            doc.text(article.menge.toString(), page_margin + 13, textY);
+            doc.text(article.name, page_margin + 30, textY, { maxWidth: 75 });
+            doc.text(article.nummer, page_margin + 110, textY, { maxWidth: 40 });
+            doc.text(article.grund, page_margin + 153, textY, { maxWidth: 30 });
         }
         doc.rect(page_margin + content_width - 10, rowY + (rowHeight - 4) / 2, 4, 4);
     };
@@ -1261,7 +1296,8 @@ async function generateRetourenscheinPDF() {
     const drawTableOutlineAndDividers = (tableStartY, numRows) => {
         const tableTotalHeight = tableHeaderHeight + (numRows * rowHeight);
         const tableBottomY = tableStartY + tableTotalHeight;
-        doc.setDrawColor(0);
+        doc.setDrawColor(200, 210, 220);
+        doc.setLineWidth(0.3);
         // Aeusserer Rahmen
         doc.rect(page_margin, tableStartY, content_width, tableTotalHeight);
         // Header-Trennlinie
@@ -1273,24 +1309,30 @@ async function generateRetourenscheinPDF() {
         }
         // Spalten-Trennlinien (von Header-Unterkante bis Tabellen-Unterkante)
         const dividerTop = tableStartY + tableHeaderHeight;
-        [22, 103, 148, content_width - 12].forEach(offset => {
+        [10, 27, 108, 151, content_width - 12].forEach(offset => {
             doc.line(page_margin + offset, dividerTop, page_margin + offset, tableBottomY);
         });
     };
 
     const drawFooter = (pageNum, totalPages) => {
-        const finalY = page_height - 4;
-        doc.setFontSize(7).setFont("helvetica", "normal").setDrawColor(0);
-        doc.text("VK-11 Retourenschein (Stand 10/2025)", page_margin, finalY);
-        doc.text("Wilhelm Ewe GmbH & Co. KG - Volkmaroder Straße 19 - 38104 Braunschweig", page_width / 2, finalY, { align: 'center' });
-        doc.text(`Seite ${pageNum} von ${totalPages}`, page_width - page_margin, finalY, { align: 'right' });
+        doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+        doc.setLineWidth(0.5);
+        doc.line(page_margin, footerZoneY, page_width - page_margin, footerZoneY);
+        doc.setFont("helvetica", "normal").setFontSize(7);
+        doc.setTextColor(130, 130, 130);
+        doc.text("VK-11 Retourenschein (Stand 10/2025)", page_margin, footerZoneY + 4);
+        doc.text("Wilhelm Ewe GmbH & Co.KG | Volkmaroder Str. 19 | 38104 Braunschweig", page_width / 2, footerZoneY + 4, { align: 'center' });
+        doc.text(`Seite ${pageNum} von ${totalPages}`, page_width - page_margin, footerZoneY + 4, { align: 'right' });
     };
 
     const drawFixedSections = (y) => {
         // --- Interner Vermerk-Block ---
         y += internVermerkGap;
+        drawSectionHeader("Interner Vermerk", y - 2);
+        y += 6;
         const internBoxY = y;
-        doc.rect(page_margin, internBoxY, content_width, internBoxHeight);
+        doc.setDrawColor(200, 220, 240); doc.setLineWidth(0.3);
+        doc.roundedRect(page_margin, internBoxY, content_width, internBoxHeight, 2, 2);
         drawTextField(page_margin + 5, internBoxY + 3, "Wareneingangsdatum", wareneingangsdatumValue, 85, 6, true);
         drawTextField(page_margin + 5, internBoxY + 12.5, "Auftragsnummer", auftragsnummerValue, 85, 6, true);
         drawTextField(page_margin + 5, internBoxY + 22, "Reklamationsnummer", reklamationsnummerValue, 85, 6, true);
@@ -1301,7 +1343,10 @@ async function generateRetourenscheinPDF() {
 
         // --- Reklamations-Block ---
         y += reklGap;
-        doc.rect(page_margin, y, content_width, reklBoxHeight);
+        drawSectionHeader("Reklamation / Disposition", y - 2);
+        y += 8;
+        doc.setDrawColor(200, 220, 240); doc.setLineWidth(0.3);
+        doc.roundedRect(page_margin, y, content_width, reklBoxHeight, 2, 2);
         if (retourenInputs.checkReklamation.checked) {
             doc.setFont("helvetica", "bold").text('X', page_margin + 6, y + 5.5);
         }
@@ -1327,9 +1372,10 @@ async function generateRetourenscheinPDF() {
 
         // --- Notiz-Block ---
         y += notizGap;
-        doc.setFontSize(10).setFont("helvetica", "bold").text("Notizen", page_margin + 2, y + 5);
+        drawSectionHeader("Notizen", y);
         y += notizLabelHeight;
-        doc.rect(page_margin, y, content_width, notizBoxHeight);
+        doc.setDrawColor(200, 220, 240); doc.setLineWidth(0.3);
+        doc.roundedRect(page_margin, y, content_width, notizBoxHeight, 2, 2);
         doc.setFont("helvetica", "normal").setFontSize(9).text(retourenInputs.bemerkungen.value, page_margin + 2, y + 5, { maxWidth: content_width - 4 });
         y += notizBoxHeight;
         return y;
@@ -1386,14 +1432,14 @@ async function generateRetourenscheinPDF() {
     // ========================================================================
 
     // Seite 1: Header+Kundenangaben enden bei ca. y=100mm
-    const page1TableStart = 100; // konservative Schaetzung
+    const page1TableStart = 140; // nach Header + Kundenangaben (70mm) + Warnhinweis + 10mm
     const page1Available = footerZoneY - page1TableStart;
     const contHeaderHeight = 20; // Kompakt-Header auf Folgeseiten
     const contAvailable = footerZoneY - page_margin - contHeaderHeight;
-    const minVisibleRows = 5; // Minimum fuer Formular-Optik
+    const minVisibleRows = 1; // Minimum (bei wenig Artikeln passt mehr nicht mit festen Bloecken)
 
     const calcMaxRows = (available, needFixed) => {
-        return Math.floor((available - tableHeaderHeight - (needFixed ? fixedSectionsTotal : 0)) / rowHeight);
+        return Math.min(maxRowsPerPage, Math.floor((available - tableHeaderHeight - (needFixed ? fixedSectionsTotal : 0)) / rowHeight));
     };
 
     let pageDistribution = [];
@@ -1449,60 +1495,85 @@ async function generateRetourenscheinPDF() {
         let y;
 
         if (pageInfo.isFirst) {
-            // --- Seite 1: Voller Header + Kundenangaben ---
+            // --- Seite 1: Voller Header + Kundenangaben (Megaripp-Stil) ---
             y = page_margin;
-            let logoHeight = 15;
+            // drawDesignBars(); // entfernt
+
+            // Logo top-right
             if (cachedLogoImg) {
-                const logoWidth = 40;
-                logoHeight = logoWidth * (cachedLogoImg.height / cachedLogoImg.width);
-                doc.addImage(cachedLogoImg, 'PNG', page_width - page_margin - logoWidth, y, logoWidth, logoHeight);
-            } else {
-                doc.setFontSize(16).setFont("helvetica", "bold").text("EWE ARMATUREN", page_width - page_margin - 50, y + 5);
+                doc.addImage(cachedLogoImg, 'PNG', page_width - page_margin - 30, 8, 30, 30);
             }
 
-            doc.setFontSize(30).setFont("helvetica", "bold").text("Retourenschein", page_margin, y + 25);
-            const introTextY = Math.max(y + 10, y + logoHeight + 3);
-            doc.setFontSize(9).setFont("helvetica", "normal").text("Bitte Retourenschein ausfüllen, als Begleitdokument der Ware beilegen und per E-Mail an den zuständigen EWE-Innendienst schicken.", page_margin, introTextY, { maxWidth: content_width });
-            y = introTextY + 5;
+            // Firmenname + Adresse
+            doc.setFont("helvetica", "bold").setFontSize(20);
+            doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+            doc.text("Wilhelm Ewe GmbH & Co.KG", page_margin, 18);
+            doc.setFont("helvetica", "normal").setFontSize(8);
+            doc.setTextColor(100, 100, 100);
+            doc.text("Volkmaroder Str. 19 | 38104 Braunschweig | Tel. 0531 / 3 80 08-0", page_margin, 25);
 
-            // Kundenangaben
-            doc.setFontSize(10).setFont("helvetica", "bold").text("Kundenangaben", page_margin + 2, y + 5);
-            y += 7;
+            // Trennlinie (stoppt vor Logo)
+            doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+            doc.setLineWidth(0.8);
+            doc.line(page_margin, 29, 155, 29);
+            doc.setLineWidth(0.2);
+
+            // Titel
+            doc.setFont("helvetica", "bold").setFontSize(20);
+            doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+            doc.text("Retourenschein", page_margin, 44);
+
+            // Hinweistext (eine Zeile)
+            doc.setFontSize(7).setFont("helvetica", "normal");
+            doc.setTextColor(80, 80, 80);
+            doc.text("Bitte Retourenschein ausfüllen, als Begleitdokument der Ware beilegen und per E-Mail an den zuständigen EWE-Innendienst schicken.", page_margin, 50);
+
+            // KUNDENANGABEN Section Header (10mm Abstand nach Hinweistext)
+            drawSectionHeader("Kundenangaben", 60);
+            y = 67;
+
             const kundenBoxY = y;
-            const kundenBoxHeight = 58;
-            doc.rect(page_margin, kundenBoxY, content_width, kundenBoxHeight - 1);
+            const kundenBoxHeight = 60;
+            doc.setFillColor(245, 250, 255);
+            doc.setDrawColor(200, 220, 240);
+            doc.setLineWidth(0.3);
+            doc.roundedRect(page_margin, kundenBoxY, content_width, kundenBoxHeight, 2, 2, 'FD');
             const today = new Date().toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-            drawTextField(page_margin + 5, kundenBoxY + 5, "Firma", inputs.firma.value, 90, 12);
+            drawTextField(page_margin + 5, kundenBoxY + 5, "Firma", inputs.firma.value, 90, 10);
             let ansprechpartnerValue = inputs.name.value;
             let contactInfo = [];
             if (inputs.email.value) contactInfo.push(inputs.email.value);
             if (inputs.telefon.value) contactInfo.push(inputs.telefon.value);
             if (contactInfo.length > 0) ansprechpartnerValue += "\n" + contactInfo.join(", ");
-            drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Ansprechpartner", ansprechpartnerValue, 90, 12, true, 1.25);
-            drawTextField(page_width / 2 + 5, kundenBoxY + 20.5, "Datum", today, 90);
-            drawTextField(page_width / 2 + 5, kundenBoxY + 30, "Bearbeiter", bearbeiterWert, 90);
-            drawTextField(page_margin + 5, kundenBoxY + 20.5, "Adresse", inputs.strasse.value, 90);
-            drawTextField(page_margin + 5, kundenBoxY + 30, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`, 90);
-            const separatorY = kundenBoxY + 42;
-            doc.line(page_margin, separatorY - 2, page_width - page_margin, separatorY - 2);
-            drawTextField(page_margin + 5, separatorY + 3, "Anlieferung", anlieferungWert, 90);
-            drawTextField(page_width / 2 + 5, separatorY + 3, "Abholung Datum", abholDatumValue, 90);
+            drawTextField(page_width / 2 + 5, kundenBoxY + 5, "Ansprechpartner", ansprechpartnerValue, 90, 10, true, 1.25);
+            drawTextField(page_margin + 5, kundenBoxY + 21, "Adresse", inputs.strasse.value, 90);
+            drawTextField(page_width / 2 + 5, kundenBoxY + 21, "Datum", today, 90);
+            drawTextField(page_margin + 5, kundenBoxY + 32, "PLZ / Ort", `${inputs.plz.value} ${inputs.ort.value}`, 90);
+            drawTextField(page_width / 2 + 5, kundenBoxY + 32, "Bearbeiter", bearbeiterWert, 90);
+            const separatorY = kundenBoxY + 43;
+            doc.setDrawColor(200, 220, 240);
+            doc.line(page_margin + 2, separatorY, page_width - page_margin - 2, separatorY);
+            drawTextField(page_margin + 5, separatorY + 4, "Anlieferung", anlieferungWert, 90);
+            drawTextField(page_width / 2 + 5, separatorY + 4, "Abholung Datum", abholDatumValue, 90);
             y = kundenBoxY + kundenBoxHeight;
 
             // Warnhinweis
             y += 3;
-            doc.setFontSize(9).setFont("helvetica", "bold").text("Bitte beachten Sie, dass die Ware ordnungsgemäß sowie transportgerecht zur Abholung verpackt werden muss!", page_margin + 2, y + 5);
-            y += 5;
+            doc.setFontSize(7).setFont("helvetica", "italic");
+            doc.setTextColor(100, 100, 100);
+            doc.text("Bitte beachten Sie, dass die Ware ordnungsgemäß sowie transportgerecht zur Abholung verpackt werden muss!", page_margin, y + 4);
+            y += 10; // 10mm Abstand vor Artikeltabelle
         } else {
-            // --- Folgeseiten: Kompakt-Header ---
+            // --- Folgeseiten: Kompakt-Header (Megaripp-Stil) ---
             y = page_margin;
+            // drawDesignBars(); // entfernt
             if (cachedLogoImg) {
-                const smallLogoW = 20;
-                const smallLogoH = smallLogoW * (cachedLogoImg.height / cachedLogoImg.width);
-                doc.addImage(cachedLogoImg, 'PNG', page_width - page_margin - smallLogoW, y, smallLogoW, smallLogoH);
+                doc.addImage(cachedLogoImg, 'PNG', page_width - page_margin - 20, y, 20, 20);
             }
-            doc.setFontSize(14).setFont("helvetica", "bold").text("Retourenschein (Fortsetzung)", page_margin, y + 10);
+            doc.setFont("helvetica", "bold").setFontSize(14);
+            doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+            doc.text("Retourenschein (Fortsetzung)", page_margin, y + 10);
             y += contHeaderHeight;
         }
 
@@ -1515,7 +1586,8 @@ async function generateRetourenscheinPDF() {
             const rowY = tableStartY + tableHeaderHeight + (r * rowHeight);
             const articleIdx = pageInfo.startIdx + r;
             const article = (articleIdx < totalArticles) ? allArticles[articleIdx] : null;
-            drawArticleRow(rowY, article);
+            const posNr = (articleIdx < totalArticles) ? articleIdx + 1 : null;
+            drawArticleRow(rowY, article, posNr);
         }
         drawTableOutlineAndDividers(tableStartY, displayRows);
         y = tableStartY + tableHeaderHeight + (displayRows * rowHeight);
