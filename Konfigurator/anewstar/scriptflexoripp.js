@@ -857,13 +857,11 @@ function generatePDF() {
     const eweLightBlue = [0, 161, 225];
     const eweDark = [0, 51, 102];
 
-    // === HEADER: EWE Gradient Bar ===
-    doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
-    doc.rect(0, 0, 70, 6, 'F');
-    doc.setFillColor(0, 125, 180);
-    doc.rect(70, 0, 70, 6, 'F');
+    // === BLAUE DESIGN-BALKEN (links, wie interneAnfrage) ===
     doc.setFillColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
-    doc.rect(140, 0, 70, 6, 'F');
+    doc.rect(0, 47, 4, 20, 'F');
+    doc.rect(0, 72, 4, 20, 'F');
+    doc.rect(0, 97, 4, 20, 'F');
 
     doc.addImage(eweLogo, 'PNG', 160, 10, 30, 30);
 
@@ -876,22 +874,27 @@ function generatePDF() {
     doc.setTextColor(100, 100, 100);
     doc.text("Volkmaroder Str. 19 | 38104 Braunschweig | Tel. 0531 / 3 80 08-0", marginL, 24);
 
+    // Trennlinie unter Firmendaten
+    doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.setLineWidth(0.8);
+    doc.line(marginL, 28, 155, 28);
+
     doc.setFont("helvetica", "bold");
     doc.setFontSize(20);
     doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("FLEXORIPP-Konfiguration", marginL, 38);
+    doc.text("FLEXORIPP-Konfiguration", marginL, 53);
 
     // Info-Zeile
     doc.setFillColor(240, 248, 255);
-    doc.roundedRect(marginL, 42, contentW, 10, 2, 2, 'F');
+    doc.roundedRect(marginL, 56, contentW, 10, 2, 2, 'F');
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(60, 60, 60);
-    doc.text(`Anfrage-Nr.: ${requestNumber}`, marginL + 4, 48.5);
-    doc.text(`Datum: ${currentDate}`, marginL + 90, 48.5);
+    doc.text(`Anfrage-Nr.: ${requestNumber}`, marginL + 4, 62.5);
+    doc.text(`Datum: ${currentDate}`, marginL + 90, 62.5);
 
     // === KUNDENDATEN-BOX ===
-    let y = 58;
+    let y = 79;
     doc.setFillColor(245, 250, 255);
     doc.setDrawColor(200, 220, 240);
     doc.setLineWidth(0.3);
@@ -899,8 +902,8 @@ function generatePDF() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("Kundendaten", marginL + 4, y + 6);
-    doc.line(marginL + 4, y + 8, marginL + contentW - 4, y + 8);
+    doc.text("Kundendaten", marginL + 4, y + 6.5);
+    doc.line(marginL + 4, y + 9, marginL + contentW - 4, y + 9);
     doc.setFontSize(9);
     doc.setTextColor(40, 40, 40);
     const col1X = marginL + 4, col2X = marginL + contentW / 2 + 4, labelW = 20;
@@ -916,12 +919,16 @@ function generatePDF() {
     doc.setFont("helvetica", "normal"); doc.text(phone, col2X + labelW, y + 20);
 
     // === KONFIGURATIONSTABELLE + PRODUKTBILD ===
-    y = 96;
+    y = 122;
+    doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.setLineWidth(0.5);
+    doc.line(marginL, y - 2, pageW - marginR, y - 2);
+    doc.setLineWidth(0.2);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("Ihre Konfiguration", marginL, y);
-    y += 4;
+    doc.setTextColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.text("IHRE KONFIGURATION", marginL, y + 4);
+    y += 9;
 
     const tableW = contentW * 0.63;
     const imgAreaX = marginL + tableW + 4;
@@ -983,28 +990,44 @@ function generatePDF() {
     doc.rect(marginL, tableStartY, tableW, tableEndY - tableStartY);
     doc.line(marginL + colLabelW, tableStartY + 9, marginL + colLabelW, tableEndY);
 
-    // Produktbild rechts
+    // Produktbild rechts (proportional skaliert)
     const imgBoxH = tableEndY - tableStartY;
     doc.setDrawColor(200, 220, 240); doc.setFillColor(250, 252, 255);
     doc.roundedRect(imgAreaX, tableStartY, imgAreaW, imgBoxH, 2, 2, 'FD');
-    const imgW = imgAreaW - 10, imgH = imgW * 1.6;
-    const imgX = imgAreaX + 5, imgY = tableStartY + (imgBoxH - imgH) / 2;
-    try { doc.addImage(productImage, 'PNG', imgX, imgY > tableStartY + 2 ? imgY : tableStartY + 2, imgW, Math.min(imgH, imgBoxH - 8)); } catch(e) {}
+    const maxImgW = imgAreaW - 10;
+    const maxImgH = imgBoxH - 14;
+    const imgRatio = 1.6;
+    let finalImgW, finalImgH;
+    if (maxImgW * imgRatio <= maxImgH) {
+        finalImgW = maxImgW;
+        finalImgH = maxImgW * imgRatio;
+    } else {
+        finalImgH = maxImgH;
+        finalImgW = maxImgH / imgRatio;
+    }
+    const imgX = imgAreaX + (imgAreaW - finalImgW) / 2;
+    const imgY = tableStartY + (imgBoxH - finalImgH) / 2 - 3;
+    try { doc.addImage(productImage, 'PNG', imgX, imgY > tableStartY + 2 ? imgY : tableStartY + 2, finalImgW, finalImgH); } catch(e) {}
     doc.setFont("helvetica", "italic"); doc.setFontSize(7); doc.setTextColor(120, 120, 120);
     doc.text("Flexoripp Wasserz\u00e4hlersch.", imgAreaX + imgAreaW / 2, tableStartY + imgBoxH - 3, { align: "center" });
 
     // === BEMERKUNGEN ===
-    y = tableEndY + 6;
-    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("Bemerkungen", marginL, y);
-    y += 4;
+    y = tableEndY + 12;
+    doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.setLineWidth(0.5);
+    doc.line(marginL, y - 2, pageW - marginR, y - 2);
+    doc.setLineWidth(0.2);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.text("BEMERKUNGEN", marginL, y + 4);
+    y += 8;
     doc.setDrawColor(200, 220, 240); doc.setLineWidth(0.3);
-    doc.roundedRect(marginL, y, contentW, 18, 2, 2, 'D');
+    const footerY = 280;
+    const bemerkBoxH = Math.min(35, Math.max(18, footerY - y - 5));
+    doc.roundedRect(marginL, y, contentW, bemerkBoxH, 2, 2, 'D');
     doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(60, 60, 60);
     doc.text(doc.splitTextToSize(comments, contentW - 8).slice(0, 3), marginL + 4, y + 6);
 
     // === FOOTER ===
-    const footerY = 280;
     doc.setDrawColor(0, 161, 225); doc.setLineWidth(0.5);
     doc.line(marginL, footerY, pageW - marginR, footerY);
     doc.setFont("helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(130, 130, 130);

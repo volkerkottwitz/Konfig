@@ -86,10 +86,6 @@ header [data-tooltip]:hover::after {
     z-index: 10;
 }
 
-.floating-eween-btn[data-tooltip] {
-    position: relative;
-}
-
 .floating-eween-btn[data-tooltip]:hover::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -458,9 +454,9 @@ textarea {
 /* ========== 10. FORTSCHRITTSANZEIGE ========== */
 .progress-container {
     width: 100%;
-    height: 10px;
-    background-color: rgba(255,255,255,0.25);
-    border-radius: 0;
+    height: 3px;
+    background-color: rgba(255,255,255,0.15);
+    border-radius: 2px;
     position: relative;
     display: none;
     overflow: hidden;
@@ -470,16 +466,17 @@ textarea {
 .progress-bar {
     height: 100%;
     width: 0%;
-    background-color: #ffffff;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 2px;
     transition: width 0.4s ease;
 }
 
 .progress-text {
     width: 100%;
-    font-size: 14px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.85);
-    margin: 8px 0 0 0;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    margin: 4px 0 0 0;
     display: none;
     order: 4;
 }
@@ -675,6 +672,13 @@ textarea {
     header {
         flex-direction: column;
         text-align: center;
+        gap: 8px;
+        padding: 10px 15px;
+    }
+
+    header .logo {
+        height: 40px;
+        margin-top: 0;
     }
 
     header h1 {
@@ -689,7 +693,42 @@ textarea {
     .header-action-btn {
         font-size: 13px;
         padding: 8px 14px;
-        height: 38px;
+        height: 34px;
+    }
+
+    section.screen h2 {
+        font-size: 1.25rem;
+        margin: 10px 0 15px 0;
+    }
+
+    .visual-nav {
+        gap: 6px;
+        padding: 8px;
+        min-height: 50px;
+    }
+
+    .visual-nav-step {
+        height: 34px;
+        width: 34px;
+    }
+
+    .summary-item-btn {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .summary-value {
+        text-align: left;
+    }
+
+    #userDataScreen .input-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #userDataScreen .input-group input {
+        width: 100%;
     }
 }
 
@@ -704,5 +743,62 @@ textarea {
 
     .inactivity-hint p {
         font-size: 0.7em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        gap: 6px;
+        padding: 8px 10px;
+    }
+
+    header .logo {
+        height: 32px;
+    }
+
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    main {
+        margin: 6px;
+        padding: 12px;
+    }
+
+    button {
+        font-size: 14px;
+        height: 40px;
+        padding: 0 16px;
+    }
+
+    .info-image {
+        max-width: 160px;
+        max-height: 120px;
+    }
+
+    .visual-nav-step {
+        height: 28px;
+        width: 28px;
+    }
+
+    .info-text {
+        padding: 0 8px;
+    }
+
+    .info-text h3 {
+        font-size: 1rem;
+    }
+
+    .info-text li,
+    .info-text p {
+        font-size: 0.85rem;
+    }
+
+    .info-detail-img {
+        max-width: 220px;
+    }
+
+    #userDataScreen .form-container {
+        padding: 12px;
     }
 }

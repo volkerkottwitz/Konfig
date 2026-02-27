@@ -29,7 +29,7 @@ const screenImages = {
     screen4: 'images/ausgangksr.JPG',
     screen5: 'images/wz_freistrom.jpg',
     screen6: 'images/pe-rohr-eingang.jpg',
-    screen7: 'images/pe-rohr-eingang.jpg',
+    screen7: 'images/pe-rohr-ausgang.PNG',
     screen7b: 'images/schachtabdeckung.jpg',
     screen8: 'images/schluessel6kant.jpg'
 };
@@ -333,18 +333,16 @@ function updateSummary() {
     const summaryContainer = document.getElementById('summary');
     summaryContainer.innerHTML = '';
 
-    const summaryItems = [
+    const configItems = [
         { label: 'Anlagengröße', value: lastSelections.selection1, target: 'screen2' },
         { label: 'WZ-Anlage Eingang', value: lastSelections.selection2, target: 'screen3' },
         { label: 'WZ-Anlage Ausgang', value: lastSelections.selection3, target: 'screen4' },
         { label: 'Anzahl WZ-Anlagen', value: lastSelections.selection4, target: 'screen5' },
         { label: 'PE-Größe Eingang', value: lastSelections.selection5, target: 'screen6' },
-        { label: 'PE-Größe Ausgang', value: lastSelections.selection6, target: 'screen7' },
-        { label: 'Abdeckung', value: lastSelections.selection7, target: 'screen7b' },
-        { label: 'Schachtschlüssel', value: lastSelections.selection8, target: 'screen8' }
+        { label: 'PE-Größe Ausgang', value: lastSelections.selection6, target: 'screen7' }
     ];
 
-    summaryItems.forEach((item, index) => {
+    configItems.forEach((item, index) => {
         if (item.value) {
             const summaryButton = document.createElement('button');
             summaryButton.className = 'summary-item-btn';
@@ -355,7 +353,39 @@ function updateSummary() {
             summaryContainer.appendChild(summaryButton);
         }
     });
-    
+
+    // Zubehör-Trenner
+    const separator = document.createElement('div');
+    separator.style.cssText = 'font-size:0.85rem;color:#005A8C;font-weight:600;margin:12px 0 4px 0;border-top:1px solid #00a1e1;padding-top:8px;';
+    separator.textContent = 'Zubehör (separat zu bestellen)';
+    summaryContainer.appendChild(separator);
+
+    // Zubehör-Artikelnummern
+    const abdeckung = lastSelections.selection7 || '';
+    let abdeckungArtNr = '';
+    if (abdeckung === 'Schachtabdeckung B125') abdeckungArtNr = '0398000';
+    else if (abdeckung === 'Betonauflagering DN625') abdeckungArtNr = '0398005';
+    const schluessel = lastSelections.selection8 || '';
+    const schluesselArtNr = (schluessel === 'Ja') ? '0398001' : '';
+
+    const zubItems = [
+        { label: 'Schachtabdeckung', value: abdeckung, artNr: abdeckungArtNr, target: 'screen7b', step: 7 },
+        { label: 'Sechskantschlüssel SW24', value: schluessel, artNr: schluesselArtNr, target: 'screen8', step: 8 }
+    ];
+
+    zubItems.forEach((item) => {
+        if (item.value) {
+            const summaryButton = document.createElement('button');
+            summaryButton.className = 'summary-item-btn';
+            const artNrSpan = item.artNr ? `<span class="summary-articleno">Art.-Nr. ${item.artNr}</span>` : '';
+            summaryButton.innerHTML = `<span class="summary-label">${item.label}:</span> <span class="summary-value">${item.value}${artNrSpan}</span>`;
+            summaryButton.dataset.targetScreen = item.target;
+            summaryButton.dataset.stepNumber = item.step;
+            summaryButton.addEventListener('click', jumpToScreenFromNav);
+            summaryContainer.appendChild(summaryButton);
+        }
+    });
+
     document.getElementById('summaryArticleNumber').textContent = getArticleNumber();
 }
 
@@ -408,13 +438,7 @@ function generatePDF() {
     const eweLightBlue = [0, 161, 225];
     const eweDark = [0, 51, 102];
 
-    // === HEADER: EWE Gradient Bar ===
-    doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
-    doc.rect(0, 0, 70, 6, 'F');
-    doc.setFillColor(0, 125, 180);
-    doc.rect(70, 0, 70, 6, 'F');
-    doc.setFillColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
-    doc.rect(140, 0, 70, 6, 'F');
+    // === BLAUE DESIGN-BALKEN (entfernt) ===
 
     // Logo
     doc.addImage(eweLogo, 'PNG', 160, 10, 30, 30);
@@ -429,24 +453,29 @@ function generatePDF() {
     doc.setTextColor(100, 100, 100);
     doc.text("Volkmaroder Str. 19 | 38104 Braunschweig | Tel. 0531 / 3 80 08-0", marginL, 24);
 
+    // Trennlinie unter Firmendaten
+    doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.setLineWidth(0.8);
+    doc.line(marginL, 28, 155, 28);
+
     // Titel
     doc.setFont("helvetica", "bold");
     doc.setFontSize(20);
     doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("MEGARIPP-Konfiguration", marginL, 38);
+    doc.text("MEGARIPP-Konfiguration", marginL, 53);
 
     // Info-Zeile
     doc.setFillColor(240, 248, 255);
-    doc.roundedRect(marginL, 42, contentW, 10, 2, 2, 'F');
+    doc.roundedRect(marginL, 56, contentW, 10, 2, 2, 'F');
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(60, 60, 60);
-    doc.text(`Anfrage-Nr.: ${requestNumber}`, marginL + 4, 48.5);
-    doc.text(`Datum: ${currentDate}`, marginL + 70, 48.5);
-    doc.text(`Art.-Nr.: ${articleNumber}`, marginL + 130, 48.5);
+    doc.text(`Anfrage-Nr.: ${requestNumber}`, marginL + 4, 62.5);
+    doc.text(`Datum: ${currentDate}`, marginL + 70, 62.5);
+    doc.text(`Art.-Nr.: ${articleNumber}`, marginL + 130, 62.5);
 
     // === KUNDENDATEN-BOX (2-spaltig) ===
-    let y = 58;
+    let y = 79;
     doc.setFillColor(245, 250, 255);
     doc.setDrawColor(200, 220, 240);
     doc.setLineWidth(0.3);
@@ -454,9 +483,9 @@ function generatePDF() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("Kundendaten", marginL + 4, y + 6);
+    doc.text("Kundendaten", marginL + 4, y + 6.5);
     doc.setDrawColor(200, 220, 240);
-    doc.line(marginL + 4, y + 8, marginL + contentW - 4, y + 8);
+    doc.line(marginL + 4, y + 9, marginL + contentW - 4, y + 9);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(40, 40, 40);
@@ -474,12 +503,16 @@ function generatePDF() {
     doc.setFont("helvetica", "normal"); doc.text(phone, col2X + labelW, y + 20);
 
     // === KONFIGURATIONSTABELLE + PRODUKTBILD ===
-    y = 96;
+    y = 117;
+    doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.setLineWidth(0.5);
+    doc.line(marginL, y - 2, pageW - marginR, y - 2);
+    doc.setLineWidth(0.2);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("Ihre Konfiguration", marginL, y);
-    y += 4;
+    doc.setTextColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.text("IHRE KONFIGURATION", marginL, y + 4);
+    y += 8;
     
     // Tabelle (linke 2/3)
     const tableW = contentW * 0.63;
@@ -493,9 +526,7 @@ function generatePDF() {
         { label: 'WZ-Anlage Ausgang', value: lastSelections.selection3 || '\u2013' },
         { label: 'Anzahl WZ-Anlagen', value: lastSelections.selection4 || '\u2013' },
         { label: 'PE-Größe Eingang', value: lastSelections.selection5 || '\u2013' },
-        { label: 'PE-Größe Ausgang', value: lastSelections.selection6 || '\u2013' },
-        { label: 'Abdeckung', value: lastSelections.selection7 || '\u2013' },
-        { label: 'Schachtschlüssel', value: lastSelections.selection8 || '\u2013' }
+        { label: 'PE-Größe Ausgang', value: lastSelections.selection6 || '\u2013' }
     ];
     const tableStartY = y;
     doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
@@ -527,26 +558,91 @@ function generatePDF() {
     try { doc.addImage(productImage, 'PNG', imgX, imgY > tableStartY + 2 ? imgY : tableStartY + 2, imgW, imgH); } catch(e) {}
     doc.setFont("helvetica", "italic"); doc.setFontSize(7); doc.setTextColor(120, 120, 120);
     doc.text("MegaRipp Wasserzählerschacht", imgAreaX + imgAreaW / 2, tableStartY + imgBoxH - 3, { align: "center" });
+
+    // === ZUBEHÖR (separat zu bestellen) ===
+    y = tableEndY + 10;
+    doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.setLineWidth(0.5);
+    doc.line(marginL, y - 2, pageW - marginR, y - 2);
+    doc.setLineWidth(0.2);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(11);
+    doc.setTextColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.text("ZUBEHÖR", marginL, y + 4);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text("(separat zu bestellen — nicht in Artikelnummer enthalten)", marginL + 30, y + 4);
+    y += 8;
+
+    // Zubehör-Artikelnummer-Mapping
+    const abdeckungVal = lastSelections.selection7 || '';
+    const schluesselVal = lastSelections.selection8 || '';
+    let abdeckungArtNr = '\u2013';
+    if (abdeckungVal === 'Schachtabdeckung B125') abdeckungArtNr = '0398000';
+    else if (abdeckungVal === 'Betonauflagering DN625') abdeckungArtNr = '0398005';
+    const schluesselArtNr = (schluesselVal === 'Ja') ? '0398001' : '\u2013';
+
+    const zubRows = [
+        { label: 'Schachtabdeckung', value: abdeckungVal || '\u2013', artNr: abdeckungArtNr },
+        { label: 'Sechskantschlüssel SW24', value: schluesselVal || '\u2013', artNr: schluesselArtNr }
+    ];
+    const zubColLabel = 50, zubColValue = 55, zubColArt = contentW - zubColLabel - zubColValue;
+    const zubStartY = y;
+    // Tabellenkopf
+    doc.setFillColor(eweBlue[0], eweBlue[1], eweBlue[2]);
+    doc.rect(marginL, y, contentW, rowH, 'F');
+    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(255, 255, 255);
+    doc.text("Zubehör", marginL + 3, y + 6);
+    doc.text("Auswahl", marginL + zubColLabel + 3, y + 6);
+    doc.text("Art.-Nr.", marginL + zubColLabel + zubColValue + 3, y + 6);
+    y += rowH;
+    // Zeilen
+    zubRows.forEach((row, i) => {
+        if (i % 2 === 0) { doc.setFillColor(245, 250, 255); doc.rect(marginL, y, contentW, rowH, 'F'); }
+        doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(40, 40, 40);
+        doc.text(row.label, marginL + 3, y + 6);
+        doc.text(row.value, marginL + zubColLabel + 3, y + 6);
+        doc.setFont("helvetica", "bold"); doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
+        doc.text(row.artNr, marginL + zubColLabel + zubColValue + 3, y + 6);
+        y += rowH;
+    });
+    const zubEndY = y;
+    doc.setDrawColor(200, 210, 220); doc.setLineWidth(0.3);
+    doc.rect(marginL, zubStartY, contentW, zubEndY - zubStartY);
+    doc.line(marginL + zubColLabel, zubStartY + rowH, marginL + zubColLabel, zubEndY);
+    doc.line(marginL + zubColLabel + zubColValue, zubStartY + rowH, marginL + zubColLabel + zubColValue, zubEndY);
+
     // Zusammenfassung
-    y = tableEndY + 6;
+    y = zubEndY + 8;
+    doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.setLineWidth(0.5);
+    doc.line(marginL, y - 2, pageW - marginR, y - 2);
+    doc.setLineWidth(0.2);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.text("ZUSAMMENFASSUNG", marginL, y + 4);
+    y += 8;
     doc.setFillColor(245, 250, 255);
-    doc.roundedRect(marginL, y, contentW, 24, 2, 2, 'F');
-    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("Zusammenfassung", marginL + 4, y + 6);
+    const summaryText = `MegaRipp ${lastSelections.selection1 || ''} (Art.-Nr. ${articleNumber}) mit ${lastSelections.selection4 || ''} WZ-Anlage(n) ${lastSelections.selection2 || ''} / ${lastSelections.selection3 || ''}. Eingang: 1 x ${lastSelections.selection5 || ''}. Ausgang: ${lastSelections.selection4 || ''} x ${lastSelections.selection6 || ''}. Zubehör: ${abdeckungVal !== 'Keine Auswahl' && abdeckungVal ? abdeckungVal + ' (Art. ' + abdeckungArtNr + ')' : 'Keine Abdeckung'}${schluesselVal === 'Ja' ? ', Schlüssel SW24 (Art. ' + schluesselArtNr + ')' : ''}.`;
+    const summaryLines = doc.splitTextToSize(summaryText, contentW - 8);
+    const summaryBoxH = Math.max(14, summaryLines.length * 4 + 6);
+    doc.roundedRect(marginL, y, contentW, summaryBoxH, 2, 2, 'F');
     doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor(40, 40, 40);
-    const summaryText = `Ein MegaRipp ${lastSelections.selection1 || ''} mit ${lastSelections.selection4 || ''} WZ-Anlage(n) ${lastSelections.selection2 || ''} / ${lastSelections.selection3 || ''}. Eingang: 1 x ${lastSelections.selection5 || ''}. Ausgang: ${lastSelections.selection4 || ''} x ${lastSelections.selection6 || ''}. Abdeckung: ${lastSelections.selection7 || ''}. Schlüssel: ${lastSelections.selection8 || ''}.`;
-    doc.text(doc.splitTextToSize(summaryText, contentW - 8), marginL + 4, y + 12);
+    doc.text(summaryLines, marginL + 4, y + 6);
     // Bemerkungen
-    y += 30;
-    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("Bemerkungen", marginL, y);
-    y += 4;
+    y += summaryBoxH + 8;
+    doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.setLineWidth(0.5);
+    doc.line(marginL, y - 2, pageW - marginR, y - 2);
+    doc.setLineWidth(0.2);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
+    doc.text("BEMERKUNGEN", marginL, y + 4);
+    y += 8;
     doc.setDrawColor(200, 220, 240); doc.setLineWidth(0.3);
-    doc.roundedRect(marginL, y, contentW, 18, 2, 2, 'D');
+    const footerY = 280;
+    const bemerkBoxH = Math.min(35, Math.max(18, footerY - y - 5));
+    doc.roundedRect(marginL, y, contentW, bemerkBoxH, 2, 2, 'D');
     doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(60, 60, 60);
     doc.text(doc.splitTextToSize(comments, contentW - 8).slice(0, 3), marginL + 4, y + 6);
     // Footer
-    const footerY = 280;
     doc.setDrawColor(0, 161, 225); doc.setLineWidth(0.5);
     doc.line(marginL, footerY, pageW - marginR, footerY);
     doc.setFont("helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(130, 130, 130);
@@ -560,26 +656,34 @@ function generatePDF() {
 }
 
 function sendEmail() {
+    const abdeckung = lastSelections.selection7 || 'Keine Auswahl';
+    const schluessel = lastSelections.selection8 || 'Nein';
+    let abdeckungArt = '';
+    if (abdeckung === 'Schachtabdeckung B125') abdeckungArt = ' (Art. 0398000)';
+    else if (abdeckung === 'Betonauflagering DN625') abdeckungArt = ' (Art. 0398005)';
+    const schluesselArt = (schluessel === 'Ja') ? ' (Art. 0398001)' : '';
+
     let emailBody = `
 Sehr geehrte Damen und Herren,
 
-ich hoffe, es geht Ihnen gut. Anbei sende ich Ihnen die Konfiguration, die ich über Ihren Konfigurator erstellt habe:
+anbei die Konfiguration aus Ihrem MegaRipp-Konfigurator:
 
 ---------------------------------------------------------
-Artikelnummer: ${getArticleNumber()}
-1. ${lastSelections.selection1}
-2. ${lastSelections.selection2}
-3. ${lastSelections.selection3}
-4. ${lastSelections.selection4}
-5. ${lastSelections.selection5}
-6. ${lastSelections.selection6}
-7. ${lastSelections.selection7}
-8. ${lastSelections.selection8}
+MegaRipp Art.-Nr.: ${getArticleNumber()}
+
+1. Anlagengröße: ${lastSelections.selection1}
+2. WZ-Anlage Eingang: ${lastSelections.selection2}
+3. WZ-Anlage Ausgang: ${lastSelections.selection3}
+4. Anzahl WZ-Anlagen: ${lastSelections.selection4}
+5. PE-Größe Eingang: ${lastSelections.selection5}
+6. PE-Größe Ausgang: ${lastSelections.selection6}
+
+Zubehör (separat zu bestellen):
+- Schachtabdeckung: ${abdeckung}${abdeckungArt}
+- Sechskantschlüssel SW24: ${schluessel}${schluesselArt}
 ---------------------------------------------------------
 
-Ich wäre Ihnen dankbar, wenn Sie mir ein Angebot auf Basis dieser Konfiguration unterbreiten könnten.
-
-Vielen Dank im Voraus für Ihre Mühe. Ich freue mich auf Ihre Rückmeldung.
+Ich bitte um ein Angebot auf Basis dieser Konfiguration.
 
 Mit freundlichen Grüßen,
 [Ihr Name]
