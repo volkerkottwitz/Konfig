@@ -399,6 +399,7 @@
         document.getElementById('ort').value = ort;
         document.getElementById('land').value = land;
         input.value = '';
+        onPLZChange(plz);
         if (kundenDatenbank.length > 0) showKundenByPLZ(plz);
       });
     };
@@ -512,6 +513,7 @@ async function showKundenByPLZ(plz) {
             document.getElementById('kundenSpeichernBtn').style.display = 'none';
             selectedSupabaseKundeId = null;
             document.getElementById('kundenLoeschenBtn').style.display = 'none';
+            onPLZChange(document.getElementById('plz').value);
         });
         container.appendChild(div);
     });
@@ -547,6 +549,7 @@ async function showKundenByPLZ(plz) {
             document.getElementById('kundenSpeichernBtn').style.display = 'none';
             selectedSupabaseKundeId = kunde.id;
             document.getElementById('kundenLoeschenBtn').style.display = 'block';
+            onPLZChange(kunde.plz || '');
         });
         div.appendChild(textSpan);
 
@@ -804,6 +807,9 @@ document.addEventListener('click', function(e) {
       } else {
         artikelInhalt.innerHTML = "<p>Keine Artikel in der Merkliste gefunden. Bitte verwenden Sie den PDF-Viewer, um Artikel zur Merkliste hinzuzufügen.</p>";
       }
+
+      // Auto-Save nach Artikel-Aenderung
+      if (typeof saveAnfrageFormData === 'function') saveAnfrageFormData();
     }
 
     // Manuelle Artikel-Eingabe
@@ -906,7 +912,220 @@ document.addEventListener('click', function(e) {
     }
 
 // ========================================================================
-// ===== NEU: Funktion zum Wiederherstellen der Anfrage-Formulardaten =====
+// ===== PLZ → GEBIET → SACHBEARBEITER/AUSSENDIENST Zuordnung         =====
+// ========================================================================
+function findGebietByPLZ(plzInput) {
+    const plzStr = String(plzInput).replace(/\D/g, '');
+    const plz = parseInt(plzStr.padEnd(5, '0'));
+    if (isNaN(plz)) return null;
+
+    if (plz >= 4890  && plz <= 4939)  return 'GEBIET 20';
+    if (plz >= 6108  && plz <= 6259)  return 'GEBIET 80';
+    if (plz >= 6650  && plz <= 6729)  return 'GEBIET 80';
+    if (plz >= 9580  && plz <= 9639)  return 'GEBIET 20';
+    if (plz >= 14700 && plz <= 14829) return 'GEBIET 60';
+    if (plz >= 16840 && plz <= 16949) return 'GEBIET 60';
+    if (plz >= 18000 && plz <= 18299) return 'GEBIET 60';
+    if (plz >= 23920 && plz <= 23999) return 'GEBIET 60';
+    if (plz >= 29400 && plz <= 29419) return 'GEBIET 40';
+    if (plz >= 36170 && plz <= 36289) return 'GEBIET 40';
+    if (plz >= 36400 && plz <= 36469) return 'GEBIET 80';
+    if (plz >= 37300 && plz <= 37359) return 'GEBIET 60';
+    if (plz >= 38800 && plz <= 38899) return 'GEBIET 60';
+    if (plz >= 76710 && plz <= 76899) return 'GEBIET 72';
+    if (plz >= 96500 && plz <= 96529) return 'GEBIET 80';
+    if (plz >= 98500 && plz <= 98749) return 'GEBIET 80';
+    if (plz >= 99800 && plz <= 99849) return 'GEBIET 80';
+
+    const prefix = Math.floor(plz / 1000);
+    if (prefix <= 3)   return 'GEBIET 20';
+    if (prefix <= 5)   return 'GEBIET 80';
+    if (prefix === 6)  return 'GEBIET 60';
+    if (prefix <= 9)   return 'GEBIET 80';
+    if (prefix <= 18)  return 'GEBIET 20';
+    if (prefix === 19) return 'GEBIET 60';
+    if (prefix <= 29)  return 'GEBIET 10';
+    if (prefix <= 31)  return 'GEBIET 40';
+    if (prefix <= 33)  return 'GEBIET 50';
+    if (prefix === 34) return 'GEBIET 40';
+    if (prefix <= 36)  return 'GEBIET 72';
+    if (prefix <= 38)  return 'GEBIET 40';
+    if (prefix === 39) return 'GEBIET 60';
+    if (prefix <= 53)  return 'GEBIET 50';
+    if (prefix <= 56)  return 'GEBIET 72';
+    if (prefix <= 59)  return 'GEBIET 50';
+    if (prefix <= 69)  return 'GEBIET 72';
+    if (prefix <= 79)  return 'GEBIET 74';
+    if (prefix <= 87)  return 'GEBIET 76';
+    if (prefix <= 89)  return 'GEBIET 74';
+    if (prefix <= 93)  return 'GEBIET 78';
+    if (prefix === 94) return 'GEBIET 76';
+    if (prefix <= 97)  return 'GEBIET 78';
+    if (prefix <= 99)  return 'GEBIET 60';
+    return null;
+}
+
+function isAustrianPLZ(plzStr) {
+    const clean = String(plzStr).replace(/\D/g, '');
+    return clean.length === 4 && clean[0] !== '0';
+}
+
+const GEBIET_ZU_INNENDIENST = {
+    'GEBIET 10': 'Nadine Suhr',
+    'GEBIET 20': 'Denise Otto',
+    'GEBIET 40': 'Claudia Batke',
+    'GEBIET 50': 'Sascha Heusel',
+    'GEBIET 60': 'Denise Otto',
+    'GEBIET 72': 'Claudia Batke',
+    'GEBIET 74': 'Sascha Heusel',
+    'GEBIET 76': 'Nils Vokuhl',
+    'GEBIET 78': 'Nils Vokuhl',
+    'GEBIET 80': 'Diana Kahlert',
+    'OESTERREICH': 'Nadine Suhr'
+};
+
+const GEBIET_ZU_AUSSENDIENST = {
+    'GEBIET 10': 'Thomas Wendt',
+    'GEBIET 20': 'Nancy Ullbricht',
+    'GEBIET 40': 'Harald Natzke',
+    'GEBIET 50': 'Volker Oesterwind',
+    'GEBIET 60': 'Volker Kottwitz',
+    'GEBIET 72': 'Christof Münster',
+    'GEBIET 74': 'Rafael Furtwängler',
+    'GEBIET 76': 'Christopher-Sean Haus',
+    'GEBIET 78': 'Helmut Wölfel',
+    'GEBIET 80': 'Heiner Birkholz',
+    'OESTERREICH': 'Bernhard Kneissl'
+};
+
+function onPLZChange(plzValue) {
+    const plzClean = String(plzValue).replace(/\D/g, '');
+    if (plzClean.length < 4) return;
+    if (plzClean.length === 4 && !isAustrianPLZ(plzClean)) return;
+
+    const gebiet = (isAustrianPLZ(plzClean) && plzClean.length === 4)
+        ? 'OESTERREICH'
+        : findGebietByPLZ(plzClean);
+    if (!gebiet) return;
+
+    let changed = false;
+
+    // Innendienst (Sachbearbeiter) — nur wenn leer
+    const currentSB = $('#sachbearbeiterDropdown').val();
+    if (!currentSB || currentSB === '') {
+        const innendienst = GEBIET_ZU_INNENDIENST[gebiet];
+        if (innendienst && $('#sachbearbeiterDropdown option[value="' + innendienst + '"]').length > 0) {
+            $('#sachbearbeiterDropdown').val(innendienst).trigger('change');
+            changed = true;
+        }
+    }
+
+    // Aussendienst — nur wenn leer
+    const currentAD = $('#aussendienstDropdown').val();
+    if (!currentAD || currentAD === '') {
+        const aussendienst = GEBIET_ZU_AUSSENDIENST[gebiet];
+        if (aussendienst && $('#aussendienstDropdown option[value="' + aussendienst + '"]').length > 0) {
+            $('#aussendienstDropdown').val(aussendienst).trigger('change');
+            changed = true;
+        }
+    }
+
+    if (changed) {
+        zeigeToast('<i class="bi bi-person-check"></i> Sachbearbeiter automatisch zugeordnet', 'success');
+    }
+}
+
+// ========================================================================
+// ===== Formulardaten speichern (extrahiert fuer Auto-Save)           =====
+// ========================================================================
+function saveAnfrageFormData() {
+    try {
+        const formData = {
+            mainTitle: document.getElementById('mainTitleInput').value,
+            name: document.getElementById('name').value,
+            firma: document.getElementById('firma').value,
+            strasse: document.getElementById('strasse').value,
+            plz: document.getElementById('plz').value,
+            ort: document.getElementById('ort').value,
+            land: document.getElementById('land').value,
+            email: document.getElementById('email').value,
+            telefon: document.getElementById('telefon').value,
+            kundennummer: document.getElementById('kundennummer').value,
+            sachbearbeiter: $('#sachbearbeiterDropdown').val(),
+            sachbearbeiterManuell: document.getElementById('sachbearbeiterManuell').value,
+            aussendienst: $('#aussendienstDropdown').val(),
+            aussendienstManuell: document.getElementById('aussendienstManuell').value,
+            artikel: window.merklisteItems || [],
+            hintergrund: document.getElementById('hintergrund').value,
+            fokus: document.getElementById('fokus').value,
+            preisgestaltung: document.getElementById('preisgestaltung').value,
+            bericht: document.getElementById('bericht').value,
+            aufgaben: document.getElementById('aufgaben').value,
+            toggleStates: Object.fromEntries(
+                [...document.querySelectorAll('.field-toggle')].map(cb => [
+                    cb.id.replace('toggle-', ''), cb.checked
+                ])
+            ),
+            fieldLabels: Object.fromEntries(
+                [...document.querySelectorAll('.briefing-field[data-field-id]')].map(f => [
+                    f.dataset.fieldId,
+                    f.querySelector('.field-label-edit').value
+                ])
+            )
+        };
+        localStorage.setItem('anfrageFormData', JSON.stringify(formData));
+    } catch (error) {
+        console.error("Auto-Save Fehler:", error);
+    }
+}
+
+// Debounce-Hilfsfunktion
+function debounce(fn, delay) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// Auto-Save initialisieren
+function initAutoSave() {
+    const debouncedSave = debounce(saveAnfrageFormData, 500);
+
+    // Kundendaten-Inputs
+    document.querySelectorAll('#kundenDetails input').forEach(el => {
+        el.addEventListener('input', debouncedSave);
+    });
+
+    // Titel-Input
+    document.getElementById('mainTitleInput').addEventListener('input', debouncedSave);
+
+    // Select2-Dropdowns
+    $('#sachbearbeiterDropdown').on('change', debouncedSave);
+    $('#aussendienstDropdown').on('change', debouncedSave);
+
+    // Manuelle Eingabefelder
+    document.getElementById('sachbearbeiterManuell').addEventListener('input', debouncedSave);
+    document.getElementById('aussendienstManuell').addEventListener('input', debouncedSave);
+
+    // Briefing-Textareas
+    document.querySelectorAll('#briefingSection textarea').forEach(el => {
+        el.addEventListener('input', debouncedSave);
+    });
+
+    // Briefing-Toggles
+    document.querySelectorAll('.field-toggle').forEach(el => {
+        el.addEventListener('change', debouncedSave);
+    });
+
+    // Editierbare Labels
+    document.querySelectorAll('.field-label-edit').forEach(el => {
+        el.addEventListener('input', debouncedSave);
+    });
+}
+
+// ========================================================================
+// ===== Funktion zum Wiederherstellen der Anfrage-Formulardaten        =====
 // ========================================================================
 function restoreAnfrageFormData() {
     try {
@@ -972,8 +1191,6 @@ function restoreAnfrageFormData() {
             document.getElementById('aussendienstManuell').style.display = 'block';
         }
 
-        // Nach erfolgreicher Wiederherstellung die Daten löschen
-        localStorage.removeItem('anfrageFormData');
         console.log("Anfrage-Formulardaten erfolgreich wiederhergestellt.");
 
     } catch (error) {
@@ -985,45 +1202,8 @@ function restoreAnfrageFormData() {
 
     // PDF-Generierung
     async function generateAngebotsanfragePDF() {
-      // Formulardaten im localStorage sichern
-      try {
-        const formData = {
-          mainTitle: document.getElementById('mainTitleInput').value,
-          name: document.getElementById('name').value,
-          firma: document.getElementById('firma').value,
-          strasse: document.getElementById('strasse').value,
-          plz: document.getElementById('plz').value,
-          ort: document.getElementById('ort').value,
-          land: document.getElementById('land').value,
-          email: document.getElementById('email').value,
-          telefon: document.getElementById('telefon').value,
-          kundennummer: document.getElementById('kundennummer').value,
-          sachbearbeiter: $('#sachbearbeiterDropdown').val(),
-          sachbearbeiterManuell: document.getElementById('sachbearbeiterManuell').value,
-          aussendienst: $('#aussendienstDropdown').val(),
-          aussendienstManuell: document.getElementById('aussendienstManuell').value,
-          artikel: window.merklisteItems || [],
-          hintergrund: document.getElementById('hintergrund').value,
-          fokus: document.getElementById('fokus').value,
-          preisgestaltung: document.getElementById('preisgestaltung').value,
-          bericht: document.getElementById('bericht').value,
-          aufgaben: document.getElementById('aufgaben').value,
-          toggleStates: Object.fromEntries(
-            [...document.querySelectorAll('.field-toggle')].map(cb => [
-              cb.id.replace('toggle-', ''), cb.checked
-            ])
-          ),
-          fieldLabels: Object.fromEntries(
-            [...document.querySelectorAll('.briefing-field[data-field-id]')].map(f => [
-              f.dataset.fieldId,
-              f.querySelector('.field-label-edit').value
-            ])
-          )
-        };
-        localStorage.setItem('anfrageFormData', JSON.stringify(formData));
-      } catch (error) {
-        console.error("Fehler beim Sichern der Formulardaten:", error);
-      }
+      // Formulardaten sichern
+      saveAnfrageFormData();
 
       try {
         const { jsPDF } = window.jspdf;
@@ -1362,8 +1542,14 @@ function restoreAnfrageFormData() {
 // ===== NEU: KORREKTER STARTPUNKT DER SEITE (Version 2) =====
 // ========================================================================
 document.addEventListener("DOMContentLoaded", async () => {
-  
-    // --- SCHRITT 0: Briefing-Feld-Toggles initialisieren ---
+
+    // --- SCHRITT 0: Frisch-Erkennung ---
+    const isFresh = localStorage.getItem('merklisteForRetourenschein') !== null;
+    if (isFresh) {
+        localStorage.removeItem('anfrageFormData');
+    }
+
+    // --- SCHRITT 0b: Briefing-Feld-Toggles initialisieren ---
     document.querySelectorAll('.field-toggle').forEach(cb => {
       cb.addEventListener('change', function() {
         const field = this.closest('.briefing-field');
@@ -1371,7 +1557,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // --- SCHRITT 0b: Titel-Input fokussieren, selektieren + Auto-Resize ---
+    // --- SCHRITT 0c: Titel-Input fokussieren, selektieren + Auto-Resize ---
     const titleInput = document.getElementById('mainTitleInput');
     const measureCtx = document.createElement('canvas').getContext('2d');
     function fitTitleFont() {
@@ -1395,33 +1581,46 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // --- SCHRITT 1: Seite mit Standardwerten initialisieren ---
     displayCurrentDate();
-    ladeMerklisteAusLocalStorage();
+
+    // Merkliste nur bei frischem Aufruf vom DuoViewer laden
+    if (isFresh) {
+        ladeMerklisteAusLocalStorage();
+    }
+
     addManuelleArtikelSection();
-    
+
     $(document).ready(function() {
         $("#sachbearbeiterDropdown").select2({ placeholder: "-- Innendienst auswählen --", allowClear: true });
         $("#aussendienstDropdown").select2({ placeholder: "-- Außendienstmitarbeiter auswählen --", allowClear: true });
     });
 
-    // --- SCHRITT 2: Versuchen, die Standardwerte mit gespeicherten Daten zu überschreiben ---
-    restoreAnfrageFormData();
+    // --- SCHRITT 2: Bei Rueckkehr gespeicherte Daten wiederherstellen ---
+    if (!isFresh) {
+        restoreAnfrageFormData();
+    }
 
-    // --- SCHRITT 3: Kundendatenbank laden (Envelope Encryption) ---
+    // --- SCHRITT 3: Auto-Save initialisieren ---
+    initAutoSave();
+
+    // --- SCHRITT 4: Kundendatenbank laden (Envelope Encryption) ---
     loadKundenDatenbank();
 
-    // --- SCHRITT 4: (PLZ-Listener entfernt — Dropdown nur ueber Name-Feld) ---
-
-    // --- SCHRITT 4b: Name-Feld bei Fokus Dropdown oeffnen ---
+    // --- SCHRITT 5: Name-Feld bei Fokus Dropdown oeffnen ---
     document.getElementById('name').addEventListener('focus', function() {
         const plz = document.getElementById('plz').value.trim();
         if (plz.length >= 4) showKundenByPLZ(plz);
     });
 
-    // --- SCHRITT 5: Kunde-speichern Event-Listener ---
+    // --- SCHRITT 6: PLZ-Aenderung → Sachbearbeiter zuordnen ---
+    document.getElementById('plz').addEventListener('input', function() {
+        onPLZChange(this.value);
+    });
+
+    // --- SCHRITT 7: Kunde-speichern Event-Listener ---
     document.getElementById('kundenSpeichernBtn').addEventListener('click', saveKundeToSupabase);
     document.getElementById('name').addEventListener('input', updateSpeichernButton);
 
-    // --- SCHRITT 6: Kunde-loeschen Event-Listener ---
+    // --- SCHRITT 8: Kunde-loeschen Event-Listener ---
     document.getElementById('kundenLoeschenBtn').addEventListener('click', async function() {
         if (!selectedSupabaseKundeId) return;
         await deleteSupabaseKunde(selectedSupabaseKundeId);

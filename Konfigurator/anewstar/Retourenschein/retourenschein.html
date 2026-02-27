@@ -397,6 +397,7 @@
         document.getElementById('ort').value = ort;
         document.getElementById('land').value = land;
         input.value = '';
+        onPLZChange(plz);
         if (kundenDatenbank.length > 0) showKundenByPLZ(plz);
       });
     };
@@ -510,6 +511,7 @@ async function showKundenByPLZ(plz) {
             document.getElementById('kundenSpeichernBtn').style.display = 'none';
             selectedSupabaseKundeId = null;
             document.getElementById('kundenLoeschenBtn').style.display = 'none';
+            onPLZChange(document.getElementById('plz').value);
         });
         container.appendChild(div);
     });
@@ -545,6 +547,7 @@ async function showKundenByPLZ(plz) {
             document.getElementById('kundenSpeichernBtn').style.display = 'none';
             selectedSupabaseKundeId = kunde.id;
             document.getElementById('kundenLoeschenBtn').style.display = 'block';
+            onPLZChange(kunde.plz || '');
         });
         div.appendChild(textSpan);
 
@@ -904,6 +907,9 @@ function getTodayGermanDate() {
         // Keine Artikel vorhanden
         artikelInhalt.innerHTML = '<div class="empty-state">Keine Artikel in der Merkliste gefunden. Sie können unten manuell Artikel hinzufügen.</div>';
       }
+
+      // Auto-Save nach Artikel-Aenderung
+      if (typeof saveFormData === 'function') saveFormData();
     }
 
     // NEU: Einzelnes manuelles Eingabefeld erstellen
@@ -1073,7 +1079,174 @@ if (hinzugefuegt > 0) {
 
 
 // ========================================================================
-// ===== NEU: Funktion zum Wiederherstellen der Formulardaten (Schritt 2) =====
+// ===== PLZ → GEBIET → BEARBEITER Zuordnung                          =====
+// ========================================================================
+function findGebietByPLZ(plzInput) {
+    const plzStr = String(plzInput).replace(/\D/g, '');
+    const plz = parseInt(plzStr.padEnd(5, '0'));
+    if (isNaN(plz)) return null;
+
+    // Ausnahmen zuerst
+    if (plz >= 4890  && plz <= 4939)  return 'GEBIET 20';
+    if (plz >= 6108  && plz <= 6259)  return 'GEBIET 80';
+    if (plz >= 6650  && plz <= 6729)  return 'GEBIET 80';
+    if (plz >= 9580  && plz <= 9639)  return 'GEBIET 20';
+    if (plz >= 14700 && plz <= 14829) return 'GEBIET 60';
+    if (plz >= 16840 && plz <= 16949) return 'GEBIET 60';
+    if (plz >= 18000 && plz <= 18299) return 'GEBIET 60';
+    if (plz >= 23920 && plz <= 23999) return 'GEBIET 60';
+    if (plz >= 29400 && plz <= 29419) return 'GEBIET 40';
+    if (plz >= 36170 && plz <= 36289) return 'GEBIET 40';
+    if (plz >= 36400 && plz <= 36469) return 'GEBIET 80';
+    if (plz >= 37300 && plz <= 37359) return 'GEBIET 60';
+    if (plz >= 38800 && plz <= 38899) return 'GEBIET 60';
+    if (plz >= 76710 && plz <= 76899) return 'GEBIET 72';
+    if (plz >= 96500 && plz <= 96529) return 'GEBIET 80';
+    if (plz >= 98500 && plz <= 98749) return 'GEBIET 80';
+    if (plz >= 99800 && plz <= 99849) return 'GEBIET 80';
+
+    const prefix = Math.floor(plz / 1000);
+    if (prefix <= 3)   return 'GEBIET 20';
+    if (prefix <= 5)   return 'GEBIET 80';
+    if (prefix === 6)  return 'GEBIET 60';
+    if (prefix <= 9)   return 'GEBIET 80';
+    if (prefix <= 18)  return 'GEBIET 20';
+    if (prefix === 19) return 'GEBIET 60';
+    if (prefix <= 29)  return 'GEBIET 10';
+    if (prefix <= 31)  return 'GEBIET 40';
+    if (prefix <= 33)  return 'GEBIET 50';
+    if (prefix === 34) return 'GEBIET 40';
+    if (prefix <= 36)  return 'GEBIET 72';
+    if (prefix <= 38)  return 'GEBIET 40';
+    if (prefix === 39) return 'GEBIET 60';
+    if (prefix <= 53)  return 'GEBIET 50';
+    if (prefix <= 56)  return 'GEBIET 72';
+    if (prefix <= 59)  return 'GEBIET 50';
+    if (prefix <= 69)  return 'GEBIET 72';
+    if (prefix <= 79)  return 'GEBIET 74';
+    if (prefix <= 87)  return 'GEBIET 76';
+    if (prefix <= 89)  return 'GEBIET 74';
+    if (prefix <= 93)  return 'GEBIET 78';
+    if (prefix === 94) return 'GEBIET 76';
+    if (prefix <= 97)  return 'GEBIET 78';
+    if (prefix <= 99)  return 'GEBIET 60';
+    return null;
+}
+
+function isAustrianPLZ(plzStr) {
+    const clean = String(plzStr).replace(/\D/g, '');
+    return clean.length === 4 && clean[0] !== '0';
+}
+
+const GEBIET_ZU_BEARBEITER = {
+    'GEBIET 10': 'Nadine Suhr',
+    'GEBIET 20': 'Denise Otto',
+    'GEBIET 40': 'Claudia Batke',
+    'GEBIET 50': 'Sascha Heusel',
+    'GEBIET 60': 'Denise Otto',
+    'GEBIET 72': 'Claudia Batke',
+    'GEBIET 74': 'Sascha Heusel',
+    'GEBIET 76': 'Nils Vokuhl',
+    'GEBIET 78': 'Nils Vokuhl',
+    'GEBIET 80': 'Diana Kahlert',
+    'OESTERREICH': 'Nadine Suhr'
+};
+
+function onPLZChange(plzValue) {
+    const plzClean = String(plzValue).replace(/\D/g, '');
+    if (plzClean.length < 4) return;
+    if (plzClean.length === 4 && !isAustrianPLZ(plzClean)) return;
+
+    // Nur wenn Dropdown aktuell LEER ist
+    const currentVal = $('#bearbeiterDropdown').val();
+    if (currentVal && currentVal !== '') return;
+
+    const gebiet = (isAustrianPLZ(plzClean) && plzClean.length === 4)
+        ? 'OESTERREICH'
+        : findGebietByPLZ(plzClean);
+    if (!gebiet) return;
+
+    const bearbeiter = GEBIET_ZU_BEARBEITER[gebiet];
+    if (!bearbeiter) return;
+    if ($('#bearbeiterDropdown option[value="' + bearbeiter + '"]').length === 0) return;
+
+    $('#bearbeiterDropdown').val(bearbeiter).trigger('change');
+    zeigeToast('<i class="bi bi-person-check"></i> Bearbeiter automatisch zugeordnet', 'success');
+}
+
+// ========================================================================
+// ===== Formulardaten speichern (extrahiert fuer Auto-Save)           =====
+// ========================================================================
+function saveFormData() {
+    try {
+        const formData = {
+            name: document.getElementById('name').value,
+            firma: document.getElementById('firma').value,
+            strasse: document.getElementById('strasse').value,
+            plz: document.getElementById('plz').value,
+            ort: document.getElementById('ort').value,
+            land: document.getElementById('land').value,
+            email: document.getElementById('email').value,
+            telefon: document.getElementById('telefon').value,
+            kundennummer: document.getElementById('kundennummer').value,
+            bearbeiter: $('#bearbeiterDropdown').val(),
+            bearbeiterManuell: document.getElementById('bearbeiterManuell').value,
+            anlieferung: $('#anlieferungDropdown').val(),
+            anlieferungManuell: document.getElementById('anlieferungManuell').value,
+            auftragsnummer: document.getElementById('auftragsnummer').value,
+            rechnungsnummer: document.getElementById('rechnungsnummer').value,
+            reklamationsnummer: document.getElementById('reklamationsnummer').value,
+            abholdatum: document.getElementById('abholdatum').value,
+            wareneingang_datum: document.getElementById('wareneingang_datum').value,
+            artikel: window.merklisteItems || [],
+            bemerkungen: document.getElementById('bemerkungen').value,
+            checkReklamation: document.getElementById('checkReklamation').checked,
+            checkReparatur: document.getElementById('checkReparatur').checked,
+            checkNeuware: document.getElementById('checkNeuware').checked,
+            checkWeiterleitung: document.getElementById('checkWeiterleitung').checked,
+            weiterleitungAnName: document.getElementById('weiterleitungAnName').value,
+            checkRuecksendung: document.getElementById('checkRuecksendung').checked
+        };
+        localStorage.setItem('retourenscheinFormData', JSON.stringify(formData));
+    } catch (error) {
+        console.error("Auto-Save Fehler:", error);
+    }
+}
+
+// Debounce-Hilfsfunktion
+function debounce(fn, delay) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+// Auto-Save initialisieren
+function initAutoSave() {
+    const debouncedSave = debounce(saveFormData, 500);
+
+    // Text-Inputs + Textareas
+    document.querySelectorAll('#kundenDetails input, #retourenDetails input, #bemerkungen, #weiterleitungAnName, #bearbeiterManuell, #anlieferungManuell').forEach(el => {
+        el.addEventListener('input', debouncedSave);
+    });
+
+    // Checkboxen
+    document.querySelectorAll('input[type="checkbox"]').forEach(el => {
+        el.addEventListener('change', debouncedSave);
+    });
+
+    // Select2-Dropdowns
+    $('#bearbeiterDropdown').on('change', debouncedSave);
+    $('#anlieferungDropdown').on('change', debouncedSave);
+
+    // Datum-Felder
+    document.getElementById('abholdatum').addEventListener('change', debouncedSave);
+    document.getElementById('wareneingang_datum').addEventListener('change', debouncedSave);
+}
+
+// ========================================================================
+// ===== Funktion zum Wiederherstellen der Formulardaten                =====
 // ========================================================================
 function restoreFormData() {
     try {
@@ -1128,10 +1301,7 @@ function restoreFormData() {
             document.getElementById('weiterleitungAnName').style.display = 'block';
         }
 
-        // Nach erfolgreicher Wiederherstellung die Daten löschen
-        localStorage.removeItem('retourenscheinFormData');
-        
-        console.log("Formulardaten erfolgreich aus dem localStorage wiederhergestellt.");
+        console.log("Formulardaten erfolgreich wiederhergestellt.");
 
     } catch (error) {
         console.error("Fehler beim Wiederherstellen der Formulardaten:", error);
@@ -1142,51 +1312,8 @@ function restoreFormData() {
 
 
 async function generateRetourenscheinPDF() {
-        // ========================================================================
-    // ===== DATEN IM LOCALSTORAGE SPEICHERN =====
-    // ========================================================================
-    try {
-        const formData = {
-            // Kundendaten
-            name: document.getElementById('name').value,
-            firma: document.getElementById('firma').value,
-            strasse: document.getElementById('strasse').value,
-            plz: document.getElementById('plz').value,
-            ort: document.getElementById('ort').value,
-            land: document.getElementById('land').value,
-            email: document.getElementById('email').value,
-            telefon: document.getElementById('telefon').value,
-            kundennummer: document.getElementById('kundennummer').value,
-
-            // Retourendetails (mit jQuery für Select2)
-            bearbeiter: $('#bearbeiterDropdown').val(),
-            bearbeiterManuell: document.getElementById('bearbeiterManuell').value,
-            anlieferung: $('#anlieferungDropdown').val(),
-            anlieferungManuell: document.getElementById('anlieferungManuell').value,
-            auftragsnummer: document.getElementById('auftragsnummer').value,
-            rechnungsnummer: document.getElementById('rechnungsnummer').value,
-            reklamationsnummer: document.getElementById('reklamationsnummer').value,
-            abholdatum: document.getElementById('abholdatum').value,
-            wareneingang_datum: document.getElementById('wareneingang_datum').value,
-
-            // Artikel (die globale Variable sichern)
-            artikel: window.merklisteItems || [],
-
-            // Bemerkungen & Interne Vermerke
-            bemerkungen: document.getElementById('bemerkungen').value,
-            checkReklamation: document.getElementById('checkReklamation').checked,
-            checkReparatur: document.getElementById('checkReparatur').checked,
-            checkNeuware: document.getElementById('checkNeuware').checked,
-            checkWeiterleitung: document.getElementById('checkWeiterleitung').checked,
-            weiterleitungAnName: document.getElementById('weiterleitungAnName').value,
-            checkRuecksendung: document.getElementById('checkRuecksendung').checked
-        };
-        localStorage.setItem('retourenscheinFormData', JSON.stringify(formData));
-        console.log('Formulardaten erfolgreich im localStorage gesichert.');
-    } catch (error) {
-        console.error("Fehler beim Sichern der Formulardaten:", error);
-    }
-    // ========================================================================
+    // Formulardaten sichern
+    saveFormData();
     // ===== ENDE DES SPEICHER-BLOCKS =====
     // ========================================================================
 
@@ -1630,46 +1757,58 @@ async function generateRetourenscheinPDF() {
 // ========================================================================
 
 document.addEventListener("DOMContentLoaded", async () => {
-  
-    // --- SCHRITT 1: Seite mit Standardwerten initialisieren ---
 
-    // Heutiges Datum als Standard in die Datumsfelder eintragen
+    // --- SCHRITT 0: Frisch-Erkennung ---
+    const isFresh = localStorage.getItem('merklisteForRetourenschein') !== null;
+    if (isFresh) {
+        localStorage.removeItem('retourenscheinFormData');
+    }
+
+    // --- SCHRITT 1: Seite mit Standardwerten initialisieren ---
     const todayGerman = getTodayGermanDate();
     document.getElementById('abholdatum').value = `Abholdatum: ${todayGerman}`;
     document.getElementById('wareneingang_datum').value = `Wareneingangsdatum: ${todayGerman}`;
-    
-    // Das erste leere Feld für manuelle Artikeleingabe erstellen
+
     initManuelleArtikelEingabe();
-    
-    // Versuchen, Artikel aus der Merkliste einer VORHERIGEN Seite zu laden.
-    // Dies überschreibt die leere Artikelliste, falls Daten vorhanden sind.
-    ladeMerklisteAusLocalStorage();
-    
-    // jQuery-abhängige Dropdowns initialisieren
+
+    // Merkliste nur bei frischem Aufruf vom DuoViewer laden
+    if (isFresh) {
+        ladeMerklisteAusLocalStorage();
+    }
+
+    // jQuery-abhaengige Dropdowns initialisieren
     $(document).ready(function() {
         $('#bearbeiterDropdown').select2({ placeholder: "-- Bearbeiter auswählen --", allowClear: true });
         $('#anlieferungDropdown').select2({ placeholder: "-- Anlieferung auswählen --", allowClear: true });
     });
 
-    // --- SCHRITT 2: Versuchen, die Standardwerte mit gespeicherten Daten zu überschreiben ---
-    restoreFormData();
+    // --- SCHRITT 2: Bei Rueckkehr gespeicherte Daten wiederherstellen ---
+    if (!isFresh) {
+        restoreFormData();
+    }
 
-    // --- SCHRITT 3: Kundendatenbank laden (Envelope Encryption) ---
+    // --- SCHRITT 3: Auto-Save initialisieren ---
+    initAutoSave();
+
+    // --- SCHRITT 4: Kundendatenbank laden (Envelope Encryption) ---
     loadKundenDatenbank();
 
-    // --- SCHRITT 4: (PLZ-Listener entfernt — Dropdown nur ueber Name-Feld) ---
-
-    // --- SCHRITT 4b: Name-Feld bei Fokus Dropdown oeffnen ---
+    // --- SCHRITT 5: Name-Feld bei Fokus Dropdown oeffnen ---
     document.getElementById('name').addEventListener('focus', function() {
         const plz = document.getElementById('plz').value.trim();
         if (plz.length >= 4) showKundenByPLZ(plz);
     });
 
-    // --- SCHRITT 5: Kunde-speichern Event-Listener ---
+    // --- SCHRITT 6: PLZ-Aenderung → Bearbeiter zuordnen ---
+    document.getElementById('plz').addEventListener('input', function() {
+        onPLZChange(this.value);
+    });
+
+    // --- SCHRITT 7: Kunde-speichern Event-Listener ---
     document.getElementById('kundenSpeichernBtn').addEventListener('click', saveKundeToSupabase);
     document.getElementById('name').addEventListener('input', updateSpeichernButton);
 
-    // --- SCHRITT 6: Kunde-loeschen Event-Listener ---
+    // --- SCHRITT 8: Kunde-loeschen Event-Listener ---
     document.getElementById('kundenLoeschenBtn').addEventListener('click', async function() {
         if (!selectedSupabaseKundeId) return;
         await deleteSupabaseKunde(selectedSupabaseKundeId);
