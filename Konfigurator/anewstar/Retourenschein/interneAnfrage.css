@@ -9,7 +9,14 @@ body {
     color: #333; /* Dunklerer Text für Lesbarkeit */
 }
 
+input, select, textarea, button {
+    font-family: inherit;
+}
 
+input::placeholder,
+textarea::placeholder {
+    font-family: inherit;
+}
 
 /* ========== HEADER-BEREICH ========== */
 #header {
@@ -102,6 +109,7 @@ button:disabled {
   max-width: 500px;       /* Maximale Breite auf großen Bildschirmen */
   padding: 10px 15px;     /* Innenabstand für bessere Optik */
   font-size: 16px;        /* Verhindert Auto-Zoom auf iOS-Geräten */
+  font-family: 'Roboto Condensed', Arial, sans-serif;
   border: 1px solid #ced4da;
   border-radius: 8px;     /* Leicht abgerundete Ecken */
   transition: all 0.3s ease-in-out;
@@ -214,6 +222,7 @@ button:disabled {
   max-width: 120px;
   padding: 8px 12px;
   font-size: 16px;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
   border: 2px solid #e1e5e9;
   border-radius: 8px;
   text-align: center;
@@ -362,6 +371,7 @@ button:disabled {
 .eingabe-feld select {
   padding: 8px 12px;
   font-size: 14px;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
   border: 2px solid #e1e5e9;
   border-radius: 8px;
   transition: all 0.3s ease;
@@ -465,13 +475,41 @@ button:disabled {
       max-width: 900px;
     }
 
+    .artikel-karte {
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .artikel-karte:hover {
+        transform: none;
+    }
+
+    .artikel-name {
+        font-size: 1rem;
+    }
+
     .artikel-aktionen {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 12px;
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+
+    .quantity-input {
+        max-width: 100%;
+    }
+
+    .entfernen-btn {
+        min-width: 100px;
+        padding: 8px 14px;
     }
 
     .artikel-eingabe-grid {
         grid-template-columns: 1fr;
+    }
+
+    .clear-section-btn {
+        font-size: 0.9rem;
     }
 
     .btn {
@@ -482,6 +520,34 @@ button:disabled {
     .button-container {
         flex-direction: column;
         gap: 10px;
+    }
+}
+
+/* ========== KLEINE HANDYS (480px) ========== */
+@media screen and (max-width: 480px) {
+    .artikel-karte {
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .artikel-name {
+        font-size: 0.95rem;
+    }
+
+    .artikel-details {
+        font-size: 0.85rem;
+    }
+
+    .entfernen-btn {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+        min-width: auto;
+        width: 100%;
+    }
+
+    .mengen-steuerung label,
+    .grund-steuerung label {
+        font-size: 0.85rem;
     }
 }
 
