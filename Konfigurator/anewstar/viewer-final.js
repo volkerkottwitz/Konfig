@@ -1570,7 +1570,7 @@ function zeigeHinzugefügtOverlay(text) {
 
   Object.assign(overlay.style, {
     position: 'fixed',
-    bottom: '20px',
+    top: '70px',
     left: '50%',
     transform: 'translateX(-50%)',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',

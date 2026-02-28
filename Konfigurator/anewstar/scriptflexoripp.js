@@ -681,12 +681,12 @@ function skipNextScreens(buttonText) { // <-- Neuer Parameter
 
 
 
-function zeigeToast(text, position) {
+function zeigeToast(text) {
     const old = document.getElementById('toast-nachricht');
     if (old) old.remove();
     const toast = document.createElement('div');
     toast.id = 'toast-nachricht';
-    const pos = position === 'top' ? 'top:30px;' : 'bottom:20px;';
+    const pos = window.innerWidth > 768 ? 'top:70px;' : 'bottom:20px;';
     toast.style.cssText = `position:fixed; ${pos} left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:12px 20px; border-radius:8px; font-family:'Roboto Condensed',sans-serif; font-size:14px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:10000; display:flex; align-items:center; gap:8px; transition:opacity 0.3s ease;`;
     toast.innerHTML = '\u2705 ' + text;
     document.body.appendChild(toast);

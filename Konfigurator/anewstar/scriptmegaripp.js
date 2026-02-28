@@ -463,20 +463,20 @@ function generatePDF() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(20);
     doc.setTextColor(eweDark[0], eweDark[1], eweDark[2]);
-    doc.text("MEGARIPP-Konfiguration", marginL, 53);
+    doc.text("MEGARIPP-Konfiguration", marginL, 43);
 
     // Info-Zeile
     doc.setFillColor(240, 248, 255);
-    doc.roundedRect(marginL, 56, contentW, 10, 2, 2, 'F');
+    doc.roundedRect(marginL, 46, contentW, 10, 2, 2, 'F');
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
     doc.setTextColor(60, 60, 60);
-    doc.text(`Anfrage-Nr.: ${requestNumber}`, marginL + 4, 62.5);
-    doc.text(`Datum: ${currentDate}`, marginL + 70, 62.5);
-    doc.text(`Art.-Nr.: ${articleNumber}`, marginL + 130, 62.5);
+    doc.text(`Anfrage-Nr.: ${requestNumber}`, marginL + 4, 52.5);
+    doc.text(`Datum: ${currentDate}`, marginL + 70, 52.5);
+    doc.text(`Art.-Nr.: ${articleNumber}`, marginL + 130, 52.5);
 
     // === KUNDENDATEN-BOX (2-spaltig) ===
-    let y = 79;
+    let y = 69;
     doc.setFillColor(245, 250, 255);
     doc.setDrawColor(200, 220, 240);
     doc.setLineWidth(0.3);
@@ -504,7 +504,7 @@ function generatePDF() {
     doc.setFont("helvetica", "normal"); doc.text(phone, col2X + labelW, y + 20);
 
     // === KONFIGURATIONSTABELLE + PRODUKTBILD ===
-    y = 117;
+    y = 107;
     doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
     doc.setLineWidth(0.5);
     doc.line(marginL, y - 2, pageW - marginR, y - 2);
@@ -554,8 +554,13 @@ function generatePDF() {
     const imgBoxH = tableEndY - tableStartY;
     doc.setDrawColor(200, 220, 240); doc.setFillColor(250, 252, 255);
     doc.roundedRect(imgAreaX, tableStartY, imgAreaW, imgBoxH, 2, 2, 'FD');
-    const imgW = imgAreaW - 8, imgH = imgW * 1.25;
-    const imgX = imgAreaX + 4, imgY = tableStartY + (imgBoxH - imgH) / 2 - 5;
+    const imgMaxW = imgAreaW - 8, imgMaxH = imgBoxH - 12;
+    const imgRatio = 1.25;
+    let imgW, imgH;
+    if (imgMaxW * imgRatio <= imgMaxH) { imgW = imgMaxW; imgH = imgW * imgRatio; }
+    else { imgH = imgMaxH; imgW = imgH / imgRatio; }
+    const imgX = imgAreaX + (imgAreaW - imgW) / 2;
+    const imgY = tableStartY + (imgBoxH - imgH) / 2 - 2;
     try { doc.addImage(productImage, 'PNG', imgX, imgY > tableStartY + 2 ? imgY : tableStartY + 2, imgW, imgH); } catch(e) {}
     doc.setFont("helvetica", "italic"); doc.setFontSize(7); doc.setTextColor(120, 120, 120);
     doc.text("MegaRipp Wasserzählerschacht", imgAreaX + imgAreaW / 2, tableStartY + imgBoxH - 3, { align: "center" });
@@ -624,12 +629,12 @@ function generatePDF() {
     doc.setFillColor(245, 250, 255);
     const summaryText = `MegaRipp ${lastSelections.selection1 || ''} (Art.-Nr. ${articleNumber}) mit ${lastSelections.selection4 || ''} WZ-Anlage(n) ${lastSelections.selection2 || ''} / ${lastSelections.selection3 || ''}. Eingang: 1 x ${lastSelections.selection5 || ''}. Ausgang: ${lastSelections.selection4 || ''} x ${lastSelections.selection6 || ''}. Zubehör: ${abdeckungVal !== 'Keine Auswahl' && abdeckungVal ? abdeckungVal + ' (Art. ' + abdeckungArtNr + ')' : 'Keine Abdeckung'}${schluesselVal === 'Ja' ? ', Schlüssel SW24 (Art. ' + schluesselArtNr + ')' : ''}.`;
     const summaryLines = doc.splitTextToSize(summaryText, contentW - 8);
-    const summaryBoxH = Math.max(14, summaryLines.length * 4 + 6);
+    const summaryBoxH = Math.max(12, summaryLines.length * 4 + 3);
     doc.roundedRect(marginL, y, contentW, summaryBoxH, 2, 2, 'F');
     doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor(40, 40, 40);
-    doc.text(summaryLines, marginL + 4, y + 6);
+    doc.text(summaryLines, marginL + 4, y + 4.5);
     // Bemerkungen
-    y += summaryBoxH + 6;
+    y += summaryBoxH + 4;
     doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
     doc.setLineWidth(0.5);
     doc.line(marginL, y - 2, pageW - marginR, y - 2);
@@ -860,12 +865,12 @@ function hideUserDataScreen() {
     document.querySelector('.progress-text').style.display = 'none';
 }
 
-function zeigeToast(text, position) {
+function zeigeToast(text) {
     const old = document.getElementById('toast-nachricht');
     if (old) old.remove();
     const toast = document.createElement('div');
     toast.id = 'toast-nachricht';
-    const pos = position === 'top' ? 'top:30px;' : 'bottom:20px;';
+    const pos = window.innerWidth > 768 ? 'top:70px;' : 'bottom:20px;';
     toast.style.cssText = `position:fixed; ${pos} left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:12px 20px; border-radius:8px; font-family:'Roboto Condensed',sans-serif; font-size:14px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:10000; display:flex; align-items:center; gap:8px; transition:opacity 0.3s ease;`;
     toast.innerHTML = '\u2705 ' + text;
     document.body.appendChild(toast);
