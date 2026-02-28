@@ -311,7 +311,7 @@
   </section>
 
   <section class="form-section-container">
-    <h3>Bearbeitung</h3>
+    <h3>Bearbeitung <button type="button" class="clear-section-btn" data-tooltip="Bearbeiter-Auswahl zurücksetzen" onclick="clearBearbeitung()"><i class="bi bi-x-circle"></i></button></h3>
     <div class="centered-form-layout">
       <select id="sachbearbeiterDropdown">
         <option value="">-- Innendienst auswählen --</option>
@@ -356,7 +356,7 @@
     </div>
   </section>
   <section id="manuelleArtikelSection" class="search-container">
-    <h3>Artikel manuell hinzufügen</h3>
+    <h3>Artikel manuell hinzufügen <button type="button" class="clear-section-btn" data-tooltip="Alle manuellen Eingabefelder leeren" onclick="clearManuelleArtikel()"><i class="bi bi-x-circle"></i></button></h3>
     <div id="manuelleArtikelContainer"></div>
     <div class="button-container">
       <button type="button" id="weiterenartikelBtn" class="btn btn-secondary" data-tooltip="Zusätzliches Eingabefeld für einen weiteren Artikel">+ Weiteren Artikel hinzufügen</button>
@@ -364,7 +364,7 @@
     </div>
   </section>
   <section id="briefingSection" class="search-container">
-    <h3>Mitteilung für den Innendienst</h3>
+    <h3>Mitteilung für den Innendienst <button type="button" class="clear-section-btn" data-tooltip="Alle Mitteilungsfelder leeren" onclick="clearMitteilung()"><i class="bi bi-x-circle"></i></button></h3>
     <p class="briefing-hint">Aktivieren Sie die gewünschten Felder per Checkbox. Nur aktivierte Felder erscheinen im PDF. Überschriften sind editierbar.</p>
     <div class="briefing-grid">
       <div class="briefing-field" data-field-id="hintergrund">
@@ -823,12 +823,12 @@ document.addEventListener('click', function(e) {
     }
 
     // Toast-Nachricht anzeigen (wie auf der Hauptseite)
-    function zeigeToast(text, type, position) {
+    function zeigeToast(text, type) {
       const old = document.getElementById('toast-nachricht');
       if (old) old.remove();
       const toast = document.createElement('div');
       toast.id = 'toast-nachricht';
-      const pos = position === 'top' ? 'top:30px;' : 'bottom:20px;';
+      const pos = window.innerWidth > 768 ? 'top:70px;' : 'bottom:20px;';
       toast.style.cssText = `position:fixed; ${pos} left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:12px 20px; border-radius:8px; font-family:'Roboto Condensed',sans-serif; font-size:14px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:10000; display:flex; align-items:center; gap:8px; transition:opacity 0.3s ease;`;
       toast.innerHTML = '\u2705 ' + text;
       document.body.appendChild(toast);
@@ -1043,6 +1043,36 @@ function clearArtikelListe() {
     zeigeToast('<i class="bi bi-eraser"></i> Artikelliste geleert', 'success');
 }
 
+function clearBearbeitung() {
+    const sd = document.getElementById('sachbearbeiterDropdown');
+    const ad = document.getElementById('aussendienstDropdown');
+    if (sd) { sd.value = ''; if ($(sd).data('select2')) $(sd).trigger('change'); }
+    if (ad) { ad.value = ''; if ($(ad).data('select2')) $(ad).trigger('change'); }
+    document.getElementById('sachbearbeiterManuell').value = '';
+    document.getElementById('sachbearbeiterManuell').style.display = 'none';
+    document.getElementById('aussendienstManuell').value = '';
+    document.getElementById('aussendienstManuell').style.display = 'none';
+    saveAnfrageFormData();
+    zeigeToast('<i class="bi bi-eraser"></i> Bearbeiter-Auswahl geleert', 'success');
+}
+
+function clearManuelleArtikel() {
+    const container = document.getElementById('manuelleArtikelContainer');
+    if (!container || container.children.length === 0) return;
+    container.innerHTML = '';
+    saveAnfrageFormData();
+    zeigeToast('<i class="bi bi-eraser"></i> Manuelle Artikel geleert', 'success');
+}
+
+function clearMitteilung() {
+    ['hintergrund','fokus','preisgestaltung','bericht','aufgaben'].forEach(id => {
+        const ta = document.getElementById(id);
+        if (ta) ta.value = '';
+    });
+    saveAnfrageFormData();
+    zeigeToast('<i class="bi bi-eraser"></i> Mitteilungsfelder geleert', 'success');
+}
+
 function attachArtikelAutocomplete(nummerInput, nameInput) {
     if (!nummerInput) return;
 
@@ -1240,21 +1270,21 @@ function onPLZChange(plzValue) {
 
     let changed = false;
 
-    // Innendienst (Sachbearbeiter) — nur wenn leer
-    const currentSB = $('#sachbearbeiterDropdown').val();
-    if (!currentSB || currentSB === '') {
-        const innendienst = GEBIET_ZU_INNENDIENST[gebiet];
-        if (innendienst && $('#sachbearbeiterDropdown option[value="' + innendienst + '"]').length > 0) {
+    // Innendienst (Sachbearbeiter)
+    const innendienst = GEBIET_ZU_INNENDIENST[gebiet];
+    if (innendienst && $('#sachbearbeiterDropdown option[value="' + innendienst + '"]').length > 0) {
+        const currentSB = $('#sachbearbeiterDropdown').val();
+        if (currentSB !== innendienst) {
             $('#sachbearbeiterDropdown').val(innendienst).trigger('change');
             changed = true;
         }
     }
 
-    // Aussendienst — nur wenn leer
-    const currentAD = $('#aussendienstDropdown').val();
-    if (!currentAD || currentAD === '') {
-        const aussendienst = GEBIET_ZU_AUSSENDIENST[gebiet];
-        if (aussendienst && $('#aussendienstDropdown option[value="' + aussendienst + '"]').length > 0) {
+    // Aussendienst
+    const aussendienst = GEBIET_ZU_AUSSENDIENST[gebiet];
+    if (aussendienst && $('#aussendienstDropdown option[value="' + aussendienst + '"]').length > 0) {
+        const currentAD = $('#aussendienstDropdown').val();
+        if (currentAD !== aussendienst) {
             $('#aussendienstDropdown').val(aussendienst).trigger('change');
             changed = true;
         }
