@@ -1143,8 +1143,8 @@ function highlightMatches(page, container, viewport) {
   const scaleX = canvas.offsetWidth / canvas.width;
   const scaleY = canvas.offsetHeight / canvas.height;
   const pad = 1; // Pixel Padding um Markierungen
-  const yShift = 2; // Pixel nach unten verschieben (Artikel-Boxen)
-  const lineYShift = 3; // Pixel nach unten verschieben (Zeilen-Markierungen)
+  const yShift = isMobileDevice() ? -2 : 2; // Mobile: 4px höher
+  const lineYShift = isMobileDevice() ? -1 : 3; // Mobile: 4px höher
 
   page.getTextContent().then(tc => {
     const items = tc.items;
