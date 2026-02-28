@@ -681,6 +681,18 @@ function skipNextScreens(buttonText) { // <-- Neuer Parameter
 
 
 
+function zeigeToast(text, position) {
+    const old = document.getElementById('toast-nachricht');
+    if (old) old.remove();
+    const toast = document.createElement('div');
+    toast.id = 'toast-nachricht';
+    const pos = position === 'top' ? 'top:30px;' : 'bottom:20px;';
+    toast.style.cssText = `position:fixed; ${pos} left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:12px 20px; border-radius:8px; font-family:'Roboto Condensed',sans-serif; font-size:14px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:10000; display:flex; align-items:center; gap:8px; transition:opacity 0.3s ease;`;
+    toast.innerHTML = '\u2705 ' + text;
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 2500);
+}
+
 // Setzt den gesamten Konfigurator zurück
 function resetConfig() {
     userSelection = {
@@ -713,10 +725,11 @@ function resetConfig() {
     updateProgressBar(currentStep, totalSteps);
 
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
-    document.getElementById('screen1').classList.add('active');
+    document.getElementById('screen2').classList.add('active');
     document.getElementById('summary').innerText = '';
 
-    document.querySelector("header h1").textContent = "Wasserzählerschacht-Konfigurator";
+    document.querySelector("header h1").textContent = "Flexoripp-Konfigurator";
+    zeigeToast('<i class="bi bi-arrow-repeat"></i> Konfigurator neu gestartet');
 }
 
 function adjustMainContainerHeight() {
@@ -1504,6 +1517,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!target || target.classList.contains('info-image-container')) return;
         const text = target.getAttribute('data-tooltip');
         if (!text) return;
+        if (activeTooltip) { activeTooltip.remove(); activeTooltip = null; }
         activeTooltip = document.createElement('div');
         activeTooltip.className = 'custom-tooltip';
         activeTooltip.textContent = text;

@@ -242,42 +242,42 @@
         <h2>Ihre Daten</h2>
         <div class="form-container">
             <div class="input-container">
-                <input type="text" id="addressSearch" placeholder="Adresse suchen..." autocomplete="off">
+                <input type="text" id="addressSearch" placeholder="Adresse suchen..." autocomplete="one-time-code">
             </div>
-            <form id="userDataForm">
+            <form id="userDataForm" autocomplete="off">
                 <div class="input-container">
                     <label for="fullName">Name*</label>
-                    <input type="text" id="fullName" name="fullName" required placeholder="Ihr Name">
+                    <input type="text" id="fullName" name="fullName" required placeholder="Ihr Name" autocomplete="one-time-code">
                 </div>
                 
                 <div class="input-container">
                     <label for="company">Firma</label> <!-- NEU: Firma -->
-                    <input type="text" id="company" name="company" placeholder="Ihre Firma (optional)">
+                    <input type="text" id="company" name="company" placeholder="Ihre Firma (optional)" autocomplete="one-time-code">
                 </div>
                 
                 <div class="input-container">
                     <label for="street">Straße*</label>
-                    <input type="text" id="street" name="street" required placeholder="Ihre Straße">
+                    <input type="text" id="street" name="street" required placeholder="Ihre Straße" autocomplete="one-time-code">
                 </div>
                 
                 <div class="input-container">
                     <label for="postalCode">PLZ*</label>
-                    <input type="text" id="postalCode" name="postalCode" required placeholder="Ihre PLZ">
+                    <input type="text" id="postalCode" name="postalCode" required placeholder="Ihre PLZ" autocomplete="one-time-code">
                 </div>
 
                 <div class="input-container">
                     <label for="city">Ort*</label>
-                    <input type="text" id="city" name="city" required placeholder="Ihr Ort">
+                    <input type="text" id="city" name="city" required placeholder="Ihr Ort" autocomplete="one-time-code">
                 </div>
                 
                 <div class="input-container">
                     <label for="email">E-Mail*</label>
-                    <input type="email" id="email" name="email" required placeholder="Ihre E-Mail-Adresse">
+                    <input type="email" id="email" name="email" required placeholder="Ihre E-Mail-Adresse" autocomplete="one-time-code">
                 </div>
 
                 <div class="input-container">
                     <label for="phone">Telefon</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Ihre Telefonnummer (optional)">
+                    <input type="tel" id="phone" name="phone" placeholder="Ihre Telefonnummer (optional)" autocomplete="one-time-code">
                 </div>
                 
                 <div class="input-container">

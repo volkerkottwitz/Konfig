@@ -133,6 +133,7 @@ if (duoViewerBtn) {
         if (!target || target.classList.contains('info-image-container')) return;
         const text = target.getAttribute('data-tooltip');
         if (!text) return;
+        if (activeTooltip) { activeTooltip.remove(); activeTooltip = null; }
         activeTooltip = document.createElement('div');
         activeTooltip.className = 'custom-tooltip';
         activeTooltip.textContent = text;
@@ -560,7 +561,7 @@ function generatePDF() {
     doc.text("MegaRipp Wasserzählerschacht", imgAreaX + imgAreaW / 2, tableStartY + imgBoxH - 3, { align: "center" });
 
     // === ZUBEHÖR (separat zu bestellen) ===
-    y = tableEndY + 10;
+    y = tableEndY + 7;
     doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
     doc.setLineWidth(0.5);
     doc.line(marginL, y - 2, pageW - marginR, y - 2);
@@ -612,7 +613,7 @@ function generatePDF() {
     doc.line(marginL + zubColLabel + zubColValue, zubStartY + rowH, marginL + zubColLabel + zubColValue, zubEndY);
 
     // Zusammenfassung
-    y = zubEndY + 8;
+    y = zubEndY + 6;
     doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
     doc.setLineWidth(0.5);
     doc.line(marginL, y - 2, pageW - marginR, y - 2);
@@ -628,7 +629,7 @@ function generatePDF() {
     doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor(40, 40, 40);
     doc.text(summaryLines, marginL + 4, y + 6);
     // Bemerkungen
-    y += summaryBoxH + 8;
+    y += summaryBoxH + 6;
     doc.setDrawColor(eweLightBlue[0], eweLightBlue[1], eweLightBlue[2]);
     doc.setLineWidth(0.5);
     doc.line(marginL, y - 2, pageW - marginR, y - 2);
@@ -637,8 +638,8 @@ function generatePDF() {
     doc.text("BEMERKUNGEN", marginL, y + 4);
     y += 8;
     doc.setDrawColor(200, 220, 240); doc.setLineWidth(0.3);
-    const footerY = 280;
-    const bemerkBoxH = Math.min(35, Math.max(18, footerY - y - 5));
+    const footerY = 283;
+    const bemerkBoxH = Math.min(35, Math.max(20, footerY - y - 5));
     doc.roundedRect(marginL, y, contentW, bemerkBoxH, 2, 2, 'D');
     doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(60, 60, 60);
     doc.text(doc.splitTextToSize(comments, contentW - 8).slice(0, 3), marginL + 4, y + 6);
@@ -859,6 +860,18 @@ function hideUserDataScreen() {
     document.querySelector('.progress-text').style.display = 'none';
 }
 
+function zeigeToast(text, position) {
+    const old = document.getElementById('toast-nachricht');
+    if (old) old.remove();
+    const toast = document.createElement('div');
+    toast.id = 'toast-nachricht';
+    const pos = position === 'top' ? 'top:30px;' : 'bottom:20px;';
+    toast.style.cssText = `position:fixed; ${pos} left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:white; padding:12px 20px; border-radius:8px; font-family:'Roboto Condensed',sans-serif; font-size:14px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:10000; display:flex; align-items:center; gap:8px; transition:opacity 0.3s ease;`;
+    toast.innerHTML = '\u2705 ' + text;
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 2500);
+}
+
 /**
  * Setzt den Konfigurator auf den Anfangszustand zurück.
  */
@@ -887,6 +900,7 @@ function resetConfig() {
     
     currentStep = 1;
     updateProgressBar(currentStep, totalSteps);
+    zeigeToast('<i class="bi bi-arrow-repeat"></i> Konfigurator neu gestartet');
 }
 
 function adjustMainContainerHeight() {
